@@ -1,0 +1,44 @@
+import datetime
+
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+DJANGO_RTK = {
+    "BACKEND": "django_rtk_green.backends.Backend",
+    "VALIDATOR": "django_rtk.validators.Validator",
+    "EMAIL_TEMPLATES": {
+        "RegisterAccount": "user_accounts/activation_email.html",
+        "RegisteredAgain": "user_accounts/registered_again_email.html",
+        "RequestPasswordReset": "user_accounts/password_reset_email.html",
+        "RequestMagicLink": "user_accounts/magic_link_email.html",
+    },
+    "EMAIL_CONTEXT": {
+        "domain": "www.vidlito.org",
+    },
+    "EMAIL_FROM": "noreply@vidlito.org",
+}
+
+GRAPHQL_JWT = {
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+    "JWT_EXPIRATION_DELTA": datetime.timedelta(days=7),
+    "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=31),
+    "JWT_ALLOW_ANY_CLASSES": [
+        "django_rtk_green.mutations.RegisterAccount",
+        "django_rtk_green.mutations.ActivateAccount",
+        "django_rtk_green.mutations.RequestPasswordReset",
+        "django_rtk_green.mutations.ResetPassword",
+        "django_rtk_green.mutations.ObtainJSONWebToken",
+        "django_rtk_green.queries.Me",
+        "graphql_jwt.mutations.Verify",
+        "graphql_jwt.mutations.Refresh",
+        "graphql_jwt.mutations.Revoke",
+        # Moonleap Todo: add graphql endpoints that do not require authentication
+    ],
+}
+
+AUTH_USER_MODEL = "users.User"
+
+TERMS_VERSION = "15-08-2021"

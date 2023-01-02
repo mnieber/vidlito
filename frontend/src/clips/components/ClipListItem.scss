@@ -1,0 +1,12 @@
+.ClipListItem {
+  @apply cursor-pointer;
+}
+
+.ClipListItem--selected {
+  @apply bg-blue-200;
+}
+
+.ClipListItem--highlighted {
+  @apply font-bold;
+}
+

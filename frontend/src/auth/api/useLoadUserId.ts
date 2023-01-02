@@ -1,0 +1,61 @@
+import { useQuery } from '@tanstack/react-query';
+import { doQuery, getRefreshToken } from 'src/api/graphqlClient';
+import { useQueryData } from 'src/api/hooks';
+import { refreshToken } from 'src/auth/api/refreshToken';
+import { ObjT } from 'src/utils/types';
+
+export class Anonymous {}
+export const anonymous = new Anonymous();
+
+export type ArgsT = {
+  maybeRefreshToken: boolean;
+};
+
+export function loadUserId(args: ArgsT): Promise<any> {
+  return doQuery(
+    `query {
+        username
+      }`,
+    {}
+  )
+    .then((response: ObjT) => {
+      return {
+        userId: response.username,
+      };
+    })
+    .catch((error: ObjT) => {
+      const message = error.response.errors[0].message;
+      if (
+        ['Signature has expired', 'Signature has expired'].includes(message) &&
+        getRefreshToken() &&
+        args.maybeRefreshToken
+      ) {
+        return refreshToken().then(() =>
+          loadUserId({ maybeRefreshToken: false })
+        );
+      }
+      throw new Error(message);
+    })
+    .catch(() => {
+      return {
+        userId: anonymous,
+      };
+    });
+}
+
+export const useLoadUserId = () => {
+  const query = useQuery(
+    ['loadUserId'],
+    () => {
+      return loadUserId({ maybeRefreshToken: true });
+    },
+    {
+      onSuccess: (data: ObjT) => {
+        data.userId = data.userId ?? anonymous;
+        data.isAuthenticated = data.userId !== anonymous;
+        return Promise.resolve(data);
+      },
+    }
+  );
+  return useQueryData(query);
+};

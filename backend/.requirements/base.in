@@ -1,0 +1,9 @@
+Django
+django-admin-sortable2==1.0.4
+django-cors-headers
+django-extensions
+django-modeladmin-reorder
+django-rtk-green
+graphene-django
+martor
+psycopg2

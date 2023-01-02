@@ -1,0 +1,40 @@
+import { useMutation } from '@tanstack/react-query';
+import { doQuery } from 'src/api/graphqlClient';
+import { useMutationData } from 'src/api/hooks';
+import { queryClient } from 'src/api/queryClient';
+import { ObjT } from 'src/utils/types';
+import { wait } from 'src/utils/wait';
+
+export type ArgsT = {
+  clipIds: string[];
+};
+
+export const deleteClips = (args: ArgsT) => {
+  return doQuery(
+    `mutation deleteClips(
+      $clipIds: [String]!
+    ) {
+      deleteClips(
+        clipIds: $clipIds
+      ) {
+        errors
+        success
+      }
+    }`,
+    args
+  ).then((response: ObjT) => {
+    return wait(
+      process.env.NODE_ENV === 'development' ? 1000 : 0,
+      response.deleteClips
+    );
+  });
+};
+
+export const useDeleteClips = () => {
+  const mutation = useMutation(['deleteClips'], deleteClips, {
+    onSuccess: (response: ObjT) => {
+      queryClient.invalidateQueries(['getPlaylists']);
+    },
+  });
+  return useMutationData(mutation);
+};

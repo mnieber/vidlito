@@ -1,0 +1,7 @@
+@import 'src/frames/index.scss';
+
+.App {
+  height: 100vh;
+  min-width: $breakpoint-xs;
+  overflow-x: hidden;
+}

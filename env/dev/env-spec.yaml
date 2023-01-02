@@ -1,0 +1,18 @@
+settings:
+  is_strict: True
+
+global_dependencies:
+  - django.env
+  - postgres.env
+  - react.env
+
+outputs:
+  ../../backend/.env/dev.injected.env:
+    targets:
+      - ../../backend/.env/dev.injected.env.in
+  ../../frontend/.env/dev.injected.env:
+    targets:
+      - ../../frontend/.env/dev.injected.env.in
+  ../../postgres/.env/dev.injected.env:
+    targets:
+      - ../../postgres/.env/dev.injected.env.in

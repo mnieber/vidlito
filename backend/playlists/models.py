@@ -1,0 +1,38 @@
+from app.models import Entity
+from clips.models import Clip
+from django.db import models
+from martor.models import MartorField
+
+
+class Playlist(Entity):
+    class Meta:
+        ordering = ["sort_pos"]
+
+    clip_set = models.ManyToManyField(
+        Clip, through="Entry", related_name="+", blank=True
+    )
+    description = MartorField(null=True, blank=True)
+    name = models.CharField(max_length=90)
+    slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
+    sort_pos = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return "Playlist: " + self.name
+
+
+class Entry(Entity):
+    class Meta:
+        ordering = ["sort_pos"]
+        verbose_name_plural = "entries"
+
+    clip = models.ForeignKey(Clip, on_delete=models.CASCADE, related_name="+")
+    playlist = models.ForeignKey(
+        Playlist, on_delete=models.CASCADE, related_name="entry_set"
+    )
+    sort_pos = models.IntegerField(default=0)
+
+    def __str__(self):
+        return "Entry: " + str(self.id)

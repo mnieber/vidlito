@@ -1,0 +1,34 @@
+FROM python:3
+
+RUN pip install --upgrade pip
+
+# Add ppa for postgresql-client-13
+RUN apt install curl ca-certificates gnupg
+RUN curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor | tee /etc/apt/trusted.gpg.d/apt.postgresql.org.gpg >/dev/null
+RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main" >> /etc/apt/sources.list.d/postgresql.list'
+
+# install pkg dependencies
+RUN apt-get update && apt-get install -y \
+    make
+
+# install dev pkg dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    fish \
+    nano \
+    postgresql-client-13
+
+# create a python venv that we can easily store inside a docker volume
+RUN python3 -m venv /app/env
+ENV PATH="/app/env/bin:${PATH}"
+
+# install dev pip dependencies
+RUN pip install \
+    black \
+    ipython \
+    isort \
+    pgcli==3.4.1 \
+    pip-tools \
+    pudb
+
+WORKDIR /app/src

@@ -1,0 +1,20 @@
+import { FieldPropsT, useFieldProps } from 'src/forms/hooks';
+import { cn } from 'src/utils/classnames';
+import './TextField.scss';
+
+type PropsT = Partial<FieldPropsT> & {
+  className?: any;
+};
+
+export const TextField = (props: PropsT) => {
+  const fieldProps = useFieldProps({
+    ...props,
+    fieldType: props.fieldType ?? 'text',
+  });
+
+  return (
+    <div className={cn('TextField', 'flex flex-col', props.className)}>
+      <input {...fieldProps} />
+    </div>
+  );
+};
