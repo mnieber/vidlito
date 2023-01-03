@@ -1,11 +1,11 @@
-import { when } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { defaultProps as dps, withDefaultProps } from 'src/app/defaultProps';
+import { error } from 'src/frames/components/Error';
 import { slugify } from 'src/utils';
 import { cn } from 'src/utils/classnames';
 import { PickerValueT, ValuePicker } from 'src/utils/components/ValuePicker';
+import { useValuePickerState } from 'src/utils/hooks/useValuePickerState';
 import { createUUID } from 'src/utils/ids';
 import UIkit from 'uikit';
 import './PlaylistPicker.scss';
@@ -23,21 +23,16 @@ const DefaultProps = {
 
 export const PlaylistPicker = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const [isUpdating, setIsUpdating] = React.useState(false);
-
-    const setItem = React.useMemo(
-      () => (itemId: string, value: PlaylistT) => {
-        props.playlistsHighlight.highlightItem(itemId);
-        props.updateUrl && props.updateUrl(value);
-      },
-      [props]
-    );
+    const state = useValuePickerState<PlaylistT>({
+      highlight: props.playlistsHighlight,
+      updateUrl: props.updateUrl,
+    });
 
     const onChange = (value: PickerValueT) => {
       if (value.__isNew__) {
         const playlistName = value.label;
         const id = createUUID();
-        setIsUpdating(true);
+        state.setIsUpdating(true);
         props
           .savePlaylist({
             playlistForm: {
@@ -46,28 +41,15 @@ export const PlaylistPicker = observer(
               id: id,
             },
           })
-          .then(() => {
-            let playlist: PlaylistT | undefined = undefined;
-            when(
-              () => !!(playlist = props.playlists.find((x) => x.id === id)),
-              () => {
-                playlist && setItem(id, playlist);
-                setIsUpdating(false);
-              },
-              {
-                timeout: 5000,
-                onError: () => setIsUpdating(false),
-              }
-            );
-          });
+          .then(() => state.setItemWhenReady(props.playlists, id));
       } else if (value.value) {
-        setItem(value.value.id, value.value);
+        state.setItem(value.value);
       }
     };
 
     return (
       <div className={cn('PlaylistPicker', props.className)}>
-        {UIkit && isUpdating && (
+        {UIkit && state.isUpdating && (
           <div
             data-uk-spinner
             className="absolute"
@@ -83,6 +65,11 @@ export const PlaylistPicker = observer(
           placeholder="Select playlist"
           onChange={onChange}
         />
+        {state.isError && (
+          <div className={cn(error)}>
+            Oops, the playlist could not be created
+          </div>
+        )}
       </div>
     );
   }, DefaultProps)
