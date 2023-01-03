@@ -2,11 +2,10 @@ import { FormStateProvider } from 'react-form-state-context';
 import { EmailField } from 'src/auth/components/formFields/EmailField';
 import { SubmitButton } from 'src/auth/components/formFields/SubmitButton';
 import { Field, GlobalError } from 'src/forms/components';
+import { colSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import { useMessages } from './useMessages';
-
-
 
 export const formFields = {
   email: 'email',
@@ -31,7 +30,8 @@ export function RequestPasswordResetForm(props: PropsT) {
       <div
         className={cn(
           'RequestPasswordResetForm',
-          'flex flex-col justify-center',
+          colSkewer,
+          'items-stretch',
           props.className
         )}
       >

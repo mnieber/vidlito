@@ -7,8 +7,6 @@ import { SignUpForm } from 'src/auth/components/SignUpForm';
 import { useAuthStateContext } from 'src/auth/hooks';
 import { useMessages } from './useMessages';
 
-
-
 export const termsVersion: string =
   process.env.REACT_APP_TERMS_VERSION ?? '1.0.0';
 
@@ -25,13 +23,13 @@ export const SignUpPage: React.FC = observer(() => {
       {authState.state !== States.SIGN_UP_SUCCEEDED && (
         <React.Fragment>
           <SignUpForm
-            signUp={(email: string, acceptsTerms: boolean) =>
-              signUp({
+            signUp={(email: string, acceptsTerms: boolean) => {
+              return signUp({
                 userId: email,
                 acceptsTerms,
                 termsVersionAccepted: termsVersion,
-              })
-            }
+              });
+            }}
             errors={authState.errors}
           />
           <div className="mt-4">{messages.ifYouAlreadyHaveAnAccount}</div>

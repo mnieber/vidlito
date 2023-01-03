@@ -7,8 +7,6 @@ import { RequestPasswordResetForm } from 'src/auth/components/RequestPasswordRes
 import { useAuthStateContext } from 'src/auth/hooks';
 import { useMessages } from './useMessages';
 
-
-
 export const RequestPasswordResetPage: React.FC = observer(() => {
   const { messages } = useMessages();
   const authState = useAuthStateContext(true);
@@ -21,9 +19,9 @@ export const RequestPasswordResetPage: React.FC = observer(() => {
       )}
       {authState.state !== States.REQUEST_PASSWORD_RESET_SUCCEEDED && (
         <RequestPasswordResetForm
-          requestPasswordReset={(email: string) =>
-            requestPasswordReset({ email })
-          }
+          requestPasswordReset={(email: string) => {
+            return requestPasswordReset({ email });
+          }}
           errors={authState.errors}
           className="mb-4"
         />

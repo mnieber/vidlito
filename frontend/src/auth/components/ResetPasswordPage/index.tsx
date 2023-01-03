@@ -8,8 +8,6 @@ import { ResetPasswordForm } from 'src/auth/components/ResetPasswordForm';
 import { useAuthStateContext } from 'src/auth/hooks';
 import { useMessages } from './useMessages';
 
-
-
 export const ResetPasswordPage: React.FC = observer(() => {
   const { messages } = useMessages();
   const params = useParams();
@@ -24,12 +22,12 @@ export const ResetPasswordPage: React.FC = observer(() => {
       {!isPasswordChanged && (
         <ResetPasswordForm
           errors={authState.errors}
-          resetPassword={(password) =>
-            resetPassword({
+          resetPassword={(password) => {
+            return resetPassword({
               password,
               passwordResetToken: (params as any).passwordResetToken,
-            })
-          }
+            });
+          }}
         />
       )}
     </AuthFrame>
