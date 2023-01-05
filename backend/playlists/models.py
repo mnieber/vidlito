@@ -9,9 +9,6 @@ class Playlist(Entity):
     class Meta:
         ordering = ["sort_pos"]
 
-    clip_set = models.ManyToManyField(
-        Clip, through="Entry", related_name="+", blank=True
-    )
     description = MartorField(null=True, blank=True)
     name = models.CharField(max_length=90)
     slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)

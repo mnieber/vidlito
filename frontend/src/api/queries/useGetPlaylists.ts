@@ -21,15 +21,6 @@ export const getPlaylists = (args: ArgsT) => {
             name
             slug
           }
-          entrySet {
-            id
-            clip {
-              description
-              id
-              name
-              slug
-            }
-          }
         }
       }
     }`,

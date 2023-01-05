@@ -12,8 +12,8 @@ def create_random_playlist():
     return obj
 
 
-def create_random_entry(playlist_id, clip_id):
-    obj, created = Entry.objects.get_or_create(playlist_id=playlist_id, clip_id=clip_id)
+def create_random_entry(clip_id, playlist_id):
+    obj, created = Entry.objects.get_or_create(clip_id=clip_id, playlist_id=playlist_id)
     return obj
 
 
