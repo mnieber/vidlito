@@ -24,6 +24,7 @@ const DefaultProps = {
 export const PlaylistPicker = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const state = useValuePickerState<PlaylistT>({
+      values: props.playlists,
       highlight: props.playlistsHighlight,
       updateUrl: props.updateUrl,
     });

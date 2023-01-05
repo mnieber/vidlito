@@ -18,7 +18,7 @@ export const AppFrame = observer(
         className={cn('AppFrame', 'grid grid-rows-[60px,1fr]', props.className)}
       >
         <div className={cn('AppFrame__TopBar', 'grid grid-cols-[1fr]')}>
-          <div className={cn('AppFrame__TopBarLhs', rowSkewer, 'justify-end')}>
+          <div className={cn('AppFrame__TopBarRhs', rowSkewer, 'justify-end')}>
             <AccountMenu />
           </div>
         </div>

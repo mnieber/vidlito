@@ -1,11 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import { useSelectionUIConnector } from 'skandha-mobx/hooks';
+import { ClipT } from 'src/api/types/ClipT';
 import { defaultProps as dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListItem } from 'src/clips/components/ClipListItem';
+import { getUpdateUrlFn } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
 import './ClipList.scss';
 
 export type PropsT = {
+  updateUrl?: (clip: ClipT) => void;
   className?: any;
 };
 
@@ -17,7 +20,9 @@ const DefaultProps = {
 
 export const ClipList = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const selectionUIConnector = useSelectionUIConnector(props.clipsSelection);
+    const selectionUIConnector = useSelectionUIConnector(props.clipsSelection, {
+      onSelectItem: getUpdateUrlFn(props.clips, props.updateUrl),
+    });
 
     const noItems = <h2>There are no clips</h2>;
 

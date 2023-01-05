@@ -8,6 +8,7 @@ import { queryClient } from 'src/api/queryClient';
 import { App } from 'src/app/components';
 import { flags } from 'src/app/flags';
 import 'src/frames/styles/index.scss';
+import 'src/frames/styles/uikit';
 import { RoutesProvider } from 'src/routes/components/RoutesProvider';
 
 const strict = false;

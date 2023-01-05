@@ -1,6 +1,7 @@
 from app.models import Entity
 from clips.models import Clip
 from django.db import models
+from django.utils.text import slugify
 from martor.models import MartorField
 
 
@@ -17,6 +18,8 @@ class Playlist(Entity):
     sort_pos = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
+        if self.slug is None:
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
     def __str__(self):
