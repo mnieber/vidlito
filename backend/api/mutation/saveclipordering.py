@@ -15,10 +15,10 @@ class SaveClipOrdering(graphene.Mutation):
 
     def mutate(self, info, playlist_id, clip_ids):
         playlist = Playlist.objects.get(id=playlist_id)
-        playlist.clip_set.all().delete()
+        playlist.entry_set.all().delete()
 
         for idx, clip_id in enumerate(clip_ids):
-            Entry.objects.create(playlist=playlist, clip_id=clip_id, sort_pos=idx)
+            Entry.objects.create(playlist=playlist, clip_id=clip_id, sort_pos=1 + idx)
 
         return SaveClipOrdering(
             success=True,

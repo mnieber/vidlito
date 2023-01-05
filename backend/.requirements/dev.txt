@@ -127,8 +127,6 @@ pyjwt==2.6.0
     # via
     #   -r .requirements/base.txt
     #   django-graphql-jwt
-pyperclip==1.8.2
-    # via -r .requirements/dev.in
 pytest==7.2.0
     # via
     #   -r .requirements/dev.in

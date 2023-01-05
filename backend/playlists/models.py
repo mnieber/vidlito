@@ -38,4 +38,4 @@ class Entry(Entity):
     sort_pos = models.IntegerField(default=0)
 
     def __str__(self):
-        return "Entry: " + str(self.id)
+        return f"Entry: {self.playlist.name} / {self.clip.name}"

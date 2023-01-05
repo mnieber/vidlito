@@ -10,3 +10,10 @@
   @apply font-bold;
 }
 
+.ClipListItem--drag-before {
+  border-top: solid;
+}
+
+.ClipListItem--drag-after {
+  border-bottom: solid;
+}

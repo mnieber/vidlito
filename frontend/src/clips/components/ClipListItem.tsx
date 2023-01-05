@@ -1,5 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import {
+  dragAndDropUIHandlers,
+  DragAndDropUIPropsT,
+} from 'skandha-facets/DragAndDrop';
+import {
   selectionUIHandlers,
   SelectionUIPropsT,
 } from 'skandha-facets/Selection';
@@ -12,6 +16,7 @@ import './ClipListItem.scss';
 
 export type PropsT = {
   isHighlighted: boolean;
+  dragAndDropUIProps: DragAndDropUIPropsT;
   selectionUIProps: SelectionUIPropsT;
   className?: any;
 };
@@ -36,9 +41,11 @@ export const ClipListItem = observer(
             'ClipListItem--selected': props.selectionUIProps.isSelected,
             'ClipListItem--highlighted': props.isHighlighted,
           },
+          `ClipListItem--drag-${props.dragAndDropUIProps.dragState}`,
           props.className
         )}
         {...selectionUIHandlers(props.selectionUIProps)}
+        {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
       >
         <div className={cn('ClipListItem__Title', rowSkewer, 'justify-start')}>
           <div className={cn('ClipListItem__Field')}>{props.clip.name}</div>
