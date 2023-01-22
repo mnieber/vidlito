@@ -3,7 +3,6 @@ import { withDefaultProps } from 'src/app/defaultProps';
 import { rowSkewer } from 'src/frames/components';
 import { NewIcon } from 'src/frames/icons/NewIcon';
 import { cn } from 'src/utils/classnames';
-
 import './ClipBar.scss';
 
 export type PropsT = {
@@ -17,13 +16,13 @@ export const ClipBar = observer(
     return (
       <div className={cn('ClipBar', 'grid grid-cols-[1fr]', props.className)}>
         <div className={cn('ClipBar__Rhs', rowSkewer, 'justify-end')}>
-          <div
-            className={cn('ClipBar__RhsContents')}
+          <button
+            className={cn('ClipBar__AddClipButton', rowSkewer)}
             onClick={() => console.log('Moonleap Todo')}
           >
-            Add clip
             <NewIcon />
-          </div>
+            Add clip
+          </button>
         </div>
       </div>
     );

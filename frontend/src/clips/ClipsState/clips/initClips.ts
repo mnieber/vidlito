@@ -4,6 +4,7 @@ import {
   cleanUpCtr,
 } from 'react-default-props-context';
 import { DeletionCbs } from 'skandha-facets/Deletion';
+import { EditingCbs } from 'skandha-facets/Editing';
 import { HighlightCbs } from 'skandha-facets/Highlight';
 import { InsertionCbs } from 'skandha-facets/Insertion';
 import * as FacetPolicies from 'skandha-facets/policies';
@@ -22,6 +23,29 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       },
     },
   } as DeletionCbs);
+
+  setCallbackMap(ctr.editing, {
+    save: {
+      saveItem(this: EditingCbs['save']) {
+        return props.saveClip(this.values).then(() => {
+          FacetPolicies.newItemsAreConfirmedOnEditingSave(
+            ctr.editing,
+            this.values
+          );
+        });
+      },
+      refreshView() {
+        if (ctr.highlight.item) {
+          // Moonleap Todo: move to the new clip
+        }
+      },
+    },
+    cancel: {
+      enter() {
+        FacetPolicies.newItemsAreCancelledOnEditingCancel(ctr.editing);
+      },
+    },
+  } as EditingCbs);
 
   setCallbackMap(ctr.highlight, {} as HighlightCbs);
 

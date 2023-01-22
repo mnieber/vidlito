@@ -2,15 +2,20 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { useDeleteClips, useSaveClipOrdering } from 'src/api/mutations';
+import {
+  useDeleteClips,
+  useSaveClip,
+  useSaveClipOrdering,
+} from 'src/api/mutations';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
-import { defaultProps as dps, withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { ClipsState } from 'src/clips/ClipsState';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { getIds, lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
+import { ObjT } from 'src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -21,14 +26,19 @@ const DefaultProps = {
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const deleteClips = useDeleteClips();
+    const saveClip = useSaveClip();
     const saveClipOrdering = useSaveClipOrdering();
 
-    const [state] = React.useState(
+    const [clipsState] = React.useState(
       () =>
         new ClipsState({
           deleteClips: (ids: string[]) => {
-            R.map(setToUpdating, lookUp(ids, state.clips.data.clipById));
+            R.map(setToUpdating, lookUp(ids, clipsState.clips.data.clipById));
             return deleteClips.mutateAsync({ clipIds: ids });
+          },
+          saveClip: (values: ObjT) => {
+            // Moonleap Todo: convert from values to clip form
+            return saveClip.mutateAsync(values);
           },
           saveClipOrdering: (clips: ClipT[]) => {
             return saveClipOrdering.mutateAsync({
@@ -47,31 +57,33 @@ export const ClipsStateProvider = observer(
       },
       updateState: (inputs) => {
         R.forEach(initRS, inputs.clips ?? []);
-        state.clips.data.clips = inputs.clips ?? [];
+        clipsState.clips.data.clips = inputs.clips ?? [];
 
         if (flags.logStateProviders) {
-          log('ClipsState updated', state.getSummary());
+          log('ClipsState updated', clipsState.getSummary());
         }
       },
-      destroyState: () => state.destroy(),
+      destroyState: () => clipsState.destroy(),
     });
 
     const getDefaultPropsContext = () => {
       const result: any = {
         defaultProps: {
-          clipsState: () => state,
+          clipsState: () => clipsState,
         },
       };
 
       result.defaultProps = {
         ...result.defaultProps,
-        clips: () => maybe(props.playlist, [])(state.clips.data.clipsDisplay),
-        clip: () => maybe(props.playlist)(state.clips.highlight.item),
-        clipsDeletion: () => state.clips.deletion,
-        clipsDragAndDrop: () => state.clips.dragAndDrop,
-        clipsFiltering: () => state.clips.filtering,
-        clipsHighlight: () => state.clips.highlight,
-        clipsSelection: () => state.clips.selection,
+        clips: () =>
+          maybe(props.playlist, [])(clipsState.clips.data.clipsDisplay),
+        clip: () => maybe(props.playlist)(clipsState.clips.highlight.item),
+        clipsDeletion: () => clipsState.clips.deletion,
+        clipsDragAndDrop: () => clipsState.clips.dragAndDrop,
+        clipsEditing: () => clipsState.clips.editing,
+        clipsFiltering: () => clipsState.clips.filtering,
+        clipsHighlight: () => clipsState.clips.highlight,
+        clipsSelection: () => clipsState.clips.selection,
       };
 
       return result;

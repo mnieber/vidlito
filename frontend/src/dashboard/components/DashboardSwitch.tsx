@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { ClipView, SelectClipEffect } from 'src/clips/components';
 import { Dashboard } from 'src/dashboard/components/Dashboard';
 import { SelectPlaylistEffect } from 'src/playlists/components/SelectPlaylistEffect';
@@ -8,6 +8,9 @@ export const DashboardSwitch = () => {
   const routes = useRoutes();
   return (
     <Switch>
+      <Route exact={true} path="/">
+        <Redirect to="/dashboard" />
+      </Route>
       <Route exact={true} path={routes.myDashboard()}>
         <Dashboard />
       </Route>

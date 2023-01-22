@@ -1,4 +1,5 @@
 from graphene_django.types import DjangoObjectType
+
 from playlists.models import Entry
 
 

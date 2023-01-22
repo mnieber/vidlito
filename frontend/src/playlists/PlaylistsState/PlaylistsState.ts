@@ -2,21 +2,25 @@ import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { mapDataToProps, pmap } from 'skandha';
 import { Deletion } from 'skandha-facets/Deletion';
+import { Editing } from 'skandha-facets/Editing';
 import { Highlight } from 'skandha-facets/Highlight';
 import { Selection } from 'skandha-facets/Selection';
 import { registerCtr } from 'skandha-mobx';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { getIds } from 'src/utils/ids';
+import { ObjT } from 'src/utils/types';
 import { initPlaylists, PlaylistsData } from './playlists';
 
 export type PropsT = {
   deletePlaylists: (ids: string[]) => Promise<any>;
+  savePlaylist: (values: ObjT) => Promise<any>;
 };
 
 export class PlaylistsState {
   playlists = {
     data: new PlaylistsData(),
     deletion: new Deletion(),
+    editing: new Editing(),
     highlight: new Highlight<PlaylistT>(),
     selection: new Selection<PlaylistT>(),
   };

@@ -1,6 +1,7 @@
-import { stub } from 'react-default-props-context';
+import { stub, withDefaultProps } from 'react-default-props-context';
 import { Deletion } from 'skandha-facets/Deletion';
 import { DragAndDrop } from 'skandha-facets/DragAndDrop';
+import { Editing } from 'skandha-facets/Editing';
 import { Filtering } from 'skandha-facets/Filtering';
 import { Highlight } from 'skandha-facets/Highlight';
 import { Insertion } from 'skandha-facets/Insertion';
@@ -8,6 +9,9 @@ import { Selection } from 'skandha-facets/Selection';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 export { stub, withDefaultProps } from 'react-default-props-context';
+
+// This is a workaround for a bug in webpack
+!withDefaultProps && console.log(withDefaultProps);
 
 const dpsClips = {
   clips: {
@@ -21,6 +25,9 @@ const dpsClips = {
   },
   clipsDragAndDrop: {
     clipsDragAndDrop: stub as DragAndDrop,
+  },
+  clipsEditing: {
+    clipsEditing: stub as Editing,
   },
   clipsFiltering: {
     clipsFiltering: stub as Filtering,
@@ -46,14 +53,14 @@ const dpsPlaylists = {
   playlistsDeletion: {
     playlistsDeletion: stub as Deletion,
   },
+  playlistsEditing: {
+    playlistsEditing: stub as Editing,
+  },
   playlistsHighlight: {
     playlistsHighlight: stub as Highlight,
   },
   playlistsSelection: {
     playlistsSelection: stub as Selection,
-  },
-  savePlaylist: {
-    savePlaylist: stub as Function,
   },
 };
 
@@ -61,3 +68,5 @@ export const defaultProps = {
   ...dpsClips,
   ...dpsPlaylists,
 };
+
+export const dps = defaultProps;

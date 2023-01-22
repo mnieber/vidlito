@@ -1,8 +1,9 @@
-from app.models import Entity
-from clips.models import Clip
 from django.db import models
 from django.utils.text import slugify
 from martor.models import MartorField
+
+from app.models import Entity
+from clips.models import Clip
 
 
 class Playlist(Entity):

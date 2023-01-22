@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import { Selection } from 'skandha-facets/Selection';
 import { ClipT } from 'src/api/types/ClipT';
-import { defaultProps as dps, withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Effect } from 'src/utils/components';
 
 type ArgsT = {

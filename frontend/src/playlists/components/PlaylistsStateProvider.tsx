@@ -11,6 +11,7 @@ import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction'
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
 import { lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
+import { ObjT } from 'src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -36,6 +37,10 @@ export const PlaylistsStateProvider = observer(
                 ids
               )
             );
+          },
+          savePlaylist: (values: ObjT) => {
+            // Moonleap Todo: convert from values to playlist form
+            return savePlaylist.mutateAsync(values);
           },
         })
     );
@@ -70,9 +75,9 @@ export const PlaylistsStateProvider = observer(
           maybe(getPlaylists, [])(state.playlists.data.playlists),
         playlist: () => maybe(getPlaylists)(state.playlists.highlight.item),
         playlistsDeletion: () => state.playlists.deletion,
+        playlistsEditing: () => state.playlists.editing,
         playlistsHighlight: () => state.playlists.highlight,
         playlistsSelection: () => state.playlists.selection,
-        savePlaylist: () => savePlaylist.mutateAsync,
       };
 
       return result;

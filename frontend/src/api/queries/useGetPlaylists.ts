@@ -17,9 +17,12 @@ export const getPlaylists = (args: ArgsT) => {
           slug
           clipSet {
             description
+            endTimeMs
             id
             name
             slug
+            startTimeMs
+            url
           }
         }
       }

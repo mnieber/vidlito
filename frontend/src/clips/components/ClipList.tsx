@@ -4,7 +4,7 @@ import {
   useSelectionUIConnector,
 } from 'skandha-mobx/hooks';
 import { ClipT } from 'src/api/types/ClipT';
-import { defaultProps as dps, withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListItem } from 'src/clips/components/ClipListItem';
 import { getUpdateUrlFn } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';

@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { ClipT } from 'src/api/types/ClipT';
-import { defaultProps as dps, withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipList } from 'src/clips/components';
 import { ClipBar } from 'src/dashboard/components/ClipBar';
+import { card } from 'src/frames/components';
 import { PlaylistPicker } from 'src/playlists/components';
 import { useRouteUfns } from 'src/routes/hooks/useRoutes';
 import { cn } from 'src/utils/classnames';
@@ -37,7 +38,7 @@ export const Dashboard = observer(
             }
           />
         </div>
-        <div className={cn('Dashboard__RightMain')}>{props.children}</div>
+        <div className={cn('Dashboard__RightMain', card)}>{props.children}</div>
       </div>
     );
   }, DefaultProps)

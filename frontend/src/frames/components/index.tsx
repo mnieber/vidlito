@@ -1,6 +1,12 @@
 export { AccountMenu } from './AccountMenu';
 export { AppFrame } from './AppFrame';
-export { button, primaryBigButton, primaryButton, smallButton } from './Button';
+export {
+  bigButton,
+  button,
+  primaryBigButton,
+  primaryButton,
+  smallButton,
+} from './Button';
 export { card } from './Card';
 export { error } from './Error';
 export { colSkewer, rowSkewer } from './Skewer';

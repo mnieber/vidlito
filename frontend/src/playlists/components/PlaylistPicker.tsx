@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { PlaylistT } from 'src/api/types/PlaylistT';
-import { defaultProps as dps, withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { error } from 'src/frames/components/Error';
 import { slugify } from 'src/utils';
 import { cn } from 'src/utils/classnames';
@@ -17,12 +17,14 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.playlists,
+  ...dps.playlistsEditing,
   ...dps.playlistsHighlight,
-  ...dps.savePlaylist,
 };
 
 export const PlaylistPicker = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const savePlaylist = props.playlistsEditing.save;
+
     const state = useValuePickerState<PlaylistT>({
       values: props.playlists,
       highlight: props.playlistsHighlight,
@@ -34,15 +36,13 @@ export const PlaylistPicker = observer(
         const playlistName = value.label;
         const id = createUUID();
         state.setIsUpdating(true);
-        props
-          .savePlaylist({
-            playlistForm: {
-              name: playlistName,
-              slug: slugify(playlistName),
-              id: id,
-            },
-          })
-          .then(() => state.setItemWhenReady(props.playlists, id));
+        savePlaylist({
+          playlistForm: {
+            name: playlistName,
+            slug: slugify(playlistName),
+            id: id,
+          },
+        }).then(() => state.setItemWhenReady(props.playlists, id));
       } else if (value.value) {
         state.setItem(value.value);
       }

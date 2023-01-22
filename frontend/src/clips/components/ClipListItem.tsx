@@ -8,7 +8,7 @@ import {
   SelectionUIPropsT,
 } from 'skandha-facets/Selection';
 import { isUpdating } from 'src/api/ResourceState';
-import { defaultProps as dps, withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import UIkit from 'uikit';
