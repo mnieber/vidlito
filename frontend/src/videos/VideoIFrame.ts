@@ -1,10 +1,10 @@
-class VideoIFrame {
-  parentDivId: any;
+export class VideoIFrame {
+  parentElm: any;
   iframe: any;
   isMouseOver: boolean = false;
 
-  constructor(parentDivId: string, iframe: any) {
-    this.parentDivId = parentDivId;
+  constructor(parentElm: string, iframe: any) {
+    this.parentElm = parentElm;
     this.iframe = iframe;
 
     window.addEventListener('blur', (e: any) => {
@@ -18,12 +18,11 @@ class VideoIFrame {
   }
 
   focusParentDiv = () => {
-    const elm = document.getElementById(this.parentDivId);
-    if (elm) {
+    if (this.parentElm) {
       // Store previous scroll position
       let x = window.scrollX,
         y = window.scrollY;
-      elm.focus();
+      this.parentElm.focus();
       // Restore previous scroll position
       window.scrollTo(x, y);
     }
@@ -41,20 +40,4 @@ class VideoIFrame {
     this.iframe.removeEventListener('mouseover', this.mouseOver);
     this.iframe.removeEventListener('mouseout', this.mouseOut);
   };
-}
-
-const _videoIFrames: { [id: string]: any } = {};
-
-export function listenToIFrame(parentDivId: string, iframe: any) {
-  const videoIFrame = _videoIFrames[parentDivId];
-  if (videoIFrame && videoIFrame.iframe !== iframe) {
-    videoIFrame.unregister();
-    delete _videoIFrames[parentDivId];
-  }
-
-  if (!_videoIFrames[parentDivId]) {
-    const videoIFrame = new VideoIFrame(parentDivId, iframe);
-    _videoIFrames[parentDivId] = videoIFrame;
-    videoIFrame.focusParentDiv();
-  }
 }

@@ -1,20 +1,19 @@
-import { action, autorun, makeObservable } from 'mobx';
-import { data, input } from 'skandha';
-import { ClipT } from 'src/api/types/ClipT';
+import { action, autorun, makeObservable, observable } from 'mobx';
 
 export type PropsT = {};
 
-export class VideoControllerState {
-  @input video?: ClipT;
-  @data isPlaying: boolean = false;
-  @data player: any;
+export class VideoController {
+  @observable isPlaying: boolean = false;
+  @observable player: any;
+
   // We use _player to allow non-observer access to the player via getPlayer
   _player: any;
   _pauseAt: number = -1;
   _disposeAutoRun: Function = () => {};
 
-  @action setPlayer(x: any) {
-    this.player = this._player = x;
+  @action setPlayer(player: any) {
+    this.player = this._player = player;
+
     this._disposeAutoRun();
     this._disposeAutoRun = autorun(() => this._updatePlayer());
   }

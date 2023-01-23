@@ -23,13 +23,13 @@ export const PlaylistsStateProvider = observer(
     const deletePlaylist = useDeletePlaylist();
     const savePlaylist = useSavePlaylist();
 
-    const [state] = React.useState(
+    const [playlistsState] = React.useState(
       () =>
         new PlaylistsState({
           deletePlaylists: (ids: string[]) => {
             R.map(
               setToUpdating,
-              lookUp(ids, state.playlists.data.playlistById)
+              lookUp(ids, playlistsState.playlists.data.playlistById)
             );
             return Promise.all(
               R.map(
@@ -53,31 +53,32 @@ export const PlaylistsStateProvider = observer(
       },
       updateState: (inputs) => {
         R.forEach(initRS, inputs.playlists ?? []);
-        state.playlists.data.playlists = inputs.playlists ?? [];
+        playlistsState.playlists.data.playlists = inputs.playlists ?? [];
 
         if (flags.logStateProviders) {
-          log('PlaylistsState updated', state.getSummary());
+          log('PlaylistsState updated', playlistsState.getSummary());
         }
       },
-      destroyState: () => state.destroy(),
+      destroyState: () => playlistsState.destroy(),
     });
 
     const getDefaultPropsContext = () => {
       const result: any = {
         defaultProps: {
-          playlistsState: () => state,
+          playlistsState: () => playlistsState,
         },
       };
 
       result.defaultProps = {
         ...result.defaultProps,
         playlists: () =>
-          maybe(getPlaylists, [])(state.playlists.data.playlists),
-        playlist: () => maybe(getPlaylists)(state.playlists.highlight.item),
-        playlistsDeletion: () => state.playlists.deletion,
-        playlistsEditing: () => state.playlists.editing,
-        playlistsHighlight: () => state.playlists.highlight,
-        playlistsSelection: () => state.playlists.selection,
+          maybe(getPlaylists, [])(playlistsState.playlists.data.playlists),
+        playlist: () =>
+          maybe(getPlaylists)(playlistsState.playlists.highlight.item),
+        playlistsDeletion: () => playlistsState.playlists.deletion,
+        playlistsEditing: () => playlistsState.playlists.editing,
+        playlistsHighlight: () => playlistsState.playlists.highlight,
+        playlistsSelection: () => playlistsState.playlists.selection,
       };
 
       return result;

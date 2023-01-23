@@ -2,38 +2,33 @@ import { runInAction } from 'mobx';
 import * as R from 'ramda';
 import * as React from 'react';
 import YouTube from 'react-youtube';
-import { VideoUrlPropsT } from 'src/api/types/VideoUrlPropsT';
-import { VideoControllerState } from 'src/videos/VideoControllerState';
+import { VideoPlayerStateT } from 'src/videos/hooks/useVideoPlayerState';
 
 type PropsT = {
-  videoUrlProps: VideoUrlPropsT;
-  videoController: VideoControllerState;
-  videoWidth: number;
-  setIFrame: Function;
+  videoPlayerState: VideoPlayerStateT;
 };
 
 export function YoutubePlayer(props: PropsT) {
-  const params = props.videoUrlProps.params;
-  const { videoController } = props;
-  const video = videoController.video;
-  const url = video ? video.url : '';
+  const params = props.videoPlayerState.videoUrlProps.params;
+  const { videoController, clip, videoUrlProps, videoWidth } =
+    props.videoPlayerState;
 
   const startTime =
-    video && !R.isNil(video.startTimeMs)
-      ? (video.startTimeMs || 0) / 1000
+    clip && !R.isNil(clip.startTimeMs)
+      ? (clip.startTimeMs || 0) / 1000
       : params && !R.isNil(params.start)
       ? params.start
       : null;
 
   React.useEffect(() => {
-    if (url) {
+    if (clip.url) {
       videoController.pauseAt(startTime || 0);
     }
-  }, [url, startTime, videoController]);
+  }, [clip.url, startTime, videoController]);
 
   const opts = {
-    height: (props.videoWidth * 9) / 16,
-    width: props.videoWidth,
+    height: (videoWidth * 9) / 16,
+    width: videoWidth,
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 0,
@@ -45,11 +40,10 @@ export function YoutubePlayer(props: PropsT) {
     const player = event.target;
     runInAction(() => {
       setTimeout(() => {
-        videoController.setPlayer(player);
+        props.videoPlayerState.setPlayer(player);
         videoController.pauseAt(startTime || 0);
       }, 100);
     });
-    props.setIFrame(player.getIframe());
   };
 
   const _onPlay = () => {
@@ -65,7 +59,7 @@ export function YoutubePlayer(props: PropsT) {
 
   return (
     <YouTube
-      videoId={props.videoUrlProps.id}
+      videoId={videoUrlProps.id}
       // @ts-ignore
       opts={opts}
       onReady={_onReady}

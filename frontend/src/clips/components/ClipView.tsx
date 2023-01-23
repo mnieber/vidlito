@@ -1,11 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { isLoaded } from 'src/api/ResourceState';
+import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipFormView } from 'src/clips/components/ClipFormView';
-import { rowSkewer } from 'src/frames/components';
+import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
 import { cn } from 'src/utils/classnames';
-import { VideoView } from 'src/videos/components';
-import UIkit from 'uikit';
+import { VideoPlayerPanel } from 'src/videos/components/VideoPlayerPanel';
+import { useVideoPlayerState } from 'src/videos/hooks';
 import './ClipView.scss';
 
 export type PropsT = {
@@ -14,41 +13,27 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clip,
-  ...dps.clipsEditing,
 };
 
 export const ClipView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (!isLoaded(props.clip)) {
-      return UIkit && <div data-uk-spinner className="" />;
-    } else if (!props.clip) return null;
+    const parentElmRef = React.useRef<HTMLDivElement>(null);
+    const videoPlayerState = useVideoPlayerState({
+      clip: props.clip,
+      parentElmRef,
+    });
 
     return (
-      <div className={cn('ClipView', props.className)}>
-        <></>
-        {/* Bar */}
-        <></>
-        <div className={cn('ClipView__Bar', 'grid grid-cols-[1fr]')}>
-          <div className={cn('ClipView__BarRhs', rowSkewer, 'justify-end')}>
-            <button
-              className={cn('ClipView__BarRhsContents', rowSkewer)}
-              onClick={() => props.clipsEditing.enable()}
-            >
-              Edit
-            </button>
-          </div>
+      <ClipKeyHandler videoPlayerState={videoPlayerState}>
+        <div
+          ref={parentElmRef}
+          className={cn('ClipView', props.className)}
+          tabIndex={123}
+        >
+          <div className={cn('ClipView__Title')}>{props.clip.name}</div>
+          <VideoPlayerPanel videoPlayerState={videoPlayerState} />
         </div>
-        <></>
-        {/* The clip contents */}
-        <></>
-        {props.clipsEditing.isEditing && <ClipFormView />}
-        {!props.clipsEditing.isEditing && (
-          <div className={cn('ClipView__Body')}>
-            <div className={cn('ClipView__BodyTitle')}>{props.clip.name}</div>
-            <VideoView />
-          </div>
-        )}
-      </div>
+      </ClipKeyHandler>
     );
   }, DefaultProps)
 );
