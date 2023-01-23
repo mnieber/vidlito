@@ -1,4 +1,5 @@
 export { ClipFormView } from './ClipFormView';
+export { ClipKeyHandler } from './ClipKeyHandler';
 export { ClipList } from './ClipList';
 export { ClipListItem } from './ClipListItem';
 export { ClipsStateProvider } from './ClipsStateProvider';

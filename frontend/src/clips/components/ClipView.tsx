@@ -26,8 +26,8 @@ export const ClipView = observer(
     return (
       <ClipKeyHandler videoPlayerState={videoPlayerState}>
         <div
-          ref={parentElmRef}
           className={cn('ClipView', props.className)}
+          ref={parentElmRef}
           tabIndex={123}
         >
           <div className={cn('ClipView__Title')}>{props.clip.name}</div>

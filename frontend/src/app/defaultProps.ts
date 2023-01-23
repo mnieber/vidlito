@@ -8,10 +8,21 @@ import { Insertion } from 'skandha-facets/Insertion';
 import { Selection } from 'skandha-facets/Selection';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
+import { ClipsState } from 'src/clips/ClipsState';
+import { PlaylistsState } from 'src/playlists/PlaylistsState';
 export { stub, withDefaultProps } from 'react-default-props-context';
 
 // This is a workaround for a bug in webpack
 !withDefaultProps && console.log(withDefaultProps);
+
+const dpsStates = {
+  clipsState: {
+    clipsState: stub as ClipsState,
+  },
+  playlistsState: {
+    playlistsState: stub as PlaylistsState,
+  },
+};
 
 const dpsClips = {
   clips: {
@@ -65,6 +76,7 @@ const dpsPlaylists = {
 };
 
 export const defaultProps = {
+  ...dpsStates,
   ...dpsClips,
   ...dpsPlaylists,
 };
