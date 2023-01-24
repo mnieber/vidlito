@@ -12,8 +12,8 @@ class SaveClip(graphene.Mutation):
         clip_form = ClipFormT()
 
     def mutate(self, info, clip_form):
-        slug = clip_form.pop("slug")
-        clip, created = Clip.objects.update_or_create(defaults=clip_form, slug=slug)
+        id = clip_form.pop("id")
+        clip, created = Clip.objects.update_or_create(defaults=clip_form, id=id)
 
         return SaveClip(
             success=True,

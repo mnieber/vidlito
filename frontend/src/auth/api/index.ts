@@ -1,4 +1,3 @@
-
 export { activateAccount, useActivateAccount } from './useActivateAccount';
 export { loadUserId, useLoadUserId } from './useLoadUserId';
 export { requestMagicLink, useRequestMagicLink } from './useRequestMagicLink';

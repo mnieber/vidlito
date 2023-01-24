@@ -2,9 +2,8 @@ import { observer } from 'mobx-react-lite';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipList } from 'src/clips/components';
-import { ClipBar } from 'src/dashboard/components/ClipBar';
+import { Breadcrumb } from 'src/dashboard/components/Breadcrumb';
 import { card } from 'src/frames/components';
-import { PlaylistPicker } from 'src/playlists/components';
 import { useRouteUfns } from 'src/routes/hooks/useRoutes';
 import { cn } from 'src/utils/classnames';
 import './Dashboard.scss';
@@ -30,15 +29,16 @@ export const Dashboard = observer(
         )}
       >
         <div className={cn('Dashboard__LeftSidebar')}>
-          <PlaylistPicker updateUrl={routeUfns.playlist(history.replace)} />
-          <ClipBar />
           <ClipList
             updateUrl={(clip: ClipT) =>
               routeUfns.clip(history.replace)(props.playlist, clip)
             }
           />
         </div>
-        <div className={cn('Dashboard__RightMain', card)}>{props.children}</div>
+        <div className={cn('Dashboard__RightMain', card)}>
+          <Breadcrumb />
+          {props.children}
+        </div>
       </div>
     );
   }, DefaultProps)

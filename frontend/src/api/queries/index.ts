@@ -1,2 +1,1 @@
-
-export { useGetPlaylists } from "./useGetPlaylists";
+export { useGetPlaylists } from './useGetPlaylists';

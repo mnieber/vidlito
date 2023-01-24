@@ -1,4 +1,2 @@
-
-export { ValuePicker } from "./ValuePicker";
-
 export { Effect } from './Effect';
+export { ValuePicker } from './ValuePicker';

@@ -25,11 +25,9 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
   setCallbackMap(ctr.editing, {
     save: {
       saveItem(this: EditingCbs['save']) {
-        return props.savePlaylist(this.values).then(() => {
-          FacetPolicies.newItemsAreConfirmedOnEditingSave(
-            ctr.editing,
-            this.values
-          );
+        const values = this.values;
+        return props.savePlaylist(values).then(() => {
+          FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing);
         });
       },
       refreshView() {

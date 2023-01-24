@@ -19,6 +19,7 @@ import {
 } from 'src/forms/components';
 import { colBanner, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
+import { createUUID } from 'src/utils/ids';
 import './ClipFormView.scss';
 
 export type PropsT = {
@@ -36,6 +37,7 @@ export const ClipFormView = observer(
     const initialValues = {
       'clipForm.description': props.clip.description ?? null,
       'clipForm.endTimeMs': props.clip.endTimeMs ?? null,
+      'clipForm.id': props.clip.id ?? createUUID().hex,
       'clipForm.name': props.clip.name ?? null,
       'clipForm.slug': props.clip.slug ?? null,
       'clipForm.startTimeMs': props.clip.startTimeMs ?? null,

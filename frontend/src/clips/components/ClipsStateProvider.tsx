@@ -78,6 +78,7 @@ export const ClipsStateProvider = observer(
         clips: () =>
           maybe(props.playlist, [])(clipsState.clips.data.clipsDisplay),
         clip: () => maybe(props.playlist)(clipsState.clips.highlight.item),
+        clipsAddition: () => clipsState.clips.addition,
         clipsDeletion: () => clipsState.clips.deletion,
         clipsDragAndDrop: () => clipsState.clips.dragAndDrop,
         clipsEditing: () => clipsState.clips.editing,

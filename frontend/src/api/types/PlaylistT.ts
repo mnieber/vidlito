@@ -12,7 +12,7 @@ export type PlaylistByIdT = { [id: string]: PlaylistT };
 
 export type PlaylistFormT = {
   description?: string;
+  id: string;
   name: string;
   slug: string;
-  id: string;
 };

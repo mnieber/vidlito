@@ -3,7 +3,7 @@ import { isLoaded } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipFormView } from 'src/clips/components/ClipFormView';
 import { ClipView } from 'src/clips/components/ClipView';
-import { rowSkewer } from 'src/frames/components';
+import { button, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import UIkit from 'uikit';
 import './EditableClipView.scss';
@@ -33,7 +33,7 @@ export const EditableClipView = observer(
             className={cn('EditableClipView__BarRhs', rowSkewer, 'justify-end')}
           >
             <button
-              className={cn('EditableClipView__BarRhsContents', rowSkewer)}
+              className={cn('EditableClipView__BarRhsContents', rowSkewer, button)}
               onClick={() => props.clipsEditing.enable()}
             >
               Edit

@@ -29,7 +29,7 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       saveItem(this: EditingCbs['save']) {
         const values = this.values;
         return props.saveClip(values).then(() => {
-          FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing, values);
+          FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing);
         });
       },
       refreshView() {
@@ -45,7 +45,13 @@ export const initClips = (state: ClipsState, props: PropsT) => {
     },
   } as EditingCbs);
 
-  setCallbackMap(ctr.highlight, {} as HighlightCbs);
+  setCallbackMap(ctr.highlight, {
+    highlightItem: {
+      enter(this: HighlightCbs['highlightItem']) {
+        FacetPolicies.cancelNewItemOnHighlightChange(ctr.highlight, this.id);
+      },
+    },
+  } as HighlightCbs);
 
   setCallbackMap(ctr.insertion, {
     insertItems: {

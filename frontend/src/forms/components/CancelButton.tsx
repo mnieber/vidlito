@@ -6,14 +6,18 @@ export type PropsT = {
   label: string;
   disabled?: boolean;
   className?: any;
-  classNameExt?: any;
+  useDefaultClassName?: boolean;
 };
 
 export const CancelButton = (props: PropsT) => {
   const formState = useFormStateContext();
+
   return (
     <button
-      className={cn(props.className ?? [button, `!mr-2`], props.classNameExt)}
+      className={cn(
+        (props.useDefaultClassName ?? true) && [button, `!mr-2`],
+        props.className
+      )}
       onClick={(e) => {
         e.preventDefault();
         formState.cancel();

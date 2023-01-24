@@ -31,9 +31,10 @@ export const ClipView = observer(
           ref={parentElmRef}
           tabIndex={123}
         >
-          <div className={cn('ClipView__Title')}>{props.clip.name}</div>
           <VideoPlayerPanel videoPlayerState={videoPlayerState} />
-          <ReactMarkdown>{props.clip.description ?? ""}</ReactMarkdown>
+          <div className={cn('ClipView__Description')}>
+            <ReactMarkdown>{props.clip.description ?? ''}</ReactMarkdown>
+          </div>
         </div>
       </ClipKeyHandler>
     );

@@ -1,4 +1,5 @@
 import { stub, withDefaultProps } from 'react-default-props-context';
+import { Addition } from 'skandha-facets/Addition';
 import { Deletion } from 'skandha-facets/Deletion';
 import { DragAndDrop } from 'skandha-facets/DragAndDrop';
 import { Editing } from 'skandha-facets/Editing';
@@ -30,6 +31,9 @@ const dpsClips = {
   },
   clip: {
     clip: stub as ClipT,
+  },
+  clipsAddition: {
+    clipsAddition: stub as Addition,
   },
   clipsDeletion: {
     clipsDeletion: stub as Deletion,

@@ -39,9 +39,9 @@ export class VideoController {
       this.player.getPlayerState() === notPlaying &&
       this._pauseAt >= 0
     ) {
+      runInAction(() => (this.ready = true));
       try {
         setTimeout(() => {
-          runInAction(() => (this.ready = true));
           this.player.pauseVideo();
         }, 500);
       } catch {}

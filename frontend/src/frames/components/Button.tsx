@@ -1,7 +1,12 @@
 import { cn } from 'src/utils/classnames';
 import './Button.scss';
 
-export const button = cn('Button', 'uk-button', 'uk-button-default');
+export const button = cn(
+  'Button',
+  'uk-button',
+  'uk-button-default',
+  'min-w-[fit-content]'
+);
 export const smallButton = cn(
   'SmallButton',
   'uk-button',
