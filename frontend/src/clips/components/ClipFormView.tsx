@@ -32,7 +32,7 @@ const DefaultProps = {
 
 export const ClipFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const saveClip = props.clipsEditing.save;
+    const saveClip = props.clipsEditing.save.bind(props.clipsEditing);
     const initialValues = {
       'clipForm.description': props.clip.description ?? null,
       'clipForm.endTimeMs': props.clip.endTimeMs ?? null,
