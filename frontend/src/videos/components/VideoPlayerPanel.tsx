@@ -5,6 +5,7 @@ import { withDefaultProps } from 'src/app/defaultProps';
 import { cn } from 'src/utils/classnames';
 import { VideoPlayer } from 'src/videos/components/VideoPlayer';
 import { VideoPlayerStateT } from 'src/videos/hooks/useVideoPlayerState';
+import { widthToHeight } from 'src/videos/utils/aspectRatio';
 
 type PropsT = {
   videoPlayerState: VideoPlayerStateT;
@@ -14,7 +15,17 @@ const DefaultProps = {};
 
 export const VideoPlayerPanel = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (!props.videoPlayerState.clip) return null;
+    const ready = props.videoPlayerState.videoController.ready;
+    const width = props.videoPlayerState.videoWidth;
+    const height = widthToHeight(props.videoPlayerState.videoWidth);
+    const placeholder = (
+      <div
+        className={cn('VideoPlayerPanel__Placeholder', 'bg-blue-200')}
+        style={{ width: width, height: height }}
+      >
+        Placeholder
+      </div>
+    );
 
     return (
       <div className={cn('VideoPlayerPanel')}>
@@ -24,7 +35,10 @@ export const VideoPlayerPanel = observer(
             props.videoPlayerState.setPanelWidth(x);
           })}
         />
-        <VideoPlayer videoPlayerState={props.videoPlayerState} />
+        {!ready && placeholder}
+        <div className={cn({ hidden: !ready })}>
+          <VideoPlayer videoPlayerState={props.videoPlayerState} />
+        </div>
       </div>
     );
   }, DefaultProps)

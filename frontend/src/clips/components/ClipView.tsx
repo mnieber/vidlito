@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
 import { cn } from 'src/utils/classnames';
@@ -32,6 +33,7 @@ export const ClipView = observer(
         >
           <div className={cn('ClipView__Title')}>{props.clip.name}</div>
           <VideoPlayerPanel videoPlayerState={videoPlayerState} />
+          <ReactMarkdown>{props.clip.description ?? ""}</ReactMarkdown>
         </div>
       </ClipKeyHandler>
     );

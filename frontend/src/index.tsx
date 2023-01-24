@@ -1,5 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { toJS } from 'mobx';
+import { action, toJS } from 'mobx';
 import { applyFormatters } from 'mobx-log';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -34,4 +34,5 @@ root.render(strict ? <React.StrictMode>{body}</React.StrictMode> : body);
 setOptions({
   logging: flags.logSkandha,
   formatObject: toJS,
+  decorateCb: action,
 });

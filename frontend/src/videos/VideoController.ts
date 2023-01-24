@@ -1,10 +1,11 @@
-import { action, autorun, makeObservable, observable } from 'mobx';
+import { action, autorun, makeObservable, observable, runInAction } from 'mobx';
 
 export type PropsT = {};
 
 export class VideoController {
   @observable isPlaying: boolean = false;
   @observable player: any;
+  @observable ready: boolean = false;
 
   // We use _player to allow non-observer access to the player via getPlayer
   _player: any;
@@ -31,7 +32,7 @@ export class VideoController {
     }
   }
 
-  setPlayerState(x: number) {
+  setPlayerReady() {
     const notPlaying = -1;
     if (
       this.player &&
@@ -39,7 +40,10 @@ export class VideoController {
       this._pauseAt >= 0
     ) {
       try {
-        setTimeout(() => this.player.pauseVideo(), 500);
+        setTimeout(() => {
+          runInAction(() => (this.ready = true));
+          this.player.pauseVideo();
+        }, 500);
       } catch {}
     }
   }

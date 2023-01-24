@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import * as React from 'react';
 import YouTube from 'react-youtube';
 import { VideoPlayerStateT } from 'src/videos/hooks/useVideoPlayerState';
+import { widthToHeight } from 'src/videos/utils/aspectRatio';
 
 type PropsT = {
   videoPlayerState: VideoPlayerStateT;
@@ -27,7 +28,7 @@ export function YoutubePlayer(props: PropsT) {
   }, [clip.url, startTime, videoController]);
 
   const opts = {
-    height: (videoWidth * 9) / 16,
+    height: widthToHeight(videoWidth),
     width: videoWidth,
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
@@ -63,7 +64,7 @@ export function YoutubePlayer(props: PropsT) {
       // @ts-ignore
       opts={opts}
       onReady={_onReady}
-      onStateChange={(x) => videoController.setPlayerState(x.data)}
+      onStateChange={(x) => videoController.setPlayerReady()}
       onPlay={_onPlay}
       onPause={_onPause}
     />

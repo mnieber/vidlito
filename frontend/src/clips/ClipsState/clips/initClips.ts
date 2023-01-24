@@ -27,11 +27,9 @@ export const initClips = (state: ClipsState, props: PropsT) => {
   setCallbackMap(ctr.editing, {
     save: {
       saveItem(this: EditingCbs['save']) {
-        return props.saveClip(this.values).then(() => {
-          FacetPolicies.newItemsAreConfirmedOnEditingSave(
-            ctr.editing,
-            this.values
-          );
+        const values = this.values;
+        return props.saveClip(values).then(() => {
+          FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing, values);
         });
       },
       refreshView() {

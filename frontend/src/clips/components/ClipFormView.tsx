@@ -2,12 +2,14 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import {
   FormStateProvider,
+  HandleCancelArgsT,
   HandleSubmitArgsT,
   HandleValidateArgsT,
   unflatten,
 } from 'react-form-state-context';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import {
+  CancelButton,
   Field,
   GlobalError,
   SaveButton,
@@ -15,6 +17,7 @@ import {
   TextField,
   UpdateSlugButton,
 } from 'src/forms/components';
+import { colBanner, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import './ClipFormView.scss';
 
@@ -49,14 +52,18 @@ export const ClipFormView = observer(
         formState.reset(initialValues, initialErrors)
       );
     };
+    const handleCancel = ({ formState }: HandleCancelArgsT) => {
+      props.clipsEditing.cancel();
+    };
 
     return (
-      <div className={cn('ClipFormView', props.className)}>
+      <div className={cn('ClipFormView', colBanner, props.className)}>
         <FormStateProvider
           initialValues={initialValues}
           initialErrors={initialErrors}
           handleValidate={handleValidate}
           handleSubmit={handleSubmit}
+          handleCancel={handleCancel}
         >
           <GlobalError />
           <Field fieldName="clipForm.name" label="ClipForm name">
@@ -74,19 +81,19 @@ export const ClipFormView = observer(
           <Field fieldName="clipForm.url" label="ClipForm url">
             <TextField controlled={true} />
           </Field>
-          <Field
-            fieldName="clipForm.startTimeMs"
-            label="ClipForm startTimeMs"
-          ></Field>
-          <Field
-            fieldName="clipForm.endTimeMs"
-            label="ClipForm endTimeMs"
-          ></Field>
-          <Field
-            fieldName="clipForm.description"
-            label="ClipForm description"
-          ></Field>
-          <SaveButton label="Save" disabled={false} />
+          <Field fieldName="clipForm.startTimeMs" label="ClipForm startTimeMs">
+            <TextField controlled={true} />
+          </Field>
+          <Field fieldName="clipForm.endTimeMs" label="ClipForm endTimeMs">
+            <TextField controlled={true} />
+          </Field>
+          <Field fieldName="clipForm.description" label="ClipForm description">
+            <TextField controlled={true} />
+          </Field>
+          <div className={cn(rowSkewer, 'self-end')}>
+            <CancelButton label="Cancel" disabled={false} />
+            <SaveButton label="Save" disabled={false} />
+          </div>
         </FormStateProvider>
       </div>
     );

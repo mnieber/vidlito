@@ -1,5 +1,6 @@
 export { AccountMenu } from './AccountMenu';
 export { AppFrame } from './AppFrame';
+export { colBanner, rowBanner } from './Banner';
 export {
   bigButton,
   button,

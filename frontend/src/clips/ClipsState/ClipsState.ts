@@ -1,6 +1,7 @@
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { mapDataToProps, pmap } from 'skandha';
+import { Addition } from 'skandha-facets/Addition';
 import { Deletion } from 'skandha-facets/Deletion';
 import { DragAndDrop } from 'skandha-facets/DragAndDrop';
 import { Editing } from 'skandha-facets/Editing';
@@ -23,6 +24,7 @@ export type PropsT = {
 export class ClipsState {
   clips = {
     data: new ClipsData(),
+    addition: new Addition<ClipT>(),
     deletion: new Deletion(),
     dragAndDrop: new DragAndDrop(),
     editing: new Editing(),
