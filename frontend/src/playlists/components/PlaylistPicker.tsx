@@ -2,12 +2,12 @@ import { observer } from 'mobx-react-lite';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { error } from 'src/frames/components/Error';
+import UIkit from 'src/frames/styles/uikit';
 import { slugify } from 'src/utils';
 import { cn } from 'src/utils/classnames';
 import { PickerValueT, ValuePicker } from 'src/utils/components/ValuePicker';
 import { useValuePickerState } from 'src/utils/hooks/useValuePickerState';
 import { createUUID } from 'src/utils/ids';
-import UIkit from 'uikit';
 import './PlaylistPicker.scss';
 
 export type PropsT = {

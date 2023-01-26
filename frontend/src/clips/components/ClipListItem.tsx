@@ -10,8 +10,8 @@ import {
 import { isUpdating } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { rowSkewer } from 'src/frames/components';
+import UIkit from 'src/frames/styles/uikit';
 import { cn } from 'src/utils/classnames';
-import UIkit from 'uikit';
 import './ClipListItem.scss';
 
 export type PropsT = {

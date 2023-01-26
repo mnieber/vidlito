@@ -1,10 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from 'src/app/defaultProps';
-import { NewClipButton } from 'src/clips/components';
+import { NewClipOrPlaylistButton } from 'src/clips/components';
 import { rowSkewer } from 'src/frames/components';
 import { AccountMenu } from 'src/frames/components/AccountMenu';
 import { Logo } from 'src/frames/components/Logo';
-import { NewPlaylistButton } from 'src/playlists/components';
 import { SearchButton } from 'src/search/components';
 import { cn } from 'src/utils/classnames';
 import './AppFrame.scss';
@@ -30,8 +29,7 @@ export const AppFrame = observer(
             <SearchButton />
           </div>
           <div className={cn('AppFrame__TopBarMiddleSlot', rowSkewer)}>
-            <NewClipButton />
-            <NewPlaylistButton />
+            <NewClipOrPlaylistButton />
           </div>
           <div className={cn('AppFrame__TopBarRhs', rowSkewer, 'justify-end')}>
             <AccountMenu />
