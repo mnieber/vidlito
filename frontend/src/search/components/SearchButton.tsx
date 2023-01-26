@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from 'src/app/defaultProps';
-import { button, rowSkewer } from 'src/frames/components';
+import { Icon, mainButton, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import './SearchButton.scss';
 
@@ -14,10 +14,13 @@ export const SearchButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <button
-        className={cn('SearchButton', rowSkewer, button, props.className)}
+        className={cn('SearchButton', mainButton, props.className)}
         onClick={() => console.log('Moonleap Todo')}
       >
-        Search
+        <div className={cn(rowSkewer)}>
+          <Icon name="search" />
+          Search
+        </div>
       </button>
     );
   }, DefaultProps)

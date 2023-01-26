@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from 'src/app/defaultProps';
-import { primaryButton, rowSkewer } from 'src/frames/components';
-import { NewIcon } from 'src/frames/icons/NewIcon';
+import { mainButton } from 'src/frames/components';
+import { Icon } from 'src/frames/components/Icon';
 import { cn } from 'src/utils/classnames';
-import './NewClipOrPlaylistButton.scss';
+import './NewClipButton.scss';
 
 export type PropsT = {
   className?: any;
@@ -11,20 +11,15 @@ export type PropsT = {
 
 const DefaultProps = {};
 
-export const NewClipOrPlaylistButton = observer(
+export const NewClipButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <button
-        className={cn(
-          'NewClipOrPlaylistButton',
-          rowSkewer,
-          primaryButton,
-          props.className
-        )}
+        className={cn('NewClipButton', mainButton, props.className)}
         onClick={() => console.log('Moonleap Todo')}
       >
-        <NewIcon />
-        New
+        <Icon name="plus" />
+        New Clip
       </button>
     );
   }, DefaultProps)

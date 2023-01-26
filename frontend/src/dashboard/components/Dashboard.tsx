@@ -3,6 +3,7 @@ import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipList } from 'src/clips/components';
 import { Breadcrumb } from 'src/dashboard/components/Breadcrumb';
+import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
 import { card } from 'src/frames/components';
 import { useRouteUfns } from 'src/routes/hooks/useRoutes';
 import { cn } from 'src/utils/classnames';
@@ -29,6 +30,7 @@ export const Dashboard = observer(
         )}
       >
         <div className={cn('Dashboard__LeftSidebar')}>
+          <MainButtonsPanel />
           <ClipList
             updateUrl={(clip: ClipT) =>
               routeUfns.clip(history.replace)(props.playlist, clip)
