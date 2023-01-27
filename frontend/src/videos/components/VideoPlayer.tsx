@@ -5,15 +5,19 @@ import { VideoPlayerState } from 'src/videos/hooks/useVideoPlayerState';
 
 type PropsT = {
   videoPlayerState: VideoPlayerState;
+  width: number;
 };
 
 export function VideoPlayer(props: PropsT) {
   const internalPlayer =
     props.videoPlayerState.videoUrlProps?.provider === 'youtube' ? (
-      <YoutubePlayer
-        key={props.videoPlayerState.clip.url!} // yes, we need this
-        videoPlayerState={props.videoPlayerState}
-      />
+      <div className="absolute">
+        <YoutubePlayer
+          key={props.videoPlayerState.clip.url!} // yes, we need this
+          videoPlayerState={props.videoPlayerState}
+          width={props.width}
+        />
+      </div>
     ) : (
       <React.Fragment />
     );

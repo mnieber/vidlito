@@ -7,13 +7,13 @@ import { widthToHeight } from 'src/videos/utils/aspectRatio';
 
 type PropsT = {
   videoPlayerState: VideoPlayerState;
+  width: number;
 };
 
 export function YoutubePlayer(props: PropsT) {
   const params = props.videoPlayerState.videoUrlProps.params;
   const clip = props.videoPlayerState.clip;
   const videoController = props.videoPlayerState.videoController;
-  const videoWidth = props.videoPlayerState.videoWidth;
   const videoUrlProps = props.videoPlayerState.videoUrlProps;
 
   const startTime =
@@ -30,8 +30,8 @@ export function YoutubePlayer(props: PropsT) {
   }, [clip.url, startTime, videoController]);
 
   const opts = {
-    height: widthToHeight(videoWidth),
-    width: videoWidth,
+    height: widthToHeight(props.width),
+    width: props.width,
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 0,
