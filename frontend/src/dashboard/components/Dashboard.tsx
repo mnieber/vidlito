@@ -32,6 +32,7 @@ export const Dashboard = observer(
         <div className={cn('Dashboard__LeftSidebar')}>
           <MainButtonsPanel />
           <ClipList
+            className={cn('mt-2')}
             updateUrl={(clip: ClipT) =>
               routeUfns.clip(history.replace)(props.playlist, clip)
             }

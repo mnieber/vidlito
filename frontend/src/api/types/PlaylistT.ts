@@ -1,10 +1,12 @@
 import { ClipT } from 'src/api/types/ClipT';
+import { UserProfileT } from 'src/api/types/UserProfileT';
 
 export type PlaylistT = {
   clipSet: ClipT[];
   description?: string;
   id: string;
   name: string;
+  owner: UserProfileT;
   slug: string;
 };
 

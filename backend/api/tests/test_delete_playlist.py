@@ -1,15 +1,17 @@
 import pytest
+
 from api.tests.graphqltestcase import GraphqlTestCase
 from playlists.models import Playlist
 from playlists.tests.random_data import create_random_playlist
+from user_profiles.tests.random_data import create_random_user_profile
 
 from .create_delete_playlist_mutation import create_delete_playlist_mutation
 
 
 class TestDeletePlaylistMutation(GraphqlTestCase):
     @pytest.fixture()
-    def playlist(self):
-        return create_random_playlist()
+    def playlist(self, user_profile):
+        return create_random_playlist(user_profile_id=user_profile.id)
 
     @pytest.mark.django_db()
     def test_delete_playlist__(

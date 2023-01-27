@@ -1,4 +1,5 @@
 import pytest
+
 from api.tests.graphqltestcase import GraphqlTestCase
 from playlists.tests.random_data import create_random_playlist
 
@@ -7,9 +8,9 @@ from .create_get_playlists_query import create_get_playlists_query
 
 class TestGetPlaylistsQuery(GraphqlTestCase):
     @pytest.fixture()
-    def playlists(self):
-        x1 = create_random_playlist()
-        x2 = create_random_playlist()
+    def playlists(self, user_profile):
+        x1 = create_random_playlist(user_profile_id=user_profile.id)
+        x2 = create_random_playlist(user_profile_id=user_profile.id)
         return [x1, x2]
 
     @pytest.mark.django_db()

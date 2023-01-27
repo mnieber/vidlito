@@ -28,6 +28,7 @@ LOCAL_APPS = [
     "clips.apps.ClipsConfig",
     "playlists.apps.PlaylistsConfig",
     "user_accounts.apps.UserAccountsConfig",
+    "user_profiles.apps.UserProfilesConfig",
     "users.apps.UsersConfig",
 ]
 
@@ -37,8 +38,8 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ADMIN_REORDER = (
     "clips",
     {"app": "playlists", "models": ("playlists.Playlist",)},
-    "users",
     "user_profiles",
+    "users",
     {
         "app": "refresh_token",
         "label": "Django-RTK",

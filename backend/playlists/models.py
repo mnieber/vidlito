@@ -4,6 +4,7 @@ from martor.models import MartorField
 
 from app.models import Entity
 from clips.models import Clip
+from user_profiles.models import UserProfile
 
 
 class Playlist(Entity):
@@ -12,6 +13,7 @@ class Playlist(Entity):
 
     description = MartorField(null=True, blank=True)
     name = models.CharField(max_length=90)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
     slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
     sort_pos = models.IntegerField(default=0)
 

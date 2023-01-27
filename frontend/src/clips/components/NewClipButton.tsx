@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from 'src/app/defaultProps';
-import { mainButton } from 'src/frames/components';
-import { Icon } from 'src/frames/components/Icon';
+import { Icon, mainButton } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import './NewClipButton.scss';
 

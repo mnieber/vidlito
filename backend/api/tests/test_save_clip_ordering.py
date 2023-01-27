@@ -1,16 +1,18 @@
 import pytest
+
 from api.tests.graphqltestcase import GraphqlTestCase
 from clips.tests.random_data import create_random_clip
 from playlists.models import Playlist
 from playlists.tests.random_data import create_random_playlist
+from user_profiles.tests.random_data import create_random_user_profile
 
 from .create_save_clip_ordering_mutation import create_save_clip_ordering_mutation
 
 
 class TestSaveClipOrderingMutation(GraphqlTestCase):
     @pytest.fixture()
-    def playlist(self):
-        return create_random_playlist()
+    def playlist(self, user_profile):
+        return create_random_playlist(user_profile_id=user_profile.id)
 
     @pytest.fixture()
     def clips(self):

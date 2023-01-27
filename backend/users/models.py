@@ -9,6 +9,8 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 
+from user_profiles.models import UserProfile
+
 
 class UserManager(BaseUserManager):
     def create_user(
@@ -28,6 +30,9 @@ class UserManager(BaseUserManager):
         user.terms_version_accepted = terms_version_accepted or settings.TERMS_VERSION
         user.set_password(password)
         user.save()
+
+        user_profile = UserProfile.objects.create(owner=user)
+        user_profile.save()
 
         return user
 

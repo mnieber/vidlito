@@ -24,6 +24,10 @@ export const getPlaylists = (args: ArgsT) => {
             startTimeMs
             url
           }
+          owner {
+            displayName
+            userId
+          }
         }
       }
     }`,

@@ -6,18 +6,24 @@ from playlists.models import Entry, Playlist
 f = faker.Faker()
 
 
-def create_random_playlist():
+def create_random_playlist(
+    owner_id,
+):
     obj, created = Playlist.objects.get_or_create(
         description="# " + f.word(),
         name=f.word(),
         slug=f.word(),
+        owner_id=owner_id,
     )
     return obj
 
 
 def create_random_playlist_form():
     return PlaylistFormT(
-        name="my playlist",
+        description="# " + f.word(),
+        name=f.word(),
+        slug=f.word(),
+        owner_id=f.uuid4(),
     )
 
 
