@@ -2,8 +2,8 @@ import { observer } from 'mobx-react-lite';
 import { isLoaded } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipFormView } from 'src/clips/components/ClipFormView';
+import { ClipHeaderView } from 'src/clips/components/ClipHeaderView';
 import { ClipView } from 'src/clips/components/ClipView';
-import { button, rowSkewer } from 'src/frames/components';
 import UIkit from 'src/frames/styles/uikit';
 import { cn } from 'src/utils/classnames';
 import './EditableClipView.scss';
@@ -25,25 +25,7 @@ export const EditableClipView = observer(
 
     return (
       <div className={cn('EditableClipView', props.className)}>
-        <></>
-        {/* Bar */}
-        <></>
-        <div className={cn('EditableClipView__Bar', 'grid grid-cols-[1fr]')}>
-          <div
-            className={cn('EditableClipView__BarRhs', rowSkewer, 'justify-end')}
-          >
-            <button
-              className={cn(
-                'EditableClipView__BarRhsContents',
-                rowSkewer,
-                button
-              )}
-              onClick={() => props.clipsEditing.enable()}
-            >
-              Edit
-            </button>
-          </div>
-        </div>
+        <ClipHeaderView />
         <></>
         {/* Switch */}
         <></>

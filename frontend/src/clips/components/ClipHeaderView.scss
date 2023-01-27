@@ -1,0 +1,5 @@
+@import "src/frames/styles/font-sizes";
+
+.ClipHeaderView__TitleName {
+    @include text-xl()
+}
