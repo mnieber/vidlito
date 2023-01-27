@@ -5,17 +5,17 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { createKeyDownHandler } from 'src/utils';
 import { createVideoKeyHandlers } from 'src/videos/createVideoKeyHandlers';
-import { VideoPlayerStateT } from 'src/videos/hooks/useVideoPlayerState';
+import { VideoPlayerState } from 'src/videos/hooks/useVideoPlayerState';
 
 export type PropsT = React.PropsWithChildren<{
-  videoPlayerState: VideoPlayerStateT;
+  videoPlayerState: VideoPlayerState;
 }>;
 
 const DefaultProps = {};
 
 export const ClipKeyHandler = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { clip } = props.videoPlayerState;
+    const clip = props.videoPlayerState.clip;
 
     const keyHandlers = {
       'ctrl+shift+space': () =>

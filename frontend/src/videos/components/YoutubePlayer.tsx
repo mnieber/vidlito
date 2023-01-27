@@ -2,17 +2,19 @@ import { runInAction } from 'mobx';
 import * as R from 'ramda';
 import * as React from 'react';
 import YouTube from 'react-youtube';
-import { VideoPlayerStateT } from 'src/videos/hooks/useVideoPlayerState';
+import { VideoPlayerState } from 'src/videos/hooks/useVideoPlayerState';
 import { widthToHeight } from 'src/videos/utils/aspectRatio';
 
 type PropsT = {
-  videoPlayerState: VideoPlayerStateT;
+  videoPlayerState: VideoPlayerState;
 };
 
 export function YoutubePlayer(props: PropsT) {
   const params = props.videoPlayerState.videoUrlProps.params;
-  const { videoController, clip, videoUrlProps, videoWidth } =
-    props.videoPlayerState;
+  const clip = props.videoPlayerState.clip;
+  const videoController = props.videoPlayerState.videoController;
+  const videoWidth = props.videoPlayerState.videoWidth;
+  const videoUrlProps = props.videoPlayerState.videoUrlProps;
 
   const startTime =
     clip && !R.isNil(clip.startTimeMs)

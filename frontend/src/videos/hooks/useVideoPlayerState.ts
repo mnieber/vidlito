@@ -1,4 +1,13 @@
 import urlParser from 'js-video-url-parser';
+import _debounce from 'lodash/debounce';
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from 'mobx';
+import * as R from 'ramda';
 import React from 'react';
 import { ClipT } from 'src/api/types/ClipT';
 import { VideoUrlPropsT } from 'src/api/types/VideoUrlPropsT';
@@ -6,62 +15,79 @@ import { heightToWidth } from 'src/videos/utils/aspectRatio';
 import { VideoController } from 'src/videos/VideoController';
 import { VideoIFrame } from 'src/videos/VideoIFrame';
 
-export type VideoPlayerStateT = {
-  videoController: VideoController;
-  videoWidth: number;
-  videoUrlProps: VideoUrlPropsT;
-  clip: ClipT;
-  isFullVideoWidth: boolean;
-  setIsFullVideoWidth: (isFullVideoWidth: boolean) => void;
-  setPanelWidth: (x: number) => void;
-  setPlayer: (player: any) => void;
-};
-
 type PropsT = {
   parentElmRef: any;
   clip: ClipT;
 };
 
-export const useVideoPlayerState = (props: PropsT): VideoPlayerStateT => {
-  const [panelWidth, setPanelWidth] = React.useState(100);
-  const [isFullVideoWidth, setIsFullVideoWidth] = React.useState(false);
-  const [videoController] = React.useState(() => new VideoController());
-  const [videoIFrame, setVideoIFrame] = React.useState<VideoIFrame | undefined>(
-    undefined
-  );
+export class VideoPlayerState {
+  _parentElmRef: any;
+  _setPanelWidth: Function;
 
-  React.useEffect(() => {
-    return () => {
-      videoIFrame?.unregister();
-    };
-  }, [videoIFrame]);
+  @observable clip: ClipT;
+  @observable videoIFrame?: VideoIFrame;
+  @observable panelWidth: number = 100;
+  @observable videoUrlProps: VideoUrlPropsT;
+  @observable isFullVideoWidth: boolean = false;
+  @observable videoController = new VideoController();
 
-  const setPlayer = (player: any) => {
-    videoController.setPlayer(player);
+  @action setPanelWidth(x: number) {
+    this._setPanelWidth(x);
+  }
+
+  @action setIsFullVideoWidth(x: boolean) {
+    this.isFullVideoWidth = x;
+  }
+
+  @computed get videoWidth() {
+    return _getVideoWidth(this.isFullVideoWidth, this.panelWidth) ?? 100;
+  }
+
+  @computed get ready() {
+    return this.videoController.ready;
+  }
+
+  @action setPlayer(player: any) {
+    this.videoController.setPlayer(player);
     if (player) {
-      if (videoIFrame) {
-        videoIFrame.unregister();
+      if (this.videoIFrame) {
+        this.videoIFrame.unregister();
       }
-      setVideoIFrame(
-        new VideoIFrame(props.parentElmRef.current, player.getIframe())
+      this.videoIFrame = new VideoIFrame(
+        this._parentElmRef.current,
+        player.getIframe()
       );
     }
-  };
+  }
 
-  const videoUrlProps: VideoUrlPropsT = urlParser.parse(
-    props.clip.url!
-  ) as VideoUrlPropsT;
+  destroy() {
+    this.videoIFrame?.unregister();
+  }
 
-  return {
-    videoController,
-    videoUrlProps,
-    videoWidth: _getVideoWidth(isFullVideoWidth, panelWidth),
-    isFullVideoWidth,
-    clip: props.clip,
-    setIsFullVideoWidth,
-    setPanelWidth,
-    setPlayer,
-  };
+  constructor(props: PropsT) {
+    this._setPanelWidth = _debounce((width: number) => {
+      if (!R.isNil(width)) {
+        runInAction(() => {
+          this.panelWidth = width;
+        });
+      }
+    }, 1000);
+
+    this.clip = props.clip;
+    this._parentElmRef = props.parentElmRef;
+    this.videoUrlProps = urlParser.parse(props.clip.url!) as VideoUrlPropsT;
+    makeObservable(this);
+  }
+}
+
+export const useVideoPlayerState = (props: PropsT): VideoPlayerState => {
+  const [videoPlayerState] = React.useState(() => new VideoPlayerState(props));
+
+  React.useEffect(() => {
+    return () => videoPlayerState.destroy();
+  }, [videoPlayerState]);
+
+  return videoPlayerState;
 };
 
 function _getVideoWidth(isFullVideoWidth: boolean, panelWidth: number) {
