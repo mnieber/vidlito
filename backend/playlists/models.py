@@ -1,8 +1,9 @@
-from app.models import Entity
-from clips.models import Clip
 from django.db import models
 from django.utils.text import slugify
 from martor.models import MartorField
+
+from app.models import Entity
+from clips.models import Clip
 from user_profiles.models import UserProfile
 
 
@@ -22,7 +23,7 @@ class Playlist(Entity):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return "Playlist: " + self.name
+        return "Playlist: " + str(self.name)
 
 
 class Entry(Entity):

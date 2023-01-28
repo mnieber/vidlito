@@ -1,5 +1,6 @@
-from app.models import Entity
 from django.db import models
+
+from app.models import Entity
 
 
 class UserProfile(Entity):

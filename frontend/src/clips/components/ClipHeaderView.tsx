@@ -10,8 +10,8 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clip,
-  ...dps.playlist,
   ...dps.clipsEditing,
+  ...dps.playlist,
 };
 
 export const ClipHeaderView = observer(
@@ -25,6 +25,9 @@ export const ClipHeaderView = observer(
         )}
       >
         <div className={cn('ClipHeaderView__Lhs', rowSkewer, 'justify-start')}>
+          {/*             */}
+          {/* 🟩 Title 🟩 */}
+          {/*             */}
           <div className={cn('ClipHeaderView__Title')}>
             <div className={cn('ClipHeaderView__TitleName', rowSkewer)}>
               <div className={cn('ClipHeaderView__PlaylistName')}>
@@ -40,6 +43,9 @@ export const ClipHeaderView = observer(
           </div>
         </div>
         <div className={cn('ClipHeaderView__Rhs', rowSkewer, 'justify-end')}>
+          {/*                  */}
+          {/* 🟩 EditButton 🟩 */}
+          {/*                  */}
           <button
             className={cn(
               'ClipHeaderView__RhsContents',

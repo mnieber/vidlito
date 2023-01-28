@@ -6,6 +6,7 @@ import {
   HandleSubmitArgsT,
   HandleValidateArgsT,
   unflatten,
+  useFormStateContext,
 } from 'react-form-state-context';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import {
@@ -14,15 +15,18 @@ import {
   GlobalError,
   SaveButton,
   SlugField,
+  TextAreaField,
   TextField,
   UpdateSlugButton,
 } from 'src/forms/components';
 import { colBanner, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { createUUID } from 'src/utils/ids';
+import { VideoController } from 'src/videos/VideoController';
 import './ClipFormView.scss';
 
 export type PropsT = {
+  videoController: VideoController;
   className?: any;
 };
 
@@ -36,11 +40,11 @@ export const ClipFormView = observer(
     const saveClip = props.clipsEditing.save.bind(props.clipsEditing);
     const initialValues = {
       'clipForm.description': props.clip.description ?? null,
-      'clipForm.endTimeMs': props.clip.endTimeMs ?? null,
+      'clipForm.endTimeS': _toSeconds(props.clip.endTimeMs) ?? null,
       'clipForm.id': props.clip.id ?? createUUID().hex,
       'clipForm.name': props.clip.name ?? null,
       'clipForm.slug': props.clip.slug ?? null,
-      'clipForm.startTimeMs': props.clip.startTimeMs ?? null,
+      'clipForm.startTimeS': _toSeconds(props.clip.startTimeMs) ?? null,
       'clipForm.url': props.clip.url ?? null,
     };
     const initialErrors = {};
@@ -50,9 +54,13 @@ export const ClipFormView = observer(
       }
     };
     const handleSubmit = ({ formState, values }: HandleSubmitArgsT) => {
-      return saveClip(unflatten(values)).then(() =>
-        formState.reset(initialValues, initialErrors)
-      );
+      return saveClip(
+        unflatten({
+          ...values,
+          'clipForm.startTimeMs': Math.trunc(values.clipForm.startTimeS * 1000),
+          'clipForm.endTimeMs': Math.trunc(values.clipForm.endTimeS * 1000),
+        })
+      ).then(() => formState.reset(initialValues, initialErrors));
     };
     const handleCancel = ({ formState }: HandleCancelArgsT) => {
       props.clipsEditing.cancel();
@@ -68,7 +76,7 @@ export const ClipFormView = observer(
           handleCancel={handleCancel}
         >
           <GlobalError />
-          <Field fieldName="clipForm.name" label="ClipForm name">
+          <Field fieldName="clipForm.name" label="Name">
             <TextField controlled={true} />
           </Field>
           <Field
@@ -80,17 +88,44 @@ export const ClipFormView = observer(
           >
             <SlugField />
           </Field>
-          <Field fieldName="clipForm.url" label="ClipForm url">
+          <Field fieldName="clipForm.url" label="Url">
             <TextField controlled={true} />
           </Field>
-          <Field fieldName="clipForm.startTimeMs" label="ClipForm startTimeMs">
-            <TextField controlled={true} />
-          </Field>
-          <Field fieldName="clipForm.endTimeMs" label="ClipForm endTimeMs">
-            <TextField controlled={true} />
-          </Field>
-          <Field fieldName="clipForm.description" label="ClipForm description">
-            <TextField controlled={true} />
+          <div className={cn(rowSkewer)}>
+            <Field
+              className={cn('mr-2')}
+              fieldName="clipForm.startTimeS"
+              label="Start Time"
+              buttons={[
+                <UpdateTimeButton
+                  key="1"
+                  videoController={props.videoController}
+                  fieldName="clipForm.startTimeS"
+                />,
+              ]}
+            >
+              <TextField controlled={true} />
+            </Field>
+            <Field
+              fieldName="clipForm.endTimeS"
+              label="End Time"
+              buttons={[
+                <UpdateTimeButton
+                  key="1"
+                  videoController={props.videoController}
+                  fieldName="clipForm.endTimeS"
+                />,
+              ]}
+            >
+              <TextField controlled={true} />
+            </Field>
+          </div>
+          <Field
+            fieldName="clipForm.description"
+            label="Description"
+            tabOnEnter={false}
+          >
+            <TextAreaField controlled={true} />
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>
             <CancelButton label="Cancel" disabled={false} />
@@ -101,3 +136,26 @@ export const ClipFormView = observer(
     );
   }, DefaultProps)
 );
+
+const UpdateTimeButton = (props: {
+  videoController: VideoController;
+  fieldName: string;
+}) => {
+  const formState = useFormStateContext();
+  const timeStamp =
+    Math.round(1000 * props.videoController.getPlayer().getCurrentTime()) /
+    1000;
+  return (
+    <button
+      onClick={() => {
+        formState.setValue(props.fieldName, timeStamp);
+      }}
+    >
+      Set
+    </button>
+  );
+};
+
+const _toSeconds = (ms: number | undefined) => {
+  return ms ? ms / 1000 : null;
+};

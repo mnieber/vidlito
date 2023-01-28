@@ -1,7 +1,8 @@
-from app.models import Entity
 from django.db import models
 from django.utils.text import slugify
 from martor.models import MartorField
+
+from app.models import Entity
 
 
 class Clip(Entity):
@@ -18,4 +19,4 @@ class Clip(Entity):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return "Clip: " + self.name
+        return "Clip: " + str(self.name)
