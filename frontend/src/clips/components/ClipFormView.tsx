@@ -57,8 +57,12 @@ export const ClipFormView = observer(
       return saveClip(
         unflatten({
           ...values,
-          'clipForm.startTimeMs': Math.trunc(values.clipForm.startTimeS * 1000),
-          'clipForm.endTimeMs': Math.trunc(values.clipForm.endTimeS * 1000),
+          'clipForm.startTimeMs': Math.trunc(
+            values['clipForm.startTimeS'] * 1000
+          ),
+          'clipForm.endTimeMs': Math.trunc(values['clipForm.endTimeS'] * 1000),
+          'clipForm.endTimeS': undefined,
+          'clipForm.startTimeS': undefined,
         })
       ).then(() => formState.reset(initialValues, initialErrors));
     };
@@ -81,7 +85,7 @@ export const ClipFormView = observer(
           </Field>
           <Field
             fieldName="clipForm.slug"
-            label="ClipForm slug"
+            label="Slug"
             buttons={[
               <UpdateSlugButton key="1" relatedFieldName="clipForm.name" />,
             ]}
@@ -99,6 +103,12 @@ export const ClipFormView = observer(
               buttons={[
                 <UpdateTimeButton
                   key="1"
+                  className={cn('mr-2')}
+                  videoController={props.videoController}
+                  fieldName="clipForm.startTimeS"
+                />,
+                <GoToTimeButton
+                  key="2"
                   videoController={props.videoController}
                   fieldName="clipForm.startTimeS"
                 />,
@@ -112,6 +122,12 @@ export const ClipFormView = observer(
               buttons={[
                 <UpdateTimeButton
                   key="1"
+                  className={cn('mr-2')}
+                  videoController={props.videoController}
+                  fieldName="clipForm.endTimeS"
+                />,
+                <GoToTimeButton
+                  key="2"
                   videoController={props.videoController}
                   fieldName="clipForm.endTimeS"
                 />,
@@ -140,6 +156,7 @@ export const ClipFormView = observer(
 const UpdateTimeButton = (props: {
   videoController: VideoController;
   fieldName: string;
+  className?: any;
 }) => {
   const formState = useFormStateContext();
   const timeStamp =
@@ -147,11 +164,33 @@ const UpdateTimeButton = (props: {
     1000;
   return (
     <button
+      className={props.className}
       onClick={() => {
         formState.setValue(props.fieldName, timeStamp);
       }}
     >
       Set
+    </button>
+  );
+};
+
+const GoToTimeButton = (props: {
+  videoController: VideoController;
+  fieldName: string;
+  className?: any;
+}) => {
+  const formState = useFormStateContext();
+  return (
+    <button
+      className={props.className}
+      onClick={() => {
+        const timestamp = formState.getValue(props.fieldName);
+        if (!R.isNil(timestamp)) {
+          props.videoController.getPlayer().seekTo(timestamp);
+        }
+      }}
+    >
+      Go
     </button>
   );
 };

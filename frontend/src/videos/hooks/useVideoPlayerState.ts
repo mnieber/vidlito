@@ -1,28 +1,33 @@
 import urlParser from 'js-video-url-parser';
 import { action, computed, makeObservable, observable } from 'mobx';
 import React from 'react';
-import { ClipT } from 'src/api/types/ClipT';
 import { VideoUrlPropsT } from 'src/api/types/VideoUrlPropsT';
 import { VideoController } from 'src/videos/VideoController';
 import { VideoIFrame } from 'src/videos/VideoIFrame';
 
 type PropsT = {
   parentElmRef: any;
-  clip: ClipT;
+  url: string;
+  startTimeMs: number;
 };
 
 export class VideoPlayerState {
   _parentElmRef: any;
 
-  @observable clip: ClipT;
+  @observable url: string;
+  @observable startTimeMs: number;
   @observable videoIFrame?: VideoIFrame;
   @observable panelWidth: number = 100;
-  @observable videoUrlProps: VideoUrlPropsT;
   @observable isFullVideoWidth: boolean = false;
   @observable videoController = new VideoController();
 
   @action setPanelWidth(x: number) {
     this.panelWidth = x;
+  }
+
+  @action setUrl(url: string, startTimeMs: number) {
+    this.url = url;
+    this.startTimeMs = startTimeMs;
   }
 
   @action setIsFullVideoWidth(x: boolean) {
@@ -31,6 +36,10 @@ export class VideoPlayerState {
 
   @computed get ready() {
     return this.videoController.ready;
+  }
+
+  @computed get videoUrlProps(): VideoUrlPropsT {
+    return urlParser.parse(this.url!) as VideoUrlPropsT;
   }
 
   @action setPlayer(player: any) {
@@ -51,15 +60,19 @@ export class VideoPlayerState {
   }
 
   constructor(props: PropsT) {
-    this.clip = props.clip;
+    this.url = props.url;
+    this.startTimeMs = props.startTimeMs;
     this._parentElmRef = props.parentElmRef;
-    this.videoUrlProps = urlParser.parse(props.clip.url!) as VideoUrlPropsT;
     makeObservable(this);
   }
 }
 
 export const useVideoPlayerState = (props: PropsT): VideoPlayerState => {
   const [videoPlayerState] = React.useState(() => new VideoPlayerState(props));
+
+  React.useEffect(() => {
+    videoPlayerState.setUrl(props.url, props.startTimeMs);
+  }, [videoPlayerState, props.url, props.startTimeMs]);
 
   React.useEffect(() => {
     return () => videoPlayerState.destroy();

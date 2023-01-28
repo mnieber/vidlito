@@ -34,12 +34,13 @@ export const EditableClipViewInner = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const parentElmRef = React.useRef<HTMLDivElement>(null);
     const videoPlayerState = useVideoPlayerState({
-      clip: props.clip,
+      url: props.clip.url!,
+      startTimeMs: props.clip.startTimeMs ?? 0,
       parentElmRef,
     });
 
     return (
-      <ClipKeyHandler videoPlayerState={videoPlayerState}>
+      <ClipKeyHandler clip={props.clip} videoPlayerState={videoPlayerState}>
         <div
           ref={parentElmRef}
           tabIndex={123}

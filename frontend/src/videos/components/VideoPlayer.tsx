@@ -14,7 +14,6 @@ export function VideoPlayer(props: PropsT) {
     props.videoPlayerState.videoUrlProps?.provider === 'youtube' ? (
       <div className={props.className}>
         <YoutubePlayer
-          key={props.videoPlayerState.clip.url!} // yes, we need this
           videoPlayerState={props.videoPlayerState}
           width={props.width}
         />

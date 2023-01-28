@@ -17,46 +17,32 @@ const DefaultProps = {
 export const ClipHeaderView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
-      <div
-        className={cn(
-          'ClipHeaderView',
-          'grid grid-cols-[1fr,1fr]',
-          props.className
-        )}
-      >
-        <div className={cn('ClipHeaderView__Lhs', rowSkewer, 'justify-start')}>
-          {/*             */}
-          {/* 🟩 Title 🟩 */}
-          {/*             */}
-          <div className={cn('ClipHeaderView__Title')}>
-            <div className={cn('ClipHeaderView__TitleName', rowSkewer)}>
-              <div className={cn('ClipHeaderView__PlaylistName')}>
-                {props.playlist.name}
-              </div>
-              <div className={cn('ClipHeaderView__ClipName', 'ml-2')}>
-                {props.clip.name}
-              </div>
+      <div className={cn('ClipHeaderView', rowSkewer)}>
+        {/*             */}
+        {/* 🟩 Title 🟩 */}
+        {/*             */}
+        <div className={cn('ClipHeaderView__Title')}>
+          <div className={cn('ClipHeaderView__TitleName', rowSkewer)}>
+            <div className={cn('ClipHeaderView__PlaylistName')}>
+              {props.playlist.name}
             </div>
-            <div className={cn('ClipHeaderView__TitleAuthor')}>
-              By: {props.playlist.owner.displayName}
+            <div className={cn('ClipHeaderView__ClipName', 'ml-2')}>
+              {props.clip.name}
             </div>
+            {/*                  */}
+            {/* 🟩 EditButton 🟩 */}
+            {/*                  */}
+            <button
+              className={cn('ClipHeaderView__RhsContents', mainButton, 'ml-2')}
+              onClick={() => props.clipsEditing.enable()}
+            >
+              <Icon name="pencil" />
+              Edit
+            </button>
           </div>
-        </div>
-        <div className={cn('ClipHeaderView__Rhs', rowSkewer, 'justify-end')}>
-          {/*                  */}
-          {/* 🟩 EditButton 🟩 */}
-          {/*                  */}
-          <button
-            className={cn(
-              'ClipHeaderView__RhsContents',
-              mainButton,
-              'self-start'
-            )}
-            onClick={() => props.clipsEditing.enable()}
-          >
-            <Icon name="pencil" />
-            Edit
-          </button>
+          <div className={cn('ClipHeaderView__TitleAuthor')}>
+            By: {props.playlist.owner.displayName}
+          </div>
         </div>
       </div>
     );

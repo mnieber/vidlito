@@ -12,22 +12,20 @@ type PropsT = {
 
 export function YoutubePlayer(props: PropsT) {
   const params = props.videoPlayerState.videoUrlProps.params;
-  const clip = props.videoPlayerState.clip;
   const videoController = props.videoPlayerState.videoController;
   const videoUrlProps = props.videoPlayerState.videoUrlProps;
 
-  const startTime =
-    clip && !R.isNil(clip.startTimeMs)
-      ? (clip.startTimeMs || 0) / 1000
-      : params && !R.isNil(params.start)
-      ? params.start
-      : null;
+  const startTime = !R.isNil(props.videoPlayerState.startTimeMs)
+    ? (props.videoPlayerState.startTimeMs || 0) / 1000
+    : params && !R.isNil(params.start)
+    ? params.start
+    : null;
 
   React.useEffect(() => {
-    if (clip.url) {
+    if (props.videoPlayerState.url) {
       videoController.pauseAt(startTime || 0);
     }
-  }, [clip.url, startTime, videoController]);
+  }, [props.videoPlayerState.url, startTime, videoController]);
 
   const opts = {
     height: widthToHeight(props.width),
