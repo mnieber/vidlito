@@ -18,6 +18,7 @@ const DefaultProps = {};
 
 export const VideoPlayerPanel = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const [isResizing, setIsResizing] = React.useState(false);
     const [panelWidth, setPanelWidth] = React.useState<number | undefined>(
       undefined
     );
@@ -27,6 +28,7 @@ export const VideoPlayerPanel = observer(
         _debounce((width?: number) => {
           if (!R.isNil(width)) {
             setPanelWidth(width);
+            setIsResizing(false);
           }
         }, 200),
       [setPanelWidth]
@@ -42,20 +44,31 @@ export const VideoPlayerPanel = observer(
     const placeholder = (
       <div
         className={cn('VideoPlayerPanel__Placeholder', 'bg-blue-200')}
-        style={{ width: width, height: height }}
+        style={{ height: ready ? 0 : height }}
       >
-        Placeholder
+        <ReactResizeDetector
+          handleWidth
+          onResize={(width: number | undefined) => {
+            setIsResizing(true);
+            handleResize(width);
+          }}
+        />
       </div>
     );
 
     return (
       <div className={cn('VideoPlayerPanel', props.className)}>
-        <ReactResizeDetector handleWidth onResize={handleResize} />
-        {!ready && placeholder}
+        {placeholder}
         <div className={cn({ hidden: !ready })} style={{ height: height }}>
           <VideoPlayer
             videoPlayerState={props.videoPlayerState}
-            width={width}
+            // The video image is slightly smaller than the container so
+            // that the ResizeDetector can detect the resize towards a smaller image.
+            width={width - 1}
+            // During a resize we make the video image absolute so that it doesn't
+            // affect the layout of the container. Without this trick, the container
+            // cannot be made smaller than the video image.
+            className={cn({ absolute: isResizing })}
           />
         </div>
       </div>

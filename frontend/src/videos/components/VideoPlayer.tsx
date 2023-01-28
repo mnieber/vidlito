@@ -6,12 +6,13 @@ import { VideoPlayerState } from 'src/videos/hooks/useVideoPlayerState';
 type PropsT = {
   videoPlayerState: VideoPlayerState;
   width: number;
+  className?: any;
 };
 
 export function VideoPlayer(props: PropsT) {
   const internalPlayer =
     props.videoPlayerState.videoUrlProps?.provider === 'youtube' ? (
-      <div className="absolute">
+      <div className={props.className}>
         <YoutubePlayer
           key={props.videoPlayerState.clip.url!} // yes, we need this
           videoPlayerState={props.videoPlayerState}
