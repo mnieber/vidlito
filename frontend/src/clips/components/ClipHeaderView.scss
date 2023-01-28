@@ -1,5 +1,7 @@
 @import "src/frames/styles/font-sizes";
 
 .ClipHeaderView__TitleName {
-    @include text-xl()
+    @apply font-bold;
+
+    @include title-l()
 }

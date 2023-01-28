@@ -25,7 +25,7 @@ export const EditableClipView = observer(
 
     return (
       <div className={cn('EditableClipView', props.className)}>
-        <ClipHeaderView />
+        <ClipHeaderView className={cn('mb-2')} />
         <></>
         {/* Switch */}
         <></>

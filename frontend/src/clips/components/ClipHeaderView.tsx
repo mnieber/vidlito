@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { mainButton, rowSkewer } from 'src/frames/components';
+import { Icon, mainButton, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import './ClipHeaderView.scss';
 
@@ -48,6 +48,7 @@ export const ClipHeaderView = observer(
             )}
             onClick={() => props.clipsEditing.enable()}
           >
+            <Icon name="pencil" />
             Edit
           </button>
         </div>

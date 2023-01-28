@@ -11,6 +11,7 @@ import { getVideoWidth, widthToHeight } from 'src/videos/utils/aspectRatio';
 
 type PropsT = {
   videoPlayerState: VideoPlayerState;
+  className?: any;
 };
 
 const DefaultProps = {};
@@ -48,7 +49,7 @@ export const VideoPlayerPanel = observer(
     );
 
     return (
-      <div className={cn('VideoPlayerPanel')}>
+      <div className={cn('VideoPlayerPanel', props.className)}>
         <ReactResizeDetector handleWidth onResize={handleResize} />
         {!ready && placeholder}
         <div className={cn({ hidden: !ready })} style={{ height: height }}>
