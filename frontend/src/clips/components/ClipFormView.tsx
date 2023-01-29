@@ -159,8 +159,9 @@ const UpdateTimeButton = (props: {
 }) => {
   const formState = useFormStateContext();
   const timeStamp =
-    Math.round(1000 * props.videoController.getPlayer().getCurrentTime()) /
-    1000;
+    Math.round(
+      1000 * props.videoController.getPlayer()?.getCurrentTime() ?? 0
+    ) / 1000;
   return (
     <button
       className={props.className}
@@ -185,7 +186,7 @@ const GoToTimeButton = (props: {
       onClick={() => {
         const timestamp = formState.getValue(props.fieldName);
         if (!R.isNil(timestamp)) {
-          props.videoController.getPlayer().seekTo(timestamp);
+          props.videoController.getPlayer()?.seekTo(timestamp);
         }
       }}
     >
