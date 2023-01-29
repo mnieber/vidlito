@@ -22,11 +22,12 @@ import {
 import { colBanner, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { createUUID } from 'src/utils/ids';
+import { VideoPlayerState } from 'src/videos/hooks/useVideoPlayerState';
 import { VideoController } from 'src/videos/VideoController';
 import './ClipFormView.scss';
 
 export type PropsT = {
-  videoController: VideoController;
+  videoPlayerState: VideoPlayerState;
   className?: any;
 };
 
@@ -80,9 +81,7 @@ export const ClipFormView = observer(
           handleCancel={handleCancel}
         >
           <GlobalError />
-          <Field fieldName="clipForm.url" label="Url">
-            <TextField controlled={true} />
-          </Field>
+          <UrlField videoPlayerState={props.videoPlayerState} />
           <div className={cn(rowSkewer)}>
             <Field
               className={cn('mr-2')}
@@ -92,12 +91,12 @@ export const ClipFormView = observer(
                 <UpdateTimeButton
                   key="1"
                   className={cn('mr-2')}
-                  videoController={props.videoController}
+                  videoController={props.videoPlayerState.videoController}
                   fieldName="clipForm.startTimeS"
                 />,
                 <GoToTimeButton
                   key="2"
-                  videoController={props.videoController}
+                  videoController={props.videoPlayerState.videoController}
                   fieldName="clipForm.startTimeS"
                 />,
               ]}
@@ -111,12 +110,12 @@ export const ClipFormView = observer(
                 <UpdateTimeButton
                   key="1"
                   className={cn('mr-2')}
-                  videoController={props.videoController}
+                  videoController={props.videoPlayerState.videoController}
                   fieldName="clipForm.endTimeS"
                 />,
                 <GoToTimeButton
                   key="2"
-                  videoController={props.videoController}
+                  videoController={props.videoPlayerState.videoController}
                   fieldName="clipForm.endTimeS"
                 />,
               ]}
@@ -197,4 +196,18 @@ const GoToTimeButton = (props: {
 
 const _toSeconds = (ms: number | undefined) => {
   return ms ? ms / 1000 : null;
+};
+
+export const UrlField = (props: { videoPlayerState: VideoPlayerState }) => {
+  const formState = useFormStateContext();
+  return (
+    <Field fieldName="clipForm.url" label="Url">
+      <TextField
+        controlled={true}
+        onChange={() => {
+          props.videoPlayerState.setUrl(formState.values['clipForm.url'], 0);
+        }}
+      />
+    </Field>
+  );
 };

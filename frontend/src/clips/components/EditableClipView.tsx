@@ -54,7 +54,7 @@ export const EditableClipViewInner = observer(
           {/* 🟩 Switch 🟩 */}
           {/*              */}
           {props.clipsEditing.isEditing && (
-            <ClipFormView videoController={videoPlayerState.videoController} />
+            <ClipFormView videoPlayerState={videoPlayerState} />
           )}
           {!props.clipsEditing.isEditing && <ClipView />}
         </div>
