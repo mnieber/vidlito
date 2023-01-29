@@ -7,7 +7,7 @@ import { Effect } from 'src/utils/components';
 
 type ArgsT = {
   playlistsSelection: Selection;
-  playlists: PlaylistT[];
+  playlistId?: string;
   playlistSlug: string;
 };
 
@@ -25,16 +25,15 @@ export const SelectPlaylistEffect = observer(
         getArgs={(params) => {
           return {
             playlistsSelection: props.playlistsSelection,
-            playlists: props.playlists,
+            playlistId: R.find(
+              (x: PlaylistT) => x.slug === params.playlistSlug
+            )(props.playlists)?.id,
             playlistSlug: params.playlistSlug,
           };
         }}
         f={(args: ArgsT) => {
-          const playlistId = R.find(
-            (x: PlaylistT) => x.slug === args.playlistSlug
-          )(args.playlists)?.id;
-          if (playlistId) {
-            args.playlistsSelection.selectItem({ itemId: playlistId });
+          if (args.playlistId) {
+            args.playlistsSelection.selectItem({ itemId: args.playlistId });
           }
         }}
       />
