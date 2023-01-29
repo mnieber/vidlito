@@ -7,8 +7,7 @@ import { Effect } from 'src/utils/components';
 
 type ArgsT = {
   clipsSelection: Selection;
-  clips: ClipT[];
-  clipSlug: string;
+  clipId?: string;
 };
 
 type PropsT = {};
@@ -25,16 +24,14 @@ export const SelectClipEffect = observer(
         getArgs={(params) => {
           return {
             clipsSelection: props.clipsSelection,
-            clips: props.clips,
-            clipSlug: params.clipSlug,
+            clipId: R.find((x: ClipT) => x.slug === params.clipSlug)(
+              props.clips
+            )?.id,
           };
         }}
         f={(args: ArgsT) => {
-          const clipId = R.find((x: ClipT) => x.slug === args.clipSlug)(
-            args.clips
-          )?.id;
-          if (clipId) {
-            args.clipsSelection.selectItem({ itemId: clipId });
+          if (args.clipId) {
+            args.clipsSelection.selectItem({ itemId: args.clipId });
           }
         }}
       />

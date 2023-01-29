@@ -41,7 +41,7 @@ export const ClipFormView = observer(
     const initialValues = {
       'clipForm.description': props.clip.description ?? null,
       'clipForm.endTimeS': _toSeconds(props.clip.endTimeMs) ?? null,
-      'clipForm.id': props.clip.id ?? createUUID().hex,
+      'clipForm.id': props.clip.id ?? createUUID(),
       'clipForm.name': props.clip.name ?? null,
       'clipForm.slug': props.clip.slug ?? null,
       'clipForm.startTimeS': _toSeconds(props.clip.startTimeMs) ?? null,
@@ -80,18 +80,6 @@ export const ClipFormView = observer(
           handleCancel={handleCancel}
         >
           <GlobalError />
-          <Field fieldName="clipForm.name" label="Name">
-            <TextField controlled={true} />
-          </Field>
-          <Field
-            fieldName="clipForm.slug"
-            label="Slug"
-            buttons={[
-              <UpdateSlugButton key="1" relatedFieldName="clipForm.name" />,
-            ]}
-          >
-            <SlugField />
-          </Field>
           <Field fieldName="clipForm.url" label="Url">
             <TextField controlled={true} />
           </Field>
@@ -136,6 +124,18 @@ export const ClipFormView = observer(
               <TextField controlled={true} />
             </Field>
           </div>
+          <Field fieldName="clipForm.name" label="Name">
+            <TextField controlled={true} />
+          </Field>
+          <Field
+            fieldName="clipForm.slug"
+            label="Slug"
+            buttons={[
+              <UpdateSlugButton key="1" relatedFieldName="clipForm.name" />,
+            ]}
+          >
+            <SlugField />
+          </Field>
           <Field
             fieldName="clipForm.description"
             label="Description"

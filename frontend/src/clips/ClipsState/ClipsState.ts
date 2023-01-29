@@ -8,6 +8,7 @@ import { Editing } from 'skandha-facets/Editing';
 import { Filtering } from 'skandha-facets/Filtering';
 import { Highlight } from 'skandha-facets/Highlight';
 import { Insertion } from 'skandha-facets/Insertion';
+import * as FacetPolicies from 'skandha-facets/policies';
 import { Selection } from 'skandha-facets/Selection';
 import { registerCtr } from 'skandha-mobx';
 import { ClipT } from 'src/api/types/ClipT';
@@ -19,6 +20,8 @@ export type PropsT = {
   deleteClips: (ids: string[]) => Promise<any>;
   saveClip: (values: ObjT) => Promise<any>;
   saveClipOrdering: (clips: ClipT[]) => Promise<any>;
+  createClip: (values: ObjT) => ClipT;
+  updateUrl: (clip: ClipT) => void;
 };
 
 export class ClipsState {
@@ -41,18 +44,8 @@ export class ClipsState {
     mapDataToProps(
       pmap(
         //
-        [this.clips.filtering, 'inputItems'],
-        () => this.clips.data.clips
-      ),
-      pmap(
-        //
         [this.clips.insertion, 'inputItems'],
         () => this.clips.data.clips
-      ),
-      pmap(
-        //
-        [this.clips.data, 'clipsDisplay'],
-        () => this.clips.filtering.filteredItems
       ),
       pmap(
         //
@@ -68,6 +61,25 @@ export class ClipsState {
         //
         [this.clips.highlight, 'item'],
         () => getClipById(this.clips.highlight.id)
+      ),
+      pmap(
+        //
+        [this.clips.filtering, 'inputItems'],
+        () => this.clips.data.clips
+      ),
+      pmap(
+        //
+        [this.clips.insertion, 'preview'],
+        () =>
+          FacetPolicies.insertionPreviewUsesDragSources(
+            [FacetPolicies.DragSourceFromNewItem],
+            this.clips
+          )(this.clips.insertion.inputItems)
+      ),
+      pmap(
+        //
+        [this.clips.data, 'clipsDisplay'],
+        () => this.clips.insertion.preview
       )
     );
   }

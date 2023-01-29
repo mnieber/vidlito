@@ -3,6 +3,7 @@ import {
   addCleanUpFunctionToCtr,
   cleanUpCtr,
 } from 'react-default-props-context';
+import { AdditionCbs } from 'skandha-facets/Addition';
 import { DeletionCbs } from 'skandha-facets/Deletion';
 import { EditingCbs } from 'skandha-facets/Editing';
 import { HighlightCbs } from 'skandha-facets/Highlight';
@@ -15,6 +16,30 @@ import { ClipsState, PropsT } from 'src/clips/ClipsState';
 export const initClips = (state: ClipsState, props: PropsT) => {
   const ctr = state.clips;
   addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
+
+  setCallbackMap(ctr.addition, {
+    add: {
+      storeLocation() {
+        ctr.data.previousClip = ctr.highlight.item;
+        FacetPolicies.newItemsAreAddedBelowTheHighlight(ctr.addition);
+      },
+      createItem(this: AdditionCbs<ClipT>['add']) {
+        return props.createClip(this.values);
+      },
+      highlightNewItem() {
+        ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
+        props.updateUrl(ctr.addition.item!);
+        FacetPolicies.editingSetEnabled(ctr.addition);
+      },
+    },
+    cancel: {
+      restoreLocation() {
+        FacetPolicies.editingSetDisabled(ctr.addition);
+        props.updateUrl(ctr.data.previousClip!);
+        ctr.data.previousClip = undefined;
+      },
+    },
+  } as AdditionCbs<ClipT>);
 
   setCallbackMap(ctr.deletion, {
     delete: {
@@ -39,7 +64,7 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       },
     },
     cancel: {
-      enter() {
+      exit() {
         FacetPolicies.newItemsAreCancelledOnEditingCancel(ctr.editing);
       },
     },

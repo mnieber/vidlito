@@ -13,7 +13,8 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { ClipsState } from 'src/clips/ClipsState';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
-import { getIds, lookUp } from 'src/utils/ids';
+import { useRouteUfns } from 'src/routes/hooks/useRoutes';
+import { createUUID, getIds, lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 import { ObjT } from 'src/utils/types';
 
@@ -25,6 +26,7 @@ const DefaultProps = {
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const { routeUfns, history } = useRouteUfns();
     const deleteClips = useDeleteClips();
     const saveClip = useSaveClip();
     const saveClipOrdering = useSaveClipOrdering();
@@ -45,6 +47,19 @@ export const ClipsStateProvider = observer(
               playlistId: props.playlist.id,
               clipIds: getIds(clips),
             });
+          },
+          createClip: (values: ObjT) => {
+            const clip = {
+              id: createUUID(),
+              name: 'New clip',
+              slug: 'new-clip',
+            } as ClipT;
+            initRS(clip);
+            return clip;
+          },
+          updateUrl: (clip: ClipT) => {
+            const replaceFn = routeUfns.clip(history.replace);
+            replaceFn(props.playlist, clip);
           },
         })
     );
