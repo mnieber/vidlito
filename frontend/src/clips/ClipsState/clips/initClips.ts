@@ -28,14 +28,14 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
-        props.updateUrl(ctr.addition.item!);
+        props.updateClipUrl(ctr.addition.item!);
         FacetPolicies.editingSetEnabled(ctr.addition);
       },
     },
     cancel: {
       restoreLocation() {
         FacetPolicies.editingSetDisabled(ctr.addition);
-        props.updateUrl(ctr.data.previousClip!);
+        props.updateClipUrl(ctr.data.previousClip!);
         ctr.data.previousClip = undefined;
       },
     },

@@ -37,7 +37,7 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
       },
     },
     cancel: {
-      enter() {
+      exit() {
         FacetPolicies.newItemsAreCancelledOnEditingCancel(ctr.editing);
       },
     },

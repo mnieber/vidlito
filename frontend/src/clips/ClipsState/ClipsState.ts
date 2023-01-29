@@ -5,7 +5,6 @@ import { Addition } from 'skandha-facets/Addition';
 import { Deletion } from 'skandha-facets/Deletion';
 import { DragAndDrop } from 'skandha-facets/DragAndDrop';
 import { Editing } from 'skandha-facets/Editing';
-import { Filtering } from 'skandha-facets/Filtering';
 import { Highlight } from 'skandha-facets/Highlight';
 import { Insertion } from 'skandha-facets/Insertion';
 import * as FacetPolicies from 'skandha-facets/policies';
@@ -21,7 +20,7 @@ export type PropsT = {
   saveClip: (values: ObjT) => Promise<any>;
   saveClipOrdering: (clips: ClipT[]) => Promise<any>;
   createClip: (values: ObjT) => ClipT;
-  updateUrl: (clip: ClipT) => void;
+  updateClipUrl: (clip: ClipT) => void;
 };
 
 export class ClipsState {
@@ -31,7 +30,6 @@ export class ClipsState {
     deletion: new Deletion(),
     dragAndDrop: new DragAndDrop(),
     editing: new Editing(),
-    filtering: new Filtering<ClipT>(),
     highlight: new Highlight<ClipT>(),
     insertion: new Insertion<ClipT>(),
     selection: new Selection<ClipT>(),
@@ -42,11 +40,6 @@ export class ClipsState {
       x ? this.clips.data.clipById[x] : undefined;
 
     mapDataToProps(
-      pmap(
-        //
-        [this.clips.insertion, 'inputItems'],
-        () => this.clips.data.clips
-      ),
       pmap(
         //
         [this.clips.selection, 'selectableIds'],
@@ -64,7 +57,7 @@ export class ClipsState {
       ),
       pmap(
         //
-        [this.clips.filtering, 'inputItems'],
+        [this.clips.insertion, 'inputItems'],
         () => this.clips.data.clips
       ),
       pmap(

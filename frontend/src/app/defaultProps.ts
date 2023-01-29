@@ -3,7 +3,6 @@ import { Addition } from 'skandha-facets/Addition';
 import { Deletion } from 'skandha-facets/Deletion';
 import { DragAndDrop } from 'skandha-facets/DragAndDrop';
 import { Editing } from 'skandha-facets/Editing';
-import { Filtering } from 'skandha-facets/Filtering';
 import { Highlight } from 'skandha-facets/Highlight';
 import { Insertion } from 'skandha-facets/Insertion';
 import { Selection } from 'skandha-facets/Selection';
@@ -43,9 +42,6 @@ const dpsClips = {
   },
   clipsEditing: {
     clipsEditing: stub as Editing,
-  },
-  clipsFiltering: {
-    clipsFiltering: stub as Filtering,
   },
   clipsHighlight: {
     clipsHighlight: stub as Highlight,

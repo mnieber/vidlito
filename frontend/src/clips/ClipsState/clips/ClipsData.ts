@@ -6,8 +6,8 @@ export class ClipsData {
   static className = () => 'ClipsData';
 
   @input clips: Array<ClipT> = [];
-  @data previousClip?: ClipT;
   @output clipsDisplay: Array<ClipT> = [];
+  @data previousClip?: ClipT;
 
   @output get clipById(): ClipByIdT {
     return listToItemById(this.clipsDisplay);

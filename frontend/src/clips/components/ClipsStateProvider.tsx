@@ -57,7 +57,7 @@ export const ClipsStateProvider = observer(
             initRS(clip);
             return clip;
           },
-          updateUrl: (clip: ClipT) => {
+          updateClipUrl: (clip: ClipT) => {
             const replaceFn = routeUfns.clip(history.replace);
             replaceFn(props.playlist, clip);
           },
@@ -97,7 +97,6 @@ export const ClipsStateProvider = observer(
         clipsDeletion: () => clipsState.clips.deletion,
         clipsDragAndDrop: () => clipsState.clips.dragAndDrop,
         clipsEditing: () => clipsState.clips.editing,
-        clipsFiltering: () => clipsState.clips.filtering,
         clipsHighlight: () => clipsState.clips.highlight,
         clipsSelection: () => clipsState.clips.selection,
       };

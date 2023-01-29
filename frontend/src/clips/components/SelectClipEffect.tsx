@@ -11,7 +11,7 @@ type ArgsT = {
   clipsSelection: Selection;
   playlist: PlaylistT;
   clipId?: string;
-  clipSlug?: string;
+  clipSlug: string;
 };
 
 type PropsT = {};
