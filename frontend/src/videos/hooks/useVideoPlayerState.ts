@@ -14,8 +14,8 @@ type PropsT = {
 export class VideoPlayerState {
   _parentElmRef: any;
 
-  @observable url: string;
-  @observable startTimeMs: number;
+  @observable url: string = '';
+  @observable startTimeMs: number = 0;
   @observable videoIFrame?: VideoIFrame;
   @observable panelWidth: number = 100;
   @observable isFullVideoWidth: boolean = false;
@@ -28,6 +28,7 @@ export class VideoPlayerState {
   @action setUrl(url: string, startTimeMs: number) {
     this.url = url;
     this.startTimeMs = startTimeMs;
+    this.videoController.reset();
   }
 
   @action setIsFullVideoWidth(x: boolean) {
@@ -60,8 +61,7 @@ export class VideoPlayerState {
   }
 
   constructor(props: PropsT) {
-    this.url = props.url;
-    this.startTimeMs = props.startTimeMs;
+    this.setUrl(props.url, props.startTimeMs);
     this._parentElmRef = props.parentElmRef;
     makeObservable(this);
   }

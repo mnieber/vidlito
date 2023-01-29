@@ -19,6 +19,11 @@ export class VideoController {
     this._disposeAutoRun = autorun(() => this._updatePlayer());
   }
 
+  @action reset() {
+    this.player = undefined;
+    this.ready = false;
+  }
+
   getPlayer() {
     return this._player;
   }
