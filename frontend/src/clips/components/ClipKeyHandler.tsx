@@ -1,4 +1,3 @@
-import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
@@ -13,20 +12,16 @@ export type PropsT = React.PropsWithChildren<{
 }>;
 
 export const ClipKeyHandler = observer((props: PropsT) => {
-  const clip = props.clip;
-
   const keyHandlers = {
-    'ctrl+shift+space': () =>
-      runInAction(() => {
-        props.videoPlayerState.setIsFullVideoWidth(
-          !props.videoPlayerState.isFullVideoWidth
-        );
-      }),
-
+    'ctrl+shift+space': () => {
+      props.videoPlayerState.setIsFullVideoWidth(
+        !props.videoPlayerState.isFullVideoWidth
+      );
+    },
     ...createVideoKeyHandlers(
       props.videoPlayerState.videoController,
-      clip.startTimeMs ? clip.startTimeMs / 1000 : undefined,
-      clip.endTimeMs ? clip.endTimeMs / 1000 : undefined
+      props.clip.startTimeMs ? props.clip.startTimeMs / 1000 : undefined,
+      props.clip.endTimeMs ? props.clip.endTimeMs / 1000 : undefined
     ),
   };
 
