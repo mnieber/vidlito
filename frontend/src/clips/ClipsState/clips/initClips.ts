@@ -20,7 +20,6 @@ export const initClips = (state: ClipsState, props: PropsT) => {
   setCallbackMap(ctr.addition, {
     add: {
       storeLocation() {
-        ctr.data.previousClip = ctr.highlight.item;
         FacetPolicies.newItemsAreAddedBelowTheHighlight(ctr.addition);
       },
       createItem(this: AdditionCbs<ClipT>['add']) {
@@ -28,15 +27,14 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
-        props.updateClipUrl(ctr.addition.item!);
+        props.locationState.goToClip(ctr.addition.item!);
         FacetPolicies.editingSetEnabled(ctr.addition);
       },
     },
     cancel: {
       restoreLocation() {
         FacetPolicies.editingSetDisabled(ctr.addition);
-        props.updateClipUrl(ctr.data.previousClip!);
-        ctr.data.previousClip = undefined;
+        props.locationState.goBack();
       },
     },
   } as AdditionCbs<ClipT>);

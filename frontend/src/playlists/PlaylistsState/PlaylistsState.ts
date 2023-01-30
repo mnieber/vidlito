@@ -8,6 +8,7 @@ import { Highlight } from 'skandha-facets/Highlight';
 import { Selection } from 'skandha-facets/Selection';
 import { registerCtr } from 'skandha-mobx';
 import { PlaylistT } from 'src/api/types/PlaylistT';
+import { LocationState } from 'src/routes/LocationState';
 import { getIds } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 import { initPlaylists, PlaylistsData } from './playlists';
@@ -16,7 +17,7 @@ export type PropsT = {
   deletePlaylists: (ids: string[]) => Promise<any>;
   savePlaylist: (values: ObjT) => Promise<any>;
   createPlaylist: (values: ObjT) => PlaylistT;
-  updatePlaylistUrl: (playlist: PlaylistT) => void;
+  locationState: LocationState;
 };
 
 export class PlaylistsState {

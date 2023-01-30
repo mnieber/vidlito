@@ -13,7 +13,6 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { ClipsState } from 'src/clips/ClipsState';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
-import { useRouteUfns } from 'src/routes/hooks/useRoutes';
 import { createUUID, getIds, lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 import { ObjT } from 'src/utils/types';
@@ -22,11 +21,11 @@ export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
   ...dps.playlist,
+  ...dps.locationState,
 };
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { routeUfns, history } = useRouteUfns();
     const deleteClips = useDeleteClips();
     const saveClip = useSaveClip();
     const saveClipOrdering = useSaveClipOrdering();
@@ -57,10 +56,7 @@ export const ClipsStateProvider = observer(
             initRS(clip);
             return clip;
           },
-          updateClipUrl: (clip: ClipT) => {
-            const replaceFn = routeUfns.clip(history.replace);
-            replaceFn(props.playlist, clip);
-          },
+          locationState: props.locationState,
         })
     );
 

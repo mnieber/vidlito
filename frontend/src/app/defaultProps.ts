@@ -10,6 +10,7 @@ import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { ClipsState } from 'src/clips/ClipsState';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
+import { LocationState } from 'src/routes/LocationState';
 export { stub, withDefaultProps } from 'react-default-props-context';
 
 // This is a workaround for a bug in webpack
@@ -18,6 +19,9 @@ export { stub, withDefaultProps } from 'react-default-props-context';
 const dpsStates = {
   clipsState: {
     clipsState: stub as ClipsState,
+  },
+  locationState: {
+    locationState: stub as LocationState,
   },
   playlistsState: {
     playlistsState: stub as PlaylistsState,

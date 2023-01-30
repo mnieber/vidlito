@@ -6,22 +6,22 @@ import { useDeletePlaylist, useSavePlaylist } from 'src/api/mutations';
 import { useGetPlaylists } from 'src/api/queries';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
-import { withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
-import { useRouteUfns } from 'src/routes/hooks/useRoutes';
 import { createUUID, lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 import { ObjT } from 'src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {};
+const DefaultProps = {
+  ...dps.locationState,
+};
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { routeUfns, history } = useRouteUfns();
     const getPlaylists = useGetPlaylists();
     const deletePlaylist = useDeletePlaylist();
     const savePlaylist = useSavePlaylist();
@@ -54,10 +54,7 @@ export const PlaylistsStateProvider = observer(
             initRS(playlist);
             return playlist;
           },
-          updatePlaylistUrl: (playlist: PlaylistT) => {
-            const replaceFn = routeUfns.playlist(history.replace);
-            replaceFn(playlist);
-          },
+          locationState: props.locationState,
         })
     );
 

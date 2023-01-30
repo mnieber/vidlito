@@ -19,7 +19,6 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
   setCallbackMap(ctr.addition, {
     add: {
       storeLocation() {
-        ctr.data.previousPlaylist = ctr.highlight.item;
         FacetPolicies.newItemsAreAddedBelowTheHighlight(ctr.addition);
       },
       createItem(this: AdditionCbs<PlaylistT>['add']) {
@@ -27,15 +26,14 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
       },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
-        props.updatePlaylistUrl(ctr.addition.item!);
+        props.locationState.goToPlaylist(ctr.addition.item!);
         FacetPolicies.editingSetEnabled(ctr.addition);
       },
     },
     cancel: {
       restoreLocation() {
         FacetPolicies.editingSetDisabled(ctr.addition);
-        props.updatePlaylistUrl(ctr.data.previousPlaylist!);
-        ctr.data.previousPlaylist = undefined;
+        props.locationState.goBack();
       },
     },
   } as AdditionCbs<PlaylistT>);
