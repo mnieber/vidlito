@@ -1,7 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import ReactMarkdown from 'react-markdown';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipHeaderView } from 'src/clips/components/ClipHeaderView';
+import { usePlaylistDescriptionState } from 'src/clips/hooks';
+import { MarkdownView } from 'src/frames/components';
+import { PlaylistDescription } from 'src/playlists/components';
 import { cn } from 'src/utils/classnames';
 import './ClipView.scss';
 
@@ -15,11 +17,17 @@ const DefaultProps = {
 
 export const ClipView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const playlistDescriptionState = usePlaylistDescriptionState();
+
     return (
       <div className={cn('ClipView', props.className)}>
-        <ClipHeaderView className={cn('mb-2')} />
+        <ClipHeaderView
+          className={cn('mb-2')}
+          togglePlaylistDescription={playlistDescriptionState.toggle}
+        />
+        {playlistDescriptionState.isExpanded && <PlaylistDescription />}
         <div className={cn('ClipView__Description')}>
-          <ReactMarkdown>{props.clip.description ?? ''}</ReactMarkdown>
+          <MarkdownView text={props.clip.description ?? ''} />
         </div>
       </div>
     );

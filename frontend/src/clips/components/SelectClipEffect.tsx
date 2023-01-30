@@ -39,7 +39,7 @@ export const SelectClipEffect = observer(
           };
         }}
         f={(args: ArgsT) => {
-          if (args.clipSlug === 'new-clip') {
+          if (args.clipSlug === 'new-clip' || R.isNil(args.clipSlug)) {
             const clip = R.head(props.clips);
             if (clip && args.playlist) {
               routeUfns.clip(history.replace)(args.playlist, clip);

@@ -48,7 +48,7 @@ export const EditableClipViewInner = observer(
         >
           <VideoPlayerPanel
             videoPlayerState={videoPlayerState}
-            className={cn('mb-2')}
+            className={cn('mb-3')}
           />
           {/*              */}
           {/* 🟩 Switch 🟩 */}

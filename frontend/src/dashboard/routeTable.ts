@@ -12,7 +12,7 @@ export const getRouteTable = () => {
       (playlist: PlaylistT) => ({ playlistSlug: playlist.slug }),
     ],
     clip: [
-      () => '/dashboard/playlist/:playlistSlug/:clipSlug',
+      () => '/dashboard/playlist/:playlistSlug/:clipSlug?',
       (playlist: PlaylistT, clip: ClipT) => ({
         playlistSlug: playlist.slug,
         clipSlug: clip.slug,

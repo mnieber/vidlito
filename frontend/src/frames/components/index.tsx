@@ -12,6 +12,7 @@ export { card } from './Card';
 export { error } from './Error';
 export { Icon } from './Icon';
 export { Logo } from './Logo';
+export { MarkdownView } from './MarkdownView';
 export { mainButton } from './MainButton';
 export { colSkewer, rowSkewer } from './Skewer';
 export { Tab } from './Tab';

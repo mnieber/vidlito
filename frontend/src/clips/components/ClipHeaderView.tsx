@@ -5,6 +5,7 @@ import { cn } from 'src/utils/classnames';
 import './ClipHeaderView.scss';
 
 export type PropsT = {
+  togglePlaylistDescription: () => void;
   className?: any;
 };
 
@@ -17,13 +18,16 @@ const DefaultProps = {
 export const ClipHeaderView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
-      <div className={cn('ClipHeaderView', rowSkewer)}>
+      <div className={cn('ClipHeaderView', rowSkewer, props.className)}>
         {/*             */}
         {/* 🟩 Title 🟩 */}
         {/*             */}
         <div className={cn('ClipHeaderView__Title')}>
           <div className={cn('ClipHeaderView__TitleName', rowSkewer)}>
-            <div className={cn('ClipHeaderView__PlaylistName')}>
+            <div
+              className={cn('ClipHeaderView__PlaylistName')}
+              onClick={props.togglePlaylistDescription}
+            >
               {props.playlist.name}
             </div>
             <div className={cn('ClipHeaderView__ClipName', 'ml-2')}>
