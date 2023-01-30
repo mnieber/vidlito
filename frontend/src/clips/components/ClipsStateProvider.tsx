@@ -8,12 +8,12 @@ import {
   useSaveClipOrdering,
 } from 'src/api/mutations';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
-import { ClipT } from 'src/api/types/ClipT';
+import { ClipT, createClip } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { ClipsState } from 'src/clips/ClipsState';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
-import { createUUID, getIds, lookUp } from 'src/utils/ids';
+import { getIds, lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 import { ObjT } from 'src/utils/types';
 
@@ -48,13 +48,7 @@ export const ClipsStateProvider = observer(
             });
           },
           createClip: (values: ObjT) => {
-            const clip = {
-              id: createUUID(),
-              name: 'New clip',
-              slug: 'new-clip',
-            } as ClipT;
-            initRS(clip);
-            return clip;
+            return initRS(createClip(values));
           },
           locationState: props.locationState,
         })

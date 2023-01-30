@@ -1,3 +1,6 @@
+import { createUUID } from 'src/utils/ids';
+import { ObjT } from 'src/utils/types';
+
 export type ClipT = {
   description?: string;
   endTimeMs?: number;
@@ -18,4 +21,12 @@ export type ClipFormT = {
   slug?: string;
   startTimeMs?: number;
   url?: string;
+};
+
+export const createClip = (values: ObjT): ClipT => {
+  return {
+    id: createUUID(),
+    name: 'New clip',
+    slug: 'new-clip',
+  } as ClipT;
 };

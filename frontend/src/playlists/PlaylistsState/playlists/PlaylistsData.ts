@@ -6,6 +6,7 @@ export class PlaylistsData {
   static className = () => 'PlaylistsData';
 
   @input playlists: Array<PlaylistT> = [];
+
   @output get playlistById(): PlaylistByIdT {
     return listToItemById(this.playlists);
   }

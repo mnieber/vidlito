@@ -5,12 +5,12 @@ import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useDeletePlaylist, useSavePlaylist } from 'src/api/mutations';
 import { useGetPlaylists } from 'src/api/queries';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
-import { PlaylistT } from 'src/api/types/PlaylistT';
+import { createPlaylist } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
-import { createUUID, lookUp } from 'src/utils/ids';
+import { lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 import { ObjT } from 'src/utils/types';
 
@@ -46,13 +46,7 @@ export const PlaylistsStateProvider = observer(
             return savePlaylist.mutateAsync(values);
           },
           createPlaylist: (values: ObjT) => {
-            const playlist = {
-              id: createUUID(),
-              name: 'New playlist',
-              slug: 'new-playlist',
-            } as PlaylistT;
-            initRS(playlist);
-            return playlist;
+            return initRS(createPlaylist(values));
           },
           locationState: props.locationState,
         })

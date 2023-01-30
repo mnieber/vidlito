@@ -3,9 +3,11 @@ import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
 } from 'skandha-mobx/hooks';
+import { isLoaded } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListItem } from 'src/clips/components/ClipListItem';
+import UIkit from 'src/frames/styles/uikit';
 import { getUpdateUrlFn } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
 import './ClipList.scss';
@@ -34,6 +36,10 @@ export const ClipList = observer(
       },
       [props.clips, props.updateUrl]
     );
+
+    if (!isLoaded(props.clips)) {
+      return UIkit && <div data-uk-spinner className="" />;
+    } else if (!props.clips?.length) return null;
 
     const noItems = <h2>There are no clips</h2>;
 
