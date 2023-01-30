@@ -79,7 +79,10 @@ export const PlaylistsStateProvider = observer(
       result.defaultProps = {
         ...result.defaultProps,
         playlists: () =>
-          maybe(getPlaylists, [])(playlistsState.playlists.data.playlists),
+          maybe(
+            getPlaylists,
+            []
+          )(playlistsState.playlists.data.playlistsDisplay),
         playlist: () =>
           maybe(getPlaylists)(playlistsState.playlists.highlight.item),
         playlistsAddition: () => playlistsState.playlists.addition,

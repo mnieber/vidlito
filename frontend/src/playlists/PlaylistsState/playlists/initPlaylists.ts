@@ -7,6 +7,7 @@ import { AdditionCbs } from 'skandha-facets/Addition';
 import { DeletionCbs } from 'skandha-facets/Deletion';
 import { EditingCbs } from 'skandha-facets/Editing';
 import { HighlightCbs } from 'skandha-facets/Highlight';
+import { InsertionCbs } from 'skandha-facets/Insertion';
 import * as FacetPolicies from 'skandha-facets/policies';
 import { handleSelectItem, SelectionCbs } from 'skandha-facets/Selection';
 import { PlaylistT } from 'src/api/types/PlaylistT';
@@ -74,6 +75,15 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
       },
     },
   } as HighlightCbs);
+
+  setCallbackMap(ctr.insertion, {
+    insertItems: {
+      insertItems(playlists: PlaylistT[]) {
+        // TODO
+        // props.savePlaylistOrdering(playlists);
+      },
+    },
+  } as InsertionCbs);
 
   setCallbackMap(ctr.selection, {
     selectItem: {

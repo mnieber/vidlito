@@ -77,6 +77,9 @@ const dpsPlaylists = {
   playlistsHighlight: {
     playlistsHighlight: stub as Highlight,
   },
+  playlistsInsertion: {
+    playlistsInsertion: stub as Insertion,
+  },
   playlistsSelection: {
     playlistsSelection: stub as Selection,
   },

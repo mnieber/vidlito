@@ -6,13 +6,12 @@ export const getRouteTable = () => {
   const routeTable = new RouteTable();
 
   routeTable.addRoutes({
-    myDashboard: () => '/dashboard/my-dashboard',
     playlist: [
-      () => '/dashboard/playlist/:playlistSlug',
+      () => '/playlist/:playlistSlug',
       (playlist: PlaylistT) => ({ playlistSlug: playlist.slug }),
     ],
     clip: [
-      () => '/dashboard/playlist/:playlistSlug/:clipSlug?',
+      () => '/playlist/:playlistSlug/:clipSlug?',
       (playlist: PlaylistT, clip: ClipT) => ({
         playlistSlug: playlist.slug,
         clipSlug: clip.slug,

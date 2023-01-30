@@ -5,6 +5,8 @@ import { Addition } from 'skandha-facets/Addition';
 import { Deletion } from 'skandha-facets/Deletion';
 import { Editing } from 'skandha-facets/Editing';
 import { Highlight } from 'skandha-facets/Highlight';
+import { Insertion } from 'skandha-facets/Insertion';
+import * as FacetPolicies from 'skandha-facets/policies';
 import { Selection } from 'skandha-facets/Selection';
 import { registerCtr } from 'skandha-mobx';
 import { PlaylistT } from 'src/api/types/PlaylistT';
@@ -27,6 +29,7 @@ export class PlaylistsState {
     deletion: new Deletion(),
     editing: new Editing(),
     highlight: new Highlight<PlaylistT>(),
+    insertion: new Insertion<PlaylistT>(),
     selection: new Selection<PlaylistT>(),
   };
 
@@ -38,7 +41,7 @@ export class PlaylistsState {
       pmap(
         //
         [this.playlists.selection, 'selectableIds'],
-        () => getIds(this.playlists.data.playlists)
+        () => getIds(this.playlists.data.playlistsDisplay)
       ),
       pmap(
         //
@@ -49,6 +52,25 @@ export class PlaylistsState {
         //
         [this.playlists.highlight, 'item'],
         () => getPlaylistById(this.playlists.highlight.id)
+      ),
+      pmap(
+        //
+        [this.playlists.insertion, 'inputItems'],
+        () => this.playlists.data.playlists
+      ),
+      pmap(
+        //
+        [this.playlists.insertion, 'preview'],
+        () =>
+          FacetPolicies.insertionPreviewUsesDragSources(
+            [FacetPolicies.DragSourceFromNewItem],
+            this.playlists
+          )(this.playlists.insertion.inputItems)
+      ),
+      pmap(
+        //
+        [this.playlists.data, 'playlistsDisplay'],
+        () => this.playlists.insertion.preview
       )
     );
   }

@@ -14,6 +14,7 @@ import {
   GlobalError,
   SaveButton,
   SlugField,
+  TextAreaField,
   TextField,
   UpdateSlugButton,
 } from 'src/forms/components';
@@ -27,32 +28,37 @@ export type PropsT = {
 };
 
 const DefaultProps = {
-  ...dps.clipsEditing,
   ...dps.playlist,
+  ...dps.playlistsEditing,
 };
 
 export const PlaylistFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const saveClip = props.clipsEditing.save.bind(props.clipsEditing);
+    const savePlaylist = props.playlistsEditing.save.bind(
+      props.playlistsEditing
+    );
     const initialValues = {
-      'clipForm.description': props.playlist.description ?? null,
-      'clipForm.id': props.playlist.id ?? createUUID().hex,
-      'clipForm.name': props.playlist.name ?? null,
-      'clipForm.slug': props.playlist.slug ?? null,
+      'playlistForm.description': props.playlist.description ?? null,
+      'playlistForm.id': props.playlist.id ?? createUUID().hex,
+      'playlistForm.name': props.playlist.name ?? null,
+      'playlistForm.slug': props.playlist.slug ?? null,
     };
     const initialErrors = {};
     const handleValidate = ({ values, setError }: HandleValidateArgsT) => {
-      if (R.isNil(values['clipForm.name'])) {
-        setError('clipForm.name', 'This field is required');
+      if (R.isNil(values['playlistForm.name'])) {
+        setError('playlistForm.name', 'This field is required');
+      }
+      if (R.isNil(values['playlistForm.slug'])) {
+        setError('playlistForm.slug', 'This field is required');
       }
     };
     const handleSubmit = ({ formState, values }: HandleSubmitArgsT) => {
-      return saveClip(unflatten(values)).then(() =>
+      return savePlaylist(unflatten(values)).then(() =>
         formState.reset(initialValues, initialErrors)
       );
     };
     const handleCancel = ({ formState }: HandleCancelArgsT) => {
-      props.clipsEditing.cancel();
+      props.playlistsEditing.cancel();
     };
 
     return (
@@ -65,20 +71,20 @@ export const PlaylistFormView = observer(
           handleCancel={handleCancel}
         >
           <GlobalError />
-          <Field fieldName="clipForm.name" label="ClipForm Name">
+          <Field fieldName="playlistForm.name" label="Name">
             <TextField controlled={true} />
           </Field>
           <Field
-            fieldName="clipForm.slug"
-            label="ClipForm Slug"
+            fieldName="playlistForm.slug"
+            label="Slug"
             buttons={[
-              <UpdateSlugButton key="1" relatedFieldName="clipForm.name" />,
+              <UpdateSlugButton key="1" relatedFieldName="playlistForm.name" />,
             ]}
           >
             <SlugField />
           </Field>
-          <Field fieldName="clipForm.description" label="ClipForm Description">
-            <TextField controlled={true} />
+          <Field fieldName="playlistForm.description" label="Description">
+            <TextAreaField controlled={true} />
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>
             <CancelButton label="Cancel" disabled={false} />

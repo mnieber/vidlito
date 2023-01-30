@@ -17,7 +17,9 @@ export const NewPlaylistButton = observer(
     return (
       <button
         className={cn('NewPlaylistButton', mainButton, props.className)}
-        onClick={() => props.playlistsAddition.add({})}
+        onClick={() => {
+          props.playlistsAddition.add({});
+        }}
       >
         <Icon name="plus" />
         New Playlist
