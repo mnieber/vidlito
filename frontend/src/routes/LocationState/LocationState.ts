@@ -1,6 +1,7 @@
 import { cleanUpCtr } from 'react-default-props-context';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
+import { getHomeRoute } from 'src/routes/getHomeRoute';
 import { ObjT } from 'src/utils/types';
 
 export type PropsT = {
@@ -35,6 +36,10 @@ export class LocationState {
     if (!this.playlist) throw new Error('No playlist set');
     const replaceFn = this.routeUfns.clip(this.history.push);
     replaceFn(this.playlist, clip);
+  }
+
+  goHome() {
+    this.history.push(getHomeRoute());
   }
 
   constructor(props: PropsT) {

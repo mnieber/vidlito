@@ -53,12 +53,8 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
         const values = this.values;
         return props.savePlaylist(values).then(() => {
           FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing);
+          props.locationState.goToPlaylist(values);
         });
-      },
-      refreshView() {
-        if (ctr.highlight.item) {
-          // Moonleap Todo: move to the new playlist
-        }
       },
     },
     cancel: {

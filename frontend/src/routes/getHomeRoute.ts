@@ -1,3 +1,4 @@
 export const getHomeRoute = () => {
-  return '/';
+  // HACK
+  return '/playlist/play/wizzy';
 };
