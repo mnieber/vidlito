@@ -61,6 +61,9 @@ const dpsPlaylists = {
   playlist: {
     playlist: stub as PlaylistT,
   },
+  playlistsAddition: {
+    playlistsAddition: stub as Addition,
+  },
   playlistsDeletion: {
     playlistsDeletion: stub as Deletion,
   },

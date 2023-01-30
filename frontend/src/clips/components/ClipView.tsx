@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipHeaderView } from 'src/clips/components/ClipHeaderView';
-import { usePlaylistDescriptionState } from 'src/clips/hooks';
 import { MarkdownView } from 'src/frames/components';
+import { usePlaylistDescriptionState } from 'src/clips/hooks';
 import { PlaylistDescription } from 'src/playlists/components';
 import { cn } from 'src/utils/classnames';
 import './ClipView.scss';

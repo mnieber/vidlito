@@ -5,11 +5,13 @@ import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useDeletePlaylist, useSavePlaylist } from 'src/api/mutations';
 import { useGetPlaylists } from 'src/api/queries';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
+import { PlaylistT } from 'src/api/types/PlaylistT';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
-import { lookUp } from 'src/utils/ids';
+import { useRouteUfns } from 'src/routes/hooks/useRoutes';
+import { createUUID, lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 import { ObjT } from 'src/utils/types';
 
@@ -19,6 +21,7 @@ const DefaultProps = {};
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const { routeUfns, history } = useRouteUfns();
     const getPlaylists = useGetPlaylists();
     const deletePlaylist = useDeletePlaylist();
     const savePlaylist = useSavePlaylist();
@@ -41,6 +44,19 @@ export const PlaylistsStateProvider = observer(
           savePlaylist: (values: ObjT) => {
             // Moonleap Todo: convert from values to playlist form
             return savePlaylist.mutateAsync(values);
+          },
+          createPlaylist: (values: ObjT) => {
+            const playlist = {
+              id: createUUID(),
+              name: 'New playlist',
+              slug: 'new-playlist',
+            } as PlaylistT;
+            initRS(playlist);
+            return playlist;
+          },
+          updatePlaylistUrl: (playlist: PlaylistT) => {
+            const replaceFn = routeUfns.playlist(history.replace);
+            replaceFn(playlist);
           },
         })
     );
@@ -75,6 +91,7 @@ export const PlaylistsStateProvider = observer(
           maybe(getPlaylists, [])(playlistsState.playlists.data.playlists),
         playlist: () =>
           maybe(getPlaylists)(playlistsState.playlists.highlight.item),
+        playlistsAddition: () => playlistsState.playlists.addition,
         playlistsDeletion: () => playlistsState.playlists.deletion,
         playlistsEditing: () => playlistsState.playlists.editing,
         playlistsHighlight: () => playlistsState.playlists.highlight,

@@ -3,16 +3,42 @@ import {
   addCleanUpFunctionToCtr,
   cleanUpCtr,
 } from 'react-default-props-context';
+import { AdditionCbs } from 'skandha-facets/Addition';
 import { DeletionCbs } from 'skandha-facets/Deletion';
 import { EditingCbs } from 'skandha-facets/Editing';
 import { HighlightCbs } from 'skandha-facets/Highlight';
 import * as FacetPolicies from 'skandha-facets/policies';
 import { handleSelectItem, SelectionCbs } from 'skandha-facets/Selection';
+import { PlaylistT } from 'src/api/types/PlaylistT';
 import { PlaylistsState, PropsT } from 'src/playlists/PlaylistsState';
 
 export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
   const ctr = state.playlists;
   addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
+
+  setCallbackMap(ctr.addition, {
+    add: {
+      storeLocation() {
+        ctr.data.previousPlaylist = ctr.highlight.item;
+        FacetPolicies.newItemsAreAddedBelowTheHighlight(ctr.addition);
+      },
+      createItem(this: AdditionCbs<PlaylistT>['add']) {
+        return props.createPlaylist(this.values);
+      },
+      highlightNewItem() {
+        ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
+        props.updatePlaylistUrl(ctr.addition.item!);
+        FacetPolicies.editingSetEnabled(ctr.addition);
+      },
+    },
+    cancel: {
+      restoreLocation() {
+        FacetPolicies.editingSetDisabled(ctr.addition);
+        props.updatePlaylistUrl(ctr.data.previousPlaylist!);
+        ctr.data.previousPlaylist = undefined;
+      },
+    },
+  } as AdditionCbs<PlaylistT>);
 
   setCallbackMap(ctr.deletion, {
     delete: {
@@ -43,7 +69,13 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
     },
   } as EditingCbs);
 
-  setCallbackMap(ctr.highlight, {} as HighlightCbs);
+  setCallbackMap(ctr.highlight, {
+    highlightItem: {
+      enter(this: HighlightCbs['highlightItem']) {
+        FacetPolicies.cancelNewItemOnHighlightChange(ctr.highlight, this.id);
+      },
+    },
+  } as HighlightCbs);
 
   setCallbackMap(ctr.selection, {
     selectItem: {
