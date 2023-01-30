@@ -43,7 +43,9 @@ export const PlaylistsStateProvider = observer(
           },
           savePlaylist: (values: ObjT) => {
             // Moonleap Todo: convert from values to playlist form
-            return savePlaylist.mutateAsync(values);
+            return savePlaylist.mutateAsync(values).then(() => {
+              return values.playlistForm;
+            });
           },
           createPlaylist: (values: ObjT) => {
             return initRS(createPlaylist(values));

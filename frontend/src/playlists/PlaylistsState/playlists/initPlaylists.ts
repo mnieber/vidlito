@@ -51,9 +51,9 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
     save: {
       saveItem(this: EditingCbs['save']) {
         const values = this.values;
-        return props.savePlaylist(values).then(() => {
+        return props.savePlaylist(values).then((localPlaylist: PlaylistT) => {
           FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing);
-          props.locationState.goToPlaylist(values);
+          props.locationState.goToPlaylist(localPlaylist);
         });
       },
     },

@@ -17,7 +17,7 @@ import { initPlaylists, PlaylistsData } from './playlists';
 
 export type PropsT = {
   deletePlaylists: (ids: string[]) => Promise<any>;
-  savePlaylist: (values: ObjT) => Promise<any>;
+  savePlaylist: (values: ObjT) => Promise<PlaylistT>;
   createPlaylist: (values: ObjT) => PlaylistT;
   locationState: LocationState;
 };

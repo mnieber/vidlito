@@ -32,13 +32,15 @@ export class LocationState {
     replaceFn(playlist);
   }
 
-  goToClip(clip: ClipT) {
+  goToClip(clip: ClipT, playlist?: PlaylistT) {
+    if (playlist) this.playlist = playlist;
     if (!this.playlist) throw new Error('No playlist set');
     const replaceFn = this.routeUfns.clip(this.history.push);
     replaceFn(this.playlist, clip);
   }
 
   goHome() {
+    this.playlist = undefined;
     this.history.push(getHomeRoute());
   }
 
