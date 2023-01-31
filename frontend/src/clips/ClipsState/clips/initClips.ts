@@ -51,14 +51,10 @@ export const initClips = (state: ClipsState, props: PropsT) => {
     save: {
       saveItem(this: EditingCbs['save']) {
         const values = this.values;
-        return props.saveClip(values).then(() => {
+        return props.saveClip(values).then((localClip: ClipT) => {
           FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing);
+          props.locationState.goToClip(localClip);
         });
-      },
-      refreshView() {
-        if (ctr.highlight.item) {
-          // Moonleap Todo: move to the new clip
-        }
       },
     },
     cancel: {

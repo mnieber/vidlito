@@ -75,8 +75,7 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
   setCallbackMap(ctr.insertion, {
     insertItems: {
       insertItems(playlists: PlaylistT[]) {
-        // TODO
-        // props.savePlaylistOrdering(playlists);
+        props.savePlaylistOrdering(playlists);
       },
     },
   } as InsertionCbs);

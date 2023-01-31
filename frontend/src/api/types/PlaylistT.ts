@@ -18,6 +18,7 @@ export type PlaylistFormT = {
   description?: string;
   id: string;
   name: string;
+  ownerId: string;
   slug: string;
 };
 

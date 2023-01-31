@@ -2,15 +2,19 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { useDeletePlaylist, useSavePlaylist } from 'src/api/mutations';
+import {
+  useDeletePlaylist,
+  useSavePlaylist,
+  useSavePlaylistOrdering,
+} from 'src/api/mutations';
 import { useGetPlaylists } from 'src/api/queries';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
-import { createPlaylist } from 'src/api/types/PlaylistT';
+import { createPlaylist, PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
-import { lookUp } from 'src/utils/ids';
+import { getIds, lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 import { ObjT } from 'src/utils/types';
 
@@ -25,6 +29,7 @@ export const PlaylistsStateProvider = observer(
     const getPlaylists = useGetPlaylists();
     const deletePlaylist = useDeletePlaylist();
     const savePlaylist = useSavePlaylist();
+    const savePlaylistOrdering = useSavePlaylistOrdering();
 
     const [playlistsState] = React.useState(
       () =>
@@ -42,9 +47,13 @@ export const PlaylistsStateProvider = observer(
             );
           },
           savePlaylist: (values: ObjT) => {
-            // Moonleap Todo: convert from values to playlist form
             return savePlaylist.mutateAsync(values).then(() => {
               return values.playlistForm;
+            });
+          },
+          savePlaylistOrdering: (playlists: PlaylistT[]) => {
+            return savePlaylistOrdering.mutateAsync({
+              playlistIds: getIds(playlists),
             });
           },
           createPlaylist: (values: ObjT) => {
@@ -89,6 +98,7 @@ export const PlaylistsStateProvider = observer(
           maybe(getPlaylists)(playlistsState.playlists.highlight.item),
         playlistsAddition: () => playlistsState.playlists.addition,
         playlistsDeletion: () => playlistsState.playlists.deletion,
+        playlistsDragAndDrop: () => playlistsState.playlists.dragAndDrop,
         playlistsEditing: () => playlistsState.playlists.editing,
         playlistsHighlight: () => playlistsState.playlists.highlight,
         playlistsSelection: () => playlistsState.playlists.selection,

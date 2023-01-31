@@ -38,8 +38,9 @@ export const ClipsStateProvider = observer(
             return deleteClips.mutateAsync({ clipIds: ids });
           },
           saveClip: (values: ObjT) => {
-            // Moonleap Todo: convert from values to clip form
-            return saveClip.mutateAsync(values);
+            return saveClip.mutateAsync(values).then(() => {
+              return values.clipForm;
+            });
           },
           saveClipOrdering: (clips: ClipT[]) => {
             return saveClipOrdering.mutateAsync({

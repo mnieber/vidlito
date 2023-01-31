@@ -1,0 +1,20 @@
+.PlaylistListViewItem {
+  @apply cursor-pointer;
+}
+
+.PlaylistListViewItem--selected {
+  @apply bg-blue-200;
+}
+
+.PlaylistListViewItem--highlighted {
+  @apply font-bold;
+}
+
+.PlaylistListViewItem--drag-before {
+  border-top: solid;
+}
+
+.PlaylistListViewItem--drag-after {
+  border-bottom: solid;
+}
+

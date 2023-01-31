@@ -71,6 +71,9 @@ const dpsPlaylists = {
   playlistsDeletion: {
     playlistsDeletion: stub as Deletion,
   },
+  playlistsDragAndDrop: {
+    playlistsDragAndDrop: stub as DragAndDrop,
+  },
   playlistsEditing: {
     playlistsEditing: stub as Editing,
   },

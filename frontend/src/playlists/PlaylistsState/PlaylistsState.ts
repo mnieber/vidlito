@@ -3,6 +3,7 @@ import * as Skandha from 'skandha';
 import { mapDataToProps, pmap } from 'skandha';
 import { Addition } from 'skandha-facets/Addition';
 import { Deletion } from 'skandha-facets/Deletion';
+import { DragAndDrop } from 'skandha-facets/DragAndDrop';
 import { Editing } from 'skandha-facets/Editing';
 import { Highlight } from 'skandha-facets/Highlight';
 import { Insertion } from 'skandha-facets/Insertion';
@@ -18,6 +19,7 @@ import { initPlaylists, PlaylistsData } from './playlists';
 export type PropsT = {
   deletePlaylists: (ids: string[]) => Promise<any>;
   savePlaylist: (values: ObjT) => Promise<PlaylistT>;
+  savePlaylistOrdering: (playlists: PlaylistT[]) => Promise<any>;
   createPlaylist: (values: ObjT) => PlaylistT;
   locationState: LocationState;
 };
@@ -27,6 +29,7 @@ export class PlaylistsState {
     data: new PlaylistsData(),
     addition: new Addition<PlaylistT>(),
     deletion: new Deletion(),
+    dragAndDrop: new DragAndDrop(),
     editing: new Editing(),
     highlight: new Highlight<PlaylistT>(),
     insertion: new Insertion<PlaylistT>(),
