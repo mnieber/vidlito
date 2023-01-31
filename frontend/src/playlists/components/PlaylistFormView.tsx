@@ -7,6 +7,7 @@ import {
   HandleValidateArgsT,
   unflatten,
 } from 'react-form-state-context';
+import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import {
   CancelButton,
@@ -30,6 +31,7 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.playlist,
   ...dps.playlistsEditing,
+  ...dps.locationState,
 };
 
 export const PlaylistFormView = observer(
@@ -53,12 +55,16 @@ export const PlaylistFormView = observer(
       }
     };
     const handleSubmit = ({ formState, values }: HandleSubmitArgsT) => {
-      return savePlaylist(unflatten(values)).then(() =>
-        formState.reset(initialValues, initialErrors)
+      return savePlaylist(unflatten(values)).then(
+        (localPlaylist: PlaylistT) => {
+          formState.reset(initialValues, initialErrors);
+          props.locationState.goToPlaylist(localPlaylist);
+        }
       );
     };
     const handleCancel = ({ formState }: HandleCancelArgsT) => {
       props.playlistsEditing.cancel();
+      props.locationState.goBack();
     };
 
     return (

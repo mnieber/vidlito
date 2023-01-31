@@ -11,7 +11,6 @@ import * as FacetPolicies from 'skandha-facets/policies';
 import { Selection } from 'skandha-facets/Selection';
 import { registerCtr } from 'skandha-mobx';
 import { PlaylistT } from 'src/api/types/PlaylistT';
-import { LocationState } from 'src/routes/LocationState';
 import { getIds } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 import { initPlaylists, PlaylistsData } from './playlists';
@@ -21,7 +20,6 @@ export type PropsT = {
   savePlaylist: (values: ObjT) => Promise<PlaylistT>;
   savePlaylistOrdering: (playlists: PlaylistT[]) => Promise<any>;
   createPlaylist: (values: ObjT) => PlaylistT;
-  locationState: LocationState;
 };
 
 export class PlaylistsState {

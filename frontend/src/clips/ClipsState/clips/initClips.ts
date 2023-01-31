@@ -27,14 +27,12 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
-        props.locationState.goToClip(ctr.addition.item!);
         FacetPolicies.editingSetEnabled(ctr.addition);
       },
     },
     cancel: {
       restoreLocation() {
         FacetPolicies.editingSetDisabled(ctr.addition);
-        props.locationState.goBack();
       },
     },
   } as AdditionCbs<ClipT>);
@@ -53,7 +51,6 @@ export const initClips = (state: ClipsState, props: PropsT) => {
         const values = this.values;
         return props.saveClip(values).then((localClip: ClipT) => {
           FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing);
-          props.locationState.goToClip(localClip);
         });
       },
     },

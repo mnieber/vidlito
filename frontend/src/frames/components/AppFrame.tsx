@@ -29,7 +29,7 @@ export const AppFrame = observer(
             <AccountMenu />
           </div>
         </div>
-        <div className={cn('AppFrame__BottomMain', 'mt-2')}>
+        <div className={cn('AppFrame__BottomMain', 'flex flex-col', 'mt-2')}>
           {props.children}
         </div>
       </div>

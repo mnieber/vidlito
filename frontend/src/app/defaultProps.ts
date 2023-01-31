@@ -9,6 +9,7 @@ import { Selection } from 'skandha-facets/Selection';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { ClipsState } from 'src/clips/ClipsState';
+import { DashboardState } from 'src/dashboard/DashboardState';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
 import { LocationState } from 'src/routes/LocationState';
 export { stub, withDefaultProps } from 'react-default-props-context';
@@ -19,6 +20,9 @@ export { stub, withDefaultProps } from 'react-default-props-context';
 const dpsStates = {
   clipsState: {
     clipsState: stub as ClipsState,
+  },
+  dashboardState: {
+    dashboardState: stub as DashboardState,
   },
   locationState: {
     locationState: stub as LocationState,

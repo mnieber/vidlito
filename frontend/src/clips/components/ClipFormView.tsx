@@ -8,6 +8,7 @@ import {
   unflatten,
   useFormStateContext,
 } from 'react-form-state-context';
+import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import {
   CancelButton,
@@ -34,6 +35,7 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.clip,
   ...dps.clipsEditing,
+  ...dps.locationState,
 };
 
 export const ClipFormView = observer(
@@ -65,10 +67,14 @@ export const ClipFormView = observer(
           'clipForm.endTimeS': undefined,
           'clipForm.startTimeS': undefined,
         })
-      ).then(() => formState.reset(initialValues, initialErrors));
+      ).then((localClip: ClipT) => {
+        formState.reset(initialValues, initialErrors);
+        props.locationState.goToClip(localClip);
+      });
     };
     const handleCancel = ({ formState }: HandleCancelArgsT) => {
       props.clipsEditing.cancel();
+      props.locationState.goBack();
     };
 
     return (

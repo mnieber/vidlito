@@ -2,6 +2,16 @@
   @apply cursor-pointer;
 }
 
+.PlaylistListViewItem__Title {
+  @media (hover: hover) {
+    .IconContainer {
+      &:hover {
+        @apply animate-[bump_1s_ease-in-out_3];
+      }
+    }
+  }
+}
+
 .PlaylistListViewItem--selected {
   @apply bg-blue-200;
 }

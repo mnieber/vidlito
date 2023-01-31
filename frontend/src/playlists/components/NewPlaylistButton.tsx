@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon, mainButton } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
@@ -10,6 +11,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.playlistsAddition,
+  ...dps.locationState,
 };
 
 export const NewPlaylistButton = observer(
@@ -18,7 +20,9 @@ export const NewPlaylistButton = observer(
       <button
         className={cn('NewPlaylistButton', mainButton, props.className)}
         onClick={() => {
-          props.playlistsAddition.add({});
+          props.playlistsAddition.add({}).then((localPlaylist: PlaylistT) => {
+            props.locationState.goToPlaylist(localPlaylist);
+          });
         }}
       >
         <Icon name="plus" />

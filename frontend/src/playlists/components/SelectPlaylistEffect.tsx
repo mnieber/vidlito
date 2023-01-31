@@ -1,12 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
-import { Selection } from 'skandha-facets/Selection';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Effect } from 'src/utils/components';
 
 type ArgsT = {
-  playlistsSelection: Selection;
   playlistId?: string;
   playlistSlug: string;
 };
@@ -15,7 +13,9 @@ type PropsT = {};
 
 const DefaultProps = {
   ...dps.playlistsSelection,
+  ...dps.playlistsHighlight,
   ...dps.playlists,
+  ...dps.locationState,
 };
 
 export const SelectPlaylistEffect = observer(
@@ -24,7 +24,6 @@ export const SelectPlaylistEffect = observer(
       <Effect
         getArgs={(params) => {
           return {
-            playlistsSelection: props.playlistsSelection,
             playlistId: R.find(
               (x: PlaylistT) => x.slug === params.playlistSlug
             )(props.playlists)?.id,
@@ -33,7 +32,9 @@ export const SelectPlaylistEffect = observer(
         }}
         f={(args: ArgsT) => {
           if (args.playlistId) {
-            args.playlistsSelection.selectItem({ itemId: args.playlistId });
+            props.playlistsSelection.selectItem({ itemId: args.playlistId });
+            props.playlistsHighlight.highlightItem(args.playlistId);
+            props.locationState.goToPlaylist(props.playlistsHighlight.item);
           }
         }}
       />

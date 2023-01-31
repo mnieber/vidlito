@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon, mainButton } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
@@ -10,6 +11,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clipsAddition,
+  ...dps.locationState,
 };
 
 export const NewClipButton = observer(
@@ -17,7 +19,11 @@ export const NewClipButton = observer(
     return (
       <button
         className={cn('NewClipButton', mainButton, props.className)}
-        onClick={() => props.clipsAddition.add({})}
+        onClick={() => {
+          props.clipsAddition.add({}).then((localClip: ClipT) => {
+            props.locationState.goToClip(localClip);
+          });
+        }}
       >
         <Icon name="plus" />
         New Clip

@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
@@ -8,7 +9,6 @@ import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import UIkit from 'src/frames/styles/uikit';
 import { PlaylistListViewItem } from 'src/playlists/components/PlaylistListViewItem';
-import { getUpdateUrlFn } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
 import './PlaylistListView.scss';
 
@@ -22,6 +22,7 @@ const DefaultProps = {
   ...dps.playlistsDragAndDrop,
   ...dps.playlistsHighlight,
   ...dps.playlistsSelection,
+  ...dps.dashboardState,
 };
 
 export const PlaylistListView = observer(
@@ -30,11 +31,17 @@ export const PlaylistListView = observer(
       props.playlistsDragAndDrop
     );
     const selectionUIConnector = useSelectionUIConnector(
-      props.playlistsSelection,
-      {
-        onSelectItem: getUpdateUrlFn(props.playlists, props.updateUrl),
+      props.playlistsSelection
+    );
+
+    const { playlistsHighlight, dashboardState, updateUrl } = props;
+    const goToPlaylist = React.useMemo(
+      () => (playlist: PlaylistT) => {
+        playlistsHighlight.highlightItem(playlist.id);
+        dashboardState.setShowClips(true);
+        updateUrl && updateUrl(playlist);
       },
-      [props.playlists, props.updateUrl]
+      [updateUrl, dashboardState, playlistsHighlight]
     );
 
     if (!isLoaded(props.playlists)) {
@@ -53,6 +60,7 @@ export const PlaylistListView = observer(
           }
           selectionUIProps={selectionUIConnector.handle(playlist.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(playlist.id)}
+          goToPlaylist={goToPlaylist}
         />
       );
     });

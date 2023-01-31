@@ -21,7 +21,6 @@ export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
   ...dps.playlist,
-  ...dps.locationState,
 };
 
 export const ClipsStateProvider = observer(
@@ -51,7 +50,6 @@ export const ClipsStateProvider = observer(
           createClip: (values: ObjT) => {
             return initRS(createClip(values));
           },
-          locationState: props.locationState,
         })
     );
 

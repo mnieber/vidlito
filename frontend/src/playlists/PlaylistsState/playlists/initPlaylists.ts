@@ -27,14 +27,12 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
       },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
-        props.locationState.goToPlaylist(ctr.addition.item!);
         FacetPolicies.editingSetEnabled(ctr.addition);
       },
     },
     cancel: {
       restoreLocation() {
         FacetPolicies.editingSetDisabled(ctr.addition);
-        props.locationState.goBack();
       },
     },
   } as AdditionCbs<PlaylistT>);
@@ -53,7 +51,6 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
         const values = this.values;
         return props.savePlaylist(values).then((localPlaylist: PlaylistT) => {
           FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing);
-          props.locationState.goToPlaylist(localPlaylist);
         });
       },
     },
@@ -84,10 +81,8 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
     selectItem: {
       selectItem(this: SelectionCbs['selectItem']) {
         handleSelectItem(ctr.selection, this.selectionParams);
-        FacetPolicies.highlightFollowsSelection(
-          ctr.selection,
-          this.selectionParams
-        );
+        // Note that highlight does not follow selection, because we want to
+        // highlight with the arrow icon in the playlist list-item.
       },
     },
   } as SelectionCbs);

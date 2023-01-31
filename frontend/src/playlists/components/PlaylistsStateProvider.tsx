@@ -10,7 +10,7 @@ import {
 import { useGetPlaylists } from 'src/api/queries';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
 import { createPlaylist, PlaylistT } from 'src/api/types/PlaylistT';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
+import { withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
@@ -20,9 +20,7 @@ import { ObjT } from 'src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {
-  ...dps.locationState,
-};
+const DefaultProps = {};
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
@@ -59,7 +57,6 @@ export const PlaylistsStateProvider = observer(
           createPlaylist: (values: ObjT) => {
             return initRS(createPlaylist(values));
           },
-          locationState: props.locationState,
         })
     );
 

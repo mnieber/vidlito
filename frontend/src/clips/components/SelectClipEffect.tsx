@@ -15,7 +15,6 @@ type PropsT = {};
 
 const DefaultProps = {
   ...dps.clipsSelection,
-  ...dps.playlist,
   ...dps.clips,
   ...dps.locationState,
 };
@@ -37,7 +36,7 @@ export const SelectClipEffect = observer(
           if (R.isNil(args.clipSlug) || R.isNil(args.clipId)) {
             const clip = R.head(props.clips);
             if (clip) {
-              props.locationState.goToClip(clip, props.playlist);
+              props.locationState.goToClip(clip);
             }
           } else if (args.clipId) {
             args.clipsSelection.selectItem({ itemId: args.clipId });

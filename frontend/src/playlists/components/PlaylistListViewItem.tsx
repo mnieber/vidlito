@@ -8,8 +8,9 @@ import {
   SelectionUIPropsT,
 } from 'skandha-facets/Selection';
 import { isUpdating } from 'src/api/ResourceState';
+import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { rowSkewer } from 'src/frames/components';
+import { Icon, rowSkewer } from 'src/frames/components';
 import UIkit from 'src/frames/styles/uikit';
 import { cn } from 'src/utils/classnames';
 import './PlaylistListViewItem.scss';
@@ -19,6 +20,7 @@ export type PropsT = {
   dragAndDropUIProps: DragAndDropUIPropsT;
   selectionUIProps: SelectionUIPropsT;
   className?: any;
+  goToPlaylist: (playlist: PlaylistT) => void;
 };
 
 const DefaultProps = {
@@ -54,6 +56,14 @@ export const PlaylistListViewItem = observer(
             'justify-start'
           )}
         >
+          <div
+            className={cn('IconContainer', rowSkewer)}
+            onClick={() => {
+              props.goToPlaylist(props.playlist);
+            }}
+          >
+            <Icon className={cn('!px-2')} name="arrow-right" />
+          </div>
           <div className={cn('PlaylistListViewItem__Field')}>
             {props.playlist.name}
           </div>

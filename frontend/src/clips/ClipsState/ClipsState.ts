@@ -11,7 +11,6 @@ import * as FacetPolicies from 'skandha-facets/policies';
 import { Selection } from 'skandha-facets/Selection';
 import { registerCtr } from 'skandha-mobx';
 import { ClipT } from 'src/api/types/ClipT';
-import { LocationState } from 'src/routes/LocationState';
 import { getIds } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 import { ClipsData, initClips } from './clips';
@@ -21,7 +20,6 @@ export type PropsT = {
   saveClip: (values: ObjT) => Promise<ClipT>;
   saveClipOrdering: (clips: ClipT[]) => Promise<any>;
   createClip: (values: ObjT) => ClipT;
-  locationState: LocationState;
 };
 
 export class ClipsState {

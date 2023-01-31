@@ -1,5 +1,5 @@
-import React from 'react';
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
@@ -16,12 +16,11 @@ export type PropsT = React.PropsWithChildren<{
 
 const DefaultProps = {
   ...dps.locationState,
+  ...dps.dashboardState,
 };
 
 export const Dashboard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const [showClips, setShowClips] = React.useState(true);
-
     return (
       <div
         className={cn(
@@ -30,20 +29,23 @@ export const Dashboard = observer(
           props.className
         )}
       >
-        <div className={cn('Dashboard__LeftSidebar')}>
+        <div className={cn('Dashboard__LeftSidebar', 'flex flex-col')}>
           <MainButtonsPanel className={cn('mb-2')} />
-          <ToggleClipsAndPlaylists showClips={showClips} setShowClips={setShowClips} />
+          <ToggleClipsAndPlaylists />
           <></>
           {/* Switch */}
           <></>
-          {showClips && (
+          {props.dashboardState.showClips && (
             <ClipList
               updateUrl={(clip: ClipT) => props.locationState.goToClip(clip)}
             />
           )}
-          {!showClips && (
+          {!props.dashboardState.showClips && (
             <PlaylistListView
-              updateUrl={(playlist: PlaylistT) => props.locationState.goToPlaylist(playlist)}
+              className={cn('overflow-y-scroll')}
+              updateUrl={(playlist: PlaylistT) =>
+                props.locationState.goToPlaylist(playlist)
+              }
             />
           )}
         </div>
