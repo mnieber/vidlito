@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
-import React from 'react';
 import { SelectionParamsT } from 'skandha-facets/Selection';
 import {
   useDragAndDropUIConnector,
@@ -10,7 +9,7 @@ import { isLoaded } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListItem } from 'src/clips/components/ClipListItem';
-import { useMenuRef } from 'src/frames/hooks/useMenuRef';
+import { useMenuHandler } from 'src/frames/hooks/useMenuHandler';
 import UIkit from 'src/frames/styles/uikit';
 import { getUpdateUrlFn } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
@@ -30,8 +29,7 @@ const DefaultProps = {
 
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const menuRef = useMenuRef();
-    const [menuPos, setMenuPos] = React.useState<number>(0);
+    const menuHandler = useMenuHandler();
 
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.clipsDragAndDrop
@@ -67,18 +65,14 @@ export const ClipListView = observer(
           isHighlighted={clip && props.clipsHighlight.id === clip.id}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
-          onContextMenu={(e) => {
-            setMenuPos(idx + 1);
-            menuRef.openDropDown();
-            e.preventDefault();
-          }}
+          onContextMenu={menuHandler.handle(idx + 1)}
         />
       );
     });
 
     const menuTrigger = <div key="menuTrigger"></div>;
     const menuDiv = UIkit && (
-      <div key="menu" ref={menuRef.ref} data-uk-dropdown="mode:click">
+      <div key="menu" ref={menuHandler.ref} data-uk-dropdown="mode:click">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </div>
@@ -88,7 +82,7 @@ export const ClipListView = observer(
       <div className={cn('ClipListView', props.className)}>
         {clipDivs.length > 0 &&
           R.insertAll(
-            R.clamp(0, clipDivs.length, menuPos),
+            R.clamp(0, clipDivs.length, menuHandler.menuPos),
             [menuTrigger, menuDiv],
             clipDivs
           )}

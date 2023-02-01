@@ -1,8 +1,9 @@
 import React from 'react';
 import UIkit from 'src/frames/styles/uikit';
 
-export const useMenuRef = () => {
+export const useMenuHandler = () => {
   const _ref = React.useRef(null);
+  const [menuPos, setMenuPos] = React.useState<number>(0);
 
   const closeDropDown = () => {
     UIkit.dropdown(_ref.current as any).hide(false);
@@ -22,9 +23,17 @@ export const useMenuRef = () => {
     });
   };
 
+  const handle = (pos: number) => (e: any) => {
+    setMenuPos(pos);
+    openDropDown();
+    e.preventDefault();
+  };
+
   return {
     closeDropDown,
     openDropDown,
     ref,
+    handle,
+    menuPos,
   };
 };
