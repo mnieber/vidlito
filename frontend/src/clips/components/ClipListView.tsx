@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import * as R from 'ramda';
 import { SelectionParamsT } from 'skandha-facets/Selection';
 import {
   useDragAndDropUIConnector,
@@ -40,8 +39,7 @@ export const ClipListView = observer(
         onSelectItem: (selectionParams: SelectionParamsT) => {
           if (
             selectionParams.itemId &&
-            !selectionParams.isCtrl &&
-            !selectionParams.isShift
+            !(selectionParams.isCtrl || selectionParams.isShift)
           ) {
             const ufn = getUpdateUrlFn(props.clips, props.updateUrl);
             ufn && ufn(selectionParams.itemId);
@@ -65,12 +63,11 @@ export const ClipListView = observer(
           isHighlighted={clip && props.clipsHighlight.id === clip.id}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
-          onContextMenu={menuHandler.handle(idx + 1)}
+          onContextMenu={menuHandler.handleContextMenu(idx + 1)}
         />
       );
     });
 
-    const menuTrigger = <div key="menuTrigger"></div>;
     const menuDiv = UIkit && (
       <div key="menu" ref={menuHandler.ref} data-uk-dropdown="mode:click">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -80,12 +77,7 @@ export const ClipListView = observer(
 
     return (
       <div className={cn('ClipListView', props.className)}>
-        {clipDivs.length > 0 &&
-          R.insertAll(
-            R.clamp(0, clipDivs.length, menuHandler.menuPos),
-            [menuTrigger, menuDiv],
-            clipDivs
-          )}
+        {clipDivs.length > 0 && menuHandler.insertMenuDiv(clipDivs, menuDiv)}
         {clipDivs.length === 0 && noItems}
       </div>
     );

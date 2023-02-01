@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import React from 'react';
 import UIkit from 'src/frames/styles/uikit';
 
@@ -23,17 +24,27 @@ export const useMenuHandler = () => {
     });
   };
 
-  const handle = (pos: number) => (e: any) => {
+  const handleContextMenu = (pos: number) => (e: any) => {
     setMenuPos(pos);
     openDropDown();
     e.preventDefault();
+  };
+
+  const menuTrigger = <div key="menuTrigger"></div>;
+  const insertMenuDiv = (itemDivs: any[], menuDiv: any) => {
+    return R.insertAll(
+      R.clamp(0, itemDivs.length, menuPos),
+      [menuTrigger, menuDiv],
+      itemDivs
+    );
   };
 
   return {
     closeDropDown,
     openDropDown,
     ref,
-    handle,
+    handleContextMenu,
+    insertMenuDiv,
     menuPos,
   };
 };
