@@ -8,6 +8,10 @@ export const useMenuRef = () => {
     UIkit.dropdown(_ref.current as any).hide(false);
   };
 
+  const openDropDown = () => {
+    UIkit.dropdown(_ref.current as any).show();
+  };
+
   const ref = (elm: any) => {
     _ref.current = elm;
     UIkit.dropdown(elm, {
@@ -20,6 +24,7 @@ export const useMenuRef = () => {
 
   return {
     closeDropDown,
+    openDropDown,
     ref,
   };
 };
