@@ -10,7 +10,7 @@ import { ClipListItem } from 'src/clips/components/ClipListItem';
 import UIkit from 'src/frames/styles/uikit';
 import { getUpdateUrlFn } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
-import './ClipList.scss';
+import './ClipListView.scss';
 
 export type PropsT = {
   updateUrl?: (clip: ClipT) => void;
@@ -24,7 +24,7 @@ const DefaultProps = {
   ...dps.clipsSelection,
 };
 
-export const ClipList = observer(
+export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.clipsDragAndDrop
@@ -56,7 +56,7 @@ export const ClipList = observer(
     });
 
     return (
-      <div className={cn('ClipList', props.className)}>
+      <div className={cn('ClipListView', props.className)}>
         {clipDivs.length > 0 && clipDivs}
         {clipDivs.length === 0 && noItems}
       </div>

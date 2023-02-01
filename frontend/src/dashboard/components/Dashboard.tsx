@@ -3,7 +3,7 @@ import React from 'react';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipList } from 'src/clips/components';
+import { ClipListView } from 'src/clips/components';
 import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
 import { ToggleClipsAndPlaylists } from 'src/dashboard/components/ToggleClipsAndPlaylists';
 import { PlaylistListView } from 'src/playlists/components';
@@ -36,7 +36,7 @@ export const Dashboard = observer(
           {/* Switch */}
           <></>
           {props.dashboardState.showClips && (
-            <ClipList
+            <ClipListView
               className={cn('overflow-y-auto')}
               updateUrl={(clip: ClipT) => props.locationState.goToClip(clip)}
             />
