@@ -19,7 +19,6 @@ export type PropsT = {
   deleteClips: (ids: string[]) => Promise<any>;
   saveClip: (values: ObjT) => Promise<ClipT>;
   saveClipOrdering: (clips: ClipT[]) => Promise<any>;
-  createClip: (values: ObjT) => ClipT;
 };
 
 export class ClipsState {

@@ -1,3 +1,4 @@
+import { initRS } from 'src/api/ResourceState';
 import { createUUID } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 
@@ -24,9 +25,9 @@ export type ClipFormT = {
 };
 
 export const createClip = (values: ObjT): ClipT => {
-  return {
+  return initRS({
     id: createUUID(),
     name: 'New clip',
     slug: 'new-clip',
-  } as ClipT;
+  }) as ClipT;
 };

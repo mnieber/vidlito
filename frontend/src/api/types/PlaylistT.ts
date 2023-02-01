@@ -1,3 +1,4 @@
+import { initRS } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { UserProfileT } from 'src/api/types/UserProfileT';
 import { createUUID } from 'src/utils/ids';
@@ -23,9 +24,9 @@ export type PlaylistFormT = {
 };
 
 export const createPlaylist = (values: ObjT): PlaylistT => {
-  return {
+  return initRS({
     id: createUUID(),
     name: 'New playlist',
     slug: 'new-playlist',
-  } as PlaylistT;
+  }) as PlaylistT;
 };

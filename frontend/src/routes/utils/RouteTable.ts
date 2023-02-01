@@ -39,8 +39,7 @@ export class RouteTable {
         (...args: any[]) => {
           const routeArgs = getRouteArgs(...args);
           const newRoute = this.routeByName[name](routeArgs);
-          const pn = pathname();
-          if (pn !== newRoute) {
+          if (pathname() !== newRoute) {
             updateRoute(newRoute);
           }
         };

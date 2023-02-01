@@ -19,7 +19,6 @@ export type PropsT = {
   deletePlaylists: (ids: string[]) => Promise<any>;
   savePlaylist: (values: ObjT) => Promise<PlaylistT>;
   savePlaylistOrdering: (playlists: PlaylistT[]) => Promise<any>;
-  createPlaylist: (values: ObjT) => PlaylistT;
 };
 
 export class PlaylistsState {

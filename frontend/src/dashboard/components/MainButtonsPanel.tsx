@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { NewClipButton } from 'src/clips/components';
 import { colBanner } from 'src/frames/components';
 import { NewPlaylistButton } from 'src/playlists/components';
@@ -11,7 +11,9 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {};
+const DefaultProps = {
+  ...dps.dashboardState,
+};
 
 export const MainButtonsPanel = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
@@ -20,8 +22,8 @@ export const MainButtonsPanel = observer(
         className={cn('MainButtonsPanel', 'pb-2', colBanner, props.className)}
       >
         <SearchButton />
-        <NewPlaylistButton />
-        <NewClipButton />
+        {!props.dashboardState.showClips && <NewPlaylistButton />}
+        {props.dashboardState.showClips && <NewClipButton />}
       </div>
     );
   }, DefaultProps)

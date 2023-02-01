@@ -37,12 +37,13 @@ export const Dashboard = observer(
           <></>
           {props.dashboardState.showClips && (
             <ClipList
+              className={cn('overflow-y-auto')}
               updateUrl={(clip: ClipT) => props.locationState.goToClip(clip)}
             />
           )}
           {!props.dashboardState.showClips && (
             <PlaylistListView
-              className={cn('overflow-y-scroll')}
+              className={cn('overflow-y-auto')}
               updateUrl={(playlist: PlaylistT) =>
                 props.locationState.goToPlaylist(playlist)
               }

@@ -8,7 +8,7 @@ import {
   useSaveClipOrdering,
 } from 'src/api/mutations';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
-import { ClipT, createClip } from 'src/api/types/ClipT';
+import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { ClipsState } from 'src/clips/ClipsState';
@@ -46,9 +46,6 @@ export const ClipsStateProvider = observer(
               playlistId: props.playlist.id,
               clipIds: getIds(clips),
             });
-          },
-          createClip: (values: ObjT) => {
-            return initRS(createClip(values));
           },
         })
     );

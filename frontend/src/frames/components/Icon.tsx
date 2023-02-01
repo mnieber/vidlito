@@ -14,7 +14,7 @@ export const Icon = (props: PropsT) => {
       <div
         className={cn('Icon', '!mr-2', props.className)}
         data-uk-icon={`icon: ${props.name}; ratio: ${props.ratio ?? 1}`}
-      ></div>
+      />
     )
   );
 };

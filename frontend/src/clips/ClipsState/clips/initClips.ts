@@ -22,9 +22,6 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       storeLocation() {
         FacetPolicies.newItemsAreAddedBelowTheHighlight(ctr.addition);
       },
-      createItem(this: AdditionCbs<ClipT>['add']) {
-        return props.createClip(this.values);
-      },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
         FacetPolicies.editingSetEnabled(ctr.addition);

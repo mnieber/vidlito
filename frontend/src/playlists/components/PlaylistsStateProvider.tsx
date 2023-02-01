@@ -9,7 +9,7 @@ import {
 } from 'src/api/mutations';
 import { useGetPlaylists } from 'src/api/queries';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
-import { createPlaylist, PlaylistT } from 'src/api/types/PlaylistT';
+import { PlaylistT } from 'src/api/types/PlaylistT';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
@@ -53,9 +53,6 @@ export const PlaylistsStateProvider = observer(
             return savePlaylistOrdering.mutateAsync({
               playlistIds: getIds(playlists),
             });
-          },
-          createPlaylist: (values: ObjT) => {
-            return initRS(createPlaylist(values));
           },
         })
     );
