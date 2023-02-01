@@ -15,6 +15,7 @@ export type PropsT = React.PropsWithChildren<{
 }>;
 
 const DefaultProps = {
+  ...dps.playlist,
   ...dps.locationState,
   ...dps.dashboardState,
 };
@@ -38,7 +39,9 @@ export const Dashboard = observer(
           {props.dashboardState.showClips && (
             <ClipListView
               className={cn('overflow-y-auto')}
-              updateUrl={(clip: ClipT) => props.locationState.goToClip(clip)}
+              updateUrl={(clip: ClipT) =>
+                props.locationState.goToClip(clip, props.playlist)
+              }
             />
           )}
           {!props.dashboardState.showClips && (

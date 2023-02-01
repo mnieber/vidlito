@@ -18,6 +18,7 @@ export type PropsT = {
   isHighlighted: boolean;
   dragAndDropUIProps: DragAndDropUIPropsT;
   selectionUIProps: SelectionUIPropsT;
+  onContextMenu?: (e: React.MouseEvent) => void;
   className?: any;
 };
 
@@ -46,6 +47,7 @@ export const ClipListItem = observer(
         )}
         {...selectionUIHandlers(props.selectionUIProps)}
         {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
+        onContextMenu={props.onContextMenu}
       >
         <div className={cn('ClipListItem__Title', rowSkewer, 'justify-start')}>
           <div className={cn('ClipListItem__Field')}>{props.clip.name}</div>

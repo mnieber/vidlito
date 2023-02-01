@@ -1,12 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
-import { Selection } from 'skandha-facets/Selection';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Effect } from 'src/utils/components';
 
 type ArgsT = {
-  clipsSelection: Selection;
   clipId?: string;
   clipSlug: string;
 };
@@ -26,7 +24,6 @@ export const SelectClipEffect = observer(
       <Effect
         getArgs={(params) => {
           return {
-            clipsSelection: props.clipsSelection,
             clipId: R.find((x: ClipT) => x.slug === params.clipSlug)(
               props.clips
             )?.id,
@@ -41,8 +38,11 @@ export const SelectClipEffect = observer(
             if (clip) {
               props.locationState.goToClip(clip, props.playlist);
             }
-          } else if (args.clipId) {
-            args.clipsSelection.selectItem({ itemId: args.clipId });
+          } else if (
+            args.clipId &&
+            !props.clipsSelection.ids.includes(args.clipId)
+          ) {
+            props.clipsSelection.selectItem({ itemId: args.clipId });
           }
         }}
       />

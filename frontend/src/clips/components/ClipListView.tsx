@@ -1,4 +1,7 @@
 import { observer } from 'mobx-react-lite';
+import * as R from 'ramda';
+import React from 'react';
+import { SelectionParamsT } from 'skandha-facets/Selection';
 import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
@@ -7,6 +10,7 @@ import { isLoaded } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListItem } from 'src/clips/components/ClipListItem';
+import { useMenuRef } from 'src/frames/hooks/useMenuRef';
 import UIkit from 'src/frames/styles/uikit';
 import { getUpdateUrlFn } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
@@ -26,13 +30,25 @@ const DefaultProps = {
 
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const menuRef = useMenuRef();
+    const [menuPos, setMenuPos] = React.useState<number>(0);
+
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.clipsDragAndDrop
     );
     const selectionUIConnector = useSelectionUIConnector(
       props.clipsSelection,
       {
-        onSelectItem: getUpdateUrlFn(props.clips, props.updateUrl),
+        onSelectItem: (selectionParams: SelectionParamsT) => {
+          if (
+            selectionParams.itemId &&
+            !selectionParams.isCtrl &&
+            !selectionParams.isShift
+          ) {
+            const ufn = getUpdateUrlFn(props.clips, props.updateUrl);
+            ufn && ufn(selectionParams.itemId);
+          }
+        },
       },
       [props.clips, props.updateUrl]
     );
@@ -43,7 +59,7 @@ export const ClipListView = observer(
 
     const noItems = <h2>There are no clips</h2>;
 
-    const clipDivs = props.clips.map((clip) => {
+    const clipDivs = props.clips.map((clip, idx) => {
       return (
         <ClipListItem
           key={clip.id}
@@ -51,13 +67,31 @@ export const ClipListView = observer(
           isHighlighted={clip && props.clipsHighlight.id === clip.id}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
+          onContextMenu={(e) => {
+            setMenuPos(idx + 1);
+            menuRef.openDropDown();
+            e.preventDefault();
+          }}
         />
       );
     });
 
+    const menuTrigger = <div key="menuTrigger"></div>;
+    const menuDiv = UIkit && (
+      <div key="menu" ref={menuRef.ref} data-uk-dropdown="mode:click">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </div>
+    );
+
     return (
       <div className={cn('ClipListView', props.className)}>
-        {clipDivs.length > 0 && clipDivs}
+        {clipDivs.length > 0 &&
+          R.insertAll(
+            R.clamp(0, clipDivs.length, menuPos),
+            [menuTrigger, menuDiv],
+            clipDivs
+          )}
         {clipDivs.length === 0 && noItems}
       </div>
     );

@@ -30,7 +30,10 @@ export const SelectPlaylistEffect = observer(
           };
         }}
         f={(args: ArgsT) => {
-          if (args.playlistId) {
+          if (
+            args.playlistId &&
+            !props.playlistsSelection.ids.includes(args.playlistId)
+          ) {
             props.playlistsSelection.selectItem({ itemId: args.playlistId });
             props.playlistsHighlight.highlightItem(args.playlistId);
           }
