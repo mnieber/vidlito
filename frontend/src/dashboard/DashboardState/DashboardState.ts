@@ -4,7 +4,7 @@ import { cleanUpCtr } from 'react-default-props-context';
 export type PropsT = {};
 
 export class DashboardState {
-  @observable showClips: boolean = false;
+  @observable showClips: boolean = true;
 
   @action setShowClips(showClips: boolean) {
     this.showClips = showClips;

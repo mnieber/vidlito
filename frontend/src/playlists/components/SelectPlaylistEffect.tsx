@@ -15,7 +15,6 @@ const DefaultProps = {
   ...dps.playlistsSelection,
   ...dps.playlistsHighlight,
   ...dps.playlists,
-  ...dps.locationState,
 };
 
 export const SelectPlaylistEffect = observer(
@@ -34,7 +33,6 @@ export const SelectPlaylistEffect = observer(
           if (args.playlistId) {
             props.playlistsSelection.selectItem({ itemId: args.playlistId });
             props.playlistsHighlight.highlightItem(args.playlistId);
-            props.locationState.goToPlaylist(props.playlistsHighlight.item);
           }
         }}
       />
