@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import { SelectionParamsT } from 'skandha-facets/Selection';
 import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
@@ -10,7 +9,7 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListViewItem } from 'src/clips/components/ClipListViewItem';
 import { useMenuHandler } from 'src/frames/hooks/useMenuHandler';
 import UIkit from 'src/frames/styles/uikit';
-import { getUpdateUrlFn } from 'src/routes/utils';
+import { createOnSelectItemHandler } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
 import './ClipListView.scss';
 
@@ -36,15 +35,7 @@ export const ClipListView = observer(
     const selectionUIConnector = useSelectionUIConnector(
       props.clipsSelection,
       {
-        onSelectItem: (selectionParams: SelectionParamsT) => {
-          if (
-            selectionParams.itemId &&
-            !(selectionParams.isCtrl || selectionParams.isShift)
-          ) {
-            const ufn = getUpdateUrlFn(props.clips, props.updateUrl);
-            ufn && ufn(selectionParams.itemId);
-          }
-        },
+        onSelectItem: createOnSelectItemHandler(props.clips, props.updateUrl),
       },
       [props.clips, props.updateUrl]
     );
