@@ -1,0 +1,20 @@
+.ClipListViewItem {
+  @apply cursor-pointer;
+}
+
+.ClipListViewItem--selected {
+  @apply bg-blue-200;
+}
+
+.ClipListViewItem--highlighted {
+  @apply font-bold;
+}
+
+.ClipListViewItem--drag-before {
+  border-top: solid;
+}
+
+.ClipListViewItem--drag-after {
+  border-bottom: solid;
+}
+

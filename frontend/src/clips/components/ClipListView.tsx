@@ -7,7 +7,7 @@ import {
 import { isLoaded } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipListItem } from 'src/clips/components/ClipListItem';
+import { ClipListViewItem } from 'src/clips/components/ClipListViewItem';
 import { useMenuHandler } from 'src/frames/hooks/useMenuHandler';
 import UIkit from 'src/frames/styles/uikit';
 import { getUpdateUrlFn } from 'src/routes/utils';
@@ -57,7 +57,7 @@ export const ClipListView = observer(
 
     const clipDivs = props.clips.map((clip, idx) => {
       return (
-        <ClipListItem
+        <ClipListViewItem
           key={clip.id}
           clip={clip}
           isHighlighted={clip && props.clipsHighlight.id === clip.id}

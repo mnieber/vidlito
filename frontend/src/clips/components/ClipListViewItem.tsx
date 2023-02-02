@@ -12,7 +12,7 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { rowSkewer } from 'src/frames/components';
 import UIkit from 'src/frames/styles/uikit';
 import { cn } from 'src/utils/classnames';
-import './ClipListItem.scss';
+import './ClipListViewItem.scss';
 
 export type PropsT = {
   isHighlighted: boolean;
@@ -26,7 +26,7 @@ const DefaultProps = {
   ...dps.clip,
 };
 
-export const ClipListItem = observer(
+export const ClipListViewItem = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     if (isUpdating(props.clip)) {
       return UIkit && <div data-uk-spinner className=""></div>;
@@ -35,25 +35,27 @@ export const ClipListItem = observer(
     return (
       <div
         className={cn(
-          'ClipListItem',
+          'ClipListViewItem',
           'grid grid-cols-[1fr,1fr]',
           'p-2',
           {
-            'ClipListItem--selected': props.selectionUIProps.isSelected,
-            'ClipListItem--highlighted': props.isHighlighted,
+            'ClipListViewItem--selected': props.selectionUIProps.isSelected,
+            'ClipListViewItem--highlighted': props.isHighlighted,
           },
-          `ClipListItem--drag-${props.dragAndDropUIProps.dragState}`,
+          `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
           props.className
         )}
         {...selectionUIHandlers(props.selectionUIProps)}
         {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
         onContextMenu={props.onContextMenu}
       >
-        <div className={cn('ClipListItem__Title', rowSkewer, 'justify-start')}>
-          <div className={cn('ClipListItem__Field')}>{props.clip.name}</div>
+        <div
+          className={cn('ClipListViewItem__Title', rowSkewer, 'justify-start')}
+        >
+          <div className={cn('ClipListViewItem__Field')}>{props.clip.name}</div>
         </div>
         <div
-          className={cn('ClipListItem__Buttons', rowSkewer, 'justify-end')}
+          className={cn('ClipListViewItem__Buttons', rowSkewer, 'justify-end')}
         ></div>
       </div>
     );
