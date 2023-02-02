@@ -7,6 +7,8 @@ import { isLoaded } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListViewItem } from 'src/clips/components/ClipListViewItem';
+import { Icon } from 'src/frames/components/Icon';
+import { rowSkewer } from 'src/frames/components/Skewer';
 import { useMenuHandler } from 'src/frames/hooks/useMenuHandler';
 import UIkit from 'src/frames/styles/uikit';
 import { createOnSelectItemHandler } from 'src/routes/utils';
@@ -61,8 +63,15 @@ export const ClipListView = observer(
 
     const menuDiv = UIkit && (
       <div key="menu" ref={menuHandler.ref} data-uk-dropdown="mode:click">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+        <button
+          className={cn(rowSkewer)}
+          onClick={() => {
+            menuHandler.closeDropDown();
+          }}
+        >
+          <Icon name="trash" />
+          Move to Trash
+        </button>
       </div>
     );
 
