@@ -6,6 +6,7 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListView } from 'src/clips/components';
 import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
 import { ToggleClipsAndPlaylists } from 'src/dashboard/components/ToggleClipsAndPlaylists';
+import { colBanner } from 'src/frames/components';
 import { PlaylistListView } from 'src/playlists/components';
 import { cn } from 'src/utils/classnames';
 import './Dashboard.scss';
@@ -30,7 +31,7 @@ export const Dashboard = observer(
           props.className
         )}
       >
-        <div className={cn('Dashboard__LeftSidebar', 'flex flex-col')}>
+        <div className={cn('Dashboard__LeftSidebar', colBanner)}>
           <MainButtonsPanel className={cn('mb-2')} />
           <ToggleClipsAndPlaylists />
           <></>
