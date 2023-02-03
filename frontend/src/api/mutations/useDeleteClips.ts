@@ -30,6 +30,9 @@ export const deleteClips = (args: ArgsT) => {
 };
 
 export const useDeleteClips = () => {
-  const mutation = useMutation(['deleteClips'], deleteClips, {});
+  const mutation = useMutation({
+    mutationKey: ['deleteClips'],
+    mutationFn: deleteClips,
+  });
   return useMutationData(mutation);
 };

@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthFrame } from 'src/auth/components/AuthFrame';
 import { ResetPasswordForm } from 'src/auth/components/ResetPasswordForm';

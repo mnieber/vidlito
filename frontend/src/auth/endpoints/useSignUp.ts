@@ -50,7 +50,9 @@ export function signUp(args: ArgsT) {
 export const useSignUp = (authState?: AuthState) => {
   const queryName = 'signUp';
 
-  return useMutation(['signUp'], signUp, {
+  return useMutation({
+    mutationKey: ['signUp'],
+    mutationFn: signUp,
     onMutate: () => {
       if (authState) authState.onUpdating(queryName);
     },

@@ -31,7 +31,9 @@ export const saveClip = (args: ArgsT) => {
 };
 
 export const useSaveClip = () => {
-  const mutation = useMutation(['saveClip'], saveClip, {
+  const mutation = useMutation({
+    mutationKey: ['saveClip'],
+    mutationFn: saveClip,
     onSuccess: (response: ObjT, variables: ArgsT) => {
       // TODO: update any cliplist that has this clip
     },

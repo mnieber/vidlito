@@ -31,7 +31,9 @@ export const deletePlaylist = (args: ArgsT) => {
 };
 
 export const useDeletePlaylist = () => {
-  const mutation = useMutation(['deletePlaylist'], deletePlaylist, {
+  const mutation = useMutation({
+    mutationKey: ['deletePlaylist'],
+    mutationFn: deletePlaylist,
     onSuccess: (response: ObjT) => {
       queryClient.invalidateQueries(['getUserProfile']);
     },

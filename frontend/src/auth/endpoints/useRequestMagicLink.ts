@@ -40,7 +40,9 @@ export function requestMagicLink(args: ArgsT) {
 export const useRequestMagicLink = (authState?: AuthState) => {
   const queryName = 'requestMagicLink';
 
-  return useMutation([queryName], requestMagicLink, {
+  return useMutation({
+    mutationKey: [queryName],
+    mutationFn: requestMagicLink,
     onMutate: () => {
       if (authState) authState.onUpdating(queryName);
     },

@@ -65,18 +65,16 @@ export function loadUserId(args: ArgsT): Promise<any> {
 }
 
 export const useLoadUserId = () => {
-  const query = useQuery(
-    ['loadUserId'],
-    () => {
+  const query = useQuery({
+    queryKey: ['loadUserId'],
+    queryFn: () => {
       return loadUserId({ maybeRefreshToken: true });
     },
-    {
-      onSuccess: (data: ObjT) => {
-        data.userId = data.userId ?? anonymous;
-        data.isAuthenticated = data.userId !== anonymous;
-        return Promise.resolve(data);
-      },
-    }
-  );
+    onSuccess: (data: ObjT) => {
+      data.userId = data.userId ?? anonymous;
+      data.isAuthenticated = data.userId !== anonymous;
+      return Promise.resolve(data);
+    },
+  });
   return useQueryData(query);
 };

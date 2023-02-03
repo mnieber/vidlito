@@ -34,15 +34,17 @@ export const savePlaylistOrdering = (args: ArgsT) => {
 };
 
 export const useSavePlaylistOrdering = () => {
-  const mutation = useMutation(['savePlaylistOrdering'], savePlaylistOrdering, {
-    onMutate: (args: ArgsT) => {
+  const mutation = useMutation({
+    mutationKey: ['savePlaylistOrdering'],
+    mutationFn: savePlaylistOrdering,
+    onSuccess: (response: ObjT, args: ArgsT) => {
       const updateUserProfile = (userProfile: UserProfileT) => {
         userProfile.playlistSet = sortByIds(
           userProfile.playlistSet,
           args.playlistIds
         );
       };
-      queryClient.setQueriesData(['getUserProfile'], (data: any) => {
+      queryClient.setQueriesData({ queryKey: ['loadUserId'] }, (data: any) => {
         applyUpdate('userProfile', data, updateUserProfile);
         return data;
       });

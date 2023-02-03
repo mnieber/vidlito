@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 import { AuthFrame } from 'src/auth/components/AuthFrame';
 import { RequestPasswordResetForm } from 'src/auth/components/RequestPasswordResetForm';
 import { useRequestPasswordReset } from 'src/auth/endpoints';

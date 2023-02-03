@@ -34,14 +34,15 @@ export const moveClipsToTrash = (args: ArgsT) => {
 };
 
 export const useMoveClipsToTrash = () => {
-  const mutation = useMutation(['moveClipsToTrash'], moveClipsToTrash, {
-    onSuccess: (response: ObjT, variables: ArgsT) => {
+  const mutation = useMutation({
+    mutationKey: ['moveClipsToTrash'],
+    mutationFn: moveClipsToTrash,
+    onSuccess: (response: ObjT, args: ArgsT) => {
       // TODO: check that variables indeed contains the playlistId
       debugger;
-      queryClient.invalidateQueries([
-        'getPlaylist',
-        { playlistId: variables.playlistId },
-      ]);
+      queryClient.invalidateQueries({
+        queryKey: ['getPlaylist', { playlistId: args.playlistId }],
+      });
     },
   });
   return useMutationData(mutation);

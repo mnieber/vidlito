@@ -40,7 +40,9 @@ export function requestPasswordReset(args: ArgsT) {
 export const useRequestPasswordReset = (authState?: AuthState) => {
   const queryName = 'requestPasswordReset';
 
-  return useMutation([queryName], requestPasswordReset, {
+  return useMutation({
+    mutationKey: [queryName],
+    mutationFn: requestPasswordReset,
     onMutate: () => {
       if (authState) authState.onUpdating(queryName);
     },

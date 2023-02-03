@@ -5,7 +5,7 @@ import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
-  playlistId: string;
+  playlistId?: string;
 };
 
 export const getPlaylist = (args: ArgsT) => {
@@ -19,7 +19,6 @@ export const getPlaylist = (args: ArgsT) => {
         playlist {
           description
           id
-          loaded
           name
           slug
           clipSet {
@@ -48,6 +47,10 @@ export const getPlaylist = (args: ArgsT) => {
 };
 
 export const useGetPlaylist = (args: ArgsT) => {
-  const query = useQuery(['getPlaylist', args], () => getPlaylist(args));
+  const query = useQuery({
+    queryKey: ['getPlaylist', args],
+    queryFn: () =>
+      args.playlistId ? getPlaylist(args) : Promise.resolve(null),
+  });
   return useQueryData(query);
 };

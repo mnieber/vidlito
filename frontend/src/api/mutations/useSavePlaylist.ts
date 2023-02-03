@@ -32,9 +32,11 @@ export const savePlaylist = (args: ArgsT) => {
 };
 
 export const useSavePlaylist = () => {
-  const mutation = useMutation(['savePlaylist'], savePlaylist, {
+  const mutation = useMutation({
+    mutationKey: ['savePlaylist'],
+    mutationFn: savePlaylist,
     onSuccess: (response: ObjT) => {
-      queryClient.invalidateQueries(['getUserProfile']);
+      queryClient.invalidateQueries({ queryKey: ['getUserProfile'] });
     },
   });
   return useMutationData(mutation);
