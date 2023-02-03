@@ -105,7 +105,7 @@ export const PlaylistsStateProvider = observer(
             []
           )(playlistsState.playlists.data.playlistsDisplay),
         playlist: () =>
-          maybe(props.userProfile)(playlistsState.playlists.highlight.item),
+          maybe(getPlaylist)(playlistsState.playlists.highlight.item),
         playlistsAddition: () => playlistsState.playlists.addition,
         playlistsDeletion: () => playlistsState.playlists.deletion,
         playlistsDragAndDrop: () => playlistsState.playlists.dragAndDrop,

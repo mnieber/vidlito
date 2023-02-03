@@ -49,8 +49,8 @@ export const getPlaylist = (args: ArgsT) => {
 export const useGetPlaylist = (args: ArgsT) => {
   const query = useQuery({
     queryKey: ['getPlaylist', args],
-    queryFn: () =>
-      args.playlistId ? getPlaylist(args) : Promise.resolve(null),
+    queryFn: () => getPlaylist(args),
+    enabled: !!args.playlistId,
   });
   return useQueryData(query);
 };
