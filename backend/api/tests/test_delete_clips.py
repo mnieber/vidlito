@@ -1,4 +1,5 @@
 import pytest
+
 from api.tests.graphqltestcase import GraphqlTestCase
 from clips.models import Clip
 from clips.tests.random_data import create_random_clip

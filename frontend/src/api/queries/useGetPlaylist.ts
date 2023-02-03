@@ -4,15 +4,22 @@ import { useQueryData } from 'src/api/hooks';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
-export type ArgsT = {};
+export type ArgsT = {
+  playlistId: string;
+};
 
-export const getPlaylists = (args: ArgsT) => {
+export const getPlaylist = (args: ArgsT) => {
   return doQuery(
-    `query getPlaylists {
-      getPlaylists {
-        playlists {
+    `query getPlaylist(
+      $playlistId: ID!
+    ) {
+      getPlaylist(
+        playlistId: $playlistId
+      ) {
+        playlist {
           description
           id
+          loaded
           name
           slug
           clipSet {
@@ -35,12 +42,12 @@ export const getPlaylists = (args: ArgsT) => {
   ).then((response: ObjT) => {
     return wait(
       process.env.NODE_ENV === 'development' ? 1000 : 0,
-      response.getPlaylists
+      response.getPlaylist
     );
   });
 };
 
-export const useGetPlaylists = () => {
-  const query = useQuery(['getPlaylists'], () => getPlaylists({}));
+export const useGetPlaylist = (args: ArgsT) => {
+  const query = useQuery(['getPlaylist', args], () => getPlaylist(args));
   return useQueryData(query);
 };

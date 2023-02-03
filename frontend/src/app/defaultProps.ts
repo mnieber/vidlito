@@ -8,6 +8,7 @@ import { Insertion } from 'skandha-facets/Insertion';
 import { Selection } from 'skandha-facets/Selection';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
+import { UserProfileT } from 'src/api/types/UserProfileT';
 import { ClipsState } from 'src/clips/ClipsState';
 import { DashboardState } from 'src/dashboard/DashboardState';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
@@ -29,6 +30,18 @@ const dpsStates = {
   },
   playlistsState: {
     playlistsState: stub as PlaylistsState,
+  },
+};
+
+const dpsDashboard = {
+  userProfile: {
+    userProfile: stub as UserProfileT,
+  },
+  username: {
+    username: stub as string,
+  },
+  isAuthenticated: {
+    isAuthenticated: stub as boolean,
   },
 };
 
@@ -93,9 +106,10 @@ const dpsPlaylists = {
 };
 
 export const defaultProps = {
-  ...dpsStates,
   ...dpsClips,
+  ...dpsDashboard,
   ...dpsPlaylists,
+  ...dpsStates,
 };
 
 export const dps = defaultProps;

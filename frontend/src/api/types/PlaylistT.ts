@@ -8,6 +8,7 @@ export type PlaylistT = {
   clipSet: ClipT[];
   description?: string;
   id: string;
+  loaded: boolean;
   name: string;
   owner: UserProfileT;
   slug: string;

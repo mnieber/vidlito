@@ -42,8 +42,8 @@ export const useSavePlaylistOrdering = () => {
           args.playlistIds
         );
       };
-      queryClient.setQueriesData(['getPlaylists'], (data: any) => {
-        applyUpdate('playlists.*.owner', data, updateUserProfile);
+      queryClient.setQueriesData(['getUserProfile'], (data: any) => {
+        applyUpdate('userProfile', data, updateUserProfile);
         return data;
       });
     },

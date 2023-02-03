@@ -38,14 +38,17 @@ export const saveClipOrdering = (args: ArgsT) => {
 
 export const useSaveClipOrdering = () => {
   const mutation = useMutation(['saveClipOrdering'], saveClipOrdering, {
-    onMutate: (args: ArgsT) => {
+    onSuccess: (response: ObjT, variables: ArgsT) => {
       const updatePlaylist = (playlist: PlaylistT) => {
-        playlist.clipSet = sortByIds(playlist.clipSet, args.clipIds);
+        playlist.clipSet = sortByIds(playlist.clipSet, variables.clipIds);
       };
-      queryClient.setQueriesData(['getPlaylists'], (data: any) => {
-        applyUpdate('playlists.*', data, updatePlaylist);
-        return data;
-      });
+      queryClient.setQueriesData(
+        ['getPlaylist', { playlistId: variables.playlistId }],
+        (data: any) => {
+          applyUpdate('playlist.*', data, updatePlaylist);
+          return data;
+        }
+      );
     },
   });
   return useMutationData(mutation);

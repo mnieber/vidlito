@@ -3,6 +3,7 @@ import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
+import { useLoadUserId } from 'src/auth/api';
 import { DashboardState } from 'src/dashboard/DashboardState';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { log } from 'src/utils/logging';
@@ -13,13 +14,20 @@ const DefaultProps = {};
 
 export const DashboardStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const loadUserId = useLoadUserId();
+
     const [dashboardState] = React.useState(() => new DashboardState({}));
 
     useUpdateStateReaction({
       getInputs: () => {
-        return {};
+        return {
+          userProfile: loadUserId.data?.userProfile,
+          username: loadUserId.data?.username,
+        };
       },
       updateState: (inputs) => {
+        dashboardState.username = inputs.username;
+        dashboardState.userProfile = inputs.userProfile;
         if (flags.logStateProviders) {
           log('DashboardState updated', dashboardState.getSummary());
         }
@@ -31,6 +39,9 @@ export const DashboardStateProvider = observer(
       const result: any = {
         defaultProps: {
           dashboardState: () => dashboardState,
+          userProfile: () => dashboardState.userProfile,
+          username: () => dashboardState.username,
+          isAuthenticated: () => dashboardState.isAuthenticated,
         },
       };
 

@@ -15,12 +15,24 @@ export function loadUserId(args: ArgsT): Promise<any> {
   return doQuery(
     `query {
         username
+        getUserProfile {
+          userProfile {
+            displayName
+            userId
+            playlistSet {
+              id
+              name
+              slug
+            }
+          }
+        }
       }`,
     {}
   )
     .then((response: ObjT) => {
       return {
         userId: response.username,
+        userProfile: response.getUserProfile.userProfile,
       };
     })
     .catch((error: ObjT) => {

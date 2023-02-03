@@ -1,7 +1,9 @@
 import graphene
+
 import user_accounts.schema
 
-from .getplaylists import GetPlaylists
+from .getplaylist import GetPlaylist
+from .getuserprofile import GetUserProfile
 
 
 class GrapheneNonEmptyQuery(graphene.ObjectType):
@@ -11,5 +13,7 @@ class GrapheneNonEmptyQuery(graphene.ObjectType):
         return "Hello world"
 
 
-class Query(user_accounts.schema.Query, GetPlaylists, GrapheneNonEmptyQuery):
+class Query(
+    user_accounts.schema.Query, GetPlaylist, GetUserProfile, GrapheneNonEmptyQuery
+):
     pass

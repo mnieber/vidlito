@@ -7,10 +7,9 @@ import {
   useSavePlaylist,
   useSavePlaylistOrdering,
 } from 'src/api/mutations';
-import { useGetPlaylists } from 'src/api/queries';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
-import { withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
@@ -20,11 +19,12 @@ import { ObjT } from 'src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {};
+const DefaultProps = {
+  ...dps.userProfile,
+};
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const getPlaylists = useGetPlaylists();
     const deletePlaylist = useDeletePlaylist();
     const savePlaylist = useSavePlaylist();
     const savePlaylistOrdering = useSavePlaylistOrdering();
@@ -60,7 +60,7 @@ export const PlaylistsStateProvider = observer(
     useUpdateStateReaction({
       getInputs: () => {
         return {
-          playlists: getPlaylists.data?.playlists,
+          playlists: props.userProfile?.playlistSet,
         };
       },
       updateState: (inputs) => {
@@ -85,11 +85,11 @@ export const PlaylistsStateProvider = observer(
         ...result.defaultProps,
         playlists: () =>
           maybe(
-            getPlaylists,
+            props.userProfile,
             []
           )(playlistsState.playlists.data.playlistsDisplay),
         playlist: () =>
-          maybe(getPlaylists)(playlistsState.playlists.highlight.item),
+          maybe(props.userProfile)(playlistsState.playlists.highlight.item),
         playlistsAddition: () => playlistsState.playlists.addition,
         playlistsDeletion: () => playlistsState.playlists.deletion,
         playlistsDragAndDrop: () => playlistsState.playlists.dragAndDrop,
