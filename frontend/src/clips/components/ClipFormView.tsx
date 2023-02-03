@@ -6,10 +6,12 @@ import {
   HandleSubmitArgsT,
   HandleValidateArgsT,
   unflatten,
-  useFormStateContext,
 } from 'react-form-state-context';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
+import { GoToTimeButton } from 'src/clips/components/GoToTimeButton';
+import { UpdateTimeButton } from 'src/clips/components/UpdateTimeButton';
+import { UrlField } from 'src/clips/components/UrlField';
 import {
   CancelButton,
   Field,
@@ -24,7 +26,6 @@ import { colBanner, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { createUUID } from 'src/utils/ids';
 import { VideoPlayerState } from 'src/videos/hooks/useVideoPlayerState';
-import { VideoController } from 'src/videos/VideoController';
 import './ClipFormView.scss';
 
 export type PropsT = {
@@ -158,63 +159,6 @@ export const ClipFormView = observer(
   }, DefaultProps)
 );
 
-const UpdateTimeButton = (props: {
-  videoController: VideoController;
-  fieldName: string;
-  className?: any;
-}) => {
-  const formState = useFormStateContext();
-  const timeStamp =
-    Math.round(
-      1000 * props.videoController.getPlayer()?.getCurrentTime() ?? 0
-    ) / 1000;
-  return (
-    <button
-      className={props.className}
-      onClick={() => {
-        formState.setValue(props.fieldName, timeStamp);
-      }}
-    >
-      Set
-    </button>
-  );
-};
-
-const GoToTimeButton = (props: {
-  videoController: VideoController;
-  fieldName: string;
-  className?: any;
-}) => {
-  const formState = useFormStateContext();
-  return (
-    <button
-      className={props.className}
-      onClick={() => {
-        const timestamp = formState.getValue(props.fieldName);
-        if (!R.isNil(timestamp)) {
-          props.videoController.getPlayer()?.seekTo(timestamp);
-        }
-      }}
-    >
-      Go
-    </button>
-  );
-};
-
 const _toSeconds = (ms: number | undefined) => {
   return ms ? ms / 1000 : null;
-};
-
-export const UrlField = (props: { videoPlayerState: VideoPlayerState }) => {
-  const formState = useFormStateContext();
-  return (
-    <Field fieldName="clipForm.url" label="Url">
-      <TextField
-        controlled={true}
-        onChange={() => {
-          props.videoPlayerState.setUrl(formState.values['clipForm.url'], 0);
-        }}
-      />
-    </Field>
-  );
 };
