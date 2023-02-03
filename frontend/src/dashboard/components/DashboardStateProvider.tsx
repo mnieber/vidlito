@@ -23,11 +23,13 @@ export const DashboardStateProvider = observer(
         return {
           userProfile: loadUserId.data?.userProfile,
           username: loadUserId.data?.username,
+          isAuthenticated: loadUserId.data?.isAuthenticated,
         };
       },
       updateState: (inputs) => {
         dashboardState.username = inputs.username;
         dashboardState.userProfile = inputs.userProfile;
+        dashboardState.isAuthenticated = inputs.isAuthenticated;
         if (flags.logStateProviders) {
           log('DashboardState updated', dashboardState.getSummary());
         }
