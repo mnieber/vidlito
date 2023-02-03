@@ -7,6 +7,7 @@ import {
   useSavePlaylist,
   useSavePlaylistOrdering,
 } from 'src/api/endpoints';
+import { useGetPlaylist } from 'src/api/queries';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
@@ -57,15 +58,30 @@ export const PlaylistsStateProvider = observer(
         })
     );
 
+    const getPlaylist = useGetPlaylist({
+      playlistId: playlistsState.playlists.highlight.id,
+    });
+
     useUpdateStateReaction({
       getInputs: () => {
         return {
           playlists: props.userProfile?.playlistSet,
+          playlist: getPlaylist.data?.playlist,
         };
       },
       updateState: (inputs) => {
+        // Initialize resource states
         R.forEach(initRS, inputs.playlists ?? []);
-        playlistsState.playlists.data.playlists = inputs.playlists ?? [];
+        if (inputs.playlist) {
+          initRS(inputs.playlist);
+        }
+
+        // Initialize data.playlists to the playlists from the user profile
+        // with the fully loaded playlist replacing the stub one.
+        playlistsState.playlists.data.playlists = _updatePlaylists(
+          inputs.playlists,
+          inputs.playlist
+        );
 
         if (flags.logStateProviders) {
           log('PlaylistsState updated', playlistsState.getSummary());
@@ -108,3 +124,15 @@ export const PlaylistsStateProvider = observer(
     );
   }, DefaultProps)
 );
+
+const _updatePlaylists = (playlists: PlaylistT[], playlist?: PlaylistT) => {
+  const playlistIdx =
+    playlist && playlists
+      ? R.findIndex(R.propEq('id', playlist.id), playlists)
+      : -1;
+  const updatedPlaylists =
+    playlistIdx >= 0
+      ? R.update(playlistIdx, playlist!, playlists)
+      : playlists ?? [];
+  return updatedPlaylists;
+};
