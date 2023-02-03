@@ -1,46 +1,46 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { States } from 'src/auth/api/states';
-import { isError } from 'src/auth/api/utils';
 import { AuthState } from 'src/auth/AuthState';
+import { States } from 'src/auth/endpoints/states';
+import { isError } from 'src/auth/endpoints/utils';
 import { ObjT } from 'src/utils/types';
 
 export type ArgsT = {
-  email: string;
+  userId: string;
 };
 
-export function requestPasswordReset(args: ArgsT) {
+export function requestMagicLink(args: ArgsT) {
   return doQuery(
     `mutation ($email: String!) {
-      requestPasswordReset(
+      requestMagicLink(
         email: $email,
       ) {
         success,
         errors,
-        passwordResetToken
+        magicLinkToken
       }
     }`,
     {
-      email: args.email,
+      email: args.userId,
     }
   ).then((response: ObjT) => {
-    if (isError(['requestPasswordReset', 'errors'])(response))
+    if (isError(['requestMagicLink', 'errors'])(response))
       return {
         success: false,
-        errors: [States.REQUEST_PASSWORD_RESET_FAILED],
+        errors: [States.REQUEST_MAGIC_LINK_FAILED],
       };
 
     return {
       success: true,
-      passwordResetToken: response.requestPasswordReset.passwordResetToken,
+      magicLinkToken: response.requestMagicLink.magicLinkToken,
     };
   });
 }
 
-export const useRequestPasswordReset = (authState?: AuthState) => {
-  const queryName = 'requestPasswordReset';
+export const useRequestMagicLink = (authState?: AuthState) => {
+  const queryName = 'requestMagicLink';
 
-  return useMutation([queryName], requestPasswordReset, {
+  return useMutation([queryName], requestMagicLink, {
     onMutate: () => {
       if (authState) authState.onUpdating(queryName);
     },

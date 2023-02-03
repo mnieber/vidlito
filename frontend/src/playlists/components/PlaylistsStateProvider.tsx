@@ -6,7 +6,7 @@ import {
   useDeletePlaylist,
   useSavePlaylist,
   useSavePlaylistOrdering,
-} from 'src/api/mutations';
+} from 'src/api/endpoints';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';

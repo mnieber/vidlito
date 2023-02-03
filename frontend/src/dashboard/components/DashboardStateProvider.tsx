@@ -3,7 +3,7 @@ import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
-import { useLoadUserId } from 'src/auth/api';
+import { useLoadUserId } from 'src/auth/endpoints';
 import { DashboardState } from 'src/dashboard/DashboardState';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { log } from 'src/utils/logging';

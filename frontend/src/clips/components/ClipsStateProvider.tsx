@@ -6,7 +6,7 @@ import {
   useDeleteClips,
   useSaveClip,
   useSaveClipOrdering,
-} from 'src/api/mutations';
+} from 'src/api/endpoints';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
