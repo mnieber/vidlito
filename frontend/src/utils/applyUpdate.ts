@@ -1,8 +1,12 @@
 import { ObjT } from 'src/utils/types';
 
-export const applyUpdate = (path: string, data: ObjT, update: Function) => {
-  const pathParts = path.split('.');
-  return applyUpdateImp(pathParts, 0, data, update);
+export const applyUpdate = (paths: string[], data: ObjT, update: Function) => {
+  let result = data;
+  for (const path of paths) {
+    const pathParts = path.split('.');
+    result = applyUpdateImp(pathParts, 0, result, update);
+  }
+  return result;
 };
 
 const applyUpdateImp = (

@@ -7,6 +7,7 @@ import {
   useSaveClip,
   useSaveClipOrdering,
 } from 'src/api/endpoints';
+import { useMutationData } from 'src/api/hooks';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
@@ -25,9 +26,9 @@ const DefaultProps = {
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const deleteClips = useDeleteClips();
-    const saveClip = useSaveClip();
-    const saveClipOrdering = useSaveClipOrdering();
+    const deleteClips = useMutationData(useDeleteClips());
+    const saveClip = useMutationData(useSaveClip());
+    const saveClipOrdering = useMutationData(useSaveClipOrdering());
 
     const [clipsState] = React.useState(
       () =>

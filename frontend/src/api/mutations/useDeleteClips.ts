@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { useMutationData } from 'src/api/hooks';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
@@ -30,9 +29,8 @@ export const deleteClips = (args: ArgsT) => {
 };
 
 export const useDeleteClips = () => {
-  const mutation = useMutation({
+  return useMutation({
     mutationKey: ['deleteClips'],
     mutationFn: deleteClips,
   });
-  return useMutationData(mutation);
 };

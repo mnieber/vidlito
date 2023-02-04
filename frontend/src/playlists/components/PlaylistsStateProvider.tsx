@@ -4,11 +4,11 @@ import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import {
   useDeletePlaylist,
+  useGetPlaylist,
   useSavePlaylist,
   useSavePlaylistOrdering,
 } from 'src/api/endpoints';
-import { useQueryData } from 'src/api/hooks';
-import { useGetPlaylist } from 'src/api/queries';
+import { useMutationData, useQueryData } from 'src/api/hooks';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
@@ -27,9 +27,9 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const deletePlaylist = useDeletePlaylist();
-    const savePlaylist = useSavePlaylist();
-    const savePlaylistOrdering = useSavePlaylistOrdering();
+    const deletePlaylist = useMutationData(useDeletePlaylist());
+    const savePlaylist = useMutationData(useSavePlaylist());
+    const savePlaylistOrdering = useMutationData(useSavePlaylistOrdering());
 
     const [playlistsState] = React.useState(
       () =>

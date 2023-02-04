@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import * as R from 'ramda';
 import { doQuery } from 'src/api/graphqlClient';
-import { useMutationData } from 'src/api/hooks';
 import { ArgsT as GetPlaylistArgsT } from 'src/api/queries/useGetPlaylist';
 import { queryClient } from 'src/api/queryClient';
 import { PlaylistT } from 'src/api/types/PlaylistT';
@@ -39,7 +38,7 @@ export const saveClipOrdering = (args: ArgsT) => {
 };
 
 export const useSaveClipOrdering = () => {
-  const mutation = useMutation({
+  return useMutation({
     mutationKey: ['saveClipOrdering'],
     mutationFn: saveClipOrdering,
     onMutate: (args: ArgsT) => {
@@ -60,10 +59,9 @@ export const useSaveClipOrdering = () => {
           ],
         },
         (data: any) => {
-          return applyUpdate('playlist', data, updatePlaylist);
+          return applyUpdate(['playlist'], data, updatePlaylist);
         }
       );
     },
   });
-  return useMutationData(mutation);
 };

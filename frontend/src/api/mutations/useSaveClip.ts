@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { useMutationData } from 'src/api/hooks';
 import { ClipFormT } from 'src/api/types/ClipT';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
@@ -31,12 +30,11 @@ export const saveClip = (args: ArgsT) => {
 };
 
 export const useSaveClip = () => {
-  const mutation = useMutation({
+  return useMutation({
     mutationKey: ['saveClip'],
     mutationFn: saveClip,
     onSuccess: (response: ObjT, variables: ArgsT) => {
       // TODO: update any cliplist that has this clip
     },
   });
-  return useMutationData(mutation);
 };

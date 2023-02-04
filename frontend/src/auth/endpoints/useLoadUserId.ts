@@ -60,16 +60,16 @@ export function loadUserId(args: ArgsT): Promise<any> {
     .catch(() => {
       return {
         userId: anonymous,
+        isAuthenticated: false,
       };
     });
 }
 
 export const useLoadUserId = () => {
-  const query = useQuery({
+  return useQuery({
     queryKey: ['loadUserId'],
     queryFn: () => {
       return loadUserId({ maybeRefreshToken: true });
     },
   });
-  return query;
 };

@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { useMutationData } from 'src/api/hooks';
 import { queryClient } from 'src/api/queryClient';
 import { PlaylistFormT } from 'src/api/types/PlaylistT';
 import { ObjT } from 'src/utils/types';
@@ -32,12 +31,13 @@ export const savePlaylist = (args: ArgsT) => {
 };
 
 export const useSavePlaylist = () => {
-  const mutation = useMutation({
+  return useMutation({
     mutationKey: ['savePlaylist'],
     mutationFn: savePlaylist,
     onSuccess: (response: ObjT) => {
-      queryClient.invalidateQueries({ queryKey: ['getUserProfile'] });
+      queryClient.invalidateQueries({
+        queryKey: ['getUserProfile'],
+      });
     },
   });
-  return useMutationData(mutation);
 };

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
+import * as R from 'ramda';
 import { doQuery } from 'src/api/graphqlClient';
-import { useMutationData } from 'src/api/hooks';
 import { queryClient } from 'src/api/queryClient';
 import { UserProfileT } from 'src/api/types/UserProfileT';
 import { applyUpdate } from 'src/utils/applyUpdate';
@@ -34,21 +34,21 @@ export const savePlaylistOrdering = (args: ArgsT) => {
 };
 
 export const useSavePlaylistOrdering = () => {
-  const mutation = useMutation({
+  return useMutation({
     mutationKey: ['savePlaylistOrdering'],
     mutationFn: savePlaylistOrdering,
-    onSuccess: (response: ObjT, args: ArgsT) => {
+    onMutate: (args: ArgsT) => {
       const updateUserProfile = (userProfile: UserProfileT) => {
-        userProfile.playlistSet = sortByIds(
-          userProfile.playlistSet,
-          args.playlistIds
-        );
+        return R.isNil(userProfile.playlistSet)
+          ? userProfile
+          : {
+              ...userProfile,
+              playlistSet: sortByIds(userProfile.playlistSet, args.playlistIds),
+            };
       };
       queryClient.setQueriesData({ queryKey: ['loadUserId'] }, (data: any) => {
-        applyUpdate('userProfile', data, updateUserProfile);
-        return data;
+        return applyUpdate(['userProfile'], data, updateUserProfile);
       });
     },
   });
-  return useMutationData(mutation);
 };
