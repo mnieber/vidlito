@@ -7,6 +7,7 @@ import {
   useSavePlaylist,
   useSavePlaylistOrdering,
 } from 'src/api/endpoints';
+import { useQueryData } from 'src/api/hooks';
 import { useGetPlaylist } from 'src/api/queries';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
@@ -58,9 +59,11 @@ export const PlaylistsStateProvider = observer(
         })
     );
 
-    const getPlaylist = useGetPlaylist({
-      playlistId: playlistsState.playlists.highlight.id,
-    });
+    const getPlaylist = useQueryData(
+      useGetPlaylist({
+        playlistId: playlistsState.playlists.highlight.id,
+      })
+    );
 
     useUpdateStateReaction({
       getInputs: () => {

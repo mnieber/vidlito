@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { useQueryData } from 'src/api/hooks';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
@@ -52,5 +51,5 @@ export const useGetPlaylist = (args: ArgsT) => {
     queryFn: () => getPlaylist(args),
     enabled: !!args.playlistId,
   });
-  return useQueryData(query);
+  return query;
 };

@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
+import { useQueryData } from 'src/api/hooks';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { useLoadUserId } from 'src/auth/endpoints';
@@ -14,7 +15,7 @@ const DefaultProps = {};
 
 export const DashboardStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const loadUserId = useLoadUserId();
+    const loadUserId = useQueryData(useLoadUserId());
 
     const [dashboardState] = React.useState(() => new DashboardState({}));
 
