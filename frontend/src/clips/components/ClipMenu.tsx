@@ -6,8 +6,6 @@ import './ClipMenu.scss';
 
 export type PropsT = {
   className?: any;
-  menuProps: any;
-  toggleMenu: Function;
 };
 
 const DefaultProps = {
@@ -17,18 +15,18 @@ const DefaultProps = {
 
 export const ClipMenu = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    return (
+    return props.dashboardState.menuProps ? (
       <ControlledMenu
-        {...props.menuProps}
+        {...props.dashboardState.menuProps}
         anchorPoint={props.dashboardState.anchorPoint}
         direction="right"
-        onClose={() => props.toggleMenu(false)}
+        onClose={() => props.dashboardState.closeContextMenu()}
       >
         <MenuItem>
           <Icon name="trash" />
           Move to Trash
         </MenuItem>
       </ControlledMenu>
-    );
+    ) : null;
   }, DefaultProps)
 );

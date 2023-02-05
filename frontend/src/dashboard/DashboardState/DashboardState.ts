@@ -24,11 +24,16 @@ export class DashboardState {
     this.videoPlayerParentElm = videoPlayerParentElm;
   }
 
-  @action setAnchorPoint(anchorPoint: any) {
+  @action openContextMenuAtPoint(anchorPoint: any) {
     this.anchorPoint = anchorPoint;
+    this.toggleMenu(true);
   }
 
-  @action setContextMenu(toggleMenu: Function, menuProps: any) {
+  @action closeContextMenu() {
+    this.toggleMenu(false);
+  }
+
+  @action initContextMenu(toggleMenu: Function, menuProps: any) {
     this.toggleMenu = toggleMenu;
     this.menuProps = menuProps;
   }

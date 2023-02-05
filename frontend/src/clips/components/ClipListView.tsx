@@ -57,8 +57,10 @@ export const ClipListView = observer(
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
           onContextMenu={(e) => {
             e.preventDefault();
-            props.dashboardState.setAnchorPoint({ x: e.clientX, y: e.clientY });
-            props.dashboardState.toggleMenu(true);
+            props.dashboardState.openContextMenuAtPoint({
+              x: e.clientX,
+              y: e.clientY,
+            });
           }}
         />
       );

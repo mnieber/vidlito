@@ -19,18 +19,19 @@ const DefaultProps = {
 
 export const AppFrame = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    // Since we show the clip context menu in this component, we also call the hooks
+    // to initialize the menu state here. For some reason, there is a crash if we try
+    // to do this in the DashboardStateProvider component.
     const [menuProps, toggleMenu] = useMenuState();
-    const clipMenu = <ClipMenu menuProps={menuProps} toggleMenu={toggleMenu} />;
-
     React.useEffect(() => {
-      props.dashboardState.setContextMenu(toggleMenu, menuProps);
+      props.dashboardState.initContextMenu(toggleMenu, menuProps);
     }, [props.dashboardState, toggleMenu, menuProps]);
 
     return (
       <div
         className={cn('AppFrame', 'grid grid-rows-[60px,1fr]', props.className)}
       >
-        {clipMenu}
+        <ClipMenu />
         <></>
         {/* Bar */}
         <></>
