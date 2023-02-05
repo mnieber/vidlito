@@ -1,4 +1,6 @@
+import { ControlledMenu, MenuItem, useMenuState } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
@@ -7,9 +9,7 @@ import { isLoaded } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListViewItem } from 'src/clips/components/ClipListViewItem';
-import { Icon } from 'src/frames/components/Icon';
-import { rowSkewer } from 'src/frames/components/Skewer';
-import { useMenuHandler } from 'src/frames/hooks/useMenuHandler';
+import { Icon } from 'src/frames/components';
 import UIkit from 'src/frames/styles/uikit';
 import { createOnSelectItemHandler } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
@@ -29,7 +29,8 @@ const DefaultProps = {
 
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const menuHandler = useMenuHandler();
+    const [anchorPoint, setAnchorPoint] = React.useState({ x: 0, y: 0 });
+    const [menuProps, toggleMenu] = useMenuState();
 
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.clipsDragAndDrop
@@ -49,36 +50,43 @@ export const ClipListView = observer(
 
     const noItems = <h2>There are no clips</h2>;
 
+    const menuDiv = (
+      <ControlledMenu
+        {...menuProps}
+        anchorPoint={anchorPoint}
+        direction="right"
+        onClose={() => toggleMenu(false)}
+      >
+        <MenuItem>
+          <Icon name="trash" />
+          Move to Trash
+        </MenuItem>
+      </ControlledMenu>
+    );
+
     const clipDivs = props.clips.map((clip, idx) => {
+      const isHighlighted = clip && props.clipsHighlight.id === clip.id;
+
       return (
         <ClipListViewItem
           key={clip.id}
           clip={clip}
-          isHighlighted={clip && props.clipsHighlight.id === clip.id}
+          isHighlighted={isHighlighted}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
-          onContextMenu={menuHandler.handleContextMenu(idx + 1)}
+          onContextMenu={(e) => {
+            e.preventDefault();
+            setAnchorPoint({ x: e.clientX, y: e.clientY });
+            toggleMenu(true);
+          }}
         />
       );
     });
 
-    const menuDiv = UIkit && (
-      <div key="menu" ref={menuHandler.ref} data-uk-dropdown="mode:click">
-        <button
-          className={cn(rowSkewer)}
-          onClick={() => {
-            menuHandler.closeDropDown();
-          }}
-        >
-          <Icon name="trash" />
-          Move to Trash
-        </button>
-      </div>
-    );
-
     return (
       <div className={cn('ClipListView', props.className)}>
-        {clipDivs.length > 0 && menuHandler.insertMenuDiv(clipDivs, menuDiv)}
+        {menuDiv}
+        {clipDivs.length > 0 && clipDivs}
         {clipDivs.length === 0 && noItems}
       </div>
     );

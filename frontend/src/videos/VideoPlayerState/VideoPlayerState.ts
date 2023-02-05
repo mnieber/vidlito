@@ -60,12 +60,3 @@ export class VideoPlayerState {
     makeObservable(this);
   }
 }
-
-// videoIFrame.focusParentDiv();
-
-// this.setUrl(props.url, props.startTimeMs);
-
-// const videoPlayerState = useVideoPlayerState({
-//   url: props.clip.url!,
-//   startTimeMs: props.clip.startTimeMs ?? 0,
-// });
