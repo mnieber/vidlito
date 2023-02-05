@@ -2,7 +2,11 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { useSaveClip, useSaveClipOrdering } from 'src/api/endpoints';
+import {
+  useMoveClipsToPlaylist,
+  useSaveClip,
+  useSaveClipOrdering,
+} from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
 import {
   useMoveClipsToTrash,
@@ -29,6 +33,7 @@ export const ClipsStateProvider = observer(
     const moveClipsToTrash = useMutationData(useMoveClipsToTrash());
     const saveClip = useMutationData(useSaveClip());
     const saveClipOrdering = useMutationData(useSaveClipOrdering());
+    const moveClipsToPlaylist = useMutationData(useMoveClipsToPlaylist());
 
     const [clipsState] = React.useState(
       () =>
@@ -49,6 +54,18 @@ export const ClipsStateProvider = observer(
             return saveClipOrdering.mutateAsync({
               playlistId: props.playlist.id,
               clipIds: getIds(clips),
+            });
+          },
+          moveClipsToPlaylist: (
+            clips: ClipT[],
+            playlistId: string,
+            copy: boolean
+          ) => {
+            return moveClipsToPlaylist.mutateAsync({
+              srcPlaylistId: props.playlist.id,
+              destPlaylistId: playlistId,
+              clipIds: getIds(clips),
+              copy,
             });
           },
         })

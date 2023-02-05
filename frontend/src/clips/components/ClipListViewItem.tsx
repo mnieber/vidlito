@@ -10,9 +10,10 @@ import {
 import { isUpdating } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
-import { Icon, rowSkewer } from 'src/frames/components';
+import { rowSkewer } from 'src/frames/components';
 import UIkit from 'src/frames/styles/uikit';
 import { cn } from 'src/utils/classnames';
+import { PlayVideoIcon } from 'src/videos/components';
 import './ClipListViewItem.scss';
 
 export type PropsT = {
@@ -33,26 +34,6 @@ export const ClipListViewItem = observer(
     if (isUpdating(props.clip)) {
       return UIkit && <div data-uk-spinner className=""></div>;
     }
-
-    const icon =
-      props.videoPlayerState.videoController.ready && props.isHighlighted ? (
-        <div
-          className={cn(rowSkewer)}
-          onClick={() => {
-            props.videoPlayerState.videoController.togglePlay();
-          }}
-        >
-          <Icon
-            name={
-              props.videoPlayerState.videoController.isPlaying
-                ? 'clock'
-                : 'play-circle'
-            }
-          />
-        </div>
-      ) : (
-        <div className={cn('w-[28px]')}></div>
-      );
 
     return (
       <ClipKeyHandler
@@ -76,7 +57,13 @@ export const ClipListViewItem = observer(
           {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
           onContextMenu={props.onContextMenu}
         >
-          {icon}
+          <PlayVideoIcon
+            videoController={props.videoPlayerState.videoController}
+            visible={
+              props.videoPlayerState.videoController.ready &&
+              props.isHighlighted
+            }
+          />
           <div
             className={cn(
               'ClipListViewItem__Title',

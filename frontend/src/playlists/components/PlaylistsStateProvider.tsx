@@ -15,6 +15,7 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
+import { updatePlaylists } from 'src/playlists/utils';
 import { getIds, lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 import { ObjT } from 'src/utils/types';
@@ -81,7 +82,7 @@ export const PlaylistsStateProvider = observer(
 
         // Initialize data.playlists to the playlists from the user profile
         // with the fully loaded playlist replacing the stub one.
-        playlistsState.playlists.data.playlists = _updatePlaylists(
+        playlistsState.playlists.data.playlists = updatePlaylists(
           inputs.playlists,
           inputs.playlist
         );
@@ -127,15 +128,3 @@ export const PlaylistsStateProvider = observer(
     );
   }, DefaultProps)
 );
-
-const _updatePlaylists = (playlists: PlaylistT[], playlist?: PlaylistT) => {
-  const playlistIdx =
-    playlist && playlists
-      ? R.findIndex(R.propEq('id', playlist.id), playlists)
-      : -1;
-  const updatedPlaylists =
-    playlistIdx >= 0
-      ? R.update(playlistIdx, playlist!, playlists)
-      : playlists ?? [];
-  return updatedPlaylists;
-};

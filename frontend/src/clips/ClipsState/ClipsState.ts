@@ -19,9 +19,16 @@ export type PropsT = {
   deleteClips: (ids: string[]) => Promise<any>;
   saveClip: (values: ObjT) => Promise<ClipT>;
   saveClipOrdering: (clips: ClipT[]) => Promise<any>;
+  moveClipsToPlaylist: (
+    clips: ClipT[],
+    playlistId: string,
+    copy: boolean
+  ) => Promise<any>;
 };
 
 export class ClipsState {
+  props: PropsT;
+
   clips = {
     data: new ClipsData(),
     addition: new Addition<ClipT>(),
@@ -32,6 +39,11 @@ export class ClipsState {
     insertion: new Insertion<ClipT>(),
     selection: new Selection<ClipT>(),
   };
+
+  moveClipsToPlaylist(playlistId: string, copy: boolean = false) {
+    const clips = this.clips.selection.items;
+    this.props.moveClipsToPlaylist(clips, playlistId, copy);
+  }
 
   _clipsMapData(props: PropsT) {
     const getClipById = (x: string | undefined) =>
@@ -86,6 +98,8 @@ export class ClipsState {
   }
 
   constructor(props: PropsT) {
+    this.props = props;
+
     registerCtr({
       ctr: this.clips,
       options: { name: 'ClipsState.Clips' },

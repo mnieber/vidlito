@@ -1,12 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import { ClipT } from 'src/api/types/ClipT';
+import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Effect } from 'src/utils/components';
 
 type ArgsT = {
   clipId?: string;
   clipSlug: string;
+  clips: ClipT[];
+  playlist: PlaylistT;
 };
 
 type PropsT = {};
@@ -28,15 +31,17 @@ export const SelectClipEffect = observer(
               props.clips
             )?.id,
             clipSlug: params.clipSlug,
+            clips: props.clips,
+            playlist: props.playlist,
           };
         }}
         f={(args: ArgsT) => {
           if (R.isNil(args.clipSlug) || R.isNil(args.clipId)) {
             // If the clip slug in the url is not valid, then go to the first
             // clip in the playlist.
-            const clip = R.head(props.clips);
+            const clip = R.head(args.clips);
             if (clip) {
-              props.locationState.goToClip(clip, props.playlist);
+              props.locationState.goToClip(clip, args.playlist);
             }
           } else if (
             args.clipId &&
