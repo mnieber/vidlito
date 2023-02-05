@@ -13,6 +13,7 @@ import { ClipsState } from 'src/clips/ClipsState';
 import { DashboardState } from 'src/dashboard/DashboardState';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
 import { LocationState } from 'src/routes/LocationState';
+import { VideoPlayerState } from 'src/videos/VideoPlayerState';
 export { stub, withDefaultProps } from 'react-default-props-context';
 
 // This is a workaround for a bug in webpack
@@ -42,6 +43,9 @@ const dpsDashboard = {
   },
   isAuthenticated: {
     isAuthenticated: stub as boolean,
+  },
+  videoPlayerState: {
+    videoPlayerState: stub as VideoPlayerState,
   },
 };
 

@@ -25,11 +25,9 @@ import {
 import { colBanner, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { createUUID } from 'src/utils/ids';
-import { VideoPlayerState } from 'src/videos/hooks/useVideoPlayerState';
 import './ClipFormView.scss';
 
 export type PropsT = {
-  videoPlayerState: VideoPlayerState;
   className?: any;
 };
 
@@ -37,6 +35,7 @@ const DefaultProps = {
   ...dps.clip,
   ...dps.clipsEditing,
   ...dps.locationState,
+  ...dps.videoPlayerState,
 };
 
 export const ClipFormView = observer(

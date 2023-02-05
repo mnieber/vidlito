@@ -8,7 +8,6 @@ import { ClipView } from 'src/clips/components/ClipView';
 import UIkit from 'src/frames/styles/uikit';
 import { cn } from 'src/utils/classnames';
 import { VideoPlayerPanel } from 'src/videos/components';
-import { useVideoPlayerState } from 'src/videos/hooks';
 import './EditableClipView.scss';
 
 export type PropsT = {
@@ -18,44 +17,38 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.clip,
   ...dps.clipsEditing,
+  ...dps.videoPlayerState,
+  ...dps.dashboardState,
 };
 
 export const EditableClipView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const parentElmRef = React.useRef<HTMLDivElement>(null);
+    const parentElm = parentElmRef.current;
+
+    React.useEffect(() => {
+      props.dashboardState.setVideoPlayerParentElm(parentElm);
+    }, [props.dashboardState, parentElm]);
+
     if (!isLoaded(props.clip)) {
       return UIkit && <div data-uk-spinner className="" />;
     } else if (!props.clip) return null;
 
-    return <EditableClipViewInner {...props} />;
-  }, DefaultProps)
-);
-
-export const EditableClipViewInner = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const parentElmRef = React.useRef<HTMLDivElement>(null);
-    const videoPlayerState = useVideoPlayerState({
-      url: props.clip.url!,
-      startTimeMs: props.clip.startTimeMs ?? 0,
-      parentElmRef,
-    });
-
     return (
-      <ClipKeyHandler clip={props.clip} videoPlayerState={videoPlayerState}>
+      <ClipKeyHandler
+        clip={props.clip}
+        videoPlayerState={props.videoPlayerState}
+      >
         <div
           ref={parentElmRef}
           tabIndex={123}
           className={cn('EditableClipView', props.className)}
         >
-          <VideoPlayerPanel
-            videoPlayerState={videoPlayerState}
-            className={cn('mb-3')}
-          />
+          <VideoPlayerPanel className={cn('mb-3')} />
           {/*              */}
           {/* 🟩 Switch 🟩 */}
           {/*              */}
-          {props.clipsEditing.isEditing && (
-            <ClipFormView videoPlayerState={videoPlayerState} />
-          )}
+          {props.clipsEditing.isEditing && <ClipFormView />}
           {!props.clipsEditing.isEditing && <ClipView />}
         </div>
       </ClipKeyHandler>

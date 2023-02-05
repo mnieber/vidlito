@@ -2,11 +2,12 @@ import { runInAction } from 'mobx';
 import * as R from 'ramda';
 import * as React from 'react';
 import YouTube from 'react-youtube';
-import { VideoPlayerState } from 'src/videos/hooks/useVideoPlayerState';
 import { widthToHeight } from 'src/videos/utils/aspectRatio';
+import { VideoPlayerState } from 'src/videos/VideoPlayerState';
 
 type PropsT = {
   videoPlayerState: VideoPlayerState;
+  videoPlayerParentElm: any;
   width: number;
 };
 
@@ -41,7 +42,7 @@ export function YoutubePlayer(props: PropsT) {
     const player = event.target;
     runInAction(() => {
       setTimeout(() => {
-        props.videoPlayerState.setPlayer(player);
+        props.videoPlayerState.setPlayer(player, props.videoPlayerParentElm);
         videoController.pauseAt(startTime || 0);
       }, 100);
     });

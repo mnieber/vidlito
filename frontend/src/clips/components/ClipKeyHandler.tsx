@@ -4,7 +4,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { ClipT } from 'src/api/types/ClipT';
 import { createKeyDownHandler } from 'src/utils';
 import { createVideoKeyHandlers } from 'src/videos/createVideoKeyHandlers';
-import { VideoPlayerState } from 'src/videos/hooks/useVideoPlayerState';
+import { VideoPlayerState } from 'src/videos/VideoPlayerState';
 
 export type PropsT = React.PropsWithChildren<{
   videoPlayerState: VideoPlayerState;

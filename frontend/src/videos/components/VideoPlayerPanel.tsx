@@ -3,18 +3,19 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import ReactResizeDetector from 'react-resize-detector';
-import { withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { cn } from 'src/utils/classnames';
 import { VideoPlayer } from 'src/videos/components/VideoPlayer';
-import { VideoPlayerState } from 'src/videos/hooks/useVideoPlayerState';
 import { getVideoWidth, widthToHeight } from 'src/videos/utils/aspectRatio';
 
 type PropsT = {
-  videoPlayerState: VideoPlayerState;
   className?: any;
 };
 
-const DefaultProps = {};
+const DefaultProps = {
+  ...dps.dashboardState,
+  ...dps.videoPlayerState,
+};
 
 export const VideoPlayerPanel = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
@@ -62,6 +63,7 @@ export const VideoPlayerPanel = observer(
         <div className={cn({ hidden: !ready })} style={{ height: height }}>
           <VideoPlayer
             key={props.videoPlayerState.url} // yes, we need this
+            videoPlayerParentElm={props.dashboardState.videoPlayerParentElm}
             videoPlayerState={props.videoPlayerState}
             // The video image is slightly smaller than the container so
             // that the ResizeDetector can detect the resize towards a smaller image.

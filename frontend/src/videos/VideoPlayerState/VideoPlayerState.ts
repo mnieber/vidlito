@@ -1,19 +1,13 @@
 import urlParser from 'js-video-url-parser';
 import { action, computed, makeObservable, observable } from 'mobx';
-import React from 'react';
+import { cleanUpCtr } from 'react-default-props-context';
 import { VideoUrlPropsT } from 'src/api/types/VideoUrlPropsT';
 import { VideoController } from 'src/videos/VideoController';
 import { VideoIFrame } from 'src/videos/VideoIFrame';
 
-type PropsT = {
-  parentElmRef: any;
-  url: string;
-  startTimeMs: number;
-};
+export type PropsT = {};
 
 export class VideoPlayerState {
-  _parentElmRef: any;
-
   @observable url: string = '';
   @observable startTimeMs: number = 0;
   @observable videoIFrame?: VideoIFrame;
@@ -43,42 +37,35 @@ export class VideoPlayerState {
     return urlParser.parse(this.url!) as VideoUrlPropsT;
   }
 
-  @action setPlayer(player: any) {
+  @action setPlayer(player: any, parentElm: any) {
     this.videoController.setPlayer(player);
     if (player) {
       if (this.videoIFrame) {
         this.videoIFrame.unregister();
       }
-      this.videoIFrame = new VideoIFrame(
-        this._parentElmRef.current,
-        player.getIframe()
-      );
+      this.videoIFrame = new VideoIFrame(parentElm, player.getIframe());
     }
+  }
+
+  getSummary() {
+    return {};
   }
 
   destroy() {
     this.videoIFrame?.unregister();
+    cleanUpCtr(this);
   }
 
   constructor(props: PropsT) {
-    this.setUrl(props.url, props.startTimeMs);
-    this._parentElmRef = props.parentElmRef;
     makeObservable(this);
   }
 }
 
-export const useVideoPlayerState = (props: PropsT): VideoPlayerState => {
-  const [videoPlayerState] = React.useState(() => new VideoPlayerState(props));
-
-  React.useEffect(() => {
-    videoPlayerState.setUrl(props.url, props.startTimeMs);
-  }, [videoPlayerState, props.url, props.startTimeMs]);
-
-  React.useEffect(() => {
-    return () => videoPlayerState.destroy();
-  }, [videoPlayerState]);
-
-  return videoPlayerState;
-};
-
 // videoIFrame.focusParentDiv();
+
+// this.setUrl(props.url, props.startTimeMs);
+
+// const videoPlayerState = useVideoPlayerState({
+//   url: props.clip.url!,
+//   startTimeMs: props.clip.startTimeMs ?? 0,
+// });

@@ -3,6 +3,7 @@ import { DashboardStateProvider } from 'src/dashboard/components';
 import { PlaylistsStateProvider } from 'src/playlists/components/PlaylistsStateProvider';
 import { LocationStateProvider, UrlRouter } from 'src/routes/components';
 import { cn } from 'src/utils/classnames';
+import { VideoPlayerStateProvider } from 'src/videos/components';
 import './App.scss';
 
 export const App = () => {
@@ -14,7 +15,9 @@ export const App = () => {
         <DashboardStateProvider>
           <PlaylistsStateProvider>
             <ClipsStateProvider>
-              <UrlRouter />
+              <VideoPlayerStateProvider>
+                <UrlRouter />
+              </VideoPlayerStateProvider>
             </ClipsStateProvider>
           </PlaylistsStateProvider>
         </DashboardStateProvider>

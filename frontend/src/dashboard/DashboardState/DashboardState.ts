@@ -9,9 +9,14 @@ export class DashboardState {
   @observable userProfile?: UserProfileT;
   @observable username?: string;
   @observable isAuthenticated: boolean = false;
+  @observable videoPlayerParentElm?: any;
 
   @action setShowClips(showClips: boolean) {
     this.showClips = showClips;
+  }
+
+  @action setVideoPlayerParentElm(videoPlayerParentElm: any) {
+    this.videoPlayerParentElm = videoPlayerParentElm;
   }
 
   getSummary() {
