@@ -2,12 +2,12 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import {
-  useDeleteClips,
-  useSaveClip,
-  useSaveClipOrdering,
-} from 'src/api/endpoints';
+import { useSaveClip, useSaveClipOrdering } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
+import {
+  useMoveClipsToTrash,
+  type MoveClipsToTrashArgsT,
+} from 'src/api/mutations';
 import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
@@ -26,7 +26,7 @@ const DefaultProps = {
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const deleteClips = useMutationData(useDeleteClips());
+    const moveClipsToTrash = useMutationData(useMoveClipsToTrash());
     const saveClip = useMutationData(useSaveClip());
     const saveClipOrdering = useMutationData(useSaveClipOrdering());
 
@@ -35,7 +35,10 @@ export const ClipsStateProvider = observer(
         new ClipsState({
           deleteClips: (ids: string[]) => {
             R.map(setToUpdating, lookUp(ids, clipsState.clips.data.clipById));
-            return deleteClips.mutateAsync({ clipIds: ids });
+            return moveClipsToTrash.mutateAsync({
+              playlistId: props.playlist.id,
+              clipIds: ids,
+            } as MoveClipsToTrashArgsT);
           },
           saveClip: (values: ObjT) => {
             return saveClip.mutateAsync(values).then(() => {
