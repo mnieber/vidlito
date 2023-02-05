@@ -49,14 +49,10 @@ export function YoutubePlayer(props: PropsT) {
   };
 
   const _onPlay = () => {
-    runInAction(() => {
-      videoController.isPlaying = true;
-    });
+    videoController.togglePlay(true);
   };
   const _onPause = () => {
-    runInAction(() => {
-      videoController.isPlaying = false;
-    });
+    videoController.togglePlay(false);
   };
 
   return (

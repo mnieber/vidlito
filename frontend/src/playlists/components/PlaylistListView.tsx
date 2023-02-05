@@ -31,7 +31,10 @@ export const PlaylistListView = observer(
       props.playlistsDragAndDrop
     );
     const selectionUIConnector = useSelectionUIConnector(
-      props.playlistsSelection
+      props.playlistsSelection,
+      {
+        itemSelector: '.PlaylistListViewItem',
+      }
     );
 
     const { playlistsHighlight, dashboardState, updateUrl } = props;

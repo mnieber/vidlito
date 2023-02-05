@@ -1,4 +1,3 @@
-import { runInAction } from 'mobx';
 import { splitKeyHandlerKeys } from 'src/utils';
 import { VideoController } from 'src/videos/VideoController';
 
@@ -13,10 +12,7 @@ export const createVideoKeyHandlers = (
   }
 
   return splitKeyHandlerKeys({
-    'ctrl+space': () =>
-      runInAction(() => {
-        videoController.isPlaying = !videoController.isPlaying;
-      }),
+    'ctrl+space': () => videoController.togglePlay(),
     'ctrl+shift+1': () => player.setPlaybackRate(0.25),
     'ctrl+shift+2': () => player.setPlaybackRate(0.5),
     'ctrl+shift+3': () => player.setPlaybackRate(0.75),

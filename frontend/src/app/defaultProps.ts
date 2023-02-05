@@ -13,6 +13,7 @@ import { ClipsState } from 'src/clips/ClipsState';
 import { DashboardState } from 'src/dashboard/DashboardState';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
 import { LocationState } from 'src/routes/LocationState';
+import { VideoController } from 'src/videos/VideoController';
 import { VideoPlayerState } from 'src/videos/VideoPlayerState';
 export { stub, withDefaultProps } from 'react-default-props-context';
 
@@ -44,8 +45,14 @@ const dpsDashboard = {
   isAuthenticated: {
     isAuthenticated: stub as boolean,
   },
+};
+
+const dpsVideoPlayer = {
   videoPlayerState: {
     videoPlayerState: stub as VideoPlayerState,
+  },
+  videoController: {
+    videoController: stub as VideoController,
   },
 };
 
@@ -114,6 +121,7 @@ export const defaultProps = {
   ...dpsDashboard,
   ...dpsPlaylists,
   ...dpsStates,
+  ...dpsVideoPlayer,
 };
 
 export const dps = defaultProps;

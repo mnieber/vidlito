@@ -39,6 +39,7 @@ export const VideoPlayerStateProvider = observer(
       const result: any = {
         defaultProps: {
           videoPlayerState: () => videoPlayerState,
+          videoController: () => videoPlayerState.videoController,
         },
       };
 

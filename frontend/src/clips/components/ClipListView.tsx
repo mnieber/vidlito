@@ -38,6 +38,7 @@ export const ClipListView = observer(
       props.clipsSelection,
       {
         onSelectItem: createOnSelectItemHandler(props.clips, props.updateUrl),
+        itemSelector: '.ClipListViewItem',
       },
       [props.clips, props.updateUrl]
     );

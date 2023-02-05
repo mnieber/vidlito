@@ -24,6 +24,10 @@ export class VideoController {
     this.ready = false;
   }
 
+  @action togglePlay(play?: boolean) {
+    this.isPlaying = play ?? !this.isPlaying;
+  }
+
   getPlayer() {
     return this._player;
   }
