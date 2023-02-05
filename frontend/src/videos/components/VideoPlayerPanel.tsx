@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import React from 'react';
 import ReactResizeDetector from 'react-resize-detector';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
+import { colBanner, Icon, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { VideoPlayer } from 'src/videos/components/VideoPlayer';
 import { getVideoWidth, widthToHeight } from 'src/videos/utils/aspectRatio';
@@ -19,6 +20,7 @@ const DefaultProps = {
 
 export const VideoPlayerPanel = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const ref = React.useRef<HTMLDivElement>(null);
     const [isResizing, setIsResizing] = React.useState(false);
     const [panelWidth, setPanelWidth] = React.useState<number | undefined>(
       undefined
@@ -36,15 +38,20 @@ export const VideoPlayerPanel = observer(
     );
 
     const ready = props.videoPlayerState.ready;
+    const elm = ref.current;
     const width = getVideoWidth(
       props.videoPlayerState.isFullVideoWidth,
-      panelWidth ?? 100
+      panelWidth ?? elm?.getBoundingClientRect().width ?? 0
     );
 
     const height = widthToHeight(width);
     const placeholder = (
       <div
-        className={cn('VideoPlayerPanel__Placeholder', 'bg-blue-200')}
+        className={cn(
+          'VideoPlayerPanel__Placeholder',
+          rowSkewer,
+          'bg-blue-200'
+        )}
         style={{ height: ready ? 0 : height }}
       >
         <ReactResizeDetector
@@ -54,11 +61,17 @@ export const VideoPlayerPanel = observer(
             handleResize(width);
           }}
         />
+        <div className={cn('mx-auto', { hidden: ready })}>
+          <Icon ratio={4} name="play" />
+        </div>
       </div>
     );
 
     return (
-      <div className={cn('VideoPlayerPanel', props.className)}>
+      <div
+        ref={ref}
+        className={cn('VideoPlayerPanel', colBanner, props.className)}
+      >
         {placeholder}
         <div className={cn({ hidden: !ready })} style={{ height: height }}>
           <VideoPlayer
