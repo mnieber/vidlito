@@ -1,6 +1,4 @@
-import { ControlledMenu, MenuItem, useMenuState } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
@@ -9,7 +7,6 @@ import { isLoaded } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListViewItem } from 'src/clips/components/ClipListViewItem';
-import { Icon } from 'src/frames/components';
 import UIkit from 'src/frames/styles/uikit';
 import { createOnSelectItemHandler } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
@@ -25,13 +22,11 @@ const DefaultProps = {
   ...dps.clipsDragAndDrop,
   ...dps.clipsHighlight,
   ...dps.clipsSelection,
+  ...dps.dashboardState,
 };
 
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const [anchorPoint, setAnchorPoint] = React.useState({ x: 0, y: 0 });
-    const [menuProps, toggleMenu] = useMenuState();
-
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.clipsDragAndDrop
     );
@@ -50,20 +45,6 @@ export const ClipListView = observer(
 
     const noItems = <h2>There are no clips</h2>;
 
-    const menuDiv = (
-      <ControlledMenu
-        {...menuProps}
-        anchorPoint={anchorPoint}
-        direction="right"
-        onClose={() => toggleMenu(false)}
-      >
-        <MenuItem>
-          <Icon name="trash" />
-          Move to Trash
-        </MenuItem>
-      </ControlledMenu>
-    );
-
     const clipDivs = props.clips.map((clip, idx) => {
       const isHighlighted = clip && props.clipsHighlight.id === clip.id;
 
@@ -76,8 +57,8 @@ export const ClipListView = observer(
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
           onContextMenu={(e) => {
             e.preventDefault();
-            setAnchorPoint({ x: e.clientX, y: e.clientY });
-            toggleMenu(true);
+            props.dashboardState.setAnchorPoint({ x: e.clientX, y: e.clientY });
+            props.dashboardState.toggleMenu(true);
           }}
         />
       );
@@ -85,7 +66,6 @@ export const ClipListView = observer(
 
     return (
       <div className={cn('ClipListView', props.className)}>
-        {menuDiv}
         {clipDivs.length > 0 && clipDivs}
         {clipDivs.length === 0 && noItems}
       </div>

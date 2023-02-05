@@ -1,10 +1,15 @@
 import { action, makeObservable, observable } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import { UserProfileT } from 'src/api/types/UserProfileT';
+import { ObjT } from 'src/utils/types';
 
 export type PropsT = {};
 
 export class DashboardState {
+  @observable anchorPoint: any;
+  @observable toggleMenu: Function = () => {};
+  @observable menuProps: ObjT = {};
+
   @observable showClips: boolean = true;
   @observable userProfile?: UserProfileT;
   @observable username?: string;
@@ -17,6 +22,15 @@ export class DashboardState {
 
   @action setVideoPlayerParentElm(videoPlayerParentElm: any) {
     this.videoPlayerParentElm = videoPlayerParentElm;
+  }
+
+  @action setAnchorPoint(anchorPoint: any) {
+    this.anchorPoint = anchorPoint;
+  }
+
+  @action setContextMenu(toggleMenu: Function, menuProps: any) {
+    this.toggleMenu = toggleMenu;
+    this.menuProps = menuProps;
   }
 
   getSummary() {

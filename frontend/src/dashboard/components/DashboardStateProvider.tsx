@@ -16,7 +16,6 @@ const DefaultProps = {};
 export const DashboardStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const loadUserId = useQueryData(useLoadUserId());
-
     const [dashboardState] = React.useState(() => new DashboardState({}));
 
     useUpdateStateReaction({

@@ -1,5 +1,8 @@
+import { useMenuState } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
-import { withDefaultProps } from 'src/app/defaultProps';
+import React from 'react';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
+import { ClipMenu } from 'src/clips/components';
 import { rowSkewer } from 'src/frames/components';
 import { AccountMenu } from 'src/frames/components/AccountMenu';
 import { Logo } from 'src/frames/components/Logo';
@@ -10,14 +13,24 @@ export type PropsT = React.PropsWithChildren<{
   className?: any;
 }>;
 
-const DefaultProps = {};
+const DefaultProps = {
+  ...dps.dashboardState,
+};
 
 export const AppFrame = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const [menuProps, toggleMenu] = useMenuState();
+    const clipMenu = <ClipMenu menuProps={menuProps} toggleMenu={toggleMenu} />;
+
+    React.useEffect(() => {
+      props.dashboardState.setContextMenu(toggleMenu, menuProps);
+    }, [props.dashboardState, toggleMenu, menuProps]);
+
     return (
       <div
         className={cn('AppFrame', 'grid grid-rows-[60px,1fr]', props.className)}
       >
+        {clipMenu}
         <></>
         {/* Bar */}
         <></>
