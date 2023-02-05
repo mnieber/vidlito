@@ -10,7 +10,7 @@ import {
 import { isUpdating } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
-import { rowSkewer } from 'src/frames/components';
+import { Icon, rowSkewer } from 'src/frames/components';
 import UIkit from 'src/frames/styles/uikit';
 import { cn } from 'src/utils/classnames';
 import './ClipListViewItem.scss';
@@ -34,6 +34,26 @@ export const ClipListViewItem = observer(
       return UIkit && <div data-uk-spinner className=""></div>;
     }
 
+    const icon =
+      props.videoPlayerState.videoController.ready && props.isHighlighted ? (
+        <div
+          className={cn(rowSkewer)}
+          onClick={() => {
+            props.videoPlayerState.videoController.togglePlay();
+          }}
+        >
+          <Icon
+            name={
+              props.videoPlayerState.videoController.isPlaying
+                ? 'clock'
+                : 'play-circle'
+            }
+          />
+        </div>
+      ) : (
+        <div className={cn('w-[28px]')}></div>
+      );
+
     return (
       <ClipKeyHandler
         clip={props.clip}
@@ -43,7 +63,7 @@ export const ClipListViewItem = observer(
           tabIndex={123}
           className={cn(
             'ClipListViewItem',
-            'grid grid-cols-[1fr,1fr]',
+            rowSkewer,
             'p-2',
             {
               'ClipListViewItem--selected': props.selectionUIProps.isSelected,
@@ -54,13 +74,9 @@ export const ClipListViewItem = observer(
           )}
           {...selectionUIHandlers(props.selectionUIProps)}
           {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
-          // onKeyDown={(e: any) => {
-          //   if (e.keyCode === 13) {
-          //     props.videoController.togglePlay();
-          //   }
-          // }}
           onContextMenu={props.onContextMenu}
         >
+          {icon}
           <div
             className={cn(
               'ClipListViewItem__Title',
@@ -72,13 +88,6 @@ export const ClipListViewItem = observer(
               {props.clip.name}
             </div>
           </div>
-          <div
-            className={cn(
-              'ClipListViewItem__Buttons',
-              rowSkewer,
-              'justify-end'
-            )}
-          ></div>
         </div>
       </ClipKeyHandler>
     );
