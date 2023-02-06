@@ -13,6 +13,10 @@ export class ResourceState {
     this._state = state;
   }
 
+  getState() {
+    return this._state;
+  }
+
   isUpdating() {
     return this._state === 'updating';
   }
@@ -39,11 +43,13 @@ export class ResourceState {
   }
 }
 
-export const isUpdating = (resource: any) => getRS(resource).isUpdating();
+export const isUpdating = (resource: any) =>
+  resource !== null && getRS(resource).isUpdating();
 export const isLoading = (resource: any) =>
-  resource === null || getRS(resource).isloading();
+  resource === null || getRS(resource).isLoading();
 export const isReady = (resource: any) => getRS(resource).isReady();
-export const isAvailable = (resource: any) => getRS(resource).isAvailable();
+export const isAvailable = (resource: any) =>
+  !!resource && getRS(resource).isAvailable();
 export const isUndefined = (resource: any) => getRS(resource).isUndefined();
 
 export const setState = (resource: any, state: ResourceStateT) =>
@@ -53,12 +59,21 @@ export const setToLoading = (resource: any) => setState(resource, 'loading');
 export const setToReady = (resource: any) => setState(resource, 'ready');
 export const setToUndefined = (resource: any) => setState(resource, undefined);
 
-export const getRS = (resource: any) => {
+export const getRS = (resource: any): ResourceState => {
+  if (R.isNil(resource)) {
+    debugger;
+  }
+
   const rs = resource[symbolRS];
   if (R.isNil(rs)) {
+    debugger;
     throw new Error('ResourceState not initialized');
   }
   return rs;
+};
+
+export const peekRS = (resource: any) => {
+  return resource[symbolRS];
 };
 
 export const initRS = (resource: any, state?: ResourceStateT) => {
@@ -69,28 +84,44 @@ export const initRS = (resource: any, state?: ResourceStateT) => {
   return resource;
 };
 
+export const getState = (resource: any) => {
+  return resource[symbolRS].getState();
+};
+
 export type RegOptionsT = {
   loading?: any[];
   updating?: any[];
 };
 
 export const reg = (options: RegOptionsT) => (resource: any) => {
+  if (resource === null) {
+    return resource;
+  }
+
   let state: ResourceStateT = undefined;
 
   for (const source of options.loading ?? []) {
-    const rs = source instanceof ResourceState ? source : getRS(source);
-    if (rs.isLoading()) {
+    const isRS = source instanceof ResourceState;
+    if (
+      (isRS && source.isLoading()) ||
+      (!isRS && source !== undefined && isLoading(source))
+    ) {
       if (R.isNil(resource)) return null;
       state = 'loading';
       break;
     }
   }
 
-  for (const source of options.updating ?? []) {
-    const rs = source instanceof ResourceState ? source : getRS(source);
-    if (rs.isUpdating()) {
-      state = 'updating';
-      break;
+  if (!state) {
+    for (const source of options.updating ?? []) {
+      const isRS = source instanceof ResourceState;
+      if (
+        (isRS && source.isUpdating()) ||
+        (!isRS && source !== undefined && isUpdating(source))
+      ) {
+        state = 'updating';
+        break;
+      }
     }
   }
 
@@ -111,10 +142,10 @@ export const maybe = (
 ) => {
   const rs = new ResourceState();
   if (endpoint.status === 'loading' || endpoint.status === 'idle') {
-    flag && setState(rs, state);
+    flag && rs.setState(state);
   } else {
-    flag && setToReady(rs);
-    !flag && setToUndefined(rs);
+    flag && rs.setState('ready');
+    !flag && rs.setState(undefined);
   }
   return rs;
 };

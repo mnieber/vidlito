@@ -1,4 +1,4 @@
-import { makeObservable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
@@ -24,10 +24,7 @@ export const PlaylistsStateProvider = observer(
     const { playlistsState } = usePlaylistsState();
 
     const [cache] = React.useState(() =>
-      makeObservable(
-        { playlist: null, playlists: [] },
-        { playlist: true, playlists: true }
-      )
+      makeAutoObservable({ playlist: null, playlists: [] }, {}, { deep: false })
     );
 
     const getPlaylist = useQueryData(

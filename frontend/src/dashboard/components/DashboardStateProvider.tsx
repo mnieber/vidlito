@@ -1,11 +1,13 @@
+import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useQueryData } from 'src/api/hooks';
-import { reg } from 'src/api/ResourceState';
+import { maybe, reg } from 'src/api/ResourceState';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { useLoadUserId } from 'src/auth/endpoints';
 import { DashboardState } from 'src/dashboard/DashboardState';
+import { useUpdateCacheReaction } from 'src/frames/hooks/useUpdateCacheReaction';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { log } from 'src/utils/logging';
 
@@ -19,6 +21,10 @@ export const DashboardStateProvider = observer(
 
     const [dashboardState] = React.useState(() => new DashboardState({}));
 
+    const [cache] = React.useState(() =>
+      makeAutoObservable({ userProfile: null }, {}, { deep: false })
+    );
+
     useUpdateStateReaction({
       getInputs: () => {
         return {
@@ -28,7 +34,6 @@ export const DashboardStateProvider = observer(
         };
       },
       updateState: (inputs) => {
-        inputs.userProfile = reg({ loading: [loadUserId] })(inputs.userProfile);
         dashboardState.username = inputs.username;
         dashboardState.userProfile = inputs.userProfile;
         dashboardState.isAuthenticated = inputs.isAuthenticated;
@@ -38,13 +43,29 @@ export const DashboardStateProvider = observer(
       destroyState: () => dashboardState.destroy(),
     });
 
+    useUpdateCacheReaction({
+      getInputs: () => {
+        return {
+          userProfile: loadUserId.data?.userProfile,
+        };
+      },
+      updateCache: (inputs) => {
+        cache.userProfile = reg({
+          loading: [
+            //
+            maybe(loadUserId, 'loading', !inputs.userProfile),
+          ],
+        })(inputs.userProfile);
+      },
+    });
+
     const getDefaultPropsContext = () => {
       const result: any = {
         defaultProps: {
           dashboardState: () => dashboardState,
-          userProfile: () => dashboardState.userProfile,
-          username: () => dashboardState.username,
           isAuthenticated: () => dashboardState.isAuthenticated,
+          username: () => dashboardState.username,
+          userProfile: () => cache.userProfile,
         },
       };
 
