@@ -6,7 +6,6 @@ export type PropsT<ArgsT> = {
   getInputs: () => ArgsT;
   updateState: (args: ArgsT) => any;
   logState?: (args: ArgsT) => any;
-  destroyState?: () => any;
 };
 
 export const useUpdateStateReaction = <ArgsT>(props: PropsT<ArgsT>) => {
@@ -23,9 +22,6 @@ export const useUpdateStateReaction = <ArgsT>(props: PropsT<ArgsT>) => {
     );
     return () => {
       cleanUpReaction();
-      if (props.destroyState) {
-        props.destroyState();
-      }
     };
   });
 };

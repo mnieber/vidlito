@@ -18,6 +18,7 @@ export const LocationStateProvider = observer(
     const [locationState] = React.useState(
       () => new LocationState({ history, routeUfns })
     );
+    React.useEffect(() => () => locationState.destroy(), [locationState]);
 
     useUpdateStateReaction({
       getInputs: () => ({}),
@@ -26,7 +27,6 @@ export const LocationStateProvider = observer(
           log('LocationState updated', locationState.getSummary());
         }
       },
-      destroyState: () => locationState.destroy(),
     });
 
     const getDefaultPropsContext = () => {

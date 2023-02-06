@@ -1,15 +1,16 @@
-import { makeAutoObservable } from 'mobx';
+import { autorun, makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
-import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { initRS, maybe, reg } from 'src/api/ResourceState';
+import {
+  addCleanUpFunctionToCtr,
+  NestedDefaultPropsContext,
+} from 'react-default-props-context';
+import { cloneAndSetState, initRS, maybe } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useClipsState } from 'src/clips/hooks/useClipsState';
-import { useUpdateCacheReaction } from 'src/frames/hooks/useUpdateCacheReaction';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { log } from 'src/utils/logging';
-import { ObjT } from 'src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -22,14 +23,7 @@ export const ClipsStateProvider = observer(
     const { clipsState, moveClipsToPlaylist } = useClipsState({
       playlistId: props.playlist?.id,
     });
-
-    const [cache] = React.useState(() =>
-      makeAutoObservable(
-        { clip: undefined, clips: initRS([]) },
-        {},
-        { deep: false }
-      )
-    );
+    React.useEffect(() => () => clipsState.destroy(), [clipsState]);
 
     // Set state inputs
     useUpdateStateReaction({
@@ -43,36 +37,39 @@ export const ClipsStateProvider = observer(
       logState: () => {
         log('ClipsState updated', clipsState.getSummary());
       },
-      destroyState: () => clipsState.destroy(),
     });
 
-    // Get state outputs
-    useUpdateCacheReaction({
-      getInputs: () => ({
-        clipsDisplay: clipsState.clips.data.clipsDisplay,
-        clip: clipsState.clips.highlight.item,
-        playlist: props.playlist,
-      }),
-      updateCache: (inputs: ObjT) => {
-        cache.clip = reg(inputs.clip, {
+    const [cache] = React.useState(() => {
+      const cache = makeAutoObservable(
+        { clip: undefined, clips: initRS([]) },
+        {},
+        { deep: false }
+      );
+
+      const cleanUpAutoRun = autorun(() => {
+        cache.clip = cloneAndSetState(clipsState.clips.highlight.item, {
           loading: [
             //
-            inputs.playlist,
+            props.playlist,
           ],
         });
 
-        cache.clips = reg(inputs.clipsDisplay, {
+        const clipsDisplay = clipsState.clips.data.clipsDisplay;
+        cache.clips = cloneAndSetState(clipsDisplay, {
           loading: [
             //
-            inputs.playlist,
+            props.playlist,
           ],
           updating: [
             //
-            inputs.playlist,
-            maybe(moveClipsToPlaylist, 'updating', !!inputs.clipsDisplay),
+            props.playlist,
+            maybe(moveClipsToPlaylist, 'updating', !!clipsDisplay),
           ],
         });
-      },
+      });
+      addCleanUpFunctionToCtr(clipsState, cleanUpAutoRun);
+
+      return cache;
     });
 
     const getDefaultPropsContext = () => {

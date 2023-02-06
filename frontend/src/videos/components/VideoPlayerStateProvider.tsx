@@ -16,6 +16,7 @@ const DefaultProps = {
 export const VideoPlayerStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const [videoPlayerState] = React.useState(() => new VideoPlayerState({}));
+    React.useEffect(() => () => videoPlayerState.destroy(), [videoPlayerState]);
 
     useUpdateStateReaction({
       getInputs: () => ({
@@ -30,7 +31,6 @@ export const VideoPlayerStateProvider = observer(
           log('VideoPlayerState updated', videoPlayerState.getSummary());
         }
       },
-      destroyState: () => videoPlayerState.destroy(),
     });
 
     const getDefaultPropsContext = () => {

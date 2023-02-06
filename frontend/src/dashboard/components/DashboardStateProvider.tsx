@@ -1,13 +1,15 @@
-import { makeAutoObservable } from 'mobx';
+import { autorun, makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { NestedDefaultPropsContext } from 'react-default-props-context';
+import {
+  addCleanUpFunctionToCtr,
+  NestedDefaultPropsContext,
+} from 'react-default-props-context';
 import { useQueryData } from 'src/api/hooks';
-import { maybe, reg } from 'src/api/ResourceState';
+import { cloneAndSetState, maybe } from 'src/api/ResourceState';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { useLoadUserId } from 'src/auth/endpoints';
 import { DashboardState } from 'src/dashboard/DashboardState';
-import { useUpdateCacheReaction } from 'src/frames/hooks/useUpdateCacheReaction';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { log } from 'src/utils/logging';
 
@@ -20,10 +22,7 @@ export const DashboardStateProvider = observer(
     const loadUserId = useQueryData(useLoadUserId());
 
     const [dashboardState] = React.useState(() => new DashboardState({}));
-
-    const [cache] = React.useState(() =>
-      makeAutoObservable({ userProfile: null }, {}, { deep: false })
-    );
+    React.useEffect(() => () => dashboardState.destroy(), [dashboardState]);
 
     useUpdateStateReaction({
       getInputs: () => ({
@@ -38,21 +37,26 @@ export const DashboardStateProvider = observer(
       },
       logState: () =>
         log('DashboardState updated', dashboardState.getSummary()),
-      destroyState: () => dashboardState.destroy(),
     });
 
-    useUpdateCacheReaction({
-      getInputs: () => ({
-        userProfile: loadUserId.data?.userProfile,
-      }),
-      updateCache: (inputs) => {
-        cache.userProfile = reg(inputs.userProfile, {
+    const [cache] = React.useState(() => {
+      const cache = makeAutoObservable(
+        { userProfile: null },
+        {},
+        { deep: false }
+      );
+
+      const cleanUpAutoRun = autorun(() => {
+        cache.userProfile = cloneAndSetState(loadUserId.data?.userProfile, {
           loading: [
             //
-            maybe(loadUserId, 'loading', !inputs.userProfile),
+            maybe(loadUserId, 'loading', !loadUserId.data?.userProfile),
           ],
         });
-      },
+      });
+      addCleanUpFunctionToCtr(dashboardState, cleanUpAutoRun);
+
+      return cache;
     });
 
     const getDefaultPropsContext = () => {

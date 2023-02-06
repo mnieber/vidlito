@@ -92,7 +92,7 @@ export type RegOptionsT = {
   updating?: any[];
 };
 
-export const reg = (resource: any, options: RegOptionsT) => {
+export const cloneAndSetState = (resource: any, options: RegOptionsT) => {
   if (resource === null) {
     return resource;
   }
