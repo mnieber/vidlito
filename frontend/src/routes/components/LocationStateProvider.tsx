@@ -20,9 +20,7 @@ export const LocationStateProvider = observer(
     );
 
     useUpdateStateReaction({
-      getInputs: () => {
-        return {};
-      },
+      getInputs: () => ({}),
       updateState: (inputs) => {
         if (flags.logStateProviders) {
           log('LocationState updated', locationState.getSummary());

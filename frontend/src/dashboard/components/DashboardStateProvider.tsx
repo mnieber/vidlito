@@ -26,13 +26,11 @@ export const DashboardStateProvider = observer(
     );
 
     useUpdateStateReaction({
-      getInputs: () => {
-        return {
-          userProfile: loadUserId.data?.userProfile,
-          username: loadUserId.data?.username,
-          isAuthenticated: loadUserId.data?.isAuthenticated,
-        };
-      },
+      getInputs: () => ({
+        userProfile: loadUserId.data?.userProfile,
+        username: loadUserId.data?.username,
+        isAuthenticated: loadUserId.data?.isAuthenticated,
+      }),
       updateState: (inputs) => {
         dashboardState.username = inputs.username;
         dashboardState.userProfile = inputs.userProfile;
@@ -44,11 +42,9 @@ export const DashboardStateProvider = observer(
     });
 
     useUpdateCacheReaction({
-      getInputs: () => {
-        return {
-          userProfile: loadUserId.data?.userProfile,
-        };
-      },
+      getInputs: () => ({
+        userProfile: loadUserId.data?.userProfile,
+      }),
       updateCache: (inputs) => {
         cache.userProfile = reg(inputs.userProfile, {
           loading: [

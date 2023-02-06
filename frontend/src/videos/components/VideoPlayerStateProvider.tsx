@@ -18,12 +18,10 @@ export const VideoPlayerStateProvider = observer(
     const [videoPlayerState] = React.useState(() => new VideoPlayerState({}));
 
     useUpdateStateReaction({
-      getInputs: () => {
-        return {
-          url: props.clip?.url,
-          startTimeMs: props.clip?.startTimeMs ?? 0,
-        };
-      },
+      getInputs: () => ({
+        url: props.clip?.url,
+        startTimeMs: props.clip?.startTimeMs ?? 0,
+      }),
       updateState: (inputs) => {
         if (inputs.url) {
           videoPlayerState.setUrl(inputs.url!, inputs.startTimeMs);

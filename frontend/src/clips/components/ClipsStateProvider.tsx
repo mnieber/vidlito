@@ -33,14 +33,12 @@ export const ClipsStateProvider = observer(
 
     // Set state inputs
     useUpdateStateReaction({
-      getInputs: () => {
-        return {
-          clips: props.playlist?.clipSet ?? [],
-        };
-      },
+      getInputs: () => ({
+        clips: props.playlist?.clipSet ?? [],
+      }),
       updateState: (inputs) => {
-        R.forEach(initRS, inputs.clips);
         clipsState.clips.data.clips = inputs.clips;
+        R.forEach(initRS, clipsState.clips.data.clips);
       },
       logState: () => {
         log('ClipsState updated', clipsState.getSummary());
@@ -50,13 +48,11 @@ export const ClipsStateProvider = observer(
 
     // Get state outputs
     useUpdateCacheReaction({
-      getInputs: () => {
-        return {
-          clipsDisplay: clipsState.clips.data.clipsDisplay,
-          clip: clipsState.clips.highlight.item,
-          playlist: props.playlist,
-        };
-      },
+      getInputs: () => ({
+        clipsDisplay: clipsState.clips.data.clipsDisplay,
+        clip: clipsState.clips.highlight.item,
+        playlist: props.playlist,
+      }),
       updateCache: (inputs: ObjT) => {
         cache.clip = reg(inputs.clip, {
           loading: [

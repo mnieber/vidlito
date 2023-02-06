@@ -3,7 +3,7 @@ import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
 } from 'skandha-mobx/hooks';
-import { isLoading, isUpdating } from 'src/api/ResourceState';
+import { isLoading } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListViewItem } from 'src/clips/components/ClipListViewItem';

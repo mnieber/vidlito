@@ -34,20 +34,20 @@ export const PlaylistsStateProvider = observer(
     );
 
     useUpdateStateReaction({
-      getInputs: () => {
-        return {
-          playlists: props.userProfile?.playlistSet ?? [],
-          fullPlaylist: getPlaylist.data?.playlist,
-        };
-      },
+      getInputs: () => ({
+        playlists: props.userProfile?.playlistSet ?? [],
+        fullPlaylist: getPlaylist.data?.playlist,
+      }),
       updateState: (inputs) => {
         // Initialize data.playlists to the playlists from the user profile
         // with the fully loaded playlist replacing the stub one.
-        R.forEach(initRS, inputs.playlists);
         playlistsState.playlists.data.playlists = updatePlaylists(
           inputs.playlists,
           inputs.fullPlaylist
         );
+
+        // Ensure that every playlist has a ResourceState.
+        R.forEach(initRS, playlistsState.playlists.data.playlists);
       },
       logState: () => {
         log('PlaylistsState updated', playlistsState.getSummary());
@@ -56,13 +56,11 @@ export const PlaylistsStateProvider = observer(
     });
 
     useUpdateCacheReaction({
-      getInputs: () => {
-        return {
-          playlists: playlistsState.playlists.data.playlists,
-          playlist: playlistsState.playlists.highlight.item,
-          fullPlaylist: getPlaylist.data?.playlist,
-        };
-      },
+      getInputs: () => ({
+        playlists: playlistsState.playlists.data.playlists,
+        playlist: playlistsState.playlists.highlight.item,
+        fullPlaylist: getPlaylist.data?.playlist,
+      }),
       updateCache: (inputs) => {
         cache.playlists = reg(inputs.playlists, {
           loading: [
