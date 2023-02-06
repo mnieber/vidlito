@@ -1,24 +1,13 @@
+import { makeObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import {
-  useMoveClipsToPlaylist,
-  useSaveClip,
-  useSaveClipOrdering,
-} from 'src/api/endpoints';
-import { useMutationData } from 'src/api/hooks';
-import {
-  useMoveClipsToTrash,
-  type MoveClipsToTrashArgsT,
-} from 'src/api/mutations';
-import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
-import { ClipT } from 'src/api/types/ClipT';
+import { initRS, maybe, reg } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { flags } from 'src/app/flags';
-import { ClipsState } from 'src/clips/ClipsState';
+import { useClipsState } from 'src/clips/hooks/useClipsState';
+import { useUpdateCacheReaction } from 'src/frames/hooks/useUpdateCacheReaction';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
-import { getIds, lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 import { ObjT } from 'src/utils/types';
 
@@ -30,62 +19,63 @@ const DefaultProps = {
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const moveClipsToTrash = useMutationData(useMoveClipsToTrash());
-    const saveClip = useMutationData(useSaveClip());
-    const saveClipOrdering = useMutationData(useSaveClipOrdering());
-    const moveClipsToPlaylist = useMutationData(useMoveClipsToPlaylist());
+    const { clipsState, moveClipsToPlaylist } = useClipsState({
+      playlistId: props.playlist?.id,
+    });
 
-    const [clipsState] = React.useState(
-      () =>
-        new ClipsState({
-          deleteClips: (ids: string[]) => {
-            R.map(setToUpdating, lookUp(ids, clipsState.clips.data.clipById));
-            return moveClipsToTrash.mutateAsync({
-              playlistId: props.playlist.id,
-              clipIds: ids,
-            } as MoveClipsToTrashArgsT);
-          },
-          saveClip: (values: ObjT) => {
-            return saveClip.mutateAsync(values).then(() => {
-              return values.clipForm;
-            });
-          },
-          saveClipOrdering: (clips: ClipT[]) => {
-            return saveClipOrdering.mutateAsync({
-              playlistId: props.playlist.id,
-              clipIds: getIds(clips),
-            });
-          },
-          moveClipsToPlaylist: (
-            clips: ClipT[],
-            playlistId: string,
-            copy: boolean
-          ) => {
-            return moveClipsToPlaylist.mutateAsync({
-              srcPlaylistId: props.playlist.id,
-              destPlaylistId: playlistId,
-              clipIds: getIds(clips),
-              copy,
-            });
-          },
-        })
+    const [cache] = React.useState(() =>
+      makeObservable(
+        { clip: undefined, clips: [] },
+        { clip: true, clips: true }
+      )
     );
 
+    // Set state inputs
     useUpdateStateReaction({
       getInputs: () => {
         return {
-          clips: props.playlist?.clipSet,
+          clips: props.playlist?.clipSet ?? [],
         };
       },
       updateState: (inputs) => {
-        R.forEach(initRS, inputs.clips ?? []);
-        clipsState.clips.data.clips = inputs.clips ?? [];
-
-        if (flags.logStateProviders) {
-          log('ClipsState updated', clipsState.getSummary());
-        }
+        R.forEach(initRS, inputs.clips);
+        clipsState.clips.data.clips = inputs.clips;
+      },
+      logState: () => {
+        log('ClipsState updated', clipsState.getSummary());
       },
       destroyState: () => clipsState.destroy(),
+    });
+
+    // Get state outputs
+    useUpdateCacheReaction({
+      getInputs: () => {
+        return {
+          clipsDisplay: clipsState.clips.data.clipsDisplay,
+          clip: clipsState.clips.highlight.item,
+          playlist: props.playlist,
+        };
+      },
+      updateCache: (inputs: ObjT) => {
+        cache.clip = reg({
+          loading: [
+            //
+            inputs.playlist,
+          ],
+        })(inputs.clip);
+
+        cache.clips = reg({
+          loading: [
+            //
+            inputs.playlist,
+          ],
+          updating: [
+            //
+            inputs.playlist,
+            maybe(moveClipsToPlaylist, 'updating', !!inputs.clipsDisplay),
+          ],
+        })([...inputs.clipsDisplay]);
+      },
     });
 
     const getDefaultPropsContext = () => {
@@ -97,9 +87,8 @@ export const ClipsStateProvider = observer(
 
       result.defaultProps = {
         ...result.defaultProps,
-        clips: () =>
-          maybe(props.playlist, [])(clipsState.clips.data.clipsDisplay),
-        clip: () => maybe(props.playlist)(clipsState.clips.highlight.item),
+        clips: () => cache.clips,
+        clip: () => cache.clip,
         clipsAddition: () => clipsState.clips.addition,
         clipsDeletion: () => clipsState.clips.deletion,
         clipsDragAndDrop: () => clipsState.clips.dragAndDrop,

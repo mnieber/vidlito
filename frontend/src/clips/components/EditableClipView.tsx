@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { isLoaded } from 'src/api/ResourceState';
+import { isAvailable } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipFormView } from 'src/clips/components/ClipFormView';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
@@ -30,7 +30,7 @@ export const EditableClipView = observer(
       props.dashboardState.setVideoPlayerParentElm(parentElm);
     }, [props.dashboardState, parentElm]);
 
-    if (!isLoaded(props.clip)) {
+    if (!isAvailable(props.clip)) {
       return UIkit && <div data-uk-spinner className="" />;
     } else if (!props.clip) return null;
 

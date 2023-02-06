@@ -1,24 +1,17 @@
+import { makeObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import {
-  useDeletePlaylist,
-  useGetPlaylist,
-  useSavePlaylist,
-  useSavePlaylistOrdering,
-} from 'src/api/endpoints';
-import { useMutationData, useQueryData } from 'src/api/hooks';
-import { initRS, maybe, setToUpdating } from 'src/api/ResourceState';
-import { PlaylistT } from 'src/api/types/PlaylistT';
+import { useGetPlaylist } from 'src/api/endpoints';
+import { useQueryData } from 'src/api/hooks';
+import { initRS, maybe, reg } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { flags } from 'src/app/flags';
+import { useUpdateCacheReaction } from 'src/frames/hooks/useUpdateCacheReaction';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
-import { PlaylistsState } from 'src/playlists/PlaylistsState';
+import { usePlaylistsState } from 'src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from 'src/playlists/utils';
-import { getIds, lookUp } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
-import { ObjT } from 'src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -28,36 +21,13 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const deletePlaylist = useMutationData(useDeletePlaylist());
-    const savePlaylist = useMutationData(useSavePlaylist());
-    const savePlaylistOrdering = useMutationData(useSavePlaylistOrdering());
+    const { playlistsState } = usePlaylistsState();
 
-    const [playlistsState] = React.useState(
-      () =>
-        new PlaylistsState({
-          deletePlaylists: (ids: string[]) => {
-            R.map(
-              setToUpdating,
-              lookUp(ids, playlistsState.playlists.data.playlistById)
-            );
-            return Promise.all(
-              R.map(
-                (x: string) => deletePlaylist.mutateAsync({ playlistId: x }),
-                ids
-              )
-            );
-          },
-          savePlaylist: (values: ObjT) => {
-            return savePlaylist.mutateAsync(values).then(() => {
-              return values.playlistForm;
-            });
-          },
-          savePlaylistOrdering: (playlists: PlaylistT[]) => {
-            return savePlaylistOrdering.mutateAsync({
-              playlistIds: getIds(playlists),
-            });
-          },
-        })
+    const [cache] = React.useState(() =>
+      makeObservable(
+        { playlist: null, playlists: [] },
+        { playlist: true, playlists: true }
+      )
     );
 
     const getPlaylist = useQueryData(
@@ -69,29 +39,51 @@ export const PlaylistsStateProvider = observer(
     useUpdateStateReaction({
       getInputs: () => {
         return {
-          playlists: props.userProfile?.playlistSet,
-          playlist: getPlaylist.data?.playlist,
+          playlists: props.userProfile?.playlistSet ?? [],
+          fullPlaylist: getPlaylist.data?.playlist,
         };
       },
       updateState: (inputs) => {
-        // Initialize resource states
-        R.forEach(initRS, inputs.playlists ?? []);
-        if (inputs.playlist) {
-          initRS(inputs.playlist);
-        }
-
         // Initialize data.playlists to the playlists from the user profile
         // with the fully loaded playlist replacing the stub one.
+        R.forEach(initRS, inputs.playlists);
         playlistsState.playlists.data.playlists = updatePlaylists(
           inputs.playlists,
-          inputs.playlist
+          inputs.fullPlaylist
         );
-
-        if (flags.logStateProviders) {
-          log('PlaylistsState updated', playlistsState.getSummary());
-        }
+      },
+      logState: () => {
+        log('PlaylistsState updated', playlistsState.getSummary());
       },
       destroyState: () => playlistsState.destroy(),
+    });
+
+    useUpdateCacheReaction({
+      getInputs: () => {
+        return {
+          playlists: playlistsState.playlists.data.playlists,
+          playlist: playlistsState.playlists.highlight.item,
+        };
+      },
+      updateCache: (inputs) => {
+        cache.playlists = reg({
+          loading: [
+            //
+            props.userProfile,
+          ],
+        })([...inputs.playlists]);
+
+        cache.playlist = reg({
+          loading: [
+            props.userProfile,
+            maybe(getPlaylist, 'loading', !inputs.playlist),
+          ],
+          updating: [
+            //
+            maybe(getPlaylist, 'updating', !!inputs.playlist),
+          ],
+        })(inputs.playlist);
+      },
     });
 
     const getDefaultPropsContext = () => {
@@ -103,13 +95,8 @@ export const PlaylistsStateProvider = observer(
 
       result.defaultProps = {
         ...result.defaultProps,
-        playlists: () =>
-          maybe(
-            props.userProfile,
-            []
-          )(playlistsState.playlists.data.playlistsDisplay),
-        playlist: () =>
-          maybe(getPlaylist)(playlistsState.playlists.highlight.item),
+        playlists: () => cache.playlists,
+        playlist: () => cache.playlist,
         playlistsAddition: () => playlistsState.playlists.addition,
         playlistsDeletion: () => playlistsState.playlists.deletion,
         playlistsDragAndDrop: () => playlistsState.playlists.dragAndDrop,

@@ -2,8 +2,8 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useQueryData } from 'src/api/hooks';
+import { reg } from 'src/api/ResourceState';
 import { withDefaultProps } from 'src/app/defaultProps';
-import { flags } from 'src/app/flags';
 import { useLoadUserId } from 'src/auth/endpoints';
 import { DashboardState } from 'src/dashboard/DashboardState';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
@@ -16,6 +16,7 @@ const DefaultProps = {};
 export const DashboardStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const loadUserId = useQueryData(useLoadUserId());
+
     const [dashboardState] = React.useState(() => new DashboardState({}));
 
     useUpdateStateReaction({
@@ -27,13 +28,13 @@ export const DashboardStateProvider = observer(
         };
       },
       updateState: (inputs) => {
+        inputs.userProfile = reg({ loading: [loadUserId] })(inputs.userProfile);
         dashboardState.username = inputs.username;
         dashboardState.userProfile = inputs.userProfile;
         dashboardState.isAuthenticated = inputs.isAuthenticated;
-        if (flags.logStateProviders) {
-          log('DashboardState updated', dashboardState.getSummary());
-        }
       },
+      logState: () =>
+        log('DashboardState updated', dashboardState.getSummary()),
       destroyState: () => dashboardState.destroy(),
     });
 
