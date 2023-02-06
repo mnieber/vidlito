@@ -60,26 +60,27 @@ export const PlaylistsStateProvider = observer(
         return {
           playlists: playlistsState.playlists.data.playlists,
           playlist: playlistsState.playlists.highlight.item,
+          fullPlaylist: getPlaylist.data?.playlist,
         };
       },
       updateCache: (inputs) => {
-        cache.playlists = reg({
+        cache.playlists = reg(inputs.playlists, {
           loading: [
             //
             props.userProfile,
           ],
-        })([...inputs.playlists]);
+        });
 
-        cache.playlist = reg({
+        cache.playlist = reg(inputs.playlist, {
           loading: [
             props.userProfile,
-            maybe(getPlaylist, 'loading', !inputs.playlist),
+            maybe(getPlaylist, 'loading', !inputs.fullPlaylist),
           ],
           updating: [
             //
-            maybe(getPlaylist, 'updating', !!inputs.playlist),
+            maybe(getPlaylist, 'updating', !!inputs.fullPlaylist),
           ],
-        })(inputs.playlist);
+        });
       },
     });
 

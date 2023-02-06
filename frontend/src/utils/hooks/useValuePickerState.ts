@@ -2,7 +2,7 @@ import { when } from 'mobx';
 import React from 'react';
 import { Highlight } from 'skandha-facets/Highlight';
 import { Selection } from 'skandha-facets/Selection';
-import { isAvailable } from 'src/api/ResourceState';
+import { isLoading } from 'src/api/ResourceState';
 
 export type PropsT<ValueT> = {
   values: ValueT[];
@@ -46,7 +46,7 @@ export const useValuePickerState = <ValueT extends { id: string }>(
   };
 
   return {
-    isUpdating: isUpdating || !isAvailable(props.values),
+    isUpdating: isUpdating || isLoading(props.values),
     setIsUpdating,
     isError,
     setItem,

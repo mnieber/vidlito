@@ -50,12 +50,12 @@ export const DashboardStateProvider = observer(
         };
       },
       updateCache: (inputs) => {
-        cache.userProfile = reg({
+        cache.userProfile = reg(inputs.userProfile, {
           loading: [
             //
             maybe(loadUserId, 'loading', !inputs.userProfile),
           ],
-        })(inputs.userProfile);
+        });
       },
     });
 

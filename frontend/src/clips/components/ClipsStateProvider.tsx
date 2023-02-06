@@ -58,19 +58,14 @@ export const ClipsStateProvider = observer(
         };
       },
       updateCache: (inputs: ObjT) => {
-        // TODO: the cached value should have a RS that is based on in the input, but not a ref to the input.
-        // We want to update the RS of the input separately from the RS of the cached value.
-        // The reg function should always return a copy.
-        // The reg function will check the RS of the input. It that's loading or updating, then we already know the
-        // RS of the cached value.
-        cache.clip = reg({
+        cache.clip = reg(inputs.clip, {
           loading: [
             //
             inputs.playlist,
           ],
-        })(inputs.clip);
+        });
 
-        cache.clips = reg({
+        cache.clips = reg(inputs.clipsDisplay, {
           loading: [
             //
             inputs.playlist,
@@ -80,7 +75,7 @@ export const ClipsStateProvider = observer(
             inputs.playlist,
             maybe(moveClipsToPlaylist, 'updating', !!inputs.clipsDisplay),
           ],
-        })([...inputs.clipsDisplay]);
+        });
       },
     });
 

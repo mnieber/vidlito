@@ -3,7 +3,7 @@ import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
 } from 'skandha-mobx/hooks';
-import { isAvailable, isUpdating } from 'src/api/ResourceState';
+import { isLoading, isUpdating } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListViewItem } from 'src/clips/components/ClipListViewItem';
@@ -39,7 +39,7 @@ export const ClipListView = observer(
       [props.clips, props.updateUrl]
     );
 
-    if (!isAvailable(props.clips)) {
+    if (isLoading(props.clips)) {
       return UIkit && <div data-uk-spinner className="" />;
     } else if (!props.clips?.length) return null;
 

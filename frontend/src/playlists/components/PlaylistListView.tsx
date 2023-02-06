@@ -4,7 +4,7 @@ import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
 } from 'skandha-mobx/hooks';
-import { isAvailable } from 'src/api/ResourceState';
+import { isLoading } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import UIkit from 'src/frames/styles/uikit';
@@ -47,7 +47,7 @@ export const PlaylistListView = observer(
       [updateUrl, dashboardState, playlistsHighlight]
     );
 
-    if (!isAvailable(props.playlists)) {
+    if (isLoading(props.playlists)) {
       return UIkit && <div data-uk-spinner className="" />;
     } else if (!props.playlists?.length) return null;
 
