@@ -1,4 +1,3 @@
-import { action, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
 import { EndpointData } from 'src/api/EndpointData';
 
@@ -6,53 +5,15 @@ export const symbolRS = Symbol('ResourceState');
 
 export type ResourceStateT = undefined | 'loading' | 'updating' | 'ready';
 
-export class ResourceState {
-  @observable _state: ResourceStateT = undefined;
-
-  @action setState(state: ResourceStateT) {
-    this._state = state;
-  }
-
-  getState() {
-    return this._state;
-  }
-
-  isUpdating() {
-    return this._state === 'updating';
-  }
-
-  isLoading() {
-    return this._state === 'loading';
-  }
-
-  isReady() {
-    return this._state === 'ready';
-  }
-
-  isUndefined() {
-    return this._state === undefined;
-  }
-
-  constructor(state?: ResourceStateT) {
-    this.setState(state);
-    makeObservable(this);
-  }
-}
-
-export const isUpdating = (resource: any) =>
-  getRS(resource)?.isUpdating() ?? false;
+export const isUpdating = (resource: any) => getState(resource) === 'updating';
 export const isLoading = (resource: any) =>
-  resource === null || (getRS(resource)?.isLoading() ?? false);
-export const isReady = (resource: any) => getRS(resource)?.isReady() ?? false;
+  resource === null || getState(resource) === 'loading';
+export const isReady = (resource: any) => getState(resource) === 'ready';
 export const isUndefined = (resource: any) =>
-  resource === undefined || (getRS(resource)?.isUndefined() ?? true);
+  resource === undefined || getState(resource) === undefined;
 
 export const setState = (resource: any, state: ResourceStateT) => {
-  const rs = getRS(resource);
-  if (!rs) {
-    throw new Error('ResourceState not found');
-  }
-  rs.setState(state);
+  resource[symbolRS] = state;
 };
 
 export const setToUpdating = (resource: any) => setState(resource, 'updating');
@@ -60,31 +21,15 @@ export const setToLoading = (resource: any) => setState(resource, 'loading');
 export const setToReady = (resource: any) => setState(resource, 'ready');
 export const setToUndefined = (resource: any) => setState(resource, undefined);
 
-export const getRS = (resource: any): ResourceState | undefined => {
-  if (R.isNil(resource)) {
-    return undefined;
-  }
-  const rs = resource[symbolRS];
-  if (R.isNil(rs)) {
-    return undefined;
-  }
-  return rs;
-};
-
-export const peekRS = (resource: any) => {
-  return resource[symbolRS];
+export const getState = (resource: any): ResourceStateT | undefined => {
+  return resource ? resource[symbolRS] ?? undefined : undefined;
 };
 
 export const initRS = (resource: any, state?: ResourceStateT) => {
   if (resource && R.isNil(resource[symbolRS])) {
-    resource[symbolRS] = new ResourceState();
-    resource[symbolRS].setState(state ?? undefined);
+    resource[symbolRS] = state ?? undefined;
   }
   return resource;
-};
-
-export const getState = (resource: any) => {
-  return getRS(resource)?.getState() ?? undefined;
 };
 
 export type RegOptionsT = {
@@ -120,14 +65,13 @@ export const cloneAndSetState = (resource: any, options: RegOptionsT) => {
   }
 
   const result = Array.isArray(resource) ? [...resource] : { ...resource };
-  const resourceState = (resource as any)[symbolRS]?.getState();
+  const currentState = (resource as any)[symbolRS];
   // When we set the result RS, then a "loading" or "updating" state from the
   // input "resource" takes precedence.
-  (result as any)[symbolRS] = new ResourceState(
-    resourceState === 'loading' || resourceState === 'updating'
-      ? resourceState
-      : state
-  );
+  (result as any)[symbolRS] =
+    currentState === 'loading' || currentState === 'updating'
+      ? currentState
+      : state;
   return result;
 };
 
