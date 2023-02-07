@@ -100,11 +100,7 @@ export const cloneAndSetState = (resource: any, options: RegOptionsT) => {
   let state: ResourceStateT = undefined;
 
   for (const source of options.loading ?? []) {
-    const isRS = source instanceof ResourceState;
-    if (
-      (isRS && source.isLoading()) ||
-      (!isRS && source !== undefined && isLoading(source))
-    ) {
+    if (source !== undefined && isLoading(source)) {
       state = 'loading';
       break;
     }
@@ -112,11 +108,7 @@ export const cloneAndSetState = (resource: any, options: RegOptionsT) => {
 
   if (!state) {
     for (const source of options.updating ?? []) {
-      const isRS = source instanceof ResourceState;
-      if (
-        (isRS && source.isUpdating()) ||
-        (!isRS && source !== undefined && isUpdating(source))
-      ) {
+      if (source !== undefined && isUpdating(source)) {
         state = 'updating';
         break;
       }
@@ -144,15 +136,14 @@ export const maybe = (
   state: ResourceStateT,
   flag: boolean
 ) => {
-  const rs = new ResourceState();
-  if (
-    endpoint.status === 'loading' ||
-    (state === 'loading' && endpoint.status === 'idle')
-  ) {
-    flag && rs.setState(state);
-  } else {
-    flag && rs.setState('ready');
-    !flag && rs.setState(undefined);
+  const result = initRS({});
+
+  if (flag) {
+    const isEndpointLoading =
+      endpoint.status === 'loading' ||
+      (endpoint.status === 'idle' && state === 'loading');
+    setState(result, isEndpointLoading ? state : 'ready');
   }
-  return rs;
+
+  return result;
 };
