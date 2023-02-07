@@ -1,13 +1,8 @@
-import { autorun, makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
-import {
-  addCleanUpFunctionToCtr,
-  NestedDefaultPropsContext,
-} from 'react-default-props-context';
-import { useGetPlaylist } from 'src/api/endpoints';
-import { useQueryData } from 'src/api/hooks';
+import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { cloneAndSetState, initRS, maybe } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
@@ -23,14 +18,7 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { playlistsState } = usePlaylistsState();
-    React.useEffect(() => () => playlistsState.destroy(), [playlistsState]);
-
-    const getPlaylist = useQueryData(
-      useGetPlaylist({
-        playlistId: playlistsState.playlists.highlight.id,
-      })
-    );
+    const { playlistsState, getPlaylist } = usePlaylistsState();
 
     useUpdateStateReaction({
       getInputs: () => ({
@@ -53,27 +41,19 @@ export const PlaylistsStateProvider = observer(
       },
     });
 
-    const [cache] = React.useState(() => {
-      const cache = makeAutoObservable(
-        { playlist: null, playlists: [] },
-        {},
-        { deep: false }
-      );
-      const cleanUpAutoRun = autorun(() => {
-        cache.playlists = cloneAndSetState(
-          playlistsState.playlists.data.playlists,
-          {
+    const [cache] = React.useState(() =>
+      makeAutoObservable({
+        get playlists() {
+          return cloneAndSetState(playlistsState.playlists.data.playlists, {
             loading: [
               //
               props.userProfile,
             ],
-          }
-        );
-
-        const fullPlaylist = getPlaylist.data?.playlist;
-        cache.playlist = cloneAndSetState(
-          playlistsState.playlists.highlight.item,
-          {
+          });
+        },
+        get playlist() {
+          const fullPlaylist = getPlaylist.data?.playlist;
+          return cloneAndSetState(playlistsState.playlists.highlight.item, {
             loading: [
               props.userProfile,
               maybe(getPlaylist, 'loading', !fullPlaylist),
@@ -82,13 +62,10 @@ export const PlaylistsStateProvider = observer(
               //
               maybe(getPlaylist, 'updating', !!fullPlaylist),
             ],
-          }
-        );
-      });
-      addCleanUpFunctionToCtr(playlistsState, cleanUpAutoRun);
-
-      return cache;
-    });
+          });
+        },
+      })
+    );
 
     const getDefaultPropsContext = () => {
       const result: any = {

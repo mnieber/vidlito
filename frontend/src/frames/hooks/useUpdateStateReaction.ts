@@ -1,3 +1,5 @@
+// UpdateStateReaction based on useState
+
 import { reaction } from 'mobx';
 import React from 'react';
 import { flags } from 'src/app/flags';
@@ -9,8 +11,8 @@ export type PropsT<ArgsT> = {
 };
 
 export const useUpdateStateReaction = <ArgsT>(props: PropsT<ArgsT>) => {
-  return React.useEffect(() => {
-    const cleanUpReaction = reaction(
+  const [cleanupFunction] = React.useState(() => {
+    return reaction(
       () => props.getInputs(),
       (inputs) => {
         props.updateState(inputs);
@@ -20,8 +22,7 @@ export const useUpdateStateReaction = <ArgsT>(props: PropsT<ArgsT>) => {
       },
       { fireImmediately: true }
     );
-    return () => {
-      cleanUpReaction();
-    };
   });
+
+  React.useEffect(() => cleanupFunction, [cleanupFunction]);
 };

@@ -3,10 +3,11 @@ import React from 'react';
 
 import {
   useDeletePlaylist,
+  useGetPlaylist,
   useSavePlaylist,
   useSavePlaylistOrdering,
 } from 'src/api/endpoints';
-import { useMutationData } from 'src/api/hooks';
+import { useMutationData, useQueryData } from 'src/api/hooks';
 import { setToReady, setToUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
@@ -49,5 +50,19 @@ export const usePlaylistsState = () => {
       })
   );
 
-  return { playlistsState, deletePlaylist, savePlaylist, savePlaylistOrdering };
+  const getPlaylist = useQueryData(
+    useGetPlaylist({
+      playlistId: playlistsState.playlists.highlight.id,
+    })
+  );
+
+  React.useEffect(() => () => playlistsState.destroy(), [playlistsState]);
+
+  return {
+    playlistsState,
+    getPlaylist,
+    deletePlaylist,
+    savePlaylist,
+    savePlaylistOrdering,
+  };
 };

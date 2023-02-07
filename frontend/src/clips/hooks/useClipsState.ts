@@ -67,6 +67,8 @@ export const useClipsState = (props: PropsT) => {
     });
   });
 
+  React.useEffect(() => () => clipsState.destroy(), [clipsState]);
+
   return {
     clipsState,
     moveClipsToTrash,

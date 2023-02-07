@@ -1,11 +1,8 @@
-import { autorun, makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
-import {
-  addCleanUpFunctionToCtr,
-  NestedDefaultPropsContext,
-} from 'react-default-props-context';
+import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { cloneAndSetState, initRS, maybe } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useClipsState } from 'src/clips/hooks/useClipsState';
@@ -23,7 +20,6 @@ export const ClipsStateProvider = observer(
     const { clipsState, moveClipsToPlaylist } = useClipsState({
       playlistId: props.playlist?.id,
     });
-    React.useEffect(() => () => clipsState.destroy(), [clipsState]);
 
     // Set state inputs
     useUpdateStateReaction({
@@ -39,38 +35,32 @@ export const ClipsStateProvider = observer(
       },
     });
 
-    const [cache] = React.useState(() => {
-      const cache = makeAutoObservable(
-        { clip: undefined, clips: initRS([]) },
-        {},
-        { deep: false }
-      );
-
-      const cleanUpAutoRun = autorun(() => {
-        cache.clip = cloneAndSetState(clipsState.clips.highlight.item, {
-          loading: [
-            //
-            props.playlist,
-          ],
-        });
-
-        const clipsDisplay = clipsState.clips.data.clipsDisplay;
-        cache.clips = cloneAndSetState(clipsDisplay, {
-          loading: [
-            //
-            props.playlist,
-          ],
-          updating: [
-            //
-            props.playlist,
-            maybe(moveClipsToPlaylist, 'updating', !!clipsDisplay),
-          ],
-        });
-      });
-      addCleanUpFunctionToCtr(clipsState, cleanUpAutoRun);
-
-      return cache;
-    });
+    const [cache] = React.useState(() =>
+      makeAutoObservable({
+        get clip() {
+          return cloneAndSetState(clipsState.clips.highlight.item, {
+            loading: [
+              //
+              props.playlist,
+            ],
+          });
+        },
+        get clips() {
+          const clipsDisplay = clipsState.clips.data.clipsDisplay;
+          return cloneAndSetState(clipsDisplay, {
+            loading: [
+              //
+              props.playlist,
+            ],
+            updating: [
+              //
+              props.playlist,
+              maybe(moveClipsToPlaylist, 'updating', !!clipsDisplay),
+            ],
+          });
+        },
+      })
+    );
 
     const getDefaultPropsContext = () => {
       const result: any = {
