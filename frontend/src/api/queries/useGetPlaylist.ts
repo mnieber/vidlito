@@ -27,6 +27,7 @@ export const getPlaylist = (args: ArgsT) => {
             name
             slug
             startTimeMs
+            tags
             url
           }
           owner {
@@ -46,10 +47,9 @@ export const getPlaylist = (args: ArgsT) => {
 };
 
 export const useGetPlaylist = (args: ArgsT) => {
-  const query = useQuery({
+  return useQuery({
     queryKey: ['getPlaylist', args],
     queryFn: () => getPlaylist(args),
     enabled: !!args.playlistId,
   });
-  return query;
 };

@@ -1,8 +1,11 @@
+from app.models import Entity
 from django.db import models
 from django.utils.text import slugify
 from martor.models import MartorField
 
-from app.models import Entity
+
+def create_empty_tags():
+    return dict(tags={})
 
 
 class Clip(Entity):
@@ -11,6 +14,7 @@ class Clip(Entity):
     name = models.CharField(max_length=90)
     slug = models.SlugField(max_length=80, null=True, blank=True)
     start_time_ms = models.IntegerField(null=True, blank=True)
+    tags = models.JSONField(default=create_empty_tags)
     url = models.CharField(max_length=255, null=True, blank=True)
 
     def save(self, *args, **kwargs):

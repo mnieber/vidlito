@@ -9,6 +9,7 @@ export type ClipT = {
   name: string;
   slug: string;
   startTimeMs?: number;
+  tags: string[];
   url?: string;
 };
 
@@ -21,6 +22,7 @@ export type ClipFormT = {
   name: string;
   slug?: string;
   startTimeMs?: number;
+  tags: string[];
   url?: string;
 };
 

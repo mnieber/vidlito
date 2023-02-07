@@ -21,13 +21,12 @@ export const ClipsStateProvider = observer(
       playlistId: props.playlist?.id,
     });
 
-    // Set state inputs
     useUpdateStateReaction({
       getInputs: () => ({
-        clips: props.playlist?.clipSet ?? [],
+        clips: props.playlist?.clipSet,
       }),
       updateState: (inputs) => {
-        clipsState.clips.data.clips = inputs.clips;
+        clipsState.clips.data.clips = inputs.clips ?? [];
         R.forEach(initRS, clipsState.clips.data.clips);
       },
       logState: () => {

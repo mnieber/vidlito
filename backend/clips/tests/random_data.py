@@ -14,11 +14,18 @@ def create_random_clip():
         url=f.word(),
         start_time_ms=f.random_int(),
         end_time_ms=f.random_int(),
+        tags=[f.word(), f.word()],
     )
     return obj
 
 
 def create_random_clip_form():
     return ClipFormT(
-        name="my clip",
+        description="# " + f.word(),
+        name=f.word(),
+        slug=f.word(),
+        url=f.word(),
+        start_time_ms=f.random_int(),
+        end_time_ms=f.random_int(),
+        tags=[f.word(), f.word()],
     )
