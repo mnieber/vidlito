@@ -2,6 +2,8 @@ import * as R from 'ramda';
 import React from 'react';
 import {
   MoveClipsToTrashArgsT,
+  SaveClipArgsT,
+  SaveClipOrderingArgsT,
   useMoveClipsToTrash,
   useMoveClipsToPlaylist,
   useSaveClip,
@@ -40,7 +42,7 @@ export const useClipsState = (props: PropsT) => {
           });
       },
       saveClip: (values: ObjT) => {
-        return saveClip.mutateAsync(values).then(() => {
+        return saveClip.mutateAsync(values as SaveClipArgsT).then(() => {
           return values.clipForm;
         });
       },
@@ -48,7 +50,7 @@ export const useClipsState = (props: PropsT) => {
         return saveClipOrdering.mutateAsync({
           playlistId: props.playlistId,
           clipIds: getIds(clips),
-        });
+        } as SaveClipOrderingArgsT);
       },
       moveClipsToPlaylist: (
         clips: ClipT[],
