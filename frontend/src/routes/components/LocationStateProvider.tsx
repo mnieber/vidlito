@@ -2,10 +2,8 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { withDefaultProps } from 'src/app/defaultProps';
-import { flags } from 'src/app/flags';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
-import { useRouteUfns } from 'src/routes/hooks/useRoutes';
-import { LocationState } from 'src/routes/LocationState';
+import { useLocationState } from 'src/routes/hooks/useLocationState';
 import { log } from 'src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -14,18 +12,13 @@ const DefaultProps = {};
 
 export const LocationStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { routeUfns, history } = useRouteUfns();
-    const [locationState] = React.useState(
-      () => new LocationState({ history, routeUfns })
-    );
-    React.useEffect(() => () => locationState.destroy(), [locationState]);
+    const { locationState } = useLocationState({});
 
     useUpdateStateReaction({
       getInputs: () => ({}),
-      updateState: (inputs) => {
-        if (flags.logStateProviders) {
-          log('LocationState updated', locationState.getSummary());
-        }
+      updateState: (inputs) => {},
+      logState: () => {
+        log('LocationState updated', locationState.getSummary());
       },
     });
 
