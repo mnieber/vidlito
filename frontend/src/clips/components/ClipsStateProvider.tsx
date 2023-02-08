@@ -36,14 +36,6 @@ export const ClipsStateProvider = observer(
 
     const [cache] = React.useState(() =>
       makeAutoObservable({
-        get clip() {
-          return cloneAndSetState(clipsState.clips.highlight.item, {
-            loading: [
-              //
-              props.playlist,
-            ],
-          });
-        },
         get clips() {
           const clipsDisplay = clipsState.clips.data.clipsDisplay;
           return cloneAndSetState(clipsDisplay, {
@@ -55,6 +47,14 @@ export const ClipsStateProvider = observer(
               //
               props.playlist,
               maybe(moveClipsToPlaylist, 'updating', !!clipsDisplay),
+            ],
+          });
+        },
+        get clip() {
+          return cloneAndSetState(clipsState.clips.highlight.item, {
+            loading: [
+              //
+              props.playlist,
             ],
           });
         },

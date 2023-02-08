@@ -1,5 +1,3 @@
-// UpdateStateReaction based on useState
-
 import { reaction } from 'mobx';
 import React from 'react';
 import { flags } from 'src/app/flags';

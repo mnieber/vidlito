@@ -1,15 +1,13 @@
 import * as R from 'ramda';
 import React from 'react';
 import {
+  MoveClipsToTrashArgsT,
+  useMoveClipsToTrash,
   useMoveClipsToPlaylist,
   useSaveClip,
   useSaveClipOrdering,
 } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
-import {
-  useMoveClipsToTrash,
-  type MoveClipsToTrashArgsT,
-} from 'src/api/mutations';
 import { setToReady, setToUpdating } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { ClipsState } from 'src/clips/ClipsState';
@@ -21,10 +19,10 @@ export type PropsT = {
 };
 
 export const useClipsState = (props: PropsT) => {
+  const moveClipsToPlaylist = useMutationData(useMoveClipsToPlaylist());
   const moveClipsToTrash = useMutationData(useMoveClipsToTrash());
   const saveClip = useMutationData(useSaveClip());
   const saveClipOrdering = useMutationData(useSaveClipOrdering());
-  const moveClipsToPlaylist = useMutationData(useMoveClipsToPlaylist());
 
   const [clipsState] = React.useState(() => {
     return new ClipsState({
@@ -72,8 +70,8 @@ export const useClipsState = (props: PropsT) => {
   return {
     clipsState,
     moveClipsToTrash,
+    moveClipsToPlaylist,
     saveClip,
     saveClipOrdering,
-    moveClipsToPlaylist,
   };
 };

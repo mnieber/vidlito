@@ -3,6 +3,8 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
+import { useGetPlaylist } from 'src/api/endpoints';
+import { useQueryData } from 'src/api/hooks';
 import { cloneAndSetState, initRS, maybe } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
@@ -18,18 +20,22 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { playlistsState, getPlaylist } = usePlaylistsState();
+    const { playlistsState } = usePlaylistsState({});
+
+    const getPlaylist = useQueryData(useGetPlaylist({
+      playlistId: playlistsState.playlists.highlight.id,
+    }));
 
     useUpdateStateReaction({
       getInputs: () => ({
-        playlists: props.userProfile?.playlistSet ?? [],
+        playlists: props.userProfile?.playlistSet,
         fullPlaylist: getPlaylist.data?.playlist,
       }),
       updateState: (inputs) => {
         // Initialize data.playlists to the playlists from the user profile
         // with the fully loaded playlist replacing the stub one.
         playlistsState.playlists.data.playlists = updatePlaylists(
-          inputs.playlists,
+          inputs.playlists ?? [],
           inputs.fullPlaylist
         );
 
