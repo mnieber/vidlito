@@ -6,7 +6,6 @@ import { cn } from 'src/utils/classnames';
 import './ClipHeaderView.scss';
 
 export type PropsT = {
-  togglePlaylistDescription: () => void;
   className?: any;
 };
 
@@ -25,9 +24,7 @@ export const ClipHeaderView = observer(
         {/*             */}
         <div className={cn('ClipHeaderView__Title')}>
           <div className={cn('ClipHeaderView__TitleName', rowSkewer)}>
-            <TogglePlaylistDescription
-              togglePlaylistDescription={props.togglePlaylistDescription}
-            />
+            <TogglePlaylistDescription />
             <div className={cn('ClipHeaderView__PlaylistName')}>
               {props.playlist.name}
             </div>

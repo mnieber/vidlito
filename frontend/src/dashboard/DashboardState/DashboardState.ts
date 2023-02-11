@@ -16,8 +16,14 @@ export class DashboardState {
   @observable isAuthenticated: boolean = false;
   @observable videoPlayerParentElm?: any;
 
+  @observable showPlaylistDescription: boolean = false;
+
   @action setShowClips(showClips: boolean) {
     this.showClips = showClips;
+  }
+
+  @action toggleShowPlaylistDescription(flag?: boolean) {
+    this.showPlaylistDescription = flag ?? !this.showPlaylistDescription;
   }
 
   @action setVideoPlayerParentElm(videoPlayerParentElm: any) {

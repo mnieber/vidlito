@@ -1,15 +1,16 @@
 import { observer } from 'mobx-react-lite';
-import { withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import './TogglePlaylistDescription.scss';
 
 export type PropsT = {
-  togglePlaylistDescription: () => void;
   className?: any;
 };
 
-const DefaultProps = {};
+const DefaultProps = {
+  ...dps.dashboardState,
+};
 
 export const TogglePlaylistDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
