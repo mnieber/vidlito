@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon, mainButton, rowSkewer } from 'src/frames/components';
+import { TogglePlaylistDescription } from 'src/playlists/components';
 import { cn } from 'src/utils/classnames';
 import './ClipHeaderView.scss';
 
@@ -24,10 +25,10 @@ export const ClipHeaderView = observer(
         {/*             */}
         <div className={cn('ClipHeaderView__Title')}>
           <div className={cn('ClipHeaderView__TitleName', rowSkewer)}>
-            <div
-              className={cn('ClipHeaderView__PlaylistName')}
-              onClick={props.togglePlaylistDescription}
-            >
+            <TogglePlaylistDescription
+              togglePlaylistDescription={props.togglePlaylistDescription}
+            />
+            <div className={cn('ClipHeaderView__PlaylistName')}>
               {props.playlist.name}
             </div>
             <div className={cn('ClipHeaderView__ClipName', 'ml-2')}>

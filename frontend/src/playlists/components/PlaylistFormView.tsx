@@ -29,9 +29,9 @@ export type PropsT = {
 };
 
 const DefaultProps = {
+  ...dps.locationState,
   ...dps.playlist,
   ...dps.playlistsEditing,
-  ...dps.locationState,
 };
 
 export const PlaylistFormView = observer(
@@ -89,7 +89,11 @@ export const PlaylistFormView = observer(
           >
             <SlugField />
           </Field>
-          <Field fieldName="playlistForm.description" label="Description">
+          <Field
+            fieldName="playlistForm.description"
+            label="Description"
+            tabOnEnter={false}
+          >
             <TextAreaField controlled={true} />
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>

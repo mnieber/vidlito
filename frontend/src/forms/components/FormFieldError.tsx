@@ -8,7 +8,7 @@ import './FormFieldError.scss';
 export type PropsT = {
   extraClass?: string;
   extraClassOnError?: string;
-}
+};
 
 // Generic component that shows the error in fieldName for the current
 // form state.
