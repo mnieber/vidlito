@@ -1,6 +1,7 @@
 import graphene
-from clips.models import Clip
 from graphene_django.types import DjangoObjectType
+
+from clips.models import Clip
 
 
 class ClipT(DjangoObjectType):

@@ -17,9 +17,9 @@ export const MainView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <div className={cn('MainView', props.className)}>
-        <></>
-        {/* Switch */}
-        <></>
+        {/*              */}
+        {/* 🟩 Switch 🟩 */}
+        {/*              */}
         {props.playlistsEditing.isEditing && <PlaylistFormView />}
         {!props.playlistsEditing.isEditing && <EditableClipView />}
       </div>

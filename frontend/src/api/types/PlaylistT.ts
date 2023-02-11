@@ -11,6 +11,7 @@ export type PlaylistT = {
   name: string;
   owner: UserProfileT;
   slug: string;
+  tags: string[];
 };
 
 export type PlaylistByIdT = { [id: string]: PlaylistT };
@@ -21,6 +22,7 @@ export type PlaylistFormT = {
   name: string;
   ownerId: string;
   slug: string;
+  tags: string[];
 };
 
 export const createPlaylist = (values: ObjT): PlaylistT => {

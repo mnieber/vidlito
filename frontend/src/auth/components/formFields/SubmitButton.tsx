@@ -1,5 +1,5 @@
 import { FormState, useFormStateContext } from 'react-form-state-context';
-import { primaryBigButton } from 'src/frames/components/Button';
+import { primaryBigButton } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 
 type PropsT = {

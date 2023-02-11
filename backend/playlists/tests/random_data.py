@@ -13,6 +13,7 @@ def create_random_playlist(
         description="# " + f.word(),
         name=f.word(),
         slug=f.word(),
+        tags=[f.word(), f.word()],
         owner_id=owner_id,
     )
     return obj
@@ -23,6 +24,7 @@ def create_random_playlist_form():
         description="# " + f.word(),
         name=f.word(),
         slug=f.word(),
+        tags=[f.word(), f.word()],
         owner_id=f.uuid4(),
     )
 

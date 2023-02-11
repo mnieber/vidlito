@@ -16,9 +16,9 @@ const DefaultProps = {};
 
 export const DashboardStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const loadUserId = useQueryData(useLoadUserId());
-
     const { dashboardState } = useDashboardState({});
+
+    const loadUserId = useQueryData(useLoadUserId());
 
     useUpdateStateReaction({
       getInputs: () => ({

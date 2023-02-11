@@ -7,8 +7,8 @@ import { createVideoKeyHandlers } from 'src/videos/createVideoKeyHandlers';
 import { VideoPlayerState } from 'src/videos/VideoPlayerState';
 
 export type PropsT = React.PropsWithChildren<{
-  videoPlayerState: VideoPlayerState;
   clip: ClipT;
+  videoPlayerState: VideoPlayerState;
 }>;
 
 export const ClipKeyHandler = observer((props: PropsT) => {

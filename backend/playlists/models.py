@@ -7,6 +7,10 @@ from clips.models import Clip
 from user_profiles.models import UserProfile
 
 
+def create_empty_tags():
+    return dict(tags=[])
+
+
 class Playlist(Entity):
     class Meta:
         ordering = ["sort_pos"]
@@ -18,6 +22,7 @@ class Playlist(Entity):
     )
     slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
     sort_pos = models.IntegerField(default=0)
+    tags = models.JSONField(default=create_empty_tags)
 
     def save(self, *args, **kwargs):
         if self.slug is None:

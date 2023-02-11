@@ -16,9 +16,9 @@ export type PropsT = React.PropsWithChildren<{
 }>;
 
 const DefaultProps = {
-  ...dps.playlist,
-  ...dps.locationState,
   ...dps.dashboardState,
+  ...dps.locationState,
+  ...dps.playlist,
 };
 
 export const Dashboard = observer(
@@ -34,9 +34,9 @@ export const Dashboard = observer(
         <div className={cn('Dashboard__LeftSidebar', colBanner)}>
           <MainButtonsPanel className={cn('mb-2')} />
           <ToggleClipsAndPlaylists />
-          <></>
-          {/* Switch */}
-          <></>
+          {/*              */}
+          {/* 🟩 Switch 🟩 */}
+          {/*              */}
           {props.dashboardState.showClips && (
             <ClipListView
               className={cn('overflow-y-auto')}

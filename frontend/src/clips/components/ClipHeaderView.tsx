@@ -37,7 +37,7 @@ export const ClipHeaderView = observer(
             {/* 🟩 EditButton 🟩 */}
             {/*                  */}
             <button
-              className={cn('ClipHeaderView__RhsContents', mainButton, 'ml-2')}
+              className={cn('ClipHeaderView__EditButton', mainButton, 'ml-2')}
               onClick={() => props.clipsEditing.enable()}
             >
               <Icon name="pencil" />
