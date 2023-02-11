@@ -12,11 +12,11 @@ from .create_move_clips_to_playlist_mutation import (
 
 class TestMoveClipsToPlaylistMutation(GraphqlTestCase):
     @pytest.fixture()
-    def src_playlist(self, user_profile):
+    def playlist(self, user_profile):
         return create_random_playlist(user_profile_id=user_profile.id)
 
     @pytest.fixture()
-    def dest_playlist(self, user_profile):
+    def playlist(self, user_profile):
         return create_random_playlist(user_profile_id=user_profile.id)
 
     @pytest.fixture()
@@ -28,15 +28,15 @@ class TestMoveClipsToPlaylistMutation(GraphqlTestCase):
     @pytest.mark.django_db()
     def test_move_clips_to_playlist__(
         self,
-        src_playlist,
-        dest)playlist,
+        playlist,
+        playlist,
         clips,
         client_query,
     ):
         clip_ids = [str(x.id) for x in clips]
         query, operation_name, variables = create_move_clips_to_playlist_mutation(
-            src_playlist_id=str(src_playlist.id),
-            dest_playlist_id=str(dest_playlist.id),
+            playlist_id=str(playlist.id),
+            playlist_id=str(playlist.id),
             clip_ids=clip_ids,
             output_values=["success", "errors"],
         )

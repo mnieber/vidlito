@@ -1,12 +1,11 @@
+from app.models import Entity
 from django.db import models
 from django.utils.text import slugify
 from martor.models import MartorField
 
-from app.models import Entity
-
 
 def create_empty_tags():
-    return dict(tags={})
+    return dict(tags=[])
 
 
 class Clip(Entity):

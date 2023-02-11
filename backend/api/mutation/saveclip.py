@@ -1,8 +1,7 @@
 import graphene
-from graphene.types.generic import GenericScalar
-
 from api.types import *
 from clips.models import Clip
+from graphene.types.generic import GenericScalar
 
 
 class SaveClip(graphene.Mutation):
@@ -14,6 +13,7 @@ class SaveClip(graphene.Mutation):
 
     def mutate(self, info, clip_form):
         id = clip_form.pop("id")
+        clip_form["tags"] = dict(tags=clip_form["tags"])
         clip, created = Clip.objects.update_or_create(defaults=clip_form, id=id)
 
         return SaveClip(

@@ -21,6 +21,7 @@ import {
   TextAreaField,
   TextField,
   UpdateSlugButton,
+  ValuePickerField,
 } from 'src/forms/components';
 import { colBanner, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
@@ -44,10 +45,11 @@ export const ClipFormView = observer(
     const initialValues = {
       'clipForm.description': props.clip.description ?? null,
       'clipForm.endTimeS': _toSeconds(props.clip.endTimeMs) ?? null,
-      'clipForm.id': props.clip.id ?? createUUID(),
+      'clipForm.id': props.clip.id ?? createUUID().hex,
       'clipForm.name': props.clip.name ?? null,
       'clipForm.slug': props.clip.slug ?? null,
       'clipForm.startTimeS': _toSeconds(props.clip.startTimeMs) ?? null,
+      'clipForm.tags': props.clip.tags ?? null,
       'clipForm.url': props.clip.url ?? null,
     };
     const initialErrors = {};
@@ -60,10 +62,10 @@ export const ClipFormView = observer(
       return saveClip(
         unflatten({
           ...values,
+          'clipForm.endTimeMs': Math.trunc(values['clipForm.endTimeS'] * 1000),
           'clipForm.startTimeMs': Math.trunc(
             values['clipForm.startTimeS'] * 1000
           ),
-          'clipForm.endTimeMs': Math.trunc(values['clipForm.endTimeS'] * 1000),
           'clipForm.endTimeS': undefined,
           'clipForm.startTimeS': undefined,
         })
@@ -147,6 +149,14 @@ export const ClipFormView = observer(
             tabOnEnter={false}
           >
             <TextAreaField controlled={true} />
+          </Field>
+          <Field fieldName="clipForm.tags" label="Tags">
+            <ValuePickerField
+              isCreatable={true}
+              isMulti={true}
+              pickableValues={['one', 'two']}
+              labelFromValue={(x: any) => x}
+            />
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>
             <CancelButton label="Cancel" disabled={false} />
