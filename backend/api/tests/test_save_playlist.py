@@ -1,4 +1,5 @@
 import pytest
+
 from api.tests.graphqltestcase import GraphqlTestCase
 from playlists.models import Playlist
 from playlists.tests.random_data import create_random_playlist_form

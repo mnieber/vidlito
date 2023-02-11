@@ -1,4 +1,5 @@
 import graphene
+
 from api.types import *
 from user_profiles.models import UserProfile
 

@@ -1,6 +1,7 @@
 import graphene
-from api.types.clip_t import ClipT
 from graphene_django.types import DjangoObjectType
+
+from api.types.clip_t import ClipT
 from playlists.models import Playlist
 
 

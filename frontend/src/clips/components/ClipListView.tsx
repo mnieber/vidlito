@@ -46,13 +46,11 @@ export const ClipListView = observer(
     const noItems = <h2>There are no clips</h2>;
 
     const clipDivs = props.clips.map((clip, idx) => {
-      const isHighlighted = clip && props.clipsHighlight.id === clip.id;
-
       return (
         <ClipListViewItem
           key={clip.id}
           clip={clip}
-          isHighlighted={isHighlighted}
+          isHighlighted={clip && props.clipsHighlight.id === clip.id}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
           onContextMenu={(e) => {
