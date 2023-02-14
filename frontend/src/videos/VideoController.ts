@@ -51,7 +51,7 @@ export class VideoController {
       runInAction(() => (this.ready = true));
       try {
         setTimeout(() => {
-          this.player.pauseVideo();
+          this.player && this.player.pauseVideo();
         }, 500);
       } catch {}
     }
