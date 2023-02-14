@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
+import { ClipTagsView } from 'src/clips/components/ClipTagsView';
 import { Icon, mainButton, rowSkewer } from 'src/frames/components';
 import { TogglePlaylistDescription } from 'src/playlists/components';
 import { cn } from 'src/utils/classnames';
@@ -45,6 +46,7 @@ export const ClipHeaderView = observer(
           <div className={cn('ClipHeaderView__TitleAuthor')}>
             By: {props.playlist.owner.displayName}
           </div>
+          <ClipTagsView />
         </div>
       </div>
     );
