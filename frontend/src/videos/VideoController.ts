@@ -42,6 +42,18 @@ export class VideoController {
   }
 
   setPlayerReady() {
+    const pausePlayer = () => {
+      try {
+        setTimeout(() => {
+          if (this.player) {
+            this.player.pauseVideo();
+          } else {
+            pausePlayer();
+          }
+        }, 250);
+      } catch {}
+    };
+
     const notPlaying = -1;
     if (
       this.player &&
@@ -49,11 +61,7 @@ export class VideoController {
       this._pauseAt >= 0
     ) {
       runInAction(() => (this.ready = true));
-      try {
-        setTimeout(() => {
-          this.player && this.player.pauseVideo();
-        }, 500);
-      } catch {}
+      pausePlayer();
     }
   }
 
