@@ -26,10 +26,12 @@ export class LocationState {
     this.history.goBack();
   }
 
-  goToPlaylist(playlist: PlaylistT) {
+  goToPlaylist(playlist: PlaylistT, updateUrl: boolean = true) {
     this.playlist = playlist;
-    const ufn = this.routeUfns.playlist(this.history.push);
-    ufn(playlist);
+    if (updateUrl) {
+      const ufn = this.routeUfns.playlist(this.history.push);
+      ufn(playlist);
+    }
   }
 
   goToClip(clip: ClipT, playlist?: PlaylistT) {

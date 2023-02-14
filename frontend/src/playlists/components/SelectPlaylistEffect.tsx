@@ -5,7 +5,7 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Effect } from 'src/utils/components';
 
 type ArgsT = {
-  playlistId?: string;
+  playlist?: PlaylistT;
   playlistSlug: string;
 };
 
@@ -16,6 +16,7 @@ const DefaultProps = {
   ...dps.playlistsHighlight,
   ...dps.playlists,
   ...dps.playlistsState,
+  ...dps.locationState,
 };
 
 export const SelectPlaylistEffect = observer(
@@ -24,9 +25,9 @@ export const SelectPlaylistEffect = observer(
       <Effect
         getArgs={(params) => {
           return {
-            playlistId: R.find(
-              (x: PlaylistT) => x.slug === params.playlistSlug
-            )(props.playlists)?.id,
+            playlist: R.find((x: PlaylistT) => x.slug === params.playlistSlug)(
+              props.playlists
+            ),
             playlistSlug: params.playlistSlug,
           };
         }}
@@ -35,11 +36,12 @@ export const SelectPlaylistEffect = observer(
             args.playlistSlug
           );
           if (
-            args.playlistId &&
-            !props.playlistsSelection.ids.includes(args.playlistId)
+            args.playlist &&
+            !props.playlistsSelection.ids.includes(args.playlist.id)
           ) {
-            props.playlistsSelection.selectItem({ itemId: args.playlistId });
-            props.playlistsHighlight.highlightItem(args.playlistId);
+            props.playlistsSelection.selectItem({ itemId: args.playlist.id });
+            props.playlistsHighlight.highlightItem(args.playlist.id);
+            props.locationState.goToPlaylist(args.playlist, false);
           }
         }}
       />
