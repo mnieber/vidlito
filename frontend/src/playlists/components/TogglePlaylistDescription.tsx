@@ -15,7 +15,10 @@ const DefaultProps = {
 export const TogglePlaylistDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
-      <div className={cn('TogglePlaylistDescription', props.className)}>
+      <div
+        className={cn('TogglePlaylistDescription', props.className)}
+        onClick={() => props.dashboardState.toggleShowPlaylistDescription()}
+      >
         <Icon name="play" />
       </div>
     );
