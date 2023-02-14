@@ -3,7 +3,8 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { cloneAndSetState, initRS, maybe } from 'src/api/ResourceState';
+import { initRS } from 'src/api/ResourceState';
+import { cloneAndSetState } from 'src/api/utils';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useClipsState } from 'src/clips/hooks/useClipsState';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
@@ -38,25 +39,16 @@ export const ClipsStateProvider = observer(
       makeAutoObservable({
         get clips() {
           const clipsDisplay = clipsState.clips.data.clipsDisplay;
-          return cloneAndSetState(clipsDisplay, {
-            loading: [
-              //
-              props.playlist,
-            ],
-            updating: [
-              //
-              props.playlist,
-              maybe(moveClipsToPlaylist, 'updating', !!clipsDisplay),
-            ],
-          });
+          return cloneAndSetState(clipsDisplay, [
+            ['loading', props.playlist],
+            ['updating', props.playlist],
+            ['updating', [moveClipsToPlaylist, !!clipsDisplay]],
+          ]);
         },
         get clip() {
-          return cloneAndSetState(clipsState.clips.highlight.item, {
-            loading: [
-              //
-              props.playlist,
-            ],
-          });
+          return cloneAndSetState(clipsState.clips.highlight.item, [
+            ['loading', props.playlist],
+          ]);
         },
       })
     );

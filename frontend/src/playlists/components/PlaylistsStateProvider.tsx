@@ -5,7 +5,8 @@ import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useGetPlaylist } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
-import { cloneAndSetState, initRS, maybe } from 'src/api/ResourceState';
+import { initRS } from 'src/api/ResourceState';
+import { cloneAndSetState } from 'src/api/utils';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { usePlaylistsState } from 'src/playlists/hooks/usePlaylistsState';
@@ -53,25 +54,17 @@ export const PlaylistsStateProvider = observer(
     const [cache] = React.useState(() =>
       makeAutoObservable({
         get playlists() {
-          return cloneAndSetState(playlistsState.playlists.data.playlists, {
-            loading: [
-              //
-              props.userProfile,
-            ],
-          });
+          return cloneAndSetState(playlistsState.playlists.data.playlists, [
+            ['loading', props.userProfile],
+          ]);
         },
         get playlist() {
           const fullPlaylist = getPlaylist.data?.playlist;
-          return cloneAndSetState(playlistsState.playlists.highlight.item, {
-            loading: [
-              props.userProfile,
-              maybe(getPlaylist, 'loading', !fullPlaylist),
-            ],
-            updating: [
-              //
-              maybe(getPlaylist, 'updating', !!fullPlaylist),
-            ],
-          });
+          return cloneAndSetState(playlistsState.playlists.highlight.item, [
+            ['loading', props.userProfile],
+            ['loading', [getPlaylist, !fullPlaylist]],
+            ['updating', [getPlaylist, !!fullPlaylist]],
+          ]);
         },
       })
     );

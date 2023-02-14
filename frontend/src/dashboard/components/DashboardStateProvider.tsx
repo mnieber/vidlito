@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useQueryData } from 'src/api/hooks';
-import { cloneAndSetState, maybe } from 'src/api/ResourceState';
+import { cloneAndSetState } from 'src/api/utils';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { useLoadUserId } from 'src/auth/endpoints';
 import { useDashboardState } from 'src/dashboard/hooks/useDashboardState';
@@ -38,12 +38,9 @@ export const DashboardStateProvider = observer(
     const [cache] = React.useState(() =>
       makeAutoObservable({
         get userProfile() {
-          return cloneAndSetState(loadUserId.data?.userProfile, {
-            loading: [
-              //
-              maybe(loadUserId, 'loading', !loadUserId.data?.userProfile),
-            ],
-          });
+          return cloneAndSetState(loadUserId.data?.userProfile, [
+            ['loading', [loadUserId, !loadUserId.data?.userProfile]],
+          ]);
         },
       })
     );

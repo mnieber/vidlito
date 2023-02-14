@@ -32,7 +32,8 @@ export function loadUserId(args: ArgsT): Promise<any> {
       return {
         userId: response.username ?? anonymous,
         isAuthenticated: !!response.username,
-        userProfile: response.getUserProfile.userProfile,
+        // Since null is used to indicate a loading state, we convert to undefined
+        userProfile: response.getUserProfile.userProfile ?? undefined,
       };
     })
     .catch((error: ObjT) => {
