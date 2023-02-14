@@ -7,6 +7,7 @@ export type { FormFieldContextPropsT } from './FormFieldContext';
 export { FormFieldError } from './FormFieldError';
 export { FormFieldLabel } from './FormFieldLabel';
 export { GlobalError } from './GlobalError';
+export { MarkdownField } from './MarkdownField';
 export { MobXFormState } from './MobXFormState';
 export { SaveButton } from './SaveButton';
 export { SlugField, UpdateSlugButton } from './SlugField';

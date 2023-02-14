@@ -1,92 +1,57 @@
 import { observer } from 'mobx-react-lite';
-import * as R from 'ramda';
-import {
-  FormStateProvider,
-  HandleCancelArgsT,
-  HandleSubmitArgsT,
-  HandleValidateArgsT,
-  unflatten,
-} from 'react-form-state-context';
-import { ClipT } from 'src/api/types/ClipT';
+import { FormStateProvider } from 'react-form-state-context';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { GoToTimeButton } from 'src/clips/components/GoToTimeButton';
 import { UpdateTimeButton } from 'src/clips/components/UpdateTimeButton';
 import { UrlField } from 'src/clips/components/UrlField';
+import { usePreviewButton } from 'src/clips/hooks/usePreviewButton';
 import {
   CancelButton,
   Field,
   GlobalError,
+  MarkdownField,
   SaveButton,
   SlugField,
-  TextAreaField,
   TextField,
   UpdateSlugButton,
   ValuePickerField,
 } from 'src/forms/components';
 import { colBanner, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
-import { createUUID } from 'src/utils/ids';
 import './ClipFormView.scss';
+import { form } from './form';
 
 export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
+export const DefaultProps = {
   ...dps.clip,
   ...dps.clipsEditing,
+  ...dps.clipsAddition,
   ...dps.locationState,
   ...dps.videoPlayerState,
 };
 
 export const ClipFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const saveClip = props.clipsEditing.save.bind(props.clipsEditing);
-    const initialValues = {
-      'clipForm.description': props.clip.description ?? null,
-      'clipForm.endTimeS': _toSeconds(props.clip.endTimeMs) ?? null,
-      'clipForm.id': props.clip.id ?? createUUID().hex,
-      'clipForm.name': props.clip.name ?? null,
-      'clipForm.slug': props.clip.slug ?? null,
-      'clipForm.startTimeS': _toSeconds(props.clip.startTimeMs) ?? null,
-      'clipForm.tags': props.clip.tags ?? null,
-      'clipForm.url': props.clip.url ?? null,
-    };
-    const initialErrors = {};
-    const handleValidate = ({ values, setError }: HandleValidateArgsT) => {
-      if (R.isNil(values['clipForm.name'])) {
-        setError('clipForm.name', 'This field is required');
-      }
-    };
-    const handleSubmit = ({ formState, values }: HandleSubmitArgsT) => {
-      return saveClip(
-        unflatten({
-          ...values,
-          'clipForm.endTimeMs': Math.trunc(values['clipForm.endTimeS'] * 1000),
-          'clipForm.startTimeMs': Math.trunc(
-            values['clipForm.startTimeS'] * 1000
-          ),
-          'clipForm.endTimeS': undefined,
-          'clipForm.startTimeS': undefined,
-        })
-      ).then((localClip: ClipT) => {
-        formState.reset(initialValues, initialErrors);
-        props.locationState.goToClip(localClip);
-      });
-    };
-    const handleCancel = ({ formState }: HandleCancelArgsT) => {
-      props.clipsEditing.cancel();
-      props.locationState.goBack();
-    };
+    const { showPreviewButton, descriptionPreview } = usePreviewButton({});
+
+    const initialValues = form.getInitialValues(props);
+    const initialErrors = form.getInitialErrors(props);
 
     return (
       <div className={cn('ClipFormView', colBanner, props.className)}>
         <FormStateProvider
-          initialValues={initialValues}
+          initialValues={form.getInitialValues(props)}
           initialErrors={initialErrors}
-          handleValidate={handleValidate}
-          handleSubmit={handleSubmit}
-          handleCancel={handleCancel}
+          handleValidate={form.getHandleValidate(props)}
+          handleSubmit={form.getHandleSubmit(
+            props,
+            initialValues,
+            initialErrors
+          )}
+          handleCancel={form.getHandleCancel(props)}
         >
           <GlobalError />
           <UrlField videoPlayerState={props.videoPlayerState} />
@@ -147,8 +112,9 @@ export const ClipFormView = observer(
             fieldName="clipForm.description"
             label="Description"
             tabOnEnter={false}
+            buttons={[showPreviewButton]}
           >
-            <TextAreaField controlled={true} />
+            <MarkdownField controlled={true} preview={descriptionPreview} />
           </Field>
           <Field fieldName="clipForm.tags" label="Tags">
             <ValuePickerField
@@ -167,7 +133,3 @@ export const ClipFormView = observer(
     );
   }, DefaultProps)
 );
-
-const _toSeconds = (ms: number | undefined) => {
-  return ms ? ms / 1000 : null;
-};
