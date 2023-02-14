@@ -27,7 +27,8 @@ export const PlaylistsStateProvider = observer(
       useGetPlaylist({
         playlistId: playlistsState.playlists.highlight.id,
         playlistSlug: playlistsState.playlists.data.playlistSlug,
-      })
+      }),
+      { fetchAsLoad: true }
     );
 
     useUpdateStateReaction({
@@ -61,9 +62,9 @@ export const PlaylistsStateProvider = observer(
         get playlist() {
           const fullPlaylist = getPlaylist.data?.playlist;
           return cloneAndSetState(playlistsState.playlists.highlight.item, [
-            ['loading', props.userProfile],
-            ['loading', [getPlaylist, !fullPlaylist]],
-            ['updating', [getPlaylist, !!fullPlaylist]],
+            ['loading', props.userProfile, 'userProfile'],
+            ['loading', [getPlaylist, !fullPlaylist], 'getPlaylist'],
+            ['updating', [getPlaylist, !!fullPlaylist], 'getPlaylist'],
           ]);
         },
       })

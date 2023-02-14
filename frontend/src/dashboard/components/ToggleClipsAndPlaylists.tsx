@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { isUpdating } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
@@ -11,6 +12,8 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.dashboardState,
+  ...dps.clips,
+  ...dps.playlists,
 };
 
 export const ToggleClipsAndPlaylists = observer(
@@ -37,6 +40,7 @@ export const ToggleClipsAndPlaylists = observer(
           className={cn('ToggleClipsAndPlaylists__Clips', 'p-2', 'grow', {
             'ToggleClipsAndPlaylists__Toggle--selected':
               props.dashboardState.showClips,
+            'animate-[pulse_1s_ease-in-out_infinite]': isUpdating(props.clips),
           })}
           onClick={showClips}
         >
@@ -46,6 +50,9 @@ export const ToggleClipsAndPlaylists = observer(
           className={cn('ToggleClipsAndPlaylists__Playlists', 'p-2', 'grow', {
             'ToggleClipsAndPlaylists__Toggle--selected':
               !props.dashboardState.showClips,
+            'animate-[pulse_1s_ease-in-out_infinite]': isUpdating(
+              props.playlists
+            ),
           })}
           onClick={showPlaylists}
         >

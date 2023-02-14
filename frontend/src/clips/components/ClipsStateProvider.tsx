@@ -40,9 +40,13 @@ export const ClipsStateProvider = observer(
         get clips() {
           const clipsDisplay = clipsState.clips.data.clipsDisplay;
           return cloneAndSetState(clipsDisplay, [
-            ['loading', props.playlist],
-            ['updating', props.playlist],
-            ['updating', [moveClipsToPlaylist, !!clipsDisplay]],
+            ['loading', props.playlist, 'playlist'],
+            ['updating', props.playlist, 'playlist'],
+            [
+              'updating',
+              [moveClipsToPlaylist, !!clipsDisplay],
+              'moveClipsToPlaylist',
+            ],
           ]);
         },
         get clip() {

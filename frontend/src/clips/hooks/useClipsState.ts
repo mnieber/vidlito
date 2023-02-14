@@ -4,8 +4,8 @@ import {
   MoveClipsToTrashArgsT,
   SaveClipArgsT,
   SaveClipOrderingArgsT,
-  useMoveClipsToTrash,
   useMoveClipsToPlaylist,
+  useMoveClipsToTrash,
   useSaveClip,
   useSaveClipOrdering,
 } from 'src/api/endpoints';

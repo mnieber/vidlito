@@ -14,7 +14,7 @@ export type OptionsT = {
 
 export const cloneAndSetState = (
   resource: any,
-  sources: any,
+  sources: any[],
   options?: OptionsT
 ) => {
   if (resource === null) {
@@ -29,13 +29,15 @@ export const cloneAndSetState = (
   let resultState: ResourceStateT = undefined;
 
   for (const source of sources) {
-    let [srcState, srcRes] = source;
+    let [srcState, srcRes, srcLabel] = source;
     if (Array.isArray(srcRes)) {
       const [endpoint, flag] = srcRes;
       if (!flag) {
         continue;
       }
       srcRes = initRS({});
+      srcLabel = srcLabel ?? endpoint.toString();
+
       const isEndpointLoading =
         endpoint.status === 'loading' ||
         (endpoint.status === 'idle' && srcState === 'loading');
@@ -46,7 +48,7 @@ export const cloneAndSetState = (
       resultState = srcState;
       options?.debugLabel &&
         console.log(
-          `cloneAndSetState: ${options?.debugLabel} - source ${source} is loading`
+          `cloneAndSetState: ${options?.debugLabel} - source ${srcLabel} is loading`
         );
       break;
     }
@@ -55,7 +57,7 @@ export const cloneAndSetState = (
       resultState = srcState;
       options?.debugLabel &&
         console.log(
-          `cloneAndSetState: ${options?.debugLabel} - source ${source} is updating`
+          `cloneAndSetState: ${options?.debugLabel} - source ${srcLabel} is updating`
         );
       break;
     }
