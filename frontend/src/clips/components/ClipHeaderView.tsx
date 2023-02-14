@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipTagsView } from 'src/clips/components/ClipTagsView';
 import { Icon, mainButton, rowSkewer } from 'src/frames/components';
-import { TogglePlaylistDescription } from 'src/playlists/components';
+import { colBanner } from 'src/frames/components/Banner';
 import { cn } from 'src/utils/classnames';
 import './ClipHeaderView.scss';
 
@@ -14,24 +14,38 @@ const DefaultProps = {
   ...dps.clip,
   ...dps.clipsEditing,
   ...dps.playlist,
+  ...dps.dashboardState,
 };
 
 export const ClipHeaderView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
-      <div className={cn('ClipHeaderView', rowSkewer, props.className)}>
+      <div className={cn('ClipHeaderView', colBanner, props.className)}>
         {/*             */}
         {/* 🟩 Title 🟩 */}
         {/*             */}
-        <div className={cn('ClipHeaderView__Title')}>
-          <div className={cn('ClipHeaderView__TitleName', rowSkewer)}>
-            <TogglePlaylistDescription />
-            <div className={cn('ClipHeaderView__PlaylistName')}>
+        <div className={cn('ClipHeaderView__Title', 'mb-2')}>
+          <div className={cn('ClipHeaderView__TitleName', 'mb-2', rowSkewer)}>
+            <button
+              className={cn('ClipHeaderView__PlaylistName', {
+                underline: props.dashboardState.showPlaylistDescription,
+              })}
+              onClick={() =>
+                props.dashboardState.toggleShowPlaylistDescription(true)
+              }
+            >
               {props.playlist.name}
-            </div>
-            <div className={cn('ClipHeaderView__ClipName', 'ml-2')}>
+            </button>
+            <button
+              className={cn('ClipHeaderView__ClipName', 'ml-2', {
+                underline: !props.dashboardState.showPlaylistDescription,
+              })}
+              onClick={() =>
+                props.dashboardState.toggleShowPlaylistDescription(false)
+              }
+            >
               {props.clip.name}
-            </div>
+            </button>
             {/*                  */}
             {/* 🟩 EditButton 🟩 */}
             {/*                  */}

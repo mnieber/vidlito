@@ -5,4 +5,3 @@ export { PlaylistListView } from './PlaylistListView';
 export { PlaylistListViewItem } from './PlaylistListViewItem';
 export { PlaylistsStateProvider } from './PlaylistsStateProvider';
 export { SelectPlaylistEffect } from './SelectPlaylistEffect';
-export { TogglePlaylistDescription } from './TogglePlaylistDescription';

@@ -23,9 +23,11 @@ export const ClipView = observer(
         {props.dashboardState.showPlaylistDescription && (
           <PlaylistDescription />
         )}
-        <div className={cn('ClipView__Description')}>
-          <MarkdownView text={props.clip.description ?? ''} />
-        </div>
+        {!props.dashboardState.showPlaylistDescription && (
+          <div className={cn('ClipView__Description')}>
+            <MarkdownView text={props.clip.description ?? ''} />
+          </div>
+        )}
       </div>
     );
   }, DefaultProps)

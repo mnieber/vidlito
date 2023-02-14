@@ -1,5 +1,9 @@
 @import "src/frames/styles/font-sizes";
 
+.ClipHeaderView {
+    @apply underline-offset-8;
+}
+
 .ClipHeaderView__TitleName {
     @apply font-bold;
 

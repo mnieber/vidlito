@@ -16,7 +16,8 @@ const DefaultProps = {
 export const PlaylistDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
-      <div className={cn('PlaylistDescription', props.className)}>
+      <div className={cn('PlaylistDescription', 'p-4', props.className)}>
+        <div className="PlaylistDescription__Title">About this Playlist</div>
         <MarkdownView
           text={
             props.playlist.description ||
