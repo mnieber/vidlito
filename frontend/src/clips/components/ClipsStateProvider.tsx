@@ -18,15 +18,15 @@ const DefaultProps = {
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { clipsState, moveClipsToPlaylist } = useClipsState({
-      playlistId: props.playlist?.id,
-    });
+    const { clipsState, moveClipsToPlaylist } = useClipsState({});
 
     useUpdateStateReaction({
       getInputs: () => ({
         clips: props.playlist?.clipSet,
+        playlist: props.playlist,
       }),
       updateState: (inputs) => {
+        clipsState.clips.data.setPlaylistId(props.playlist?.id);
         clipsState.clips.data.clips = inputs.clips ?? [];
         R.forEach(initRS, clipsState.clips.data.clips);
       },
