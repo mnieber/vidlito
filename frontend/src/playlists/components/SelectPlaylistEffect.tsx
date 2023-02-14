@@ -15,6 +15,7 @@ const DefaultProps = {
   ...dps.playlistsSelection,
   ...dps.playlistsHighlight,
   ...dps.playlists,
+  ...dps.playlistsState,
 };
 
 export const SelectPlaylistEffect = observer(
@@ -30,6 +31,9 @@ export const SelectPlaylistEffect = observer(
           };
         }}
         f={(args: ArgsT) => {
+          props.playlistsState.playlists.data.setPlaylistSlug(
+            args.playlistSlug
+          );
           if (
             args.playlistId &&
             !props.playlistsSelection.ids.includes(args.playlistId)

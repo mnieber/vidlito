@@ -22,9 +22,12 @@ export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { playlistsState } = usePlaylistsState({});
 
-    const getPlaylist = useQueryData(useGetPlaylist({
-      playlistId: playlistsState.playlists.highlight.id,
-    }));
+    const getPlaylist = useQueryData(
+      useGetPlaylist({
+        playlistId: playlistsState.playlists.highlight.id,
+        playlistSlug: playlistsState.playlists.data.playlistSlug,
+      })
+    );
 
     useUpdateStateReaction({
       getInputs: () => ({

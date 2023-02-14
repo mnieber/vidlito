@@ -9,9 +9,11 @@ export const updatePlaylists = (
     playlist && playlists
       ? R.findIndex(R.propEq('id', playlist.id), playlists)
       : -1;
-  const updatedPlaylists =
-    playlistIdx >= 0
-      ? R.update(playlistIdx, playlist!, playlists)
-      : playlists ?? [];
-  return updatedPlaylists;
+  if (playlistIdx >= 0) {
+    return R.update(playlistIdx, playlist!, playlists);
+  }
+  if (playlist) {
+    return [...playlists, playlist];
+  }
+  return playlists;
 };

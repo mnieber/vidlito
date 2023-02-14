@@ -5,15 +5,18 @@ import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
   playlistId?: string;
+  playlistSlug?: string;
 };
 
 export const getPlaylist = (args: ArgsT) => {
   return doQuery(
     `query getPlaylist(
-      $playlistId: ID!
+      $playlistId: ID
+      $playlistSlug: String
     ) {
       getPlaylist(
         playlistId: $playlistId
+        playlistSlug: $playlistSlug
       ) {
         playlist {
           description
@@ -51,6 +54,6 @@ export const useGetPlaylist = (args: ArgsT) => {
   return useQuery({
     queryKey: ['getPlaylist', args],
     queryFn: () => getPlaylist(args),
-    enabled: !!args.playlistId,
+    enabled: !!args.playlistId || !!args.playlistSlug,
   });
 };
