@@ -18,8 +18,8 @@ import {
 } from 'src/forms/components';
 import { colBanner, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
-import './ClipFormView.scss';
 import { form } from './form';
+import './index.scss';
 
 export type PropsT = {
   className?: any;
@@ -43,7 +43,7 @@ export const ClipFormView = observer(
     return (
       <div className={cn('ClipFormView', colBanner, props.className)}>
         <FormStateProvider
-          initialValues={form.getInitialValues(props)}
+          initialValues={initialValues}
           initialErrors={initialErrors}
           handleValidate={form.getHandleValidate(props)}
           handleSubmit={form.getHandleSubmit(

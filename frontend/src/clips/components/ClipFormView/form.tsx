@@ -68,14 +68,14 @@ const getHandleCancel =
     mustGoBack && props.locationState.goBack();
   };
 
+const _toSeconds = (ms: number | undefined) => {
+  return ms ? ms / 1000 : null;
+};
+
 export const form = {
   getHandleValidate,
   getHandleSubmit,
   getHandleCancel,
   getInitialValues,
   getInitialErrors,
-};
-
-const _toSeconds = (ms: number | undefined) => {
-  return ms ? ms / 1000 : null;
 };
