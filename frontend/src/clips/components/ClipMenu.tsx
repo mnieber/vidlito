@@ -15,10 +15,11 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clipsDeletion,
-  ...dps.dashboardState,
+  ...dps.clipsSelection,
   ...dps.clipsState,
-  ...dps.playlists,
+  ...dps.dashboardState,
   ...dps.playlist,
+  ...dps.playlists,
 };
 
 export const ClipMenu = observer(
@@ -62,7 +63,13 @@ export const ClipMenu = observer(
         direction="right"
         onClose={() => props.dashboardState.closeContextMenu()}
       >
-        <MenuItem>
+        <MenuItem
+          onClick={() =>
+            props.clipsDeletion.delete(props.clipsSelection.ids, {
+              moveToTrash: true,
+            })
+          }
+        >
           <Icon name="trash" />
           Move to Trash
         </MenuItem>

@@ -16,7 +16,7 @@ import { ObjT } from 'src/utils/types';
 import { ClipsData, initClips } from './clips';
 
 export type PropsT = {
-  deleteClips: (ids: string[]) => Promise<any>;
+  moveClipsToTrash: (ids: string[]) => Promise<any>;
   saveClip: (values: ObjT) => Promise<ClipT>;
   saveClipOrdering: (clips: ClipT[]) => Promise<any>;
   moveClipsToPlaylist: (

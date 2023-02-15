@@ -10,7 +10,6 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clip,
-  ...dps.dashboardState,
 };
 
 export const ClipView = observer(

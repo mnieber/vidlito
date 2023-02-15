@@ -1,3 +1,4 @@
+import { action } from 'mobx';
 import * as R from 'ramda';
 import React from 'react';
 import {
@@ -31,7 +32,7 @@ export const useClipsState = (props: PropsT) => {
 
   const [clipsState] = React.useState<ClipsState>(() => {
     return new ClipsState({
-      deleteClips: (ids: string[]) => {
+      moveClipsToTrash: action((ids: string[]) => {
         const clips = lookUp(ids, clipsState.clips.data.clipById);
         R.map(setToUpdating, clips);
         return moveClipsToTrash
@@ -39,11 +40,13 @@ export const useClipsState = (props: PropsT) => {
             playlistId: propsRef.current?.playlistId,
             clipIds: ids,
           } as MoveClipsToTrashArgsT)
-          .then((response: ObjT) => {
-            R.map(setToReady, clips);
-            return response;
-          });
-      },
+          .then(
+            action((response: ObjT) => {
+              R.map(setToReady, clips);
+              return response;
+            })
+          );
+      }),
       saveClip: (values: ObjT) => {
         return saveClip.mutateAsync(values as SaveClipArgsT).then(() => {
           return values.clipForm;

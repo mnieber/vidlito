@@ -11,7 +11,6 @@ import { isUpdating } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
 import { rowSkewer } from 'src/frames/components';
-import UIkit from 'src/frames/styles/uikit';
 import { cn } from 'src/utils/classnames';
 import { PlayVideoIcon } from 'src/videos/components';
 import './ClipListViewItem.scss';
@@ -31,10 +30,6 @@ const DefaultProps = {
 
 export const ClipListViewItem = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (isUpdating(props.clip)) {
-      return UIkit && <div data-uk-spinner className=""></div>;
-    }
-
     return (
       <ClipKeyHandler
         clip={props.clip}
@@ -49,6 +44,7 @@ export const ClipListViewItem = observer(
             {
               'ClipListViewItem--selected': props.selectionUIProps.isSelected,
               'ClipListViewItem--highlighted': props.isHighlighted,
+              'animate-[pulse_1s_ease-in-out_infinite]': isUpdating(props.clip),
             },
             `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
             props.className

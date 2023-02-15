@@ -1,3 +1,4 @@
+import { comparer } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
@@ -31,6 +32,7 @@ export const VideoPlayerStateProvider = observer(
           log('VideoPlayerState updated', videoPlayerState.getSummary());
         }
       },
+      equals: comparer.structural,
     });
 
     const getDefaultPropsContext = () => {

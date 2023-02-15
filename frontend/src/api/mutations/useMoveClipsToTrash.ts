@@ -37,8 +37,6 @@ export const useMoveClipsToTrash = () => {
     mutationKey: ['moveClipsToTrash'],
     mutationFn: moveClipsToTrash,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      // TODO: check that variables indeed contains the playlistId
-      debugger;
       queryClient.invalidateQueries({
         queryKey: ['getPlaylist', { playlistId: args.playlistId }],
       });
