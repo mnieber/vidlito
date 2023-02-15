@@ -7,7 +7,6 @@ export { ClipMenu } from './ClipMenu';
 export { ClipsStateProvider } from './ClipsStateProvider';
 export { ClipTagsView } from './ClipTagsView';
 export { ClipView } from './ClipView';
-export { EditableClipView } from './EditableClipView';
 export { GoToTimeButton } from './GoToTimeButton';
 export { NewClipButton } from './NewClipButton';
 export { SelectClipEffect } from './SelectClipEffect';

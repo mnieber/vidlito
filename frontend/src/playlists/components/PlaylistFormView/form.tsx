@@ -54,8 +54,11 @@ const getHandleSubmit =
 const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
+    const mustGoBack = !!props.playlistsAddition.item;
     props.playlistsEditing.cancel();
-    props.locationState.goBack();
+    if (mustGoBack) {
+      props.locationState.goBack();
+    }
   };
 
 export const form = {

@@ -24,6 +24,7 @@ export const DefaultProps = {
   ...dps.locationState,
   ...dps.playlist,
   ...dps.playlistsEditing,
+  ...dps.playlistsAddition,
 };
 
 export const PlaylistFormView = observer(
