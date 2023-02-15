@@ -15,6 +15,7 @@ THIRD_PARTY_APPS = [
     "adminsortable2",
     "admin_reorder",
     "corsheaders",
+    "dbbackup",
     "django_extensions",
     *django_rtk_green_apps,
     "graphene_django",
@@ -23,6 +24,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    "actions.apps.ActionsConfig",
     "api.apps.ApiConfig",
     "app.apps.AppConfig",
     "clips.apps.ClipsConfig",
@@ -50,6 +52,7 @@ ADMIN_REORDER = (
             "django_rtk_password.PasswordResetToken",
         ),
     },
+    "actions",
     "auth",
     "sites",
 )

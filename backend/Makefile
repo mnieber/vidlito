@@ -31,6 +31,9 @@ collect-static:
 create-superuser:
 	python manage.py createsuperuser --noinput || true
 
+dump-db:
+	mkdir -p /app/dumps && python manage.py dbbackup
+
 make-migrations-users:
 	python manage.py makemigrations users
 
