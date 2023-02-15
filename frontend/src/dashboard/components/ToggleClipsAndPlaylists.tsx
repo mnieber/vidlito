@@ -37,16 +37,6 @@ export const ToggleClipsAndPlaylists = observer(
         )}
       >
         <button
-          className={cn('ToggleClipsAndPlaylists__Clips', 'p-2', 'grow', {
-            'ToggleClipsAndPlaylists__Toggle--selected':
-              props.dashboardState.showClips,
-            'animate-[pulse_1s_ease-in-out_infinite]': isUpdating(props.clips),
-          })}
-          onClick={showClips}
-        >
-          Clips
-        </button>
-        <button
           className={cn('ToggleClipsAndPlaylists__Playlists', 'p-2', 'grow', {
             'ToggleClipsAndPlaylists__Toggle--selected':
               !props.dashboardState.showClips,
@@ -57,6 +47,16 @@ export const ToggleClipsAndPlaylists = observer(
           onClick={showPlaylists}
         >
           Playlists
+        </button>
+        <button
+          className={cn('ToggleClipsAndPlaylists__Clips', 'p-2', 'grow', {
+            'ToggleClipsAndPlaylists__Toggle--selected':
+              props.dashboardState.showClips,
+            'animate-[pulse_1s_ease-in-out_infinite]': isUpdating(props.clips),
+          })}
+          onClick={showClips}
+        >
+          Clips
         </button>
       </div>
     );
