@@ -5,3 +5,7 @@
 .Dashboard__LeftSidebar {
     min-height: 0px;
 }
+
+.Dashboard__ClipListViewTitle {
+    @apply text-center font-bold;
+}

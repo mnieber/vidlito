@@ -33,17 +33,28 @@ export const Dashboard = observer(
       >
         <div className={cn('Dashboard__LeftSidebar', colBanner)}>
           <MainButtonsPanel className={cn('mb-2')} />
-          <ToggleClipsAndPlaylists />
+          <ToggleClipsAndPlaylists
+            className={cn('pb-2', 'border-b border-gray-400')}
+          />
+          <div
+            className={cn('Dashboard__ClipListViewTitle', 'py-1', {
+              invisible: false && !props.dashboardState.showClips,
+            })}
+          >
+            {props.playlist?.name}
+          </div>
           {/*              */}
           {/* 🟩 Switch 🟩 */}
           {/*              */}
           {props.dashboardState.showClips && (
-            <ClipListView
-              className={cn('overflow-y-auto')}
-              updateUrl={(clip: ClipT) =>
-                props.locationState.goToClip(clip, props.playlist)
-              }
-            />
+            <div className={cn('Dashboard__ClipListViewWrapper')}>
+              <ClipListView
+                className={cn('overflow-y-auto')}
+                updateUrl={(clip: ClipT) =>
+                  props.locationState.goToClip(clip, props.playlist)
+                }
+              />
+            </div>
           )}
           {!props.dashboardState.showClips && (
             <PlaylistListView
