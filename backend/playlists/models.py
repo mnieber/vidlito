@@ -1,9 +1,8 @@
+from app.models import Entity
+from clips.models import Clip
 from django.db import models
 from django.utils.text import slugify
 from martor.models import MartorField
-
-from app.models import Entity
-from clips.models import Clip
 from user_profiles.models import UserProfile
 
 
@@ -33,12 +32,26 @@ class Playlist(Entity):
         return "Playlist: " + str(self.name)
 
 
+class EntryManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_deleted=False)
+
+    def trash(self):
+        return super().get_queryset().filter(is_deleted=True)
+
+    def all(self):
+        return super().get_queryset().filter()
+
+
 class Entry(Entity):
     class Meta:
         ordering = ["sort_pos"]
         verbose_name_plural = "entries"
 
+    objects = EntryManager()
+
     clip = models.ForeignKey(Clip, on_delete=models.CASCADE, related_name="+")
+    is_deleted = models.BooleanField(default=False)
     playlist = models.ForeignKey(
         Playlist, on_delete=models.CASCADE, related_name="entry_set"
     )
