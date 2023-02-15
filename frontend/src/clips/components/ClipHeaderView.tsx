@@ -13,6 +13,7 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.clip,
   ...dps.clipsEditing,
+  ...dps.playlistsEditing,
   ...dps.playlist,
   ...dps.dashboardState,
 };
@@ -30,9 +31,9 @@ export const ClipHeaderView = observer(
               className={cn('ClipHeaderView__PlaylistName', {
                 underline: props.dashboardState.showPlaylistDescription,
               })}
-              onClick={() =>
-                props.dashboardState.toggleShowPlaylistDescription(true)
-              }
+              onClick={() => {
+                props.dashboardState.toggleShowPlaylistDescription(true);
+              }}
             >
               {props.playlist.name}
             </button>
@@ -40,9 +41,9 @@ export const ClipHeaderView = observer(
               className={cn('ClipHeaderView__ClipName', 'ml-2', {
                 underline: !props.dashboardState.showPlaylistDescription,
               })}
-              onClick={() =>
-                props.dashboardState.toggleShowPlaylistDescription(false)
-              }
+              onClick={() => {
+                props.dashboardState.toggleShowPlaylistDescription(false);
+              }}
             >
               {props.clip.name}
             </button>
@@ -51,7 +52,12 @@ export const ClipHeaderView = observer(
             {/*                  */}
             <button
               className={cn('ClipHeaderView__EditButton', mainButton, 'ml-2')}
-              onClick={() => props.clipsEditing.enable()}
+              onClick={() => {
+                const editing = props.dashboardState.showPlaylistDescription
+                  ? props.playlistsEditing
+                  : props.clipsEditing;
+                editing.enable();
+              }}
             >
               <Icon name="pencil" />
               Edit
