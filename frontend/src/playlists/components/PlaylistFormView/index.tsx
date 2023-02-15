@@ -1,15 +1,17 @@
 import { observer } from 'mobx-react-lite';
 import { FormStateProvider } from 'react-form-state-context';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
+import { usePreviewButton } from 'src/clips/hooks/usePreviewButton';
 import {
   CancelButton,
   Field,
   GlobalError,
+  MarkdownField,
   SaveButton,
   SlugField,
-  TextAreaField,
   TextField,
   UpdateSlugButton,
+  ValuePickerField,
 } from 'src/forms/components';
 import { colBanner, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
@@ -29,6 +31,8 @@ export const DefaultProps = {
 
 export const PlaylistFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const { showPreviewButton, descriptionPreview } = usePreviewButton({});
+
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
 
@@ -62,8 +66,17 @@ export const PlaylistFormView = observer(
             fieldName="playlistForm.description"
             label="Description"
             tabOnEnter={false}
+            buttons={[showPreviewButton]}
           >
-            <TextAreaField controlled={true} />
+            <MarkdownField controlled={true} preview={descriptionPreview} />
+          </Field>
+          <Field fieldName="clipForm.tags" label="Tags">
+            <ValuePickerField
+              isCreatable={true}
+              isMulti={true}
+              pickableValues={['one', 'two']}
+              labelFromValue={(x: any) => x}
+            />
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>
             <CancelButton label="Cancel" disabled={false} />

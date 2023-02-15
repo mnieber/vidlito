@@ -13,6 +13,7 @@ export const createVideoKeyHandlers = (
 
   return splitKeyHandlerKeys({
     'ctrl+space': () => videoController.togglePlay(),
+    'ctrl+enter': () => videoController.togglePlay(),
     'ctrl+shift+1': () => player.setPlaybackRate(0.25),
     'ctrl+shift+2': () => player.setPlaybackRate(0.5),
     'ctrl+shift+3': () => player.setPlaybackRate(0.75),
