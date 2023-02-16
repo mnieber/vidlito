@@ -1,4 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
+import { ActionsView } from 'src/actions/components';
 import { SelectClipEffect } from 'src/clips/components';
 import { Dashboard } from 'src/dashboard/components/Dashboard';
 import { MainView } from 'src/dashboard/components/MainView';
@@ -15,6 +16,9 @@ export const DashboardSwitch = () => {
           <Route exact={true} path={routes.clip()}>
             <SelectClipEffect />
             <MainView />
+          </Route>
+          <Route exact={true} path={routes.actions()}>
+            <ActionsView />
           </Route>
         </Dashboard>
       </Route>

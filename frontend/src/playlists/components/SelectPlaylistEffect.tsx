@@ -32,9 +32,7 @@ export const SelectPlaylistEffect = observer(
           };
         }}
         f={(args: ArgsT) => {
-          props.playlistsState.playlists.data.setPlaylistSlug(
-            args.playlistSlug
-          );
+          props.playlistsState.settings.setPlaylistSlug(args.playlistSlug);
           if (
             args.playlist &&
             !props.playlistsSelection.ids.includes(args.playlist.id)

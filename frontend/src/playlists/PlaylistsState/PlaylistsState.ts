@@ -14,6 +14,7 @@ import { PlaylistT } from 'src/api/types/PlaylistT';
 import { getIds } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 import { initPlaylists, PlaylistsData } from './playlists';
+import { Settings } from './Settings';
 
 export type PropsT = {
   deletePlaylists: (ids: string[]) => Promise<any>;
@@ -22,6 +23,8 @@ export type PropsT = {
 };
 
 export class PlaylistsState {
+  settings = new Settings();
+
   playlists = {
     data: new PlaylistsData(),
     addition: new Addition<PlaylistT>(),

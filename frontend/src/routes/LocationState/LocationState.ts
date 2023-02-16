@@ -46,6 +46,11 @@ export class LocationState {
     this.history.push(getHomeRoute());
   }
 
+  goToActions() {
+    const ufn = this.routeUfns.actions(this.history.push);
+    ufn(this.playlist);
+  }
+
   constructor(props: PropsT) {
     this.history = props.history;
     this.routeUfns = props.routeUfns;

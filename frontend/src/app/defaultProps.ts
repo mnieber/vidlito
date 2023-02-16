@@ -6,6 +6,8 @@ import { Editing } from 'skandha-facets/Editing';
 import { Highlight } from 'skandha-facets/Highlight';
 import { Insertion } from 'skandha-facets/Insertion';
 import { Selection } from 'skandha-facets/Selection';
+import { ActionsState } from 'src/actions/ActionsState';
+import { ActionT } from 'src/api/types/ActionT';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { UserProfileT } from 'src/api/types/UserProfileT';
@@ -21,6 +23,9 @@ export { stub, withDefaultProps } from 'react-default-props-context';
 !withDefaultProps && console.log(withDefaultProps);
 
 const dpsStates = {
+  actionsState: {
+    actionsState: stub as ActionsState,
+  },
   clipsState: {
     clipsState: stub as ClipsState,
   },
@@ -32,6 +37,12 @@ const dpsStates = {
   },
   playlistsState: {
     playlistsState: stub as PlaylistsState,
+  },
+};
+
+const dpsActions = {
+  actions: {
+    actions: stub as ActionT[],
   },
 };
 
@@ -117,6 +128,7 @@ const dpsPlaylists = {
 };
 
 export const defaultProps = {
+  ...dpsActions,
   ...dpsClips,
   ...dpsDashboard,
   ...dpsPlaylists,

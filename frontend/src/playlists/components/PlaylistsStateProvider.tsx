@@ -26,7 +26,7 @@ export const PlaylistsStateProvider = observer(
     const getPlaylist = useQueryData(
       useGetPlaylist({
         playlistId: playlistsState.playlists.highlight.id,
-        playlistSlug: playlistsState.playlists.data.playlistSlug,
+        playlistSlug: playlistsState.settings.playlistSlug,
       }),
       { fetchAsLoad: true }
     );
