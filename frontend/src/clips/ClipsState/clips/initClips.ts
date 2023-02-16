@@ -37,9 +37,11 @@ export const initClips = (state: ClipsState, props: PropsT) => {
   setCallbackMap(ctr.deletion, {
     delete: {
       deleteItems(this: DeletionCbs['delete']) {
+        const clipIds = this.itemIds;
         if (this.options?.moveToTrash) {
-          return props.moveClipsToTrash(this.itemIds);
+          return props.moveClipsToTrash(clipIds);
         }
+        return Promise.resolve();
       },
     },
   } as DeletionCbs);

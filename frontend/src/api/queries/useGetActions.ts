@@ -10,10 +10,10 @@ export type ArgsT = {
 export const getActions = (args: ArgsT) => {
   return doQuery(
     `query getActions(
-      $playlistId: ID
+      $playlistSlug: String
     ) {
       getActions(
-        playlistId: $playlistId
+        playlistSlug: $playlistSlug
       ) {
         actionSet {
           data
@@ -37,5 +37,6 @@ export const useGetActions = (args: ArgsT) => {
   return useQuery({
     queryKey: ['getActions', args],
     queryFn: () => getActions(args),
+    enabled: !!args.playlistSlug,
   });
 };

@@ -1,13 +1,13 @@
 def create_get_actions_query(
-    playlist_id,
+    playlist_slug,
     action_set_outputs=None,
 ):
     result = """
         query getActions(
-            $playlistId: ID!,
+            $playlistSlug: String!,
         ) {
             getActions(
-                $playlistId: playlistId,
+                $playlistSlug: playlistSlug,
             ) {
                 action_set {
                     action_set_outputs
@@ -20,6 +20,6 @@ def create_get_actions_query(
 
     operation_name = "getActions"
     variables = dict(
-        playlistId=playlist_id,
+        playlistSlug=playlist_slug,
     )
     return result, operation_name, variables

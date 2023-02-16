@@ -39,7 +39,7 @@ class EntryManager(models.Manager):
     def trash(self):
         return super().get_queryset().filter(is_deleted=True)
 
-    def all(self):
+    def raw(self):
         return super().get_queryset().filter()
 
 
@@ -58,4 +58,4 @@ class Entry(Entity):
     sort_pos = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"Entry: {self.playlist.name} / {self.clip.name}"
+        return f"{self.playlist.name} / {self.clip.name}"

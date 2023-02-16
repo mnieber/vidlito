@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import * as R from 'ramda';
 import { doQuery } from 'src/api/graphqlClient';
-import { ArgsT as GetPlaylistArgsT } from 'src/api/queries/useGetPlaylist';
+import { GetPlaylistArgsT } from 'src/api/queries';
 import { queryClient } from 'src/api/queryClient';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { applyUpdate } from 'src/utils/applyUpdate';

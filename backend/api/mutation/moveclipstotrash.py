@@ -7,8 +7,9 @@ from django.db import transaction
 from django.utils.text import Truncator
 from graphene.types.generic import GenericScalar
 from playlists.models import Playlist
+from user_profiles.models import UserProfile
 
-teaser_tpl = "From playlist **{playlist_name}**, removed {nr_clips) {clip}: {clips}"
+teaser_tpl = "Removed {nr_clips} {clip} from playlist **{playlist_name}**: {clips}"
 
 
 def get_teaser(playlist_name, clips):
@@ -33,15 +34,22 @@ class MoveClipsToTrash(graphene.Mutation):
         clip_ids = graphene.List(graphene.String)
 
     def mutate(self, info, playlist_id, clip_ids):
+        playlist = Playlist.objects.get(id=playlist_id)
         clips = Clip.objects.filter(id__in=clip_ids)
-        teaser = get_teaser(playlist_name="My Playlist", clips=clips)
+        owner = UserProfile.get(info)
+        teaser = get_teaser(playlist_name=playlist.name, clips=clips)
 
         with transaction.atomic():
-            action = Action(type="TrashEntries", teaser=teaser)
+            action = Action(
+                type="TrashEntries",
+                teaser=teaser,
+                playlist_id=playlist.id,
+                owner=owner,
+                data={"clip_ids": clip_ids},
+            )
             action.save()
 
-            playlist = Playlist.objects.get(id=playlist_id)
-            for entry in playlist.entry_set.filter(entry_id__in=clip_ids):
+            for entry in playlist.entry_set.filter(clip_id__in=clip_ids):
                 entry.is_deleted = True
                 entry.save()
 

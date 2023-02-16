@@ -1,3 +1,4 @@
+import { ActionsStateProvider } from 'src/actions/components';
 import { ClipsStateProvider } from 'src/clips/components';
 import { DashboardStateProvider } from 'src/dashboard/components';
 import { PlaylistsStateProvider } from 'src/playlists/components/PlaylistsStateProvider';
@@ -15,9 +16,11 @@ export const App = () => {
         <DashboardStateProvider>
           <PlaylistsStateProvider>
             <ClipsStateProvider>
-              <VideoPlayerStateProvider>
-                <UrlRouter />
-              </VideoPlayerStateProvider>
+              <ActionsStateProvider>
+                <VideoPlayerStateProvider>
+                  <UrlRouter />
+                </VideoPlayerStateProvider>
+              </ActionsStateProvider>
             </ClipsStateProvider>
           </PlaylistsStateProvider>
         </DashboardStateProvider>

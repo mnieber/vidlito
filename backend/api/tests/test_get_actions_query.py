@@ -20,7 +20,7 @@ class TestGetActionsQuery(GraphqlTestCase):
         action_set,
     ):
         query, operation_name, variables = create_get_actions_query(
-            playlist_id=playlist_id, action_set_outputs=["id"]
+            playlist_slug=playlist_slug, action_set_outputs=["id"]
         )
         response = client_query(
             query, operation_name=operation_name, variables=variables

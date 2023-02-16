@@ -5,25 +5,27 @@ import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useActionsState } from 'src/actions/hooks/useActionsState';
 import { useGetActions } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
-import { withDefaultProps } from 'src/app/defaultProps';
+import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { log } from 'src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {};
+const DefaultProps = {
+  ...dps.locationState,
+};
 
 export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { actionsState } = useActionsState({});
 
     const getActions = useQueryData(
-      useGetActions({ playlistSlug: actionsState.settings.playlistSlug })
+      useGetActions({ playlistSlug: props.locationState.playlist?.slug })
     );
 
     useUpdateStateReaction({
       getInputs: () => ({
-        actions: getActions.data?.actions,
+        actions: getActions.data?.actionSet,
       }),
       updateState: (inputs) => {
         actionsState.actions.data.actions = inputs.actions ?? [];

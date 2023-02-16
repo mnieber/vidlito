@@ -12,11 +12,10 @@ type ArgsT = {
 type PropsT = {};
 
 const DefaultProps = {
-  ...dps.playlistsSelection,
-  ...dps.playlistsHighlight,
-  ...dps.playlists,
-  ...dps.playlistsState,
   ...dps.locationState,
+  ...dps.playlists,
+  ...dps.playlistsHighlight,
+  ...dps.playlistsSelection,
 };
 
 export const SelectPlaylistEffect = observer(
@@ -32,7 +31,6 @@ export const SelectPlaylistEffect = observer(
           };
         }}
         f={(args: ArgsT) => {
-          props.playlistsState.settings.setPlaylistSlug(args.playlistSlug);
           if (
             args.playlist &&
             !props.playlistsSelection.ids.includes(args.playlist.id)

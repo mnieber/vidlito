@@ -9,3 +9,7 @@ class UserProfile(Entity):
 
     def __str__(self):
         return "UserProfile: " + str(self.display_name)
+
+    @staticmethod
+    def get(info):
+        return UserProfile.objects.get(user_id=info.context.user.id)

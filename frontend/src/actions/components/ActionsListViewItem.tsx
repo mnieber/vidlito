@@ -37,15 +37,6 @@ export const ActionsListViewItem = observer(
           )}
         >
           <div className={cn('ActionsListViewItem__Field')}>
-            {props.action.type}
-          </div>
-          <div className={cn('ActionsListViewItem__Field')}>
-            {props.action.playlistId}
-          </div>
-          <div className={cn('ActionsListViewItem__Field')}>
-            {props.action.data}
-          </div>
-          <div className={cn('ActionsListViewItem__Field')}>
             {props.action.teaser}
           </div>
         </div>

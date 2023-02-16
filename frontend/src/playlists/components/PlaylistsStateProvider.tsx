@@ -16,6 +16,7 @@ import { log } from 'src/utils/logging';
 export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
+  ...dps.locationState,
   ...dps.userProfile,
 };
 
@@ -26,7 +27,7 @@ export const PlaylistsStateProvider = observer(
     const getPlaylist = useQueryData(
       useGetPlaylist({
         playlistId: playlistsState.playlists.highlight.id,
-        playlistSlug: playlistsState.settings.playlistSlug,
+        playlistSlug: props.locationState.playlist?.slug,
       }),
       { fetchAsLoad: true }
     );
