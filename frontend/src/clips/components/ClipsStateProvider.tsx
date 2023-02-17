@@ -19,7 +19,7 @@ const DefaultProps = {
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { clipsState, moveClipsToPlaylist } = useClipsState({
-      playlistId: props.playlist?.id,
+      playlist: props.playlist,
     });
 
     useUpdateStateReaction({

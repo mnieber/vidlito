@@ -44,26 +44,11 @@ const dpsActions = {
   actions: {
     actions: stub as ActionT[],
   },
-};
-
-const dpsDashboard = {
-  userProfile: {
-    userProfile: stub as UserProfileT,
+  action: {
+    action: stub as ActionT,
   },
-  username: {
-    username: stub as string,
-  },
-  isAuthenticated: {
-    isAuthenticated: stub as boolean,
-  },
-};
-
-const dpsVideoPlayer = {
-  videoPlayerState: {
-    videoPlayerState: stub as VideoPlayerState,
-  },
-  videoController: {
-    videoController: stub as VideoController,
+  actionsHighlight: {
+    actionsHighlight: stub as Highlight,
   },
 };
 
@@ -97,6 +82,18 @@ const dpsClips = {
   },
 };
 
+const dpsDashboard = {
+  userProfile: {
+    userProfile: stub as UserProfileT,
+  },
+  username: {
+    username: stub as string,
+  },
+  isAuthenticated: {
+    isAuthenticated: stub as boolean,
+  },
+};
+
 const dpsPlaylists = {
   playlists: {
     playlists: stub as PlaylistT[],
@@ -124,6 +121,15 @@ const dpsPlaylists = {
   },
   playlistsSelection: {
     playlistsSelection: stub as Selection,
+  },
+};
+
+const dpsVideoPlayer = {
+  videoPlayerState: {
+    videoPlayerState: stub as VideoPlayerState,
+  },
+  videoController: {
+    videoController: stub as VideoController,
   },
 };
 

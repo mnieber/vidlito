@@ -4,19 +4,16 @@ import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
-  playlistId?: string;
-  playlistSlug?: string;
+  playlistSlugId?: string;
 };
 
 export const getPlaylist = (args: ArgsT) => {
   return doQuery(
     `query getPlaylist(
-      $playlistId: ID
-      $playlistSlug: String
+      $playlistSlugId: String
     ) {
       getPlaylist(
-        playlistId: $playlistId
-        playlistSlug: $playlistSlug
+        playlistSlugId: $playlistSlugId
       ) {
         playlist {
           description
@@ -54,6 +51,6 @@ export const useGetPlaylist = (args: ArgsT) => {
   return useQuery({
     queryKey: ['getPlaylist', args],
     queryFn: () => getPlaylist(args),
-    enabled: !!args.playlistId || !!args.playlistSlug,
+    enabled: !!args.playlistSlugId,
   });
 };

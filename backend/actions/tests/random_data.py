@@ -10,9 +10,7 @@ def create_random_action(
 ):
     obj, created = Action.objects.get_or_create(
         type=f.word(),
-        playlist_id=f.uuid4(),
         data={},
-        teaser=f.word(),
         owner_id=owner_id,
     )
     return obj

@@ -13,12 +13,13 @@ import {
 import { useMutationData } from 'src/api/hooks';
 import { setToReady, setToUpdating } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
+import { PlaylistT } from 'src/api/types/PlaylistT';
 import { ClipsState } from 'src/clips/ClipsState';
 import { getIds, lookUp } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 
 export type PropsT = {
-  playlistId: string;
+  playlist: PlaylistT;
 };
 
 export const useClipsState = (props: PropsT) => {
@@ -37,7 +38,7 @@ export const useClipsState = (props: PropsT) => {
         R.map(setToUpdating, clips);
         return moveClipsToTrash
           .mutateAsync({
-            playlistId: propsRef.current?.playlistId,
+            playlist: propsRef.current?.playlist,
             clipIds: ids,
           } as MoveClipsToTrashArgsT)
           .then(

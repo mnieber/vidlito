@@ -1,8 +1,8 @@
+import { ObjT } from 'src/utils/types';
+
 export type ActionT = {
-  data: string;
+  data: ObjT;
   id: string;
-  playlistId?: string;
-  teaser: string;
   type: 'TrashEntries' | 'TrashPlaylist';
 };
 

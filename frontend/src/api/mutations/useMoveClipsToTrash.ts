@@ -9,7 +9,7 @@ import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
-  playlistId: string;
+  playlist: PlaylistT;
   clipIds: string[];
 };
 
@@ -27,7 +27,10 @@ export const moveClipsToTrash = (args: ArgsT) => {
         success
       }
     }`,
-    args
+    {
+      playlistId: args.playlist.id,
+      clipIds: args.clipIds,
+    }
   ).then((response: ObjT) => {
     return wait(
       process.env.NODE_ENV === 'development' ? 1000 : 0,
@@ -54,7 +57,7 @@ export const useMoveClipsToTrash = () => {
         {
           queryKey: [
             'getPlaylist',
-            { playlistId: args.playlistId } as GetPlaylistArgsT,
+            { playlistId: args.playlist.id } as GetPlaylistArgsT,
           ],
         },
         (data: any) => {
@@ -62,9 +65,14 @@ export const useMoveClipsToTrash = () => {
         }
       );
 
-      queryClient.invalidateQueries({
-        queryKey: ['getPlaylist', { playlistId: args.playlistId }],
-      });
+      queryClient.invalidateQueries([
+        {
+          queryKey: ['getPlaylist', { playlistId: args.playlist.id }],
+        },
+        {
+          queryKey: ['getActions', { playlistSlug: args.playlist.slug }],
+        },
+      ]);
     },
   });
 };

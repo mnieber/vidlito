@@ -5,8 +5,10 @@ import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useActionsState } from 'src/actions/hooks/useActionsState';
 import { useGetActions } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
+import { cloneAndSetState } from 'src/api/utils/cloneAndSetState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
+import { createSlugId } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -20,7 +22,12 @@ export const ActionsStateProvider = observer(
     const { actionsState } = useActionsState({});
 
     const getActions = useQueryData(
-      useGetActions({ playlistSlug: props.locationState.playlist?.slug })
+      useGetActions({
+        playlistSlugId: createSlugId(
+          props.locationState.playlist?.slug,
+          props.locationState.playlist?.id
+        ),
+      })
     );
 
     useUpdateStateReaction({
@@ -38,7 +45,22 @@ export const ActionsStateProvider = observer(
     const [cache] = React.useState(() =>
       makeAutoObservable({
         get actions() {
-          return actionsState.actions.data.actions;
+          const actionsDisplay = actionsState.actions.data.actions;
+          return cloneAndSetState(actionsDisplay, [
+            [
+              'loading',
+              [getActions, !getActions.data?.actionSet],
+              'getActions',
+            ],
+            [
+              'updating',
+              [getActions, !!getActions.data?.actionSet],
+              'getActions',
+            ],
+          ]);
+        },
+        get action() {
+          return actionsState.actions.highlight.item;
         },
       })
     );
@@ -53,6 +75,8 @@ export const ActionsStateProvider = observer(
       result.defaultProps = {
         ...result.defaultProps,
         actions: () => cache.actions,
+        action: () => cache.action,
+        actionsHighlight: () => actionsState.actions.highlight,
       };
 
       return result;

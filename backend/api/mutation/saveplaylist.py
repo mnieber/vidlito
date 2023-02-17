@@ -1,7 +1,6 @@
 import graphene
-from graphene.types.generic import GenericScalar
-
 from api.types import *
+from graphene.types.generic import GenericScalar
 from playlists.models import Playlist
 from user_profiles.models import UserProfile
 
@@ -15,7 +14,7 @@ class SavePlaylist(graphene.Mutation):
 
     def mutate(self, info, playlist_form):
         id = playlist_form.pop("id")
-        user_profile = UserProfile.objects.get(user_id=info.context.user.id)
+        user_profile = UserProfile.get(info)
         playlist, created = Playlist.objects.update_or_create(
             defaults=playlist_form, id=id, owner_id=user_profile.id
         )
