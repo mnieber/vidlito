@@ -18,7 +18,7 @@ export const PlayVideoIcon = observer((props: PropsT) => {
         props.videoController.togglePlay();
       }}
     >
-      <Icon name={props.videoController.isPlaying ? 'clock' : 'play-circle'} />
+      <Icon name={props.videoController.isPlaying ? 'pause' : 'play-circle'} />
     </div>
   ) : (
     <div className={cn('w-[28px]')}></div>
