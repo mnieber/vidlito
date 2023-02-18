@@ -1,5 +1,4 @@
 import pytest
-
 from actions.tests.random_data import create_random_action
 from api.tests.graphqltestcase import GraphqlTestCase
 
@@ -20,7 +19,9 @@ class TestGetActionsQuery(GraphqlTestCase):
         action_set,
     ):
         query, operation_name, variables = create_get_actions_query(
-            playlist_slug_id=playlist_slug_id, action_set_outputs=["id"]
+            playlist_slug=playlist_slug,
+            playlist_id=playlist_id,
+            action_set_outputs=["id"],
         )
         response = client_query(
             query, operation_name=operation_name, variables=variables

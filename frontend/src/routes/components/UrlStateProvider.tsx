@@ -3,29 +3,29 @@ import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
-import { useLocationState } from 'src/routes/hooks/useLocationState';
+import { useUrlState } from 'src/routes/hooks/useUrlState';
 import { log } from 'src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {};
 
-export const LocationStateProvider = observer(
+export const UrlStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { locationState } = useLocationState({});
+    const { urlState } = useUrlState({});
 
     useUpdateStateReaction({
       getInputs: () => ({}),
       updateState: (inputs) => {},
       logState: () => {
-        log('LocationState updated', locationState.getSummary());
+        log('UrlState updated', urlState.getSummary());
       },
     });
 
     const getDefaultPropsContext = () => {
       const result: any = {
         defaultProps: {
-          locationState: () => locationState,
+          urlState: () => urlState,
         },
       };
 

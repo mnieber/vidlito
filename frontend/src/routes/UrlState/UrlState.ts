@@ -1,6 +1,6 @@
+import { action, makeObservable, observable } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import { ClipT } from 'src/api/types/ClipT';
-import { PlaylistT } from 'src/api/types/PlaylistT';
 import { getHomeRoute } from 'src/routes/getHomeRoute';
 import { ObjT } from 'src/utils/types';
 
@@ -9,10 +9,10 @@ export type PropsT = {
   routeUfns: ObjT;
 };
 
-export class LocationState {
+export class UrlState {
   history: any;
   routeUfns: ObjT;
-  playlist?: PlaylistT;
+  @observable playlistSlug?: string;
 
   getSummary() {
     return {};
@@ -26,33 +26,34 @@ export class LocationState {
     this.history.goBack();
   }
 
-  goToPlaylist(playlist: PlaylistT, updateUrl: boolean = true) {
-    this.playlist = playlist;
+  @action goToPlaylist(playlistSlug: string, updateUrl: boolean = true) {
+    this.playlistSlug = playlistSlug;
     if (updateUrl) {
       const ufn = this.routeUfns.playlist(this.history.push);
-      ufn(playlist);
+      ufn(playlistSlug);
     }
   }
 
-  goToClip(clip: ClipT, playlist?: PlaylistT) {
-    if (playlist) this.playlist = playlist;
-    if (!this.playlist) throw new Error('No playlist set');
+  goToClip(clip: ClipT, playlistSlug?: string) {
+    if (playlistSlug) this.goToPlaylist(playlistSlug, false);
+    if (!this.playlistSlug) throw new Error('No playlist set');
     const ufn = this.routeUfns.clip(this.history.push);
-    ufn(this.playlist, clip);
+    ufn(this.playlistSlug, clip);
   }
 
   goHome() {
-    this.playlist = undefined;
+    this.playlistSlug = undefined;
     this.history.push(getHomeRoute());
   }
 
   goToActions() {
     const ufn = this.routeUfns.actions(this.history.push);
-    ufn(this.playlist);
+    ufn(this.playlistSlug);
   }
 
   constructor(props: PropsT) {
     this.history = props.history;
     this.routeUfns = props.routeUfns;
+    makeObservable(this);
   }
 }

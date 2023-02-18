@@ -56,7 +56,7 @@ const getHandleSubmit =
       })
     ).then((localClip: ClipT) => {
       formState.reset(initialValues, initialErrors);
-      props.locationState.goToClip(localClip);
+      props.urlState.goToClip(localClip);
     });
   };
 
@@ -65,7 +65,7 @@ const getHandleCancel =
   ({ formState }: HandleCancelArgsT) => {
     const mustGoBack = !!props.clipsAddition.item;
     props.clipsEditing.cancel();
-    mustGoBack && props.locationState.goBack();
+    mustGoBack && props.urlState.goBack();
   };
 
 const _toSeconds = (ms: number | undefined) => {

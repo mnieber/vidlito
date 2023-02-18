@@ -1,5 +1,4 @@
 import graphene
-from api.query.getactions import parse_slug_id
 from api.types import *
 from playlists.models import Playlist
 
@@ -11,12 +10,12 @@ class GetPlaylistOutputs(graphene.ObjectType):
 class GetPlaylist:
     get_playlist = graphene.Field(
         GetPlaylistOutputs,
-        playlist_slug_id=graphene.String(),
+        playlist_slug=graphene.String(),
+        playlist_id=graphene.String(),
     )
 
-    def resolve_get_playlist(self, info, playlist_slug_id=None):
-        slug, id = parse_slug_id(playlist_slug_id)
-        if id:
-            return GetPlaylistOutputs(playlist=Playlist.objects.get(id=id))
+    def resolve_get_playlist(self, info, playlist_slug=None, playlist_id=None):
+        if playlist_id:
+            return GetPlaylistOutputs(playlist=Playlist.objects.get(id=playlist_id))
 
-        return GetPlaylistOutputs(playlist=Playlist.objects.get(slug=slug))
+        return GetPlaylistOutputs(playlist=Playlist.objects.get(slug=playlist_slug))

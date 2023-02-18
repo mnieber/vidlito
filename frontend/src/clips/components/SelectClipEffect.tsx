@@ -18,7 +18,7 @@ const DefaultProps = {
   ...dps.clipsSelection,
   ...dps.playlist,
   ...dps.clips,
-  ...dps.locationState,
+  ...dps.urlState,
 };
 
 export const SelectClipEffect = observer(
@@ -41,7 +41,7 @@ export const SelectClipEffect = observer(
             // clip in the playlist.
             const clip = R.head(args.clips);
             if (clip) {
-              props.locationState.goToClip(clip, args.playlist);
+              props.urlState.goToClip(clip, args.playlist.slug);
             }
           } else if (
             args.clipId &&

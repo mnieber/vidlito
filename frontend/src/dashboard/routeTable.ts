@@ -1,5 +1,4 @@
 import { ClipT } from 'src/api/types/ClipT';
-import { PlaylistT } from 'src/api/types/PlaylistT';
 import { RouteTable } from 'src/routes/utils/RouteTable';
 
 export const getRouteTable = () => {
@@ -8,19 +7,19 @@ export const getRouteTable = () => {
   routeTable.addRoutes({
     playlist: [
       () => '/playlist/:playlistSlug',
-      (playlist: PlaylistT) => ({ playlistSlug: playlist.slug }),
+      (playlistSlug: string) => ({ playlistSlug: playlistSlug }),
     ],
     clip: [
       () => '/playlist/:playlistSlug/clips/:clipSlug?',
-      (playlist: PlaylistT, clip: ClipT) => ({
-        playlistSlug: playlist.slug,
+      (playlistSlug: string, clip: ClipT) => ({
+        playlistSlug: playlistSlug,
         clipSlug: clip.slug,
       }),
     ],
     actions: [
       () => '/playlist/:playlistSlug/actions',
-      (playlist?: PlaylistT) => ({
-        playlistSlug: playlist?.slug,
+      (playlistSlug?: string) => ({
+        playlistSlug: playlistSlug,
       }),
     ],
   });

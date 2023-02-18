@@ -1,13 +1,16 @@
 def create_get_playlist_query(
-    playlist_slug_id,
+    playlist_slug,
+    playlist_id,
     playlist_outputs=None,
 ):
     result = """
         query getPlaylist(
-            $playlistSlugId: String,
+            $playlistSlug: String,
+            $playlistId: String,
         ) {
             getPlaylist(
-                $playlistSlugId: playlistSlugId,
+                $playlistSlug: playlistSlug,
+                $playlistId: playlistId,
             ) {
                 playlist {
                     playlist_outputs
@@ -20,6 +23,7 @@ def create_get_playlist_query(
 
     operation_name = "getPlaylist"
     variables = dict(
-        playlistSlugId=playlist_slug_id,
+        playlistSlug=playlist_slug,
+        playlistId=playlist_id,
     )
     return result, operation_name, variables

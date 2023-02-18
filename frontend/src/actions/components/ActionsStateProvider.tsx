@@ -8,25 +8,26 @@ import { useQueryData } from 'src/api/hooks';
 import { cloneAndSetState } from 'src/api/utils/cloneAndSetState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
-import { createSlugId } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
-  ...dps.locationState,
+  ...dps.urlState,
+  ...dps.playlist,
 };
 
 export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const playlistSlug = props.urlState.playlistSlug;
+
     const { actionsState } = useActionsState({});
 
     const getActions = useQueryData(
       useGetActions({
-        playlistSlugId: createSlugId(
-          props.locationState.playlist?.slug,
-          props.locationState.playlist?.id
-        ),
+        playlistSlug:
+          playlistSlug === 'new-playlist' ? undefined : playlistSlug,
+        playlistId: props.playlist?.id,
       })
     );
 

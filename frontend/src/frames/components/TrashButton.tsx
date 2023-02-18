@@ -9,7 +9,7 @@ export type PropsT = {
 };
 
 const DefaultProps = {
-  ...dps.locationState,
+  ...dps.urlState,
   ...dps.playlist,
 };
 
@@ -18,7 +18,7 @@ export const TrashButton = observer(
     return (
       <button
         className={cn('TrashButton', mainButton, props.className)}
-        onClick={() => props.locationState.goToActions()}
+        onClick={() => props.urlState.goToActions()}
       >
         <div className={cn(rowSkewer)}>
           <Icon name="trash" />

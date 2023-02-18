@@ -9,7 +9,7 @@ export type PropsT = {
 };
 
 const DefaultProps = {
-  ...dps.locationState,
+  ...dps.urlState,
 };
 
 export const Logo = observer(
@@ -17,7 +17,7 @@ export const Logo = observer(
     return (
       <div
         className={cn('Logo', rowSkewer, props.className)}
-        onClick={() => props.locationState.goHome()}
+        onClick={() => props.urlState.goHome()}
       >
         <img className={cn('Logo__Image')} alt="" src="/logo.png" />
       </div>

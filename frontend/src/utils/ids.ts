@@ -28,10 +28,3 @@ export const sortByIds = (items: any[], ids: string[]) => {
     return ids.indexOf(a.id) - ids.indexOf(b.id);
   }, items);
 };
-
-export const createSlugId = (slug?: string, id?: string) => {
-  if (R.isNil(slug) && R.isNil(id)) {
-    return undefined;
-  }
-  return R.isNil(id) ? slug : `${slug}/${id}`;
-};

@@ -47,7 +47,7 @@ const getHandleSubmit =
 
     return savePlaylist(unflatten(values)).then((localPlaylist: PlaylistT) => {
       formState.reset(initialValues, initialErrors);
-      props.locationState.goToPlaylist(localPlaylist);
+      props.urlState.goToPlaylist(localPlaylist.slug);
     });
   };
 
@@ -57,7 +57,7 @@ const getHandleCancel =
     const mustGoBack = !!props.playlistsAddition.item;
     props.playlistsEditing.cancel();
     if (mustGoBack) {
-      props.locationState.goBack();
+      props.urlState.goBack();
     }
   };
 

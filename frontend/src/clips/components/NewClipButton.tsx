@@ -11,7 +11,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clipsAddition,
-  ...dps.locationState,
+  ...dps.urlState,
   ...dps.playlist,
 };
 
@@ -22,7 +22,7 @@ export const NewClipButton = observer(
         className={cn('NewClipButton', mainButton, props.className)}
         onClick={() => {
           props.clipsAddition.add(createClip({})).then((localClip: ClipT) => {
-            props.locationState.goToClip(localClip, props.playlist);
+            props.urlState.goToClip(localClip, props.playlist.slug);
           });
         }}
       >

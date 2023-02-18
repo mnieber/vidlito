@@ -11,26 +11,26 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { usePlaylistsState } from 'src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from 'src/playlists/utils';
-import { createSlugId } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
-  ...dps.locationState,
+  ...dps.urlState,
   ...dps.userProfile,
 };
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const playlistSlug = props.urlState.playlistSlug;
+
     const { playlistsState } = usePlaylistsState({});
 
     const getPlaylist = useQueryData(
       useGetPlaylist({
-        playlistSlugId: createSlugId(
-          props.locationState.playlist?.slug,
-          playlistsState.playlists.highlight.id
-        ),
+        playlistSlug:
+          playlistSlug === 'new-playlist' ? undefined : playlistSlug,
+        playlistId: playlistsState.playlists.highlight.id,
       }),
       { fetchAsLoad: true }
     );

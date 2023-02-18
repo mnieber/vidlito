@@ -23,15 +23,17 @@ export type PropsT = {
 };
 
 export const DefaultProps = {
-  ...dps.locationState,
   ...dps.playlist,
   ...dps.playlistsEditing,
   ...dps.playlistsAddition,
+  ...dps.urlState,
 };
 
 export const PlaylistFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { showPreviewButton, descriptionPreview } = usePreviewButton({});
+
+    if (!props.playlist) return null;
 
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);

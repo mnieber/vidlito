@@ -3,6 +3,7 @@ import { ActionsView } from 'src/actions/components';
 import { SelectClipEffect } from 'src/clips/components';
 import { Dashboard } from 'src/dashboard/components/Dashboard';
 import { MainView } from 'src/dashboard/components/MainView';
+import { PlaylistFormView } from 'src/playlists/components';
 import { SelectPlaylistEffect } from 'src/playlists/components/SelectPlaylistEffect';
 import { useRoutes } from 'src/routes/hooks/useRoutes';
 
@@ -13,6 +14,12 @@ export const DashboardSwitch = () => {
       <Route exact={false} path={routes.playlist()}>
         <SelectPlaylistEffect />
         <Dashboard>
+          <Route
+            exact={true}
+            path={routes.playlist({ playlistSlug: 'new-playlist' })}
+          >
+            <PlaylistFormView />
+          </Route>
           <Route exact={true} path={routes.clip()}>
             <SelectClipEffect />
             <MainView />
