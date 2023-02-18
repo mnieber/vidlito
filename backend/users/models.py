@@ -8,7 +8,6 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
-
 from user_profiles.models import UserProfile
 
 
@@ -31,7 +30,7 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save()
 
-        user_profile = UserProfile.objects.create(owner=user)
+        user_profile = UserProfile.objects.create(user_id=user.id)
         user_profile.save()
 
         return user

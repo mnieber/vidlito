@@ -59,9 +59,10 @@ export const PlaylistsStateProvider = observer(
     const [cache] = React.useState(() =>
       makeAutoObservable({
         get playlists() {
-          return cloneAndSetState(playlistsState.playlists.data.playlists, [
-            ['loading', props.userProfile],
-          ]);
+          return cloneAndSetState(
+            playlistsState.playlists.data.playlistsDisplay,
+            [['loading', props.userProfile]]
+          );
         },
         get playlist() {
           const fullPlaylist = getPlaylist.data?.playlist;

@@ -24,6 +24,7 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
       },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
+        ctr.highlight.highlightItem(ctr.addition.item?.id);
         FacetPolicies.editingSetEnabled(ctr.addition);
       },
     },
