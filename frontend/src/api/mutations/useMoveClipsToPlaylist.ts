@@ -6,6 +6,7 @@ import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
   srcPlaylistId: string;
+  srcPlaylistSlug: string;
   destPlaylistId: string;
   clipIds: string[];
   copy: boolean;
@@ -42,9 +43,9 @@ export const useMoveClipsToPlaylist = () => {
   return useMutation({
     mutationKey: ['moveClipsToPlaylist'],
     mutationFn: moveClipsToPlaylist,
-    onSuccess: (response: ObjT) => {
+    onSuccess: (response: ObjT, args: ArgsT) => {
       queryClient.invalidateQueries({
-        queryKey: ['getPlaylist'],
+        queryKey: ['getPlaylist', args.srcPlaylistSlug],
       });
     },
   });

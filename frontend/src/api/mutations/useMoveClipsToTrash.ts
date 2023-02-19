@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { GetPlaylistArgsT } from 'src/api/queries';
 import { queryClient } from 'src/api/queryClient';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
@@ -55,10 +54,7 @@ export const useMoveClipsToTrash = () => {
 
       queryClient.setQueriesData(
         {
-          queryKey: [
-            'getPlaylist',
-            { playlistId: args.playlist.id } as GetPlaylistArgsT,
-          ],
+          queryKey: ['getPlaylist', args.playlist.slug],
         },
         (data: any) => {
           return applyUpdate(['playlist'], data, updatePlaylist);
@@ -67,7 +63,7 @@ export const useMoveClipsToTrash = () => {
 
       queryClient.invalidateQueries([
         {
-          queryKey: ['getPlaylist', { playlistId: args.playlist.id }],
+          queryKey: ['getPlaylist', args.playlist.slug],
         },
         {
           queryKey: ['getActions', { playlistSlug: args.playlist.slug }],

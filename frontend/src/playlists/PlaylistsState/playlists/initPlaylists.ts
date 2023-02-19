@@ -49,6 +49,7 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
         const values = this.values;
         return props.savePlaylist(values).then((localPlaylist: PlaylistT) => {
           FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing);
+          return localPlaylist;
         });
       },
     },

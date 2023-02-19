@@ -16,6 +16,7 @@ const getInitialValues = (props: PropsT & typeof DefaultProps) => {
     'playlistForm.id': props.playlist.id ?? createUUID().hex,
     'playlistForm.name': props.playlist.name ?? null,
     'playlistForm.slug': props.playlist.slug ?? null,
+    'playlistForm.tags': props.playlist.tags ?? [],
   };
 };
 
@@ -31,6 +32,8 @@ const getHandleValidate =
     }
     if (R.isNil(values['playlistForm.slug'])) {
       setError('playlistForm.slug', 'This field is required');
+    } else if (values['playlistForm.slug'] === 'new-playlist') {
+      setError('playlistForm.slug', 'Sorry, this slug is already taken');
     }
   };
 

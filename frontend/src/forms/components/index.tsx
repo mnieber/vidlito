@@ -9,6 +9,7 @@ export { FormFieldLabel } from './FormFieldLabel';
 export { GlobalError } from './GlobalError';
 export { MarkdownField } from './MarkdownField';
 export { MobXFormState } from './MobXFormState';
+export { NameField } from './NameField';
 export { SaveButton } from './SaveButton';
 export { SlugField, UpdateSlugButton } from './SlugField';
 export { TextAreaField } from './TextAreaField';

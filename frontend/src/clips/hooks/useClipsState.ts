@@ -11,6 +11,7 @@ import {
   useSaveClipOrdering,
 } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
+import { MoveClipsToPlaylistArgsT } from 'src/api/mutations';
 import { setToReady, setToUpdating } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
@@ -55,7 +56,8 @@ export const useClipsState = (props: PropsT) => {
       },
       saveClipOrdering: (clips: ClipT[]) => {
         return saveClipOrdering.mutateAsync({
-          playlistId: propsRef.current?.playlistId,
+          playlistSlug: propsRef.current?.playlist.slug,
+          playlistId: propsRef.current?.playlist.id,
           clipIds: getIds(clips),
         } as SaveClipOrderingArgsT);
       },
@@ -65,11 +67,12 @@ export const useClipsState = (props: PropsT) => {
         copy: boolean
       ) => {
         return moveClipsToPlaylist.mutateAsync({
-          srcPlaylistId: propsRef.current?.playlistId,
+          srcPlaylistId: propsRef.current?.playlist.id,
+          srcPlaylistSlug: propsRef.current?.playlist.slug,
           destPlaylistId: playlistId,
           clipIds: getIds(clips),
           copy,
-        });
+        } as MoveClipsToPlaylistArgsT);
       },
     });
   }) as ClipsState[];

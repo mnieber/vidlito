@@ -52,7 +52,7 @@ export const getPlaylist = (args: ArgsT) => {
 
 export const useGetPlaylist = (args: ArgsT) => {
   return useQuery({
-    queryKey: ['getPlaylist', args],
+    queryKey: ['getPlaylist', args.playlistSlug],
     queryFn: () => getPlaylist(args),
     enabled: !!args.playlistSlug,
   });

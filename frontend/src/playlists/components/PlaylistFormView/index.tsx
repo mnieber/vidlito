@@ -9,10 +9,10 @@ import {
   MarkdownField,
   SaveButton,
   SlugField,
-  TextField,
   UpdateSlugButton,
   ValuePickerField,
 } from 'src/forms/components';
+import { NameField } from 'src/forms/components/NameField';
 import { colBanner, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -53,7 +53,15 @@ export const PlaylistFormView = observer(
         >
           <GlobalError />
           <Field fieldName="playlistForm.name" label="Name">
-            <TextField controlled={true} />
+            <NameField
+              controlled={true}
+              autoSelect={true}
+              slugFieldName={
+                initialValues['playlistForm.slug'] === 'new-playlist'
+                  ? 'playlistForm.slug'
+                  : undefined
+              }
+            />
           </Field>
           <Field
             fieldName="playlistForm.slug"
@@ -72,7 +80,7 @@ export const PlaylistFormView = observer(
           >
             <MarkdownField controlled={true} preview={descriptionPreview} />
           </Field>
-          <Field fieldName="clipForm.tags" label="Tags">
+          <Field fieldName="playlistForm.tags" label="Tags">
             <ValuePickerField
               isCreatable={true}
               isMulti={true}
