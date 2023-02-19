@@ -62,7 +62,7 @@ export const PlaylistListViewItem = observer(
               props.goToPlaylist(props.playlist);
             }}
           >
-            <Icon className={cn('!px-2')} name="arrow-right" />
+            <Icon className="ml-2" name="arrow-right" ratio={0.75} />
           </div>
           <div className={cn('PlaylistListViewItem__Field')}>
             {props.playlist.name}
