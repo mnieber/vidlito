@@ -4,8 +4,8 @@ import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
-  playlistSlug?: string;
   playlistId?: string;
+  playlistSlug?: string;
 };
 
 export const getActions = (args: ArgsT) => {
@@ -15,8 +15,8 @@ export const getActions = (args: ArgsT) => {
       $playlistId: String
     ) {
       getActions(
-        playlistSlug: $playlistSlug
         playlistId: $playlistId
+        playlistSlug: $playlistSlug
       ) {
         actionSet {
           data

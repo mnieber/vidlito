@@ -32,11 +32,11 @@ const dpsStates = {
   dashboardState: {
     dashboardState: stub as DashboardState,
   },
-  urlState: {
-    urlState: stub as UrlState,
-  },
   playlistsState: {
     playlistsState: stub as PlaylistsState,
+  },
+  urlState: {
+    urlState: stub as UrlState,
   },
 };
 

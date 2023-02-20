@@ -51,6 +51,7 @@ const getHandleSubmit =
         'clipForm.startTimeMs': Math.trunc(
           values['clipForm.startTimeS'] * 1000
         ),
+        'clipForm.tags': values['clipForm.tags'] ?? [],
         'clipForm.endTimeS': undefined,
         'clipForm.startTimeS': undefined,
       })

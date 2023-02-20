@@ -3,7 +3,6 @@ import * as R from 'ramda';
 import React from 'react';
 import {
   MoveClipsToTrashArgsT,
-  SaveClipArgsT,
   SaveClipOrderingArgsT,
   useMoveClipsToPlaylist,
   useMoveClipsToTrash,
@@ -11,7 +10,7 @@ import {
   useSaveClipOrdering,
 } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
-import { MoveClipsToPlaylistArgsT } from 'src/api/mutations';
+import { MoveClipsToPlaylistArgsT, SaveClipArgsT } from 'src/api/mutations';
 import { setToReady, setToUpdating } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
@@ -50,9 +49,14 @@ export const useClipsState = (props: PropsT) => {
           );
       }),
       saveClip: (values: ObjT) => {
-        return saveClip.mutateAsync(values as SaveClipArgsT).then(() => {
-          return values.clipForm;
-        });
+        return saveClip
+          .mutateAsync({
+            playlistId: propsRef.current?.playlist.id,
+            clipForm: values.clipForm,
+          } as SaveClipArgsT)
+          .then(() => {
+            return values.clipForm;
+          });
       },
       saveClipOrdering: (clips: ClipT[]) => {
         return saveClipOrdering.mutateAsync({

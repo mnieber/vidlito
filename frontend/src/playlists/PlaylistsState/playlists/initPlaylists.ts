@@ -46,11 +46,12 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
   setCallbackMap(ctr.editing, {
     save: {
       saveItem(this: EditingCbs['save']) {
-        const values = this.values;
-        return props.savePlaylist(values).then((localPlaylist: PlaylistT) => {
-          FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing);
-          return localPlaylist;
-        });
+        return props
+          .savePlaylist(this.values)
+          .then((localPlaylist: PlaylistT) => {
+            FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing);
+            return localPlaylist;
+          });
       },
     },
     cancel: {

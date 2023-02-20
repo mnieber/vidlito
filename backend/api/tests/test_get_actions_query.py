@@ -1,4 +1,5 @@
 import pytest
+
 from actions.tests.random_data import create_random_action
 from api.tests.graphqltestcase import GraphqlTestCase
 

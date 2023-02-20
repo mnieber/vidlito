@@ -5,16 +5,19 @@ import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
+  playlistId: string;
   clipForm: ClipFormT;
 };
 
 export const saveClip = (args: ArgsT) => {
   return doQuery(
     `mutation saveClip(
+      $playlistId: ID!
       $clipForm: ClipFormT!
     ) {
       saveClip(
         clipForm: $clipForm
+        playlistId: $playlistId
       ) {
         errors
         success

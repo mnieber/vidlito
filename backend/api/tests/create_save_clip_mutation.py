@@ -1,9 +1,11 @@
-def create_save_clip_mutation(clip_form, output_values=None):
+def create_save_clip_mutation(playlist_id, clip_form, output_values=None):
     result = """
         mutation saveClip(
+            $playlistId: ID!
             $clipForm: ClipFormT!
         ) {
             saveClip(
+                playlistId: $playlistId
                 clipForm: $clipForm
             ) {
                 output_values
@@ -15,6 +17,7 @@ def create_save_clip_mutation(clip_form, output_values=None):
 
     operation_name = "saveClip"
     variables = dict(
+        playlistId=playlist_id,
         clipForm=clip_form.kwargs,
     )
     return result, operation_name, variables

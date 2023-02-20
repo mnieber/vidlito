@@ -1,4 +1,5 @@
 import graphene
+
 from actions.models import Action
 from api.types import *
 from playlists.models import Playlist
