@@ -1,4 +1,3 @@
-import { ClipT } from 'src/api/types/ClipT';
 import { RouteTable } from 'src/routes/utils/RouteTable';
 
 export const getRouteTable = () => {
@@ -11,9 +10,9 @@ export const getRouteTable = () => {
     ],
     clip: [
       () => '/playlist/:playlistSlug/clips/:clipSlug?',
-      (playlistSlug: string, clip: ClipT) => ({
-        playlistSlug: playlistSlug,
-        clipSlug: clip.slug,
+      (playlistSlug: string, clipSlug: string) => ({
+        playlistSlug,
+        clipSlug,
       }),
     ],
     actions: [

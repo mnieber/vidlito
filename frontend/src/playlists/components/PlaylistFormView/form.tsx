@@ -50,7 +50,7 @@ const getHandleSubmit =
 
     return savePlaylist(unflatten(values)).then((localPlaylist: PlaylistT) => {
       formState.reset(initialValues, initialErrors);
-      props.urlState.goToPlaylist(localPlaylist.slug);
+      props.urlState.setPlaylistSlug(localPlaylist.slug, true);
     });
   };
 

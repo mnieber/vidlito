@@ -51,7 +51,7 @@ export const Dashboard = observer(
               <ClipListView
                 className={cn('overflow-y-auto')}
                 updateUrl={(clip: ClipT) =>
-                  props.urlState.goToClip(clip, props.playlist.slug)
+                  props.urlState.setClipSlug(clip.slug, true)
                 }
               />
             </div>
@@ -59,9 +59,9 @@ export const Dashboard = observer(
           {!props.dashboardState.showClips && (
             <PlaylistListView
               className={cn('overflow-y-auto')}
-              updateUrl={(playlist: PlaylistT) =>
-                props.urlState.goToPlaylist(playlist.slug)
-              }
+              updateUrl={(playlist: PlaylistT) => {
+                props.urlState.setPlaylistSlug(playlist.slug, true);
+              }}
             />
           )}
         </div>

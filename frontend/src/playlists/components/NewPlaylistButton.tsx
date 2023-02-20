@@ -18,7 +18,7 @@ export const NewPlaylistButton = observer(
       <button
         className={cn('NewPlaylistButton', mainButton, props.className)}
         onClick={() => {
-          props.urlState.goToPlaylist('new-playlist');
+          props.urlState.setPlaylistSlug('new-playlist', true);
         }}
       >
         <Icon name="plus" />

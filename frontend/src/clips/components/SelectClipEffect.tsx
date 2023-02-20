@@ -41,7 +41,7 @@ export const SelectClipEffect = observer(
             // clip in the playlist.
             const clip = R.head(args.clips);
             if (clip) {
-              props.urlState.goToClip(clip, args.playlist.slug);
+              props.urlState.setClipSlug(clip.slug, true);
             }
           } else if (
             args.clipId &&

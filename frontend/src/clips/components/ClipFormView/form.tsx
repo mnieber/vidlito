@@ -56,7 +56,7 @@ const getHandleSubmit =
       })
     ).then((localClip: ClipT) => {
       formState.reset(initialValues, initialErrors);
-      props.urlState.goToClip(localClip);
+      props.urlState.setClipSlug(localClip.slug, true);
     });
   };
 
