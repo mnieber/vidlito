@@ -25,10 +25,11 @@ export type PlaylistFormT = {
   tags: string[];
 };
 
-export const createPlaylist = (values: ObjT): PlaylistT => {
+export const createPlaylist = (me: UserProfileT, values: ObjT): PlaylistT => {
   return initRS({
     id: createUUID(),
     name: 'New playlist',
     slug: 'new-playlist',
+    owner: me,
   }) as PlaylistT;
 };

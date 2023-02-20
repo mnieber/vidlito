@@ -12,6 +12,7 @@ type PropsT = {};
 const DefaultProps = {
   ...dps.dashboardState,
   ...dps.playlistsAddition,
+  ...dps.userProfile,
 };
 
 export const EditPlaylistEffect = observer(
@@ -27,7 +28,9 @@ export const EditPlaylistEffect = observer(
           if (args.playlistSlug === 'new-playlist') {
             if (!props.playlistsAddition.item) {
               props.dashboardState.setShowClips(false);
-              props.playlistsAddition.add(createPlaylist({}));
+              props.playlistsAddition.add(
+                createPlaylist(props.userProfile, {})
+              );
             }
           }
         }}
