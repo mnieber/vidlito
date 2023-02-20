@@ -1,4 +1,5 @@
 import graphene
+
 from api.types import *
 from playlists.models import Playlist
 
@@ -10,11 +11,11 @@ class GetPlaylistOutputs(graphene.ObjectType):
 class GetPlaylist:
     get_playlist = graphene.Field(
         GetPlaylistOutputs,
-        playlist_slug=graphene.String(),
+        playlist_slug=graphene.String(required=True),
         playlist_id=graphene.String(),
     )
 
-    def resolve_get_playlist(self, info, playlist_slug=None, playlist_id=None):
+    def resolve_get_playlist(self, info, playlist_slug, playlist_id=None):
         if playlist_id:
             return GetPlaylistOutputs(playlist=Playlist.objects.get(id=playlist_id))
 

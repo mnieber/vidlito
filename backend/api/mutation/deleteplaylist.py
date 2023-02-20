@@ -10,7 +10,7 @@ class DeletePlaylist(graphene.Mutation):
     errors = GenericScalar()
 
     class Arguments:
-        playlist_id = graphene.ID()
+        playlist_id = graphene.String()
 
     def mutate(self, info, playlist_id):
         Playlist.objects.filter(id=playlist_id).delete()

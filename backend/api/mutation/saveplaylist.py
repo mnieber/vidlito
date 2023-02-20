@@ -1,6 +1,7 @@
 import graphene
-from api.types import *
 from graphene.types.generic import GenericScalar
+
+from api.types import *
 from playlists.models import Playlist, create_tags
 from user_profiles.models import UserProfile
 
