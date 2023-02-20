@@ -11,4 +11,3 @@ export { GoToTimeButton } from './GoToTimeButton';
 export { NewClipButton } from './NewClipButton';
 export { SelectClipEffect } from './SelectClipEffect';
 export { UpdateTimeButton } from './UpdateTimeButton';
-export { UrlField } from './UrlField';

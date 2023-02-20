@@ -1,15 +1,16 @@
 import { observer } from 'mobx-react-lite';
-import { FormStateProvider } from 'react-form-state-context';
+import React from 'react';
+import { FormState, FormStateProvider } from 'react-form-state-context';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { GoToTimeButton } from 'src/clips/components/GoToTimeButton';
 import { UpdateTimeButton } from 'src/clips/components/UpdateTimeButton';
-import { UrlField } from 'src/clips/components/UrlField';
 import { usePreviewButton } from 'src/clips/hooks/usePreviewButton';
 import {
   CancelButton,
   Field,
   GlobalError,
   MarkdownField,
+  NameField,
   SaveButton,
   SlugField,
   TextField,
@@ -36,6 +37,7 @@ export const DefaultProps = {
 export const ClipFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { showPreviewButton, descriptionPreview } = usePreviewButton({});
+    const formStateRef = React.useRef<FormState>(null);
 
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
@@ -43,6 +45,7 @@ export const ClipFormView = observer(
     return (
       <div className={cn('ClipFormView', colBanner, props.className)}>
         <FormStateProvider
+          formStateRef={formStateRef}
           initialValues={initialValues}
           initialErrors={initialErrors}
           handleValidate={form.getHandleValidate(props)}
@@ -54,7 +57,17 @@ export const ClipFormView = observer(
           handleCancel={form.getHandleCancel(props)}
         >
           <GlobalError />
-          <UrlField videoPlayerState={props.videoPlayerState} />
+          <Field fieldName="clipForm.url" label="Url" autoFocus={true}>
+            <TextField
+              controlled={true}
+              autoSelect={true}
+              onChange={() => {
+                const url =
+                  formStateRef.current?.values['clipForm.url'] ?? undefined;
+                url && props.videoPlayerState.setUrl(url, 0);
+              }}
+            />
+          </Field>
           <div className={cn(rowSkewer)}>
             <Field
               className={cn('mr-2')}
@@ -97,7 +110,15 @@ export const ClipFormView = observer(
             </Field>
           </div>
           <Field fieldName="clipForm.name" label="Name">
-            <TextField controlled={true} />
+            <NameField
+              controlled={true}
+              autoSelect={true}
+              slugFieldName={
+                initialValues['clipForm.slug'] === 'new-clip'
+                  ? 'clipForm.slug'
+                  : undefined
+              }
+            />
           </Field>
           <Field
             fieldName="clipForm.slug"
