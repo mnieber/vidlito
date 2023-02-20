@@ -1,3 +1,4 @@
+export { EditPlaylistEffect } from './EditPlaylistEffect';
 export { NewPlaylistButton } from './NewPlaylistButton';
 export { PlaylistDescription } from './PlaylistDescription';
 export { PlaylistFormView } from './PlaylistFormView';
