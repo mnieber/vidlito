@@ -7,7 +7,7 @@ import {
 import { isLoading } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import UIkit from 'src/frames/styles/uikit';
+import { Spinner } from 'src/frames/components';
 import { PlaylistListViewItem } from 'src/playlists/components/PlaylistListViewItem';
 import { cn } from 'src/utils/classnames';
 import './PlaylistListView.scss';
@@ -48,7 +48,7 @@ export const PlaylistListView = observer(
     );
 
     if (isLoading(props.playlists)) {
-      return UIkit && <div data-uk-spinner className="" />;
+      return <Spinner />;
     } else if (!props.playlists?.length) return null;
 
     const noItems = <h2>There are no playlists</h2>;

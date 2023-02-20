@@ -6,7 +6,7 @@ import { ClipFormView } from 'src/clips/components/ClipFormView';
 import { ClipHeaderView } from 'src/clips/components/ClipHeaderView';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
 import { ClipView } from 'src/clips/components/ClipView';
-import UIkit from 'src/frames/styles/uikit';
+import { Spinner } from 'src/frames/components';
 import {
   PlaylistDescription,
   PlaylistFormView,
@@ -37,7 +37,7 @@ export const MainView = observer(
     }, [props.dashboardState, parentElm]);
 
     if (isLoading(props.clip)) {
-      return UIkit && <div data-uk-spinner className="" />;
+      return <Spinner />;
     } else if (!props.clip) return null;
 
     return (

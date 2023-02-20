@@ -7,7 +7,7 @@ import { isLoading } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListViewItem } from 'src/clips/components/ClipListViewItem';
-import UIkit from 'src/frames/styles/uikit';
+import { Spinner } from 'src/frames/components';
 import { createOnSelectItemHandler } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
 import './ClipListView.scss';
@@ -40,7 +40,7 @@ export const ClipListView = observer(
     );
 
     if (isLoading(props.clips)) {
-      return UIkit && <div data-uk-spinner className="" />;
+      return <Spinner />;
     } else if (!props.clips?.length) return null;
 
     const noItems = <h2>There are no clips</h2>;

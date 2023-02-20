@@ -5,9 +5,8 @@ import {
 } from 'skandha-facets/Highlight';
 import { isUpdating } from 'src/api/ResourceState';
 import { ActionT } from 'src/api/types/ActionT';
-import { rowSkewer } from 'src/frames/components';
+import { rowSkewer, Spinner } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
-import UIkit from 'src/frames/styles/uikit';
 import { cn } from 'src/utils/classnames';
 import './ActionsListViewItem.scss';
 
@@ -19,7 +18,7 @@ export type PropsT = {
 
 export const ActionsListViewItem = observer((props: PropsT) => {
   if (isUpdating(props.action)) {
-    return UIkit && <div data-uk-spinner className=""></div>;
+    return <Spinner />;
   }
 
   return (

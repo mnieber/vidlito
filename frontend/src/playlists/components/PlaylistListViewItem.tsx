@@ -10,8 +10,7 @@ import {
 import { isUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon, rowSkewer } from 'src/frames/components';
-import UIkit from 'src/frames/styles/uikit';
+import { Icon, rowSkewer, Spinner } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import './PlaylistListViewItem.scss';
 
@@ -30,7 +29,7 @@ const DefaultProps = {
 export const PlaylistListViewItem = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     if (isUpdating(props.playlist)) {
-      return UIkit && <div data-uk-spinner className=""></div>;
+      return <Spinner />;
     }
 
     return (
