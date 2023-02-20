@@ -36,7 +36,7 @@ export const ClipListViewItem = observer(
         videoPlayerState={props.videoPlayerState}
       >
         <div
-          tabIndex={123}
+          tabIndex={0}
           className={cn(
             'ClipListViewItem',
             rowSkewer,

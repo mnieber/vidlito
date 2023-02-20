@@ -31,7 +31,9 @@ export const DefaultProps = {
 
 export const PlaylistFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { showPreviewButton, descriptionPreview } = usePreviewButton({});
+    const { showPreviewButton, descriptionPreview } = usePreviewButton({
+      tabIndex: 4,
+    });
 
     if (!props.playlist) return null;
 
@@ -54,6 +56,7 @@ export const PlaylistFormView = observer(
           <GlobalError />
           <Field fieldName="playlistForm.name" label="Name">
             <NameField
+              tabIndex={1}
               controlled={true}
               autoSelect={true}
               slugFieldName={
@@ -67,7 +70,11 @@ export const PlaylistFormView = observer(
             fieldName="playlistForm.slug"
             label="Slug"
             buttons={[
-              <UpdateSlugButton key="1" relatedFieldName="playlistForm.name" />,
+              <UpdateSlugButton
+                key="1"
+                tabIndex={2}
+                relatedFieldName="playlistForm.name"
+              />,
             ]}
           >
             <SlugField />
@@ -78,10 +85,15 @@ export const PlaylistFormView = observer(
             tabOnEnter={false}
             buttons={[showPreviewButton]}
           >
-            <MarkdownField controlled={true} preview={descriptionPreview} />
+            <MarkdownField
+              controlled={true}
+              tabIndex={3}
+              preview={descriptionPreview}
+            />
           </Field>
           <Field fieldName="playlistForm.tags" label="Tags">
             <ValuePickerField
+              tabIndex={5}
               isCreatable={true}
               isMulti={true}
               pickableValues={['one', 'two']}
@@ -89,8 +101,8 @@ export const PlaylistFormView = observer(
             />
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>
-            <CancelButton label="Cancel" disabled={false} />
-            <SaveButton label="Save" disabled={false} />
+            <CancelButton label="Cancel" tabIndex={6} disabled={false} />
+            <SaveButton label="Save" tabIndex={6} disabled={false} />
           </div>
         </FormStateProvider>
       </div>

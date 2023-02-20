@@ -36,7 +36,9 @@ export const DefaultProps = {
 
 export const ClipFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { showPreviewButton, descriptionPreview } = usePreviewButton({});
+    const { showPreviewButton, descriptionPreview } = usePreviewButton({
+      tabIndex: 9,
+    });
     const formStateRef = React.useRef<FormState>(null);
 
     const initialValues = form.getInitialValues(props);
@@ -59,6 +61,7 @@ export const ClipFormView = observer(
           <GlobalError />
           <Field fieldName="clipForm.url" label="Url" autoFocus={true}>
             <TextField
+              tabIndex={1}
               controlled={true}
               autoSelect={true}
               onChange={() => {
@@ -76,18 +79,20 @@ export const ClipFormView = observer(
               buttons={[
                 <UpdateTimeButton
                   key="1"
+                  tabIndex={3}
                   className={cn('mr-2')}
                   videoController={props.videoPlayerState.videoController}
                   fieldName="clipForm.startTimeS"
                 />,
                 <GoToTimeButton
                   key="2"
+                  tabIndex={3}
                   videoController={props.videoPlayerState.videoController}
                   fieldName="clipForm.startTimeS"
                 />,
               ]}
             >
-              <TextField controlled={true} />
+              <TextField controlled={true} tabIndex={2} />
             </Field>
             <Field
               fieldName="clipForm.endTimeS"
@@ -95,22 +100,25 @@ export const ClipFormView = observer(
               buttons={[
                 <UpdateTimeButton
                   key="1"
+                  tabIndex={5}
                   className={cn('mr-2')}
                   videoController={props.videoPlayerState.videoController}
                   fieldName="clipForm.endTimeS"
                 />,
                 <GoToTimeButton
                   key="2"
+                  tabIndex={5}
                   videoController={props.videoPlayerState.videoController}
                   fieldName="clipForm.endTimeS"
                 />,
               ]}
             >
-              <TextField controlled={true} />
+              <TextField controlled={true} tabIndex={4} />
             </Field>
           </div>
           <Field fieldName="clipForm.name" label="Name">
             <NameField
+              tabIndex={6}
               controlled={true}
               autoSelect={true}
               slugFieldName={
@@ -124,7 +132,11 @@ export const ClipFormView = observer(
             fieldName="clipForm.slug"
             label="Slug"
             buttons={[
-              <UpdateSlugButton key="1" relatedFieldName="clipForm.name" />,
+              <UpdateSlugButton
+                tabIndex={7}
+                key="1"
+                relatedFieldName="clipForm.name"
+              />,
             ]}
           >
             <SlugField />
@@ -135,10 +147,15 @@ export const ClipFormView = observer(
             tabOnEnter={false}
             buttons={[showPreviewButton]}
           >
-            <MarkdownField controlled={true} preview={descriptionPreview} />
+            <MarkdownField
+              tabIndex={8}
+              controlled={true}
+              preview={descriptionPreview}
+            />
           </Field>
           <Field fieldName="clipForm.tags" label="Tags">
             <ValuePickerField
+              tabIndex={9}
               isCreatable={true}
               isMulti={true}
               pickableValues={['one', 'two']}
@@ -146,8 +163,8 @@ export const ClipFormView = observer(
             />
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>
-            <CancelButton label="Cancel" disabled={false} />
-            <SaveButton label="Save" disabled={false} />
+            <CancelButton tabIndex={10} label="Cancel" disabled={false} />
+            <SaveButton tabIndex={10} label="Save" disabled={false} />
           </div>
         </FormStateProvider>
       </div>

@@ -47,7 +47,7 @@ export const MainView = observer(
       >
         <div
           ref={parentElmRef}
-          tabIndex={123}
+          tabIndex={0}
           className={cn('MainView', props.className)}
         >
           <VideoPlayerPanel className={cn('mb-3')} />

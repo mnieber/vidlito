@@ -1,34 +1,18 @@
-import { useFormStateContext } from 'react-form-state-context';
-import { useFormFieldContext } from 'src/forms/components/FormFieldContext';
 import { TextField } from 'src/forms/components/TextField';
-import { smallButton } from 'src/frames/components';
+import { FieldPropsT } from 'src/forms/hooks';
 import { cn } from 'src/utils/classnames';
-import { slugify } from 'src/utils/slugify';
 
-export type PropsT = {
+type PropsT = Partial<FieldPropsT> & {
   className?: any;
-  relatedFieldName: string;
 };
 
-export const UpdateSlugButton = (props: PropsT) => {
-  const formState = useFormStateContext();
-  const fieldContext = useFormFieldContext();
-
+export const SlugField = (props: PropsT) => {
   return (
-    <div
-      className={cn('UpdateSlugButton', smallButton, props.className)}
-      onClick={() => {
-        const newSlug = slugify(formState.values[props.relatedFieldName]);
-        if (newSlug) {
-          formState.setValue(fieldContext.fieldName, newSlug);
-        }
-      }}
-    >
-      Update
-    </div>
+    <TextField
+      className={cn('flex-1', props.className)}
+      {...props}
+      disabled={true}
+      controlled={true}
+    />
   );
-};
-
-export const SlugField = () => {
-  return <TextField className="flex-1" disabled={true} controlled={true} />;
 };

@@ -21,6 +21,7 @@ export type FieldPropsT = {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   placeholder?: string;
   autoSelect?: boolean;
+  tabIndex?: number;
 };
 
 export const useFieldProps = (props: FieldPropsT) => {
@@ -48,6 +49,7 @@ export const useFieldProps = (props: FieldPropsT) => {
       (fieldContext.useSmartLabel ? fieldContext.label : undefined),
     autoFocus: fieldContext.autoFocus,
     disabled: props.disabled,
+    tabIndex: props.tabIndex,
   };
 };
 
