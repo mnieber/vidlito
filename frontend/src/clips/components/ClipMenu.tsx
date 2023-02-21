@@ -29,32 +29,41 @@ export const ClipMenu = observer(
     const otherPlaylists = props.playlists.filter(
       (x) => x.id !== props.playlist.id
     );
-    const moveToPlaylistDivs = otherPlaylists.map((playlist) => {
-      return (
-        <MenuItem
-          key={playlist.id}
-          onClick={(e) => {
-            e.stopPropagation = true;
-            props.clipsState.moveClipsToPlaylist(playlist.id, false);
-          }}
-        >
-          {playlist.name}
-        </MenuItem>
-      );
-    });
-    const copyToPlaylistDivs = otherPlaylists.map((playlist) => {
-      return (
-        <MenuItem
-          key={playlist.id}
-          onClick={(e) => {
-            e.stopPropagation = true;
-            props.clipsState.moveClipsToPlaylist(playlist.id, true);
-          }}
-        >
-          {playlist.name}
-        </MenuItem>
-      );
-    });
+    const noPlaylistsDiv = (
+      <MenuItem key="noPlaylists" disabled={true}>
+        (No destination playlists)
+      </MenuItem>
+    );
+    const moveToPlaylistDivs = otherPlaylists.length
+      ? otherPlaylists.map((playlist) => {
+          return (
+            <MenuItem
+              key={playlist.id}
+              onClick={(e) => {
+                e.stopPropagation = true;
+                props.clipsState.moveClipsToPlaylist(playlist.id, false);
+              }}
+            >
+              {playlist.name}
+            </MenuItem>
+          );
+        })
+      : [noPlaylistsDiv];
+    const copyToPlaylistDivs = otherPlaylists.length
+      ? otherPlaylists.map((playlist) => {
+          return (
+            <MenuItem
+              key={playlist.id}
+              onClick={(e) => {
+                e.stopPropagation = true;
+                props.clipsState.moveClipsToPlaylist(playlist.id, true);
+              }}
+            >
+              {playlist.name}
+            </MenuItem>
+          );
+        })
+      : [noPlaylistsDiv];
 
     return props.dashboardState.menuProps ? (
       <ControlledMenu

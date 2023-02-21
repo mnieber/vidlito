@@ -11,7 +11,7 @@ export type ArgsT = {
 export const getPlaylist = (args: ArgsT) => {
   return doQuery(
     `query getPlaylist(
-      $playlistSlug: String
+      $playlistSlug: String!
       $playlistId: String
     ) {
       getPlaylist(

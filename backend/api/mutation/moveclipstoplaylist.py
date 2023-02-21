@@ -1,7 +1,6 @@
 import graphene
-from graphene.types.generic import GenericScalar
-
 from api.types import *
+from graphene.types.generic import GenericScalar
 from playlists.models import Entry
 
 

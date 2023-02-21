@@ -5,18 +5,17 @@ import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
   playlistId?: string;
-  playlistSlug?: string;
 };
+
+export type QueryKeyT = ArgsT;
 
 export const getActions = (args: ArgsT) => {
   return doQuery(
     `query getActions(
-      $playlistSlug: String
-      $playlistId: String
+      $playlistId: ID
     ) {
       getActions(
         playlistId: $playlistId
-        playlistSlug: $playlistSlug
       ) {
         actionSet {
           data
@@ -43,8 +42,7 @@ export const getActions = (args: ArgsT) => {
 
 export const useGetActions = (args: ArgsT) => {
   return useQuery({
-    queryKey: ['getActions', args],
+    queryKey: ['getActions', args as QueryKeyT],
     queryFn: () => getActions(args),
-    enabled: !!args.playlistSlug,
   });
 };

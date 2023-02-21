@@ -41,7 +41,7 @@ export const ClipListView = observer(
 
     if (isLoading(props.clips)) {
       return <Spinner />;
-    } else if (!props.clips?.length) return null;
+    }
 
     const noItems = <h2>There are no clips</h2>;
 

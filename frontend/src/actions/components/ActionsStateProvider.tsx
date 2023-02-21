@@ -13,20 +13,15 @@ import { log } from 'src/utils/logging';
 export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
-  ...dps.urlState,
   ...dps.playlist,
 };
 
 export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const playlistSlug = props.urlState.playlistSlug;
-
     const { actionsState } = useActionsState({});
 
     const getActions = useQueryData(
       useGetActions({
-        playlistSlug:
-          playlistSlug === 'new-playlist' ? undefined : playlistSlug,
         playlistId: props.playlist?.id,
       })
     );

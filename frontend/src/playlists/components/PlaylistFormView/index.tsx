@@ -54,7 +54,7 @@ export const PlaylistFormView = observer(
           handleCancel={form.getHandleCancel(props)}
         >
           <GlobalError />
-          <Field fieldName="playlistForm.name" label="Name">
+          <Field fieldName="playlistForm.name" label="Name" autoFocus={true}>
             <NameField
               tabIndex={1}
               controlled={true}

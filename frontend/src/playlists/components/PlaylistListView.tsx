@@ -49,7 +49,7 @@ export const PlaylistListView = observer(
 
     if (isLoading(props.playlists)) {
       return <Spinner />;
-    } else if (!props.playlists?.length) return null;
+    }
 
     const noItems = <h2>There are no playlists</h2>;
 
