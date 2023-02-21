@@ -52,7 +52,9 @@ export const useClipsState = (props: PropsT) => {
         return saveClip
           .mutateAsync({
             playlistId: propsRef.current?.playlist.id,
+            playlistSlug: propsRef.current?.playlist.slug,
             clipForm: values.clipForm,
+            parentClipId: clipsState.clips.addition.parentId,
           } as SaveClipArgsT)
           .then(() => {
             return values.clipForm;

@@ -1,8 +1,7 @@
 import graphene
-from graphene.types.generic import GenericScalar
-
 from api.types import *
-from clips.models import Clip
+from app.utils.ids import sort_items
+from graphene.types.generic import GenericScalar
 from playlists.models import Entry, Playlist
 
 
@@ -16,10 +15,7 @@ class SaveClipOrdering(graphene.Mutation):
 
     def mutate(self, info, playlist_id, clip_ids):
         playlist = Playlist.objects.get(id=playlist_id)
-        playlist.entry_set.all().delete()
-
-        for idx, clip_id in enumerate(clip_ids):
-            Entry.objects.create(playlist=playlist, clip_id=clip_id, sort_pos=1 + idx)
+        sort_items(playlist.entry_set.all(), clip_ids, lambda x: x.clip_id)
 
         return SaveClipOrdering(
             success=True,

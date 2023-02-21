@@ -1,12 +1,19 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
+import { GetPlaylistQueryKeyT } from 'src/api/queries';
+import { queryClient } from 'src/api/queryClient';
 import { ClipFormT } from 'src/api/types/ClipT';
+import { PlaylistT } from 'src/api/types/PlaylistT';
+import { applyUpdate } from 'src/utils/applyUpdate';
+import { id } from 'src/utils/fp';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
+  playlistSlug: string;
   playlistId: string;
   clipForm: ClipFormT;
+  parentClipId?: string;
 };
 
 export const saveClip = (args: ArgsT) => {
@@ -36,8 +43,28 @@ export const useSaveClip = () => {
   return useMutation({
     mutationKey: ['saveClip'],
     mutationFn: saveClip,
-    onSuccess: (response: ObjT, variables: ArgsT) => {
-      // TODO: update any cliplist that has this clip
+    onSuccess: (response: ObjT, args: ArgsT) => {
+      const getPlaylistQueryKey = [
+        'getPlaylist',
+        id<GetPlaylistQueryKeyT>({
+          playlistSlug: args.playlistSlug,
+        }),
+      ];
+
+      const updatePlaylist = (playlist: PlaylistT) => {
+        // TODO: Update playlist with new clip
+        return {
+          ...playlist,
+          clipSet: playlist.clipSet,
+        };
+      };
+
+      queryClient.setQueriesData(
+        { queryKey: getPlaylistQueryKey },
+        (data: any) => applyUpdate(['playlist'], data, updatePlaylist)
+      );
+
+      queryClient.invalidateQueries({ queryKey: getPlaylistQueryKey });
     },
   });
 };

@@ -8,6 +8,10 @@ export type ArgsT = {
   playlistId?: string;
 };
 
+export type QueryKeyT = {
+  playlistSlug: string | null;
+};
+
 export const getPlaylist = (args: ArgsT) => {
   return doQuery(
     `query getPlaylist(
@@ -52,7 +56,7 @@ export const getPlaylist = (args: ArgsT) => {
 
 export const useGetPlaylist = (args: ArgsT) => {
   return useQuery({
-    queryKey: ['getPlaylist', args.playlistSlug],
+    queryKey: ['getPlaylist', { playlistSlug: args.playlistSlug } as QueryKeyT],
     queryFn: () => getPlaylist(args),
     enabled: !!args.playlistSlug,
   });
