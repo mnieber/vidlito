@@ -6,7 +6,7 @@ def insert_id(ids, parent_id, id):
         return ids + [id]
 
 
-def sort_item(items, keys, get_key):
+def sort_items(items, keys, get_key):
     for item in items:
         new_sort_pos = keys.index(get_key(item))
         assert new_sort_pos >= 0

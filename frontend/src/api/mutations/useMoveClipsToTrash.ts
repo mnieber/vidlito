@@ -5,7 +5,7 @@ import { queryClient } from 'src/api/queryClient';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { applyUpdate } from 'src/utils/applyUpdate';
-import { id } from 'src/utils/fp';
+import { createQueryKey } from 'src/utils/createQueryKey';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
@@ -45,16 +45,14 @@ export const useMoveClipsToTrash = () => {
     mutationKey: ['moveClipsToTrash'],
     mutationFn: moveClipsToTrash,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      const getPlaylistQueryKey = [
+      const getPlaylistQueryKey = createQueryKey<GetPlaylistQueryKeyT>(
         'getPlaylist',
-        id<GetPlaylistQueryKeyT>({
-          playlistSlug: args.playlist.slug,
-        }),
-      ];
-      const getActionsQueryKey = [
+        { playlistSlug: args.playlist.slug }
+      );
+      const getActionsQueryKey = createQueryKey<GetActionsQueryKeyT>(
         'getActions',
-        id<GetActionsQueryKeyT>({ playlistId: args.playlist.id }),
-      ];
+        { playlistId: args.playlist.id }
+      );
 
       const updatePlaylist = (playlist: PlaylistT) => {
         // Remove clips from playlist that were moved to trash
