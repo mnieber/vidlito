@@ -1,9 +1,6 @@
 def insert_id(ids, parent_id, id):
-    if parent_id:
-        idx = ids.index(parent_id)
-        return ids[: idx + 1] + [id] + ids[idx + 1 :]
-    else:
-        return ids + [id]
+    pos = ids.index(parent_id) + 1 if parent_id else len(ids)
+    return ids[:pos] + [id] + ids[pos:]
 
 
 def sort_items(items, keys, get_key):

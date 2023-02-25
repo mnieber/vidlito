@@ -1,8 +1,8 @@
 def create_move_clips_to_trash_mutation(playlist_id, clip_ids, output_values=None):
     result = """
         mutation moveClipsToTrash(
-            $playlistId: ID!
-            $clipIds: [String]!
+            $playlistId: UUID!
+            $clipIds: [UUID]!
         ) {
             moveClipsToTrash(
                 playlistId: $playlistId

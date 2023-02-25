@@ -1,8 +1,8 @@
 def create_save_clip_ordering_mutation(playlist_id, clip_ids, output_values=None):
     result = """
         mutation saveClipOrdering(
-            $playlistId: ID!
-            $clipIds: [String]!
+            $playlistId: UUID!
+            $clipIds: [UUID]!
         ) {
             saveClipOrdering(
                 playlistId: $playlistId

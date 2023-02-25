@@ -10,7 +10,7 @@ class DeleteClips(graphene.Mutation):
     errors = GenericScalar()
 
     class Arguments:
-        clip_ids = graphene.List(graphene.String)
+        clip_ids = graphene.List(graphene.UUID)
 
     def mutate(self, info, clip_ids):
         Clip.objects.filter(id__in=clip_ids).delete()

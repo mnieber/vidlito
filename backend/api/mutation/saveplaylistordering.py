@@ -9,7 +9,7 @@ class SavePlaylistOrdering(graphene.Mutation):
     errors = GenericScalar()
 
     class Arguments:
-        playlist_ids = graphene.List(graphene.String)
+        playlist_ids = graphene.List(graphene.UUID)
 
     def mutate(self, info, playlist_ids):
         # Moonleap Todo: implement mutation

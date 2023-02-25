@@ -17,8 +17,8 @@ export type ArgsT = {
 export const moveClipsToTrash = (args: ArgsT) => {
   return doQuery(
     `mutation moveClipsToTrash(
-      $playlistId: ID!
-      $clipIds: [String]!
+      $playlistId: UUID!
+      $clipIds: [UUID]!
     ) {
       moveClipsToTrash(
         clipIds: $clipIds

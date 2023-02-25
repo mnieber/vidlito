@@ -15,9 +15,9 @@ export type ArgsT = {
 export const moveClipsToPlaylist = (args: ArgsT) => {
   return doQuery(
     `mutation moveClipsToPlaylist(
-      $srcPlaylistId: ID!
-      $destPlaylistId: ID!
-      $clipIds: [String]!
+      $srcPlaylistId: UUID!
+      $destPlaylistId: UUID!
+      $clipIds: [UUID]!
       $copy: Boolean!
     ) {
       moveClipsToPlaylist(

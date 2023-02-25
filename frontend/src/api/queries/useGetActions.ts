@@ -12,7 +12,7 @@ export type QueryKeyT = ArgsT;
 export const getActions = (args: ArgsT) => {
   return doQuery(
     `query getActions(
-      $playlistId: ID
+      $playlistId: UUID
     ) {
       getActions(
         playlistId: $playlistId

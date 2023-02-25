@@ -15,7 +15,7 @@ export type ArgsT = {
 export const savePlaylistOrdering = (args: ArgsT) => {
   return doQuery(
     `mutation savePlaylistOrdering(
-      $playlistIds: [String]!
+      $playlistIds: [UUID]!
     ) {
       savePlaylistOrdering(
         playlistIds: $playlistIds

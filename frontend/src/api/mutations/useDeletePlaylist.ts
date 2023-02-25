@@ -11,7 +11,7 @@ export type ArgsT = {
 export const deletePlaylist = (args: ArgsT) => {
   return doQuery(
     `mutation deletePlaylist(
-      $playlistId: ID!
+      $playlistId: UUID!
     ) {
       deletePlaylist(
         playlistId: $playlistId

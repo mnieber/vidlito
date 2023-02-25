@@ -1,10 +1,10 @@
 import graphene
+from django.db import transaction
 from graphene.types.generic import GenericScalar
 
 from actions.models import Action
 from api.types import *
 from clips.models import Clip
-from django.db import transaction
 from playlists.models import Playlist
 from user_profiles.models import UserProfile
 
@@ -14,8 +14,8 @@ class MoveClipsToTrash(graphene.Mutation):
     errors = GenericScalar()
 
     class Arguments:
-        playlist_id = graphene.ID()
-        clip_ids = graphene.List(graphene.String)
+        playlist_id = graphene.UUID()
+        clip_ids = graphene.List(graphene.UUID)
 
     def mutate(self, info, playlist_id, clip_ids):
         playlist = Playlist.objects.get(id=playlist_id)

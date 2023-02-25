@@ -20,12 +20,14 @@ export type ArgsT = {
 export const saveClip = (args: ArgsT) => {
   return doQuery(
     `mutation saveClip(
-      $playlistId: ID!
+      $playlistId: UUID!
       $clipForm: ClipFormT!
+      $parentClipId: UUID
     ) {
       saveClip(
         clipForm: $clipForm
         playlistId: $playlistId
+        parentClipId: $parentClipId
       ) {
         errors
         success

@@ -10,7 +10,7 @@ export type ArgsT = {
 export const deleteClips = (args: ArgsT) => {
   return doQuery(
     `mutation deleteClips(
-      $clipIds: [String]!
+      $clipIds: [UUID]!
     ) {
       deleteClips(
         clipIds: $clipIds

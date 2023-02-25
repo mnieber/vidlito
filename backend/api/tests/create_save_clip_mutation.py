@@ -1,7 +1,7 @@
 def create_save_clip_mutation(playlist_id, clip_form, output_values=None):
     result = """
         mutation saveClip(
-            $playlistId: ID!
+            $playlistId: UUID!
             $clipForm: ClipFormT!
         ) {
             saveClip(

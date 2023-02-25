@@ -1,7 +1,7 @@
 def create_delete_clips_mutation(clip_ids, output_values=None):
     result = """
         mutation deleteClips(
-            $clipIds: [String]!
+            $clipIds: [UUID]!
         ) {
             deleteClips(
                 clipIds: $clipIds

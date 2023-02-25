@@ -1,4 +1,5 @@
 import graphene
+
 from actions.models import Action
 from api.types import *
 from playlists.models import Playlist
@@ -11,7 +12,7 @@ class GetActionsOutputs(graphene.ObjectType):
 class GetActions:
     get_actions = graphene.Field(
         GetActionsOutputs,
-        playlist_id=graphene.ID(),
+        playlist_id=graphene.UUID(),
     )
 
     def resolve_get_actions(self, info, playlist_id=None):

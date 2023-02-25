@@ -1,7 +1,7 @@
 def create_save_playlist_ordering_mutation(playlist_ids, output_values=None):
     result = """
         mutation savePlaylistOrdering(
-            $playlistIds: [String]!
+            $playlistIds: [UUID]!
         ) {
             savePlaylistOrdering(
                 playlistIds: $playlistIds

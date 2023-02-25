@@ -12,9 +12,9 @@ class SaveClip(graphene.Mutation):
     errors = GenericScalar()
 
     class Arguments:
-        playlist_id = graphene.ID(required=True)
+        playlist_id = graphene.UUID(required=True)
         clip_form = ClipFormT(required=True)
-        parent_clip_id = graphene.ID()
+        parent_clip_id = graphene.UUID()
 
     def mutate(self, info, playlist_id, clip_form, parent_clip_id=None):
         playlist = Playlist.objects.get(

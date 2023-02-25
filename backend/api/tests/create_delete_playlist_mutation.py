@@ -1,7 +1,7 @@
 def create_delete_playlist_mutation(playlist_id, output_values=None):
     result = """
         mutation deletePlaylist(
-            $playlistId: ID!
+            $playlistId: UUID!
         ) {
             deletePlaylist(
                 playlistId: $playlistId

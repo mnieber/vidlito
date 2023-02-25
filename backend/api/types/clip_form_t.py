@@ -9,4 +9,4 @@ class ClipFormT(graphene.InputObjectType):
     start_time_ms = graphene.Int(required=False)
     end_time_ms = graphene.Int(required=False)
     tags = graphene.List(graphene.String)
-    id = graphene.ID()
+    id = graphene.UUID()

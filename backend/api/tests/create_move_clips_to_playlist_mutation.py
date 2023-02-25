@@ -3,9 +3,9 @@ def create_move_clips_to_playlist_mutation(
 ):
     result = """
         mutation moveClipsToPlaylist(
-            $srcPlaylistId: ID!
-            $destPlaylistId: ID!
-            $clipIds: [String]!
+            $srcPlaylistId: UUID!
+            $destPlaylistId: UUID!
+            $clipIds: [UUID]!
             $copy: Boolean!
         ) {
             moveClipsToPlaylist(
