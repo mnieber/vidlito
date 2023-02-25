@@ -1,8 +1,9 @@
 import * as R from 'ramda';
 
-// Insert newItem after the item with parentId in items.
 // If newItem is already in the list, replace it.
-export const updateList = (
+// Otherwise, insert newItem after the item with parentId,
+// or at the end of the list if parentId is not found.
+export const addOrReplaceListItem = (
   items: any[],
   parentId: string | undefined,
   newItem: any

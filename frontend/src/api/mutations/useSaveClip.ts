@@ -4,10 +4,10 @@ import { GetPlaylistQueryKeyT } from 'src/api/queries';
 import { queryClient } from 'src/api/queryClient';
 import { ClipFormT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
+import { addOrReplaceListItem } from 'src/utils/addOrReplaceListItem';
 import { applyUpdate } from 'src/utils/applyUpdate';
 import { createQueryKey } from 'src/utils/createQueryKey';
 import { ObjT } from 'src/utils/types';
-import { updateList } from 'src/utils/updateList';
 import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
@@ -55,7 +55,7 @@ export const useSaveClip = () => {
       const updatePlaylist = (playlist: PlaylistT) => {
         return {
           ...playlist,
-          clipSet: updateList(
+          clipSet: addOrReplaceListItem(
             playlist.clipSet,
             args.parentClipId,
             args.clipForm
