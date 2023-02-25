@@ -42,7 +42,7 @@ export class ClipsState {
 
   moveClipsToPlaylist(playlistId: string, copy: boolean = false) {
     const clips = this.clips.selection.items;
-    this.props.moveClipsToPlaylist(clips, playlistId, copy);
+    return this.props.moveClipsToPlaylist(clips, playlistId, copy);
   }
 
   _clipsMapData(props: PropsT) {

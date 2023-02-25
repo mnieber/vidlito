@@ -2,11 +2,15 @@ import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
 import { queryClient } from 'src/api/queryClient';
 import { PlaylistFormT } from 'src/api/types/PlaylistT';
+import { UserProfileT } from 'src/api/types/UserProfileT';
+import { addOrReplaceListItem } from 'src/utils/addOrReplaceListItem';
+import { applyUpdate } from 'src/utils/applyUpdate';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
   playlistForm: PlaylistFormT;
+  parentPlaylistId?: string;
 };
 
 export const savePlaylist = (args: ArgsT) => {
@@ -34,9 +38,32 @@ export const useSavePlaylist = () => {
   return useMutation({
     mutationKey: ['savePlaylist'],
     mutationFn: savePlaylist,
-    onSuccess: (response: ObjT) => {
+    onSuccess: (response: ObjT, args: ArgsT) => {
+      const loadUserIdQueryKey = ['loadUserId'];
+
+      const updateUserProfile = (userProfile: UserProfileT) => {
+        return {
+          ...userProfile,
+          playlistSet: addOrReplaceListItem(
+            userProfile.playlistSet,
+            args.parentPlaylistId,
+            args.playlistForm
+          ),
+        };
+      };
+
+      queryClient.setQueriesData(
+        { queryKey: loadUserIdQueryKey },
+        (data: any) =>
+          applyUpdate(
+            ['getUserProfile', 'userProfile'],
+            data,
+            updateUserProfile
+          )
+      );
+
       queryClient.invalidateQueries({
-        queryKey: ['getUserProfile'],
+        queryKey: loadUserIdQueryKey,
       });
     },
   });

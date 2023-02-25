@@ -1,4 +1,5 @@
 import { setCallbackMap } from 'aspiration';
+import * as R from 'ramda';
 import {
   addCleanUpFunctionToCtr,
   cleanUpCtr,
@@ -9,9 +10,11 @@ import { EditingCbs } from 'skandha-facets/Editing';
 import { HighlightCbs } from 'skandha-facets/Highlight';
 import { InsertionCbs } from 'skandha-facets/Insertion';
 import * as FacetPolicies from 'skandha-facets/policies';
+import { correctHighlight } from 'skandha-facets/policies';
 import { handleSelectItem, SelectionCbs } from 'skandha-facets/Selection';
 import { ClipT } from 'src/api/types/ClipT';
 import { ClipsState, PropsT } from 'src/clips/ClipsState';
+import { ObjT } from 'src/utils/types';
 
 export const initClips = (state: ClipsState, props: PropsT) => {
   const ctr = state.clips;
@@ -39,7 +42,15 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       deleteItems(this: DeletionCbs['delete']) {
         const clipIds = this.itemIds;
         if (this.options?.moveToTrash) {
-          return props.moveClipsToTrash(clipIds);
+          return props.moveClipsToTrash(clipIds).then((response: ObjT) => {
+            const allIds = R.keys(ctr.data.clipById);
+            correctHighlight(
+              ctr.highlight,
+              allIds,
+              allIds.filter((x) => x !== ctr.highlight.id)
+            );
+            return response;
+          });
         }
         return Promise.resolve();
       },
