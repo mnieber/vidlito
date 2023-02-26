@@ -60,7 +60,9 @@ export const Dashboard = observer(
             <PlaylistListView
               className={cn('overflow-y-auto')}
               updateUrl={(playlist: PlaylistT) => {
-                props.urlState.setPlaylistSlug(playlist.slug, true);
+                if (props.playlist?.slug !== playlist.slug) {
+                  props.urlState.setPlaylistSlug(playlist.slug, true);
+                }
               }}
             />
           )}

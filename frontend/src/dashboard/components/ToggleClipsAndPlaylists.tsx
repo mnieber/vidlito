@@ -12,19 +12,21 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.dashboardState,
+  ...dps.clip,
   ...dps.clips,
   ...dps.playlists,
+  ...dps.urlState,
 };
 
 export const ToggleClipsAndPlaylists = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const showClips = React.useMemo(
-      () => () => props.dashboardState.setShowClips(true),
-      [props.dashboardState]
-    );
-    const showPlaylists = React.useMemo(
-      () => () => props.dashboardState.setShowClips(false),
-      [props.dashboardState]
+    const updateUrl = React.useMemo(
+      () => () => {
+        if (props.clip) {
+          props.urlState.setClipSlug(props.clip.slug, true);
+        }
+      },
+      [props.urlState, props.clip]
     );
 
     return (
@@ -44,7 +46,10 @@ export const ToggleClipsAndPlaylists = observer(
               props.playlists
             ),
           })}
-          onClick={showPlaylists}
+          onClick={() => {
+            props.dashboardState.setShowClips(false);
+            updateUrl();
+          }}
         >
           Playlists
         </button>
@@ -54,7 +59,10 @@ export const ToggleClipsAndPlaylists = observer(
               props.dashboardState.showClips,
             'animate-[pulse_1s_ease-in-out_infinite]': isUpdating(props.clips),
           })}
-          onClick={showClips}
+          onClick={() => {
+            props.dashboardState.setShowClips(true);
+            updateUrl();
+          }}
         >
           Clips
         </button>

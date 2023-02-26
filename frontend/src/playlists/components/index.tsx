@@ -1,4 +1,5 @@
 export { EditPlaylistEffect } from './EditPlaylistEffect';
+export { ForwardToClipEffect } from './ForwardToClipEffect';
 export { NewPlaylistButton } from './NewPlaylistButton';
 export { PlaylistDescription } from './PlaylistDescription';
 export { PlaylistFormView } from './PlaylistFormView';

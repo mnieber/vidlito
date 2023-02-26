@@ -16,7 +16,7 @@ export const getPlaylist = (args: ArgsT) => {
   return doQuery(
     `query getPlaylist(
       $playlistSlug: String!
-      $playlistId: String
+      $playlistId: UUID
     ) {
       getPlaylist(
         playlistSlug: $playlistSlug

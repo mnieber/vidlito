@@ -11,6 +11,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.actionsState,
+  ...dps.urlState,
 };
 
 export const ActionsBar = observer(
@@ -40,7 +41,7 @@ export const ActionsBar = observer(
           Playlist actions
         </label>
         <div className={cn('ml-auto')}>
-          <button>
+          <button onClick={() => props.urlState.closeActions()}>
             <Icon name="close" />
           </button>
         </div>

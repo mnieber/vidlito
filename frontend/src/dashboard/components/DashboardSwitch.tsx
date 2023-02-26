@@ -5,6 +5,7 @@ import { Dashboard } from 'src/dashboard/components/Dashboard';
 import { MainView } from 'src/dashboard/components/MainView';
 import {
   EditPlaylistEffect,
+  ForwardToClipEffect,
   PlaylistFormView,
   SelectPlaylistEffect,
 } from 'src/playlists/components';
@@ -17,6 +18,9 @@ export const DashboardSwitch = () => {
       <Route exact={false} path={routes.playlist()}>
         <SelectPlaylistEffect />
         <EditPlaylistEffect />
+        <Route exact={true} path={routes.playlist()}>
+          <ForwardToClipEffect />
+        </Route>
         <Dashboard>
           <Route
             exact={true}

@@ -13,6 +13,7 @@ export class UrlState {
   routeUfns: ObjT;
   @observable playlistSlug?: string;
   @observable clipSlug?: string;
+  @observable urlBeforeGoToActions?: string;
 
   getSummary() {
     return {};
@@ -48,9 +49,15 @@ export class UrlState {
     this.history.push(getHomeRoute());
   }
 
-  goToActions() {
+  @action goToActions() {
+    this.urlBeforeGoToActions = this.history.location.pathname;
     const ufn = this.routeUfns.actions(this.history.push);
     ufn(this.playlistSlug);
+  }
+
+  @action closeActions() {
+    this.history.push(this.urlBeforeGoToActions);
+    this.urlBeforeGoToActions = undefined;
   }
 
   constructor(props: PropsT) {
