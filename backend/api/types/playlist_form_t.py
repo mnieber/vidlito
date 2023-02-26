@@ -2,9 +2,9 @@ import graphene
 
 
 class PlaylistFormT(graphene.InputObjectType):
-    description = graphene.String(required=False)
-    name = graphene.String()
-    slug = graphene.String(required=False)
-    tags = graphene.List(graphene.String)
-    id = graphene.UUID()
-    owner_id = graphene.UUID()
+    description = graphene.String()
+    name = graphene.String(required=True)
+    slug = graphene.String()
+    tags = graphene.List(graphene.String, required=True)
+    id = graphene.UUID(required=True)
+    owner_id = graphene.UUID(required=True)

@@ -6,26 +6,20 @@ from clips.models import Clip
 f = faker.Faker()
 
 
-def create_random_clip():
+def create_random_clip(
+    owner_id,
+):
     obj, created = Clip.objects.get_or_create(
-        description="# " + f.word(),
         name=f.word(),
-        slug=f.word(),
-        url=f.word(),
-        start_time_ms=f.random_int(),
-        end_time_ms=f.random_int(),
         tags=[f.word(), f.word()],
+        owner_id=owner_id,
     )
     return obj
 
 
 def create_random_clip_form():
     return ClipFormT(
-        description="# " + f.word(),
         name=f.word(),
-        slug=f.word(),
-        url=f.word(),
-        start_time_ms=f.random_int(),
-        end_time_ms=f.random_int(),
         tags=[f.word(), f.word()],
+        owner_id=f.uuid4(),
     )

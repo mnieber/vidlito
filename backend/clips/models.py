@@ -1,7 +1,8 @@
-from app.models import Entity
 from django.db import models
 from django.utils.text import slugify
 from martor.models import MartorField
+
+from app.models import Entity
 from user_profiles.models import UserProfile
 
 

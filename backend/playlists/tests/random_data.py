@@ -10,9 +10,7 @@ def create_random_playlist(
     owner_id,
 ):
     obj, created = Playlist.objects.get_or_create(
-        description="# " + f.word(),
         name=f.word(),
-        slug=f.word(),
         tags=[f.word(), f.word()],
         owner_id=owner_id,
     )
@@ -21,9 +19,7 @@ def create_random_playlist(
 
 def create_random_playlist_form():
     return PlaylistFormT(
-        description="# " + f.word(),
         name=f.word(),
-        slug=f.word(),
         tags=[f.word(), f.word()],
         owner_id=f.uuid4(),
     )
@@ -34,6 +30,7 @@ def create_random_entry(
     playlist_id,
 ):
     obj, created = Entry.objects.get_or_create(
+        is_deleted=f.boolean(),
         clip_id=clip_id,
         playlist_id=playlist_id,
     )

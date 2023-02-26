@@ -8,6 +8,6 @@ from app.utils.serve_static import serve_static
 
 urlpatterns = [
     path(r"admin/", admin.site.urls),
-    path("martor/", include("martor.urls")),
     path(r"graphql/", csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path("martor/", include("martor.urls")),
 ] + ([] + serve_static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))
