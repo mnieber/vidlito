@@ -11,7 +11,7 @@ class SavePlaylist(graphene.Mutation):
     errors = GenericScalar()
 
     class Arguments:
-        playlist_form = PlaylistFormT()
+        playlist_form = PlaylistFormT(required=True)
 
     def mutate(self, info, playlist_form):
         id = playlist_form.pop("id")

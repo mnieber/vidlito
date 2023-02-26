@@ -1,11 +1,10 @@
 def create_get_actions_query(
-    playlist_slug,
     playlist_id,
     action_set_outputs=None,
 ):
     result = """
         query getActions(
-            $playlistId: String,
+            $playlistId: UUID!,
         ) {
             getActions(
                 $playlistId: playlistId,

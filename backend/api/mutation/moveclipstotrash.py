@@ -14,8 +14,8 @@ class MoveClipsToTrash(graphene.Mutation):
     errors = GenericScalar()
 
     class Arguments:
-        playlist_id = graphene.UUID()
-        clip_ids = graphene.List(graphene.UUID)
+        playlist_id = graphene.UUID(required=True)
+        clip_ids = graphene.List(graphene.UUID, required=True)
 
     def mutate(self, info, playlist_id, clip_ids):
         playlist = Playlist.objects.get(id=playlist_id)

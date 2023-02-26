@@ -5,8 +5,8 @@ def create_get_playlist_query(
 ):
     result = """
         query getPlaylist(
-            $playlistSlug: String,
-            $playlistId: String,
+            $playlistSlug: String!,
+            $playlistId: UUID,
         ) {
             getPlaylist(
                 $playlistSlug: playlistSlug,

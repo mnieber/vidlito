@@ -10,10 +10,7 @@ class GetActionsOutputs(graphene.ObjectType):
 
 
 class GetActions:
-    get_actions = graphene.Field(
-        GetActionsOutputs,
-        playlist_id=graphene.UUID(),
-    )
+    get_actions = graphene.Field(GetActionsOutputs, playlist_id=graphene.UUID())
 
     def resolve_get_actions(self, info, playlist_id=None):
         if playlist_id:

@@ -12,7 +12,7 @@ class GetPlaylist:
     get_playlist = graphene.Field(
         GetPlaylistOutputs,
         playlist_slug=graphene.String(required=True),
-        playlist_id=graphene.String(),
+        playlist_id=graphene.UUID(),
     )
 
     def resolve_get_playlist(self, info, playlist_slug, playlist_id=None):

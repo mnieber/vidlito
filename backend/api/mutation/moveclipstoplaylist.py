@@ -10,10 +10,10 @@ class MoveClipsToPlaylist(graphene.Mutation):
     errors = GenericScalar()
 
     class Arguments:
-        src_playlist_id = graphene.UUID()
-        dest_playlist_id = graphene.UUID()
-        clip_ids = graphene.List(graphene.UUID)
-        copy = graphene.Boolean()
+        src_playlist_id = graphene.UUID(required=True)
+        dest_playlist_id = graphene.UUID(required=True)
+        clip_ids = graphene.List(graphene.UUID, required=True)
+        copy = graphene.Boolean(required=True)
 
     def mutate(self, info, src_playlist_id, dest_playlist_id, clip_ids, copy):
         clean_clip_ids = [x.replace("-", "") for x in clip_ids]
