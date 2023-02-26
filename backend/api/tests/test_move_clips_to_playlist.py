@@ -12,17 +12,13 @@ from .create_move_clips_to_playlist_mutation import (
 
 class TestMoveClipsToPlaylistMutation(GraphqlTestCase):
     @pytest.fixture()
-    def playlist(self, user_profile):
-        return create_random_playlist(user_profile_id=user_profile.id)
+    def playlist(self, owner):
+        return create_random_playlist(owner_id=owner.id)
 
     @pytest.fixture()
-    def playlist(self, user_profile):
-        return create_random_playlist(user_profile_id=user_profile.id)
-
-    @pytest.fixture()
-    def clips(self):
-        x1 = create_random_clip()
-        x2 = create_random_clip()
+    def clips(self, owner):
+        x1 = create_random_clip(owner_id=owner.id)
+        x2 = create_random_clip(owner_id=owner.id)
         return [x1, x2]
 
     @pytest.mark.django_db()

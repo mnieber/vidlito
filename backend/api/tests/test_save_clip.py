@@ -11,17 +11,23 @@ from .create_save_clip_mutation import create_save_clip_mutation
 
 class TestSaveClipMutation(GraphqlTestCase):
     @pytest.fixture()
-    def playlist(self, user_profile):
-        return create_random_playlist(user_profile_id=user_profile.id)
+    def playlist(self, owner):
+        return create_random_playlist(owner_id=owner.id)
+
+    @pytest.fixture()
+    def clip(self, owner):
+        return create_random_clip(owner_id=owner.id)
 
     @pytest.mark.django_db()
     def test_save_clip__(
         self,
         playlist,
+        clip,
         client_query,
     ):
         query, operation_name, variables = create_save_clip_mutation(
             playlist_id=str(playlist.id),
+            clip_id=str(clip.id),
             clip_form=create_random_clip_form(),
             output_values=["success", "errors"],
         )

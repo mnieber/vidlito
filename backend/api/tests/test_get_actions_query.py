@@ -8,9 +8,9 @@ from .create_get_actions_query import create_get_actions_query
 
 class TestGetActionsQuery(GraphqlTestCase):
     @pytest.fixture()
-    def actions(self, user_profile):
-        x1 = create_random_action(user_profile_id=user_profile.id)
-        x2 = create_random_action(user_profile_id=user_profile.id)
+    def actions(self, owner):
+        x1 = create_random_action(owner_id=owner.id)
+        x2 = create_random_action(owner_id=owner.id)
         return [x1, x2]
 
     @pytest.mark.django_db()
@@ -20,9 +20,7 @@ class TestGetActionsQuery(GraphqlTestCase):
         action_set,
     ):
         query, operation_name, variables = create_get_actions_query(
-            playlist_slug=playlist_slug,
-            playlist_id=playlist_id,
-            action_set_outputs=["id"],
+            playlist_id=playlist_id, action_set_outputs=["id"]
         )
         response = client_query(
             query, operation_name=operation_name, variables=variables

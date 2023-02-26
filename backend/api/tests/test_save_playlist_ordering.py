@@ -11,9 +11,9 @@ from .create_save_playlist_ordering_mutation import (
 
 class TestSavePlaylistOrderingMutation(GraphqlTestCase):
     @pytest.fixture()
-    def playlists(self, user_profile):
-        x1 = create_random_playlist(user_profile_id=user_profile.id)
-        x2 = create_random_playlist(user_profile_id=user_profile.id)
+    def playlists(self, owner):
+        x1 = create_random_playlist(owner_id=owner.id)
+        x2 = create_random_playlist(owner_id=owner.id)
         return [x1, x2]
 
     @pytest.mark.django_db()

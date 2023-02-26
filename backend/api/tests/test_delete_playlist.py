@@ -10,8 +10,8 @@ from .create_delete_playlist_mutation import create_delete_playlist_mutation
 
 class TestDeletePlaylistMutation(GraphqlTestCase):
     @pytest.fixture()
-    def playlist(self, user_profile):
-        return create_random_playlist(user_profile_id=user_profile.id)
+    def playlist(self, owner):
+        return create_random_playlist(owner_id=owner.id)
 
     @pytest.mark.django_db()
     def test_delete_playlist__(
