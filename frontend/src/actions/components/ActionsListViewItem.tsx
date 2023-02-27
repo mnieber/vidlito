@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import * as R from 'ramda';
 import {
   highlightUIHandlers,
   HighlightUIPropsT,
@@ -13,6 +14,7 @@ import './ActionsListViewItem.scss';
 export type PropsT = {
   action: ActionT;
   highlightUIProps: HighlightUIPropsT;
+  isExpanded: boolean;
   className?: any;
 };
 
@@ -39,7 +41,7 @@ export const ActionsListViewItem = observer((props: PropsT) => {
         className={cn('ActionsListViewItem__Title', rowSkewer, 'justify-start')}
       >
         <div className={cn('ActionsListViewItem__Field')}>
-          {getTeaser(props.action)}
+          {getTeaser(props.action, props.isExpanded)}
         </div>
       </div>
       <div
@@ -56,8 +58,12 @@ export const ActionsListViewItem = observer((props: PropsT) => {
   );
 });
 
-const getTeaser = (action: ActionT) => {
-  const clipNames = action.data.clip_names;
+const getTeaser = (action: ActionT, isExpanded: boolean) => {
+  const clipNames = isExpanded
+    ? action.data.clip_names
+    : R.take(3, action.data.clip_names);
+  const postfix = isExpanded ? '' : '...';
   const label = clipNames.length > 1 ? 'clips' : 'clip';
-  return `Removed ${clipNames.length} ${label}: ${clipNames.join(', ')}`;
+  const text = `Removed ${clipNames.length} ${label}: ${clipNames.join(', ')}`;
+  return text + postfix;
 };

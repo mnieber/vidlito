@@ -58,6 +58,7 @@ const icons: ObjT = {
 export type PropsT = {
   name: string;
   ratio?: number;
+  onClick?: () => void;
   className?: any;
 };
 
@@ -68,6 +69,7 @@ export const Icon = (props: PropsT) => {
     <div
       className={cn('Icon', '!mr-2', props.className)}
       style={{ height: 20 * ratio, width: 20 * ratio }}
+      onClick={props.onClick}
     >
       {svg}
     </div>
