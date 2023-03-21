@@ -40,18 +40,17 @@ export const ClipsStateProvider = observer(
         get clips() {
           const clipsDisplay = clipsState.clips.data.clipsDisplay;
           return cloneAndSetState(clipsDisplay, [
-            ['loading', props.playlist, 'playlist'],
-            ['updating', props.playlist, 'playlist'],
+            [['loading', 'playlist'], props.playlist],
+            [['updating', 'playlist'], props.playlist],
             [
-              'updating',
+              ['updating', 'moveClipsToPlaylist'],
               [moveClipsToPlaylist, !!clipsDisplay],
-              'moveClipsToPlaylist',
             ],
           ]);
         },
         get clip() {
           return cloneAndSetState(clipsState.clips.highlight.item, [
-            ['loading', props.playlist],
+            [['loading', 'playlist'], props.playlist],
           ]);
         },
       })

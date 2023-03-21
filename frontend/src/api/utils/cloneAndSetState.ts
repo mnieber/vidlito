@@ -29,7 +29,9 @@ export const cloneAndSetState = (
   let resultState: ResourceStateT = undefined;
 
   for (const source of sources) {
-    let [srcState, srcRes, srcLabel] = source;
+    let [[srcState, srcLabel], srcRes] = source;
+
+    // If srcRes is an array, then it's an endpoint. If the flag is false, we skip it.
     if (Array.isArray(srcRes)) {
       const [endpoint, flag] = srcRes;
       if (!flag) {
@@ -42,6 +44,10 @@ export const cloneAndSetState = (
         endpoint.status === 'loading' ||
         (endpoint.status === 'idle' && srcState === 'loading');
       setState(srcRes, isEndpointLoading ? srcState : 'ready');
+    }
+    // If srcRes is not an array, then it's a resource.
+    else {
+      // Do nothing
     }
 
     if (srcState === 'loading' && isLoading(srcRes)) {

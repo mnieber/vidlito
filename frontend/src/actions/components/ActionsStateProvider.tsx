@@ -44,14 +44,12 @@ export const ActionsStateProvider = observer(
           const actionsDisplay = actionsState.actions.data.actions;
           return cloneAndSetState(actionsDisplay, [
             [
-              'loading',
+              ['loading', 'getActions'],
               [getActions, !getActions.data?.actionSet],
-              'getActions',
             ],
             [
-              'updating',
+              ['updating', 'getActions'],
               [getActions, !!getActions.data?.actionSet],
-              'getActions',
             ],
           ]);
         },

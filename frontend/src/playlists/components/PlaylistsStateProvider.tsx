@@ -61,15 +61,21 @@ export const PlaylistsStateProvider = observer(
         get playlists() {
           return cloneAndSetState(
             playlistsState.playlists.data.playlistsDisplay,
-            [['loading', props.userProfile]]
+            [[['loading', 'userProfile'], props.userProfile]]
           );
         },
         get playlist() {
           const fullPlaylist = getPlaylist.data?.playlist;
           return cloneAndSetState(playlistsState.playlists.highlight.item, [
-            ['loading', props.userProfile, 'userProfile'],
-            ['loading', [getPlaylist, !fullPlaylist], 'getPlaylist'],
-            ['updating', [getPlaylist, !!fullPlaylist], 'getPlaylist'],
+            [['loading', 'userProfile'], props.userProfile],
+            [
+              ['loading', 'getPlaylist'],
+              [getPlaylist, !fullPlaylist],
+            ],
+            [
+              ['updating', 'getPlaylist'],
+              [getPlaylist, !!fullPlaylist],
+            ],
           ]);
         },
       })
