@@ -7,6 +7,7 @@ import { isLoading } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Spinner } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
+import { rowSkewer } from 'src/frames/components/Skewer';
 import { cn } from 'src/utils/classnames';
 import './ActionsListView.scss';
 
@@ -17,6 +18,7 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.actions,
   ...dps.actionsHighlight,
+  ...dps.actionsState,
 };
 
 export const ActionsListView = observer(
@@ -41,20 +43,23 @@ export const ActionsListView = observer(
     const actionDivs: any[] = [];
     props.actions.forEach((action) => {
       const toggle = (
-        <Icon
-          className="ActionsListView_Toggle"
-          key={`icon-${action.id}`}
-          name="arrow-right"
-          onClick={() => {
-            state.setIsExpanded(action.id, !state.isExpanded[action.id]);
-          }}
-        />
+        <div
+          key={`toggle-${action.id}`}
+          className={cn('ActionsListView_Toggle', rowSkewer)}
+        >
+          <Icon
+            name="cheveron-right"
+            onClick={() => {
+              state.setIsExpanded(action.id, !state.isExpanded[action.id]);
+            }}
+          />
+        </div>
       );
 
       const name = (
         <div
           key={`label-${action.id}`}
-          className="ActionsListView_PlaylistLabel"
+          className={cn('ActionsListView_PlaylistLabel', rowSkewer)}
         >
           {action.data.playlist_name}
         </div>
@@ -66,6 +71,9 @@ export const ActionsListView = observer(
           action={action}
           isExpanded={state.isExpanded[action.id] ?? false}
           highlightUIProps={highlightUIConnector.handle(action.id)}
+          onClick={() => {
+            props.actionsState.undoAction(action);
+          }}
         />
       );
 

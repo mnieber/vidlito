@@ -24,7 +24,7 @@ export const ForwardToClipEffect = observer(
           };
         }}
         f={(args: ArgsT) => {
-          if (args.playlist) {
+          if (args.playlist && args.playlist.clipSet.length) {
             props.urlState.setClipSlug(args.playlist.clipSet[0].slug, true);
           }
         }}

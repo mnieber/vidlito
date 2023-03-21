@@ -15,6 +15,7 @@ export type PropsT = {
   action: ActionT;
   highlightUIProps: HighlightUIPropsT;
   isExpanded: boolean;
+  onClick: () => void;
   className?: any;
 };
 
@@ -48,9 +49,12 @@ export const ActionsListViewItem = observer((props: PropsT) => {
         className={cn('ActionsListViewItem__Buttons', rowSkewer, 'justify-end')}
       >
         <button
-          className={cn({ invisible: !props.highlightUIProps.isHighlighted })}
+          className={cn('ActionsListViewItem__UndoButton', rowSkewer, {
+            invisible: !props.highlightUIProps.isHighlighted,
+          })}
+          onClick={props.onClick}
         >
-          <Icon name="check" />
+          <Icon name="reply" />
           Undo
         </button>
       </div>

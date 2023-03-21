@@ -1,4 +1,5 @@
 import { initRS } from 'src/api/ResourceState';
+import { UserProfileT } from 'src/api/types/UserProfileT';
 import { createUUID } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 
@@ -7,6 +8,7 @@ export type ClipT = {
   endTimeMs?: number;
   id: string;
   name: string;
+  owner: UserProfileT;
   slug: string;
   startTimeMs?: number;
   tags: string[];

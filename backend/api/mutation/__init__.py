@@ -10,6 +10,7 @@ from .saveclip import SaveClip
 from .saveclipordering import SaveClipOrdering
 from .saveplaylist import SavePlaylist
 from .saveplaylistordering import SavePlaylistOrdering
+from .undoaction import UndoAction
 
 
 class GrapheneNonEmptyMutation(graphene.Mutation):
@@ -28,3 +29,4 @@ class Mutation(user_accounts.schema.Mutation, GrapheneNonEmptyMutation):
     save_clip_ordering = SaveClipOrdering.Field()
     save_playlist = SavePlaylist.Field()
     save_playlist_ordering = SavePlaylistOrdering.Field()
+    undo_action = UndoAction.Field()

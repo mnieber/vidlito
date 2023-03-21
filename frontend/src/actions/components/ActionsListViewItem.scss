@@ -1,5 +1,11 @@
 .ActionsListViewItem {
   @apply cursor-pointer;
+
+  &:hover {
+    .ActionsListViewItem__UndoButton {
+      // @apply visible;
+    }
+  }
 }
 
 

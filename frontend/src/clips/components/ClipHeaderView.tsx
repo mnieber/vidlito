@@ -64,7 +64,7 @@ export const ClipHeaderView = observer(
             </button>
           </div>
           <div className={cn('ClipHeaderView__TitleAuthor')}>
-            By: {props.playlist.owner.displayName}
+            By: {props.clip.owner.displayName}
           </div>
           <ClipTagsView />
         </div>

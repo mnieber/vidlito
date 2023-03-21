@@ -1,3 +1,4 @@
+import { action } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { mapDataToProps, pmap } from 'skandha';
@@ -38,6 +39,10 @@ export class ActionsState {
 
   destroy() {
     cleanUpCtr(this);
+  }
+
+  @action undoAction(action: ActionT) {
+    // TODO
   }
 
   constructor(props: PropsT) {
