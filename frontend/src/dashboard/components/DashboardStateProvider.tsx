@@ -40,8 +40,8 @@ export const DashboardStateProvider = observer(
         get userProfile() {
           return cloneAndSetState(loadUserId.data?.userProfile, [
             [
-              ['loading', 'userProfile'],
-              [loadUserId, !loadUserId.data?.userProfile],
+              ['loading', 'loadUserId'],
+              !loadUserId.data?.userProfile ? loadUserId : undefined,
             ],
           ]);
         },

@@ -45,11 +45,11 @@ export const ActionsStateProvider = observer(
           return cloneAndSetState(actionsDisplay, [
             [
               ['loading', 'getActions'],
-              [getActions, !getActions.data?.actionSet],
+              !getActions.data?.actionSet ? getActions : undefined,
             ],
             [
               ['updating', 'getActions'],
-              [getActions, !!getActions.data?.actionSet],
+              !!getActions.data?.actionSet ? getActions : undefined,
             ],
           ]);
         },

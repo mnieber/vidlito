@@ -1,4 +1,5 @@
 import * as R from 'ramda';
+import { EndpointData } from 'src/api/EndpointData';
 import {
   initRS,
   isLoading,
@@ -31,12 +32,14 @@ export const cloneAndSetState = (
   for (const source of sources) {
     let [[srcState, srcLabel], srcRes] = source;
 
-    // If srcRes is an array, then it's an endpoint. If the flag is false, we skip it.
-    if (Array.isArray(srcRes)) {
-      const [endpoint, flag] = srcRes;
-      if (!flag) {
-        continue;
-      }
+    if (srcRes === undefined) {
+      // We allow the caller to pass in undefined sources. This is convenient
+      // in cases where the source must be enabled or disabled with a flag.
+      continue;
+    }
+
+    if (srcRes instanceof EndpointData) {
+      const endpoint = srcRes;
       srcRes = initRS({});
       srcLabel = srcLabel ?? endpoint.toString();
 
@@ -44,10 +47,6 @@ export const cloneAndSetState = (
         endpoint.status === 'loading' ||
         (endpoint.status === 'idle' && srcState === 'loading');
       setState(srcRes, isEndpointLoading ? srcState : 'ready');
-    }
-    // If srcRes is not an array, then it's a resource.
-    else {
-      // Do nothing
     }
 
     if (srcState === 'loading' && isLoading(srcRes)) {

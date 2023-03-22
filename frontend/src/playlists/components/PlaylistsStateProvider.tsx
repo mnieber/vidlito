@@ -70,11 +70,11 @@ export const PlaylistsStateProvider = observer(
             [['loading', 'userProfile'], props.userProfile],
             [
               ['loading', 'getPlaylist'],
-              [getPlaylist, !fullPlaylist],
+              !fullPlaylist ? getPlaylist : undefined,
             ],
             [
               ['updating', 'getPlaylist'],
-              [getPlaylist, !!fullPlaylist],
+              !!fullPlaylist ? getPlaylist : undefined,
             ],
           ]);
         },

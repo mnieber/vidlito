@@ -44,7 +44,7 @@ export const ClipsStateProvider = observer(
             [['updating', 'playlist'], props.playlist],
             [
               ['updating', 'moveClipsToPlaylist'],
-              [moveClipsToPlaylist, !!clipsDisplay],
+              !!clipsDisplay ? moveClipsToPlaylist : undefined,
             ],
           ]);
         },
