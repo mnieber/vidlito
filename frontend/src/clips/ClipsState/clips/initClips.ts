@@ -96,6 +96,7 @@ export const initClips = (state: ClipsState, props: PropsT) => {
     selectItem: {
       selectItem(this: SelectionCbs['selectItem']) {
         handleSelectItem(ctr.selection, this.selectionParams);
+        // Highlight follows selection
         if (!this.selectionParams.isCtrl && !this.selectionParams.isShift) {
           ctr.highlight.highlightItem(this.selectionParams.itemId);
         }

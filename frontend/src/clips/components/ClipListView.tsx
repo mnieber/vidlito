@@ -33,8 +33,8 @@ export const ClipListView = observer(
     const selectionUIConnector = useSelectionUIConnector(
       props.clipsSelection,
       {
-        onSelectItem: createOnSelectItemHandler(props.clips, props.updateUrl),
         itemSelector: '.ClipListViewItem',
+        onSelectItem: createOnSelectItemHandler(props.clips, props.updateUrl),
       },
       [props.clips, props.updateUrl]
     );
@@ -48,7 +48,7 @@ export const ClipListView = observer(
     const clipDivs = props.clips.map((clip, idx) => {
       return (
         <ClipListViewItem
-          key={clip.id}
+          key={`item-${clip.id}`}
           clip={clip}
           isHighlighted={clip && props.clipsHighlight.id === clip.id}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
