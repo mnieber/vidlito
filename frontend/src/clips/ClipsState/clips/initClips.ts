@@ -67,7 +67,7 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       },
     },
     cancel: {
-      exit() {
+      onCancel() {
         ctr.addition.cancel();
       },
     },

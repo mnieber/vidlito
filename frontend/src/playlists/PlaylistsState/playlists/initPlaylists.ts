@@ -55,7 +55,7 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
       },
     },
     cancel: {
-      exit() {
+      onCancel() {
         ctr.addition.cancel();
       },
     },
