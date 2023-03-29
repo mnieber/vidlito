@@ -33,5 +33,5 @@ export const createClip = (values: ObjT): ClipT => {
     id: createUUID(),
     name: 'New clip',
     slug: 'new-clip',
-  }) as ClipT;
+  } as ClipT);
 };

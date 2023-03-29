@@ -1,13 +1,10 @@
+import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
+import React from 'react';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Effect } from 'src/utils/components';
-
-type ArgsT = {
-  playlist?: PlaylistT;
-  playlistSlug: string;
-};
+import { useSearchAndUrlParams } from 'src/utils/hooks';
 
 type PropsT = {};
 
@@ -21,27 +18,27 @@ const DefaultProps = {
 
 export const SelectPlaylistEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    return (
-      <Effect
-        getArgs={(params) => {
-          return {
-            playlist: R.find((x: PlaylistT) => x.slug === params.playlistSlug)(
-              props.playlists
-            ),
-            playlistSlug: params.playlistSlug,
-          };
-        }}
-        f={(args: ArgsT) => {
-          props.urlState.setPlaylistSlug(args.playlistSlug, false);
-          if (
-            args.playlist &&
-            !props.playlistsSelection.ids.includes(args.playlist.id)
-          ) {
-            props.playlistsSelection.selectItem({ itemId: args.playlist.id });
-            props.playlistsHighlight.highlightItem(args.playlist.id);
-          }
-        }}
-      />
-    );
+    const params = useSearchAndUrlParams();
+
+    React.useEffect(() => {
+      return autorun(() => {
+        const playlist = R.find(
+          (x: PlaylistT) => x.slug === params.playlistSlug
+        )(props.playlists);
+        props.urlState.setPlaylistSlug(params.playlistSlug, false);
+        if (playlist && !props.playlistsSelection.ids.includes(playlist.id)) {
+          props.playlistsSelection.selectItem({ itemId: playlist.id });
+          props.playlistsHighlight.highlightItem(playlist.id);
+        }
+      });
+    }, [
+      params,
+      props.playlists,
+      props.playlistsHighlight,
+      props.playlistsSelection,
+      props.urlState,
+    ]);
+
+    return null;
   }, DefaultProps)
 );

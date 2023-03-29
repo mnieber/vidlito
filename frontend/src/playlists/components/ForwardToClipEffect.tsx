@@ -1,11 +1,8 @@
+import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { PlaylistT } from 'src/api/types/PlaylistT';
+import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Effect } from 'src/utils/components';
-
-type ArgsT = {
-  playlist?: PlaylistT;
-};
+import { useSearchAndUrlParams } from 'src/utils/hooks';
 
 type PropsT = {};
 
@@ -16,19 +13,20 @@ const DefaultProps = {
 
 export const ForwardToClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    return (
-      <Effect
-        getArgs={(params) => {
-          return {
-            playlist: props.playlist,
-          };
-        }}
-        f={(args: ArgsT) => {
-          if (args.playlist && args.playlist.clipSet.length) {
-            props.urlState.setClipSlug(args.playlist.clipSet[0].slug, true);
-          }
-        }}
-      />
-    );
+    const params = useSearchAndUrlParams();
+
+    React.useEffect(() => {
+      return autorun(() => {
+        if (
+          props.playlist &&
+          props.playlist.slug === params.playlistSlug &&
+          props.playlist.clipSet.length
+        ) {
+          props.urlState.setClipSlug(props.playlist.clipSet[0].slug, true);
+        }
+      });
+    }, [params, props.playlist, props.urlState]);
+
+    return null;
   }, DefaultProps)
 );
