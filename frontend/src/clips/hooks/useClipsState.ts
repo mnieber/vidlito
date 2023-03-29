@@ -34,7 +34,7 @@ export const useClipsState = (props: PropsT) => {
   const [clipsState] = React.useState<ClipsState>(() => {
     return new ClipsState({
       moveClipsToTrash: action((ids: string[]) => {
-        const clips = lookUp(ids, clipsState.clips.data.clipById);
+        const clips = lookUp(ids, clipsState.clipsCtr.data.clipById);
         R.map(setToUpdating, clips);
         return moveClipsToTrash
           .mutateAsync({
@@ -54,7 +54,7 @@ export const useClipsState = (props: PropsT) => {
             playlistId: propsRef.current?.playlist.id,
             playlistSlug: propsRef.current?.playlist.slug,
             clipForm: values.clipForm,
-            parentClipId: clipsState.clips.addition.parentId,
+            parentClipId: clipsState.clipsCtr.addition.parentId,
           } as SaveClipArgsT)
           .then(() => {
             return values.clipForm;

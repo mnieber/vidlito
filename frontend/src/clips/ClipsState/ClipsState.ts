@@ -7,7 +7,10 @@ import { DragAndDrop } from 'skandha-facets/DragAndDrop';
 import { Editing } from 'skandha-facets/Editing';
 import { Highlight } from 'skandha-facets/Highlight';
 import { Insertion } from 'skandha-facets/Insertion';
-import * as FacetPolicies from 'skandha-facets/policies';
+import {
+  DragSourceFromNewItem,
+  insertionPreviewUsesDragSources,
+} from 'skandha-facets/policies';
 import { Selection } from 'skandha-facets/Selection';
 import { registerCtr } from 'skandha-mobx';
 import { ClipT } from 'src/api/types/ClipT';
@@ -29,7 +32,7 @@ export type PropsT = {
 export class ClipsState {
   props: PropsT;
 
-  clips = {
+  clipsCtr = {
     data: new ClipsData(),
     addition: new Addition<ClipT>(),
     deletion: new Deletion(),
@@ -41,55 +44,55 @@ export class ClipsState {
   };
 
   moveClipsToPlaylist(playlistId: string, copy: boolean = false) {
-    const clips = this.clips.selection.items;
+    const clips = this.clipsCtr.selection.items;
     return this.props.moveClipsToPlaylist(clips, playlistId, copy);
   }
 
   _clipsMapData(props: PropsT) {
     const getClipById = (x: string | undefined) =>
-      x ? this.clips.data.clipById[x] : undefined;
+      x ? this.clipsCtr.data.clipById[x] : undefined;
 
     mapDataToProps(
       pmap(
         //
-        [this.clips.selection, 'selectableIds'],
-        () => getIds(this.clips.data.clipsDisplay)
+        [this.clipsCtr.selection, 'selectableIds'],
+        () => getIds(this.clipsCtr.data.clipsDisplay)
       ),
       pmap(
         //
-        [this.clips.selection, 'items'],
-        () => this.clips.selection.ids.map(getClipById as any)
+        [this.clipsCtr.selection, 'items'],
+        () => this.clipsCtr.selection.ids.map(getClipById as any)
       ),
       pmap(
         //
-        [this.clips.highlight, 'item'],
-        () => getClipById(this.clips.highlight.id)
+        [this.clipsCtr.highlight, 'item'],
+        () => getClipById(this.clipsCtr.highlight.id)
       ),
       pmap(
         //
-        [this.clips.insertion, 'inputItems'],
-        () => this.clips.data.clips
+        [this.clipsCtr.insertion, 'inputItems'],
+        () => this.clipsCtr.data.clips
       ),
       pmap(
         //
-        [this.clips.insertion, 'preview'],
+        [this.clipsCtr.insertion, 'preview'],
         () =>
-          FacetPolicies.insertionPreviewUsesDragSources(
-            [FacetPolicies.DragSourceFromNewItem],
-            this.clips
-          )(this.clips.insertion.inputItems)
+          insertionPreviewUsesDragSources(
+            [DragSourceFromNewItem],
+            this.clipsCtr
+          )(this.clipsCtr.insertion.inputItems)
       ),
       pmap(
         //
-        [this.clips.data, 'clipsDisplay'],
-        () => this.clips.insertion.preview
+        [this.clipsCtr.data, 'clipsDisplay'],
+        () => this.clipsCtr.insertion.preview
       )
     );
   }
 
   getSummary() {
     return {
-      clips: Skandha.getCtrState(this.clips),
+      clips: Skandha.getCtrState(this.clipsCtr),
     };
   }
 
@@ -101,7 +104,7 @@ export class ClipsState {
     this.props = props;
 
     registerCtr({
-      ctr: this.clips,
+      ctr: this.clipsCtr,
       options: { name: 'ClipsState.Clips' },
       initCtr: () => {
         initClips(this, props);

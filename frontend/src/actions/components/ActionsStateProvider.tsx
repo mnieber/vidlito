@@ -33,8 +33,8 @@ export const ActionsStateProvider = observer(
         actions: getActions.data?.actionSet,
       }),
       updateState: (inputs) => {
-        actionsState.actions.data.actions = inputs.actions ?? [];
-        R.forEach(initRS, actionsState.actions.data.actions);
+        actionsState.actionsCtr.data.actions = inputs.actions ?? [];
+        R.forEach(initRS, actionsState.actionsCtr.data.actions);
       },
       logState: () => {
         log('ActionsState updated', actionsState.getSummary());
@@ -44,7 +44,7 @@ export const ActionsStateProvider = observer(
     const [cache] = React.useState(() =>
       makeAutoObservable({
         get actions() {
-          const actionsDisplay = actionsState.actions.data.actions;
+          const actionsDisplay = actionsState.actionsCtr.data.actions;
           return cloneAndSetState(actionsDisplay, [
             [
               ['loading', 'getActions'],
@@ -57,7 +57,7 @@ export const ActionsStateProvider = observer(
           ]);
         },
         get action() {
-          return actionsState.actions.highlight.item;
+          return actionsState.actionsCtr.highlight.item;
         },
       })
     );
@@ -73,7 +73,7 @@ export const ActionsStateProvider = observer(
         ...result.defaultProps,
         actions: () => cache.actions,
         action: () => cache.action,
-        actionsHighlight: () => actionsState.actions.highlight,
+        actionsHighlight: () => actionsState.actionsCtr.highlight,
       };
 
       return result;

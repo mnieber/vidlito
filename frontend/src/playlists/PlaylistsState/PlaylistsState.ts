@@ -7,7 +7,10 @@ import { DragAndDrop } from 'skandha-facets/DragAndDrop';
 import { Editing } from 'skandha-facets/Editing';
 import { Highlight } from 'skandha-facets/Highlight';
 import { Insertion } from 'skandha-facets/Insertion';
-import * as FacetPolicies from 'skandha-facets/policies';
+import {
+  DragSourceFromNewItem,
+  insertionPreviewUsesDragSources,
+} from 'skandha-facets/policies';
 import { Selection } from 'skandha-facets/Selection';
 import { registerCtr } from 'skandha-mobx';
 import { PlaylistT } from 'src/api/types/PlaylistT';
@@ -25,7 +28,7 @@ export type PropsT = {
 export class PlaylistsState {
   settings = new Settings();
 
-  playlists = {
+  playlistsCtr = {
     data: new PlaylistsData(),
     addition: new Addition<PlaylistT>(),
     deletion: new Deletion(),
@@ -38,49 +41,49 @@ export class PlaylistsState {
 
   _playlistsMapData(props: PropsT) {
     const getPlaylistById = (x: string | undefined) =>
-      x ? this.playlists.data.playlistById[x] : undefined;
+      x ? this.playlistsCtr.data.playlistById[x] : undefined;
 
     mapDataToProps(
       pmap(
         //
-        [this.playlists.selection, 'selectableIds'],
-        () => getIds(this.playlists.data.playlistsDisplay)
+        [this.playlistsCtr.selection, 'selectableIds'],
+        () => getIds(this.playlistsCtr.data.playlistsDisplay)
       ),
       pmap(
         //
-        [this.playlists.selection, 'items'],
-        () => this.playlists.selection.ids.map(getPlaylistById as any)
+        [this.playlistsCtr.selection, 'items'],
+        () => this.playlistsCtr.selection.ids.map(getPlaylistById as any)
       ),
       pmap(
         //
-        [this.playlists.highlight, 'item'],
-        () => getPlaylistById(this.playlists.highlight.id)
+        [this.playlistsCtr.highlight, 'item'],
+        () => getPlaylistById(this.playlistsCtr.highlight.id)
       ),
       pmap(
         //
-        [this.playlists.insertion, 'inputItems'],
-        () => this.playlists.data.playlists
+        [this.playlistsCtr.insertion, 'inputItems'],
+        () => this.playlistsCtr.data.playlists
       ),
       pmap(
         //
-        [this.playlists.insertion, 'preview'],
+        [this.playlistsCtr.insertion, 'preview'],
         () =>
-          FacetPolicies.insertionPreviewUsesDragSources(
-            [FacetPolicies.DragSourceFromNewItem],
-            this.playlists
-          )(this.playlists.insertion.inputItems)
+          insertionPreviewUsesDragSources(
+            [DragSourceFromNewItem],
+            this.playlistsCtr
+          )(this.playlistsCtr.insertion.inputItems)
       ),
       pmap(
         //
-        [this.playlists.data, 'playlistsDisplay'],
-        () => this.playlists.insertion.preview
+        [this.playlistsCtr.data, 'playlistsDisplay'],
+        () => this.playlistsCtr.insertion.preview
       )
     );
   }
 
   getSummary() {
     return {
-      playlists: Skandha.getCtrState(this.playlists),
+      playlistsCtr: Skandha.getCtrState(this.playlistsCtr),
     };
   }
 
@@ -90,7 +93,7 @@ export class PlaylistsState {
 
   constructor(props: PropsT) {
     registerCtr({
-      ctr: this.playlists,
+      ctr: this.playlistsCtr,
       options: { name: 'PlaylistsState.Playlists' },
       initCtr: () => {
         initPlaylists(this, props);

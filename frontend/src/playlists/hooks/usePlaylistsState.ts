@@ -27,7 +27,7 @@ export const usePlaylistsState = (props: PropsT) => {
       deletePlaylists: (ids: string[]) => {
         const playlists = lookUp(
           ids,
-          playlistsState.playlists.data.playlistById
+          playlistsState.playlistsCtr.data.playlistById
         );
         R.map(setToUpdating, playlists);
         return Promise.all(

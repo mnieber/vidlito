@@ -27,8 +27,8 @@ export const ClipsStateProvider = observer(
         clips: props.playlist?.clipSet,
       }),
       updateState: (inputs) => {
-        clipsState.clips.data.clips = inputs.clips ?? [];
-        R.forEach(initRS, clipsState.clips.data.clips);
+        clipsState.clipsCtr.data.clips = inputs.clips ?? [];
+        R.forEach(initRS, clipsState.clipsCtr.data.clips);
       },
       logState: () => {
         log('ClipsState updated', clipsState.getSummary());
@@ -38,7 +38,7 @@ export const ClipsStateProvider = observer(
     const [cache] = React.useState(() =>
       makeAutoObservable({
         get clips() {
-          const clipsDisplay = clipsState.clips.data.clipsDisplay;
+          const clipsDisplay = clipsState.clipsCtr.data.clipsDisplay;
           return cloneAndSetState(clipsDisplay, [
             [['loading', 'playlist'], props.playlist],
             [['updating', 'playlist'], props.playlist],
@@ -49,7 +49,7 @@ export const ClipsStateProvider = observer(
           ]);
         },
         get clip() {
-          return cloneAndSetState(clipsState.clips.highlight.item, [
+          return cloneAndSetState(clipsState.clipsCtr.highlight.item, [
             [['loading', 'playlist'], props.playlist],
           ]);
         },
@@ -67,12 +67,12 @@ export const ClipsStateProvider = observer(
         ...result.defaultProps,
         clips: () => cache.clips,
         clip: () => cache.clip,
-        clipsAddition: () => clipsState.clips.addition,
-        clipsDeletion: () => clipsState.clips.deletion,
-        clipsDragAndDrop: () => clipsState.clips.dragAndDrop,
-        clipsEditing: () => clipsState.clips.editing,
-        clipsHighlight: () => clipsState.clips.highlight,
-        clipsSelection: () => clipsState.clips.selection,
+        clipsAddition: () => clipsState.clipsCtr.addition,
+        clipsDeletion: () => clipsState.clipsCtr.deletion,
+        clipsDragAndDrop: () => clipsState.clipsCtr.dragAndDrop,
+        clipsEditing: () => clipsState.clipsCtr.editing,
+        clipsHighlight: () => clipsState.clipsCtr.highlight,
+        clipsSelection: () => clipsState.clipsCtr.selection,
       };
 
       return result;

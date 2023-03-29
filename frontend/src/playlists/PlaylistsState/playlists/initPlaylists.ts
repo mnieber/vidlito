@@ -3,34 +3,34 @@ import {
   addCleanUpFunctionToCtr,
   cleanUpCtr,
 } from 'react-default-props-context';
+import { topOfTheList } from 'skandha-facets';
 import { AdditionCbs } from 'skandha-facets/Addition';
 import { DeletionCbs } from 'skandha-facets/Deletion';
 import { EditingCbs } from 'skandha-facets/Editing';
 import { HighlightCbs } from 'skandha-facets/Highlight';
 import { InsertionCbs } from 'skandha-facets/Insertion';
-import * as FacetPolicies from 'skandha-facets/policies';
 import { handleSelectItem, SelectionCbs } from 'skandha-facets/Selection';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { PlaylistsState, PropsT } from 'src/playlists/PlaylistsState';
 
 export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
-  const ctr = state.playlists;
+  const ctr = state.playlistsCtr;
   addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
   setCallbackMap(ctr.addition, {
     add: {
-      storeLocation() {
-        FacetPolicies.newItemsAreAddedBelowTheHighlight(ctr.addition);
+      stageAdd() {
+        ctr.addition.parentId = ctr.highlight.id || topOfTheList;
       },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
         ctr.highlight.highlightItem(ctr.addition.item?.id);
-        FacetPolicies.editingSetEnabled(ctr.addition);
+        ctr.editing.enable();
       },
     },
     cancel: {
-      restoreLocation() {
-        FacetPolicies.editingSetDisabled(ctr.addition);
+      unstageAdd() {
+        ctr.editing.cancel();
       },
     },
   } as AdditionCbs<PlaylistT>);
@@ -49,14 +49,14 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
         return props
           .savePlaylist(this.values)
           .then((localPlaylist: PlaylistT) => {
-            FacetPolicies.newItemsAreConfirmedOnEditingSave(ctr.editing);
+            ctr.addition.confirm();
             return localPlaylist;
           });
       },
     },
     cancel: {
       exit() {
-        FacetPolicies.newItemsAreCancelledOnEditingCancel(ctr.editing);
+        ctr.addition.cancel();
       },
     },
   } as EditingCbs);
@@ -64,7 +64,10 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
   setCallbackMap(ctr.highlight, {
     highlightItem: {
       enter(this: HighlightCbs['highlightItem']) {
-        FacetPolicies.cancelNewItemOnHighlightChange(ctr.highlight, this.id);
+        // Cancel adding a new item on highlight change
+        if (ctr.addition.item && ctr.addition.item.id !== this.id) {
+          ctr.addition.cancel();
+        }
       },
     },
   } as HighlightCbs);

@@ -13,27 +13,27 @@ export type PropsT = {};
 export class ActionsState {
   settings = new Settings();
 
-  actions = {
+  actionsCtr = {
     data: new ActionsData(),
     highlight: new Highlight<ActionT>(),
   };
 
   _actionsMapData(props: PropsT) {
     const getActionById = (x: string | undefined) =>
-      x ? this.actions.data.actionById[x] : undefined;
+      x ? this.actionsCtr.data.actionById[x] : undefined;
 
     mapDataToProps(
       pmap(
         //
-        [this.actions.highlight, 'item'],
-        () => getActionById(this.actions.highlight.id)
+        [this.actionsCtr.highlight, 'item'],
+        () => getActionById(this.actionsCtr.highlight.id)
       )
     );
   }
 
   getSummary() {
     return {
-      actions: Skandha.getCtrState(this.actions),
+      actions: Skandha.getCtrState(this.actionsCtr),
     };
   }
 
@@ -47,7 +47,7 @@ export class ActionsState {
 
   constructor(props: PropsT) {
     registerCtr({
-      ctr: this.actions,
+      ctr: this.actionsCtr,
       options: { name: 'ActionsState.Actions' },
       initCtr: () => {
         initActions(this, props);

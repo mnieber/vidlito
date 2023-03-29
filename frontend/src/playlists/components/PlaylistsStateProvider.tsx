@@ -30,7 +30,7 @@ export const PlaylistsStateProvider = observer(
       useGetPlaylist({
         playlistSlug:
           playlistSlug === 'new-playlist' ? undefined : playlistSlug,
-        playlistId: playlistsState.playlists.highlight.id,
+        playlistId: playlistsState.playlistsCtr.highlight.id,
       }),
       { fetchAsLoad: true }
     );
@@ -43,13 +43,13 @@ export const PlaylistsStateProvider = observer(
       updateState: (inputs) => {
         // Initialize data.playlists to the playlists from the user profile
         // with the fully loaded playlist replacing the stub one.
-        playlistsState.playlists.data.playlists = updatePlaylists(
+        playlistsState.playlistsCtr.data.playlists = updatePlaylists(
           inputs.playlists ?? [],
           inputs.fullPlaylist
         );
 
         // Ensure that every playlist has a ResourceState.
-        R.forEach(initRS, playlistsState.playlists.data.playlists);
+        R.forEach(initRS, playlistsState.playlistsCtr.data.playlists);
       },
       logState: () => {
         log('PlaylistsState updated', playlistsState.getSummary());
@@ -60,13 +60,13 @@ export const PlaylistsStateProvider = observer(
       makeAutoObservable({
         get playlists() {
           return cloneAndSetState(
-            playlistsState.playlists.data.playlistsDisplay,
+            playlistsState.playlistsCtr.data.playlistsDisplay,
             [[['loading', 'userProfile'], props.userProfile]]
           );
         },
         get playlist() {
           const fullPlaylist = getPlaylist.data?.playlist;
-          return cloneAndSetState(playlistsState.playlists.highlight.item, [
+          return cloneAndSetState(playlistsState.playlistsCtr.highlight.item, [
             [['loading', 'userProfile'], props.userProfile],
             [
               ['loading', 'getPlaylist'],
@@ -92,12 +92,12 @@ export const PlaylistsStateProvider = observer(
         ...result.defaultProps,
         playlists: () => cache.playlists,
         playlist: () => cache.playlist,
-        playlistsAddition: () => playlistsState.playlists.addition,
-        playlistsDeletion: () => playlistsState.playlists.deletion,
-        playlistsDragAndDrop: () => playlistsState.playlists.dragAndDrop,
-        playlistsEditing: () => playlistsState.playlists.editing,
-        playlistsHighlight: () => playlistsState.playlists.highlight,
-        playlistsSelection: () => playlistsState.playlists.selection,
+        playlistsAddition: () => playlistsState.playlistsCtr.addition,
+        playlistsDeletion: () => playlistsState.playlistsCtr.deletion,
+        playlistsDragAndDrop: () => playlistsState.playlistsCtr.dragAndDrop,
+        playlistsEditing: () => playlistsState.playlistsCtr.editing,
+        playlistsHighlight: () => playlistsState.playlistsCtr.highlight,
+        playlistsSelection: () => playlistsState.playlistsCtr.selection,
       };
 
       return result;
