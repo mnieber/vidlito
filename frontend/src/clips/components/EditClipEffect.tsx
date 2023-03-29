@@ -1,11 +1,9 @@
+import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 import { createClip } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Effect } from 'src/utils/components';
-
-type ArgsT = {
-  clipSlug: string;
-};
+import { useSearchAndUrlParams } from 'src/utils/hooks';
 
 type PropsT = {};
 
@@ -17,22 +15,19 @@ const DefaultProps = {
 
 export const EditClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    return (
-      <Effect
-        getArgs={(params) => {
-          return {
-            clipSlug: params.clipSlug,
-          };
-        }}
-        f={(args: ArgsT) => {
-          if (args.clipSlug === 'new-clip') {
-            if (!props.clipsAddition.item) {
-              props.dashboardState.setShowClips(true);
-              props.clipsAddition.add(createClip({}));
-            }
+    const params = useSearchAndUrlParams();
+
+    React.useEffect(() => {
+      return autorun(() => {
+        if (params.clipSlug === 'new-clip') {
+          if (!props.clipsAddition.item) {
+            props.dashboardState.setShowClips(true);
+            props.clipsAddition.add(createClip({}));
           }
-        }}
-      />
-    );
+        }
+      });
+    }, [params, props.dashboardState, props.clipsAddition]);
+
+    return null;
   }, DefaultProps)
 );

@@ -1,11 +1,9 @@
+import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
+import React from 'react';
 import { createPlaylist } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Effect } from 'src/utils/components';
-
-type ArgsT = {
-  playlistSlug: string;
-};
+import { useSearchAndUrlParams } from 'src/utils/hooks';
 
 type PropsT = {};
 
@@ -17,24 +15,24 @@ const DefaultProps = {
 
 export const EditPlaylistEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    return (
-      <Effect
-        getArgs={(params) => {
-          return {
-            playlistSlug: params.playlistSlug,
-          };
-        }}
-        f={(args: ArgsT) => {
-          if (args.playlistSlug === 'new-playlist') {
-            if (!props.playlistsAddition.item) {
-              props.dashboardState.setShowClips(false);
-              props.playlistsAddition.add(
-                createPlaylist(props.userProfile, {})
-              );
-            }
+    const params = useSearchAndUrlParams();
+
+    React.useEffect(() => {
+      return autorun(() => {
+        if (params.playlistSlug === 'new-playlist') {
+          if (!props.playlistsAddition.item) {
+            props.dashboardState.setShowClips(false);
+            props.playlistsAddition.add(createPlaylist(props.userProfile, {}));
           }
-        }}
-      />
-    );
+        }
+      });
+    }, [
+      params,
+      props.dashboardState,
+      props.playlistsAddition,
+      props.userProfile,
+    ]);
+
+    return null;
   }, DefaultProps)
 );
