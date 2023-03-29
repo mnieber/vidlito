@@ -2,14 +2,14 @@ import { action, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useHighlightUIConnector } from 'skandha-mobx/hooks';
-import { ActionsListViewItem } from 'src/actions/components/ActionsListViewItem';
+import { ActionListViewItem } from 'src/actions/components/ActionListViewItem';
 import { isLoading } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Spinner } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
 import { rowSkewer } from 'src/frames/components/Skewer';
 import { cn } from 'src/utils/classnames';
-import './ActionsListView.scss';
+import './ActionListView.scss';
 
 export type PropsT = {
   className?: any;
@@ -21,10 +21,10 @@ const DefaultProps = {
   ...dps.actionsState,
 };
 
-export const ActionsListView = observer(
+export const ActionListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const [state] = React.useState<ActionsListViewState>(
-      () => new ActionsListViewState()
+    const [state] = React.useState<ActionListViewState>(
+      () => new ActionListViewState()
     );
     const highlightUIConnector = useHighlightUIConnector(
       props.actionsHighlight,
@@ -45,7 +45,7 @@ export const ActionsListView = observer(
       const toggle = (
         <div
           key={`toggle-${action.id}`}
-          className={cn('ActionsListView_Toggle', rowSkewer)}
+          className={cn('ActionListView_Toggle', rowSkewer)}
         >
           <Icon
             name="cheveron-right"
@@ -59,14 +59,14 @@ export const ActionsListView = observer(
       const name = (
         <div
           key={`label-${action.id}`}
-          className={cn('ActionsListView_PlaylistLabel', rowSkewer)}
+          className={cn('ActionListView_PlaylistLabel', rowSkewer)}
         >
           {action.data.playlist_name}
         </div>
       );
 
       const item = (
-        <ActionsListViewItem
+        <ActionListViewItem
           key={`item-${action.id}`}
           action={action}
           isExpanded={state.isExpanded[action.id] ?? false}
@@ -85,7 +85,7 @@ export const ActionsListView = observer(
     return (
       <div
         className={cn(
-          'ActionsListView',
+          'ActionListView',
           'grid grid-cols-[50px,100px,1fr]',
           props.className
         )}
@@ -97,7 +97,7 @@ export const ActionsListView = observer(
   }, DefaultProps)
 );
 
-class ActionsListViewState {
+class ActionListViewState {
   @observable isExpanded: { [key: string]: boolean } = {};
 
   @action setIsExpanded(id: string, isExpanded: boolean) {

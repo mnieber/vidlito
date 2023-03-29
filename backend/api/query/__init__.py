@@ -16,8 +16,8 @@ class GrapheneNonEmptyQuery(graphene.ObjectType):
 
 class Query(
     user_accounts.schema.Query,
-    GetPlaylist,
     GetActions,
+    GetPlaylist,
     GetUserProfile,
     GrapheneNonEmptyQuery,
 ):

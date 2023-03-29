@@ -4,7 +4,7 @@ def create_get_actions_query(
 ):
     result = """
         query getActions(
-            $playlistId: UUID!,
+            $playlistId: UUID,
         ) {
             getActions(
                 $playlistId: playlistId,

@@ -1,10 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
+import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useActionsState } from 'src/actions/hooks/useActionsState';
 import { useGetActions } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
+import { initRS } from 'src/api/ResourceState';
 import { cloneAndSetState } from 'src/api/utils/cloneAndSetState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
@@ -32,6 +34,7 @@ export const ActionsStateProvider = observer(
       }),
       updateState: (inputs) => {
         actionsState.actions.data.actions = inputs.actions ?? [];
+        R.forEach(initRS, actionsState.actions.data.actions);
       },
       logState: () => {
         log('ActionsState updated', actionsState.getSummary());

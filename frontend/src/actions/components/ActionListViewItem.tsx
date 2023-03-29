@@ -9,7 +9,7 @@ import { ActionT } from 'src/api/types/ActionT';
 import { rowSkewer, Spinner } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
 import { cn } from 'src/utils/classnames';
-import './ActionsListViewItem.scss';
+import './ActionListViewItem.scss';
 
 export type PropsT = {
   action: ActionT;
@@ -19,7 +19,7 @@ export type PropsT = {
   className?: any;
 };
 
-export const ActionsListViewItem = observer((props: PropsT) => {
+export const ActionListViewItem = observer((props: PropsT) => {
   if (isUpdating(props.action)) {
     return <Spinner />;
   }
@@ -27,11 +27,11 @@ export const ActionsListViewItem = observer((props: PropsT) => {
   return (
     <div
       className={cn(
-        'ActionsListViewItem',
+        'ActionListViewItem',
         'grid grid-cols-[1fr,1fr]',
         'p-2',
         {
-          'ActionsListViewItem--highlighted':
+          'ActionListViewItem--highlighted':
             props.highlightUIProps.isHighlighted,
         },
         props.className
@@ -39,17 +39,17 @@ export const ActionsListViewItem = observer((props: PropsT) => {
       {...highlightUIHandlers(props.highlightUIProps)}
     >
       <div
-        className={cn('ActionsListViewItem__Title', rowSkewer, 'justify-start')}
+        className={cn('ActionListViewItem__Title', rowSkewer, 'justify-start')}
       >
-        <div className={cn('ActionsListViewItem__Field')}>
+        <div className={cn('ActionListViewItem__Field')}>
           {getTeaser(props.action, props.isExpanded)}
         </div>
       </div>
       <div
-        className={cn('ActionsListViewItem__Buttons', rowSkewer, 'justify-end')}
+        className={cn('ActionListViewItem__Buttons', rowSkewer, 'justify-end')}
       >
         <button
-          className={cn('ActionsListViewItem__UndoButton', rowSkewer, {
+          className={cn('ActionListViewItem__UndoButton', rowSkewer, {
             invisible: !props.highlightUIProps.isHighlighted,
           })}
           onClick={props.onClick}

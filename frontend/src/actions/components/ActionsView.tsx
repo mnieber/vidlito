@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
+import { ActionListView } from 'src/actions/components/ActionListView';
 import { ActionsBar } from 'src/actions/components/ActionsBar';
-import { ActionsListView } from 'src/actions/components/ActionsListView';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { colBanner } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
@@ -17,7 +17,7 @@ export const ActionsView = observer(
     return (
       <div className={cn('ActionsView', colBanner, props.className)}>
         <ActionsBar />
-        <ActionsListView />
+        <ActionListView />
       </div>
     );
   }, DefaultProps)

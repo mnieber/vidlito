@@ -15,8 +15,8 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y \
     curl \
     fish \
-    postgresql-client-14 \
-    nano
+    nano \
+    postgresql-client-14
 
 # create a python venv that we can easily store inside a docker volume
 RUN python3 -m venv /app/env
