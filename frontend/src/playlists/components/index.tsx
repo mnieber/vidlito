@@ -3,6 +3,7 @@ export { ForwardToClipEffect } from './ForwardToClipEffect';
 export { NewPlaylistButton } from './NewPlaylistButton';
 export { PlaylistDescription } from './PlaylistDescription';
 export { PlaylistFormView } from './PlaylistFormView';
+export { PlaylistListHeader } from './PlaylistListHeader';
 export { PlaylistListView } from './PlaylistListView';
 export { PlaylistListViewItem } from './PlaylistListViewItem';
 export { PlaylistsStateProvider } from './PlaylistsStateProvider';

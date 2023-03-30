@@ -21,7 +21,6 @@ export const EditClipEffect = observer(
       return autorun(() => {
         if (params.clipSlug === 'new-clip') {
           if (!props.clipsAddition.item) {
-            props.dashboardState.setShowClips(true);
             props.clipsAddition.add(createClip({}));
           }
         }

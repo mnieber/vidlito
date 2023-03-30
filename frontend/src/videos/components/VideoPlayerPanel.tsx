@@ -76,7 +76,9 @@ export const VideoPlayerPanel = observer(
         <div className={cn({ hidden: !ready })} style={{ height: height }}>
           <VideoPlayer
             key={props.videoPlayerState.url} // yes, we need this
-            videoPlayerParentElm={props.dashboardState.videoPlayerParentElm}
+            videoPlayerParentElm={
+              props.dashboardState.video.videoPlayerParentElm
+            }
             videoPlayerState={props.videoPlayerState}
             // The video image is slightly smaller than the container so
             // that the ResizeDetector can detect the resize towards a smaller image.

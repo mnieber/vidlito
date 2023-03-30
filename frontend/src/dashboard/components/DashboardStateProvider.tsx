@@ -27,9 +27,9 @@ export const DashboardStateProvider = observer(
         isAuthenticated: loadUserId.data?.isAuthenticated,
       }),
       updateState: (inputs) => {
-        dashboardState.username = inputs.username;
-        dashboardState.userProfile = inputs.userProfile;
-        dashboardState.isAuthenticated = inputs.isAuthenticated;
+        dashboardState.account.username = inputs.username;
+        dashboardState.account.userProfile = inputs.userProfile;
+        dashboardState.account.isAuthenticated = inputs.isAuthenticated;
       },
       logState: () =>
         log('DashboardState updated', dashboardState.getSummary()),
@@ -52,8 +52,8 @@ export const DashboardStateProvider = observer(
       const result: any = {
         defaultProps: {
           dashboardState: () => dashboardState,
-          isAuthenticated: () => dashboardState.isAuthenticated,
-          username: () => dashboardState.username,
+          isAuthenticated: () => dashboardState.account.isAuthenticated,
+          username: () => dashboardState.account.username,
           userProfile: () => cache.userProfile,
         },
       };

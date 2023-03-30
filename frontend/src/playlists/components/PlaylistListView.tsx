@@ -14,6 +14,7 @@ import './PlaylistListView.scss';
 
 export type PropsT = {
   updateUrl?: (playlist: PlaylistT) => void;
+  isExpanded: boolean;
   className?: any;
 };
 
@@ -41,7 +42,7 @@ export const PlaylistListView = observer(
     const goToPlaylist = React.useMemo(
       () => (playlist: PlaylistT) => {
         playlistsHighlight.highlightItem(playlist.id);
-        dashboardState.setShowClips(true);
+        dashboardState.setIsPlaylistListExpanded(false);
         updateUrl && updateUrl(playlist);
       },
       [updateUrl, dashboardState, playlistsHighlight]
@@ -49,6 +50,10 @@ export const PlaylistListView = observer(
 
     if (isLoading(props.playlists)) {
       return <Spinner />;
+    }
+
+    if (!props.isExpanded) {
+      return null;
     }
 
     const noItems = <h2>There are no playlists</h2>;

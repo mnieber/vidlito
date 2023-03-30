@@ -81,10 +81,10 @@ export const ClipMenu = observer(
         })
       : [noPlaylistsDiv];
 
-    return props.dashboardState.menuProps ? (
+    return props.dashboardState.contextMenu.menuProps ? (
       <ControlledMenu
-        {...props.dashboardState.menuProps}
-        anchorPoint={props.dashboardState.anchorPoint}
+        {...props.dashboardState.contextMenu.menuProps}
+        anchorPoint={props.dashboardState.contextMenu.anchorPoint}
         direction="right"
         onClose={() => props.dashboardState.closeContextMenu()}
       >

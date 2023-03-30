@@ -28,8 +28,8 @@ export const MainButtonsPanel = observer(
       >
         <SearchButton className={cn('w-1/2')} />
         <TrashButton className={cn('w-1/2')} />
-        {!props.dashboardState.showClips && <NewPlaylistButton />}
-        {props.dashboardState.showClips && <NewClipButton />}
+        <NewPlaylistButton className={cn('w-1/2')} />
+        <NewClipButton className={cn('w-1/2')} />
       </div>
     );
   }, DefaultProps)
