@@ -11,6 +11,7 @@ import { isUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon, rowSkewer, Spinner } from 'src/frames/components';
+import { lvi } from 'src/frames/components/Lvi';
 import { cn } from 'src/utils/classnames';
 import './PlaylistListViewItem.scss';
 
@@ -32,48 +33,35 @@ export const PlaylistListViewItem = observer(
       return <Spinner />;
     }
 
+    const appearance = [
+      {
+        'PlaylistListViewItem--selected': props.selectionUIProps.isSelected,
+        'PlaylistListViewItem--highlighted': props.isHighlighted,
+      },
+      `PlaylistListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
+    ];
+
     return (
       <div
         className={cn(
-          'PlaylistListViewItem',
-          'grid grid-cols-[1fr,1fr]',
-          'p-2',
-          {
-            'PlaylistListViewItem--selected': props.selectionUIProps.isSelected,
-            'PlaylistListViewItem--highlighted': props.isHighlighted,
-          },
-          `PlaylistListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
+          ['PlaylistListViewItem', lvi.container],
+          appearance,
           props.className
         )}
         {...selectionUIHandlers(props.selectionUIProps)}
         {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
       >
         <div
-          className={cn(
-            'PlaylistListViewItem__Title',
-            rowSkewer,
-            'justify-start'
-          )}
+          className={cn('IconContainer', lvi.leadingIcon, rowSkewer)}
+          onClick={() => {
+            props.goToPlaylist(props.playlist);
+          }}
         >
-          <div
-            className={cn('IconContainer', rowSkewer)}
-            onClick={() => {
-              props.goToPlaylist(props.playlist);
-            }}
-          >
-            <Icon className="ml-2" name="arrow-right" ratio={0.75} />
-          </div>
-          <div className={cn('PlaylistListViewItem__Field')}>
-            {props.playlist.name}
-          </div>
+          <Icon className="ml-2" name="arrow-right" ratio={0.75} />
         </div>
-        <div
-          className={cn(
-            'PlaylistListViewItem__Buttons',
-            rowSkewer,
-            'justify-end'
-          )}
-        ></div>
+        <div className={cn(['PlaylistListViewItem__Title', lvi.title])}>
+          {props.playlist.name}
+        </div>
       </div>
     );
   }, DefaultProps)

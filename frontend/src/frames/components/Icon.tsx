@@ -77,7 +77,7 @@ export const Icon = (props: PropsT) => {
   const ratio = props.ratio ?? 1;
   return (
     <div
-      className={cn('Icon', '!mr-2', props.className)}
+      className={cn('Icon', props.className)}
       style={{ height: 20 * ratio, width: 20 * ratio }}
       onClick={props.onClick}
     >

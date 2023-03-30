@@ -10,7 +10,7 @@ import {
 import { isUpdating } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
-import { rowSkewer } from 'src/frames/components';
+import { lvi } from 'src/frames/components/Lvi';
 import { cn } from 'src/utils/classnames';
 import { PlayVideoIcon } from 'src/videos/components';
 import './ClipListViewItem.scss';
@@ -30,6 +30,15 @@ const DefaultProps = {
 
 export const ClipListViewItem = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const appearance = [
+      {
+        'ClipListViewItem--selected': props.selectionUIProps.isSelected,
+        'ClipListViewItem--highlighted': props.isHighlighted,
+      },
+      `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
+      { 'animate-delete': isUpdating(props.clip) },
+    ];
+
     return (
       <ClipKeyHandler
         clip={props.clip}
@@ -38,15 +47,8 @@ export const ClipListViewItem = observer(
         <div
           tabIndex={0}
           className={cn(
-            'ClipListViewItem',
-            rowSkewer,
-            'p-2',
-            {
-              'ClipListViewItem--selected': props.selectionUIProps.isSelected,
-              'ClipListViewItem--highlighted': props.isHighlighted,
-              'animate-[pulse_1s_ease-in-out_infinite]': isUpdating(props.clip),
-            },
-            `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
+            ['ClipListViewItem', lvi.container],
+            appearance,
             props.className
           )}
           {...selectionUIHandlers(props.selectionUIProps)}
@@ -54,22 +56,15 @@ export const ClipListViewItem = observer(
           onContextMenu={props.onContextMenu}
         >
           <PlayVideoIcon
+            className={cn(lvi.leadingIcon)}
             videoController={props.videoPlayerState.videoController}
             visible={
               props.videoPlayerState.videoController.ready &&
               props.isHighlighted
             }
           />
-          <div
-            className={cn(
-              'ClipListViewItem__Title',
-              rowSkewer,
-              'justify-start'
-            )}
-          >
-            <div className={cn('ClipListViewItem__Field')}>
-              {props.clip.name}
-            </div>
+          <div className={cn('ClipListViewItem__Title', lvi.title)}>
+            {props.clip.name}
           </div>
         </div>
       </ClipKeyHandler>

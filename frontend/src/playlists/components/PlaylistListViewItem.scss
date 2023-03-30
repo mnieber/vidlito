@@ -6,7 +6,7 @@
   @media (hover: hover) {
     .IconContainer {
       &:hover {
-        @apply animate-[bounce_1s_ease-in-out_3];
+        @apply animate-playlist-item;
       }
     }
   }

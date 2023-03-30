@@ -6,14 +6,14 @@ import './PlayVideoIcon.scss';
 
 export type PropsT = {
   visible: boolean;
-  className?: any;
   videoController: VideoController;
+  className?: any;
 };
 
 export const PlayVideoIcon = observer((props: PropsT) => {
   return props.visible ? (
     <div
-      className={cn(rowSkewer)}
+      className={cn('PlayVideoIcon', rowSkewer, props.className)}
       onClick={() => {
         props.videoController.togglePlay();
       }}
