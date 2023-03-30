@@ -5,9 +5,8 @@ import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListView } from 'src/clips/components';
 import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
-import { ToggleClipsAndPlaylists } from 'src/dashboard/components/ToggleClipsAndPlaylists';
 import { colBanner } from 'src/frames/components';
-import { PlaylistListView } from 'src/playlists/components';
+import { PlaylistListHeader, PlaylistListView } from 'src/playlists/components';
 import { cn } from 'src/utils/classnames';
 import './Dashboard.scss';
 
@@ -33,39 +32,25 @@ export const Dashboard = observer(
       >
         <div className={cn('Dashboard__LeftSidebar', colBanner)}>
           <MainButtonsPanel className={cn('mb-2')} />
-          <ToggleClipsAndPlaylists
-            className={cn('pb-2', 'border-b border-gray-400')}
-          />
           <div
-            className={cn('Dashboard__ClipListViewTitle', 'py-1', {
-              invisible: false && !props.dashboardState.showClips,
-            })}
+            className={cn('Dashboard__ClipListViewWrapper', 'overflow-y-auto')}
           >
-            {props.playlist?.name}
-          </div>
-          {/*              */}
-          {/* 🟩 Switch 🟩 */}
-          {/*              */}
-          {props.dashboardState.showClips && (
-            <div className={cn('Dashboard__ClipListViewWrapper')}>
-              <ClipListView
-                className={cn('overflow-y-auto')}
-                updateUrl={(clip: ClipT) =>
-                  props.urlState.setClipSlug(clip.slug, true)
-                }
-              />
-            </div>
-          )}
-          {!props.dashboardState.showClips && (
+            <PlaylistListHeader />
             <PlaylistListView
               className={cn('overflow-y-auto')}
+              isExpanded={props.dashboardState.isPlaylistListExpanded}
               updateUrl={(playlist: PlaylistT) => {
                 if (props.playlist?.slug !== playlist.slug) {
                   props.urlState.setPlaylistSlug(playlist.slug, true);
                 }
               }}
             />
-          )}
+            <ClipListView
+              updateUrl={(clip: ClipT) =>
+                props.urlState.setClipSlug(clip.slug, true)
+              }
+            />
+          </div>
         </div>
         <div className={cn('Dashboard__RightMain', 'pl-4')}>
           {props.children}
