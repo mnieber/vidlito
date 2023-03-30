@@ -31,7 +31,8 @@ export const Dashboard = observer(
         )}
       >
         <div className={cn('Dashboard__LeftSidebar', colBanner)}>
-          <MainButtonsPanel className={cn('mb-2')} />
+          <MainButtonsPanel className={cn('')} />
+          <div className={cn('Dashboard__Separator', 'my-2')} />
           <div
             className={cn('Dashboard__ClipListViewWrapper', 'overflow-y-auto')}
           >
@@ -45,6 +46,7 @@ export const Dashboard = observer(
                 }
               }}
             />
+            <div className={cn('Dashboard__Separator', 'my-2')} />
             <ClipListView
               updateUrl={(clip: ClipT) =>
                 props.urlState.setClipSlug(clip.slug, true)

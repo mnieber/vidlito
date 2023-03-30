@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon, rowBanner } from 'src/frames/components';
-import { cn } from 'src/utils/classnames';
+import { Icon } from 'src/frames/components';
+import { dropDownButton } from 'src/frames/components/DropDownButton';
+import { cn, d } from 'src/utils/classnames';
 import './PlaylistListHeader.scss';
 
 export type PropsT = {
@@ -19,11 +20,21 @@ export const PlaylistListHeader = observer(
 
     return (
       <div
-        className={cn('PlaylistListHeader', rowBanner, props.className)}
+        className={cn(
+          [d('PlaylistListHeader'), dropDownButton.container],
+          props.className
+        )}
         onClick={() => props.dashboardState.toggleIsPlaylistListExpanded()}
       >
         {props.playlist.name}
-        <Icon name="plus" />
+        <Icon
+          ratio={1.5}
+          name={
+            props.dashboardState.isPlaylistListExpanded
+              ? 'triangle-down'
+              : 'triangle-right'
+          }
+        />
       </div>
     );
   }, DefaultProps)

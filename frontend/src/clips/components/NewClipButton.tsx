@@ -25,7 +25,7 @@ export const NewClipButton = observer(
           });
         }}
       >
-        <Icon name="plus" />
+        <Icon name="plus" className="mr-2" />
         New Clip
       </button>
     );

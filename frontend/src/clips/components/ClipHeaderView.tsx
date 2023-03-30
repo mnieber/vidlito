@@ -59,7 +59,7 @@ export const ClipHeaderView = observer(
                 editing.enable();
               }}
             >
-              <Icon name="pencil" />
+              <Icon name="pencil" className={'mr-2'} />
               Edit
             </button>
           </div>

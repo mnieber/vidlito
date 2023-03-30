@@ -1,11 +1,16 @@
 .Dashboard {
-    min-height: 0px;
+  min-height: 0px;
+
+}
+
+.Dashboard__Separator {
+  @apply border-t border-gray-400;
 }
 
 .Dashboard__LeftSidebar {
-    min-height: 0px;
+  min-height: 0px;
 }
 
 .Dashboard__ClipListViewTitle {
-    @apply text-center font-bold;
+  @apply text-center font-bold;
 }

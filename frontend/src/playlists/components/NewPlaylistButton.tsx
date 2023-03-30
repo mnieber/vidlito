@@ -21,7 +21,7 @@ export const NewPlaylistButton = observer(
           props.urlState.setPlaylistSlug('new-playlist', true);
         }}
       >
-        <Icon name="plus" />
+        <Icon name="plus" className="mr-2" />
         New Playlist
       </button>
     );

@@ -63,6 +63,16 @@ const icons: ObjT = {
       <path d="M15 17v-2.99A4 4 0 0 0 11 10H8v5L2 9l6-6v5h3a6 6 0 0 1 6 6v3h-2z" />
     </svg>
   ),
+  'triangle-right': (
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="8 5 13 10 8 15" />
+    </svg>
+  ),
+  'triangle-down': (
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="5 7 15 7 10 12" />
+    </svg>
+  ),
 };
 
 export type PropsT = {

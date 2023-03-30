@@ -21,7 +21,7 @@ export const TrashButton = observer(
         onClick={() => props.urlState.goToActions()}
       >
         <div className={cn(rowSkewer)}>
-          <Icon name="trash" />
+          <Icon name="trash" className="mr-2" />
           Trash
         </div>
       </button>
