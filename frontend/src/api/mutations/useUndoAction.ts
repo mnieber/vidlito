@@ -5,18 +5,18 @@ import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
-  playlistId: string;
+  actionId: string;
 };
 
 export const undoAction = (args: ArgsT) => {
   return doQuery(
     `mutation undoAction(
-      $playlistId: UUID!
+      $actionId: UUID!
     ) {
       undoAction(
-        playlistId: $playlistId
+        actionId: $actionId
       ) {
-
+        success
       }
     }`,
     args

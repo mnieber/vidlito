@@ -24,7 +24,9 @@ export const ActionsStateProvider = observer(
 
     const getActions = useQueryData(
       useGetActions({
-        playlistId: props.playlist?.id,
+        playlistId: actionsState.settings.showAllActions
+          ? undefined
+          : props.playlist?.id,
       })
     );
 

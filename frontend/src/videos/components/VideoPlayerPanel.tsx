@@ -5,6 +5,7 @@ import React from 'react';
 import ReactResizeDetector from 'react-resize-detector';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { colBanner, Icon, rowSkewer } from 'src/frames/components';
+import { lvi } from 'src/frames/components/Lvi';
 import { cn } from 'src/utils/classnames';
 import { VideoPlayer } from 'src/videos/components/VideoPlayer';
 import { getVideoWidth, widthToHeight } from 'src/videos/utils/aspectRatio';
@@ -62,7 +63,7 @@ export const VideoPlayerPanel = observer(
           }}
         />
         <div className={cn('mx-auto', { hidden: ready })}>
-          <Icon ratio={4} name="play" />
+          <Icon className={cn(lvi.leadingIcon)} name="play" />
         </div>
       </div>
     );

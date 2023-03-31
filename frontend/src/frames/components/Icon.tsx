@@ -2,7 +2,7 @@ import { cn } from 'src/utils/classnames';
 import { ObjT } from 'src/utils/types';
 import './Icon.scss';
 
-const icons: ObjT = {
+export const icons: ObjT = {
   'arrow-right': (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
       <polygon points="16.172 9 10.101 2.929 11.515 1.515 20 10 19.293 10.707 11.515 18.485 10.101 17.071 16.172 11 0 11 0 9" />
@@ -77,20 +77,14 @@ const icons: ObjT = {
 
 export type PropsT = {
   name: string;
-  ratio?: number;
   onClick?: () => void;
   className?: any;
 };
 
 export const Icon = (props: PropsT) => {
   const svg = icons[props.name] ?? <div>`${props.name} not found`</div>;
-  const ratio = props.ratio ?? 1;
   return (
-    <div
-      className={cn('Icon', props.className)}
-      style={{ height: 20 * ratio, width: 20 * ratio }}
-      onClick={props.onClick}
-    >
+    <div className={cn('Icon', props.className)} onClick={props.onClick}>
       {svg}
     </div>
   );

@@ -26,9 +26,9 @@ export const PlaylistListHeader = observer(
         )}
         onClick={() => props.dashboardState.toggleIsPlaylistListExpanded()}
       >
-        {props.playlist.name}
+        <div className={cn(dropDownButton.text)}>{props.playlist.name}</div>
         <Icon
-          ratio={1.5}
+          className={cn(dropDownButton.icon)}
           name={
             props.dashboardState.isPlaylistListExpanded
               ? 'triangle-down'

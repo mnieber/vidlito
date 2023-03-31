@@ -8,9 +8,12 @@ import { ActionT } from 'src/api/types/ActionT';
 import { ActionsData, initActions } from './actions';
 import { Settings } from './Settings';
 
-export type PropsT = {};
+export type PropsT = {
+  undoAction: (actionId: string) => Promise<any>;
+};
 
 export class ActionsState {
+  props: PropsT;
   settings = new Settings();
 
   actionsCtr = {
@@ -42,10 +45,12 @@ export class ActionsState {
   }
 
   @action undoAction(action: ActionT) {
-    // TODO
+    return this.props.undoAction(action.id);
   }
 
   constructor(props: PropsT) {
+    this.props = props;
+
     registerCtr({
       ctr: this.actionsCtr,
       options: { name: 'ActionsState.Actions' },

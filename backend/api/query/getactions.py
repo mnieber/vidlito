@@ -21,4 +21,5 @@ class GetActions:
         else:
             actions = Action.objects.filter(owner__user_id=info.context.user.id)
 
+        print("GetActions", playlist_id, actions)
         return GetActionsOutputs(action_set=actions)

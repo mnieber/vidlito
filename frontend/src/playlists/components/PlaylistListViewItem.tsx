@@ -57,7 +57,7 @@ export const PlaylistListViewItem = observer(
             props.goToPlaylist(props.playlist);
           }}
         >
-          <Icon name="arrow-right" ratio={0.75} />
+          <Icon name="arrow-right" />
         </div>
         <div className={cn(['PlaylistListViewItem__Title', lvi.title])}>
           {props.playlist.name}

@@ -7,6 +7,7 @@ import { isLoading } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Spinner } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
+import { lvi } from 'src/frames/components/Lvi';
 import { rowSkewer } from 'src/frames/components/Skewer';
 import { cn } from 'src/utils/classnames';
 import './ActionListView.scss';
@@ -28,10 +29,7 @@ export const ActionListView = observer(
     );
     const highlightUIConnector = useHighlightUIConnector(
       props.actionsHighlight,
-      {
-        itemSelector: '.ActionListViewItem',
-      },
-      []
+      { itemSelector: '.ActionListViewItem' }
     );
 
     if (isLoading(props.actions)) {
@@ -48,6 +46,7 @@ export const ActionListView = observer(
           className={cn('ActionListView_Toggle', rowSkewer)}
         >
           <Icon
+            className={cn(lvi.leadingIcon)}
             name="cheveron-right"
             onClick={() => {
               state.setIsExpanded(action.id, !state.isExpanded[action.id]);

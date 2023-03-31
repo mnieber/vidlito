@@ -9,9 +9,10 @@ class UndoAction(graphene.Mutation):
     errors = GenericScalar()
 
     class Arguments:
-        playlist_id = graphene.UUID(required=True)
+        action_id = graphene.UUID(required=True)
 
-    def mutate(self, info, playlist_id):
+    def mutate(self, info, action_id):
+        __import__("pudb").set_trace()  # zz
         # Moonleap Todo: implement mutation
 
         return UndoAction(
