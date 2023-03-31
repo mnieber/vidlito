@@ -57,7 +57,7 @@ export const PlaylistListViewItem = observer(
             props.goToPlaylist(props.playlist);
           }}
         >
-          <Icon name="arrow-right" />
+          <Icon className={cn('w-[15px] h-[15px]')} name="arrow-right" />
         </div>
         <div className={cn(['PlaylistListViewItem__Title', lvi.title])}>
           {props.playlist.name}

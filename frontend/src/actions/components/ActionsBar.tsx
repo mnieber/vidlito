@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { rowBanner } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
+import { lvi } from 'src/frames/components/Lvi';
 import { cn } from 'src/utils/classnames';
 import './ActionsBar.scss';
 
@@ -42,7 +43,7 @@ export const ActionsBar = observer(
         </label>
         <div className={cn('ml-auto')}>
           <button onClick={() => props.urlState.closeActions()}>
-            <Icon name="close" />
+            <Icon className={cn(lvi.leadingIcon)} name="close" />
           </button>
         </div>
       </div>

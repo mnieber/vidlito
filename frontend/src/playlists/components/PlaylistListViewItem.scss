@@ -2,12 +2,10 @@
   @apply cursor-pointer;
 }
 
-.PlaylistListViewItem__Title {
-  @media (hover: hover) {
-    .IconContainer {
-      &:hover {
-        @apply animate-playlist-item;
-      }
+@media (hover: hover) {
+  .IconContainer {
+    &:hover {
+      @apply animate-playlist-item;
     }
   }
 }

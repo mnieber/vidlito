@@ -6,9 +6,10 @@ import {
 } from 'skandha-facets/Highlight';
 import { isUpdating } from 'src/api/ResourceState';
 import { ActionT } from 'src/api/types/ActionT';
-import { rowSkewer, Spinner } from 'src/frames/components';
+import { rowSkewer } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
-import { cn } from 'src/utils/classnames';
+import { lvi } from 'src/frames/components/Lvi';
+import { cn, d } from 'src/utils/classnames';
 import './ActionListViewItem.scss';
 
 export type PropsT = {
@@ -20,9 +21,12 @@ export type PropsT = {
 };
 
 export const ActionListViewItem = observer((props: PropsT) => {
-  if (isUpdating(props.action)) {
-    return <Spinner />;
-  }
+  const appearance = [
+    {
+      'ActionListViewItem--highlighted': props.highlightUIProps.isHighlighted,
+    },
+    { 'animate-delete': isUpdating(props.action) },
+  ];
 
   return (
     <div
@@ -30,20 +34,13 @@ export const ActionListViewItem = observer((props: PropsT) => {
         'ActionListViewItem',
         'grid grid-cols-[1fr,1fr]',
         'p-2',
-        {
-          'ActionListViewItem--highlighted':
-            props.highlightUIProps.isHighlighted,
-        },
+        appearance,
         props.className
       )}
       {...highlightUIHandlers(props.highlightUIProps)}
     >
-      <div
-        className={cn('ActionListViewItem__Title', rowSkewer, 'justify-start')}
-      >
-        <div className={cn('ActionListViewItem__Field')}>
-          {getTeaser(props.action, props.isExpanded)}
-        </div>
+      <div className={cn(d('ActionListViewItem__Title'))}>
+        {getTeaser(props.action, props.isExpanded)}
       </div>
       <div
         className={cn('ActionListViewItem__Buttons', rowSkewer, 'justify-end')}
@@ -54,7 +51,7 @@ export const ActionListViewItem = observer((props: PropsT) => {
           })}
           onClick={props.onClick}
         >
-          <Icon name="reply" />
+          <Icon className={cn(lvi.leadingIcon)} name="reply" />
           Undo
         </button>
       </div>

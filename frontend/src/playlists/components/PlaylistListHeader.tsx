@@ -31,8 +31,8 @@ export const PlaylistListHeader = observer(
           className={cn(dropDownButton.icon)}
           name={
             props.dashboardState.isPlaylistListExpanded
-              ? 'triangle-down'
-              : 'triangle-right'
+              ? 'cheveron-down'
+              : 'cheveron-right'
           }
         />
       </div>

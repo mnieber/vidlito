@@ -3,6 +3,7 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipTagsView } from 'src/clips/components/ClipTagsView';
 import { Icon, mainButton, rowSkewer } from 'src/frames/components';
 import { colBanner } from 'src/frames/components/Banner';
+import { lvi } from 'src/frames/components/Lvi';
 import { cn } from 'src/utils/classnames';
 import './ClipHeaderView.scss';
 
@@ -59,7 +60,7 @@ export const ClipHeaderView = observer(
                 editing.enable();
               }}
             >
-              <Icon name="pencil" className={'mr-2'} />
+              <Icon className={cn(lvi.leadingIcon)} name="pencil" />
               Edit
             </button>
           </div>

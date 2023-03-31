@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon, mainButton, rowSkewer } from 'src/frames/components';
+import { lvi } from 'src/frames/components/Lvi';
 import { cn } from 'src/utils/classnames';
 import './TrashButton.scss';
 
@@ -21,7 +22,7 @@ export const TrashButton = observer(
         onClick={() => props.urlState.goToActions()}
       >
         <div className={cn(rowSkewer)}>
-          <Icon name="trash" className="mr-2" />
+          <Icon className={cn(lvi.leadingIcon)} name="trash" />
           Trash
         </div>
       </button>

@@ -9,6 +9,8 @@ import * as R from 'ramda';
 import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon } from 'src/frames/components';
+import { lvi } from 'src/frames/components/Lvi';
+import { cn } from 'src/utils/classnames';
 import './ClipMenu.scss';
 
 export type PropsT = {
@@ -97,7 +99,7 @@ export const ClipMenu = observer(
               .then(updateUrl)
           }
         >
-          <Icon name="trash" />
+          <Icon className={cn(lvi.leadingIcon)} name="trash" />
           Move to Trash
         </MenuItem>
         <MenuDivider />

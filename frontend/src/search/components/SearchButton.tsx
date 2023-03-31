@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { Icon, mainButton, rowSkewer } from 'src/frames/components';
+import { lvi } from 'src/frames/components/Lvi';
 import { cn } from 'src/utils/classnames';
 import './SearchButton.scss';
 
@@ -18,7 +19,7 @@ export const SearchButton = observer(
         onClick={() => console.log('Moonleap Todo')}
       >
         <div className={cn(rowSkewer)}>
-          <Icon name="search" className="mr-2" />
+          <Icon className={cn(lvi.leadingIcon)} name="search" />
           Search
         </div>
       </button>

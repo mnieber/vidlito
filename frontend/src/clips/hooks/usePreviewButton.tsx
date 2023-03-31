@@ -1,5 +1,7 @@
 import React from 'react';
 import { Icon } from 'src/frames/components/Icon';
+import { lvi } from 'src/frames/components/Lvi';
+import { cn } from 'src/utils/classnames';
 
 export type PropsT = {
   tabIndex?: number;
@@ -13,7 +15,9 @@ export const usePreviewButton = (props: PropsT) => {
       key="descriptionPreview"
       onClick={() => setDescriptionPreview(!descriptionPreview)}
     >
-      {descriptionPreview && <Icon name="check" />}
+      {descriptionPreview && (
+        <Icon className={cn(lvi.leadingIcon)} name="check" />
+      )}
       Preview
     </button>
   );
