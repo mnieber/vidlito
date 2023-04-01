@@ -5,8 +5,7 @@ export const symbolRS = Symbol('ResourceState');
 export type ResourceStateT = undefined | 'loading' | 'updating' | 'ready';
 
 export const isUpdating = (resource: any) => getState(resource) === 'updating';
-export const isLoading = (resource: any) =>
-  resource === null || getState(resource) === 'loading';
+export const isLoading = (resource: any) => getState(resource) === 'loading';
 export const isReady = (resource: any) => getState(resource) === 'ready';
 export const isUndefined = (resource: any) =>
   resource === undefined || getState(resource) === undefined;
@@ -21,7 +20,11 @@ export const setToReady = (resource: any) => setState(resource, 'ready');
 export const setToUndefined = (resource: any) => setState(resource, undefined);
 
 export const getState = (resource: any): ResourceStateT | undefined => {
-  return resource ? resource[symbolRS] ?? undefined : undefined;
+  return resource === null
+    ? 'loading'
+    : resource
+    ? resource[symbolRS] ?? undefined
+    : undefined;
 };
 
 export const initRS = (resource: any, state?: ResourceStateT) => {
