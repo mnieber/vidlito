@@ -16,14 +16,13 @@ class MoveClipsToPlaylist(graphene.Mutation):
         copy = graphene.Boolean(required=True)
 
     def mutate(self, info, src_playlist_id, dest_playlist_id, clip_ids, copy):
-        clean_clip_ids = [x.replace("-", "") for x in clip_ids]
         dest_clips_ids = (
-            [x.clip_id.hex for x in Entry.objects.filter(playlist_id=dest_playlist_id)]
+            [x.clip_id for x in Entry.objects.filter(playlist_id=dest_playlist_id)]
             if copy
             else []
         )
         for entry in Entry.objects.filter(playlist_id=src_playlist_id):
-            if entry.clip_id.hex in clean_clip_ids:
+            if entry.clip_id in clip_ids:
                 if copy:
                     if entry.clip_id.hex in dest_clips_ids:
                         continue
