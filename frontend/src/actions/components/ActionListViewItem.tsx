@@ -31,19 +31,21 @@ export const ActionListViewItem = observer((props: PropsT) => {
   return (
     <div
       className={cn(
-        'ActionListViewItem',
-        'grid grid-cols-[1fr,1fr]',
-        'p-2',
+        ['ActionListViewItem', lvi.container],
         appearance,
         props.className
       )}
       {...highlightUIHandlers(props.highlightUIProps)}
     >
-      <div className={cn(d('ActionListViewItem__Title'))}>
+      <div className={cn([d('ActionListViewItem__Title'), lvi.title])}>
         {getTeaser(props.action, props.isExpanded)}
       </div>
       <div
-        className={cn('ActionListViewItem__Buttons', rowSkewer, 'justify-end')}
+        className={cn(
+          d('ActionListViewItem__Buttons'),
+          rowSkewer,
+          'justify-end'
+        )}
       >
         <button
           className={cn('ActionListViewItem__UndoButton', rowSkewer, {
