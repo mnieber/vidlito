@@ -61,7 +61,6 @@ const getHandleSubmit =
         props.urlState.setClipSlug(localClip.slug, true);
       })
       .catch((error: any) => {
-        console.log(error.message);
         formState.setError(
           'global',
           'Oops, something went wrong, please try again later'
