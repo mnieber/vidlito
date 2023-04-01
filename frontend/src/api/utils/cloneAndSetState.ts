@@ -9,27 +9,23 @@ import {
   symbolRS,
 } from 'src/api/ResourceState';
 
-export type OptionsT = {
+export type ArgsT = {
+  resource: any;
+  sources: any[];
   debugLabel?: string;
 };
 
-export const cloneAndSetState = (
-  resource: any,
-  sources: any[],
-  options?: OptionsT
-) => {
-  if (resource === null) {
-    if (options?.debugLabel) {
-      console.log(
-        `cloneAndSetState: ${options?.debugLabel} - resource is null`
-      );
+export const cloneAndSetState = (args: ArgsT) => {
+  if (args.resource === null) {
+    if (args.debugLabel) {
+      console.log(`cloneAndSetState: ${args.debugLabel} - resource is null`);
     }
-    return resource;
+    return args.resource;
   }
 
   let resultState: ResourceStateT = undefined;
 
-  for (const source of sources) {
+  for (const source of args.sources) {
     let [[srcState, srcLabel], srcRes] = source;
 
     if (srcRes === undefined) {
@@ -51,40 +47,42 @@ export const cloneAndSetState = (
 
     if (srcState === 'loading' && isLoading(srcRes)) {
       resultState = srcState;
-      options?.debugLabel &&
+      args.debugLabel &&
         console.log(
-          `cloneAndSetState: ${options?.debugLabel} - source ${srcLabel} is loading`
+          `cloneAndSetState: ${args.debugLabel} - source ${srcLabel} is loading`
         );
       break;
     }
 
     if (srcState === 'updating' && isUpdating(srcRes)) {
       resultState = srcState;
-      options?.debugLabel &&
+      args.debugLabel &&
         console.log(
-          `cloneAndSetState: ${options?.debugLabel} - source ${srcLabel} is updating`
+          `cloneAndSetState: ${args.debugLabel} - source ${srcLabel} is updating`
         );
       break;
     }
   }
 
-  if (R.isNil(resource)) {
+  if (R.isNil(args.resource)) {
     return resultState === 'loading' ? null : undefined;
   }
 
   // Check if the existing resource is loading or updating. In that case,
   // the state of the existing resource takes precedence.
-  const currentState = (resource as any)[symbolRS];
+  const currentState = (args.resource as any)[symbolRS];
   if (currentState === 'loading' || currentState === 'updating') {
-    options?.debugLabel &&
+    args.debugLabel &&
       console.log(
-        `cloneAndSetState: ${options?.debugLabel} - currentlyLoadingOrUpdating=true`
+        `cloneAndSetState: ${args.debugLabel} - currentlyLoadingOrUpdating=true`
       );
     resultState = currentState;
   }
 
   // Clone the resource
-  const result = Array.isArray(resource) ? [...resource] : { ...resource };
+  const result = Array.isArray(args.resource)
+    ? [...args.resource]
+    : { ...args.resource };
   (result as any)[symbolRS] = resultState;
   return result;
 };

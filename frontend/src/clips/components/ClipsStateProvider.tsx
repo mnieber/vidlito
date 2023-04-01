@@ -39,19 +39,23 @@ export const ClipsStateProvider = observer(
       makeAutoObservable({
         get clips() {
           const clipsDisplay = clipsState.clipsCtr.data.clipsDisplay;
-          return cloneAndSetState(clipsDisplay, [
-            [['loading', 'playlist'], props.playlist],
-            [['updating', 'playlist'], props.playlist],
-            [
-              ['updating', 'moveClipsToPlaylist'],
-              !!clipsDisplay ? moveClipsToPlaylist : undefined,
+          return cloneAndSetState({
+            resource: clipsDisplay,
+            sources: [
+              [['loading', 'playlist'], props.playlist],
+              [['updating', 'playlist'], props.playlist],
+              [
+                ['updating', 'moveClipsToPlaylist'],
+                !!clipsDisplay ? moveClipsToPlaylist : undefined,
+              ],
             ],
-          ]);
+          });
         },
         get clip() {
-          return cloneAndSetState(clipsState.clipsCtr.highlight.item, [
-            [['loading', 'playlist'], props.playlist],
-          ]);
+          return cloneAndSetState({
+            resource: clipsState.clipsCtr.highlight.item,
+            sources: [[['loading', 'playlist'], props.playlist]],
+          });
         },
       })
     );

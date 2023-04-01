@@ -47,16 +47,19 @@ export const ActionsStateProvider = observer(
       makeAutoObservable({
         get actions() {
           const actionsDisplay = actionsState.actionsCtr.data.actions;
-          return cloneAndSetState(actionsDisplay, [
-            [
-              ['loading', 'getActions'],
-              !getActions.data?.actionSet ? getActions : undefined,
+          return cloneAndSetState({
+            resource: actionsDisplay,
+            sources: [
+              [
+                ['loading', 'getActions'],
+                !getActions.data?.actionSet ? getActions : undefined,
+              ],
+              [
+                ['updating', 'getActions'],
+                !!getActions.data?.actionSet ? getActions : undefined,
+              ],
             ],
-            [
-              ['updating', 'getActions'],
-              !!getActions.data?.actionSet ? getActions : undefined,
-            ],
-          ]);
+          });
         },
         get action() {
           return actionsState.actionsCtr.highlight.item;

@@ -59,24 +59,27 @@ export const PlaylistsStateProvider = observer(
     const [cache] = React.useState(() =>
       makeAutoObservable({
         get playlists() {
-          return cloneAndSetState(
-            playlistsState.playlistsCtr.data.playlistsDisplay,
-            [[['loading', 'userProfile'], props.userProfile]]
-          );
+          return cloneAndSetState({
+            resource: playlistsState.playlistsCtr.data.playlistsDisplay,
+            sources: [[['loading', 'userProfile'], props.userProfile]],
+          });
         },
         get playlist() {
           const fullPlaylist = getPlaylist.data?.playlist;
-          return cloneAndSetState(playlistsState.playlistsCtr.highlight.item, [
-            [['loading', 'userProfile'], props.userProfile],
-            [
-              ['loading', 'getPlaylist'],
-              !fullPlaylist ? getPlaylist : undefined,
+          return cloneAndSetState({
+            resource: playlistsState.playlistsCtr.highlight.item,
+            sources: [
+              [['loading', 'userProfile'], props.userProfile],
+              [
+                ['loading', 'getPlaylist'],
+                !fullPlaylist ? getPlaylist : undefined,
+              ],
+              [
+                ['updating', 'getPlaylist'],
+                !!fullPlaylist ? getPlaylist : undefined,
+              ],
             ],
-            [
-              ['updating', 'getPlaylist'],
-              !!fullPlaylist ? getPlaylist : undefined,
-            ],
-          ]);
+          });
         },
       })
     );

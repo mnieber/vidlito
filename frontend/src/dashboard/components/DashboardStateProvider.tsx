@@ -38,12 +38,15 @@ export const DashboardStateProvider = observer(
     const [cache] = React.useState(() =>
       makeAutoObservable({
         get userProfile() {
-          return cloneAndSetState(loadUserId.data?.userProfile, [
-            [
-              ['loading', 'loadUserId'],
-              !loadUserId.data?.userProfile ? loadUserId : undefined,
+          return cloneAndSetState({
+            resource: loadUserId.data?.userProfile,
+            sources: [
+              [
+                ['loading', 'loadUserId'],
+                !loadUserId.data?.userProfile ? loadUserId : undefined,
+              ],
             ],
-          ]);
+          });
         },
       })
     );
