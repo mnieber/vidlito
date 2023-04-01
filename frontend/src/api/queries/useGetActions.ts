@@ -20,6 +20,7 @@ export const getActions = (args: ArgsT) => {
           data
           id
           type
+          playlistId
         }
       }
     }`,
@@ -47,7 +48,7 @@ export function queryKey(args: QueryKeyT) {
 
 export const useGetActions = (args: ArgsT) => {
   return useQuery({
-    queryKey: queryKey(args),
+    queryKey: queryKey({ playlistId: args.playlistId }),
     queryFn: () => getActions(args),
   });
 };

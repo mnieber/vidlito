@@ -66,12 +66,10 @@ export const useMoveClipsToTrash = () => {
         (data: any) => applyUpdate(['playlist'], data, updatePlaylist)
       );
 
-      queryClient.invalidateQueries([
-        { queryKey: getPlaylistQueryKey },
-        {
-          queryKey: createGetActionsQueryKey({ playlistId: args.playlist.id }),
-        },
-      ]);
+      queryClient.invalidateQueries({ queryKey: getPlaylistQueryKey });
+      queryClient.invalidateQueries({
+        queryKey: createGetActionsQueryKey({ playlistId: args.playlist.id }),
+      });
     },
   });
 };

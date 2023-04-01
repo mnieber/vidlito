@@ -3,24 +3,43 @@ import React from 'react';
 import { ActionsState } from 'src/actions/ActionsState';
 import { useUndoAction } from 'src/api/mutations/useUndoAction';
 import { setToReady, setToUpdating } from 'src/api/ResourceState';
+import { ActionT } from 'src/api/types/ActionT';
+import { PlaylistT } from 'src/api/types/PlaylistT';
+import { usePropsRef } from 'src/utils/hooks/usePropsRef';
 
-export type PropsT = {};
+export type PropsT = { playlists: PlaylistT[] };
 
 export const useActionsState = (props: PropsT) => {
   const undoAction = useUndoAction();
+  const propsRef = usePropsRef<PropsT>(props);
 
-  const [actionsState] = React.useState(() => {
+  const [actionsState] = React.useState<ActionsState>(() => {
     return new ActionsState({
       undoAction: action((actionId: string) => {
-        const action = actionsState.actionsCtr.data.actionById[actionId];
-        action && setToUpdating(action);
-        const result = undoAction.mutateAsync({ actionId });
-        return result.then(() => {
-          setToReady(action);
-        });
+        const action: ActionT | undefined =
+          actionsState.actionsCtr.data.actionById[actionId];
+        if (!action) {
+          return Promise.reject('Action not found');
+        }
+
+        const playlist: PlaylistT | undefined =
+          propsRef.current?.playlists.find((x) => x.id === action.playlistId);
+        if (!playlist) {
+          return Promise.reject('Playlist not found');
+        }
+
+        setToUpdating(action);
+        return undoAction
+          .mutateAsync({
+            actionId,
+            playlist: playlist,
+          })
+          .then(() => {
+            setToReady(action);
+          });
       }),
     });
-  });
+  }) as ActionsState[];
 
   React.useEffect(() => () => actionsState.destroy(), [actionsState]);
 

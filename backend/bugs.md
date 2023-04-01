@@ -1,5 +1,6 @@
 Bugs:
 
 - clip not removed after move clips to playlists
-- when moving clips to trash and opening trash, the action is not there
-- handle action not found in UndoAction
+- while restoring action, it should blink
+- handle case where action is not found in UndoAction
+- with the trash page open, trashing a clip and selecting the next clip should not close the trash page

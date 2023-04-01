@@ -1,11 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
+import {
+  createGetActionsQueryKey,
+  createGetPlaylistQueryKey,
+} from 'src/api/queries';
 import { queryClient } from 'src/api/queryClient';
+import { PlaylistT } from 'src/api/types/PlaylistT';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
   actionId: string;
+  playlist: PlaylistT;
 };
 
 export const undoAction = (args: ArgsT) => {
@@ -32,9 +38,14 @@ export const useUndoAction = () => {
   return useMutation({
     mutationKey: ['undoAction'],
     mutationFn: undoAction,
-    onSuccess: (response: ObjT) => {
+    onSuccess: (response: ObjT, args: ArgsT) => {
       queryClient.invalidateQueries({
-        queryKey: ['getPlaylist'],
+        queryKey: createGetPlaylistQueryKey({
+          playlistSlug: args.playlist.slug,
+        }),
+      });
+      queryClient.invalidateQueries({
+        queryKey: createGetActionsQueryKey({ playlistId: args.playlist.id }),
       });
     },
   });

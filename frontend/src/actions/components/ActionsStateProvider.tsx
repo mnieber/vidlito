@@ -16,11 +16,12 @@ export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
   ...dps.playlist,
+  ...dps.playlists,
 };
 
 export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { actionsState } = useActionsState({});
+    const { actionsState } = useActionsState({ playlists: props.playlists });
 
     const getActions = useQueryData(
       useGetActions({

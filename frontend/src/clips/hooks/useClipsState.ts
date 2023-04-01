@@ -15,6 +15,7 @@ import { setToReady, setToUpdating } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { ClipsState } from 'src/clips/ClipsState';
+import { usePropsRef } from 'src/utils/hooks/usePropsRef';
 import { getIds, lookUp } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 
@@ -28,8 +29,7 @@ export const useClipsState = (props: PropsT) => {
   const saveClip = useMutationData(useSaveClip());
   const saveClipOrdering = useMutationData(useSaveClipOrdering());
 
-  const propsRef = React.useRef<ObjT>();
-  propsRef.current = { ...props };
+  const propsRef = usePropsRef(props);
 
   const [clipsState] = React.useState<ClipsState>(() => {
     return new ClipsState({
