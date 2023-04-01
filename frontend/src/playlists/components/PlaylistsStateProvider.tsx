@@ -32,7 +32,7 @@ export const PlaylistsStateProvider = observer(
           playlistSlug === 'new-playlist' ? undefined : playlistSlug,
         playlistId: playlistsState.playlistsCtr.highlight.id,
       }),
-      { fetchAsLoad: true, disabledAsReady: true }
+      { fetchAsLoad: true }
     );
 
     useUpdateStateReaction({
