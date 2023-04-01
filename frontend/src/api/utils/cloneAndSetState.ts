@@ -18,7 +18,9 @@ export type ArgsT = {
 export const cloneAndSetState = (args: ArgsT) => {
   if (args.resource === null) {
     if (args.debugLabel) {
-      console.log(`cloneAndSetState: ${args.debugLabel} - resource is null`);
+      (console as any).log(
+        `cloneAndSetState: ${args.debugLabel} - resource is null`
+      );
     }
     return args.resource;
   }
@@ -48,7 +50,7 @@ export const cloneAndSetState = (args: ArgsT) => {
     if (srcState === 'loading' && isLoading(srcRes)) {
       resultState = srcState;
       args.debugLabel &&
-        console.log(
+        (console as any).log(
           `cloneAndSetState: ${args.debugLabel} - source ${srcLabel} is loading`
         );
       break;
@@ -57,7 +59,7 @@ export const cloneAndSetState = (args: ArgsT) => {
     if (srcState === 'updating' && isUpdating(srcRes)) {
       resultState = srcState;
       args.debugLabel &&
-        console.log(
+        (console as any).log(
           `cloneAndSetState: ${args.debugLabel} - source ${srcLabel} is updating`
         );
       break;
@@ -73,7 +75,7 @@ export const cloneAndSetState = (args: ArgsT) => {
   const currentState = (args.resource as any)[symbolRS];
   if (currentState === 'loading' || currentState === 'updating') {
     args.debugLabel &&
-      console.log(
+      (console as any).log(
         `cloneAndSetState: ${args.debugLabel} - currentlyLoadingOrUpdating=true`
       );
     resultState = currentState;

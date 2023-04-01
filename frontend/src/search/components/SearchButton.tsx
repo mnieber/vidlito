@@ -16,7 +16,7 @@ export const SearchButton = observer(
     return (
       <button
         className={cn('SearchButton', mainButton, props.className)}
-        onClick={() => console.log('Moonleap Todo')}
+        onClick={() => (console as any).log('Moonleap Todo')}
       >
         <div className={cn(rowSkewer)}>
           <Icon className={cn(lvi.leadingIcon)} name="search" />

@@ -20,7 +20,7 @@ import { VideoPlayerState } from 'src/videos/VideoPlayerState';
 export { stub, withDefaultProps } from 'react-default-props-context';
 
 // This is a workaround for a bug in webpack
-!withDefaultProps && console.log(withDefaultProps);
+!withDefaultProps && (console as any).log(withDefaultProps);
 
 const dpsStates = {
   actionsState: {
