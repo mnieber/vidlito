@@ -163,8 +163,8 @@ export const ClipFormView = observer(
             />
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>
-            <CancelButton tabIndex={10} label="Cancel" disabled={false} />
-            <SaveButton tabIndex={10} label="Save" disabled={false} />
+            <CancelButton tabIndex={10} label="Cancel" />
+            <SaveButton tabIndex={10} label="Save" />
           </div>
         </FormStateProvider>
       </div>

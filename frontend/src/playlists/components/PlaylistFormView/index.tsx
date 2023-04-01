@@ -101,8 +101,8 @@ export const PlaylistFormView = observer(
             />
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>
-            <CancelButton label="Cancel" tabIndex={6} disabled={false} />
-            <SaveButton label="Save" tabIndex={6} disabled={false} />
+            <CancelButton label="Cancel" tabIndex={6} />
+            <SaveButton label="Save" tabIndex={6} />
           </div>
         </FormStateProvider>
       </div>

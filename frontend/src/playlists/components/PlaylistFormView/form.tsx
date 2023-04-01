@@ -44,14 +44,19 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
-    const savePlaylist = props.playlistsEditing.save.bind(
-      props.playlistsEditing
-    );
-
-    return savePlaylist(unflatten(values)).then((localPlaylist: PlaylistT) => {
-      formState.reset(initialValues, initialErrors);
-      props.urlState.setPlaylistSlug(localPlaylist.slug, true);
-    });
+    return props.playlistsEditing
+      .save(unflatten(values))
+      .then((localPlaylist: PlaylistT) => {
+        formState.reset(initialValues, initialErrors);
+        props.urlState.setPlaylistSlug(localPlaylist.slug, true);
+      })
+      .catch((error: any) => {
+        console.log(error.message);
+        formState.setError(
+          'global',
+          'Oops, something went wrong, please try again later'
+        );
+      });
   };
 
 const getHandleCancel =

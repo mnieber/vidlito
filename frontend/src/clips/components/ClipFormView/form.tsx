@@ -55,10 +55,18 @@ const getHandleSubmit =
         'clipForm.endTimeS': undefined,
         'clipForm.startTimeS': undefined,
       })
-    ).then((localClip: ClipT) => {
-      formState.reset(initialValues, initialErrors);
-      props.urlState.setClipSlug(localClip.slug, true);
-    });
+    )
+      .then((localClip: ClipT) => {
+        formState.reset(initialValues, initialErrors);
+        props.urlState.setClipSlug(localClip.slug, true);
+      })
+      .catch((error: any) => {
+        console.log(error.message);
+        formState.setError(
+          'global',
+          'Oops, something went wrong, please try again later'
+        );
+      });
   };
 
 const getHandleCancel =
