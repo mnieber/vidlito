@@ -1,12 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { GetPlaylistQueryKeyT } from 'src/api/queries';
+import { createGetPlaylistQueryKey } from 'src/api/queries';
 import { queryClient } from 'src/api/queryClient';
 import { ClipFormT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { addOrReplaceListItem } from 'src/utils/addOrReplaceListItem';
 import { applyUpdate } from 'src/utils/applyUpdate';
-import { createQueryKey } from 'src/utils/createQueryKey';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
@@ -47,10 +46,9 @@ export const useSaveClip = () => {
     mutationKey: ['saveClip'],
     mutationFn: saveClip,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      const getPlaylistQueryKey = createQueryKey<GetPlaylistQueryKeyT>(
-        'getPlaylist',
-        { playlistSlug: args.playlistSlug }
-      );
+      const getPlaylistQueryKey = createGetPlaylistQueryKey({
+        playlistSlug: args.playlistSlug,
+      });
 
       const updatePlaylist = (playlist: PlaylistT) => {
         return {

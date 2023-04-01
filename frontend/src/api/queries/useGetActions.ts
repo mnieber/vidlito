@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
+import { createQueryKey } from 'src/utils/createQueryKey';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
 export type ArgsT = {
   playlistId?: string;
 };
-
-export type QueryKeyT = ArgsT;
 
 export const getActions = (args: ArgsT) => {
   return doQuery(
@@ -40,9 +39,15 @@ export const getActions = (args: ArgsT) => {
     });
 };
 
+export type QueryKeyT = ArgsT;
+
+export function queryKey(args: QueryKeyT) {
+  return createQueryKey<QueryKeyT>('getActions', args);
+}
+
 export const useGetActions = (args: ArgsT) => {
   return useQuery({
-    queryKey: ['getActions', args as QueryKeyT],
+    queryKey: queryKey(args),
     queryFn: () => getActions(args),
   });
 };
