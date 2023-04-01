@@ -31,6 +31,7 @@ class MoveClipsToTrash(graphene.Mutation):
                     "clip_ids": [str(x) for x in clip_ids],
                     "clip_names": [x.name for x in clips],
                     "playlist_name": playlist.name,
+                    "playlist_id": playlist.id,
                 },
             )
             action.save()

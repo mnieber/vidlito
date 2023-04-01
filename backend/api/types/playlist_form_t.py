@@ -7,4 +7,3 @@ class PlaylistFormT(graphene.InputObjectType):
     slug = graphene.String()
     tags = graphene.List(graphene.String, required=True)
     id = graphene.UUID(required=True)
-    owner_id = graphene.UUID(required=True)

@@ -14,9 +14,13 @@ class GetActions:
 
     def resolve_get_actions(self, info, playlist_id=None):
         if playlist_id:
-            playlist = Playlist.objects.get(id=playlist_id)
-            actions = Action.objects.filter(
-                playlist_id=playlist.id, owner__user_id=info.context.user.id
+            playlist = Playlist.objects.filter(id=playlist_id).first()
+            actions = (
+                Action.objects.filter(
+                    playlist_id=playlist.id, owner__user_id=info.context.user.id
+                )
+                if playlist
+                else []
             )
         else:
             actions = Action.objects.filter(owner__user_id=info.context.user.id)

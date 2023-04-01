@@ -29,6 +29,12 @@ export function loadUserId(args: ArgsT): Promise<any> {
     {}
   )
     .then((response: ObjT) => {
+      response.getUserProfile.userProfile?.playlistSet.forEach(
+        (playlist: ObjT) => {
+          playlist.clipSet = [];
+        }
+      );
+
       return {
         userId: response.username ?? anonymous,
         isAuthenticated: !!response.username,

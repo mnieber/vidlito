@@ -54,12 +54,7 @@ export const useSavePlaylist = () => {
 
       queryClient.setQueriesData(
         { queryKey: loadUserIdQueryKey },
-        (data: any) =>
-          applyUpdate(
-            ['getUserProfile', 'userProfile'],
-            data,
-            updateUserProfile
-          )
+        (data: any) => applyUpdate(['userProfile'], data, updateUserProfile)
       );
 
       queryClient.invalidateQueries({
