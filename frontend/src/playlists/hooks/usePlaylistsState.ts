@@ -9,7 +9,6 @@ import {
   useSavePlaylistOrdering,
 } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
-import { setToReady, setToUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
 import { getIds, lookUp } from 'src/utils/ids';
@@ -29,7 +28,11 @@ export const usePlaylistsState = (props: PropsT) => {
           ids,
           playlistsState.playlistsCtr.data.playlistById
         );
-        R.map(setToUpdating, playlists);
+        console.log(playlists);
+
+        // TODO: we need a deletePlaylists mutation that calls deletePlaylist
+        // const markAsDone = deletePlaylist.updates(playlists);
+        const markAsDone = () => {};
         return Promise.all(
           R.map(
             (x: string) =>
@@ -39,7 +42,7 @@ export const usePlaylistsState = (props: PropsT) => {
             ids
           )
         ).then((response: ObjT) => {
-          R.map(setToReady, playlists);
+          markAsDone();
           return response;
         });
       },

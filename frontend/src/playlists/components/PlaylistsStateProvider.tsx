@@ -1,17 +1,16 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useGetPlaylist } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
-import { initRS } from 'src/api/ResourceState';
-import { cloneAndSetState } from 'src/api/utils';
+import { initAllRS } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { usePlaylistsState } from 'src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from 'src/playlists/utils';
 import { log } from 'src/utils/logging';
+import { ObjT } from 'src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -22,10 +21,9 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const playlistSlug = props.urlState.playlistSlug;
-
     const { playlistsState } = usePlaylistsState({});
 
+    const playlistSlug = props.urlState.playlistSlug;
     const getPlaylist = useQueryData(
       useGetPlaylist({
         playlistSlug:
@@ -41,15 +39,15 @@ export const PlaylistsStateProvider = observer(
         fullPlaylist: getPlaylist.data?.playlist,
       }),
       updateState: (inputs) => {
-        // Initialize data.playlists to the playlists from the user profile
-        // with the fully loaded playlist replacing the stub one.
-        playlistsState.playlistsCtr.data.playlists = updatePlaylists(
+        const playlists = updatePlaylists(
           inputs.playlists ?? [],
           inputs.fullPlaylist
         );
 
-        // Ensure that every playlist has a ResourceState.
-        R.forEach(initRS, playlistsState.playlistsCtr.data.playlists);
+        playlistsState.playlistsCtr.data.playlists = initAllRS(
+          playlists,
+          playlistsState.playlistsCtr.data.playlists
+        );
       },
       logState: () => {
         log('PlaylistsState updated', playlistsState.getSummary());
@@ -59,25 +57,22 @@ export const PlaylistsStateProvider = observer(
     const [cache] = React.useState(() =>
       makeAutoObservable({
         get playlists() {
-          return cloneAndSetState({
+          return withSources({
             resource: playlistsState.playlistsCtr.data.playlistsDisplay,
-            sources: [[['loading', 'userProfile'], props.userProfile]],
+            name: 'playlists',
+            isLoaded: !!props.userProfile,
+            updaters: [[props.userProfile, 'userProfile']],
           });
         },
         get playlist() {
           const fullPlaylist = getPlaylist.data?.playlist;
-          return cloneAndSetState({
+          return withSources({
             resource: playlistsState.playlistsCtr.highlight.item,
-            sources: [
-              [['loading', 'userProfile'], props.userProfile],
-              [
-                ['loading', 'getPlaylist'],
-                !fullPlaylist ? getPlaylist : undefined,
-              ],
-              [
-                ['updating', 'getPlaylist'],
-                !!fullPlaylist ? getPlaylist : undefined,
-              ],
+            name: 'playlist',
+            isLoaded: !!fullPlaylist,
+            updaters: [
+              [props.userProfile, 'userProfile'],
+              [getPlaylist, 'getPlaylist'],
             ],
           });
         },
@@ -113,3 +108,5 @@ export const PlaylistsStateProvider = observer(
     );
   }, DefaultProps)
 );
+
+const withSources = (props: ObjT) => {};

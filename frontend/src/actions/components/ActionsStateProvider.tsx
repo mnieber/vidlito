@@ -21,7 +21,9 @@ const DefaultProps = {
 
 export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { actionsState } = useActionsState({ playlists: props.playlists });
+    const { actionsState, undoAction } = useActionsState({
+      playlists: props.playlists,
+    });
 
     const getActions = useQueryData(
       useGetActions({
@@ -47,6 +49,9 @@ export const ActionsStateProvider = observer(
     const [cache] = React.useState(() =>
       makeAutoObservable({
         get actions() {
+          // TODO: this work should be done in updateState, where these sources
+          // are added to actionsState.actionsCtr.data.actions when we set the
+          // new value of actionsState.actionsCtr.data.actions.
           const actionsDisplay = actionsState.actionsCtr.data.actions;
           return cloneAndSetState({
             resource: actionsDisplay,
@@ -58,6 +63,10 @@ export const ActionsStateProvider = observer(
               [
                 ['updating', 'getActions'],
                 !!getActions.data?.actionSet ? getActions : undefined,
+              ],
+              [
+                ['updating', 'undoAction'],
+                !!actionsDisplay ? undoAction : undefined,
               ],
             ],
           });
