@@ -1,6 +1,7 @@
 import { runInAction } from 'mobx';
 import React from 'react';
 import { QueryData } from 'src/api/QueryData';
+import { flags } from 'src/app/flags';
 import { ObjT } from 'src/utils/types';
 
 export type OptionsT = {
@@ -9,18 +10,33 @@ export type OptionsT = {
 };
 
 export const useQueryData = (query: ObjT, options?: OptionsT) => {
-  const [queryData] = React.useState(() => new QueryData());
   const fetchAsLoad = options?.fetchAsLoad;
   const debugLabel = options?.debugLabel;
 
+  const [queryData] = React.useState(() => {
+    const queryData = new QueryData();
+    queryData.debugLabel = debugLabel ?? 'Unknown';
+    if (flags.logQueries) {
+      queryData.log(
+        `QueryData ${queryData.id} (${queryData.debugLabel}) created`
+      );
+    }
+    return queryData;
+  });
+
   React.useEffect(() => {
     runInAction(() => {
-      queryData.query = debugLabel ? query : query;
+      queryData.query = query;
       queryData.data = query.data;
       queryData.status =
         fetchAsLoad && query.isFetching ? 'loading' : query.status;
+      if (flags.logQueries) {
+        queryData.log(
+          `QueryData ${queryData.id} (${queryData.debugLabel}) updated`
+        );
+      }
     });
-  }, [query, queryData, fetchAsLoad, debugLabel]);
+  }, [query, queryData, fetchAsLoad]);
 
   return queryData;
 };

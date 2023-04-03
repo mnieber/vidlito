@@ -7,7 +7,7 @@ import { useActionsState } from 'src/actions/hooks/useActionsState';
 import { useGetActions } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
 import { initRS } from 'src/api/ResourceState';
-import { cloneAndSetState } from 'src/api/utils/cloneAndSetState';
+import { withSources } from 'src/api/utils/withSources';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { log } from 'src/utils/logging';
@@ -49,25 +49,13 @@ export const ActionsStateProvider = observer(
     const [cache] = React.useState(() =>
       makeAutoObservable({
         get actions() {
-          // TODO: this work should be done in updateState, where these sources
-          // are added to actionsState.actionsCtr.data.actions when we set the
-          // new value of actionsState.actionsCtr.data.actions.
-          const actionsDisplay = actionsState.actionsCtr.data.actions;
-          return cloneAndSetState({
-            resource: actionsDisplay,
-            sources: [
-              [
-                ['loading', 'getActions'],
-                !getActions.data?.actionSet ? getActions : undefined,
-              ],
-              [
-                ['updating', 'getActions'],
-                !!getActions.data?.actionSet ? getActions : undefined,
-              ],
-              [
-                ['updating', 'undoAction'],
-                !!actionsDisplay ? undoAction : undefined,
-              ],
+          return withSources({
+            resource: actionsState.actionsCtr.data.actions,
+            name: 'actions',
+            isAlwaysLoading: !getActions.data?.actionSet,
+            updaters: [
+              [getActions, 'getActions'],
+              [undoAction, 'undoAction'],
             ],
           });
         },

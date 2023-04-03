@@ -5,12 +5,12 @@ import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useGetPlaylist } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
 import { initAllRS } from 'src/api/ResourceState';
+import { withSources } from 'src/api/utils/withSources';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { usePlaylistsState } from 'src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from 'src/playlists/utils';
 import { log } from 'src/utils/logging';
-import { ObjT } from 'src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -30,14 +30,16 @@ export const PlaylistsStateProvider = observer(
           playlistSlug === 'new-playlist' ? undefined : playlistSlug,
         playlistId: playlistsState.playlistsCtr.highlight.id,
       }),
-      { fetchAsLoad: true }
+      { fetchAsLoad: true, debugLabel: 'getPlaylist' }
     );
 
     useUpdateStateReaction({
-      getInputs: () => ({
-        playlists: props.userProfile?.playlistSet,
-        fullPlaylist: getPlaylist.data?.playlist,
-      }),
+      getInputs: () => {
+        return {
+          playlists: props.userProfile?.playlistSet,
+          fullPlaylist: getPlaylist.data?.playlist,
+        };
+      },
       updateState: (inputs) => {
         const playlists = updatePlaylists(
           inputs.playlists ?? [],
@@ -60,16 +62,17 @@ export const PlaylistsStateProvider = observer(
           return withSources({
             resource: playlistsState.playlistsCtr.data.playlistsDisplay,
             name: 'playlists',
-            isLoaded: !!props.userProfile,
+            isAlwaysLoading: !props.userProfile,
             updaters: [[props.userProfile, 'userProfile']],
           });
         },
         get playlist() {
           const fullPlaylist = getPlaylist.data?.playlist;
+
           return withSources({
             resource: playlistsState.playlistsCtr.highlight.item,
             name: 'playlist',
-            isLoaded: !!fullPlaylist,
+            isAlwaysLoading: !fullPlaylist,
             updaters: [
               [props.userProfile, 'userProfile'],
               [getPlaylist, 'getPlaylist'],
@@ -108,5 +111,3 @@ export const PlaylistsStateProvider = observer(
     );
   }, DefaultProps)
 );
-
-const withSources = (props: ObjT) => {};

@@ -1,1 +1,1 @@
-export { cloneAndSetState } from './cloneAndSetState';
+export { withSources } from './withSources';

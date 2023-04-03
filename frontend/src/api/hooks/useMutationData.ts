@@ -14,7 +14,6 @@ export const useMutationData = (mutation: ObjT, options?: OptionsT) => {
   React.useEffect(() => {
     runInAction(() => {
       mutationData.mutation = mutation;
-      mutationData.data = mutation.data;
       mutationData.mutateAsync = mutation.mutateAsync;
       mutationData.status =
         fetchAsLoad && mutation.isFetching ? 'loading' : mutation.status;

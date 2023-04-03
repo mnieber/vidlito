@@ -1,16 +1,15 @@
-import { action, makeObservable, observable } from 'mobx';
-import { ObjT } from 'src/utils/types';
+import { makeObservable, observable } from 'mobx';
+import { createUUID } from 'src/utils/ids';
 
 export class EndpointData {
-  @observable data: ObjT | undefined = undefined;
-  @observable status: string = 'idle';
+  id: string = '';
+  status: string = 'idle';
+  debugLabel?: string = '';
 
   constructor() {
-    makeObservable(this);
+    this.id = createUUID();
+    makeObservable(this, {
+      status: observable,
+    });
   }
-
-  @action clear = () => {
-    this.data = undefined;
-    this.status = 'idle';
-  };
 }
