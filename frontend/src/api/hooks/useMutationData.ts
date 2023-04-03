@@ -9,16 +9,14 @@ export type OptionsT = {
 
 export const useMutationData = (mutation: ObjT, options?: OptionsT) => {
   const [mutationData] = React.useState(() => new MutationData());
-  const fetchAsLoad = options?.fetchAsLoad;
 
   React.useEffect(() => {
     runInAction(() => {
       mutationData.mutation = mutation;
       mutationData.mutateAsync = mutation.mutateAsync;
-      mutationData.status =
-        fetchAsLoad && mutation.isFetching ? 'loading' : mutation.status;
+      mutationData.status = mutation.status;
     });
-  }, [mutation, mutationData, fetchAsLoad]);
+  }, [mutation, mutationData]);
 
   return mutationData;
 };

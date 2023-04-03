@@ -4,7 +4,12 @@ import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useGetPlaylist } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
-import { graftResourceStates } from 'src/api/ResourceState';
+import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
+import {
+  graftResourceStates,
+  isLoading,
+  isUpdating,
+} from 'src/api/ResourceState';
 import { withSources } from 'src/api/utils/withSources';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
@@ -30,7 +35,7 @@ export const PlaylistsStateProvider = observer(
           playlistSlug === 'new-playlist' ? undefined : playlistSlug,
         playlistId: playlistsState.playlistsCtr.highlight.id,
       }),
-      { fetchAsLoad: true, debugLabel: 'getPlaylist' }
+      { fetchAsLoad: true }
     );
 
     useUpdateStateReaction({
@@ -41,10 +46,13 @@ export const PlaylistsStateProvider = observer(
         };
       },
       updateState: (inputs) => {
-        playlistsState.playlistsCtr.data.playlists = graftResourceStates(
-          updatePlaylists(inputs.playlists ?? [], inputs.fullPlaylist),
-          playlistsState.playlistsCtr.data.playlists
-        );
+        playlistsState.playlistsCtr.data.playlists = graftResourceStates({
+          resources: updatePlaylists(
+            inputs.playlists ?? [],
+            inputs.fullPlaylist
+          ),
+          prevResources: playlistsState.playlistsCtr.data.playlists,
+        });
       },
       logState: () => {
         log('PlaylistsState updated', playlistsState.getSummary());
@@ -56,22 +64,18 @@ export const PlaylistsStateProvider = observer(
         get playlists() {
           return withSources({
             resource: playlistsState.playlistsCtr.data.playlistsDisplay,
-            name: 'playlists',
-            isAlwaysLoading: !props.userProfile,
-            updaters: [[props.userProfile, 'userProfile']],
+            loading: [[() => isLoading(props.userProfile), 'userProfile']],
+            updating: [[() => isUpdating(props.userProfile), 'userProfile']],
           });
         },
         get playlist() {
-          const fullPlaylist = getPlaylist.data?.playlist;
-
           return withSources({
             resource: playlistsState.playlistsCtr.highlight.item,
-            name: 'playlist',
-            isAlwaysLoading: !fullPlaylist,
-            updaters: [
-              [props.userProfile, 'userProfile'],
-              [getPlaylist, 'getPlaylist'],
+            loading: [
+              [() => isLoading(props.userProfile), 'userProfile'],
+              [() => isQueryLoading(getPlaylist), 'getPlaylist'],
             ],
+            updating: [[() => isQueryUpdating(getPlaylist), 'getPlaylist']],
           });
         },
       })

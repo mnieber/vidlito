@@ -1,15 +1,15 @@
-import { makeAutoObservable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
-import { EndpointData } from 'src/api/EndpointData';
+import { flags } from 'src/app/flags';
+import { log } from 'src/utils/logging';
 
 export const symbolRS = Symbol('ResourceState');
 
-export const alwaysLoading = makeAutoObservable({});
-
 export type ResourceStateT = undefined | 'loading' | 'updating' | 'ready';
-export type SourceT = [any, string];
+export type SourceT = [() => boolean, string];
 
 export class ResourceState {
+  name?: string = undefined;
   loaders: SourceT[] = [];
   updaters: SourceT[] = [];
 
@@ -30,42 +30,52 @@ export class ResourceState {
   }
 
   get value() {
-    for (const source of this.loaders) {
-      const loader = source[0];
+    let state: ResourceStateT = 'ready';
+    const isLogging = this.name && flags.logResourceStates;
+    isLogging && console.group(`Getting resource state for ${this.name}`);
 
-      // If the loader is a query or a mutation...
-      if (loader instanceof EndpointData) {
-        if (loader.status === 'loading') {
-          return 'loading';
-        }
-      }
-      // If the loader is a resource...
-      else {
-        if (loader === alwaysLoading || getState(loader) !== 'ready') {
-          return 'loading';
-        }
-      }
-    }
+    if (state === 'ready') {
+      for (const source of this.loaders) {
+        const [loader, name] = source;
 
-    for (const source of this.updaters) {
-      const updater = source[0];
-
-      if (updater instanceof EndpointData) {
-        if (updater.status === 'loading') {
-          return 'updating';
-        }
-      } else {
-        if (getState(updater) !== 'ready') {
-          return 'updating';
+        if (loader()) {
+          isLogging && log(`Loading triggered by: ${name}`);
+          state = 'loading';
+          break;
         }
       }
     }
 
-    return 'ready';
+    if (state === 'ready') {
+      for (const source of this.updaters) {
+        const [updater, name] = source;
+
+        if (updater()) {
+          isLogging && log(`Updating triggered by: ${name}`);
+          state = 'updating';
+          break;
+        }
+      }
+    }
+
+    if (state === 'ready') {
+      isLogging && log('Resource is ready');
+    }
+
+    isLogging && console.groupEnd();
+    return state;
   }
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      loaders: observable,
+      updaters: observable,
+      value: computed,
+      addLoader: action,
+      removeLoader: action,
+      addUpdater: action,
+      removeUpdater: action,
+    });
   }
 }
 
@@ -134,21 +144,31 @@ export const initRS = (resource: any, state?: ResourceStateT) => {
   return resource;
 };
 
-export const graftResourceStates = (
-  resources: any[],
-  previousResources?: any[],
-  getKey?: Function
-) => {
+export const graftResourceStates = ({
+  resources,
+  prevResources,
+  getKey,
+  rsName,
+}: {
+  resources: any[];
+  prevResources?: any[];
+  getKey?: Function;
+  rsName?: string;
+}) => {
   for (const resource of resources) {
-    initRS(resource);
+    const key = getKey ? getKey(resource) : resource.id;
 
-    if (previousResources) {
-      const key = getKey ? getKey(resource) : resource.id;
-      const previousResource = previousResources.find(
+    initRS(resource);
+    if (rsName) {
+      getRS(resource).name = `${rsName}_${key}`;
+    }
+
+    if (prevResources) {
+      const previousResource = prevResources.find(
         (r) => key === (getKey ? getKey(r) : r.id)
       );
       if (previousResource) {
-        resource[symbolRS].state = previousResource[symbolRS].state;
+        resource[symbolRS] = previousResource[symbolRS];
       }
     }
   }
@@ -164,7 +184,7 @@ export const getState = (resource: any): ResourceStateT | undefined => {
     return undefined;
   }
 
-  return resource === null ? 'loading' : resource[symbolRS].state;
+  return resource === null ? 'loading' : resource[symbolRS].value;
 };
 
 export const isUpdating = (resource: any) => getState(resource) === 'updating';

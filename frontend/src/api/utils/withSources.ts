@@ -1,30 +1,25 @@
-import { alwaysLoading, getRS, initRS, SourceT } from 'src/api/ResourceState';
+import { getRS, initRS, SourceT } from 'src/api/ResourceState';
 
 export type PropsT = {
   resource: any;
-  name: string;
+  resourceName?: string;
   isAlwaysLoading?: boolean;
-  loaders?: SourceT[];
-  updaters?: SourceT[];
+  loading?: SourceT[];
+  updating?: SourceT[];
 };
 
 export const withSources = (props: PropsT) => {
   const rs = getRS(initRS(props.resource ?? {}));
+  rs.name = props.resourceName ?? rs.name;
 
-  if (props.isAlwaysLoading ?? false) {
-    rs.addLoader(alwaysLoading, 'alwaysLoading');
-  } else {
-    rs.removeLoader('alwaysLoading');
-  }
-
-  for (const [loader, name] of props.loaders ?? []) {
+  for (const [loader, name] of props.loading ?? []) {
     if (loader) {
       rs.addLoader(loader, name);
     } else {
       rs.removeLoader(name);
     }
   }
-  for (const [updater, name] of props.updaters ?? []) {
+  for (const [updater, name] of props.updating ?? []) {
     if (updater) {
       rs.addUpdater(updater, name);
     } else {

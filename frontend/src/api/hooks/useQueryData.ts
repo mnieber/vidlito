@@ -15,12 +15,7 @@ export const useQueryData = (query: ObjT, options?: OptionsT) => {
 
   const [queryData] = React.useState(() => {
     const queryData = new QueryData();
-    queryData.debugLabel = debugLabel ?? 'Unknown';
-    if (flags.logQueries) {
-      queryData.log(
-        `QueryData ${queryData.id} (${queryData.debugLabel}) created`
-      );
-    }
+    queryData.debugLabel = debugLabel;
     return queryData;
   });
 
@@ -30,7 +25,7 @@ export const useQueryData = (query: ObjT, options?: OptionsT) => {
       queryData.data = query.data;
       queryData.status =
         fetchAsLoad && query.isFetching ? 'loading' : query.status;
-      if (flags.logQueries) {
+      if (queryData.debugLabel && flags.logQueries) {
         queryData.log(
           `QueryData ${queryData.id} (${queryData.debugLabel}) updated`
         );

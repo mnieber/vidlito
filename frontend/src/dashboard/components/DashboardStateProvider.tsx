@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useQueryData } from 'src/api/hooks';
+import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
 import { withSources } from 'src/api/utils';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { useLoadUserId } from 'src/auth/endpoints';
@@ -40,9 +41,8 @@ export const DashboardStateProvider = observer(
         get userProfile() {
           return withSources({
             resource: loadUserId.data?.userProfile,
-            name: 'userProfile',
-            isAlwaysLoading: !loadUserId.data?.userProfile,
-            updaters: [[loadUserId, 'loadUserId']],
+            loading: [[() => isQueryLoading(loadUserId), 'loadUserId']],
+            updating: [[() => isQueryUpdating(loadUserId), 'loadUserId']],
           });
         },
       })

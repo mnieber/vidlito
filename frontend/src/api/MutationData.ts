@@ -9,3 +9,7 @@ export class MutationData extends EndpointData {
     return `MutationData`;
   };
 }
+
+export const isRunning = (mutation: MutationData) => {
+  return mutation.status === 'loading';
+};

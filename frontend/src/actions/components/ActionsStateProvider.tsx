@@ -6,6 +6,8 @@ import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useActionsState } from 'src/actions/hooks/useActionsState';
 import { useGetActions } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
+import { isRunning } from 'src/api/MutationData';
+import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
 import { initRS } from 'src/api/ResourceState';
 import { withSources } from 'src/api/utils/withSources';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
@@ -51,11 +53,10 @@ export const ActionsStateProvider = observer(
         get actions() {
           return withSources({
             resource: actionsState.actionsCtr.data.actions,
-            name: 'actions',
-            isAlwaysLoading: !getActions.data?.actionSet,
-            updaters: [
-              [getActions, 'getActions'],
-              [undoAction, 'undoAction'],
+            loading: [[() => isQueryLoading(getActions), 'getActions']],
+            updating: [
+              [() => isQueryUpdating(getActions), 'getActions'],
+              [() => isRunning(undoAction), 'undoAction'],
             ],
           });
         },

@@ -4,4 +4,5 @@ export const flags = observable({
   logQueries: false,
   logSkandha: false,
   logStateProviders: false,
+  logResourceStates: false,
 });

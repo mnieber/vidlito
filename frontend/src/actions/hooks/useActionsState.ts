@@ -1,6 +1,8 @@
 import { action } from 'mobx';
 import React from 'react';
 import { ActionsState } from 'src/actions/ActionsState';
+import { useMutationData } from 'src/api/hooks';
+import { isRunning } from 'src/api/MutationData';
 import { useUndoAction } from 'src/api/mutations/useUndoAction';
 import { addUpdater } from 'src/api/ResourceState';
 import { ActionT } from 'src/api/types/ActionT';
@@ -10,7 +12,7 @@ import { usePropsRef } from 'src/utils/hooks/usePropsRef';
 export type PropsT = { playlists: PlaylistT[] };
 
 export const useActionsState = (props: PropsT) => {
-  const undoAction = useUndoAction();
+  const undoAction = useMutationData(useUndoAction());
   const propsRef = usePropsRef<PropsT>(props);
 
   const [actionsState] = React.useState<ActionsState>(() => {
@@ -28,7 +30,11 @@ export const useActionsState = (props: PropsT) => {
           return Promise.reject('Playlist not found');
         }
 
-        const removeUpdater = addUpdater([action], undoAction, 'undoAction');
+        const removeUpdater = addUpdater(
+          [action],
+          () => isRunning(undoAction),
+          'undoAction'
+        );
         return undoAction
           .mutateAsync({
             actionId,

@@ -35,3 +35,11 @@ export class QueryData extends EndpointData {
     });
   }
 }
+
+export const isQueryLoading = (query: QueryData) => {
+  return query.status === 'loading' && !query.data;
+};
+
+export const isQueryUpdating = (query: QueryData) => {
+  return query.status === 'loading' && !!query.data;
+};

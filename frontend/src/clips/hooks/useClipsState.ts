@@ -9,6 +9,7 @@ import {
   useSaveClipOrdering,
 } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
+import { isRunning } from 'src/api/MutationData';
 import { MoveClipsToPlaylistArgsT, SaveClipArgsT } from 'src/api/mutations';
 import { addUpdater } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
@@ -36,7 +37,7 @@ export const useClipsState = (props: PropsT) => {
         const clips = lookUp(ids, clipsState.clipsCtr.data.clipById);
         const removeUpdater = addUpdater(
           clips,
-          moveClipsToTrash,
+          () => isRunning(moveClipsToTrash),
           'moveClipsToTrash'
         );
         return moveClipsToTrash

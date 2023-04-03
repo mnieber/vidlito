@@ -1,9 +1,13 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { initRS } from 'src/api/ResourceState';
+import { isRunning } from 'src/api/MutationData';
+import {
+  graftResourceStates,
+  isLoading,
+  isUpdating,
+} from 'src/api/ResourceState';
 import { withSources } from 'src/api/utils';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useClipsState } from 'src/clips/hooks/useClipsState';
@@ -27,8 +31,10 @@ export const ClipsStateProvider = observer(
         clips: props.playlist?.clipSet,
       }),
       updateState: (inputs) => {
-        clipsState.clipsCtr.data.clips = inputs.clips ?? [];
-        R.forEach(initRS, clipsState.clipsCtr.data.clips);
+        clipsState.clipsCtr.data.clips = graftResourceStates({
+          resources: inputs.clips ?? [],
+          prevResources: clipsState.clipsCtr.data.clips,
+        });
       },
       logState: () => {
         log('ClipsState updated', clipsState.getSummary());
@@ -40,19 +46,17 @@ export const ClipsStateProvider = observer(
         get clips() {
           return withSources({
             resource: clipsState.clipsCtr.data.clipsDisplay,
-            name: 'clips',
-            loaders: [[props.playlist, 'playlist']],
-            updaters: [
-              [props.playlist, 'playlist'],
-              [moveClipsToPlaylist, 'moveClipsToPlaylist'],
+            loading: [[() => isLoading(props.playlist), 'playlist']],
+            updating: [
+              [() => isUpdating(props.playlist), 'playlist'],
+              [() => isRunning(moveClipsToPlaylist), 'moveClipsToPlaylist'],
             ],
           });
         },
         get clip() {
           return withSources({
             resource: clipsState.clipsCtr.highlight.item,
-            name: 'clip',
-            loaders: [[props.playlist, 'playlist']],
+            loading: [[() => isLoading(props.playlist), 'playlist']],
           });
         },
       })
