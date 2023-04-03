@@ -1,6 +1,5 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import * as R from 'ramda';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useActionsState } from 'src/actions/hooks/useActionsState';
@@ -8,7 +7,7 @@ import { useGetActions } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
 import { isRunning } from 'src/api/MutationData';
 import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
-import { initRS } from 'src/api/ResourceState';
+import { graftResourceStates } from 'src/api/ResourceState';
 import { withSources } from 'src/api/utils/withSources';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
@@ -40,8 +39,10 @@ export const ActionsStateProvider = observer(
         actions: getActions.data?.actionSet,
       }),
       updateState: (inputs) => {
-        actionsState.actionsCtr.data.actions = inputs.actions ?? [];
-        R.forEach(initRS, actionsState.actionsCtr.data.actions);
+        actionsState.actionsCtr.data.actions = graftResourceStates({
+          resources: inputs.actions ?? [],
+          prevResources: actionsState.actionsCtr.data.actions,
+        });
       },
       logState: () => {
         log('ActionsState updated', actionsState.getSummary());

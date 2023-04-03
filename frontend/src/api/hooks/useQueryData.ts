@@ -25,13 +25,11 @@ export const useQueryData = (query: ObjT, options?: OptionsT) => {
       queryData.data = query.data;
       queryData.status =
         fetchAsLoad && query.isFetching ? 'loading' : query.status;
-      if (queryData.debugLabel && flags.logQueries) {
-        queryData.log(
-          `QueryData ${queryData.id} (${queryData.debugLabel}) updated`
-        );
+      if (debugLabel && flags.logQueries) {
+        queryData.log(`QueryData ${queryData.id} (${debugLabel}) updated`);
       }
     });
-  }, [query, queryData, fetchAsLoad]);
+  }, [query, queryData, fetchAsLoad, debugLabel]);
 
   return queryData;
 };
