@@ -9,7 +9,7 @@ import {
   useSavePlaylistOrdering,
 } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
-import { addUpdater, removeUpdater } from 'src/api/ResourceState';
+import { addUpdater } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
 import { getIds, lookUp } from 'src/utils/ids';
@@ -29,7 +29,11 @@ export const usePlaylistsState = (props: PropsT) => {
           ids,
           playlistsState.playlistsCtr.data.playlistById
         );
-        addUpdater(playlists, deletePlaylist, 'deletePlaylist');
+        const removeUpdater = addUpdater(
+          playlists,
+          deletePlaylist,
+          'deletePlaylist'
+        );
 
         return Promise.all(
           R.map(
@@ -40,7 +44,7 @@ export const usePlaylistsState = (props: PropsT) => {
             playlists
           )
         ).then((response: ObjT) => {
-          removeUpdater(playlists, 'deletePlaylist');
+          removeUpdater();
           return response;
         });
       },

@@ -4,7 +4,7 @@ import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useGetPlaylist } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
-import { initAllRS } from 'src/api/ResourceState';
+import { graftResourceStates } from 'src/api/ResourceState';
 import { withSources } from 'src/api/utils/withSources';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
@@ -41,13 +41,8 @@ export const PlaylistsStateProvider = observer(
         };
       },
       updateState: (inputs) => {
-        const playlists = updatePlaylists(
-          inputs.playlists ?? [],
-          inputs.fullPlaylist
-        );
-
-        playlistsState.playlistsCtr.data.playlists = initAllRS(
-          playlists,
+        playlistsState.playlistsCtr.data.playlists = graftResourceStates(
+          updatePlaylists(inputs.playlists ?? [], inputs.fullPlaylist),
           playlistsState.playlistsCtr.data.playlists
         );
       },

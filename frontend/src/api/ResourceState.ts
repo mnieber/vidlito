@@ -98,6 +98,7 @@ export const addUpdater = (
   for (const resource of resources) {
     getRS(resource).addUpdater(updaterRes, updaterName);
   }
+  return () => removeUpdater(resources, updaterName);
 };
 
 export const removeUpdater = (resources: any[], name: string) => {
@@ -133,7 +134,7 @@ export const initRS = (resource: any, state?: ResourceStateT) => {
   return resource;
 };
 
-export const initAllRS = (
+export const graftResourceStates = (
   resources: any[],
   previousResources?: any[],
   getKey?: Function

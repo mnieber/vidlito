@@ -2,7 +2,7 @@ import { action } from 'mobx';
 import React from 'react';
 import { ActionsState } from 'src/actions/ActionsState';
 import { useUndoAction } from 'src/api/mutations/useUndoAction';
-import { addUpdater, removeUpdater } from 'src/api/ResourceState';
+import { addUpdater } from 'src/api/ResourceState';
 import { ActionT } from 'src/api/types/ActionT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { usePropsRef } from 'src/utils/hooks/usePropsRef';
@@ -28,14 +28,14 @@ export const useActionsState = (props: PropsT) => {
           return Promise.reject('Playlist not found');
         }
 
-        addUpdater([action], undoAction, 'undoAction');
+        const removeUpdater = addUpdater([action], undoAction, 'undoAction');
         return undoAction
           .mutateAsync({
             actionId,
             playlist: playlist,
           })
           .then(() => {
-            removeUpdater([action], 'undoAction');
+            removeUpdater();
           });
       }),
     });

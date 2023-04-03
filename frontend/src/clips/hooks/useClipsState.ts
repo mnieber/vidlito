@@ -10,7 +10,7 @@ import {
 } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
 import { MoveClipsToPlaylistArgsT, SaveClipArgsT } from 'src/api/mutations';
-import { addUpdater, removeUpdater } from 'src/api/ResourceState';
+import { addUpdater } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { ClipsState } from 'src/clips/ClipsState';
@@ -34,7 +34,11 @@ export const useClipsState = (props: PropsT) => {
     return new ClipsState({
       moveClipsToTrash: action((ids: string[]) => {
         const clips = lookUp(ids, clipsState.clipsCtr.data.clipById);
-        addUpdater(clips, moveClipsToTrash, 'moveClipsToTrash');
+        const removeUpdater = addUpdater(
+          clips,
+          moveClipsToTrash,
+          'moveClipsToTrash'
+        );
         return moveClipsToTrash
           .mutateAsync({
             playlist: propsRef.current?.playlist,
@@ -42,7 +46,7 @@ export const useClipsState = (props: PropsT) => {
           } as MoveClipsToTrashArgsT)
           .then(
             action((response: ObjT) => {
-              removeUpdater(clips, 'moveClipsToTrash');
+              removeUpdater();
               return response;
             })
           );
