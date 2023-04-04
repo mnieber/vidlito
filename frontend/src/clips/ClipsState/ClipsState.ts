@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { mapDataToProps, pmap } from 'skandha';
@@ -13,6 +14,7 @@ import {
 } from 'skandha-facets/policies';
 import { Selection } from 'skandha-facets/Selection';
 import { registerCtr } from 'skandha-mobx';
+import { getRS } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { getIds } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
@@ -81,6 +83,12 @@ export class ClipsState {
             [DragSourceFromNewItem],
             this.clipsCtr
           )(this.clipsCtr.insertion.inputItems)
+      ),
+      pmap(
+        //
+        [this.clipsCtr.deletion, 'disabled'],
+        () =>
+          R.any((x: ClipT) => getRS(x).locked, this.clipsCtr.selection.items)
       ),
       pmap(
         //

@@ -38,7 +38,8 @@ export const useClipsState = (props: PropsT) => {
         const removeUpdater = addUpdater(
           clips,
           () => isRunning(moveClipsToTrash),
-          'moveClipsToTrash'
+          'moveClipsToTrash',
+          { lock: true }
         );
         return moveClipsToTrash
           .mutateAsync({

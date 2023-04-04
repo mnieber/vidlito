@@ -10,6 +10,7 @@ export type SourceT = [() => boolean, string];
 
 export class ResourceState {
   name?: string = undefined;
+  locked?: boolean = undefined;
   loaders: SourceT[] = [];
   updaters: SourceT[] = [];
 
@@ -68,13 +69,14 @@ export class ResourceState {
 
   constructor() {
     makeObservable(this, {
+      addLoader: action,
+      addUpdater: action,
       loaders: observable,
+      locked: observable,
+      removeLoader: action,
+      removeUpdater: action,
       updaters: observable,
       value: computed,
-      addLoader: action,
-      removeLoader: action,
-      addUpdater: action,
-      removeUpdater: action,
     });
   }
 }
@@ -103,17 +105,30 @@ function _removeSource(name: string, sources: SourceT[]) {
 export const addUpdater = (
   resources: any[],
   updaterRes: any,
-  updaterName: string
+  updaterName: string,
+  options: { lock?: boolean } = {}
 ) => {
   for (const resource of resources) {
-    getRS(resource).addUpdater(updaterRes, updaterName);
+    const rs = getRS(resource);
+    rs.addUpdater(updaterRes, updaterName);
+    if (options.lock) {
+      rs.locked = true;
+    }
   }
-  return () => removeUpdater(resources, updaterName);
+  return () => removeUpdater(resources, updaterName, { unlock: options.lock });
 };
 
-export const removeUpdater = (resources: any[], name: string) => {
+export const removeUpdater = (
+  resources: any[],
+  name: string,
+  options: { unlock?: boolean } = {}
+) => {
   for (const resource of resources) {
-    getRS(resource).removeUpdater(name);
+    const rs = getRS(resource);
+    rs.removeUpdater(name);
+    if (options.unlock) {
+      rs.locked = false;
+    }
   }
 };
 
