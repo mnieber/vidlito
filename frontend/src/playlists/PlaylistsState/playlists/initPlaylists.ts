@@ -3,13 +3,16 @@ import {
   addCleanUpFunctionToCtr,
   cleanUpCtr,
 } from 'react-default-props-context';
-import { topOfTheList } from 'skandha-facets';
-import { AdditionCbs } from 'skandha-facets/Addition';
-import { DeletionCbs } from 'skandha-facets/Deletion';
-import { EditingCbs } from 'skandha-facets/Editing';
-import { HighlightCbs } from 'skandha-facets/Highlight';
-import { InsertionCbs } from 'skandha-facets/Insertion';
-import { handleSelectItem, SelectionCbs } from 'skandha-facets/Selection';
+import {
+  AdditionCbs,
+  DeletionCbs,
+  EditCbs,
+  HighlightCbs,
+  InsertionCbs,
+  SelectionCbs,
+  handleSelectItem,
+  topOfTheList,
+} from 'skandha-facets';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { PlaylistsState, PropsT } from 'src/playlists/PlaylistsState';
 
@@ -25,12 +28,12 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
         ctr.highlight.highlightItem(ctr.addition.item?.id);
-        ctr.editing.enable();
+        ctr.edit.enable();
       },
     },
     cancel: {
       unstageAdd() {
-        ctr.editing.cancel();
+        ctr.edit.cancel();
       },
     },
   } as AdditionCbs<PlaylistT>);
@@ -43,9 +46,9 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
     },
   } as DeletionCbs);
 
-  setCallbackMap(ctr.editing, {
+  setCallbackMap(ctr.edit, {
     save: {
-      saveItem(this: EditingCbs['save']) {
+      saveItem(this: EditCbs['save']) {
         return props
           .savePlaylist(this.values)
           .then((localPlaylist: PlaylistT) => {
@@ -59,7 +62,7 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
         ctr.addition.cancel();
       },
     },
-  } as EditingCbs);
+  } as EditCbs);
 
   setCallbackMap(ctr.highlight, {
     highlightItem: {

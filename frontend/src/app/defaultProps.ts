@@ -1,11 +1,13 @@
 import { stub, withDefaultProps } from 'react-default-props-context';
-import { Addition } from 'skandha-facets/Addition';
-import { Deletion } from 'skandha-facets/Deletion';
-import { DragAndDrop } from 'skandha-facets/DragAndDrop';
-import { Editing } from 'skandha-facets/Editing';
-import { Highlight } from 'skandha-facets/Highlight';
-import { Insertion } from 'skandha-facets/Insertion';
-import { Selection } from 'skandha-facets/Selection';
+import {
+  Addition,
+  Deletion,
+  DragAndDrop,
+  Edit,
+  Highlight,
+  Insertion,
+  Selection,
+} from 'skandha-facets';
 import { ActionsState } from 'src/actions/ActionsState';
 import { ActionT } from 'src/api/types/ActionT';
 import { ClipT } from 'src/api/types/ClipT';
@@ -68,8 +70,8 @@ const dpsClips = {
   clipsDragAndDrop: {
     clipsDragAndDrop: stub as DragAndDrop,
   },
-  clipsEditing: {
-    clipsEditing: stub as Editing,
+  clipsEdit: {
+    clipsEdit: stub as Edit,
   },
   clipsHighlight: {
     clipsHighlight: stub as Highlight,
@@ -110,8 +112,8 @@ const dpsPlaylists = {
   playlistsDragAndDrop: {
     playlistsDragAndDrop: stub as DragAndDrop,
   },
-  playlistsEditing: {
-    playlistsEditing: stub as Editing,
+  playlistsEdit: {
+    playlistsEdit: stub as Edit,
   },
   playlistsHighlight: {
     playlistsHighlight: stub as Highlight,

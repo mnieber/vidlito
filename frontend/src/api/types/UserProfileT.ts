@@ -1,7 +1,7 @@
 import { PlaylistT } from 'src/api/types/PlaylistT';
 
 export type UserProfileT = {
-  displayName: string;
+  username: string;
   playlistSet: PlaylistT[];
   userId: string;
 };

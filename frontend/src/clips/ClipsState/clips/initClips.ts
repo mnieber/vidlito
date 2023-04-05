@@ -4,17 +4,17 @@ import {
   addCleanUpFunctionToCtr,
   cleanUpCtr,
 } from 'react-default-props-context';
-import { topOfTheList } from 'skandha-facets';
-import { AdditionCbs } from 'skandha-facets/Addition';
-import { DeletionCbs } from 'skandha-facets/Deletion';
-import { EditingCbs } from 'skandha-facets/Editing';
-import { HighlightCbs } from 'skandha-facets/Highlight';
-import { InsertionCbs } from 'skandha-facets/Insertion';
 import {
+  AdditionCbs,
+  DeletionCbs,
+  EditCbs,
+  HighlightCbs,
+  InsertionCbs,
   Selection,
   SelectionCbs,
   handleSelectItem,
-} from 'skandha-facets/Selection';
+  topOfTheList,
+} from 'skandha-facets';
 import { correctHighlight } from 'skandha-facets/policies';
 import { ClipT } from 'src/api/types/ClipT';
 import { ClipsState, PropsT } from 'src/clips/ClipsState';
@@ -31,12 +31,12 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
-        ctr.editing.enable();
+        ctr.edit.enable();
       },
     },
     cancel: {
       unstageAdd() {
-        ctr.editing.cancel();
+        ctr.edit.cancel();
       },
     },
   } as AdditionCbs<ClipT>);
@@ -47,7 +47,7 @@ export const initClips = (state: ClipsState, props: PropsT) => {
         const clipIds = this.itemIds;
         if (this.options?.moveToTrash) {
           return props.moveClipsToTrash(clipIds).then((response: ObjT) => {
-            const allIds = R.keys(ctr.data.clipById);
+            const allIds = R.keys(ctr.store.itemById);
             unselectIds(ctr.selection, clipIds);
             correctHighlight(ctr.highlight, allIds);
             return response;
@@ -58,9 +58,9 @@ export const initClips = (state: ClipsState, props: PropsT) => {
     },
   } as DeletionCbs);
 
-  setCallbackMap(ctr.editing, {
+  setCallbackMap(ctr.edit, {
     save: {
-      saveItem(this: EditingCbs['save']) {
+      saveItem(this: EditCbs['save']) {
         return props.saveClip(this.values).then((localClip: ClipT) => {
           ctr.addition.confirm();
           return localClip;
@@ -72,7 +72,7 @@ export const initClips = (state: ClipsState, props: PropsT) => {
         ctr.addition.cancel();
       },
     },
-  } as EditingCbs);
+  } as EditCbs);
 
   setCallbackMap(ctr.highlight, {
     highlightItem: {

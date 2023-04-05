@@ -28,7 +28,7 @@ export type PropsT = {
 
 export const DefaultProps = {
   ...dps.clip,
-  ...dps.clipsEditing,
+  ...dps.clipsEdit,
   ...dps.clipsAddition,
   ...dps.videoPlayerState,
   ...dps.urlState,

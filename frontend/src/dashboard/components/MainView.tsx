@@ -21,8 +21,8 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clip,
-  ...dps.clipsEditing,
-  ...dps.playlistsEditing,
+  ...dps.clipsEdit,
+  ...dps.playlistsEdit,
   ...dps.videoPlayerState,
   ...dps.dashboardState,
 };
@@ -56,13 +56,13 @@ export const MainView = observer(
           {/* 🟩 Switch 🟩 */}
           {/*              */}
           {props.dashboardState.showPlaylistDescription &&
-            !props.playlistsEditing.isEditing && <PlaylistDescription />}
+            !props.playlistsEdit.isEditing && <PlaylistDescription />}
           {props.dashboardState.showPlaylistDescription &&
-            props.playlistsEditing.isEditing && <PlaylistFormView />}
+            props.playlistsEdit.isEditing && <PlaylistFormView />}
           {!props.dashboardState.showPlaylistDescription &&
-            props.clipsEditing.isEditing && <ClipFormView />}
+            props.clipsEdit.isEditing && <ClipFormView />}
           {!props.dashboardState.showPlaylistDescription &&
-            !props.clipsEditing.isEditing && <ClipView />}
+            !props.clipsEdit.isEditing && <ClipView />}
         </div>
       </ClipKeyHandler>
     );

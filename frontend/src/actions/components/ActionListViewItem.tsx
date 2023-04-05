@@ -1,9 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
-import {
-  highlightUIHandlers,
-  HighlightUIPropsT,
-} from 'skandha-facets/Highlight';
+import { highlightUIHandlers, HighlightUIPropsT } from 'skandha-facets';
 import { isUpdating } from 'src/api/ResourceState';
 import { ActionT } from 'src/api/types/ActionT';
 import { rowSkewer } from 'src/frames/components';

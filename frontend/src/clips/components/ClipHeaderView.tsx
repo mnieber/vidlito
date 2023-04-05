@@ -13,8 +13,8 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clip,
-  ...dps.clipsEditing,
-  ...dps.playlistsEditing,
+  ...dps.clipsEdit,
+  ...dps.playlistsEdit,
   ...dps.playlist,
   ...dps.dashboardState,
 };
@@ -54,10 +54,10 @@ export const ClipHeaderView = observer(
             <button
               className={cn('ClipHeaderView__EditButton', mainButton, 'ml-2')}
               onClick={() => {
-                const editing = props.dashboardState.showPlaylistDescription
-                  ? props.playlistsEditing
-                  : props.clipsEditing;
-                editing.enable();
+                const edit = props.dashboardState.showPlaylistDescription
+                  ? props.playlistsEdit
+                  : props.clipsEdit;
+                edit.enable();
               }}
             >
               <Icon className={cn(lvi.leadingIcon)} name="pencil" />
@@ -65,7 +65,7 @@ export const ClipHeaderView = observer(
             </button>
           </div>
           <div className={cn('ClipHeaderView__TitleAuthor')}>
-            By: {props.clip.owner.displayName}
+            By: {props.clip.owner.username}
           </div>
           <ClipTagsView />
         </div>

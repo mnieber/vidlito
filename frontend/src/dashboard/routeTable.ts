@@ -5,20 +5,25 @@ export const getRouteTable = () => {
 
   routeTable.addRoutes({
     playlist: [
-      () => '/playlist/:playlistSlug',
-      (playlistSlug: string) => ({ playlistSlug: playlistSlug }),
+      () => '/playlist/:ownerUsername/:playlistSlug',
+      (ownerUsername: string, playlistSlug: string) => ({
+        ownerUsername,
+        playlistSlug,
+      }),
     ],
     clip: [
-      () => '/playlist/:playlistSlug/clips/:clipSlug?',
-      (playlistSlug: string, clipSlug: string) => ({
+      () => '/playlist/:ownerUsername/:playlistSlug/:clipSlug?',
+      (ownerUsername: string, playlistSlug: string, clipSlug: string) => ({
+        ownerUsername,
         playlistSlug,
         clipSlug,
       }),
     ],
     actions: [
-      () => '/playlist/:playlistSlug/actions',
-      (playlistSlug?: string) => ({
-        playlistSlug: playlistSlug,
+      () => '/playlist/:ownerUsername/:playlistSlug/actions/_',
+      (ownerUsername: string, playlistSlug?: string) => ({
+        ownerUsername,
+        playlistSlug,
       }),
     ],
   });

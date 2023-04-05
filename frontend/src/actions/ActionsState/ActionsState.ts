@@ -2,11 +2,11 @@ import { action } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { mapDataToProps, pmap } from 'skandha';
-import { Highlight } from 'skandha-facets/Highlight';
+import { Highlight } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
 import { ActionT } from 'src/api/types/ActionT';
-import { ActionsData, initActions } from './actions';
 import { Settings } from './Settings';
+import { ActionsData, initActions } from './actions';
 
 export type PropsT = {
   undoAction: (actionId: string) => Promise<any>;

@@ -17,6 +17,7 @@ export class UrlState {
   routes: ObjT;
   routeUfns: ObjT;
   @observable playlistSlug?: string;
+  @observable playlistOwnerUsername?: string;
   @observable clipSlug?: string;
   @observable urlBeforeGoToActions?: string;
 
@@ -32,32 +33,36 @@ export class UrlState {
     this.history.goBack();
   }
 
-  @action setPlaylistSlug(playlistSlug: string) {
-    if (this.playlistSlug === playlistSlug) {
-      return;
-    }
-    this.playlistSlug = playlistSlug;
+  @action setPlaylist(playlistOwnerUsername: string, playlistSlug: string) {
     if (
-      getMatchingRoutes(R.pick(['playlist', 'clip'], this.routes), pathname())
-        .length
+      this.playlistSlug !== playlistSlug ||
+      this.playlistOwnerUsername !== playlistOwnerUsername
     ) {
-      const ufn = this.routeUfns.playlist(this.history.push);
-      ufn(playlistSlug);
+      this.playlistOwnerUsername = playlistOwnerUsername;
+      this.playlistSlug = playlistSlug;
+      if (this.isOnMainPage()) {
+        const ufn = this.routeUfns.playlist(this.history.push);
+        ufn(playlistOwnerUsername, playlistSlug);
+      }
     }
   }
 
-  setClipSlug(clipSlug: string) {
-    if (this.clipSlug === clipSlug) {
-      return;
-    }
-    this.clipSlug = clipSlug;
-    if (
+  isOnMainPage() {
+    return (
       getMatchingRoutes(R.pick(['playlist', 'clip'], this.routes), pathname())
-        .length
-    ) {
-      if (!this.playlistSlug) throw new Error('No playlist set');
-      const ufn = this.routeUfns.clip(this.history.push);
-      ufn(this.playlistSlug, this.clipSlug);
+        .length &&
+      !getMatchingRoutes(R.pick(['actions'], this.routes), pathname()).length
+    );
+  }
+
+  setClipSlug(clipSlug: string) {
+    if (this.clipSlug !== clipSlug) {
+      this.clipSlug = clipSlug;
+      if (this.isOnMainPage()) {
+        if (!this.playlistSlug) throw new Error('No playlist set');
+        const ufn = this.routeUfns.clip(this.history.push);
+        ufn(this.playlistOwnerUsername, this.playlistSlug, this.clipSlug);
+      }
     }
   }
 
@@ -69,7 +74,7 @@ export class UrlState {
   @action goToActions() {
     this.urlBeforeGoToActions = this.history.location.pathname;
     const ufn = this.routeUfns.actions(this.history.push);
-    ufn(this.playlistSlug);
+    ufn(this.playlistOwnerUsername, this.playlistSlug);
   }
 
   @action closeActions() {

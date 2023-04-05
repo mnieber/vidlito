@@ -1,23 +1,25 @@
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { mapDataToProps, pmap } from 'skandha';
-import { Addition } from 'skandha-facets/Addition';
-import { Deletion } from 'skandha-facets/Deletion';
-import { DragAndDrop } from 'skandha-facets/DragAndDrop';
-import { Editing } from 'skandha-facets/Editing';
-import { Highlight } from 'skandha-facets/Highlight';
-import { Insertion } from 'skandha-facets/Insertion';
+import {
+  Addition,
+  Deletion,
+  DragAndDrop,
+  Edit,
+  Highlight,
+  Insertion,
+  Selection,
+} from 'skandha-facets';
 import {
   DragSourceFromNewItem,
   insertionPreviewUsesDragSources,
 } from 'skandha-facets/policies';
-import { Selection } from 'skandha-facets/Selection';
 import { registerCtr } from 'skandha-mobx';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { getIds } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
-import { initPlaylists, PlaylistsData } from './playlists';
 import { Settings } from './Settings';
+import { PlaylistsData, initPlaylists } from './playlists';
 
 export type PropsT = {
   deletePlaylists: (ids: string[]) => Promise<any>;
@@ -33,7 +35,7 @@ export class PlaylistsState {
     addition: new Addition<PlaylistT>(),
     deletion: new Deletion(),
     dragAndDrop: new DragAndDrop(),
-    editing: new Editing(),
+    edit: new Edit(),
     highlight: new Highlight<PlaylistT>(),
     insertion: new Insertion<PlaylistT>(),
     selection: new Selection<PlaylistT>(),

@@ -31,9 +31,9 @@ export const ClipsStateProvider = observer(
         clips: props.playlist?.clipSet,
       }),
       updateState: (inputs) => {
-        clipsState.clipsCtr.data.clips = graftResourceStates({
+        clipsState.clipsCtr.store.items = graftResourceStates({
           resources: inputs.clips ?? [],
-          prevResources: clipsState.clipsCtr.data.clips,
+          prevResources: clipsState.clipsCtr.store.items,
         });
       },
       logState: () => {
@@ -45,7 +45,7 @@ export const ClipsStateProvider = observer(
       makeAutoObservable({
         get clips() {
           return withSources({
-            resource: clipsState.clipsCtr.data.clipsDisplay,
+            resource: clipsState.clipsCtr.display.items,
             loading: [[() => isLoading(props.playlist), 'playlist']],
             updating: [
               [() => isUpdating(props.playlist), 'playlist'],
@@ -76,7 +76,7 @@ export const ClipsStateProvider = observer(
         clipsAddition: () => clipsState.clipsCtr.addition,
         clipsDeletion: () => clipsState.clipsCtr.deletion,
         clipsDragAndDrop: () => clipsState.clipsCtr.dragAndDrop,
-        clipsEditing: () => clipsState.clipsCtr.editing,
+        clipsEdit: () => clipsState.clipsCtr.edit,
         clipsHighlight: () => clipsState.clipsCtr.highlight,
         clipsSelection: () => clipsState.clipsCtr.selection,
       };

@@ -2,7 +2,6 @@ import React from 'react';
 import { getRouteTable as getAuthRouteTable } from 'src/auth/routeTable';
 import { getRouteTable as getDashboardRouteTable } from 'src/dashboard/routeTable';
 import { RouteTable } from 'src/routes/utils/RouteTable';
-import { getRouteTable as getSelftestRouteTable } from 'src/selftest/routeTable';
 
 export const RoutesContext = React.createContext<RouteTable>(new RouteTable());
 
@@ -12,7 +11,6 @@ export const RoutesProvider = (props: PropsT) => {
   const routeTable = new RouteTable();
   routeTable.addTable(getAuthRouteTable(), '');
   routeTable.addTable(getDashboardRouteTable(), '');
-  routeTable.addTable(getSelftestRouteTable(), '');
 
   return (
     <RoutesContext.Provider value={routeTable}>

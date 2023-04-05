@@ -25,7 +25,8 @@ export const SelectPlaylistEffect = observer(
         const playlist = R.find(
           (x: PlaylistT) => x.slug === params.playlistSlug
         )(props.playlists);
-        props.urlState.setPlaylistSlug(params.playlistSlug);
+
+        props.urlState.setPlaylist(params.ownerUsername, params.playlistSlug);
         if (playlist && !props.playlistsSelection.ids.includes(playlist.id)) {
           props.playlistsSelection.selectItem({ itemId: playlist.id });
           props.playlistsHighlight.highlightItem(playlist.id);

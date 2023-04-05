@@ -1,4 +1,4 @@
-import { SelectionParamsT } from 'skandha-facets/Selection';
+import { SelectionParamsT } from 'skandha-facets';
 
 export const createOnSelectItemHandler =
   <ItemT extends { id: string }>(

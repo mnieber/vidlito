@@ -11,6 +11,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.urlState,
+  ...dps.username,
 };
 
 export const NewPlaylistButton = observer(
@@ -19,7 +20,7 @@ export const NewPlaylistButton = observer(
       <button
         className={cn('NewPlaylistButton', mainButton, props.className)}
         onClick={() => {
-          props.urlState.setPlaylistSlug('new-playlist');
+          props.urlState.setPlaylist(props.username, 'new-playlist');
         }}
       >
         <Icon className={cn(lvi.leadingIcon)} name="plus" />

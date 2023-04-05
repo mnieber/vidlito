@@ -35,12 +35,12 @@ export const getPlaylist = (args: ArgsT) => {
             tags
             url
             owner {
-              displayName
+              username
               userId
             }
           }
           owner {
-            displayName
+            username
             userId
           }
         }

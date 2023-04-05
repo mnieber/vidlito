@@ -42,7 +42,7 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
-    const saveClip = props.clipsEditing.save.bind(props.clipsEditing);
+    const saveClip = props.clipsEdit.save.bind(props.clipsEdit);
 
     return saveClip(
       unflatten({
@@ -72,7 +72,7 @@ const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
     const mustGoBack = !!props.clipsAddition.item;
-    props.clipsEditing.cancel();
+    props.clipsEdit.cancel();
     mustGoBack && props.urlState.goBack();
   };
 

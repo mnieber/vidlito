@@ -8,6 +8,6 @@ f = faker.Faker()
 def create_random_user_profile():
     obj, created = UserProfile.objects.get_or_create(
         user_id=f.uuid4(),
-        display_name=f.word(),
+        username=f.word(),
     )
     return obj

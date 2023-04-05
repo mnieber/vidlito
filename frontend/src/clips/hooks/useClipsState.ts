@@ -34,7 +34,7 @@ export const useClipsState = (props: PropsT) => {
   const [clipsState] = React.useState<ClipsState>(() => {
     return new ClipsState({
       moveClipsToTrash: action((ids: string[]) => {
-        const clips = lookUp(ids, clipsState.clipsCtr.data.clipById);
+        const clips = lookUp(ids, clipsState.clipsCtr.store.itemById);
         const removeUpdater = addUpdater(
           clips,
           () => isRunning(moveClipsToTrash),

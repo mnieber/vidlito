@@ -2,11 +2,9 @@ import { observer } from 'mobx-react-lite';
 import {
   dragAndDropUIHandlers,
   DragAndDropUIPropsT,
-} from 'skandha-facets/DragAndDrop';
-import {
   selectionUIHandlers,
   SelectionUIPropsT,
-} from 'skandha-facets/Selection';
+} from 'skandha-facets';
 import { isUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';

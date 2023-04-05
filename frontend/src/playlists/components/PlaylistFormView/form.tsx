@@ -44,11 +44,14 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
-    return props.playlistsEditing
+    return props.playlistsEdit
       .save(unflatten(values))
       .then((localPlaylist: PlaylistT) => {
         formState.reset(initialValues, initialErrors);
-        props.urlState.setPlaylistSlug(localPlaylist.slug);
+        props.urlState.setPlaylist(
+          localPlaylist.owner.username,
+          localPlaylist.slug
+        );
       })
       .catch((error: any) => {
         formState.setError(
@@ -62,7 +65,7 @@ const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
     const mustGoBack = !!props.playlistsAddition.item;
-    props.playlistsEditing.cancel();
+    props.playlistsEdit.cancel();
     if (mustGoBack) {
       props.urlState.goBack();
     }

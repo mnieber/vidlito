@@ -42,7 +42,10 @@ export const Dashboard = observer(
               isExpanded={props.dashboardState.isPlaylistListExpanded}
               updateUrl={(playlist: PlaylistT) => {
                 if (props.playlist?.slug !== playlist.slug) {
-                  props.urlState.setPlaylistSlug(playlist.slug);
+                  props.urlState.setPlaylist(
+                    playlist.owner.username,
+                    playlist.slug
+                  );
                 }
               }}
             />
