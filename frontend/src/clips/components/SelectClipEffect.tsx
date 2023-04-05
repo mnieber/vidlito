@@ -24,15 +24,17 @@ export const SelectClipEffect = observer(
         const clipId = R.find((x: ClipT) => x.slug === params.clipSlug)(
           props.clips
         )?.id;
+        // If the clip slug in the url is not valid, then go to the first
+        // clip in the playlist.
         if (
           R.isNil(params.clipSlug) ||
-          (R.isNil(clipId) && params.clipSlug !== 'new-clip')
+          (props.clips.length &&
+            R.isNil(clipId) &&
+            params.clipSlug !== 'new-clip')
         ) {
-          // If the clip slug in the url is not valid, then go to the first
-          // clip in the playlist.
           const clip = R.head(props.clips);
           if (clip) {
-            props.urlState.setClipSlug(clip.slug, true);
+            props.urlState.setClipSlug(clip.slug);
           }
         } else if (clipId && !props.clipsSelection.ids.includes(clipId)) {
           props.clipsSelection.selectItem({ itemId: clipId });

@@ -19,7 +19,7 @@ export const NewPlaylistButton = observer(
       <button
         className={cn('NewPlaylistButton', mainButton, props.className)}
         onClick={() => {
-          props.urlState.setPlaylistSlug('new-playlist', true);
+          props.urlState.setPlaylistSlug('new-playlist');
         }}
       >
         <Icon className={cn(lvi.leadingIcon)} name="plus" />

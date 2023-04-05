@@ -8,5 +8,6 @@ class Entity(models.Model):
         abstract = True
         ordering = ["-created"]
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # version = models.BigIntegerField(default=0, editable=False)

@@ -36,6 +36,7 @@ export class ClipsState {
 
   clipsCtr = {
     data: new ClipsData(),
+    display: new Display<ClipT>(),
     addition: new Addition<ClipT>(),
     deletion: new Deletion(),
     dragAndDrop: new DragAndDrop(),
@@ -43,6 +44,7 @@ export class ClipsState {
     highlight: new Highlight<ClipT>(),
     insertion: new Insertion<ClipT>(),
     selection: new Selection<ClipT>(),
+    storage: new Storage<ClipT>(),
   };
 
   moveClipsToPlaylist(playlistId: string, copy: boolean = false) {

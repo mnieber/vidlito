@@ -22,7 +22,7 @@ export const NewClipButton = observer(
         className={cn('NewClipButton', mainButton, props.className)}
         onClick={() => {
           props.clipsAddition.add(createClip({})).then((localClip: ClipT) => {
-            props.urlState.setClipSlug(localClip.slug, true);
+            props.urlState.setClipSlug(localClip.slug);
           });
         }}
       >

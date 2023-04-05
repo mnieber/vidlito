@@ -10,8 +10,12 @@ import { DeletionCbs } from 'skandha-facets/Deletion';
 import { EditingCbs } from 'skandha-facets/Editing';
 import { HighlightCbs } from 'skandha-facets/Highlight';
 import { InsertionCbs } from 'skandha-facets/Insertion';
+import {
+  Selection,
+  SelectionCbs,
+  handleSelectItem,
+} from 'skandha-facets/Selection';
 import { correctHighlight } from 'skandha-facets/policies';
-import { handleSelectItem, SelectionCbs } from 'skandha-facets/Selection';
 import { ClipT } from 'src/api/types/ClipT';
 import { ClipsState, PropsT } from 'src/clips/ClipsState';
 import { ObjT } from 'src/utils/types';
@@ -44,11 +48,8 @@ export const initClips = (state: ClipsState, props: PropsT) => {
         if (this.options?.moveToTrash) {
           return props.moveClipsToTrash(clipIds).then((response: ObjT) => {
             const allIds = R.keys(ctr.data.clipById);
-            correctHighlight(
-              ctr.highlight,
-              allIds,
-              allIds.filter((x) => x !== ctr.highlight.id)
-            );
+            unselectIds(ctr.selection, clipIds);
+            correctHighlight(ctr.highlight, allIds);
             return response;
           });
         }
@@ -103,4 +104,12 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       },
     },
   } as SelectionCbs);
+};
+
+export const unselectIds = (selection: Selection, ids: string[]) => {
+  for (const id of ids) {
+    if (selection.ids.includes(id)) {
+      selection.selectItem({ itemId: id, isCtrl: true });
+    }
+  }
 };

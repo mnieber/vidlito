@@ -202,6 +202,7 @@ export const getState = (resource: any): ResourceStateT | undefined => {
   return resource === null ? 'loading' : resource[symbolRS].value;
 };
 
+export const isLocked = (resource: any) => resource && getRS(resource)?.locked;
 export const isUpdating = (resource: any) => getState(resource) === 'updating';
 export const isLoading = (resource: any) => getState(resource) === 'loading';
 export const isReady = (resource: any) => getState(resource) === 'ready';

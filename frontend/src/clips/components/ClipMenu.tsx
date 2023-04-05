@@ -34,7 +34,7 @@ export const ClipMenu = observer(
       () => () => {
         const clip = props.clipsHighlight.item;
         if (!R.isNil(clip)) {
-          props.urlState.setClipSlug(clip.slug, true);
+          props.urlState.setClipSlug(clip.slug);
         }
       },
       [props.clipsHighlight, props.urlState]
