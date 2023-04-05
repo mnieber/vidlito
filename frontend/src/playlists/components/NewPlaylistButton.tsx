@@ -20,7 +20,7 @@ export const NewPlaylistButton = observer(
       <button
         className={cn('NewPlaylistButton', mainButton, props.className)}
         onClick={() => {
-          props.urlState.setPlaylist(props.username, 'new-playlist');
+          props.urlState.userCreatesNewPlaylist();
         }}
       >
         <Icon className={cn(lvi.leadingIcon)} name="plus" />

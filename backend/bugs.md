@@ -1,5 +1,10 @@
 Bugs:
 
+- Maybe when we call urlState.setClipSlug we should also add a string to say what happened?
+  -- e.g. urlState.setClipSlug(clip.slug, 'movedClipToTrash')
+  -- if we are on the trash page and we see 'movedClipToTrash', then we stay on the trash page
+  -- or maybe directly use functions in the urlState, e.g. urlState.correctClipSlugTo(clip.slug)
+
 - When closing the actions, always go to the dashboard
 - Is trailing slash needed in signin url?
 - After signing in, catch the sign in event in AuthState and invalidate the getActions query (and maybe other queries)

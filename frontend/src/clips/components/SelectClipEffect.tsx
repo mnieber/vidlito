@@ -34,7 +34,7 @@ export const SelectClipEffect = observer(
         ) {
           const clip = R.head(props.clips);
           if (clip) {
-            props.urlState.setClipSlug(clip.slug);
+            props.urlState.userHighlightsClip(clip.slug);
           }
         } else if (clipId && !props.clipsSelection.ids.includes(clipId)) {
           props.clipsSelection.selectItem({ itemId: clipId });

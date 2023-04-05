@@ -48,10 +48,7 @@ const getHandleSubmit =
       .save(unflatten(values))
       .then((localPlaylist: PlaylistT) => {
         formState.reset(initialValues, initialErrors);
-        props.urlState.setPlaylist(
-          localPlaylist.owner.username,
-          localPlaylist.slug
-        );
+        props.urlState.userHighlightsPlaylist(localPlaylist.slug);
       })
       .catch((error: any) => {
         formState.setError(

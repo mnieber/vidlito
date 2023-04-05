@@ -58,7 +58,7 @@ const getHandleSubmit =
     )
       .then((localClip: ClipT) => {
         formState.reset(initialValues, initialErrors);
-        props.urlState.setClipSlug(localClip.slug);
+        props.urlState.userHighlightsClip(localClip.slug);
       })
       .catch((error: any) => {
         formState.setError(

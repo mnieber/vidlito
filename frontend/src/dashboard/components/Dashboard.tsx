@@ -42,16 +42,15 @@ export const Dashboard = observer(
               isExpanded={props.dashboardState.isPlaylistListExpanded}
               updateUrl={(playlist: PlaylistT) => {
                 if (props.playlist?.slug !== playlist.slug) {
-                  props.urlState.setPlaylist(
-                    playlist.owner.username,
-                    playlist.slug
-                  );
+                  props.urlState.userHighlightsPlaylist(playlist.slug);
                 }
               }}
             />
             <div className={cn('Dashboard__Separator', 'my-2')} />
             <ClipListView
-              updateUrl={(clip: ClipT) => props.urlState.setClipSlug(clip.slug)}
+              updateUrl={(clip: ClipT) =>
+                props.urlState.userHighlightsClip(clip.slug)
+              }
             />
           </div>
         </div>

@@ -34,7 +34,7 @@ export const ClipMenu = observer(
       () => () => {
         const clip = props.clipsHighlight.item;
         if (!R.isNil(clip)) {
-          props.urlState.setClipSlug(clip.slug);
+          props.urlState.clipHighlightIsCorrectedTo(clip.slug);
         }
       },
       [props.clipsHighlight, props.urlState]
@@ -91,6 +91,7 @@ export const ClipMenu = observer(
         onClose={() => props.dashboardState.closeContextMenu()}
       >
         <MenuItem
+          disabled={props.clipsDeletion.disabled}
           onClick={() =>
             props.clipsDeletion
               .delete(props.clipsSelection.ids, {

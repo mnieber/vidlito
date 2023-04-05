@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, makeObservable } from 'mobx';
 import * as R from 'ramda';
 import { cleanUpCtr } from 'react-default-props-context';
 import { getHomeRoute } from 'src/routes/getHomeRoute';
@@ -16,10 +16,6 @@ export class UrlState {
   history: any;
   routes: ObjT;
   routeUfns: ObjT;
-  @observable playlistSlug?: string;
-  @observable playlistOwnerUsername?: string;
-  @observable clipSlug?: string;
-  @observable urlBeforeGoToActions?: string;
 
   getSummary() {
     return {};
@@ -33,16 +29,26 @@ export class UrlState {
     this.history.goBack();
   }
 
-  @action setPlaylist(playlistOwnerUsername: string, playlistSlug: string) {
-    if (
-      this.playlistSlug !== playlistSlug ||
-      this.playlistOwnerUsername !== playlistOwnerUsername
-    ) {
-      this.playlistOwnerUsername = playlistOwnerUsername;
-      this.playlistSlug = playlistSlug;
-      if (this.isOnMainPage()) {
+  @action userHighlightsPlaylist(playlistSlug: string) {
+    for (const match of getMatchingRoutes(this.routes, pathname())) {
+      if (match.params.playlistOwnerUsername) {
         const ufn = this.routeUfns.playlist(this.history.push);
-        ufn(playlistOwnerUsername, playlistSlug);
+        ufn(match.params.playlistOwnerUsername, playlistSlug);
+        return;
+      }
+    }
+  }
+
+  @action userHighlightsClip(clipSlug: string) {
+    for (const match of getMatchingRoutes(this.routes, pathname())) {
+      if (match.params.playlistOwnerUsername && match.params.playlistSlug) {
+        const ufn = this.routeUfns.clip(this.history.push);
+        ufn(
+          match.params.playlistOwnerUsername,
+          match.params.playlistSlug,
+          clipSlug
+        );
+        return;
       }
     }
   }
@@ -55,32 +61,34 @@ export class UrlState {
     );
   }
 
-  setClipSlug(clipSlug: string) {
-    if (this.clipSlug !== clipSlug) {
-      this.clipSlug = clipSlug;
-      if (this.isOnMainPage()) {
-        if (!this.playlistSlug) throw new Error('No playlist set');
-        const ufn = this.routeUfns.clip(this.history.push);
-        ufn(this.playlistOwnerUsername, this.playlistSlug, this.clipSlug);
+  clipHighlightIsCorrectedTo(clipSlug: string) {
+    if (this.isOnMainPage()) {
+      for (const match of getMatchingRoutes(this.routes, pathname())) {
+        if (match.params.playlistOwnerUsername && match.params.playlistSlug) {
+          const ufn = this.routeUfns.clip(this.history.push);
+          ufn(
+            match.params.playlistOwnerUsername,
+            match.params.playlistSlug,
+            clipSlug
+          );
+          return;
+        }
       }
     }
   }
 
   goHome() {
-    this.playlistSlug = undefined;
     this.history.push(getHomeRoute());
   }
 
   @action goToActions() {
-    this.urlBeforeGoToActions = this.history.location.pathname;
     const ufn = this.routeUfns.actions(this.history.push);
-    ufn(this.playlistOwnerUsername, this.playlistSlug);
+    ufn();
   }
 
-  @action closeActions() {
-    this.history.push(this.urlBeforeGoToActions);
-    this.urlBeforeGoToActions = undefined;
-  }
+  @action closeActions() {}
+
+  userCreatesNewPlaylist() {}
 
   constructor(props: PropsT) {
     this.history = props.history;

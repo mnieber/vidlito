@@ -28,7 +28,7 @@ export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { playlistsState } = usePlaylistsState({});
 
-    const playlistSlug = props.urlState.playlistSlug;
+    const playlistSlug = props.urlState.getPlaylistSlug();
     const getPlaylist = useQueryData(
       useGetPlaylist({
         playlistSlug:
