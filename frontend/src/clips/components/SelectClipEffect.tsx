@@ -24,7 +24,7 @@ export const SelectClipEffect = observer(
         const clipId = R.find((x: ClipT) => x.slug === params.clipSlug)(
           props.clips
         )?.id;
-        // If the clip slug in the url is not valid, then go to the first
+        // If the clip slug in the url is missing or invalid, then go to the first
         // clip in the playlist.
         if (
           R.isNil(params.clipSlug) ||
@@ -36,7 +36,10 @@ export const SelectClipEffect = observer(
           if (clip) {
             props.urlState.userHighlightsClip(clip.slug);
           }
-        } else if (clipId && !props.clipsSelection.ids.includes(clipId)) {
+        }
+        // If the clip slug in the url is valid, but the corresponding clipId is
+        // not selected, then select it.
+        else if (clipId && !props.clipsSelection.ids.includes(clipId)) {
           props.clipsSelection.selectItem({ itemId: clipId });
         }
       });

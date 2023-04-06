@@ -24,11 +24,10 @@ export const DashboardStateProvider = observer(
     useUpdateStateReaction({
       getInputs: () => ({
         userProfile: loadUserId.data?.userProfile,
-        username: loadUserId.data?.username,
         isAuthenticated: loadUserId.data?.isAuthenticated,
       }),
       updateState: (inputs) => {
-        dashboardState.account.username = inputs.username;
+        dashboardState.account.username = inputs.userProfile?.username;
         dashboardState.account.userProfile = inputs.userProfile;
         dashboardState.account.isAuthenticated = inputs.isAuthenticated;
       },

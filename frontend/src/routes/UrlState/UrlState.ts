@@ -2,7 +2,7 @@ import { action, makeObservable } from 'mobx';
 import * as R from 'ramda';
 import { cleanUpCtr } from 'react-default-props-context';
 import { getHomeRoute } from 'src/routes/getHomeRoute';
-import { getMatchingRoutes } from 'src/routes/utils/getMatchingRoutes';
+import { getBestRouteMatch } from 'src/routes/utils/getRouteMatches';
 import { ObjT } from 'src/utils/types';
 import { pathname } from 'src/utils/urls';
 
@@ -16,6 +16,8 @@ export class UrlState {
   history: any;
   routes: ObjT;
   routeUfns: ObjT;
+  hiddenParams: ObjT = {};
+  username?: string;
 
   getSummary() {
     return {};
@@ -29,52 +31,24 @@ export class UrlState {
     this.history.goBack();
   }
 
-  @action userHighlightsPlaylist(playlistSlug: string) {
-    for (const match of getMatchingRoutes(this.routes, pathname())) {
-      if (match.params.playlistOwnerUsername) {
-        const ufn = this.routeUfns.playlist(this.history.push);
-        ufn(match.params.playlistOwnerUsername, playlistSlug);
-        return;
-      }
-    }
+  getRouteMatch() {
+    return getBestRouteMatch(this.routes, pathname());
   }
 
-  @action userHighlightsClip(clipSlug: string) {
-    for (const match of getMatchingRoutes(this.routes, pathname())) {
-      if (match.params.playlistOwnerUsername && match.params.playlistSlug) {
-        const ufn = this.routeUfns.clip(this.history.push);
-        ufn(
-          match.params.playlistOwnerUsername,
-          match.params.playlistSlug,
-          clipSlug
-        );
-        return;
-      }
-    }
+  getParams(mergeLeftWithHiddenParams = false) {
+    const params = this.getRouteMatch()?.params ?? {};
+    return mergeLeftWithHiddenParams
+      ? R.mergeLeft(params, this.hiddenParams)
+      : params;
   }
 
   isOnMainPage() {
-    return (
-      getMatchingRoutes(R.pick(['playlist', 'clip'], this.routes), pathname())
-        .length &&
-      !getMatchingRoutes(R.pick(['actions'], this.routes), pathname()).length
-    );
+    return ['playlist', 'clip'].includes(this.getRouteMatch()?.name ?? '');
   }
 
-  clipHighlightIsCorrectedTo(clipSlug: string) {
-    if (this.isOnMainPage()) {
-      for (const match of getMatchingRoutes(this.routes, pathname())) {
-        if (match.params.playlistOwnerUsername && match.params.playlistSlug) {
-          const ufn = this.routeUfns.clip(this.history.push);
-          ufn(
-            match.params.playlistOwnerUsername,
-            match.params.playlistSlug,
-            clipSlug
-          );
-          return;
-        }
-      }
-    }
+  getPlaylistSlug() {
+    const params = this.getParams();
+    return params.playlistSlug;
   }
 
   goHome() {
@@ -83,10 +57,55 @@ export class UrlState {
 
   @action goToActions() {
     const ufn = this.routeUfns.actions(this.history.push);
-    ufn();
+    const params = this.getParams(true);
+    ufn(this.username, params.playlistSlug);
   }
 
-  @action closeActions() {}
+  @action closeActions() {
+    const ufn = this.routeUfns.clip(this.history.push);
+    const params = this.getParams(true);
+    ufn(params.ownerUsername, params.playlistSlug, params.clipSlug);
+  }
+
+  @action userHighlightsPlaylist(playlistSlug: string) {
+    this.hiddenParams.playlistSlug = playlistSlug;
+    const params = this.getParams();
+    if (params.ownerUsername) {
+      const ufn = this.routeUfns.playlist(this.history.push);
+      ufn(params.ownerUsername, playlistSlug);
+    }
+  }
+
+  @action userHighlightsClip(clipSlug: string) {
+    this.hiddenParams.clipSlug = clipSlug;
+    const params = this.getParams();
+    if (params.ownerUsername && params.playlistSlug) {
+      const ufn = this.routeUfns.clip(this.history.push);
+      ufn(params.ownerUsername, params.playlistSlug, clipSlug);
+    }
+  }
+
+  clipHighlightIsCorrectedTo(clipSlug: string) {
+    this.hiddenParams.clipSlug = clipSlug;
+    if (this.isOnMainPage()) {
+      const params = this.getParams();
+      if (params.ownerUsername && params.playlistSlug) {
+        const ufn = this.routeUfns.clip(this.history.push);
+        ufn(params.ownerUsername, params.playlistSlug, clipSlug);
+      }
+    }
+  }
+
+  playlistHighlightIsCorrectedTo(playlistSlug: string) {
+    this.hiddenParams.playlistSlug = playlistSlug;
+    if (this.isOnMainPage()) {
+      const params = this.getParams();
+      if (params.ownerUsername) {
+        const ufn = this.routeUfns.playlist(this.history.push);
+        ufn(params.ownerUsername, playlistSlug);
+      }
+    }
+  }
 
   userCreatesNewPlaylist() {}
 

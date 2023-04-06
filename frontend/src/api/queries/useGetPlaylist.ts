@@ -36,12 +36,10 @@ export const getPlaylist = (args: ArgsT) => {
             url
             owner {
               username
-              userId
             }
           }
           owner {
             username
-            userId
           }
         }
       }

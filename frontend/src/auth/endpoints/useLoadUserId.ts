@@ -17,7 +17,6 @@ export function loadUserId(args: ArgsT): Promise<any> {
         getUserProfile {
           userProfile {
             username
-            userId
             playlistSet {
               id
               name

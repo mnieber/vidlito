@@ -12,8 +12,8 @@ export const App = () => {
     <div
       className={cn('App', 'flex flex-col', 'mx-auto px-2', 'xl:w-4/5 xl:px-0')}
     >
-      <UrlStateProvider>
-        <DashboardStateProvider>
+      <DashboardStateProvider>
+        <UrlStateProvider>
           <PlaylistsStateProvider>
             <ClipsStateProvider>
               <ActionsStateProvider>
@@ -23,8 +23,8 @@ export const App = () => {
               </ActionsStateProvider>
             </ClipsStateProvider>
           </PlaylistsStateProvider>
-        </DashboardStateProvider>
-      </UrlStateProvider>
+        </UrlStateProvider>
+      </DashboardStateProvider>
     </div>
   );
 };

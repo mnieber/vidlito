@@ -12,7 +12,7 @@ export const getRouteTable = () => {
       }),
     ],
     clip: [
-      () => '/playlist/:ownerUsername/:playlistSlug/:clipSlug?',
+      () => '/playlist/:ownerUsername/:playlistSlug/:clipSlug',
       (ownerUsername: string, playlistSlug: string, clipSlug: string) => ({
         ownerUsername,
         playlistSlug,

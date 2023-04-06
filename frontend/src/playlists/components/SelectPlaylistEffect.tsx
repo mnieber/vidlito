@@ -9,7 +9,6 @@ import { useSearchAndUrlParams } from 'src/utils/hooks';
 type PropsT = {};
 
 const DefaultProps = {
-  ...dps.urlState,
   ...dps.dashboardState,
   ...dps.playlists,
   ...dps.playlistsHighlight,
@@ -26,7 +25,6 @@ export const SelectPlaylistEffect = observer(
           (x: PlaylistT) => x.slug === params.playlistSlug
         )(props.playlists);
 
-        props.urlState.playlistHighlightIsCorrectedTo(params.playlistSlug);
         if (playlist && !props.playlistsSelection.ids.includes(playlist.id)) {
           props.playlistsSelection.selectItem({ itemId: playlist.id });
           props.playlistsHighlight.highlightItem(playlist.id);
@@ -37,7 +35,6 @@ export const SelectPlaylistEffect = observer(
       props.playlists,
       props.playlistsHighlight,
       props.playlistsSelection,
-      props.urlState,
     ]);
 
     return null;
