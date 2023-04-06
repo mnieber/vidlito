@@ -10,6 +10,7 @@ type PropsT = {};
 
 const DefaultProps = {
   ...dps.clipsSelection,
+  ...dps.clipsHighlight,
   ...dps.playlist,
   ...dps.clips,
   ...dps.urlState,
@@ -38,12 +39,18 @@ export const SelectClipEffect = observer(
           }
         }
         // If the clip slug in the url is valid, but the corresponding clipId is
-        // not selected, then select it.
-        else if (clipId && !props.clipsSelection.ids.includes(clipId)) {
+        // not highlighted, then select it.
+        else if (clipId && props.clipsHighlight.id !== clipId) {
           props.clipsSelection.selectItem({ itemId: clipId });
         }
       });
-    }, [params, props.clips, props.clipsSelection, props.urlState]);
+    }, [
+      params,
+      props.clips,
+      props.clipsSelection,
+      props.clipsHighlight,
+      props.urlState,
+    ]);
 
     return null;
   }, DefaultProps)

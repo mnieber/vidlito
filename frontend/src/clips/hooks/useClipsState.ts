@@ -46,12 +46,10 @@ export const useClipsState = (props: PropsT) => {
             playlist: propsRef.current?.playlist,
             clipIds: ids,
           } as MoveClipsToTrashArgsT)
-          .then(
-            action((response: ObjT) => {
-              removeUpdater();
-              return response;
-            })
-          );
+          .then((response: ObjT) => {
+            removeUpdater();
+            return response;
+          });
       }),
       saveClip: (values: ObjT) => {
         return saveClip
@@ -77,13 +75,24 @@ export const useClipsState = (props: PropsT) => {
         playlistId: string,
         copy: boolean
       ) => {
-        return moveClipsToPlaylist.mutateAsync({
-          srcPlaylistId: propsRef.current?.playlist.id,
-          srcPlaylistSlug: propsRef.current?.playlist.slug,
-          destPlaylistId: playlistId,
-          clipIds: getIds(clips),
-          copy,
-        } as MoveClipsToPlaylistArgsT);
+        const removeUpdater = addUpdater(
+          clips,
+          () => isRunning(moveClipsToPlaylist),
+          'moveClipsToPlaylist',
+          { lock: true }
+        );
+        return moveClipsToPlaylist
+          .mutateAsync({
+            srcPlaylistId: propsRef.current?.playlist.id,
+            srcPlaylistSlug: propsRef.current?.playlist.slug,
+            destPlaylistId: playlistId,
+            clipIds: getIds(clips),
+            copy,
+          } as MoveClipsToPlaylistArgsT)
+          .then((response: ObjT) => {
+            removeUpdater();
+            return response;
+          });
       },
     });
   }) as ClipsState[];

@@ -30,6 +30,10 @@ export class ResourceState {
     _removeSource(name, this.updaters);
   }
 
+  lock(flag: boolean) {
+    this.locked = flag;
+  }
+
   get value() {
     let state: ResourceStateT = 'ready';
     const isLogging = this.name && flags.logResourceStates;
@@ -72,6 +76,7 @@ export class ResourceState {
       addLoader: action,
       addUpdater: action,
       loaders: observable,
+      lock: action,
       locked: observable,
       removeLoader: action,
       removeUpdater: action,
@@ -112,7 +117,7 @@ export const addUpdater = (
     const rs = getRS(resource);
     rs.addUpdater(updaterRes, updaterName);
     if (options.lock) {
-      rs.locked = true;
+      rs.lock(true);
     }
   }
   return () => removeUpdater(resources, updaterName, { unlock: options.lock });
@@ -127,7 +132,7 @@ export const removeUpdater = (
     const rs = getRS(resource);
     rs.removeUpdater(name);
     if (options.unlock) {
-      rs.locked = false;
+      rs.lock(false);
     }
   }
 };

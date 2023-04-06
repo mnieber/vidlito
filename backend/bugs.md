@@ -1,8 +1,6 @@
 Bugs:
 
-- Why can't I unselect the highlighted and selected clip?
 - After signing in, catch the sign in event in AuthState and invalidate the getActions query (and maybe other queries)
-- clip not removed after move clips to playlists
 - handle case where action is not found in UndoAction
 - with the trash page open, trashing a clip and selecting the next clip should not close the trash page
 
