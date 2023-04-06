@@ -98,7 +98,10 @@ export class ClipsState {
         //
         [this.clipsCtr.deletion, 'disabled'],
         () =>
-          R.any((x: ClipT) => getRS(x).locked, this.clipsCtr.selection.items)
+          R.any(
+            (x: ClipT) => x && getRS(x).locked,
+            this.clipsCtr.selection.items
+          )
       ),
       pmap(
         //

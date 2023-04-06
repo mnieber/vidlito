@@ -13,7 +13,6 @@ import { cn } from 'src/utils/classnames';
 import './PlaylistListView.scss';
 
 export type PropsT = {
-  updateUrl?: (playlist: PlaylistT) => void;
   isExpanded: boolean;
   className?: any;
 };
@@ -24,6 +23,7 @@ const DefaultProps = {
   ...dps.playlistsHighlight,
   ...dps.playlistsSelection,
   ...dps.dashboardState,
+  ...dps.urlState,
 };
 
 export const PlaylistListView = observer(
@@ -38,14 +38,14 @@ export const PlaylistListView = observer(
       }
     );
 
-    const { playlistsHighlight, dashboardState, updateUrl } = props;
+    const { playlistsHighlight, dashboardState, urlState } = props;
     const goToPlaylist = React.useMemo(
       () => (playlist: PlaylistT) => {
         playlistsHighlight.highlightItem(playlist.id);
         dashboardState.setIsPlaylistListExpanded(false);
-        updateUrl && updateUrl(playlist);
+        urlState.userHighlightsPlaylist(playlist.slug);
       },
-      [updateUrl, dashboardState, playlistsHighlight]
+      [urlState, dashboardState, playlistsHighlight]
     );
 
     if (isLoading(props.playlists)) {

@@ -1,8 +1,6 @@
 Bugs:
 
-- After undo, clip may not appear in clip list
-- When you are on the actions page and you trash a clip, the highlight is corrected. However, the new highlight doesn't show in the cliplist.
-- Is trailing slash needed in signin url?
+- Why can't I unselect the highlighted and selected clip?
 - After signing in, catch the sign in event in AuthState and invalidate the getActions query (and maybe other queries)
 - clip not removed after move clips to playlists
 - handle case where action is not found in UndoAction

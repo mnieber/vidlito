@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ClipT } from 'src/api/types/ClipT';
-import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListView } from 'src/clips/components';
 import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
@@ -40,11 +39,6 @@ export const Dashboard = observer(
             <PlaylistListView
               className={cn('overflow-y-auto')}
               isExpanded={props.dashboardState.isPlaylistListExpanded}
-              updateUrl={(playlist: PlaylistT) => {
-                if (props.playlist?.slug !== playlist.slug) {
-                  props.urlState.userHighlightsPlaylist(playlist.slug);
-                }
-              }}
             />
             <div className={cn('Dashboard__Separator', 'my-2')} />
             <ClipListView
