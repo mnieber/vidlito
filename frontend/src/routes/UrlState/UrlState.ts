@@ -35,6 +35,10 @@ export class UrlState {
     return getBestRouteMatch(this.routes, pathname());
   }
 
+  updateHiddenParams() {
+    this.hiddenParams = R.mergeLeft(this.hiddenParams, this.getParams());
+  }
+
   getParams(mergeLeftWithHiddenParams = false) {
     const params = this.getRouteMatch()?.params ?? {};
     return mergeLeftWithHiddenParams
@@ -56,6 +60,7 @@ export class UrlState {
   }
 
   @action goToActions() {
+    this.updateHiddenParams();
     const ufn = this.routeUfns.actions(this.history.push);
     const params = this.getParams(true);
     ufn(this.username, params.playlistSlug);

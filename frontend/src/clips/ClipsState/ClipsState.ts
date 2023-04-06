@@ -72,6 +72,11 @@ export class ClipsState {
       ),
       pmap(
         //
+        [this.clipsCtr.highlight, 'highlightableIds'],
+        () => getIds(this.clipsCtr.display.items)
+      ),
+      pmap(
+        //
         [this.clipsCtr.highlight, 'item'],
         () => getClipById(this.clipsCtr.highlight.id)
       ),

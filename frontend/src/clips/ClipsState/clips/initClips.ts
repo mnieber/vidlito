@@ -49,7 +49,12 @@ export const initClips = (state: ClipsState, props: PropsT) => {
           return props.moveClipsToTrash(clipIds).then((response: ObjT) => {
             const allIds = R.keys(ctr.store.itemById);
             unselectIds(ctr.selection, clipIds);
-            correctHighlight(ctr.highlight, allIds);
+
+            correctHighlight(
+              ctr.highlight,
+              allIds,
+              R.without(clipIds, ctr.highlight.highlightableIds)
+            );
             return response;
           });
         }
