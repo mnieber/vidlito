@@ -10,7 +10,7 @@ export function signOut(args: ArgsT) {
   return Promise.resolve().then(() => {
     setToken('', '');
     return {
-      errors: {},
+      errors: [],
     };
   });
 }

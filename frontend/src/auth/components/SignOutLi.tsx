@@ -1,4 +1,5 @@
 import { useSignOut } from 'src/auth/endpoints';
+import { useAuthStateContext } from 'src/auth/hooks';
 import { RouterLink } from 'src/routes/components';
 import { history } from 'src/routes/components/UrlRouter';
 import { useRoutes } from 'src/routes/hooks/useRoutes';
@@ -8,7 +9,8 @@ type PropsT = {
 };
 
 export const SignOutLi = (props: PropsT) => {
-  const signOut = useSignOut().mutateAsync;
+  const authState = useAuthStateContext(true);
+  const signOut = useSignOut(authState).mutateAsync;
   const routes = useRoutes();
 
   return (

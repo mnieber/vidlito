@@ -1,17 +1,21 @@
-import { makeAutoObservable } from 'mobx';
+import { autorun, makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useActionsState } from 'src/actions/hooks/useActionsState';
-import { useGetActions } from 'src/api/endpoints';
-import { useQueryData } from 'src/api/hooks';
 import { isRunning } from 'src/api/MutationData';
 import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
 import { graftResourceStates } from 'src/api/ResourceState';
+import { useGetActions } from 'src/api/endpoints';
+import { useQueryData } from 'src/api/hooks';
+import { invalidateGetActions } from 'src/api/queries/useGetActions';
 import { withSources } from 'src/api/utils/withSources';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
+import { AuthStateContext } from 'src/auth/components/AuthStateProvider';
+import { States } from 'src/auth/endpoints/states';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { log } from 'src/utils/logging';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -22,17 +26,29 @@ const DefaultProps = {
 
 export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const authState = React.useContext(AuthStateContext);
+
     const { actionsState, undoAction } = useActionsState({
       playlists: props.playlists,
     });
 
-    const getActions = useQueryData(
-      useGetActions({
-        playlistId: actionsState.settings.showAllActions
-          ? undefined
-          : props.playlist?.id,
-      })
-    );
+    const queryArgs = {
+      playlistId: actionsState.settings.showAllActions
+        ? undefined
+        : props.playlist?.id,
+    };
+    const getActions = useQueryData(useGetActions(queryArgs));
+
+    useDeepCompareEffect(() => {
+      return autorun(() => {
+        if (
+          authState?.state === States.SIGN_OUT_SUCCEEDED ||
+          authState?.state === States.SIGN_IN_SUCCEEDED
+        ) {
+          invalidateGetActions(queryArgs);
+        }
+      });
+    }, [queryArgs, authState]);
 
     useUpdateStateReaction({
       getInputs: () => ({

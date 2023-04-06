@@ -1,4 +1,5 @@
 import { ActionsStateProvider } from 'src/actions/components';
+import { AuthStateProvider } from 'src/auth/components/AuthStateProvider';
 import { ClipsStateProvider } from 'src/clips/components';
 import { DashboardStateProvider } from 'src/dashboard/components';
 import { PlaylistsStateProvider } from 'src/playlists/components/PlaylistsStateProvider';
@@ -12,19 +13,21 @@ export const App = () => {
     <div
       className={cn('App', 'flex flex-col', 'mx-auto px-2', 'xl:w-4/5 xl:px-0')}
     >
-      <DashboardStateProvider>
-        <UrlStateProvider>
-          <PlaylistsStateProvider>
-            <ClipsStateProvider>
-              <ActionsStateProvider>
-                <VideoPlayerStateProvider>
-                  <UrlRouter />
-                </VideoPlayerStateProvider>
-              </ActionsStateProvider>
-            </ClipsStateProvider>
-          </PlaylistsStateProvider>
-        </UrlStateProvider>
-      </DashboardStateProvider>
+      <AuthStateProvider>
+        <DashboardStateProvider>
+          <UrlStateProvider>
+            <PlaylistsStateProvider>
+              <ClipsStateProvider>
+                <ActionsStateProvider>
+                  <VideoPlayerStateProvider>
+                    <UrlRouter />
+                  </VideoPlayerStateProvider>
+                </ActionsStateProvider>
+              </ClipsStateProvider>
+            </PlaylistsStateProvider>
+          </UrlStateProvider>
+        </DashboardStateProvider>
+      </AuthStateProvider>
     </div>
   );
 };

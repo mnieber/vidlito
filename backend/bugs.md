@@ -1,12 +1,17 @@
 Bugs:
 
+- SignIn form doesn't have labels above the inputs
 - After signing in, catch the sign in event in AuthState and invalidate the getActions query (and maybe other queries)
-- handle case where action is not found in UndoAction
-- with the trash page open, trashing a clip and selecting the next clip should not close the trash page
 
 Test:
 
 - When the apps starts from the new-clip url, the clip form is shown (same for new-playlist)
+
+---
+
+Fix some day:
+
+- handle case where action is not found in UndoAction
 
 Race condition:
 
