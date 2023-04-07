@@ -1,4 +1,3 @@
-import { makeAutoObservable } from 'mobx';
 import { doQuery } from 'src/api/graphqlClient';
 import { getPlaylistQueryKey } from 'src/api/queries';
 import { updateQueries } from 'src/api/queryClient';
@@ -42,12 +41,6 @@ export const mutation = (args: ArgsT) => {
   });
 };
 
-export type TrackerT = {
-  isRunning: boolean;
-  data: ObjT | null;
-  result: Promise<any>;
-};
-
 export const moveClipsToPlaylist = (args: ArgsT) => {
   return mutation(args).then((response: ObjT) => {
     updateQueries({
@@ -63,21 +56,4 @@ export const moveClipsToPlaylist = (args: ArgsT) => {
     });
     return response;
   });
-};
-
-export type TrackMutationArgsT = {
-  mutation: Promise<any>;
-};
-
-export const trackMutation = (args: TrackMutationArgsT) => {
-  const tracker: TrackerT = makeAutoObservable({
-    isRunning: true,
-    data: null,
-    result: args.mutation.then((response: any) => {
-      tracker.isRunning = false;
-      tracker.data = response;
-      return response;
-    }),
-  });
-  return tracker;
 };

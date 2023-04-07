@@ -10,14 +10,12 @@ import {
 } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
 import { MoveClipsToPlaylistArgsT, SaveClipArgsT } from 'src/api/mutations';
-import {
-  moveClipsToPlaylist,
-  trackMutation,
-} from 'src/api/mutations/useMoveClipsToPlaylist';
+import { moveClipsToPlaylist } from 'src/api/mutations/useMoveClipsToPlaylist';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { ClipsState } from 'src/clips/ClipsState';
 import { addUpdater } from 'src/resourceStates';
+import { trackPromise } from 'src/resourceStates/trackPromise';
 import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { usePropsRef } from 'src/utils/hooks/usePropsRef';
 import { getIds, lookUp } from 'src/utils/ids';
@@ -78,26 +76,20 @@ export const useClipsState = (props: PropsT) => {
         playlistId: string,
         copy: boolean
       ) => {
-        const moveClipsToPlaylistTracker = trackMutation({
-          mutation: moveClipsToPlaylist({
-            srcPlaylistId: propsRef.current?.playlist.id,
-            srcPlaylistSlug: propsRef.current?.playlist.slug,
-            destPlaylistId: playlistId,
-            clipIds: getIds(clips),
-            copy,
-          } as MoveClipsToPlaylistArgsT),
-        });
+        const mutation = moveClipsToPlaylist({
+          srcPlaylistId: propsRef.current?.playlist.id,
+          srcPlaylistSlug: propsRef.current?.playlist.slug,
+          destPlaylistId: playlistId,
+          clipIds: getIds(clips),
+          copy,
+        } as MoveClipsToPlaylistArgsT);
 
-        const removeUpdater = addUpdater(
-          [...clips, propsRef.current?.playlist],
-          () => moveClipsToPlaylistTracker.isRunning,
-          'moveClipsToPlaylist',
-          { lock: true }
-        );
-        return moveClipsToPlaylistTracker.result.then((response: ObjT) => {
-          removeUpdater();
-          return response;
-        });
+        return trackPromise({
+          promise: mutation,
+          name: 'moveClipsToPlaylist',
+          resourcesToUpdate: [...clips, propsRef.current?.playlist],
+          lockResources: true,
+        }).result;
       },
     });
   }) as ClipsState;
