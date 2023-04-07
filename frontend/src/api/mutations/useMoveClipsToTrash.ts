@@ -43,13 +43,14 @@ export const useMoveClipsToTrash = () => {
     mutationKey: ['moveClipsToTrash'],
     mutationFn: moveClipsToTrash,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      const updatePlaylist = (playlist: PlaylistT) =>
-        removeClips(playlist, args.clipIds);
-
       updateQueries({
         queryKey: getPlaylistQueryKey({ playlistSlug: args.playlist.slug }),
         invalidate: true,
-        update: (data: any) => applyUpdate(['playlist'], data, updatePlaylist),
+        update: (data: any) =>
+          // Remove trashed clips from playlist
+          applyUpdate(['playlist'], data, (playlist: PlaylistT) =>
+            removeClips(playlist, args.clipIds)
+          ),
       });
 
       updateQueries({

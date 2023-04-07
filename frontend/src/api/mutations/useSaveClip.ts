@@ -46,21 +46,21 @@ export const useSaveClip = () => {
     mutationKey: ['saveClip'],
     mutationFn: saveClip,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      const updatePlaylist = (playlist: PlaylistT) => {
-        return {
-          ...playlist,
-          clipSet: addOrReplaceListItem(
-            playlist.clipSet,
-            args.parentClipId,
-            args.clipForm
-          ),
-        };
-      };
-
       updateQueries({
         queryKey: getPlaylistQueryKey({ playlistSlug: args.playlistSlug }),
         invalidate: true,
-        update: (data: any) => applyUpdate(['playlist'], data, updatePlaylist),
+        update: (data: any) =>
+          // Add or replace saved clip in playlist
+          applyUpdate(['playlist'], data, (playlist: PlaylistT) => {
+            return {
+              ...playlist,
+              clipSet: addOrReplaceListItem(
+                playlist.clipSet,
+                args.parentClipId,
+                args.clipForm
+              ),
+            };
+          }),
       });
     },
   });

@@ -39,22 +39,21 @@ export const useSavePlaylist = () => {
     mutationKey: ['savePlaylist'],
     mutationFn: savePlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      const updateUserProfile = (userProfile: UserProfileT) => {
-        return {
-          ...userProfile,
-          playlistSet: addOrReplaceListItem(
-            userProfile.playlistSet,
-            args.parentPlaylistId,
-            args.playlistForm
-          ),
-        };
-      };
-
       updateQueries({
         queryKey: ['loadUserId'],
         invalidate: true,
         update: (data: any) =>
-          applyUpdate(['userProfile'], data, updateUserProfile),
+          // Add or replace saved playlist in user profile
+          applyUpdate(['userProfile'], data, (userProfile: UserProfileT) => {
+            return {
+              ...userProfile,
+              playlistSet: addOrReplaceListItem(
+                userProfile.playlistSet,
+                args.parentPlaylistId,
+                args.playlistForm
+              ),
+            };
+          }),
       });
     },
   });

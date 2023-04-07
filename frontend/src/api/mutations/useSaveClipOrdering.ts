@@ -43,18 +43,18 @@ export const useSaveClipOrdering = () => {
     mutationKey: ['saveClipOrdering'],
     mutationFn: saveClipOrdering,
     onMutate: (args: ArgsT) => {
-      const updatePlaylist = (playlist: PlaylistT) => {
-        return R.isNil(playlist.clipSet)
-          ? playlist
-          : {
-              ...playlist,
-              clipSet: sortByIds(playlist.clipSet, args.clipIds),
-            };
-      };
-
       updateQueries({
         queryKey: getPlaylistQueryKey({ playlistSlug: args.playlistSlug }),
-        update: (data: any) => applyUpdate(['playlist'], data, updatePlaylist),
+        update: (data: any) =>
+          // Reorder clips in playlist.clipSet
+          applyUpdate(['playlist'], data, (playlist: PlaylistT) => {
+            return R.isNil(playlist.clipSet)
+              ? playlist
+              : {
+                  ...playlist,
+                  clipSet: sortByIds(playlist.clipSet, args.clipIds),
+                };
+          }),
       });
     },
   });
