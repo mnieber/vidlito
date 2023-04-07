@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
 import { getPlaylistQueryKey } from 'src/api/queries';
 import { updateQueries } from 'src/api/queryClient';
@@ -14,7 +15,7 @@ export type ArgsT = {
   copy: boolean;
 };
 
-export const mutation = (args: ArgsT) => {
+export const moveClipsToPlaylist = (args: ArgsT) => {
   return doQuery(
     `mutation moveClipsToPlaylist(
       $srcPlaylistId: UUID!
@@ -41,19 +42,20 @@ export const mutation = (args: ArgsT) => {
   });
 };
 
-export const moveClipsToPlaylist = (args: ArgsT) => {
-  return mutation(args).then((response: ObjT) => {
-    updateQueries({
-      queryKey: getPlaylistQueryKey({
-        playlistSlug: args.srcPlaylistSlug,
-      }),
-      invalidate: true,
-      update: (data: any) =>
-        // Remove clips from playlist
-        applyUpdate(['playlist'], data, (playlist: PlaylistT) =>
-          removeClips(playlist, args.clipIds)
-        ),
-    });
-    return response;
+export const useMoveClipsToPlaylist = () => {
+  return useMutation({
+    mutationKey: ['moveClipsToPlaylist'],
+    mutationFn: moveClipsToPlaylist,
+    onSuccess: (response: ObjT, args: ArgsT) => {
+      updateQueries({
+        queryKey: getPlaylistQueryKey({ playlistSlug: args.srcPlaylistSlug }),
+        invalidate: true,
+        update: (data: any) =>
+          // Remove clips from playlist
+          applyUpdate(['playlist'], data, (playlist: PlaylistT) =>
+            removeClips(playlist, args.clipIds)
+          ),
+      });
+    },
   });
 };

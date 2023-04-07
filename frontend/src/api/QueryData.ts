@@ -1,11 +1,14 @@
 import { action, makeObservable, observable } from 'mobx';
-import { EndpointData } from 'src/api/EndpointData';
+import { createUUID } from 'src/utils/ids';
 import { log } from 'src/utils/logging';
 import { ObjT } from 'src/utils/types';
 
-export class QueryData extends EndpointData {
+export class QueryData {
   query: ObjT = {};
   data: ObjT | undefined = undefined;
+  id: string = '';
+  status: string = 'idle';
+  debugLabel?: string = '';
 
   public toString = (): string => {
     return `QueryData`;
@@ -28,8 +31,9 @@ export class QueryData extends EndpointData {
   };
 
   constructor() {
-    super();
+    this.id = createUUID();
     makeObservable(this, {
+      status: observable,
       data: observable,
       clear: action,
     });

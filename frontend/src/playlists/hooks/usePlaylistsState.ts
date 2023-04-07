@@ -6,10 +6,9 @@ import {
   useSavePlaylist,
   useSavePlaylistOrdering,
 } from 'src/api/endpoints';
-import { useMutationData } from 'src/api/hooks';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
-import { addUpdater } from 'src/resourceStates';
+import { trackPromise } from 'src/resourceStates/trackPromise';
 import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { getIds, lookUp } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
@@ -17,9 +16,9 @@ import { ObjT } from 'src/utils/types';
 export type PropsT = {};
 
 export const usePlaylistsState = (props: PropsT) => {
-  const deletePlaylists = useMutationData(useDeletePlaylists());
-  const savePlaylist = useMutationData(useSavePlaylist());
-  const savePlaylistOrdering = useMutationData(useSavePlaylistOrdering());
+  const deletePlaylists = useDeletePlaylists();
+  const savePlaylist = useSavePlaylist();
+  const savePlaylistOrdering = useSavePlaylistOrdering();
 
   const playlistsState = useBuilder(() => {
     return new PlaylistsState({
@@ -28,16 +27,13 @@ export const usePlaylistsState = (props: PropsT) => {
           ids,
           playlistsState.playlistsCtr.data.playlistById
         );
-        const removeUpdater = addUpdater(
-          playlists,
-          deletePlaylists,
-          'deletePlaylist'
-        );
 
-        return deletePlaylists.mutateAsync(ids).then((response: ObjT) => {
-          removeUpdater();
-          return response;
-        });
+        const mutation = deletePlaylists.mutateAsync(ids);
+        return trackPromise({
+          promise: mutation,
+          name: 'deletePlaylists',
+          resourcesToUpdate: playlists,
+        }).result;
       },
       savePlaylist: (values: ObjT) => {
         return savePlaylist
@@ -58,8 +54,5 @@ export const usePlaylistsState = (props: PropsT) => {
 
   return {
     playlistsState,
-    deletePlaylists,
-    savePlaylist,
-    savePlaylistOrdering,
   };
 };

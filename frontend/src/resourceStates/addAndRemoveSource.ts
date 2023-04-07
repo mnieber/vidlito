@@ -3,30 +3,19 @@ import { getRS } from './ResourceState';
 export const addUpdater = (
   resources: any[],
   updaterRes: any,
-  updaterName: string,
-  options: { lock?: boolean } = {}
+  updaterName: string
 ) => {
   for (const resource of resources) {
     const rs = getRS(resource);
     rs.addUpdater(updaterRes, updaterName);
-    if (options.lock) {
-      rs.lock(true);
-    }
   }
-  return () => removeUpdater(resources, updaterName, { unlock: options.lock });
+  return () => removeUpdater(resources, updaterName);
 };
 
-export const removeUpdater = (
-  resources: any[],
-  name: string,
-  options: { unlock?: boolean } = {}
-) => {
+export const removeUpdater = (resources: any[], name: string) => {
   for (const resource of resources) {
     const rs = getRS(resource);
     rs.removeUpdater(name);
-    if (options.unlock) {
-      rs.lock(false);
-    }
   }
 };
 

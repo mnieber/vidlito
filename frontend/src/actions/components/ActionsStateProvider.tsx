@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { useActionsState } from 'src/actions/hooks/useActionsState';
-import { isRunning } from 'src/api/MutationData';
 import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
 import { useGetActions } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
@@ -29,7 +28,7 @@ export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const authState = React.useContext(AuthStateContext);
 
-    const { actionsState, undoAction } = useActionsState({
+    const { actionsState } = useActionsState({
       playlists: props.playlists,
     });
 
@@ -72,10 +71,7 @@ export const ActionsStateProvider = observer(
           return withSources({
             resource: actionsState.actionsCtr.data.actions,
             loading: [[() => isQueryLoading(getActions), 'getActions']],
-            updating: [
-              [() => isQueryUpdating(getActions), 'getActions'],
-              [() => isRunning(undoAction), 'undoAction'],
-            ],
+            updating: [[() => isQueryUpdating(getActions), 'getActions']],
           });
         },
         get action() {
