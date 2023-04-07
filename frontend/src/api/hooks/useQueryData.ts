@@ -2,6 +2,7 @@ import { runInAction } from 'mobx';
 import React from 'react';
 import { QueryData } from 'src/api/QueryData';
 import { flags } from 'src/app/flags';
+import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { ObjT } from 'src/utils/types';
 
 export type OptionsT = {
@@ -13,7 +14,7 @@ export const useQueryData = (query: ObjT, options?: OptionsT) => {
   const fetchAsLoad = options?.fetchAsLoad;
   const debugLabel = options?.debugLabel;
 
-  const [queryData] = React.useState(() => {
+  const queryData = useBuilder(() => {
     const queryData = new QueryData();
     queryData.debugLabel = debugLabel;
     return queryData;

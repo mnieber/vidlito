@@ -2,13 +2,14 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { useQueryData } from 'src/api/hooks';
 import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
+import { useQueryData } from 'src/api/hooks';
 import { withSources } from 'src/api/utils';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { useLoadUserId } from 'src/auth/endpoints';
 import { useDashboardState } from 'src/dashboard/hooks/useDashboardState';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
+import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { log } from 'src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -35,7 +36,7 @@ export const DashboardStateProvider = observer(
         log('DashboardState updated', dashboardState.getSummary()),
     });
 
-    const [cache] = React.useState(() =>
+    const cache = useBuilder(() =>
       makeAutoObservable({
         get userProfile() {
           return withSources({

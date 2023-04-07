@@ -2,6 +2,7 @@ import { runInAction } from 'mobx';
 import React from 'react';
 import { MutationData } from 'src/api/MutationData';
 import { flags } from 'src/app/flags';
+import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { log } from 'src/utils/logging';
 import { ObjT } from 'src/utils/types';
 
@@ -13,7 +14,7 @@ export type OptionsT = {
 export const useMutationData = (mutation: ObjT, options?: OptionsT) => {
   const debugLabel = options?.debugLabel;
 
-  const [mutationData] = React.useState(() => {
+  const mutationData = useBuilder(() => {
     const mutationData = new MutationData();
     mutationData.debugLabel = debugLabel;
     return mutationData;

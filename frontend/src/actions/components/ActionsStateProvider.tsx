@@ -14,6 +14,7 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { AuthStateContext } from 'src/auth/components/AuthStateProvider';
 import { States } from 'src/auth/endpoints/states';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
+import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { log } from 'src/utils/logging';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
@@ -65,7 +66,7 @@ export const ActionsStateProvider = observer(
       },
     });
 
-    const [cache] = React.useState(() =>
+    const cache = useBuilder(() =>
       makeAutoObservable({
         get actions() {
           return withSources({

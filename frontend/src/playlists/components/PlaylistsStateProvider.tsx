@@ -2,19 +2,20 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { useGetPlaylist } from 'src/api/endpoints';
-import { useQueryData } from 'src/api/hooks';
 import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
 import {
   graftResourceStates,
   isLoading,
   isUpdating,
 } from 'src/api/ResourceState';
+import { useGetPlaylist } from 'src/api/endpoints';
+import { useQueryData } from 'src/api/hooks';
 import { withSources } from 'src/api/utils/withSources';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { usePlaylistsState } from 'src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from 'src/playlists/utils';
+import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { log } from 'src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -59,7 +60,7 @@ export const PlaylistsStateProvider = observer(
       },
     });
 
-    const [cache] = React.useState(() =>
+    const cache = useBuilder(() =>
       makeAutoObservable({
         get playlists() {
           return withSources({

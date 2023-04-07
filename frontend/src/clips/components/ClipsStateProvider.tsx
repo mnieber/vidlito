@@ -12,6 +12,7 @@ import { withSources } from 'src/api/utils';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useClipsState } from 'src/clips/hooks/useClipsState';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
+import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { log } from 'src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -41,7 +42,7 @@ export const ClipsStateProvider = observer(
       },
     });
 
-    const [cache] = React.useState(() =>
+    const cache = useBuilder(() =>
       makeAutoObservable({
         get clips() {
           return withSources({

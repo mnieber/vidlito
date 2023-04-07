@@ -1,5 +1,7 @@
 import { action } from 'mobx';
 import React from 'react';
+import { isRunning } from 'src/api/MutationData';
+import { addUpdater } from 'src/api/ResourceState';
 import {
   MoveClipsToTrashArgsT,
   SaveClipOrderingArgsT,
@@ -9,12 +11,11 @@ import {
   useSaveClipOrdering,
 } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
-import { isRunning } from 'src/api/MutationData';
 import { MoveClipsToPlaylistArgsT, SaveClipArgsT } from 'src/api/mutations';
-import { addUpdater } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { ClipsState } from 'src/clips/ClipsState';
+import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { usePropsRef } from 'src/utils/hooks/usePropsRef';
 import { getIds, lookUp } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
@@ -31,7 +32,7 @@ export const useClipsState = (props: PropsT) => {
 
   const propsRef = usePropsRef(props);
 
-  const [clipsState] = React.useState<ClipsState>(() => {
+  const clipsState = useBuilder<ClipsState>(() => {
     return new ClipsState({
       moveClipsToTrash: action((ids: string[]) => {
         const clips = lookUp(ids, clipsState.clipsCtr.store.itemById);
@@ -95,7 +96,7 @@ export const useClipsState = (props: PropsT) => {
           });
       },
     });
-  }) as ClipsState[];
+  }) as ClipsState;
 
   React.useEffect(() => () => clipsState.destroy(), [clipsState]);
 

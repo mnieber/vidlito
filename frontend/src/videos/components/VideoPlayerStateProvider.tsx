@@ -5,6 +5,7 @@ import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { flags } from 'src/app/flags';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
+import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { log } from 'src/utils/logging';
 import { VideoPlayerState } from 'src/videos/VideoPlayerState';
 
@@ -16,7 +17,7 @@ const DefaultProps = {
 
 export const VideoPlayerStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const [videoPlayerState] = React.useState(() => new VideoPlayerState({}));
+    const videoPlayerState = useBuilder(() => new VideoPlayerState({}));
     React.useEffect(() => () => videoPlayerState.destroy(), [videoPlayerState]);
 
     useUpdateStateReaction({

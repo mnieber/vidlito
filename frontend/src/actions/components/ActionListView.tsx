@@ -1,6 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { useHighlightUIConnector } from 'skandha-mobx/hooks';
 import { ActionListViewItem } from 'src/actions/components/ActionListViewItem';
 import { isLoading } from 'src/api/ResourceState';
@@ -10,6 +9,7 @@ import { Icon } from 'src/frames/components/Icon';
 import { lvi } from 'src/frames/components/Lvi';
 import { rowSkewer } from 'src/frames/components/Skewer';
 import { cn } from 'src/utils/classnames';
+import { useBuilder } from 'src/utils/hooks/useBuilder';
 import './ActionListView.scss';
 
 export type PropsT = {
@@ -24,7 +24,7 @@ const DefaultProps = {
 
 export const ActionListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const [state] = React.useState<ActionListViewState>(
+    const state = useBuilder<ActionListViewState>(
       () => new ActionListViewState()
     );
     const highlightUIConnector = useHighlightUIConnector(

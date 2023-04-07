@@ -1,5 +1,6 @@
 import * as R from 'ramda';
 import React from 'react';
+import { addUpdater } from 'src/api/ResourceState';
 import {
   DeletePlaylistArgsT,
   SavePlaylistArgsT,
@@ -9,9 +10,9 @@ import {
   useSavePlaylistOrdering,
 } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
-import { addUpdater } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
+import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { getIds, lookUp } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 
@@ -22,7 +23,7 @@ export const usePlaylistsState = (props: PropsT) => {
   const savePlaylist = useMutationData(useSavePlaylist());
   const savePlaylistOrdering = useMutationData(useSavePlaylistOrdering());
 
-  const [playlistsState] = React.useState(() => {
+  const playlistsState = useBuilder(() => {
     return new PlaylistsState({
       deletePlaylists: (ids: string[]) => {
         const playlists = lookUp(

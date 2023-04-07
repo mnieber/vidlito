@@ -1,6 +1,7 @@
 import { comparer, IEqualsComparer, reaction } from 'mobx';
 import React from 'react';
 import { flags } from 'src/app/flags';
+import { useBuilder } from 'src/utils/hooks/useBuilder';
 
 export type PropsT<ArgsT> = {
   getInputs: () => ArgsT;
@@ -10,7 +11,7 @@ export type PropsT<ArgsT> = {
 };
 
 export const useUpdateStateReaction = <ArgsT>(props: PropsT<ArgsT>) => {
-  const [cleanupFunction] = React.useState(() => {
+  const cleanupFunction = useBuilder(() => {
     return reaction(
       () => props.getInputs(),
       (inputs) => {
