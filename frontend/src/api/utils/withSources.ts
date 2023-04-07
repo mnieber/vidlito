@@ -1,4 +1,4 @@
-import { getRS, initRS, SourceT } from 'src/api/ResourceState';
+import { getRS, initRS, SourceT } from 'src/resourceStates';
 
 export type PropsT = {
   resource: any;

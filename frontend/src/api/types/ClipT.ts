@@ -1,5 +1,5 @@
-import { initRS } from 'src/api/ResourceState';
 import { UserProfileT } from 'src/api/types/UserProfileT';
+import { initRS } from 'src/resourceStates';
 import { createUUID } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 

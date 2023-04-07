@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { isLoading } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipFormView } from 'src/clips/components/ClipFormView';
 import { ClipHeaderView } from 'src/clips/components/ClipHeaderView';
@@ -11,6 +10,7 @@ import {
   PlaylistDescription,
   PlaylistFormView,
 } from 'src/playlists/components';
+import { isLoading } from 'src/resourceStates';
 import { cn } from 'src/utils/classnames';
 import { VideoPlayerPanel } from 'src/videos/components';
 import './MainView.scss';

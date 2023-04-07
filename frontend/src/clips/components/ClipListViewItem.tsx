@@ -5,10 +5,10 @@ import {
   selectionUIHandlers,
   SelectionUIPropsT,
 } from 'skandha-facets';
-import { isUpdating } from 'src/api/ResourceState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
 import { lvi } from 'src/frames/components/Lvi';
+import { isUpdating } from 'src/resourceStates';
 import { cn } from 'src/utils/classnames';
 import { PlayVideoIcon } from 'src/videos/components';
 import './ClipListViewItem.scss';

@@ -5,11 +5,11 @@ import {
   selectionUIHandlers,
   SelectionUIPropsT,
 } from 'skandha-facets';
-import { isUpdating } from 'src/api/ResourceState';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon, rowSkewer, Spinner } from 'src/frames/components';
 import { lvi } from 'src/frames/components/Lvi';
+import { isUpdating } from 'src/resourceStates';
 import { cn } from 'src/utils/classnames';
 import './PlaylistListViewItem.scss';
 

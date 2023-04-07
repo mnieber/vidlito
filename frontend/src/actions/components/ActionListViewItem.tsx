@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import { highlightUIHandlers, HighlightUIPropsT } from 'skandha-facets';
-import { isUpdating } from 'src/api/ResourceState';
 import { ActionT } from 'src/api/types/ActionT';
 import { rowSkewer } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
 import { lvi } from 'src/frames/components/Lvi';
+import { isUpdating } from 'src/resourceStates';
 import { cn, d } from 'src/utils/classnames';
 import './ActionListViewItem.scss';
 

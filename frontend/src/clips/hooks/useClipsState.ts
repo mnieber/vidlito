@@ -1,7 +1,6 @@
 import { action } from 'mobx';
 import React from 'react';
 import { isRunning } from 'src/api/MutationData';
-import { addUpdater } from 'src/api/ResourceState';
 import {
   MoveClipsToTrashArgsT,
   SaveClipOrderingArgsT,
@@ -18,6 +17,7 @@ import {
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { ClipsState } from 'src/clips/ClipsState';
+import { addUpdater } from 'src/resourceStates';
 import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { usePropsRef } from 'src/utils/hooks/usePropsRef';
 import { getIds, lookUp } from 'src/utils/ids';
@@ -89,7 +89,7 @@ export const useClipsState = (props: PropsT) => {
         });
 
         const removeUpdater = addUpdater(
-          [...clips, props.playlist],
+          [...clips, propsRef.current?.playlist],
           () => moveClipsToPlaylistTracker.isRunning,
           'moveClipsToPlaylist',
           { lock: true }

@@ -18,8 +18,8 @@ import {
   insertionPreviewUsesDragSources,
 } from 'skandha-facets/policies';
 import { registerCtr } from 'skandha-mobx';
-import { getRS } from 'src/api/ResourceState';
 import { ClipT } from 'src/api/types/ClipT';
+import { getRS } from 'src/resourceStates';
 import { getIds } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 import { initClips } from './clips';

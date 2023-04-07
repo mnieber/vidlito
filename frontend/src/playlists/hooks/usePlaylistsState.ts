@@ -1,5 +1,4 @@
 import React from 'react';
-import { addUpdater } from 'src/api/ResourceState';
 import {
   SavePlaylistArgsT,
   SavePlaylistOrderingArgsT,
@@ -10,6 +9,7 @@ import {
 import { useMutationData } from 'src/api/hooks';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
+import { addUpdater } from 'src/resourceStates';
 import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { getIds, lookUp } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';

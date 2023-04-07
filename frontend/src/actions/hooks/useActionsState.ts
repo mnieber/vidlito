@@ -2,11 +2,11 @@ import { action } from 'mobx';
 import React from 'react';
 import { ActionsState } from 'src/actions/ActionsState';
 import { isRunning } from 'src/api/MutationData';
-import { addUpdater } from 'src/api/ResourceState';
 import { useMutationData } from 'src/api/hooks';
 import { useUndoAction } from 'src/api/mutations/useUndoAction';
 import { ActionT } from 'src/api/types/ActionT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
+import { addUpdater } from 'src/resourceStates';
 import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { usePropsRef } from 'src/utils/hooks/usePropsRef';
 
