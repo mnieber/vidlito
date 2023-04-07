@@ -2,7 +2,6 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { isRunning } from 'src/api/MutationData';
 import {
   graftResourceStates,
   isLoading,
@@ -23,7 +22,7 @@ const DefaultProps = {
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { clipsState, moveClipsToPlaylist } = useClipsState({
+    const { clipsState } = useClipsState({
       playlist: props.playlist,
     });
 
@@ -48,10 +47,7 @@ export const ClipsStateProvider = observer(
           return withSources({
             resource: clipsState.clipsCtr.display.items,
             loading: [[() => isLoading(props.playlist), 'playlist']],
-            updating: [
-              [() => isUpdating(props.playlist), 'playlist'],
-              [() => isRunning(moveClipsToPlaylist), 'moveClipsToPlaylist'],
-            ],
+            updating: [[() => isUpdating(props.playlist), 'playlist']],
           });
         },
         get clip() {

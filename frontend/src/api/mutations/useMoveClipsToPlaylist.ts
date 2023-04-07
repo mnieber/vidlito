@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { makeAutoObservable } from 'mobx';
 import { doQuery } from 'src/api/graphqlClient';
 import { getPlaylistQueryKey } from 'src/api/queries';
 import { updateQueries } from 'src/api/queryClient';
@@ -15,7 +15,7 @@ export type ArgsT = {
   copy: boolean;
 };
 
-export const moveClipsToPlaylist = (args: ArgsT) => {
+export const mutation = (args: ArgsT) => {
   return doQuery(
     `mutation moveClipsToPlaylist(
       $srcPlaylistId: UUID!
@@ -42,20 +42,42 @@ export const moveClipsToPlaylist = (args: ArgsT) => {
   });
 };
 
-export const useMoveClipsToPlaylist = () => {
-  return useMutation({
-    mutationKey: ['moveClipsToPlaylist'],
-    mutationFn: moveClipsToPlaylist,
-    onSuccess: (response: ObjT, args: ArgsT) => {
-      updateQueries({
-        queryKey: getPlaylistQueryKey({ playlistSlug: args.srcPlaylistSlug }),
-        invalidate: true,
-        update: (data: any) =>
-          // Remove clips from playlist
-          applyUpdate(['playlist'], data, (playlist: PlaylistT) =>
-            removeClips(playlist, args.clipIds)
-          ),
-      });
-    },
+export type TrackerT = {
+  isRunning: boolean;
+  data: ObjT | null;
+  result: Promise<any>;
+};
+
+export const moveClipsToPlaylist = (args: ArgsT) => {
+  return mutation(args).then((response: ObjT) => {
+    updateQueries({
+      queryKey: getPlaylistQueryKey({
+        playlistSlug: args.srcPlaylistSlug,
+      }),
+      invalidate: true,
+      update: (data: any) =>
+        // Remove clips from playlist
+        applyUpdate(['playlist'], data, (playlist: PlaylistT) =>
+          removeClips(playlist, args.clipIds)
+        ),
+    });
+    return response;
   });
+};
+
+export type TrackMutationArgsT = {
+  mutation: Promise<any>;
+};
+
+export const trackMutation = (args: TrackMutationArgsT) => {
+  const tracker: TrackerT = makeAutoObservable({
+    isRunning: true,
+    data: null,
+    result: args.mutation.then((response: any) => {
+      tracker.isRunning = false;
+      tracker.data = response;
+      return response;
+    }),
+  });
+  return tracker;
 };

@@ -5,13 +5,16 @@ import { addUpdater } from 'src/api/ResourceState';
 import {
   MoveClipsToTrashArgsT,
   SaveClipOrderingArgsT,
-  useMoveClipsToPlaylist,
   useMoveClipsToTrash,
   useSaveClip,
   useSaveClipOrdering,
 } from 'src/api/endpoints';
 import { useMutationData } from 'src/api/hooks';
 import { MoveClipsToPlaylistArgsT, SaveClipArgsT } from 'src/api/mutations';
+import {
+  moveClipsToPlaylist,
+  trackMutation,
+} from 'src/api/mutations/useMoveClipsToPlaylist';
 import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { ClipsState } from 'src/clips/ClipsState';
@@ -25,7 +28,6 @@ export type PropsT = {
 };
 
 export const useClipsState = (props: PropsT) => {
-  const moveClipsToPlaylist = useMutationData(useMoveClipsToPlaylist());
   const moveClipsToTrash = useMutationData(useMoveClipsToTrash());
   const saveClip = useMutationData(useSaveClip());
   const saveClipOrdering = useMutationData(useSaveClipOrdering());
@@ -76,24 +78,26 @@ export const useClipsState = (props: PropsT) => {
         playlistId: string,
         copy: boolean
       ) => {
-        const removeUpdater = addUpdater(
-          clips,
-          () => isRunning(moveClipsToPlaylist),
-          'moveClipsToPlaylist',
-          { lock: true }
-        );
-        return moveClipsToPlaylist
-          .mutateAsync({
+        const moveClipsToPlaylistTracker = trackMutation({
+          mutation: moveClipsToPlaylist({
             srcPlaylistId: propsRef.current?.playlist.id,
             srcPlaylistSlug: propsRef.current?.playlist.slug,
             destPlaylistId: playlistId,
             clipIds: getIds(clips),
             copy,
-          } as MoveClipsToPlaylistArgsT)
-          .then((response: ObjT) => {
-            removeUpdater();
-            return response;
-          });
+          } as MoveClipsToPlaylistArgsT),
+        });
+
+        const removeUpdater = addUpdater(
+          [...clips, props.playlist],
+          () => moveClipsToPlaylistTracker.isRunning,
+          'moveClipsToPlaylist',
+          { lock: true }
+        );
+        return moveClipsToPlaylistTracker.result.then((response: ObjT) => {
+          removeUpdater();
+          return response;
+        });
       },
     });
   }) as ClipsState;
@@ -103,7 +107,6 @@ export const useClipsState = (props: PropsT) => {
   return {
     clipsState,
     moveClipsToTrash,
-    moveClipsToPlaylist,
     saveClip,
     saveClipOrdering,
   };
