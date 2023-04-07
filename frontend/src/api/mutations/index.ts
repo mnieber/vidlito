@@ -1,7 +1,7 @@
 export { useDeleteClips } from './useDeleteClips';
 export type { ArgsT as DeleteClipsArgsT } from './useDeleteClips';
-export { useDeletePlaylist } from './useDeletePlaylist';
-export type { ArgsT as DeletePlaylistArgsT } from './useDeletePlaylist';
+export { useDeletePlaylists } from './useDeletePlaylists';
+export type { ArgsT as DeletePlaylistArgsT } from './useDeletePlaylists';
 export { useMoveClipsToPlaylist } from './useMoveClipsToPlaylist';
 export type { ArgsT as MoveClipsToPlaylistArgsT } from './useMoveClipsToPlaylist';
 export { useMoveClipsToTrash } from './useMoveClipsToTrash';

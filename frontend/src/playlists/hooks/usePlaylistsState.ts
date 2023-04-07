@@ -1,11 +1,9 @@
-import * as R from 'ramda';
 import React from 'react';
 import { addUpdater } from 'src/api/ResourceState';
 import {
-  DeletePlaylistArgsT,
   SavePlaylistArgsT,
   SavePlaylistOrderingArgsT,
-  useDeletePlaylist,
+  useDeletePlaylists,
   useSavePlaylist,
   useSavePlaylistOrdering,
 } from 'src/api/endpoints';
@@ -19,7 +17,7 @@ import { ObjT } from 'src/utils/types';
 export type PropsT = {};
 
 export const usePlaylistsState = (props: PropsT) => {
-  const deletePlaylist = useMutationData(useDeletePlaylist());
+  const deletePlaylists = useMutationData(useDeletePlaylists());
   const savePlaylist = useMutationData(useSavePlaylist());
   const savePlaylistOrdering = useMutationData(useSavePlaylistOrdering());
 
@@ -32,19 +30,11 @@ export const usePlaylistsState = (props: PropsT) => {
         );
         const removeUpdater = addUpdater(
           playlists,
-          deletePlaylist,
+          deletePlaylists,
           'deletePlaylist'
         );
 
-        return Promise.all(
-          R.map(
-            (playlist: PlaylistT) =>
-              deletePlaylist.mutateAsync({
-                playlistId: playlist.id,
-              } as DeletePlaylistArgsT),
-            playlists
-          )
-        ).then((response: ObjT) => {
+        return deletePlaylists.mutateAsync(ids).then((response: ObjT) => {
           removeUpdater();
           return response;
         });
@@ -68,7 +58,7 @@ export const usePlaylistsState = (props: PropsT) => {
 
   return {
     playlistsState,
-    deletePlaylist,
+    deletePlaylists,
     savePlaylist,
     savePlaylistOrdering,
   };

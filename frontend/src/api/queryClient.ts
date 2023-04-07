@@ -15,12 +15,14 @@ export type ArgsT = {
 };
 
 export const updateQueries = (args: ArgsT) => {
-  if (args.invalidate) {
-    queryClient.invalidateQueries({ queryKey: args.queryKey });
-  }
   if (args.update) {
     queryClient.setQueriesData({ queryKey: args.queryKey }, (data: any) =>
       args.update!(data)
     );
+  }
+  if (args.invalidate) {
+    return queryClient.invalidateQueries({ queryKey: args.queryKey });
+  } else {
+    return Promise.resolve();
   }
 };
