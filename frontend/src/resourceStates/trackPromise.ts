@@ -14,7 +14,6 @@ export type ArgsT = {
   promise: Promise<any>;
   name: string;
   resourcesToUpdate?: any[];
-  resourcesToLock?: any[];
 };
 
 export const trackPromise = (args: ArgsT) => {
@@ -31,27 +30,16 @@ export const trackPromise = (args: ArgsT) => {
     `${args.name}_${createUUID()}`
   );
 
-  for (const resource of args.resourcesToLock ?? []) {
-    resource.lock(true);
-  }
-  const removeLocks = () => {
-    for (const resource of args.resourcesToLock ?? []) {
-      resource.lock(false);
-    }
-  };
-
   tracker.result = args.promise
     .then((response: any) => {
       tracker.isRunning = false;
       tracker.data = response;
       removeUpdater();
-      removeLocks();
       return response;
     })
     .catch((error: any) => {
       tracker.isRunning = false;
       removeUpdater();
-      removeLocks();
       throw error;
     });
 

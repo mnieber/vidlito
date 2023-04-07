@@ -19,7 +19,7 @@ import {
 } from 'skandha-facets/policies';
 import { registerCtr } from 'skandha-mobx';
 import { ClipT } from 'src/api/types/ClipT';
-import { getRS } from 'src/resourceStates';
+import { isUpdating } from 'src/resourceStates/getState';
 import { getIds } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 import { initClips } from './clips';
@@ -97,11 +97,7 @@ export class ClipsState {
       pmap(
         //
         [this.clipsCtr.deletion, 'disabled'],
-        () =>
-          R.any(
-            (x: ClipT) => x && getRS(x).locked,
-            this.clipsCtr.selection.items
-          )
+        () => R.any((x: ClipT) => isUpdating(x), this.clipsCtr.selection.items)
       ),
       pmap(
         //

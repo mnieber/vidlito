@@ -29,15 +29,13 @@ export const useActionsState = (props: PropsT) => {
           return Promise.reject('Playlist not found');
         }
 
-        const resources = [action];
         return trackPromise({
           promise: undoAction.mutateAsync({
             actionId,
             playlist: playlist,
           }),
           name: 'undoAction',
-          resourcesToUpdate: resources,
-          resourcesToLock: resources,
+          resourcesToUpdate: [action],
         }).result;
       }),
     });

@@ -39,12 +39,10 @@ export const useClipsState = (props: PropsT) => {
         } as MoveClipsToTrashArgsT);
 
         const clips = lookUp(ids, clipsState.clipsCtr.store.itemById);
-        const resources = [...clips, propsRef.current?.playlist];
         return trackPromise({
           promise: mutation,
           name: 'moveClipsToTrash',
-          resourcesToUpdate: resources,
-          resourcesToLock: resources,
+          resourcesToUpdate: [...clips, propsRef.current?.playlist],
         }).result;
       }),
       saveClip: (values: ObjT) => {
@@ -90,12 +88,10 @@ export const useClipsState = (props: PropsT) => {
           copy,
         } as MoveClipsToPlaylistArgsT);
 
-        const resources = [...clips, propsRef.current?.playlist];
         return trackPromise({
           promise: mutation,
           name: 'moveClipsToPlaylist',
-          resourcesToUpdate: resources,
-          resourcesToLock: resources,
+          resourcesToUpdate: [...clips, propsRef.current?.playlist],
         }).result;
       },
     });

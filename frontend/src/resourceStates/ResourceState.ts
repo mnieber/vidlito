@@ -10,7 +10,6 @@ export type SourceT = [() => boolean, string];
 
 export class ResourceState {
   name?: string = undefined;
-  locked?: boolean = undefined;
   loaders: SourceT[] = [];
   updaters: SourceT[] = [];
 
@@ -28,10 +27,6 @@ export class ResourceState {
 
   removeUpdater(name: string) {
     _removeSource(name, this.updaters);
-  }
-
-  lock(flag: boolean) {
-    this.locked = flag;
   }
 
   get value() {
@@ -76,8 +71,6 @@ export class ResourceState {
       addLoader: action,
       addUpdater: action,
       loaders: observable,
-      lock: action,
-      locked: observable,
       removeLoader: action,
       removeUpdater: action,
       updaters: observable,
