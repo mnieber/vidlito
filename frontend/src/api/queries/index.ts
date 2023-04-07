@@ -1,10 +1,7 @@
-export {
-  queryKey as createGetActionsQueryKey,
-  useGetActions,
-} from './useGetActions';
+export { queryKey as getActionsQueryKey, useGetActions } from './useGetActions';
 export type { ArgsT as GetActionsArgsT } from './useGetActions';
 export {
-  queryKey as createGetPlaylistQueryKey,
+  queryKey as getPlaylistQueryKey,
   useGetPlaylist,
 } from './useGetPlaylist';
 export type { ArgsT as GetPlaylistArgsT } from './useGetPlaylist';

@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { createGetPlaylistQueryKey } from 'src/api/queries';
-import { queryClient } from 'src/api/queryClient';
+import { getPlaylistQueryKey } from 'src/api/queries';
+import { updateQueries } from 'src/api/queryClient';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
@@ -45,10 +45,9 @@ export const useMoveClipsToPlaylist = () => {
     mutationKey: ['moveClipsToPlaylist'],
     mutationFn: moveClipsToPlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      queryClient.invalidateQueries({
-        queryKey: createGetPlaylistQueryKey({
-          playlistSlug: args.srcPlaylistSlug,
-        }),
+      updateQueries({
+        queryKey: getPlaylistQueryKey({ playlistSlug: args.srcPlaylistSlug }),
+        invalidate: true,
       });
     },
   });

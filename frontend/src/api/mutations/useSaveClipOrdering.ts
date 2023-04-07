@@ -1,7 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import * as R from 'ramda';
 import { doQuery } from 'src/api/graphqlClient';
-import { queryClient } from 'src/api/queryClient';
+import { getPlaylistQueryKey } from 'src/api/queries';
+import { updateQueries } from 'src/api/queryClient';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { applyUpdate } from 'src/utils/applyUpdate';
 import { sortByIds } from 'src/utils/ids';
@@ -51,14 +52,10 @@ export const useSaveClipOrdering = () => {
             };
       };
 
-      queryClient.setQueriesData(
-        {
-          queryKey: ['getPlaylist', args.playlistSlug],
-        },
-        (data: any) => {
-          return applyUpdate(['playlist'], data, updatePlaylist);
-        }
-      );
+      updateQueries({
+        queryKey: getPlaylistQueryKey({ playlistSlug: args.playlistSlug }),
+        update: (data: any) => applyUpdate(['playlist'], data, updatePlaylist),
+      });
     },
   });
 };

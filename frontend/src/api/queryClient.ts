@@ -7,3 +7,20 @@ export const queryClient = new QueryClient({
     },
   },
 });
+
+export type ArgsT = {
+  queryKey: any;
+  invalidate?: boolean;
+  update?: (data: any) => any;
+};
+
+export const updateQueries = (args: ArgsT) => {
+  if (args.invalidate) {
+    queryClient.invalidateQueries({ queryKey: args.queryKey });
+  }
+  if (args.update) {
+    queryClient.setQueriesData({ queryKey: args.queryKey }, (data: any) =>
+      args.update!(data)
+    );
+  }
+};

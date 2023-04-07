@@ -35,3 +35,15 @@ export const createPlaylist = (me: UserProfileT, values: ObjT): PlaylistT => {
     tags: [],
   } as PlaylistT);
 };
+
+export const removeClips = (
+  playlist: PlaylistT,
+  clipIds: string[]
+): PlaylistT => {
+  return {
+    ...playlist,
+    clipSet: playlist.clipSet.filter(
+      (clip: ClipT) => !clipIds.includes(clip.id)
+    ),
+  };
+};

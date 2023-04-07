@@ -1,12 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import {
-  createGetActionsQueryKey,
-  createGetPlaylistQueryKey,
-} from 'src/api/queries';
-import { queryClient } from 'src/api/queryClient';
-import { ClipT } from 'src/api/types/ClipT';
-import { PlaylistT } from 'src/api/types/PlaylistT';
+import { getActionsQueryKey, getPlaylistQueryKey } from 'src/api/queries';
+import { updateQueries } from 'src/api/queryClient';
+import { PlaylistT, removeClips } from 'src/api/types/PlaylistT';
 import { applyUpdate } from 'src/utils/applyUpdate';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
@@ -47,28 +43,18 @@ export const useMoveClipsToTrash = () => {
     mutationKey: ['moveClipsToTrash'],
     mutationFn: moveClipsToTrash,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      const getPlaylistQueryKey = createGetPlaylistQueryKey({
-        playlistSlug: args.playlist.slug,
+      const updatePlaylist = (playlist: PlaylistT) =>
+        removeClips(playlist, args.clipIds);
+
+      updateQueries({
+        queryKey: getPlaylistQueryKey({ playlistSlug: args.playlist.slug }),
+        invalidate: true,
+        update: (data: any) => applyUpdate(['playlist'], data, updatePlaylist),
       });
 
-      const updatePlaylist = (playlist: PlaylistT) => {
-        // Remove clips from playlist that were moved to trash
-        return {
-          ...playlist,
-          clipSet: playlist.clipSet.filter(
-            (clip: ClipT) => !args.clipIds.includes(clip.id)
-          ),
-        };
-      };
-
-      queryClient.setQueriesData(
-        { queryKey: getPlaylistQueryKey },
-        (data: any) => applyUpdate(['playlist'], data, updatePlaylist)
-      );
-
-      queryClient.invalidateQueries({ queryKey: getPlaylistQueryKey });
-      queryClient.invalidateQueries({
-        queryKey: createGetActionsQueryKey({ playlistId: args.playlist.id }),
+      updateQueries({
+        queryKey: getActionsQueryKey({ playlistId: args.playlist.id }),
+        invalidate: true,
       });
     },
   });

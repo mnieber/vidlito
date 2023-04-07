@@ -1,10 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import {
-  createGetActionsQueryKey,
-  createGetPlaylistQueryKey,
-} from 'src/api/queries';
-import { queryClient } from 'src/api/queryClient';
+import { getActionsQueryKey, getPlaylistQueryKey } from 'src/api/queries';
+import { updateQueries } from 'src/api/queryClient';
 import { ActionT } from 'src/api/types/ActionT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { applyUpdate } from 'src/utils/applyUpdate';
@@ -41,10 +38,6 @@ export const useUndoAction = () => {
     mutationKey: ['undoAction'],
     mutationFn: undoAction,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      const getActionsQueryKey = createGetActionsQueryKey({
-        playlistId: args.playlist.id,
-      });
-
       const updateActions = (actions: ActionT[]) => {
         // Remove action from actions
         const index = actions.findIndex(
@@ -56,18 +49,15 @@ export const useUndoAction = () => {
         return actions;
       };
 
-      queryClient.setQueriesData(
-        { queryKey: getActionsQueryKey },
-        (data: any) => applyUpdate(['actionSet'], data, updateActions)
-      );
-
-      queryClient.invalidateQueries({
-        queryKey: createGetPlaylistQueryKey({
-          playlistSlug: args.playlist.slug,
-        }),
+      updateQueries({
+        queryKey: getActionsQueryKey({ playlistId: args.playlist.id }),
+        invalidate: true,
+        update: (data: any) => applyUpdate(['actionSet'], data, updateActions),
       });
-      queryClient.invalidateQueries({
-        queryKey: getActionsQueryKey,
+
+      updateQueries({
+        queryKey: getPlaylistQueryKey({ playlistSlug: args.playlist.slug }),
+        invalidate: true,
       });
     },
   });

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { queryClient } from 'src/api/queryClient';
+import { updateQueries } from 'src/api/queryClient';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
@@ -34,8 +34,9 @@ export const useDeletePlaylist = () => {
     mutationKey: ['deletePlaylist'],
     mutationFn: deletePlaylist,
     onSuccess: (response: ObjT) => {
-      queryClient.invalidateQueries({
+      updateQueries({
         queryKey: ['getUserProfile'],
+        invalidate: true,
       });
     },
   });

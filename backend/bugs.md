@@ -1,7 +1,7 @@
 Bugs:
 
 - SignIn form doesn't have labels above the inputs
-- After signing in, catch the sign in event in AuthState and invalidate the getActions query (and maybe other queries)
+- Handle system errors
 
 Test:
 

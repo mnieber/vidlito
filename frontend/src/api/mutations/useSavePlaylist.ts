@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { queryClient } from 'src/api/queryClient';
+import { updateQueries } from 'src/api/queryClient';
 import { PlaylistFormT } from 'src/api/types/PlaylistT';
 import { UserProfileT } from 'src/api/types/UserProfileT';
 import { addOrReplaceListItem } from 'src/utils/addOrReplaceListItem';
@@ -39,8 +39,6 @@ export const useSavePlaylist = () => {
     mutationKey: ['savePlaylist'],
     mutationFn: savePlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      const loadUserIdQueryKey = ['loadUserId'];
-
       const updateUserProfile = (userProfile: UserProfileT) => {
         return {
           ...userProfile,
@@ -52,13 +50,11 @@ export const useSavePlaylist = () => {
         };
       };
 
-      queryClient.setQueriesData(
-        { queryKey: loadUserIdQueryKey },
-        (data: any) => applyUpdate(['userProfile'], data, updateUserProfile)
-      );
-
-      queryClient.invalidateQueries({
-        queryKey: loadUserIdQueryKey,
+      updateQueries({
+        queryKey: ['loadUserId'],
+        invalidate: true,
+        update: (data: any) =>
+          applyUpdate(['userProfile'], data, updateUserProfile),
       });
     },
   });

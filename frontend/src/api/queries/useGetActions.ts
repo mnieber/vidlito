@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { queryClient } from 'src/api/queryClient';
+import { updateQueries } from 'src/api/queryClient';
 import { createQueryKey } from 'src/utils/createQueryKey';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
@@ -55,7 +55,8 @@ export const useGetActions = (args: ArgsT) => {
 };
 
 export const invalidateGetActions = (args: ArgsT) => {
-  queryClient.invalidateQueries({
+  updateQueries({
     queryKey: queryKey({ playlistId: args.playlistId }),
+    invalidate: true,
   });
 };
