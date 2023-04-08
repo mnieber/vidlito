@@ -1,36 +1,27 @@
+import { ResourceStateT } from 'src/resourceStates/ResourceState';
 import { getRS } from './ResourceState';
 
-export const addUpdater = (
+export const addSource = (
   resources: any[],
-  updaterRes: any,
-  updaterName: string
+  state: ResourceStateT,
+  condition: any,
+  name: string,
+  data?: any
 ) => {
   for (const resource of resources) {
     const rs = getRS(resource);
-    rs.addUpdater(updaterRes, updaterName);
+    rs.addSource({ state, condition, name, data });
   }
-  return () => removeUpdater(resources, updaterName);
+  return () => removeSource(resources, state, name);
 };
 
-export const removeUpdater = (resources: any[], name: string) => {
-  for (const resource of resources) {
-    const rs = getRS(resource);
-    rs.removeUpdater(name);
-  }
-};
-
-export const addLoader = (
+export const removeSource = (
   resources: any[],
-  loaderRes: any,
-  loaderName: string
+  state: ResourceStateT,
+  name: string
 ) => {
   for (const resource of resources) {
-    getRS(resource).addLoader(loaderRes, loaderName);
-  }
-};
-
-export const removeLoader = (resources: any[], name: string) => {
-  for (const resource of resources) {
-    getRS(resource).removeLoader(name);
+    const rs = getRS(resource);
+    rs.removeSource(state, name);
   }
 };

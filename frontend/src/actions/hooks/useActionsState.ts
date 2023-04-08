@@ -4,6 +4,7 @@ import { ActionsState } from 'src/actions/ActionsState';
 import { useUndoAction } from 'src/api/mutations/useUndoAction';
 import { ActionT } from 'src/api/types/ActionT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
+import { initRS } from 'src/resourceStates/ResourceState';
 import { trackPromise } from 'src/resourceStates/trackPromise';
 import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { usePropsRef } from 'src/utils/hooks/usePropsRef';
@@ -11,7 +12,7 @@ import { usePropsRef } from 'src/utils/hooks/usePropsRef';
 export type PropsT = { playlists: PlaylistT[] };
 
 export const useActionsState = (props: PropsT) => {
-  const undoAction = useUndoAction();
+  const undoAction = initRS(useUndoAction());
   const propsRef = usePropsRef<PropsT>(props);
 
   const actionsState = useBuilder<ActionsState>(() => {
@@ -35,7 +36,7 @@ export const useActionsState = (props: PropsT) => {
             playlist: playlist,
           }),
           name: 'undoAction',
-          resourcesToUpdate: [action],
+          resourcesToUpdate: [action, undoAction],
         }).result;
       }),
     });
@@ -45,5 +46,6 @@ export const useActionsState = (props: PropsT) => {
 
   return {
     actionsState,
+    undoAction,
   };
 };

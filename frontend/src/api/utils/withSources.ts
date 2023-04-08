@@ -1,35 +1,34 @@
-import { getRS, initRS, SourceT } from 'src/resourceStates';
+import { getRS, initRS } from 'src/resourceStates';
+import { ResourceStateT } from 'src/resourceStates/ResourceState';
 
-export type PropsT = {
+export type OptionsT = {
   resource: any;
   resourceName?: string;
-  isAlwaysLoading?: boolean;
-  loading?: SourceT[];
-  updating?: SourceT[];
 };
 
-export const withSources = (props: PropsT) => {
-  const rs = getRS(initRS(props.resource ?? {}));
-  rs.name = props.resourceName ?? rs.name;
+export type SourceSpecT =
+  | [ResourceStateT, () => boolean | undefined, string, any]
+  | [ResourceStateT, () => boolean | undefined, string];
 
-  for (const [loader, name] of props.loading ?? []) {
-    if (loader) {
-      rs.addLoader(loader, name);
+export const withSources = (
+  options: OptionsT,
+  ...sourceSpecs: SourceSpecT[]
+) => {
+  const rs = getRS(initRS(options.resource ?? {}));
+  rs.name = options.resourceName ?? rs.name;
+
+  for (const sourceSpec of sourceSpecs) {
+    const [state, condition, name, data] = sourceSpec;
+    if (condition !== undefined) {
+      rs.addSource({ state, condition, name, data });
     } else {
-      rs.removeLoader(name);
+      rs.removeSource(state, name);
     }
   }
-  for (const [updater, name] of props.updating ?? []) {
-    if (updater) {
-      rs.addUpdater(updater, name);
-    } else {
-      rs.removeLoader(name);
-    }
-  }
 
-  if (!props.resource) {
+  if (!options.resource) {
     return rs.value === 'loading' ? null : undefined;
   }
 
-  return props.resource;
+  return options.resource;
 };

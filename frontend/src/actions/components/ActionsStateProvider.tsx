@@ -68,11 +68,11 @@ export const ActionsStateProvider = observer(
     const cache = useBuilder(() =>
       makeAutoObservable({
         get actions() {
-          return withSources({
-            resource: actionsState.actionsCtr.data.actions,
-            loading: [[() => isQueryLoading(getActions), 'getActions']],
-            updating: [[() => isQueryUpdating(getActions), 'getActions']],
-          });
+          return withSources(
+            { resource: actionsState.actionsCtr.data.actions },
+            ['loading', () => isQueryLoading(getActions), 'getActions'],
+            ['updating', () => isQueryUpdating(getActions), 'getActions']
+          );
         },
         get action() {
           return actionsState.actionsCtr.highlight.item;

@@ -6,27 +6,38 @@ import { log } from 'src/utils/logging';
 export const symbolRS = Symbol('ResourceState');
 
 export type ResourceStateT = undefined | 'loading' | 'updating' | 'ready';
-export type SourceT = [() => boolean, string];
+
+export type SourceT = {
+  state: ResourceStateT;
+  condition: () => boolean | undefined;
+  name: string;
+  data: any;
+};
 
 export class ResourceState {
   name?: string = undefined;
-  loaders: SourceT[] = [];
-  updaters: SourceT[] = [];
+  sources: SourceT[] = [];
 
-  addLoader(loader: any, name: string) {
-    _addSource([loader, name], this.loaders);
+  addSource(source: SourceT) {
+    for (let i = 0; i < this.sources.length; i++) {
+      if (
+        this.sources[i].state === source.state &&
+        this.sources[i].name === source.name
+      ) {
+        this.sources[i] = source;
+        return;
+      }
+    }
+    this.sources.push(source);
   }
 
-  removeLoader(name: string) {
-    _removeSource(name, this.loaders);
-  }
-
-  addUpdater(updater: any, name: string) {
-    _addSource([updater, name], this.updaters);
-  }
-
-  removeUpdater(name: string) {
-    _removeSource(name, this.updaters);
+  removeSource(state: ResourceStateT, name: string) {
+    for (let i = 0; i < this.sources.length; i++) {
+      if (this.sources[i].state === state && this.sources[i].name === name) {
+        this.sources.splice(i, 1);
+        return;
+      }
+    }
   }
 
   get value() {
@@ -34,27 +45,11 @@ export class ResourceState {
     const isLogging = this.name && flags.logResourceStates;
     isLogging && console.group(`Getting resource state for ${this.name}`);
 
-    if (state === 'ready') {
-      for (const source of this.loaders) {
-        const [loader, name] = source;
-
-        if (loader()) {
-          isLogging && log(`Loading triggered by: ${name}`);
-          state = 'loading';
-          break;
-        }
-      }
-    }
-
-    if (state === 'ready') {
-      for (const source of this.updaters) {
-        const [updater, name] = source;
-
-        if (updater()) {
-          isLogging && log(`Updating triggered by: ${name}`);
-          state = 'updating';
-          break;
-        }
+    for (const source of this.sources) {
+      if (source.condition()) {
+        isLogging && log(`State ${source.state} triggered by: ${source.name}`);
+        state = source.state;
+        break;
       }
     }
 
@@ -68,39 +63,15 @@ export class ResourceState {
 
   constructor() {
     makeObservable(this, {
-      addLoader: action,
-      addUpdater: action,
-      loaders: observable,
-      removeLoader: action,
-      removeUpdater: action,
-      updaters: observable,
+      addSource: action,
+      removeSource: action,
+      sources: observable,
       value: computed,
     });
   }
 }
 
-function _addSource(newSource: SourceT, sources: SourceT[]) {
-  for (let i = 0; i < sources.length; i++) {
-    if (sources[i][1] === newSource[1]) {
-      if (sources[i][0] !== newSource[0]) {
-        sources[i] = newSource;
-      }
-      return;
-    }
-  }
-  sources.push(newSource);
-}
-
-function _removeSource(name: string, sources: SourceT[]) {
-  for (let i = 0; i < sources.length; i++) {
-    if (sources[i][1] === name) {
-      sources.splice(i, 1);
-      return;
-    }
-  }
-}
-
-export const getRS = (resource: any) => {
+export const getRS = (resource: any): ResourceState => {
   return resource[symbolRS];
 };
 

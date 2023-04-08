@@ -40,17 +40,18 @@ export const ClipsStateProvider = observer(
     const cache = useBuilder(() =>
       makeAutoObservable({
         get clips() {
-          return withSources({
-            resource: clipsState.clipsCtr.display.items,
-            loading: [[() => isLoading(props.playlist), 'playlist']],
-            updating: [[() => isUpdating(props.playlist), 'playlist']],
-          });
+          return withSources(
+            { resource: clipsState.clipsCtr.display.items },
+            ['loading', () => isLoading(props.playlist), 'playlist'],
+            ['updating', () => isUpdating(props.playlist), 'playlist']
+          );
         },
         get clip() {
-          return withSources({
-            resource: clipsState.clipsCtr.highlight.item,
-            loading: [[() => isLoading(props.playlist), 'playlist']],
-          });
+          return withSources(
+            { resource: clipsState.clipsCtr.highlight.item },
+            //
+            ['loading', () => isLoading(props.playlist), 'playlist']
+          );
         },
       })
     );

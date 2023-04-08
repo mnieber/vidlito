@@ -57,6 +57,11 @@ export const useMoveClipsToTrash = () => {
         queryKey: getActionsQueryKey({ playlistId: args.playlist.id }),
         invalidate: true,
       });
+
+      updateQueries({
+        queryKey: getActionsQueryKey({ playlistId: undefined }),
+        invalidate: true,
+      });
     },
   });
 };

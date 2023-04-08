@@ -53,6 +53,11 @@ export const useUndoAction = () => {
       });
 
       updateQueries({
+        queryKey: getActionsQueryKey({ playlistId: undefined }),
+        invalidate: true,
+      });
+
+      updateQueries({
         queryKey: getPlaylistQueryKey({ playlistSlug: args.playlist.slug }),
         invalidate: true,
       });

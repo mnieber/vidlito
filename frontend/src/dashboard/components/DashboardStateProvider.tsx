@@ -39,11 +39,11 @@ export const DashboardStateProvider = observer(
     const cache = useBuilder(() =>
       makeAutoObservable({
         get userProfile() {
-          return withSources({
-            resource: loadUserId.data?.userProfile,
-            loading: [[() => isQueryLoading(loadUserId), 'loadUserId']],
-            updating: [[() => isQueryUpdating(loadUserId), 'loadUserId']],
-          });
+          return withSources(
+            { resource: loadUserId.data?.userProfile },
+            ['loading', () => isQueryLoading(loadUserId), 'loadUserId'],
+            ['updating', () => isQueryUpdating(loadUserId), 'loadUserId']
+          );
         },
       })
     );

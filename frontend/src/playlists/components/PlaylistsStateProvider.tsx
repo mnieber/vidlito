@@ -59,21 +59,22 @@ export const PlaylistsStateProvider = observer(
     const cache = useBuilder(() =>
       makeAutoObservable({
         get playlists() {
-          return withSources({
-            resource: playlistsState.playlistsCtr.data.playlistsDisplay,
-            loading: [[() => isLoading(props.userProfile), 'userProfile']],
-            updating: [[() => isUpdating(props.userProfile), 'userProfile']],
-          });
+          return withSources(
+            { resource: playlistsState.playlistsCtr.data.playlistsDisplay },
+            ['loading', () => isLoading(props.userProfile), 'userProfile'],
+            ['updating', () => isUpdating(props.userProfile), 'userProfile']
+          );
         },
         get playlist() {
-          return withSources({
-            resource: playlistsState.playlistsCtr.highlight.item,
-            loading: [
-              [() => isLoading(props.userProfile), 'userProfile'],
-              [() => isQueryLoading(getPlaylist), 'getPlaylist'],
-            ],
-            updating: [[() => isQueryUpdating(getPlaylist), 'getPlaylist']],
-          });
+          return withSources(
+            {
+              resource: playlistsState.playlistsCtr.highlight.item,
+              resourceName: 'playlist',
+            },
+            ['loading', () => isLoading(props.userProfile), 'userProfile'],
+            ['loading', () => isQueryLoading(getPlaylist), 'getPlaylist'],
+            ['updating', () => isQueryUpdating(getPlaylist), 'getPlaylist']
+          );
         },
       })
     );

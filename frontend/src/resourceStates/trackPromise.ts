@@ -1,5 +1,5 @@
-import { makeAutoObservable } from 'mobx';
-import { addUpdater } from 'src/resourceStates/addAndRemoveSource';
+import { action, makeAutoObservable } from 'mobx';
+import { addSource } from 'src/resourceStates/addAndRemoveSource';
 import { createUUID } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 
@@ -24,24 +24,29 @@ export const trackPromise = (args: ArgsT) => {
     result: Promise.resolve(),
   });
 
-  const removeUpdater = addUpdater(
+  const removeSource = addSource(
     args.resourcesToUpdate ?? [],
+    'updating',
     () => tracker.isRunning,
     `${args.name}_${createUUID()}`
   );
 
   tracker.result = args.promise
-    .then((response: any) => {
-      tracker.isRunning = false;
-      tracker.data = response;
-      removeUpdater();
-      return response;
-    })
-    .catch((error: any) => {
-      tracker.isRunning = false;
-      removeUpdater();
-      throw error;
-    });
+    .then(
+      action((response: any) => {
+        tracker.isRunning = false;
+        tracker.data = response;
+        removeSource();
+        return response;
+      })
+    )
+    .catch(
+      action((error: any) => {
+        tracker.isRunning = false;
+        removeSource();
+        throw error;
+      })
+    );
 
   return tracker;
 };
