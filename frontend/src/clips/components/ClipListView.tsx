@@ -13,7 +13,6 @@ import { cn } from 'src/utils/classnames';
 import './ClipListView.scss';
 
 export type PropsT = {
-  updateUrl?: (clip: ClipT) => void;
   className?: any;
 };
 
@@ -23,6 +22,7 @@ const DefaultProps = {
   ...dps.clipsHighlight,
   ...dps.clipsSelection,
   ...dps.dashboardState,
+  ...dps.urlState,
 };
 
 export const ClipListView = observer(
@@ -34,9 +34,11 @@ export const ClipListView = observer(
       props.clipsSelection,
       {
         itemSelector: '.ClipListViewItem',
-        onSelectItem: createOnSelectItemHandler(props.clips, props.updateUrl),
+        onSelectItem: createOnSelectItemHandler(props.clips, (clip: ClipT) =>
+          props.urlState.userHighlightsClip(clip.slug)
+        ),
       },
-      [props.clips, props.updateUrl]
+      [props.clips, props.urlState]
     );
 
     if (isLoading(props.clips)) {

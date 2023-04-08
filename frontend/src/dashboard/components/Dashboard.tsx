@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListView } from 'src/clips/components';
 import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
@@ -41,11 +40,7 @@ export const Dashboard = observer(
               isExpanded={props.dashboardState.isPlaylistListExpanded}
             />
             <div className={cn('Dashboard__Separator', 'my-2')} />
-            <ClipListView
-              updateUrl={(clip: ClipT) =>
-                props.urlState.userHighlightsClip(clip.slug)
-              }
-            />
+            <ClipListView />
           </div>
         </div>
         <div className={cn('Dashboard__RightMain', 'pl-4')}>

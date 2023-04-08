@@ -62,22 +62,20 @@ export class UrlState {
   @action goToActions() {
     this.updateHiddenParams();
     const ufn = this.routeUfns.actions(this.history.push);
-    const params = this.getParams(true);
-    ufn(this.username, params.playlistSlug);
+    ufn({ ...this.getParams(true), ownerUsername: this.username });
   }
 
   @action closeActions() {
     const ufn = this.routeUfns.clip(this.history.push);
-    const params = this.getParams(true);
-    ufn(params.ownerUsername, params.playlistSlug, params.clipSlug);
+    ufn(this.getParams(true));
   }
 
   @action userHighlightsPlaylist(playlistSlug: string) {
+    const routeMatch = this.getRouteMatch();
     this.hiddenParams.playlistSlug = playlistSlug;
-    const params = this.getParams();
-    if (params.ownerUsername) {
-      const ufn = this.routeUfns.playlist(this.history.push);
-      ufn(params.ownerUsername, playlistSlug);
+    if (routeMatch && this.isOnMainPage()) {
+      const ufn = this.routeUfns[routeMatch.name](this.history.push);
+      ufn({ ...this.getParams(true), playlistSlug });
     }
   }
 
@@ -86,29 +84,23 @@ export class UrlState {
     const params = this.getParams();
     if (params.ownerUsername && params.playlistSlug) {
       const ufn = this.routeUfns.clip(this.history.push);
-      ufn(params.ownerUsername, params.playlistSlug, clipSlug);
+      ufn({ ...params, clipSlug });
     }
   }
 
   clipHighlightIsCorrectedTo(clipSlug: string) {
     this.hiddenParams.clipSlug = clipSlug;
     if (this.isOnMainPage()) {
-      const params = this.getParams();
-      if (params.ownerUsername && params.playlistSlug) {
-        const ufn = this.routeUfns.clip(this.history.push);
-        ufn(params.ownerUsername, params.playlistSlug, clipSlug);
-      }
+      const ufn = this.routeUfns.clip(this.history.push);
+      ufn({ ...this.getParams(), clipSlug });
     }
   }
 
   playlistHighlightIsCorrectedTo(playlistSlug: string) {
     this.hiddenParams.playlistSlug = playlistSlug;
     if (this.isOnMainPage()) {
-      const params = this.getParams();
-      if (params.ownerUsername) {
-        const ufn = this.routeUfns.playlist(this.history.push);
-        ufn(params.ownerUsername, playlistSlug);
-      }
+      const ufn = this.routeUfns.playlist(this.history.push);
+      ufn({ ...this.getParams(), playlistSlug });
     }
   }
 
