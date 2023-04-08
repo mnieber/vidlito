@@ -4,6 +4,7 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { EditClipEffect, SelectClipEffect } from 'src/clips/components';
 import { Dashboard } from 'src/dashboard/components/Dashboard';
 import { MainView } from 'src/dashboard/components/MainView';
+import { UseActionsPage } from 'src/frames/pages/UseActionsPage';
 import {
   EditPlaylistEffect,
   ForwardToClipEffect,
@@ -44,9 +45,11 @@ export const DashboardSwitch = withDefaultProps(
               <EditClipEffect />
               <MainView />
             </Route>
-            <Route exact={true} path={routes.actions()}>
-              <ActionsView />
-            </Route>
+            <UseActionsPage>
+              <Route exact={true} path={routes.actions()}>
+                <ActionsView />
+              </Route>
+            </UseActionsPage>
           </Dashboard>
         </Route>
       </Switch>

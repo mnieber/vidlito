@@ -59,15 +59,13 @@ export class UrlState {
     this.history.push(getHomeRoute());
   }
 
-  @action goToActions() {
+  goToActions() {
     this.updateHiddenParams();
     const ufn = this.routeUfns.actions(this.history.push);
-    ufn({ ...this.getParams(true), ownerUsername: this.username });
-  }
-
-  @action closeActions() {
-    const ufn = this.routeUfns.clip(this.history.push);
-    ufn(this.getParams(true));
+    ufn({
+      ...this.getParams(true),
+      ownerUsername: this.hiddenParams.username,
+    });
   }
 
   @action userHighlightsPlaylist(playlistSlug: string) {
