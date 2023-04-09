@@ -26,12 +26,12 @@ export const DashboardSwitch = withDefaultProps(
     return (
       <Switch>
         <Route exact={false} path={routes.playlist()}>
-          <SelectPlaylistEffect />
-          <EditPlaylistEffect />
-          <Route exact={true} path={routes.playlist()}>
-            <ForwardToClipEffect />
-          </Route>
           <UseMainPage>
+            <SelectPlaylistEffect />
+            <EditPlaylistEffect />
+            <Route exact={true} path={routes.playlist()}>
+              <ForwardToClipEffect />
+            </Route>
             <Dashboard>
               <Route
                 exact={true}
@@ -47,11 +47,11 @@ export const DashboardSwitch = withDefaultProps(
                 <EditClipEffect />
                 <MainView />
               </Route>
-              <UseActionsPage>
-                <Route exact={true} path={routes.actions()}>
+              <Route exact={true} path={routes.actions()}>
+                <UseActionsPage>
                   <ActionsView />
-                </Route>
-              </UseActionsPage>
+                </UseActionsPage>
+              </Route>
             </Dashboard>
           </UseMainPage>
         </Route>

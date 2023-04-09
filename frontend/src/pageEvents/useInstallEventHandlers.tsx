@@ -2,18 +2,17 @@ import React from 'react';
 import { PageEventHandler } from './PageEventHandler';
 import { usePageEventHandler } from './usePageEventHandler';
 
-type EventHandlerLayer = Record<string, Function>;
-
 export function useInstallEventHandlers(
-  layerName: string,
-  eventHandlers: EventHandlerLayer
+  name: string,
+  path: string,
+  eventHandlerClass: any
 ) {
   const uiEventHandler = usePageEventHandler<PageEventHandler>();
 
   React.useEffect(() => {
-    uiEventHandler.installEventHandlers(layerName, eventHandlers);
+    uiEventHandler.installEventHandlers(name, path, eventHandlerClass);
     return () => {
-      uiEventHandler.uninstallEventHandlers(layerName);
+      uiEventHandler.uninstallEventHandlers(name);
     };
-  }, [uiEventHandler, layerName, eventHandlers]);
+  }, [uiEventHandler, name, path, eventHandlerClass]);
 }

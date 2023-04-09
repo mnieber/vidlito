@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import {
@@ -8,16 +9,22 @@ import {
   usePageEventHandler,
 } from 'src/frames/pages';
 import { useInstallEventHandlers } from 'src/pageEvents';
+import { PageEventLayer } from 'src/pageEvents/PageEventHandler';
 
 export type FramesPageEventHandlerT = FramesPageEventsT;
 
-export const FramesPageEventHandler: FramesPageEventHandlerT = {
-  goToHome(this: PageEventHandler) {},
-  userSignedIn(this: PageEventHandler) {},
+export class FramesPageEventHandler
+  extends PageEventLayer
+  implements FramesPageEventHandlerT
+{
+  goToHome(this: PageEventHandler) {}
+
+  userSignedIn(this: PageEventHandler) {}
+
   userProfileLoaded(this: PageEventHandler, username: string) {
     this.hiddenParams.username = username;
-  },
-};
+  }
+}
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -27,17 +34,22 @@ const DefaultProps = {
 
 export const UseFramesPage = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEventHandler = usePageEventHandler<PageEventHandler>();
-    useInstallEventHandlers('FramesPageEventHandler', FramesPageEventHandler);
+    const routeMatch = useRouteMatch();
+    const pageEventHandler = usePageEventHandler<
+      PageEventHandler & FramesPageEventHandlerT
+    >();
+    useInstallEventHandlers(
+      'FramesPageEventHandler',
+      routeMatch.path,
+      FramesPageEventHandler
+    );
 
     useUpdateStateReaction({
       getInputs: () => ({
         userProfile: props.userProfile,
       }),
       updateState: (inputs) => {
-        FramesPageEventHandler.userProfileLoaded.bind(pageEventHandler)(
-          inputs.userProfile?.username
-        );
+        pageEventHandler.userProfileLoaded(inputs.userProfile?.username);
       },
     });
 

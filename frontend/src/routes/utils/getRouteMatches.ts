@@ -8,20 +8,6 @@ export type RouteMatchT = {
   params: ObjT;
 };
 
-export function getRouteMatches(routes: ObjT, pathname: string): RouteMatchT[] {
-  const matchingRoutes = [];
-  for (const [name, route] of R.toPairs(routes)) {
-    const match = matchPath(pathname, {
-      path: route(),
-      strict: false,
-    });
-    if (match) {
-      matchingRoutes.push({ ...match, name });
-    }
-  }
-  return matchingRoutes;
-}
-
 export function getBestRouteMatch(
   routes: ObjT,
   pathname: string
