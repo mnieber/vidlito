@@ -25,7 +25,7 @@ export const usePlaylistsState = (props: PropsT) => {
       deletePlaylists: (ids: string[]) => {
         const playlists = lookUp(
           ids,
-          playlistsState.playlistsCtr.data.playlistById
+          playlistsState.playlistsCtr.display.itemById
         );
 
         const mutation = deletePlaylists.mutateAsync(ids);

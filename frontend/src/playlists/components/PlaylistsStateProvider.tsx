@@ -25,7 +25,7 @@ export const PlaylistsStateProvider = observer(
     const { playlistsState } = usePlaylistsState({});
 
     const getPlaylistSlug = () =>
-      playlistsState.playlistsCtr.highlight.item?.slug;
+      'empty-head' || playlistsState.playlistsCtr.highlight.item?.slug;
 
     const getPlaylist = useQueryData(
       useGetPlaylist({
@@ -44,12 +44,12 @@ export const PlaylistsStateProvider = observer(
         };
       },
       updateState: (inputs) => {
-        playlistsState.playlistsCtr.data.playlists = graftResourceStates({
+        playlistsState.playlistsCtr.store.items = graftResourceStates({
           resources: updatePlaylists(
             inputs.playlists ?? [],
             inputs.fullPlaylist
           ),
-          prevResources: playlistsState.playlistsCtr.data.playlists,
+          prevResources: playlistsState.playlistsCtr.store.items,
         });
       },
       logState: () => {
@@ -61,7 +61,7 @@ export const PlaylistsStateProvider = observer(
       makeAutoObservable({
         get playlists() {
           return withSources(
-            { resource: playlistsState.playlistsCtr.data.playlistsDisplay },
+            { resource: playlistsState.playlistsCtr.display.items },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
             ['updating', () => isUpdating(props.userProfile), 'userProfile']
           );

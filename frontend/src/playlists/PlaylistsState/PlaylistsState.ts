@@ -4,11 +4,13 @@ import { mapDataToProps, pmap } from 'skandha';
 import {
   Addition,
   Deletion,
+  Display,
   DragAndDrop,
   Edit,
   Highlight,
   Insertion,
   Selection,
+  Store,
 } from 'skandha-facets';
 import {
   DragSourceFromNewItem,
@@ -19,7 +21,7 @@ import { PlaylistT } from 'src/api/types/PlaylistT';
 import { getIds } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 import { Settings } from './Settings';
-import { PlaylistsData, initPlaylists } from './playlists';
+import { initPlaylists } from './playlists';
 
 export type PropsT = {
   deletePlaylists: (ids: string[]) => Promise<any>;
@@ -31,25 +33,26 @@ export class PlaylistsState {
   settings = new Settings();
 
   playlistsCtr = {
-    data: new PlaylistsData(),
     addition: new Addition<PlaylistT>(),
     deletion: new Deletion(),
+    display: new Display<PlaylistT>(),
     dragAndDrop: new DragAndDrop(),
     edit: new Edit(),
     highlight: new Highlight<PlaylistT>(),
     insertion: new Insertion<PlaylistT>(),
     selection: new Selection<PlaylistT>(),
+    store: new Store<PlaylistT>(),
   };
 
   _playlistsMapData(props: PropsT) {
     const getPlaylistById = (x: string | undefined) =>
-      x ? this.playlistsCtr.data.playlistById[x] : undefined;
+      x ? this.playlistsCtr.display.itemById[x] : undefined;
 
     mapDataToProps(
       pmap(
         //
         [this.playlistsCtr.selection, 'selectableIds'],
-        () => getIds(this.playlistsCtr.data.playlistsDisplay)
+        () => getIds(this.playlistsCtr.display.items)
       ),
       pmap(
         //
@@ -64,7 +67,7 @@ export class PlaylistsState {
       pmap(
         //
         [this.playlistsCtr.insertion, 'inputItems'],
-        () => this.playlistsCtr.data.playlists
+        () => this.playlistsCtr.store.items ?? []
       ),
       pmap(
         //
@@ -77,7 +80,7 @@ export class PlaylistsState {
       ),
       pmap(
         //
-        [this.playlistsCtr.data, 'playlistsDisplay'],
+        [this.playlistsCtr.display, 'items'],
         () => this.playlistsCtr.insertion.preview
       )
     );
