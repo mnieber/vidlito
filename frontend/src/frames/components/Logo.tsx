@@ -5,6 +5,8 @@ import { FramesPageEventsT, usePageEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './Logo.scss';
 
+export type PageEventsT = FramesPageEventsT;
+
 export type PropsT = {
   className?: any;
 };
@@ -13,7 +15,7 @@ const DefaultProps = {};
 
 export const Logo = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<FramesPageEventsT>();
+    const pageEvents = usePageEventHandler<PageEventsT>();
 
     return (
       <div

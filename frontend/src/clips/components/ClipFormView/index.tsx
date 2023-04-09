@@ -27,7 +27,8 @@ import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import './index.scss';
 
-export type PageEventHandlerT = PageEventHandler & ClipsPageEventsT;
+export type PageEventsT = ClipsPageEventsT;
+export type PageEventHandlerT = PageEventHandler & PageEventsT;
 
 export type PropsT = {
   className?: any;
@@ -42,7 +43,7 @@ export const DefaultProps = {
 
 export const ClipFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<PageEventHandlerT>();
+    const pageEvents = usePageEventHandler<ClipsPageEventsT>();
 
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,

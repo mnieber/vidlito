@@ -23,7 +23,8 @@ import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import './index.scss';
 
-export type PageEventHandlerT = PageEventHandler & PlaylistsPageEventsT;
+export type PageEventsT = PlaylistsPageEventsT;
+export type PageEventHandlerT = PageEventHandler & PageEventsT;
 
 export type PropsT = {
   className?: any;

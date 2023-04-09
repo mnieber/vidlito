@@ -6,6 +6,8 @@ import { ActionsPageEventsT, usePageEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './TrashButton.scss';
 
+export type PageEventsT = ActionsPageEventsT;
+
 export type PropsT = {
   className?: any;
 };
@@ -16,7 +18,7 @@ const DefaultProps = {
 
 export const TrashButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<ActionsPageEventsT>();
+    const pageEvents = usePageEventHandler<PageEventsT>();
 
     return (
       <button

@@ -6,6 +6,8 @@ import { PlaylistsPageEventsT, usePageEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './NewPlaylistButton.scss';
 
+export type PageEventsT = PlaylistsPageEventsT;
+
 export type PropsT = {
   className?: any;
 };
@@ -16,7 +18,7 @@ const DefaultProps = {
 
 export const NewPlaylistButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<PlaylistsPageEventsT>();
+    const pageEvents = usePageEventHandler<PageEventsT>();
 
     return (
       <button

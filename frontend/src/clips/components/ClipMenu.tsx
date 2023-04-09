@@ -14,6 +14,8 @@ import { ClipsPageEventsT, usePageEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './ClipMenu.scss';
 
+export type PageEventsT = ClipsPageEventsT;
+
 export type PropsT = {
   className?: any;
 };
@@ -30,7 +32,7 @@ const DefaultProps = {
 
 export const ClipMenu = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<ClipsPageEventsT>();
+    const pageEvents = usePageEventHandler<PageEventsT>();
 
     const updateUrl = React.useMemo(
       () => () => {

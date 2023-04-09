@@ -13,6 +13,8 @@ import { createOnSelectItemHandler } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
 import './ClipListView.scss';
 
+export type PageEventsT = ClipsPageEventsT;
+
 export type PropsT = {
   className?: any;
 };
@@ -27,7 +29,7 @@ const DefaultProps = {
 
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<ClipsPageEventsT>();
+    const pageEvents = usePageEventHandler<PageEventsT>();
 
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.clipsDragAndDrop

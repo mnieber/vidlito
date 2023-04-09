@@ -7,6 +7,8 @@ import { ClipsPageEventsT, usePageEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './NewClipButton.scss';
 
+export type PageEventsT = ClipsPageEventsT;
+
 export type PropsT = {
   className?: any;
 };
@@ -17,7 +19,7 @@ const DefaultProps = {
 
 export const NewClipButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<ClipsPageEventsT>();
+    const pageEvents = usePageEventHandler<PageEventsT>();
 
     return (
       <button

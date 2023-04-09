@@ -7,6 +7,8 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipsPageEventsT, usePageEventHandler } from 'src/frames/pages';
 import { useSearchAndUrlParams } from 'src/utils/hooks';
 
+export type PageEventsT = ClipsPageEventsT;
+
 type PropsT = {};
 
 const DefaultProps = {
@@ -18,7 +20,7 @@ const DefaultProps = {
 
 export const SelectClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<ClipsPageEventsT>();
+    const pageEvents = usePageEventHandler<PageEventsT>();
     const params = useSearchAndUrlParams();
 
     React.useEffect(() => {

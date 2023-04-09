@@ -16,6 +16,8 @@ import { isLoading } from 'src/resourceStates';
 import { cn } from 'src/utils/classnames';
 import './PlaylistListView.scss';
 
+export type PageEventsT = PlaylistsPageEventsT;
+
 export type PropsT = {
   isExpanded: boolean;
   className?: any;
@@ -31,7 +33,7 @@ const DefaultProps = {
 
 export const PlaylistListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<PlaylistsPageEventsT>();
+    const pageEvents = usePageEventHandler<PageEventsT>();
 
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.playlistsDragAndDrop

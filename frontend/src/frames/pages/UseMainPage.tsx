@@ -1,7 +1,9 @@
-import { ActionsPageEventsT } from 'src/actions/ActionsPageEvents';
-import { ClipsPageEventsT } from 'src/frames/pages';
+import {
+  ActionsPageEventsT,
+  ClipsPageEventsT,
+  PlaylistsPageEventsT,
+} from 'src/frames/pages';
 import { PageEventHandler, withPageEventHandlers } from 'src/pageEvents';
-import { PlaylistsPageEventsT } from 'src/playlists/PlaylistsPageEvents';
 
 export type MainPageEventHandlerT = ActionsPageEventsT &
   ClipsPageEventsT &
