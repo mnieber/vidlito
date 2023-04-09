@@ -1,11 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { getActionsQueryKey, getPlaylistQueryKey } from 'src/api/queries';
-import { updateQueries } from 'src/api/queryClient';
-import { ActionT } from 'src/api/types/ActionT';
+import { invalidateActions } from 'src/api/mutations/useMoveClipsToTrash';
 import { PlaylistT } from 'src/api/types/PlaylistT';
-import { applyUpdate } from 'src/utils/applyUpdate';
-import { deleteArrayItemsInPlace } from 'src/utils/arrays';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
@@ -39,28 +35,7 @@ export const useUndoAction = () => {
     mutationKey: ['undoAction'],
     mutationFn: undoAction,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      updateQueries({
-        queryKey: getActionsQueryKey({ playlistId: args.playlist.id }),
-        invalidate: true,
-        update: (data: any) =>
-          // Remove action from actionSet
-          applyUpdate(['actionSet'], data, (actions: ActionT[]) =>
-            deleteArrayItemsInPlace(
-              actions,
-              (action: ActionT) => action.id === args.actionId
-            )
-          ),
-      });
-
-      updateQueries({
-        queryKey: getActionsQueryKey({ playlistId: undefined }),
-        invalidate: true,
-      });
-
-      updateQueries({
-        queryKey: getPlaylistQueryKey({ playlistSlug: args.playlist.slug }),
-        invalidate: true,
-      });
+      return invalidateActions(args.playlist);
     },
   });
 };

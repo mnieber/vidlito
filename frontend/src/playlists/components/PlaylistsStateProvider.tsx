@@ -24,8 +24,7 @@ export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { playlistsState } = usePlaylistsState({});
 
-    const getPlaylistSlug = () =>
-      'empty-head' || playlistsState.playlistsCtr.highlight.item?.slug;
+    const getPlaylistSlug = () => playlistsState.settings.playlistSlug;
 
     const getPlaylist = useQueryData(
       useGetPlaylist({

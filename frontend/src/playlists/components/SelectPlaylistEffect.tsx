@@ -13,6 +13,7 @@ const DefaultProps = {
   ...dps.playlists,
   ...dps.playlistsHighlight,
   ...dps.playlistsSelection,
+  ...dps.playlistsState,
 };
 
 export const SelectPlaylistEffect = observer(
@@ -21,6 +22,11 @@ export const SelectPlaylistEffect = observer(
 
     React.useEffect(() => {
       return autorun(() => {
+        props.playlistsState.settings.setPlaylistOwnerAndSlug(
+          params.ownerUsername,
+          params.playlistSlug
+        );
+
         const playlist = R.find(
           (x: PlaylistT) => x.slug === params.playlistSlug
         )(props.playlists);
@@ -35,6 +41,7 @@ export const SelectPlaylistEffect = observer(
       props.playlists,
       props.playlistsHighlight,
       props.playlistsSelection,
+      props.playlistsState,
     ]);
 
     return null;

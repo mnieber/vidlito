@@ -1,10 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from 'src/api/graphqlClient';
-import { updateQueries } from 'src/api/queryClient';
+import { queryClient } from 'src/api/queryClient';
 import { PlaylistFormT } from 'src/api/types/PlaylistT';
-import { UserProfileT } from 'src/api/types/UserProfileT';
-import { addOrReplaceListItem } from 'src/utils/addOrReplaceListItem';
-import { applyUpdate } from 'src/utils/applyUpdate';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
@@ -39,21 +36,8 @@ export const useSavePlaylist = () => {
     mutationKey: ['savePlaylist'],
     mutationFn: savePlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      updateQueries({
+      return queryClient.invalidateQueries({
         queryKey: ['loadUserId'],
-        invalidate: true,
-        update: (data: any) =>
-          // Add or replace saved playlist in user profile
-          applyUpdate(['userProfile'], data, (userProfile: UserProfileT) => {
-            return {
-              ...userProfile,
-              playlistSet: addOrReplaceListItem(
-                userProfile.playlistSet,
-                args.parentPlaylistId,
-                args.playlistForm
-              ),
-            };
-          }),
       });
     },
   });

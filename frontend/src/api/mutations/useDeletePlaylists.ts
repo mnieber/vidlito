@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import * as R from 'ramda';
 import { doQuery } from 'src/api/graphqlClient';
-import { updateQueries } from 'src/api/queryClient';
+import { queryClient } from 'src/api/queryClient';
 import { ObjT } from 'src/utils/types';
 import { wait } from 'src/utils/wait';
 
@@ -44,9 +44,8 @@ export const useDeletePlaylists = () => {
         )
       ),
     onSuccess: (response: ObjT) => {
-      updateQueries({
+      return queryClient.invalidateQueries({
         queryKey: ['getUserProfile'],
-        invalidate: true,
       });
     },
   });
