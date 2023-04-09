@@ -34,15 +34,13 @@ export class RouteTable {
       }
     } else {
       this._routeUfns[name] = getRouteArgs;
-      this.routeUfnByName[name] =
-        (updateRoute: Function) =>
-        (...args: any[]) => {
-          const routeArgs = getRouteArgs(...args);
-          const newRoute = this.routeByName[name](routeArgs);
-          if (pathname() !== newRoute) {
-            updateRoute(newRoute);
-          }
-        };
+      this.routeUfnByName[name] = (updateRoute: Function) => (args: ObjT) => {
+        const routeArgs = getRouteArgs(args);
+        const newRoute = this.routeByName[name](routeArgs);
+        if (pathname() !== newRoute) {
+          updateRoute(newRoute);
+        }
+      };
     }
   }
 
@@ -51,7 +49,7 @@ export class RouteTable {
       const value = routeByName[name];
       const [route, getRouteArgs] = Array.isArray(value)
         ? value
-        : [value, () => ({})];
+        : [value, (args: ObjT) => args];
 
       this.addRouteUfn(name, getRouteArgs);
       this.addRoute(route, name, prefix);
