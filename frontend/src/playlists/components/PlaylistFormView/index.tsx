@@ -14,9 +14,16 @@ import {
 } from 'src/forms/components';
 import { NameField } from 'src/forms/components/NameField';
 import { colBanner, rowSkewer } from 'src/frames/components';
+import {
+  PageEventHandler,
+  PlaylistsPageEventsT,
+  usePageEventHandler,
+} from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import './index.scss';
+
+export type PageEventHandlerT = PageEventHandler & PlaylistsPageEventsT;
 
 export type PropsT = {
   className?: any;
@@ -25,12 +32,12 @@ export type PropsT = {
 export const DefaultProps = {
   ...dps.playlist,
   ...dps.playlistsEdit,
-  ...dps.playlistsAddition,
-  ...dps.urlState,
 };
 
 export const PlaylistFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const pageEvents = usePageEventHandler<PageEventHandlerT>();
+
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 4,
     });
@@ -48,10 +55,11 @@ export const PlaylistFormView = observer(
           handleValidate={form.getHandleValidate(props)}
           handleSubmit={form.getHandleSubmit(
             props,
+            pageEvents,
             initialValues,
             initialErrors
           )}
-          handleCancel={form.getHandleCancel(props)}
+          handleCancel={form.getHandleCancel(props, pageEvents)}
         >
           <GlobalError />
           <Field fieldName="playlistForm.name" label="Name" autoFocus={true}>

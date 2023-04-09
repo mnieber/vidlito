@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import React from 'react';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
+import { ClipsPageEventsT, usePageEventHandler } from 'src/frames/pages';
 import { useSearchAndUrlParams } from 'src/utils/hooks';
 
 type PropsT = {};
@@ -13,11 +14,11 @@ const DefaultProps = {
   ...dps.clipsHighlight,
   ...dps.playlist,
   ...dps.clips,
-  ...dps.urlState,
 };
 
 export const SelectClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const pageEvents = usePageEventHandler<ClipsPageEventsT>();
     const params = useSearchAndUrlParams();
 
     React.useEffect(() => {
@@ -35,7 +36,7 @@ export const SelectClipEffect = observer(
         ) {
           const clip = R.head(props.clips);
           if (clip) {
-            props.urlState.userHighlightsClip(clip.slug);
+            pageEvents.clipHighlightIsCorrectedTo(clip.slug);
           }
         }
         // If the clip slug in the url is valid, but the corresponding clipId is
@@ -49,7 +50,7 @@ export const SelectClipEffect = observer(
       props.clips,
       props.clipsSelection,
       props.clipsHighlight,
-      props.urlState,
+      pageEvents,
     ]);
 
     return null;

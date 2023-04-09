@@ -3,7 +3,7 @@ import { AuthStateProvider } from 'src/auth/components/AuthStateProvider';
 import { ClipsStateProvider } from 'src/clips/components';
 import { DashboardStateProvider } from 'src/dashboard/components';
 import { PlaylistsStateProvider } from 'src/playlists/components/PlaylistsStateProvider';
-import { UrlRouter, UrlStateProvider } from 'src/routes/components';
+import { UrlRouter } from 'src/routes/components';
 import { cn } from 'src/utils/classnames';
 import { VideoPlayerStateProvider } from 'src/videos/components';
 import './App.scss';
@@ -15,17 +15,15 @@ export const App = () => {
     >
       <AuthStateProvider>
         <DashboardStateProvider>
-          <UrlStateProvider>
-            <PlaylistsStateProvider>
-              <ClipsStateProvider>
-                <ActionsStateProvider>
-                  <VideoPlayerStateProvider>
-                    <UrlRouter />
-                  </VideoPlayerStateProvider>
-                </ActionsStateProvider>
-              </ClipsStateProvider>
-            </PlaylistsStateProvider>
-          </UrlStateProvider>
+          <PlaylistsStateProvider>
+            <ClipsStateProvider>
+              <ActionsStateProvider>
+                <VideoPlayerStateProvider>
+                  <UrlRouter />
+                </VideoPlayerStateProvider>
+              </ActionsStateProvider>
+            </ClipsStateProvider>
+          </PlaylistsStateProvider>
         </DashboardStateProvider>
       </AuthStateProvider>
     </div>

@@ -8,7 +8,7 @@ import {
 } from 'react-form-state-context';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { createUUID } from 'src/utils/ids';
-import { DefaultProps, PropsT } from './index';
+import { DefaultProps, PageEventHandlerT, PropsT } from './index';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
@@ -40,6 +40,7 @@ const getHandleValidate =
 const getHandleSubmit =
   (
     props: PropsT & typeof DefaultProps,
+    pageEvents: PageEventHandlerT,
     initialValues: FormState['values'],
     initialErrors: FormState['errors']
   ) =>
@@ -48,7 +49,7 @@ const getHandleSubmit =
       .save(unflatten(values))
       .then((localPlaylist: PlaylistT) => {
         formState.reset(initialValues, initialErrors);
-        props.urlState.userHighlightsPlaylist(localPlaylist.slug);
+        pageEvents.userSubmittedPlaylistForm(localPlaylist.slug);
       })
       .catch((error: any) => {
         formState.setError(
@@ -59,13 +60,10 @@ const getHandleSubmit =
   };
 
 const getHandleCancel =
-  (props: PropsT & typeof DefaultProps) =>
+  (props: PropsT & typeof DefaultProps, pageEvents: PageEventHandlerT) =>
   ({ formState }: HandleCancelArgsT) => {
-    const mustGoBack = !!props.playlistsAddition.item;
     props.playlistsEdit.cancel();
-    if (mustGoBack) {
-      props.urlState.goBack();
-    }
+    pageEvents.userCancelledPlaylistForm();
   };
 
 export const form = {

@@ -1,27 +1,27 @@
 import React from 'react';
-import { UIEventHandler } from './UIEventHandler';
-import { useUIEventHandler } from './useUIEventHandler';
+import { PageEventHandler } from './PageEventHandler';
+import { usePageEventHandler } from './usePageEventHandler';
 
 interface WithEventHandlersProps {
   layerName: string;
   eventHandlers: Record<string, Function>;
 }
 
-export function withUIEventHandlers({
+export function withPageEventHandlers({
   layerName,
   eventHandlers,
 }: WithEventHandlersProps) {
   const WithEventHandlers: React.FC<{ children: React.ReactNode }> = ({
     children,
   }) => {
-    const uiEventHandler = useUIEventHandler<UIEventHandler>();
+    const pageEventHandler = usePageEventHandler<PageEventHandler>();
 
     React.useEffect(() => {
-      uiEventHandler.installEventHandlers(layerName, eventHandlers);
+      pageEventHandler.installEventHandlers(layerName, eventHandlers);
       return () => {
-        uiEventHandler.uninstallEventHandlers(layerName);
+        pageEventHandler.uninstallEventHandlers(layerName);
       };
-    }, [uiEventHandler]);
+    }, [pageEventHandler]);
 
     return <>{children}</>;
   };

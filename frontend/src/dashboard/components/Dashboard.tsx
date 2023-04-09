@@ -14,7 +14,6 @@ export type PropsT = React.PropsWithChildren<{
 
 const DefaultProps = {
   ...dps.dashboardState,
-  ...dps.urlState,
   ...dps.playlist,
 };
 

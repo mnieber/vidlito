@@ -10,6 +10,7 @@ import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon } from 'src/frames/components';
 import { lvi } from 'src/frames/components/Lvi';
+import { ClipsPageEventsT, usePageEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './ClipMenu.scss';
 
@@ -25,19 +26,20 @@ const DefaultProps = {
   ...dps.dashboardState,
   ...dps.playlist,
   ...dps.playlists,
-  ...dps.urlState,
 };
 
 export const ClipMenu = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const pageEvents = usePageEventHandler<ClipsPageEventsT>();
+
     const updateUrl = React.useMemo(
       () => () => {
         const clip = props.clipsHighlight.item;
         if (!R.isNil(clip)) {
-          props.urlState.clipHighlightIsCorrectedTo(clip.slug);
+          pageEvents.clipHighlightIsCorrectedTo(clip.slug);
         }
       },
-      [props.clipsHighlight, props.urlState]
+      [props.clipsHighlight, pageEvents]
     );
 
     if (!props.playlists || !props.playlist) return null;

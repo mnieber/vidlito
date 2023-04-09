@@ -7,6 +7,7 @@ import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListViewItem } from 'src/clips/components/ClipListViewItem';
 import { Spinner } from 'src/frames/components';
+import { ClipsPageEventsT, usePageEventHandler } from 'src/frames/pages';
 import { isLoading } from 'src/resourceStates/getState';
 import { createOnSelectItemHandler } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
@@ -22,11 +23,12 @@ const DefaultProps = {
   ...dps.clipsHighlight,
   ...dps.clipsSelection,
   ...dps.dashboardState,
-  ...dps.urlState,
 };
 
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const pageEvents = usePageEventHandler<ClipsPageEventsT>();
+
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.clipsDragAndDrop
     );
@@ -35,10 +37,10 @@ export const ClipListView = observer(
       {
         itemSelector: '.ClipListViewItem',
         onSelectItem: createOnSelectItemHandler(props.clips, (clip: ClipT) =>
-          props.urlState.userHighlightsClip(clip.slug)
+          pageEvents.userHighlightsClip(clip.slug)
         ),
       },
-      [props.clips, props.urlState]
+      [props.clips, pageEvents]
     );
 
     if (isLoading(props.clips)) {

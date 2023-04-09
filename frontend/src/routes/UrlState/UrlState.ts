@@ -1,4 +1,4 @@
-import { action, makeObservable } from 'mobx';
+import { makeObservable } from 'mobx';
 import * as R from 'ramda';
 import { cleanUpCtr } from 'react-default-props-context';
 import { getHomeRoute } from 'src/routes/getHomeRoute';
@@ -46,10 +46,6 @@ export class UrlState {
       : params;
   }
 
-  isOnMainPage() {
-    return ['playlist', 'clip'].includes(this.getRouteMatch()?.name ?? '');
-  }
-
   getPlaylistSlug() {
     const params = this.getParams();
     return params.playlistSlug;
@@ -58,51 +54,6 @@ export class UrlState {
   goHome() {
     this.history.push(getHomeRoute());
   }
-
-  goToActions() {
-    this.updateHiddenParams();
-    const ufn = this.routeUfns.actions(this.history.push);
-    ufn({
-      ...this.getParams(true),
-      ownerUsername: this.hiddenParams.username,
-    });
-  }
-
-  @action userHighlightsPlaylist(playlistSlug: string) {
-    const routeMatch = this.getRouteMatch();
-    this.hiddenParams.playlistSlug = playlistSlug;
-    if (routeMatch && this.isOnMainPage()) {
-      const ufn = this.routeUfns[routeMatch.name](this.history.push);
-      ufn({ ...this.getParams(true), playlistSlug });
-    }
-  }
-
-  @action userHighlightsClip(clipSlug: string) {
-    this.hiddenParams.clipSlug = clipSlug;
-    const params = this.getParams();
-    if (params.ownerUsername && params.playlistSlug) {
-      const ufn = this.routeUfns.clip(this.history.push);
-      ufn({ ...params, clipSlug });
-    }
-  }
-
-  clipHighlightIsCorrectedTo(clipSlug: string) {
-    this.hiddenParams.clipSlug = clipSlug;
-    if (this.isOnMainPage()) {
-      const ufn = this.routeUfns.clip(this.history.push);
-      ufn({ ...this.getParams(), clipSlug });
-    }
-  }
-
-  playlistHighlightIsCorrectedTo(playlistSlug: string) {
-    this.hiddenParams.playlistSlug = playlistSlug;
-    if (this.isOnMainPage()) {
-      const ufn = this.routeUfns.playlist(this.history.push);
-      ufn({ ...this.getParams(), playlistSlug });
-    }
-  }
-
-  userCreatesNewPlaylist() {}
 
   constructor(props: PropsT) {
     this.history = props.history;

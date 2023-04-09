@@ -1,10 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import { ActionsUIEventsT } from 'src/actions/ActionsUIEvents';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { rowBanner } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
 import { lvi } from 'src/frames/components/Lvi';
-import { useUIEventHandler } from 'src/uiEvents';
+import { ActionsPageEventsT, usePageEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './ActionsBar.scss';
 
@@ -18,7 +17,7 @@ const DefaultProps = {
 
 export const ActionsBar = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const uiEvents = useUIEventHandler<ActionsUIEventsT>();
+    const pageEvents = usePageEventHandler<ActionsPageEventsT>();
 
     return (
       <div className={cn('ActionsBar', rowBanner, props.className)}>
@@ -45,7 +44,7 @@ export const ActionsBar = observer(
           Playlist actions
         </label>
         <div className={cn('ml-auto')}>
-          <button onClick={() => uiEvents.closeActions()}>
+          <button onClick={() => pageEvents.closeActions()}>
             <Icon className={cn(lvi.leadingIcon)} name="close" />
           </button>
         </div>

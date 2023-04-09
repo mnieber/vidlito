@@ -16,7 +16,6 @@ import { UserProfileT } from 'src/api/types/UserProfileT';
 import { ClipsState } from 'src/clips/ClipsState';
 import { DashboardState } from 'src/dashboard/DashboardState';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
-import { UrlState } from 'src/routes/UrlState';
 import { VideoController } from 'src/videos/VideoController';
 import { VideoPlayerState } from 'src/videos/VideoPlayerState';
 export { stub, withDefaultProps } from 'react-default-props-context';
@@ -36,9 +35,6 @@ const dpsStates = {
   },
   playlistsState: {
     playlistsState: stub as PlaylistsState,
-  },
-  urlState: {
-    urlState: stub as UrlState,
   },
 };
 

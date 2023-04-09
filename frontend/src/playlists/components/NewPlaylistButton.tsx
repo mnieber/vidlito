@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon, mainButton } from 'src/frames/components';
 import { lvi } from 'src/frames/components/Lvi';
+import { PlaylistsPageEventsT, usePageEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './NewPlaylistButton.scss';
 
@@ -10,17 +11,18 @@ export type PropsT = {
 };
 
 const DefaultProps = {
-  ...dps.urlState,
   ...dps.username,
 };
 
 export const NewPlaylistButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const pageEvents = usePageEventHandler<PlaylistsPageEventsT>();
+
     return (
       <button
         className={cn('NewPlaylistButton', mainButton, props.className)}
         onClick={() => {
-          props.urlState.userCreatesNewPlaylist();
+          pageEvents.userCreatesNewPlaylist();
         }}
       >
         <Icon className={cn(lvi.leadingIcon)} name="plus" />

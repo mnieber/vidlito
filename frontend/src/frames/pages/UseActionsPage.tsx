@@ -1,18 +1,10 @@
-import { ActionsUIEventsT } from 'src/actions/ActionsUIEvents';
-import { UIEventHandler, withUIEventHandlers } from 'src/uiEvents';
+import { withPageEventHandlers } from 'src/pageEvents';
 
-export type ActionsPageEventHandlerT = {
-  closeActions: ActionsUIEventsT['closeActions'];
-};
+export type ActionsPageEventHandlerT = {};
 
-export const ActionsPageEventHandler: ActionsPageEventHandlerT = {
-  closeActions(this: UIEventHandler) {
-    const ufn = this.routeUfns.clip(this.history.push);
-    ufn(this.getParams(true));
-  },
-};
+export const ActionsPageEventHandler: ActionsPageEventHandlerT = {};
 
-export const UseActionsPage = withUIEventHandlers({
+export const UseActionsPage = withPageEventHandlers({
   layerName: 'ActionsPageEventHandler',
   eventHandlers: ActionsPageEventHandler,
 });

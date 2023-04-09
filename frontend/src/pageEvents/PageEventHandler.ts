@@ -9,7 +9,7 @@ export type PropsT = {
   routeUfns: ObjT;
 };
 
-export class UIEventHandler {
+export class PageEventHandler {
   history: any;
   routes: ObjT;
   routeUfns: ObjT;
@@ -59,15 +59,15 @@ export class UIEventHandler {
   }
 }
 
-export function createUIEventHandler(props: PropsT) {
-  const uiEventHandler = new UIEventHandler(props);
-  return new Proxy(uiEventHandler, {
+export function createPageEventHandler(props: PropsT) {
+  const pageEventHandler = new PageEventHandler(props);
+  return new Proxy(pageEventHandler, {
     get(target, prop: string) {
       const eventHandler = target._getEventHandler(prop);
       if (eventHandler) {
         return eventHandler.bind(target);
       }
-      console.warn(`UIEventHandler: no handler for ${prop}`);
+      console.warn(`PageEventHandler: no handler for ${prop}`);
       return () => {};
     },
   });

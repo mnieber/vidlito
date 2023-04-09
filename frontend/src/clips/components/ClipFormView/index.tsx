@@ -18,9 +18,16 @@ import {
   ValuePickerField,
 } from 'src/forms/components';
 import { colBanner, rowSkewer } from 'src/frames/components';
+import {
+  ClipsPageEventsT,
+  PageEventHandler,
+  usePageEventHandler,
+} from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import './index.scss';
+
+export type PageEventHandlerT = PageEventHandler & ClipsPageEventsT;
 
 export type PropsT = {
   className?: any;
@@ -31,11 +38,12 @@ export const DefaultProps = {
   ...dps.clipsEdit,
   ...dps.clipsAddition,
   ...dps.videoPlayerState,
-  ...dps.urlState,
 };
 
 export const ClipFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const pageEvents = usePageEventHandler<PageEventHandlerT>();
+
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,
     });
@@ -53,10 +61,11 @@ export const ClipFormView = observer(
           handleValidate={form.getHandleValidate(props)}
           handleSubmit={form.getHandleSubmit(
             props,
+            pageEvents,
             initialValues,
             initialErrors
           )}
-          handleCancel={form.getHandleCancel(props)}
+          handleCancel={form.getHandleCancel(props, pageEvents)}
         >
           <GlobalError />
           <Field fieldName="clipForm.url" label="Url" autoFocus={true}>

@@ -7,6 +7,10 @@ import {
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Spinner } from 'src/frames/components';
+import {
+  PlaylistsPageEventsT,
+  usePageEventHandler,
+} from 'src/frames/pages/index';
 import { PlaylistListViewItem } from 'src/playlists/components/PlaylistListViewItem';
 import { isLoading } from 'src/resourceStates';
 import { cn } from 'src/utils/classnames';
@@ -23,11 +27,12 @@ const DefaultProps = {
   ...dps.playlistsHighlight,
   ...dps.playlistsSelection,
   ...dps.dashboardState,
-  ...dps.urlState,
 };
 
 export const PlaylistListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const pageEvents = usePageEventHandler<PlaylistsPageEventsT>();
+
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.playlistsDragAndDrop
     );
@@ -38,14 +43,14 @@ export const PlaylistListView = observer(
       }
     );
 
-    const { playlistsHighlight, dashboardState, urlState } = props;
+    const { playlistsHighlight, dashboardState } = props;
     const goToPlaylist = React.useMemo(
       () => (playlist: PlaylistT) => {
         playlistsHighlight.highlightItem(playlist.id);
         dashboardState.setIsPlaylistListExpanded(false);
-        urlState.userHighlightsPlaylist(playlist.slug);
+        pageEvents.userHighlightsPlaylist(playlist.slug);
       },
-      [urlState, dashboardState, playlistsHighlight]
+      [pageEvents, dashboardState, playlistsHighlight]
     );
 
     if (isLoading(props.playlists)) {

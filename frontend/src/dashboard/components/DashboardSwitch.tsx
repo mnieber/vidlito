@@ -5,6 +5,7 @@ import { EditClipEffect, SelectClipEffect } from 'src/clips/components';
 import { Dashboard } from 'src/dashboard/components/Dashboard';
 import { MainView } from 'src/dashboard/components/MainView';
 import { UseActionsPage } from 'src/frames/pages/UseActionsPage';
+import { UseMainPage } from 'src/frames/pages/UseMainPage';
 import {
   EditPlaylistEffect,
   ForwardToClipEffect,
@@ -30,27 +31,29 @@ export const DashboardSwitch = withDefaultProps(
           <Route exact={true} path={routes.playlist()}>
             <ForwardToClipEffect />
           </Route>
-          <Dashboard>
-            <Route
-              exact={true}
-              path={routes.playlist({
-                ownerUsername: ':ownerUsername',
-                playlistSlug: 'new-playlist',
-              })}
-            >
-              <PlaylistFormView />
-            </Route>
-            <Route exact={true} path={routes.clip()}>
-              <SelectClipEffect />
-              <EditClipEffect />
-              <MainView />
-            </Route>
-            <UseActionsPage>
-              <Route exact={true} path={routes.actions()}>
-                <ActionsView />
+          <UseMainPage>
+            <Dashboard>
+              <Route
+                exact={true}
+                path={routes.playlist({
+                  ownerUsername: ':ownerUsername',
+                  playlistSlug: 'new-playlist',
+                })}
+              >
+                <PlaylistFormView />
               </Route>
-            </UseActionsPage>
-          </Dashboard>
+              <Route exact={true} path={routes.clip()}>
+                <SelectClipEffect />
+                <EditClipEffect />
+                <MainView />
+              </Route>
+              <UseActionsPage>
+                <Route exact={true} path={routes.actions()}>
+                  <ActionsView />
+                </Route>
+              </UseActionsPage>
+            </Dashboard>
+          </UseMainPage>
         </Route>
       </Switch>
     );

@@ -11,25 +11,27 @@ import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction'
 import { usePlaylistsState } from 'src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from 'src/playlists/utils';
 import { graftResourceStates, isLoading, isUpdating } from 'src/resourceStates';
+import { useSearchAndUrlParams } from 'src/utils/hooks';
 import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { log } from 'src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
-  ...dps.urlState,
   ...dps.userProfile,
 };
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { playlistsState } = usePlaylistsState({});
+    const params = useSearchAndUrlParams();
 
-    const playlistSlug = props.urlState.getPlaylistSlug();
     const getPlaylist = useQueryData(
       useGetPlaylist({
         playlistSlug:
-          playlistSlug === 'new-playlist' ? undefined : playlistSlug,
+          params.playlistSlug === 'new-playlist'
+            ? undefined
+            : params.playlistSlug,
         playlistId: playlistsState.playlistsCtr.highlight.id,
       }),
       { fetchAsLoad: true }
