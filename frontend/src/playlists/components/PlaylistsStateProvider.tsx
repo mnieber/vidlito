@@ -11,7 +11,6 @@ import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction'
 import { usePlaylistsState } from 'src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from 'src/playlists/utils';
 import { graftResourceStates, isLoading, isUpdating } from 'src/resourceStates';
-import { useSearchAndUrlParams } from 'src/utils/hooks';
 import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { log } from 'src/utils/logging';
 
@@ -24,14 +23,14 @@ const DefaultProps = {
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { playlistsState } = usePlaylistsState({});
-    const params = useSearchAndUrlParams();
+
+    const getPlaylistSlug = () =>
+      playlistsState.playlistsCtr.highlight.item?.slug;
 
     const getPlaylist = useQueryData(
       useGetPlaylist({
         playlistSlug:
-          params.playlistSlug === 'new-playlist'
-            ? undefined
-            : params.playlistSlug,
+          getPlaylistSlug() === 'new-playlist' ? undefined : getPlaylistSlug(),
         playlistId: playlistsState.playlistsCtr.highlight.id,
       }),
       { fetchAsLoad: true }
