@@ -10,12 +10,15 @@ import {
 } from 'src/auth/endpoints';
 import { States } from 'src/auth/endpoints/states';
 import { useAuthStateContext } from 'src/auth/hooks';
-import { getHomeRoute } from 'src/routes';
-import { getNextUrl, useNextUrl } from 'src/utils/hooks';
+import { FramesPageEventsT } from 'src/frames/FramesPageEvents';
+import { usePageEventHandler } from 'src/frames/pages';
 import { ObjT } from 'src/utils/types';
 import { useMessages } from './useMessages';
 
+export type PageEventsT = FramesPageEventsT;
+
 export const SignInPage = observer(() => {
+  const pageEvents = usePageEventHandler<PageEventsT>();
   const { messages } = useMessages();
 
   const params = useParams() as ObjT;
@@ -24,19 +27,15 @@ export const SignInPage = observer(() => {
   const signInByMagicLink = useSignInByMagicLink(authState).mutateAsync;
   const signIn = useSignIn(authState).mutateAsync;
 
-  // Change the url if sign in was successfull
-  useNextUrl(
-    authState.state === States.SIGN_IN_SUCCEEDED ||
-      authState.state === States.SIGN_IN_BY_MAGIC_LINK_SUCCEEDED
-      ? getNextUrl(getHomeRoute())
-      : undefined
-  );
-
   React.useEffect(() => {
     if (params.magicLinkToken) {
-      signInByMagicLink({ magicLinkToken: params.magicLinkToken });
+      signInByMagicLink({ magicLinkToken: params.magicLinkToken }).then(
+        (response: ObjT) => {
+          pageEvents.userSignedIn();
+        }
+      );
     }
-  }, [params.magicLinkToken, signInByMagicLink]);
+  }, [params.magicLinkToken, signInByMagicLink, pageEvents]);
 
   return (
     <AuthFrame header="Sign in" id="SignInPage">
@@ -45,7 +44,9 @@ export const SignInPage = observer(() => {
       )}
       <SignInForm
         signIn={(email, password) => {
-          return signIn({ userId: email, password });
+          return signIn({ userId: email, password }).then((response: ObjT) => {
+            pageEvents.userSignedIn();
+          });
         }}
         requestMagicLink={(email) => {
           return requestMagicLink({ userId: email });

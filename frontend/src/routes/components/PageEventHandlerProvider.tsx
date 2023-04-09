@@ -2,8 +2,7 @@ import {
   PageEventHandlerContext,
   createPageEventHandler,
 } from 'src/pageEvents';
-import { useRoutes } from 'src/routes/hooks';
-import { useRouteUfns } from 'src/routes/hooks/useRoutes';
+import { useRouteUfns, useRoutes } from 'src/routes/hooks/useRoutes';
 
 type PropsT = React.PropsWithChildren<{}>;
 

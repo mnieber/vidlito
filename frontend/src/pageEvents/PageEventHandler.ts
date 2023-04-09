@@ -63,6 +63,10 @@ export function createPageEventHandler(props: PropsT) {
   const pageEventHandler = new PageEventHandler(props);
   return new Proxy(pageEventHandler, {
     get(target, prop: string) {
+      if (prop in target) {
+        return (target as any)[prop];
+      }
+
       const eventHandler = target._getEventHandler(prop);
       if (eventHandler) {
         return eventHandler.bind(target);

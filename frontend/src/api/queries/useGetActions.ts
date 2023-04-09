@@ -41,15 +41,17 @@ export const getActions = (args: ArgsT) => {
     });
 };
 
-export type QueryKeyT = ArgsT;
+// Note that the username is included in the query key so that
+// the query is invalidated when the user signs in or out.
+export type QueryKeyT = ArgsT & { username?: string };
 
 export function queryKey(args: QueryKeyT) {
   return createQueryKey<QueryKeyT>('getActions', args);
 }
 
-export const useGetActions = (args: ArgsT) => {
+export const useGetActions = (args: ArgsT & { username?: string }) => {
   return useQuery({
-    queryKey: queryKey({ playlistId: args.playlistId }),
+    queryKey: queryKey(args),
     queryFn: () => getActions(args),
   });
 };

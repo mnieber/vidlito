@@ -3,7 +3,7 @@ import {
   ClipsPageEventsT,
   PlaylistsPageEventsT,
 } from 'src/frames/pages';
-import { PageEventHandler, withPageEventHandlers } from 'src/pageEvents';
+import { PageEventHandler, useInstallEventHandlers } from 'src/pageEvents';
 
 export type MainPageEventHandlerT = ActionsPageEventsT &
   ClipsPageEventsT &
@@ -49,7 +49,9 @@ export const MainPageEventHandler: MainPageEventHandlerT = {
   userSubmittedPlaylistForm(this: PageEventHandler, playlistSlug: string) {},
 };
 
-export const UseMainPage = withPageEventHandlers({
-  layerName: 'MainPageEventHandler',
-  eventHandlers: MainPageEventHandler,
-});
+export type PropsT = React.PropsWithChildren<{}>;
+
+export const UseMainPage = (props: PropsT) => {
+  useInstallEventHandlers('MainPageEventHandler', MainPageEventHandler);
+  return <>{props.children}</>;
+};

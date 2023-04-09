@@ -1,6 +1,6 @@
 import React from 'react';
+import { history } from 'src/app/components/App';
 import { RoutesContext } from 'src/routes/components/RoutesProvider';
-import { history } from 'src/routes/components/UrlRouter';
 import { RouteTable } from 'src/routes/utils/RouteTable';
 
 export const useRouteTable = () => {

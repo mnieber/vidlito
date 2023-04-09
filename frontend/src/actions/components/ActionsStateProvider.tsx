@@ -1,4 +1,4 @@
-import { autorun, makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
@@ -6,49 +6,35 @@ import { useActionsState } from 'src/actions/hooks/useActionsState';
 import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
 import { useGetActions } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
-import { invalidateGetActions } from 'src/api/queries/useGetActions';
 import { withSources } from 'src/api/utils/withSources';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { AuthStateContext } from 'src/auth/components/AuthStateProvider';
-import { States } from 'src/auth/endpoints/states';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { graftResourceStates } from 'src/resourceStates/graftResourceStates';
 import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { log } from 'src/utils/logging';
-import useDeepCompareEffect from 'use-deep-compare-effect';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
   ...dps.playlist,
   ...dps.playlists,
+  ...dps.userProfile,
 };
 
 export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const authState = React.useContext(AuthStateContext);
-
     const { actionsState } = useActionsState({
       playlists: props.playlists,
     });
 
-    const queryArgs = {
-      playlistId: actionsState.settings.showAllActions
-        ? undefined
-        : props.playlist?.id,
-    };
-    const getActions = useQueryData(useGetActions(queryArgs));
-
-    useDeepCompareEffect(() => {
-      return autorun(() => {
-        if (
-          authState?.state === States.SIGN_OUT_SUCCEEDED ||
-          authState?.state === States.SIGN_IN_SUCCEEDED
-        ) {
-          invalidateGetActions(queryArgs);
-        }
-      });
-    }, [queryArgs, authState]);
+    const getActions = useQueryData(
+      useGetActions({
+        playlistId: actionsState.settings.showAllActions
+          ? undefined
+          : props.playlist?.id,
+        username: props.userProfile?.username,
+      })
+    );
 
     useUpdateStateReaction({
       getInputs: () => ({

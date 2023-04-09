@@ -1,7 +1,7 @@
+import { history } from 'src/app/components/App';
 import { useSignOut } from 'src/auth/endpoints';
 import { useAuthStateContext } from 'src/auth/hooks';
 import { RouterLink } from 'src/routes/components';
-import { history } from 'src/routes/components/UrlRouter';
 import { useRoutes } from 'src/routes/hooks/useRoutes';
 
 type PropsT = {
