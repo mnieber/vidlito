@@ -1,4 +1,4 @@
-import { makeObservable, observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
 import { matchPath } from 'react-router-dom';
 import { getBestRouteMatch } from 'src/routes/utils/getRouteMatches';
@@ -107,6 +107,8 @@ export class UrlEventHandler {
 
     makeObservable(this, {
       eventLayers: observable,
+      installEventLayer: action,
+      uninstallEventLayer: action,
     });
   }
 }

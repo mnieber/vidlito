@@ -47,9 +47,14 @@ export const UseFramesPage = observer(
     useUpdateStateReaction({
       getInputs: () => ({
         userProfile: props.userProfile,
+        framesUrlEventLayer: urlEventHandler.getEventLayer(
+          'FramesUrlEventLayer'
+        ),
       }),
       updateState: (inputs) => {
-        urlEventHandler.userProfileLoaded(inputs.userProfile?.username);
+        if (inputs.framesUrlEventLayer) {
+          urlEventHandler.userProfileLoaded(inputs.userProfile?.username);
+        }
       },
     });
 
