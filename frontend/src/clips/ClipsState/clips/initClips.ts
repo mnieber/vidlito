@@ -18,6 +18,7 @@ import {
 import { correctHighlight } from 'skandha-facets/policies';
 import { ClipT } from 'src/api/types/ClipT';
 import { ClipsState, PropsT } from 'src/clips/ClipsState';
+import { MoveCbs } from 'src/clips/ClipsState/facets/Move';
 import { ObjT } from 'src/utils/types';
 
 export const initClips = (state: ClipsState, props: PropsT) => {
@@ -46,15 +47,11 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       deleteItems(this: DeletionCbs['delete']) {
         const clipIds = this.itemIds;
         if (this.options?.moveToTrash) {
-          return props.moveClipsToTrash(clipIds).then((response: ObjT) => {
-            const allIds = R.keys(ctr.store.itemById);
-            unselectIds(ctr.selection, clipIds);
+          const allIds = [...ctr.highlight.highlightableIds];
 
-            correctHighlight(
-              ctr.highlight,
-              allIds,
-              R.without(clipIds, ctr.highlight.highlightableIds)
-            );
+          return props.moveClipsToTrash(clipIds).then((response: ObjT) => {
+            unselectIds(ctr.selection, clipIds);
+            correctHighlight(ctr.highlight, allIds, R.without(clipIds, allIds));
             return response;
           });
         }
@@ -97,6 +94,24 @@ export const initClips = (state: ClipsState, props: PropsT) => {
       },
     },
   } as InsertionCbs);
+
+  setCallbackMap(ctr.move, {
+    move: {
+      moveItems(this: MoveCbs['move']) {
+        const allIds = [...ctr.highlight.highlightableIds];
+        const clips = [...ctr.selection.items];
+        const clipIds = [...ctr.selection.ids];
+
+        return props
+          .moveClipsToPlaylist(clips, this.playlistId, this.copy)
+          .then((response: ObjT) => {
+            unselectIds(ctr.selection, clipIds);
+            correctHighlight(ctr.highlight, allIds, R.without(clipIds, allIds));
+            return response;
+          });
+      },
+    },
+  } as MoveCbs);
 
   setCallbackMap(ctr.selection, {
     selectItem: {

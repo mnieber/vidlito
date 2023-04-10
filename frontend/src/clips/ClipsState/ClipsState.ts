@@ -19,6 +19,7 @@ import {
 } from 'skandha-facets/policies';
 import { registerCtr } from 'skandha-mobx';
 import { ClipT } from 'src/api/types/ClipT';
+import { Move } from 'src/clips/ClipsState/facets/Move';
 import { isUpdating } from 'src/resourceStates/getState';
 import { getIds } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
@@ -46,14 +47,10 @@ export class ClipsState {
     edit: new Edit(),
     highlight: new Highlight<ClipT>(),
     insertion: new Insertion<ClipT>(),
+    move: new Move(),
     selection: new Selection<ClipT>(),
     store: new Store<ClipT>(),
   };
-
-  moveClipsToPlaylist(playlistId: string, copy: boolean = false) {
-    const clips = this.clipsCtr.selection.items;
-    return this.props.moveClipsToPlaylist(clips, playlistId, copy);
-  }
 
   _clipsMapData(props: PropsT) {
     const getClipById = (x: string | undefined) =>

@@ -23,6 +23,7 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.clipsDeletion,
   ...dps.clipsHighlight,
+  ...dps.clipsMove,
   ...dps.clipsSelection,
   ...dps.clipsState,
   ...dps.dashboardState,
@@ -61,9 +62,7 @@ export const ClipMenu = observer(
               key={playlist.id}
               onClick={(e) => {
                 e.stopPropagation = true;
-                props.clipsState
-                  .moveClipsToPlaylist(playlist.id, false)
-                  .then(updateUrl);
+                props.clipsMove.move(playlist.id, false).then(updateUrl);
               }}
             >
               {playlist.name}
@@ -78,7 +77,7 @@ export const ClipMenu = observer(
               key={playlist.id}
               onClick={(e) => {
                 e.stopPropagation = true;
-                props.clipsState.moveClipsToPlaylist(playlist.id, true);
+                props.clipsMove.move(playlist.id, true);
               }}
             >
               {playlist.name}

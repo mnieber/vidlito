@@ -14,6 +14,7 @@ import { ClipT } from 'src/api/types/ClipT';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { UserProfileT } from 'src/api/types/UserProfileT';
 import { ClipsState } from 'src/clips/ClipsState';
+import { Move } from 'src/clips/ClipsState/facets/Move';
 import { DashboardState } from 'src/dashboard/DashboardState';
 import { PlaylistsState } from 'src/playlists/PlaylistsState';
 import { VideoController } from 'src/videos/VideoController';
@@ -74,6 +75,9 @@ const dpsClips = {
   },
   clipsInsertion: {
     clipsInsertion: stub as Insertion,
+  },
+  clipsMove: {
+    clipsMove: stub as Move,
   },
   clipsSelection: {
     clipsSelection: stub as Selection,

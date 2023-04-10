@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { Selection } from 'skandha-facets';
 import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
@@ -35,7 +36,7 @@ export const ClipListView = observer(
       props.clipsDragAndDrop
     );
     const selectionUIConnector = useSelectionUIConnector(
-      props.clipsSelection,
+      props.clipsSelection as Selection<ClipT>,
       {
         itemSelector: '.ClipListViewItem',
         onSelectItem: createOnSelectItemHandler(props.clips, (clip: ClipT) =>
@@ -59,7 +60,7 @@ export const ClipListView = observer(
           isHighlighted={clip && props.clipsHighlight.id === clip.id}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
-          onContextMenu={(e) => {
+          onContextMenu={(e: any) => {
             e.preventDefault();
             props.dashboardState.openContextMenuAtPoint({
               x: e.clientX,
