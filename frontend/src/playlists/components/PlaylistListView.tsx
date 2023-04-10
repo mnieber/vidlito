@@ -45,14 +45,15 @@ export const PlaylistListView = observer(
       }
     );
 
-    const { playlistsHighlight, dashboardState } = props;
+    const { playlistsHighlight, playlistsSelection, dashboardState } = props;
     const goToPlaylist = React.useMemo(
       () => (playlist: PlaylistT) => {
         playlistsHighlight.highlightItem({ id: playlist.id });
+        playlistsSelection.selectItem({ itemId: playlist.id });
         dashboardState.setIsPlaylistListExpanded(false);
         urlEvents.userHighlightsPlaylist(playlist.slug);
       },
-      [urlEvents, dashboardState, playlistsHighlight]
+      [urlEvents, dashboardState, playlistsHighlight, playlistsSelection]
     );
 
     if (isLoading(props.playlists)) {

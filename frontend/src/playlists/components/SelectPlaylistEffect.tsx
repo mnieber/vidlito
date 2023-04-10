@@ -31,8 +31,7 @@ export const SelectPlaylistEffect = observer(
           (x: PlaylistT) => x.slug === params.playlistSlug
         )(props.playlists);
 
-        if (playlist && !props.playlistsSelection.ids.includes(playlist.id)) {
-          props.playlistsSelection.selectItem({ itemId: playlist.id });
+        if (playlist && props.playlistsHighlight.id !== playlist.id) {
           props.playlistsHighlight.highlightItem({ id: playlist.id });
         }
       });

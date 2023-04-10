@@ -90,7 +90,7 @@ export class UrlEventHandler {
 
   _getEventHandler(name: string): Function | null {
     const sortedLayers = sortLayers(this.eventLayers, pathname());
-    for (let i = sortedLayers.length - 1; i >= 0; i--) {
+    for (let i = 0; i < sortedLayers.length; i++) {
       const layer = sortedLayers[i];
       const handler = (layer as ObjT)[name];
       if (handler) {

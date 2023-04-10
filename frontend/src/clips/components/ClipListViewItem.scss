@@ -8,6 +8,7 @@
 
 .ClipListViewItem--highlighted {
   @apply font-bold;
+  @apply bg-blue-200;
 }
 
 .ClipListViewItem--drag-before {
