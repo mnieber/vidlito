@@ -47,7 +47,7 @@ export class UrlEventHandler {
   routes: ObjT;
   routeUfns: ObjT;
   hiddenParams: ObjT = {};
-  eventHandlersStack: Array<UrlEventLayer> = [];
+  eventLayers: Array<UrlEventLayer> = [];
 
   updateHiddenParams() {
     this.hiddenParams = R.mergeLeft(this.hiddenParams, this.getParams());
@@ -64,28 +64,32 @@ export class UrlEventHandler {
       : params;
   }
 
-  installEventHandlers(
+  installEventLayer(
     name: string,
     route: string,
     createEventLayer: CreateEventLayerFunctionT
   ) {
     const urlEventLayer = R.find(
       (x: UrlEventLayer) => x.name === name,
-      this.eventHandlersStack
+      this.eventLayers
     );
     if (R.isNil(urlEventLayer)) {
-      this.eventHandlersStack.push(createEventLayer(name, route));
+      this.eventLayers.push(createEventLayer(name, route));
     }
   }
 
-  uninstallEventHandlers(name: string) {
-    this.eventHandlersStack = this.eventHandlersStack.filter(
+  getEventLayer(name: string) {
+    return R.find((x: UrlEventLayer) => x.name === name)(this.eventLayers);
+  }
+
+  uninstallEventLayer(name: string) {
+    this.eventLayers = this.eventLayers.filter(
       (urlEventLayer: UrlEventLayer) => urlEventLayer.name !== name
     );
   }
 
   _getEventHandler(name: string): Function | null {
-    const sortedLayers = sortLayers(this.eventHandlersStack, pathname());
+    const sortedLayers = sortLayers(this.eventLayers, pathname());
     for (let i = sortedLayers.length - 1; i >= 0; i--) {
       const layer = sortedLayers[i];
       const handler = (layer as ObjT)[name];
@@ -102,7 +106,7 @@ export class UrlEventHandler {
     this.routeUfns = props.routeUfns;
 
     makeObservable(this, {
-      eventHandlersStack: observable,
+      eventLayers: observable,
     });
   }
 }

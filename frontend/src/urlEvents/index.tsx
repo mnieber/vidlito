@@ -1,5 +1,5 @@
 export { UrlEventHandler, createUrlEventHandler } from './UrlEventHandler';
-export { useInstallEventHandlers } from './useInstallEventHandlers';
+export { useInstallEventLayer } from './useInstallEventLayer';
 export {
   UrlEventHandlerContext,
   useUrlEventHandler,

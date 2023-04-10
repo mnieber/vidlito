@@ -8,14 +8,14 @@ import {
   UrlEventHandler,
   useUrlEventHandler,
 } from 'src/frames/pages';
-import { useInstallEventHandlers } from 'src/urlEvents';
+import { useInstallEventLayer } from 'src/urlEvents';
 import { UrlEventLayer } from 'src/urlEvents/UrlEventHandler';
 
-export type FramesUrlEventHandlerT = FramesUrlEventsT;
+export type FramesUrlEventLayerT = FramesUrlEventsT;
 
-export class FramesUrlEventHandler
+export class FramesUrlEventLayer
   extends UrlEventLayer
-  implements FramesUrlEventHandlerT
+  implements FramesUrlEventLayerT
 {
   goToHome(this: UrlEventHandler) {}
 
@@ -36,12 +36,12 @@ export const UseFramesPage = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const routeMatch = useRouteMatch();
     const urlEventHandler = useUrlEventHandler<
-      UrlEventHandler & FramesUrlEventHandlerT
+      UrlEventHandler & FramesUrlEventLayerT
     >();
-    useInstallEventHandlers(
-      'FramesUrlEventHandler',
+    useInstallEventLayer(
+      'FramesUrlEventLayer',
       routeMatch.path,
-      (name: string, route: string) => new FramesUrlEventHandler(name, route)
+      (name: string, route: string) => new FramesUrlEventLayer(name, route)
     );
 
     useUpdateStateReaction({

@@ -3,7 +3,7 @@ import { CreateEventLayerFunctionT } from 'src/urlEvents/UrlEventHandler';
 import { UrlEventHandler } from './UrlEventHandler';
 import { useUrlEventHandler } from './useUrlEventHandler';
 
-export function useInstallEventHandlers(
+export function useInstallEventLayer(
   name: string,
   path: string,
   createEventLayer: CreateEventLayerFunctionT
@@ -11,9 +11,9 @@ export function useInstallEventHandlers(
   const uiEventHandler = useUrlEventHandler<UrlEventHandler>();
 
   React.useEffect(() => {
-    uiEventHandler.installEventHandlers(name, path, createEventLayer);
+    uiEventHandler.installEventLayer(name, path, createEventLayer);
     return () => {
-      uiEventHandler.uninstallEventHandlers(name);
+      uiEventHandler.uninstallEventLayer(name);
     };
   }, [uiEventHandler, name, path, createEventLayer]);
 }

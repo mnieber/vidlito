@@ -4,16 +4,16 @@ import {
   ClipsUrlEventsT,
   PlaylistsUrlEventsT,
 } from 'src/frames/pages';
-import { UrlEventHandler, useInstallEventHandlers } from 'src/urlEvents';
+import { UrlEventHandler, useInstallEventLayer } from 'src/urlEvents';
 import { UrlEventLayer } from 'src/urlEvents/UrlEventHandler';
 
-export type MainUrlEventHandlerT = ActionsUrlEventsT &
+export type MainUrlEventLayerT = ActionsUrlEventsT &
   ClipsUrlEventsT &
   PlaylistsUrlEventsT & {};
 
-export class MainUrlEventHandler
+export class MainUrlEventLayer
   extends UrlEventLayer
-  implements MainUrlEventHandlerT
+  implements MainUrlEventLayerT
 {
   closeActions(this: UrlEventHandler) {
     const ufn = this.routeUfns.clip(this.history.push);
@@ -68,10 +68,10 @@ export type PropsT = React.PropsWithChildren<{}>;
 
 export const UseMainPage = (props: PropsT) => {
   const routeMatch = useRouteMatch();
-  useInstallEventHandlers(
-    'MainUrlEventHandler',
+  useInstallEventLayer(
+    'MainUrlEventLayer',
     routeMatch.path,
-    (name: string, route: string) => new MainUrlEventHandler(name, route)
+    (name: string, route: string) => new MainUrlEventLayer(name, route)
   );
   return <>{props.children}</>;
 };
