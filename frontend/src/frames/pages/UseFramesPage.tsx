@@ -41,7 +41,7 @@ export const UseFramesPage = observer(
     useInstallEventHandlers(
       'FramesUrlEventHandler',
       routeMatch.path,
-      FramesUrlEventHandler
+      (name: string, route: string) => new FramesUrlEventHandler(name, route)
     );
 
     useUpdateStateReaction({

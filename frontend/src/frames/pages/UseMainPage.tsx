@@ -71,7 +71,7 @@ export const UseMainPage = (props: PropsT) => {
   useInstallEventHandlers(
     'MainUrlEventHandler',
     routeMatch.path,
-    MainUrlEventHandler
+    (name: string, route: string) => new MainUrlEventHandler(name, route)
   );
   return <>{props.children}</>;
 };

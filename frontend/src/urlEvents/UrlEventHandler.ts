@@ -21,9 +21,27 @@ export type PropsT = {
   routeUfns: ObjT;
 };
 
-// This class handles page events. A page event is an event that is relevant
-// not just to a particular component but to a page. For example, when a user
-// selects an item in a list of persons, then we may want to change the url
+export type CreateEventLayerFunctionT = (
+  name: string,
+  route: string
+) => UrlEventLayer;
+
+// This class handles url events. A url event is any UI event that may require
+// changing the url. For example, when a user selects an item in a list of employees,
+// then the EmployeeListComponent may fire the userSelectedAnEmployee event, and the effect
+// may be that the url changes to reflect the selected employee.
+//
+// When userSelectedAnEmployee is called then the UrlEventHandler executes the following steps:
+//
+// 1. it selects the UrlEventLayers that match the current route, and sorts them by the number
+//    of matching url parameters.
+// 2. it finds the UrlEventLayer that contains the userSelectedAnEmployee event handler.
+// 3. it executes the userSelectedAnEmployee event handler.
+//
+// The above means that:
+// - the handling of url events is context dependent.
+// - the component that fires the event does not need to know anything about the url.
+
 export class UrlEventHandler {
   history: any;
   routes: ObjT;
@@ -46,13 +64,17 @@ export class UrlEventHandler {
       : params;
   }
 
-  installEventHandlers(name: string, route: string, urlEventLayerClass: any) {
+  installEventHandlers(
+    name: string,
+    route: string,
+    createEventLayer: CreateEventLayerFunctionT
+  ) {
     const urlEventLayer = R.find(
       (x: UrlEventLayer) => x.name === name,
       this.eventHandlersStack
     );
     if (R.isNil(urlEventLayer)) {
-      this.eventHandlersStack.push(new urlEventLayerClass(name, route));
+      this.eventHandlersStack.push(createEventLayer(name, route));
     }
   }
 

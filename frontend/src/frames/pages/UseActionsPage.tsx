@@ -20,7 +20,7 @@ export const UseActionsPage = (props: PropsT) => {
   useInstallEventHandlers(
     'ActionsUrlEventHandler',
     routeMatch.path,
-    ActionsUrlEventHandler
+    (name: string, route: string) => new ActionsUrlEventHandler(name, route)
   );
   return <>{props.children}</>;
 };
