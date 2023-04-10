@@ -4,24 +4,24 @@ import { useRouteMatch } from 'react-router-dom';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import {
-  FramesPageEventsT,
-  PageEventHandler,
-  usePageEventHandler,
+  FramesUrlEventsT,
+  UrlEventHandler,
+  useUrlEventHandler,
 } from 'src/frames/pages';
-import { useInstallEventHandlers } from 'src/pageEvents';
-import { PageEventLayer } from 'src/pageEvents/PageEventHandler';
+import { useInstallEventHandlers } from 'src/urlEvents';
+import { UrlEventLayer } from 'src/urlEvents/UrlEventHandler';
 
-export type FramesPageEventHandlerT = FramesPageEventsT;
+export type FramesUrlEventHandlerT = FramesUrlEventsT;
 
-export class FramesPageEventHandler
-  extends PageEventLayer
-  implements FramesPageEventHandlerT
+export class FramesUrlEventHandler
+  extends UrlEventLayer
+  implements FramesUrlEventHandlerT
 {
-  goToHome(this: PageEventHandler) {}
+  goToHome(this: UrlEventHandler) {}
 
-  userSignedIn(this: PageEventHandler) {}
+  userSignedIn(this: UrlEventHandler) {}
 
-  userProfileLoaded(this: PageEventHandler, username: string) {
+  userProfileLoaded(this: UrlEventHandler, username: string) {
     this.hiddenParams.username = username;
   }
 }
@@ -35,13 +35,13 @@ const DefaultProps = {
 export const UseFramesPage = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const routeMatch = useRouteMatch();
-    const pageEventHandler = usePageEventHandler<
-      PageEventHandler & FramesPageEventHandlerT
+    const urlEventHandler = useUrlEventHandler<
+      UrlEventHandler & FramesUrlEventHandlerT
     >();
     useInstallEventHandlers(
-      'FramesPageEventHandler',
+      'FramesUrlEventHandler',
       routeMatch.path,
-      FramesPageEventHandler
+      FramesUrlEventHandler
     );
 
     useUpdateStateReaction({
@@ -49,7 +49,7 @@ export const UseFramesPage = observer(
         userProfile: props.userProfile,
       }),
       updateState: (inputs) => {
-        pageEventHandler.userProfileLoaded(inputs.userProfile?.username);
+        urlEventHandler.userProfileLoaded(inputs.userProfile?.username);
       },
     });
 

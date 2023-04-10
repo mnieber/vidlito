@@ -10,15 +10,16 @@ import {
 } from 'src/auth/endpoints';
 import { States } from 'src/auth/endpoints/states';
 import { useAuthStateContext } from 'src/auth/hooks';
-import { FramesPageEventsT } from 'src/frames/FramesPageEvents';
-import { usePageEventHandler } from 'src/frames/pages';
+import { FramesUrlEventsT } from 'src/frames/FramesUrlEvents';
+import { useUrlEventHandler } from 'src/frames/pages';
 import { ObjT } from 'src/utils/types';
 import { useMessages } from './useMessages';
 
-export type PageEventsT = FramesPageEventsT;
+export type UrlEventsT = FramesUrlEventsT;
 
 export const SignInPage = observer(() => {
-  const pageEvents = usePageEventHandler<PageEventsT>();
+  const urlEvents = useUrlEventHandler<UrlEventsT>();
+
   const { messages } = useMessages();
 
   const params = useParams() as ObjT;
@@ -31,11 +32,11 @@ export const SignInPage = observer(() => {
     if (params.magicLinkToken) {
       signInByMagicLink({ magicLinkToken: params.magicLinkToken }).then(
         (response: ObjT) => {
-          pageEvents.userSignedIn();
+          urlEvents.userSignedIn();
         }
       );
     }
-  }, [params.magicLinkToken, signInByMagicLink, pageEvents]);
+  }, [params.magicLinkToken, signInByMagicLink, urlEvents]);
 
   return (
     <AuthFrame header="Sign in" id="SignInPage">
@@ -45,7 +46,7 @@ export const SignInPage = observer(() => {
       <SignInForm
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
-            pageEvents.userSignedIn();
+            urlEvents.userSignedIn();
           });
         }}
         requestMagicLink={(email) => {

@@ -1,26 +1,26 @@
 import { useRouteMatch } from 'react-router-dom';
 import {
-  ActionsPageEventsT,
-  ClipsPageEventsT,
-  PlaylistsPageEventsT,
+  ActionsUrlEventsT,
+  ClipsUrlEventsT,
+  PlaylistsUrlEventsT,
 } from 'src/frames/pages';
-import { PageEventHandler, useInstallEventHandlers } from 'src/pageEvents';
-import { PageEventLayer } from 'src/pageEvents/PageEventHandler';
+import { UrlEventHandler, useInstallEventHandlers } from 'src/urlEvents';
+import { UrlEventLayer } from 'src/urlEvents/UrlEventHandler';
 
-export type MainPageEventHandlerT = ActionsPageEventsT &
-  ClipsPageEventsT &
-  PlaylistsPageEventsT & {};
+export type MainUrlEventHandlerT = ActionsUrlEventsT &
+  ClipsUrlEventsT &
+  PlaylistsUrlEventsT & {};
 
-export class MainPageEventHandler
-  extends PageEventLayer
-  implements MainPageEventHandlerT
+export class MainUrlEventHandler
+  extends UrlEventLayer
+  implements MainUrlEventHandlerT
 {
-  closeActions(this: PageEventHandler) {
+  closeActions(this: UrlEventHandler) {
     const ufn = this.routeUfns.clip(this.history.push);
     ufn(this.getParams(true));
   }
 
-  goToActions(this: PageEventHandler) {
+  goToActions(this: UrlEventHandler) {
     this.updateHiddenParams();
     const ufn = this.routeUfns.actions(this.history.push);
     ufn({
@@ -29,39 +29,39 @@ export class MainPageEventHandler
     });
   }
 
-  clipHighlightIsCorrectedTo(this: PageEventHandler, clipSlug: string) {
+  clipHighlightIsCorrectedTo(this: UrlEventHandler, clipSlug: string) {
     this.hiddenParams.clipSlug = clipSlug;
     const ufn = this.routeUfns.clip(this.history.push);
     ufn({ ...this.getParams(), clipSlug });
   }
 
-  userHighlightsClip(this: PageEventHandler, clipSlug: string) {
+  userHighlightsClip(this: UrlEventHandler, clipSlug: string) {
     this.hiddenParams.clipSlug = clipSlug;
     const ufn = this.routeUfns.clip(this.history.push);
     ufn({ ...this.getParams(), clipSlug });
   }
 
-  userCancelledClipForm(this: PageEventHandler) {}
+  userCancelledClipForm(this: UrlEventHandler) {}
 
-  userSubmittedClipForm(this: PageEventHandler, clipSlug: string) {}
+  userSubmittedClipForm(this: UrlEventHandler, clipSlug: string) {}
 
-  playlistHighlightIsCorrectedTo(this: PageEventHandler, playlistSlug: string) {
+  playlistHighlightIsCorrectedTo(this: UrlEventHandler, playlistSlug: string) {
     this.hiddenParams.playlistSlug = playlistSlug;
     const ufn = this.routeUfns.playlist(this.history.push);
     ufn({ ...this.getParams(), playlistSlug });
   }
 
-  userCancelledPlaylistForm(this: PageEventHandler) {}
+  userCancelledPlaylistForm(this: UrlEventHandler) {}
 
-  userCreatesNewPlaylist(this: PageEventHandler) {}
+  userCreatesNewPlaylist(this: UrlEventHandler) {}
 
-  userHighlightsPlaylist(this: PageEventHandler, playlistSlug: string) {
+  userHighlightsPlaylist(this: UrlEventHandler, playlistSlug: string) {
     this.hiddenParams.playlistSlug = playlistSlug;
     const ufn = this.routeUfns.playlist(this.history.push);
     ufn({ ...this.getParams(true), playlistSlug });
   }
 
-  userSubmittedPlaylistForm(this: PageEventHandler, playlistSlug: string) {}
+  userSubmittedPlaylistForm(this: UrlEventHandler, playlistSlug: string) {}
 }
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -69,9 +69,9 @@ export type PropsT = React.PropsWithChildren<{}>;
 export const UseMainPage = (props: PropsT) => {
   const routeMatch = useRouteMatch();
   useInstallEventHandlers(
-    'MainPageEventHandler',
+    'MainUrlEventHandler',
     routeMatch.path,
-    MainPageEventHandler
+    MainUrlEventHandler
   );
   return <>{props.children}</>;
 };

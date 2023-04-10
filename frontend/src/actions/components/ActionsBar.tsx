@@ -3,11 +3,11 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { rowBanner } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
 import { lvi } from 'src/frames/components/Lvi';
-import { ActionsPageEventsT, usePageEventHandler } from 'src/frames/pages';
+import { ActionsUrlEventsT, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './ActionsBar.scss';
 
-export type PageEventsT = ActionsPageEventsT;
+export type UrlEventsT = ActionsUrlEventsT;
 
 export type PropsT = {
   className?: any;
@@ -19,7 +19,7 @@ const DefaultProps = {
 
 export const ActionsBar = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<PageEventsT>();
+    const urlEvents = useUrlEventHandler<UrlEventsT>();
 
     return (
       <div className={cn('ActionsBar', rowBanner, props.className)}>
@@ -46,7 +46,7 @@ export const ActionsBar = observer(
           Playlist actions
         </label>
         <div className={cn('ml-auto')}>
-          <button onClick={() => pageEvents.closeActions()}>
+          <button onClick={() => urlEvents.closeActions()}>
             <Icon className={cn(lvi.leadingIcon)} name="close" />
           </button>
         </div>

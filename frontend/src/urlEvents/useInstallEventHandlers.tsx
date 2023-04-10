@@ -1,13 +1,13 @@
 import React from 'react';
-import { PageEventHandler } from './PageEventHandler';
-import { usePageEventHandler } from './usePageEventHandler';
+import { UrlEventHandler } from './UrlEventHandler';
+import { useUrlEventHandler } from './useUrlEventHandler';
 
 export function useInstallEventHandlers(
   name: string,
   path: string,
   eventHandlerClass: any
 ) {
-  const uiEventHandler = usePageEventHandler<PageEventHandler>();
+  const uiEventHandler = useUrlEventHandler<UrlEventHandler>();
 
   React.useEffect(() => {
     uiEventHandler.installEventHandlers(name, path, eventHandlerClass);

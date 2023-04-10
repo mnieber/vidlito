@@ -3,11 +3,11 @@ import { ClipT, createClip } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon, mainButton } from 'src/frames/components';
 import { lvi } from 'src/frames/components/Lvi';
-import { ClipsPageEventsT, usePageEventHandler } from 'src/frames/pages';
+import { ClipsUrlEventsT, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './NewClipButton.scss';
 
-export type PageEventsT = ClipsPageEventsT;
+export type UrlEventsT = ClipsUrlEventsT;
 
 export type PropsT = {
   className?: any;
@@ -19,14 +19,14 @@ const DefaultProps = {
 
 export const NewClipButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<PageEventsT>();
+    const urlEvents = useUrlEventHandler<UrlEventsT>();
 
     return (
       <button
         className={cn('NewClipButton', mainButton, props.className)}
         onClick={() => {
           props.clipsAddition.add(createClip({})).then((localClip: ClipT) => {
-            pageEvents.userHighlightsClip(localClip.slug);
+            urlEvents.userHighlightsClip(localClip.slug);
           });
         }}
       >

@@ -1,10 +1,11 @@
+import { makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
 import { matchPath } from 'react-router-dom';
 import { getBestRouteMatch } from 'src/routes/utils/getRouteMatches';
 import { ObjT } from 'src/utils/types';
 import { pathname } from 'src/utils/urls';
 
-export class PageEventLayer {
+export class UrlEventLayer {
   route: string;
   name: string;
 
@@ -20,12 +21,15 @@ export type PropsT = {
   routeUfns: ObjT;
 };
 
-export class PageEventHandler {
+// This class handles page events. A page event is an event that is relevant
+// not just to a particular component but to a page. For example, when a user
+// selects an item in a list of persons, then we may want to change the url
+export class UrlEventHandler {
   history: any;
   routes: ObjT;
   routeUfns: ObjT;
   hiddenParams: ObjT = {};
-  eventHandlersStack: Array<PageEventLayer> = [];
+  eventHandlersStack: Array<UrlEventLayer> = [];
 
   updateHiddenParams() {
     this.hiddenParams = R.mergeLeft(this.hiddenParams, this.getParams());
@@ -42,21 +46,19 @@ export class PageEventHandler {
       : params;
   }
 
-  installEventHandlers(name: string, route: string, pageEventLayerClass: any) {
-    console.log('installEventHandlers', name, route);
-    const pageEventLayer = R.find(
-      (x: PageEventLayer) => x.name === name,
+  installEventHandlers(name: string, route: string, urlEventLayerClass: any) {
+    const urlEventLayer = R.find(
+      (x: UrlEventLayer) => x.name === name,
       this.eventHandlersStack
     );
-    if (R.isNil(pageEventLayer)) {
-      this.eventHandlersStack.push(new pageEventLayerClass(name, route));
+    if (R.isNil(urlEventLayer)) {
+      this.eventHandlersStack.push(new urlEventLayerClass(name, route));
     }
   }
 
   uninstallEventHandlers(name: string) {
-    console.log('uninstallEventHandlers', name);
     this.eventHandlersStack = this.eventHandlersStack.filter(
-      (pageEventLayer: PageEventLayer) => pageEventLayer.name !== name
+      (urlEventLayer: UrlEventLayer) => urlEventLayer.name !== name
     );
   }
 
@@ -76,12 +78,16 @@ export class PageEventHandler {
     this.history = props.history;
     this.routes = props.routes;
     this.routeUfns = props.routeUfns;
+
+    makeObservable(this, {
+      eventHandlersStack: observable,
+    });
   }
 }
 
-export function createPageEventHandler(props: PropsT) {
-  const pageEventHandler = new PageEventHandler(props);
-  return new Proxy(pageEventHandler, {
+export function createUrlEventHandler(props: PropsT) {
+  const urlEventHandler = new UrlEventHandler(props);
+  return new Proxy(urlEventHandler, {
     get(target, prop: string) {
       if (prop in target) {
         return (target as any)[prop];
@@ -91,18 +97,18 @@ export function createPageEventHandler(props: PropsT) {
       if (eventHandler) {
         return eventHandler.bind(target);
       }
-      console.warn(`PageEventHandler: no handler for ${prop}`);
+      console.warn(`UrlEventHandler: no handler for ${prop}`);
       return () => {};
     },
   });
 }
 
 export function sortLayers(
-  layers: PageEventLayer[],
+  layers: UrlEventLayer[],
   pathname: string
-): PageEventLayer[] {
+): UrlEventLayer[] {
   type ResultT = {
-    layer: PageEventLayer;
+    layer: UrlEventLayer;
     match: ObjT | null;
   };
 

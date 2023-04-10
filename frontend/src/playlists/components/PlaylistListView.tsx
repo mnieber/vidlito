@@ -8,15 +8,15 @@ import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Spinner } from 'src/frames/components';
 import {
-  PlaylistsPageEventsT,
-  usePageEventHandler,
+  PlaylistsUrlEventsT,
+  useUrlEventHandler,
 } from 'src/frames/pages/index';
 import { PlaylistListViewItem } from 'src/playlists/components/PlaylistListViewItem';
 import { isLoading } from 'src/resourceStates';
 import { cn } from 'src/utils/classnames';
 import './PlaylistListView.scss';
 
-export type PageEventsT = PlaylistsPageEventsT;
+export type UrlEventsT = PlaylistsUrlEventsT;
 
 export type PropsT = {
   isExpanded: boolean;
@@ -33,7 +33,7 @@ const DefaultProps = {
 
 export const PlaylistListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<PageEventsT>();
+    const urlEvents = useUrlEventHandler<UrlEventsT>();
 
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.playlistsDragAndDrop
@@ -50,9 +50,9 @@ export const PlaylistListView = observer(
       () => (playlist: PlaylistT) => {
         playlistsHighlight.highlightItem(playlist.id);
         dashboardState.setIsPlaylistListExpanded(false);
-        pageEvents.userHighlightsPlaylist(playlist.slug);
+        urlEvents.userHighlightsPlaylist(playlist.slug);
       },
-      [pageEvents, dashboardState, playlistsHighlight]
+      [urlEvents, dashboardState, playlistsHighlight]
     );
 
     if (isLoading(props.playlists)) {

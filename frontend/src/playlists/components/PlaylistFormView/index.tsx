@@ -15,16 +15,16 @@ import {
 import { NameField } from 'src/forms/components/NameField';
 import { colBanner, rowSkewer } from 'src/frames/components';
 import {
-  PageEventHandler,
-  PlaylistsPageEventsT,
-  usePageEventHandler,
+  PlaylistsUrlEventsT,
+  UrlEventHandler,
+  useUrlEventHandler,
 } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import './index.scss';
 
-export type PageEventsT = PlaylistsPageEventsT;
-export type PageEventHandlerT = PageEventHandler & PageEventsT;
+export type UrlEventsT = PlaylistsUrlEventsT;
+export type UrlEventHandlerT = UrlEventHandler & UrlEventsT;
 
 export type PropsT = {
   className?: any;
@@ -37,7 +37,7 @@ export const DefaultProps = {
 
 export const PlaylistFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<PageEventHandlerT>();
+    const urlEvents = useUrlEventHandler<UrlEventHandlerT>();
 
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 4,
@@ -56,11 +56,11 @@ export const PlaylistFormView = observer(
           handleValidate={form.getHandleValidate(props)}
           handleSubmit={form.getHandleSubmit(
             props,
-            pageEvents,
+            urlEvents,
             initialValues,
             initialErrors
           )}
-          handleCancel={form.getHandleCancel(props, pageEvents)}
+          handleCancel={form.getHandleCancel(props, urlEvents)}
         >
           <GlobalError />
           <Field fieldName="playlistForm.name" label="Name" autoFocus={true}>

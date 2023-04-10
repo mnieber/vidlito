@@ -1,6 +1,6 @@
-export type { ActionsPageEventsT } from 'src/actions/ActionsPageEvents';
-export type { ClipsPageEventsT } from 'src/clips/ClipsPageEvents';
-export type { FramesPageEventsT } from 'src/frames/FramesPageEvents';
-export { PageEventHandler } from 'src/pageEvents/PageEventHandler';
-export { usePageEventHandler } from 'src/pageEvents/usePageEventHandler';
-export type { PlaylistsPageEventsT } from 'src/playlists/PlaylistsPageEvents';
+export type { ActionsUrlEventsT } from 'src/actions/ActionsUrlEvents';
+export type { ClipsUrlEventsT } from 'src/clips/ClipsUrlEvents';
+export type { FramesUrlEventsT } from 'src/frames/FramesUrlEvents';
+export type { PlaylistsUrlEventsT } from 'src/playlists/PlaylistsUrlEvents';
+export { UrlEventHandler } from 'src/urlEvents/UrlEventHandler';
+export { useUrlEventHandler } from 'src/urlEvents/useUrlEventHandler';

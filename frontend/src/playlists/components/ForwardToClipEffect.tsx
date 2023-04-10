@@ -2,10 +2,10 @@ import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipsPageEventsT, usePageEventHandler } from 'src/frames/pages';
+import { ClipsUrlEventsT, useUrlEventHandler } from 'src/frames/pages';
 import { useSearchAndUrlParams } from 'src/utils/hooks';
 
-export type PageEventsT = ClipsPageEventsT;
+export type UrlEventsT = ClipsUrlEventsT;
 
 type PropsT = {};
 
@@ -15,7 +15,7 @@ const DefaultProps = {
 
 export const ForwardToClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<PageEventsT>();
+    const urlEvents = useUrlEventHandler<UrlEventsT>();
     const params = useSearchAndUrlParams();
 
     React.useEffect(() => {
@@ -25,10 +25,10 @@ export const ForwardToClipEffect = observer(
           props.playlist.slug === params.playlistSlug &&
           props.playlist.clipSet.length
         ) {
-          pageEvents.clipHighlightIsCorrectedTo(props.playlist.clipSet[0].slug);
+          urlEvents.clipHighlightIsCorrectedTo(props.playlist.clipSet[0].slug);
         }
       });
-    }, [params, props.playlist, pageEvents]);
+    }, [params, props.playlist, urlEvents]);
 
     return null;
   }, DefaultProps)

@@ -6,7 +6,7 @@ import { ClipsStateProvider } from 'src/clips/components';
 import { DashboardStateProvider } from 'src/dashboard/components';
 import { PlaylistsStateProvider } from 'src/playlists/components/PlaylistsStateProvider';
 import { UrlRouter } from 'src/routes/components';
-import { PageEventHandlerProvider } from 'src/routes/components/PageEventHandlerProvider';
+import { UrlEventHandlerProvider } from 'src/routes/components/UrlEventHandlerProvider';
 import { cn } from 'src/utils/classnames';
 import { VideoPlayerStateProvider } from 'src/videos/components';
 import './App.scss';
@@ -19,7 +19,7 @@ export const App = () => {
       className={cn('App', 'flex flex-col', 'mx-auto px-2', 'xl:w-4/5 xl:px-0')}
     >
       <Router history={history}>
-        <PageEventHandlerProvider>
+        <UrlEventHandlerProvider>
           <AuthStateProvider>
             <DashboardStateProvider>
               <PlaylistsStateProvider>
@@ -33,7 +33,7 @@ export const App = () => {
               </PlaylistsStateProvider>
             </DashboardStateProvider>
           </AuthStateProvider>
-        </PageEventHandlerProvider>
+        </UrlEventHandlerProvider>
       </Router>
     </div>
   );

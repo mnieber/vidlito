@@ -19,16 +19,16 @@ import {
 } from 'src/forms/components';
 import { colBanner, rowSkewer } from 'src/frames/components';
 import {
-  ClipsPageEventsT,
-  PageEventHandler,
-  usePageEventHandler,
+  ClipsUrlEventsT,
+  UrlEventHandler,
+  useUrlEventHandler,
 } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import './index.scss';
 
-export type PageEventsT = ClipsPageEventsT;
-export type PageEventHandlerT = PageEventHandler & PageEventsT;
+export type UrlEventsT = ClipsUrlEventsT;
+export type UrlEventHandlerT = UrlEventHandler & UrlEventsT;
 
 export type PropsT = {
   className?: any;
@@ -43,7 +43,7 @@ export const DefaultProps = {
 
 export const ClipFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pageEvents = usePageEventHandler<ClipsPageEventsT>();
+    const urlEvents = useUrlEventHandler<ClipsUrlEventsT>();
 
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,
@@ -62,11 +62,11 @@ export const ClipFormView = observer(
           handleValidate={form.getHandleValidate(props)}
           handleSubmit={form.getHandleSubmit(
             props,
-            pageEvents,
+            urlEvents,
             initialValues,
             initialErrors
           )}
-          handleCancel={form.getHandleCancel(props, pageEvents)}
+          handleCancel={form.getHandleCancel(props, urlEvents)}
         >
           <GlobalError />
           <Field fieldName="clipForm.url" label="Url" autoFocus={true}>

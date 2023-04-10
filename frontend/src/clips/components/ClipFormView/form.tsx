@@ -8,7 +8,7 @@ import {
 } from 'react-form-state-context';
 import { ClipT } from 'src/api/types/ClipT';
 import { createUUID } from 'src/utils/ids';
-import { DefaultProps, PageEventHandlerT, PropsT } from './index';
+import { DefaultProps, PropsT, UrlEventHandlerT } from './index';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
@@ -38,7 +38,7 @@ const getHandleValidate =
 const getHandleSubmit =
   (
     props: PropsT & typeof DefaultProps,
-    pageEvents: PageEventHandlerT,
+    urlEvents: UrlEventHandlerT,
     initialValues: FormState['values'],
     initialErrors: FormState['errors']
   ) =>
@@ -59,7 +59,7 @@ const getHandleSubmit =
     )
       .then((localClip: ClipT) => {
         formState.reset(initialValues, initialErrors);
-        pageEvents.userHighlightsClip(localClip.slug);
+        urlEvents.userHighlightsClip(localClip.slug);
       })
       .catch((error: any) => {
         formState.setError(
@@ -70,10 +70,10 @@ const getHandleSubmit =
   };
 
 const getHandleCancel =
-  (props: PropsT & typeof DefaultProps, pageEvents: PageEventHandlerT) =>
+  (props: PropsT & typeof DefaultProps, urlEvents: UrlEventHandlerT) =>
   ({ formState }: HandleCancelArgsT) => {
     props.clipsEdit.cancel();
-    pageEvents.userCancelledClipForm();
+    urlEvents.userCancelledClipForm();
   };
 
 const _toSeconds = (ms: number | undefined) => {
