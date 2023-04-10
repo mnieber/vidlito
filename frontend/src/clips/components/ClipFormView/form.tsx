@@ -45,8 +45,8 @@ const getHandleSubmit =
   ({ formState, values }: HandleSubmitArgsT) => {
     const saveClip = props.clipsEdit.save.bind(props.clipsEdit);
 
-    return saveClip(
-      unflatten({
+    return saveClip({
+      values: unflatten({
         ...values,
         'clipForm.endTimeMs': Math.trunc(values['clipForm.endTimeS'] * 1000),
         'clipForm.startTimeMs': Math.trunc(
@@ -55,8 +55,8 @@ const getHandleSubmit =
         'clipForm.tags': values['clipForm.tags'] ?? [],
         'clipForm.endTimeS': undefined,
         'clipForm.startTimeS': undefined,
-      })
-    )
+      }),
+    })
       .then((localClip: ClipT) => {
         formState.reset(initialValues, initialErrors);
         urlEvents.userHighlightsClip(localClip.slug);

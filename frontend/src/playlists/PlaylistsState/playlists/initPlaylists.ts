@@ -27,7 +27,7 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
       },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
-        ctr.highlight.highlightItem(ctr.addition.item?.id);
+        ctr.highlight.highlightItem({ id: ctr.addition.item?.id });
         ctr.edit.enable();
       },
     },
@@ -41,7 +41,7 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
   setCallbackMap(ctr.deletion, {
     delete: {
       deleteItems(this: DeletionCbs['delete']) {
-        return props.deletePlaylists(this.itemIds);
+        return props.deletePlaylists(this.args.itemIds);
       },
     },
   } as DeletionCbs);
@@ -50,7 +50,7 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
     save: {
       saveItem(this: EditCbs['save']) {
         return props
-          .savePlaylist(this.values)
+          .savePlaylist(this.args.values)
           .then((localPlaylist: PlaylistT) => {
             ctr.addition.confirm();
             return localPlaylist;
@@ -68,7 +68,7 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
     highlightItem: {
       enter(this: HighlightCbs['highlightItem']) {
         // Cancel adding a new item on highlight change
-        if (ctr.addition.item && ctr.addition.item.id !== this.id) {
+        if (ctr.addition.item && ctr.addition.item.id !== this.args.id) {
           ctr.addition.cancel();
         }
       },
@@ -86,7 +86,7 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
   setCallbackMap(ctr.selection, {
     selectItem: {
       selectItem(this: SelectionCbs['selectItem']) {
-        handleSelectItem(ctr.selection, this.selectionParams);
+        handleSelectItem(ctr.selection, this.args);
         // Note that highlight does not follow selection, because we want to
         // highlight with the arrow icon in the playlist list-item.
       },

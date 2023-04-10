@@ -1,17 +1,22 @@
-import { getCallbacks, host } from 'aspiration';
 import { operation } from 'skandha';
-import { MoveCbs } from './MoveCbs';
-export type { MoveCbs } from './MoveCbs';
+import { Cbs, getCallbacks, host } from 'skandha-facets';
 
 export class Move {
   static className = () => 'Move';
 
-  @operation @host(['playlistId', 'copy']) move(
-    playlistId: string,
-    copy: boolean
-  ) {
-    const cbs = getCallbacks<MoveCbs['move']>(this);
+  @operation @host() move(args: {
+    //
+    playlistId: string;
+    copy: boolean;
+  }) {
+    const cbs = getCallbacks(this) as MoveCbs['move'];
 
     return Promise.resolve(cbs.moveItems());
   }
 }
+
+export type MoveCbs = {
+  move: Cbs<Move['move']> & {
+    moveItems(): any;
+  };
+};

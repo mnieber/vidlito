@@ -46,7 +46,7 @@ const getHandleSubmit =
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
     return props.playlistsEdit
-      .save(unflatten(values))
+      .save({ values: unflatten(values) })
       .then((localPlaylist: PlaylistT) => {
         formState.reset(initialValues, initialErrors);
         urlEvents.userSubmittedPlaylistForm(localPlaylist.slug);

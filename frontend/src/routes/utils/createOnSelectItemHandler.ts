@@ -1,17 +1,16 @@
-import { SelectionParamsT } from 'skandha-facets';
-
 export const createOnSelectItemHandler =
   <ItemT extends { id: string }>(
     items: ItemT[],
     updateUrl?: (item: ItemT) => void
   ) =>
-  (selectionParams: SelectionParamsT) => {
-    if (
-      selectionParams.itemId &&
-      !(selectionParams.isCtrl || selectionParams.isShift)
-    ) {
+  (args: {
+    itemId: string | undefined;
+    isShift?: boolean;
+    isCtrl?: boolean;
+  }) => {
+    if (args.itemId && !(args.isCtrl || args.isShift)) {
       const ufn = _getUpdateUrlFn(items, updateUrl);
-      ufn && ufn(selectionParams.itemId);
+      ufn && ufn(args.itemId);
     }
   };
 

@@ -22,7 +22,9 @@ export const EditPlaylistEffect = observer(
         if (params.playlistSlug === 'new-playlist') {
           if (!props.playlistsAddition.item) {
             props.dashboardState.setIsPlaylistListExpanded(true);
-            props.playlistsAddition.add(createPlaylist(props.userProfile, {}));
+            props.playlistsAddition.add({
+              values: createPlaylist(props.userProfile, {}),
+            });
           }
         }
       });

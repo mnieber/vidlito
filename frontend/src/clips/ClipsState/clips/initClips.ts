@@ -45,8 +45,8 @@ export const initClips = (state: ClipsState, props: PropsT) => {
   setCallbackMap(ctr.deletion, {
     delete: {
       deleteItems(this: DeletionCbs['delete']) {
-        const clipIds = this.itemIds;
-        if (this.options?.moveToTrash) {
+        const clipIds = this.args.itemIds;
+        if (this.args.moveToTrash) {
           const allIds = [...ctr.highlight.highlightableIds];
 
           return props.moveClipsToTrash(clipIds).then((response: ObjT) => {
@@ -63,7 +63,7 @@ export const initClips = (state: ClipsState, props: PropsT) => {
   setCallbackMap(ctr.edit, {
     save: {
       saveItem(this: EditCbs['save']) {
-        return props.saveClip(this.values).then((localClip: ClipT) => {
+        return props.saveClip(this.args.values).then((localClip: ClipT) => {
           ctr.addition.confirm();
           return localClip;
         });
@@ -80,7 +80,7 @@ export const initClips = (state: ClipsState, props: PropsT) => {
     highlightItem: {
       enter(this: HighlightCbs['highlightItem']) {
         // Cancel adding a new item on highlight change
-        if (ctr.addition.item && ctr.addition.item.id !== this.id) {
+        if (ctr.addition.item && ctr.addition.item.id !== this.args.id) {
           ctr.addition.cancel();
         }
       },
@@ -103,7 +103,7 @@ export const initClips = (state: ClipsState, props: PropsT) => {
         const clipIds = [...ctr.selection.ids];
 
         return props
-          .moveClipsToPlaylist(clips, this.playlistId, this.copy)
+          .moveClipsToPlaylist(clips, this.args.playlistId, this.args.copy)
           .then((response: ObjT) => {
             unselectIds(ctr.selection, clipIds);
             correctHighlight(ctr.highlight, allIds, R.without(clipIds, allIds));
@@ -116,10 +116,10 @@ export const initClips = (state: ClipsState, props: PropsT) => {
   setCallbackMap(ctr.selection, {
     selectItem: {
       selectItem(this: SelectionCbs['selectItem']) {
-        handleSelectItem(ctr.selection, this.selectionParams);
+        handleSelectItem(ctr.selection, this.args);
         // Highlight follows selection
-        if (!this.selectionParams.isCtrl && !this.selectionParams.isShift) {
-          ctr.highlight.highlightItem(this.selectionParams.itemId);
+        if (!this.args.isCtrl && !this.args.isShift) {
+          ctr.highlight.highlightItem({ id: this.args.itemId });
         }
       },
     },

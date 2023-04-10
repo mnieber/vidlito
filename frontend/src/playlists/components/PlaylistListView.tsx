@@ -48,7 +48,7 @@ export const PlaylistListView = observer(
     const { playlistsHighlight, dashboardState } = props;
     const goToPlaylist = React.useMemo(
       () => (playlist: PlaylistT) => {
-        playlistsHighlight.highlightItem(playlist.id);
+        playlistsHighlight.highlightItem({ id: playlist.id });
         dashboardState.setIsPlaylistListExpanded(false);
         urlEvents.userHighlightsPlaylist(playlist.slug);
       },

@@ -25,9 +25,11 @@ export const NewClipButton = observer(
       <button
         className={cn('NewClipButton', mainButton, props.className)}
         onClick={() => {
-          props.clipsAddition.add(createClip({})).then((localClip: ClipT) => {
-            urlEvents.userHighlightsClip(localClip.slug);
-          });
+          props.clipsAddition
+            .add({ values: createClip({}) })
+            .then((localClip: ClipT) => {
+              urlEvents.userHighlightsClip(localClip.slug);
+            });
         }}
       >
         <Icon className={cn(lvi.leadingIcon)} name="plus" />

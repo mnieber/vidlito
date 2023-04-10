@@ -33,7 +33,7 @@ export const SelectPlaylistEffect = observer(
 
         if (playlist && !props.playlistsSelection.ids.includes(playlist.id)) {
           props.playlistsSelection.selectItem({ itemId: playlist.id });
-          props.playlistsHighlight.highlightItem(playlist.id);
+          props.playlistsHighlight.highlightItem({ id: playlist.id });
         }
       });
     }, [
