@@ -1,7 +1,7 @@
 import { action } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
-import { mapDataToProps, pmap } from 'skandha';
+import { mapDataToProps } from 'skandha';
 import { Highlight } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
 import { ActionT } from 'src/api/types/ActionT';
@@ -22,16 +22,16 @@ export class ActionsState {
   };
 
   _actionsMapData(props: PropsT) {
-    const getActionById = (x: string | undefined) =>
-      x ? this.actionsCtr.data.actionById[x] : undefined;
+    const ctr = this.actionsCtr;
 
-    mapDataToProps(
-      pmap(
-        //
-        [this.actionsCtr.highlight, 'item'],
-        () => getActionById(this.actionsCtr.highlight.id)
-      )
-    );
+    const getActionById = (x: string | undefined) =>
+      x ? ctr.data.actionById[x] : undefined;
+
+    mapDataToProps(ctr, {
+      highlight: {
+        item: () => getActionById(ctr.highlight.id),
+      },
+    });
   }
 
   getSummary() {

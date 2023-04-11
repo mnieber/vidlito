@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
-import { mapDataToProps, pmap } from 'skandha';
+import { mapDataToProps } from 'skandha';
 import {
   Addition,
   Deletion,
@@ -15,7 +15,7 @@ import {
 } from 'skandha-facets';
 import {
   DragSourceFromNewItem,
-  insertionPreviewUsesDragSources,
+  createInsertionPreview,
 } from 'skandha-facets/policies';
 import { registerCtr } from 'skandha-mobx';
 import { ClipT } from 'src/api/types/ClipT';
@@ -53,55 +53,38 @@ export class ClipsState {
   };
 
   _clipsMapData(props: PropsT) {
-    const getClipById = (x: string | undefined) =>
-      x ? this.clipsCtr.display.itemById[x] : undefined;
+    const ctr = this.clipsCtr;
 
-    mapDataToProps(
-      pmap(
-        //
-        [this.clipsCtr.selection, 'selectableIds'],
-        () => getIds(this.clipsCtr.display.items)
-      ),
-      pmap(
-        //
-        [this.clipsCtr.selection, 'items'],
-        () => this.clipsCtr.selection.ids.map(getClipById as any)
-      ),
-      pmap(
-        //
-        [this.clipsCtr.highlight, 'highlightableIds'],
-        () => getIds(this.clipsCtr.display.items)
-      ),
-      pmap(
-        //
-        [this.clipsCtr.highlight, 'item'],
-        () => getClipById(this.clipsCtr.highlight.id)
-      ),
-      pmap(
-        //
-        [this.clipsCtr.insertion, 'inputItems'],
-        () => this.clipsCtr.store.items ?? []
-      ),
-      pmap(
-        //
-        [this.clipsCtr.insertion, 'preview'],
-        () =>
-          insertionPreviewUsesDragSources(
+    const getClipById = (x: string | undefined) =>
+      x ? ctr.display.itemById[x] : undefined;
+
+    mapDataToProps(ctr, {
+      selection: {
+        selectableIds: () => getIds(ctr.display.items),
+        items: () =>
+          ctr.selection.ids
+            .map(getClipById)
+            .filter((x?: ClipT) => !!x) as ClipT[],
+      },
+      highlight: {
+        highlightableIds: () => getIds(ctr.display.items),
+        item: () => getClipById(ctr.highlight.id),
+      },
+      insertion: {
+        inputItems: () => ctr.store.items ?? [],
+        preview: () =>
+          createInsertionPreview(
             [DragSourceFromNewItem],
-            this.clipsCtr
-          )(this.clipsCtr.insertion.inputItems)
-      ),
-      pmap(
-        //
-        [this.clipsCtr.deletion, 'disabled'],
-        () => R.any((x: ClipT) => isUpdating(x), this.clipsCtr.selection.items)
-      ),
-      pmap(
-        //
-        [this.clipsCtr.display, 'items'],
-        () => this.clipsCtr.insertion.preview
-      )
-    );
+            ctr
+          )(ctr.insertion.inputItems),
+      },
+      deletion: {
+        disabled: () => R.any((x: ClipT) => isUpdating(x), ctr.selection.items),
+      },
+      display: {
+        items: () => ctr.insertion.preview,
+      },
+    });
   }
 
   getSummary() {

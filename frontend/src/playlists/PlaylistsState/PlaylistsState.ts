@@ -1,6 +1,6 @@
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
-import { mapDataToProps, pmap } from 'skandha';
+import { mapDataToProps } from 'skandha';
 import {
   Addition,
   Deletion,
@@ -14,7 +14,7 @@ import {
 } from 'skandha-facets';
 import {
   DragSourceFromNewItem,
-  insertionPreviewUsesDragSources,
+  createInsertionPreview,
 } from 'skandha-facets/policies';
 import { registerCtr } from 'skandha-mobx';
 import { PlaylistT } from 'src/api/types/PlaylistT';
@@ -45,45 +45,31 @@ export class PlaylistsState {
   };
 
   _playlistsMapData(props: PropsT) {
-    const getPlaylistById = (x: string | undefined) =>
-      x ? this.playlistsCtr.display.itemById[x] : undefined;
+    const ctr = this.playlistsCtr;
 
-    mapDataToProps(
-      pmap(
-        //
-        [this.playlistsCtr.selection, 'selectableIds'],
-        () => getIds(this.playlistsCtr.display.items)
-      ),
-      pmap(
-        //
-        [this.playlistsCtr.selection, 'items'],
-        () => this.playlistsCtr.selection.ids.map(getPlaylistById as any)
-      ),
-      pmap(
-        //
-        [this.playlistsCtr.highlight, 'item'],
-        () => getPlaylistById(this.playlistsCtr.highlight.id)
-      ),
-      pmap(
-        //
-        [this.playlistsCtr.insertion, 'inputItems'],
-        () => this.playlistsCtr.store.items ?? []
-      ),
-      pmap(
-        //
-        [this.playlistsCtr.insertion, 'preview'],
-        () =>
-          insertionPreviewUsesDragSources(
+    const getPlaylistById = (x: string | undefined) =>
+      x ? ctr.display.itemById[x] : undefined;
+
+    mapDataToProps(ctr, {
+      selection: {
+        selectableIds: () => getIds(ctr.display.items),
+        items: () => ctr.selection.ids.map(getPlaylistById as any),
+      },
+      highlight: {
+        item: () => getPlaylistById(ctr.highlight.id),
+      },
+      insertion: {
+        inputItems: () => ctr.store.items ?? [],
+        preview: () =>
+          createInsertionPreview(
             [DragSourceFromNewItem],
-            this.playlistsCtr
-          )(this.playlistsCtr.insertion.inputItems)
-      ),
-      pmap(
-        //
-        [this.playlistsCtr.display, 'items'],
-        () => this.playlistsCtr.insertion.preview
-      )
-    );
+            ctr
+          )(ctr.insertion.inputItems),
+      },
+      display: {
+        items: () => ctr.insertion.preview,
+      },
+    });
   }
 
   getSummary() {
