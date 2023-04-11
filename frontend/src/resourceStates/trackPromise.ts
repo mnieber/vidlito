@@ -5,7 +5,7 @@ import { ObjT } from 'src/utils/types';
 
 export type TrackerT = {
   isRunning: boolean;
-  data: ObjT | null;
+  data: ObjT | undefined;
   id: string;
   result: Promise<any>;
 };
@@ -19,7 +19,7 @@ export type ArgsT = {
 export const trackPromise = (args: ArgsT) => {
   const tracker: TrackerT = makeAutoObservable({
     isRunning: true,
-    data: null,
+    data: undefined,
     id: createUUID(),
     result: Promise.resolve(),
   });

@@ -1,6 +1,8 @@
-import { ResourceStateT, symbolRS } from './ResourceState';
+import { nullResource, symbolRS } from './ResourceState';
 
-export const getState = (resource: any): ResourceStateT | undefined => {
+export const getState = <StateT = string>(
+  resource: any
+): StateT | undefined => {
   if (!!resource && !resource[symbolRS]) {
     debugger;
   }
@@ -9,7 +11,7 @@ export const getState = (resource: any): ResourceStateT | undefined => {
     return undefined;
   }
 
-  return resource === null ? 'loading' : resource[symbolRS].value;
+  return resource === nullResource ? 'loading' : resource[symbolRS].value;
 };
 
 export const isUpdating = (resource: any) => getState(resource) === 'updating';

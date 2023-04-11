@@ -1,9 +1,8 @@
-import { ResourceStateT } from 'src/resourceStates/ResourceState';
 import { getRS } from './ResourceState';
 
 export const addSource = (
   resources: any[],
-  state: ResourceStateT,
+  state: string,
   condition: any,
   name: string,
   data?: any
@@ -15,11 +14,7 @@ export const addSource = (
   return () => removeSource(resources, state, name);
 };
 
-export const removeSource = (
-  resources: any[],
-  state: ResourceStateT,
-  name: string
-) => {
+export const removeSource = (resources: any[], state: string, name: string) => {
   for (const resource of resources) {
     const rs = getRS(resource);
     rs.removeSource(state, name);

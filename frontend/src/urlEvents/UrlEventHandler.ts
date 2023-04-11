@@ -88,7 +88,7 @@ export class UrlEventHandler {
     );
   }
 
-  _getEventHandler(name: string): Function | null {
+  _getEventHandler(name: string): Function | undefined {
     const sortedLayers = sortLayers(this.eventLayers, pathname());
     for (let i = 0; i < sortedLayers.length; i++) {
       const layer = sortedLayers[i];
@@ -97,7 +97,7 @@ export class UrlEventHandler {
         return handler;
       }
     }
-    return null;
+    return undefined;
   }
 
   constructor(props: PropsT) {
@@ -137,26 +137,30 @@ export function sortLayers(
 ): UrlEventLayer[] {
   type ResultT = {
     layer: UrlEventLayer;
-    match: ObjT | null;
+    match: ObjT | undefined;
   };
 
   let result: ResultT[] = [];
   for (const layer of layers) {
-    const match = matchPath(pathname, {
-      path: layer.route,
-      strict: false,
-    });
+    const match =
+      matchPath(pathname, {
+        path: layer.route,
+        strict: false,
+      }) ?? undefined;
     result.push({ layer, match });
   }
 
-  const nrMatchingParams = (match: ObjT | null) =>
+  const nrMatchingParams = (match: ObjT | undefined) =>
     R.keys(match?.params ?? {}).length;
 
-  result = R.sort((lhs: ResultT, rhs: ResultT) => {
-    const lhsScore = nrMatchingParams(lhs.match);
-    const rhsScore = nrMatchingParams(rhs.match);
-    return lhsScore > rhsScore || (lhsScore === rhsScore && lhs.match?.isExact);
-  }, result);
+  result =
+    R.sort((lhs: ResultT, rhs: ResultT) => {
+      const lhsScore = nrMatchingParams(lhs.match);
+      const rhsScore = nrMatchingParams(rhs.match);
+      return (
+        lhsScore > rhsScore || (lhsScore === rhsScore && lhs.match?.isExact)
+      );
+    }, result) ?? undefined;
 
   return R.map((result: ResultT) => result.layer, result);
 }

@@ -1,5 +1,4 @@
-import { getRS, initRS } from 'src/resourceStates';
-import { ResourceStateT } from 'src/resourceStates/ResourceState';
+import { getRS, initRS, nullResource } from 'src/resourceStates';
 
 export type OptionsT = {
   resource: any;
@@ -7,8 +6,8 @@ export type OptionsT = {
 };
 
 export type SourceSpecT =
-  | [ResourceStateT, () => boolean | undefined, string, any]
-  | [ResourceStateT, () => boolean | undefined, string];
+  | [string, () => boolean | undefined, string, any]
+  | [string, () => boolean | undefined, string];
 
 export const withSources = (
   options: OptionsT,
@@ -27,7 +26,7 @@ export const withSources = (
   }
 
   if (!options.resource) {
-    return rs.value === 'loading' ? null : undefined;
+    return rs.value === 'loading' ? nullResource : undefined;
   }
 
   return options.resource;

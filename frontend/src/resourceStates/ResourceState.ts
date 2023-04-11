@@ -5,10 +5,13 @@ import { log } from 'src/utils/logging';
 
 export const symbolRS = Symbol('ResourceState');
 
-export type ResourceStateT = undefined | 'loading' | 'updating' | 'ready';
+// The nullResource is used when we know that a resource exists (e.g. on the server)
+// but we don't have a reference to it yet. Typically, it is used for any resource that is
+// being loaded from the server.
+export const nullResource = null;
 
 export type SourceT = {
-  state: ResourceStateT;
+  state: string;
   condition: () => boolean | undefined;
   name: string;
   data: any;
@@ -31,7 +34,7 @@ export class ResourceState {
     this.sources.push(source);
   }
 
-  removeSource(state: ResourceStateT, name: string) {
+  removeSource(state: string, name: string) {
     for (let i = 0; i < this.sources.length; i++) {
       if (this.sources[i].state === state && this.sources[i].name === name) {
         this.sources.splice(i, 1);
@@ -41,7 +44,7 @@ export class ResourceState {
   }
 
   get value() {
-    let state: ResourceStateT = 'ready';
+    let state: string = 'ready';
     const isLogging = this.name && flags.logResourceStates;
     isLogging && console.group(`Getting resource state for ${this.name}`);
 
@@ -75,7 +78,7 @@ export const getRS = (resource: any): ResourceState => {
   return resource[symbolRS];
 };
 
-export const initRS = (resource: any, state?: ResourceStateT) => {
+export const initRS = (resource: any, state?: string) => {
   if (resource && R.isNil(resource[symbolRS])) {
     resource[symbolRS] = state ?? new ResourceState();
   }
