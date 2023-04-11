@@ -10,9 +10,11 @@ export const symbolRS = Symbol('ResourceState');
 // being loaded from the server.
 export const nullResource = null;
 
+export type ConditionT = () => boolean | undefined;
+
 export type SourceT = {
   state: string;
-  condition: () => boolean | undefined;
+  condition: ConditionT;
   name: string;
   data: any;
 };
@@ -44,24 +46,27 @@ export class ResourceState {
   }
 
   get value() {
-    let state: string = 'ready';
+    const result: string[] = [];
+
     const isLogging = this.name && flags.logResourceStates;
     isLogging && console.group(`Getting resource state for ${this.name}`);
 
     for (const source of this.sources) {
       if (source.condition()) {
-        isLogging && log(`State ${source.state} triggered by: ${source.name}`);
-        state = source.state;
-        break;
+        const state = source.state;
+        isLogging && log(`State ${state} triggered by: ${source.name}`);
+        if (!result.includes(state)) {
+          result.push(state);
+        }
       }
     }
 
-    if (state === 'ready') {
+    if (!result.length) {
       isLogging && log('Resource is ready');
     }
 
     isLogging && console.groupEnd();
-    return state;
+    return result;
   }
 
   constructor() {

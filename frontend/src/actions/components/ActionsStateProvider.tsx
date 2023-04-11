@@ -6,7 +6,7 @@ import { useActionsState } from 'src/actions/hooks/useActionsState';
 import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
 import { useGetActions } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
-import { withSources } from 'src/api/utils/withSources';
+import { updateSources } from 'src/api/utils/updateSources';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { graftResourceStates } from 'src/resourceStates/graftResourceStates';
@@ -54,7 +54,7 @@ export const ActionsStateProvider = observer(
     const cache = useBuilder(() =>
       makeAutoObservable({
         get actions() {
-          return withSources(
+          return updateSources(
             { resource: actionsState.actionsCtr.data.actions },
             ['loading', () => isQueryLoading(getActions), 'getActions'],
             ['updating', () => isQueryUpdating(getActions), 'getActions']

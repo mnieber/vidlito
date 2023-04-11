@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { withSources } from 'src/api/utils';
+import { updateSources } from 'src/api/utils';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useClipsState } from 'src/clips/hooks/useClipsState';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
@@ -40,14 +40,14 @@ export const ClipsStateProvider = observer(
     const cache = useBuilder(() =>
       makeAutoObservable({
         get clips() {
-          return withSources(
+          return updateSources(
             { resource: clipsState.clipsCtr.display.items },
             ['loading', () => isLoading(props.playlist), 'playlist'],
             ['updating', () => isUpdating(props.playlist), 'playlist']
           );
         },
         get clip() {
-          return withSources(
+          return updateSources(
             { resource: clipsState.clipsCtr.highlight.item },
             //
             ['loading', () => isLoading(props.playlist), 'playlist']

@@ -4,12 +4,12 @@ import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
 } from 'skandha-mobx/hooks';
+import { isLoading } from 'src/api/getState';
 import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListViewItem } from 'src/clips/components/ClipListViewItem';
 import { Spinner } from 'src/frames/components';
 import { ClipsUrlEventsT, useUrlEventHandler } from 'src/frames/pages';
-import { isLoading } from 'src/resourceStates/getState';
 import { createOnSelectItemHandler } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
 import './ClipListView.scss';

@@ -1,5 +1,5 @@
 import { action, makeAutoObservable } from 'mobx';
-import { addSource } from 'src/resourceStates/addAndRemoveSource';
+import { addSource } from 'src/resourceStates/addSource';
 import { createUUID } from 'src/utils/ids';
 import { ObjT } from 'src/utils/types';
 
@@ -13,7 +13,9 @@ export type TrackerT = {
 export type ArgsT = {
   promise: Promise<any>;
   name: string;
-  resourcesToUpdate?: any[];
+  states?: {
+    [state: string]: any[];
+  };
 };
 
 export const trackPromise = (args: ArgsT) => {
@@ -24,12 +26,11 @@ export const trackPromise = (args: ArgsT) => {
     result: Promise.resolve(),
   });
 
-  const removeSource = addSource(
-    args.resourcesToUpdate ?? [],
-    'updating',
-    () => tracker.isRunning,
-    `${args.name}_${createUUID()}`
-  );
+  const removeSource = addSource({
+    states: args.states,
+    condition: () => tracker.isRunning,
+    name: `${args.name}_${createUUID()}`,
+  });
 
   tracker.result = args.promise
     .then(

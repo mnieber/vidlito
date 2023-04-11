@@ -4,7 +4,7 @@ import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
 import { useQueryData } from 'src/api/hooks';
-import { withSources } from 'src/api/utils';
+import { updateSources } from 'src/api/utils';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { useLoadUserId } from 'src/auth/endpoints';
 import { useDashboardState } from 'src/dashboard/hooks/useDashboardState';
@@ -39,7 +39,7 @@ export const DashboardStateProvider = observer(
     const cache = useBuilder(() =>
       makeAutoObservable({
         get userProfile() {
-          return withSources(
+          return updateSources(
             { resource: loadUserId.data?.userProfile },
             ['loading', () => isQueryLoading(loadUserId), 'loadUserId'],
             ['updating', () => isQueryUpdating(loadUserId), 'loadUserId']

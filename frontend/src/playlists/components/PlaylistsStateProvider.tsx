@@ -5,7 +5,7 @@ import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
 import { useGetPlaylist } from 'src/api/endpoints';
 import { useQueryData } from 'src/api/hooks';
-import { withSources } from 'src/api/utils/withSources';
+import { updateSources } from 'src/api/utils/updateSources';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import { usePlaylistsState } from 'src/playlists/hooks/usePlaylistsState';
@@ -59,14 +59,14 @@ export const PlaylistsStateProvider = observer(
     const cache = useBuilder(() =>
       makeAutoObservable({
         get playlists() {
-          return withSources(
+          return updateSources(
             { resource: playlistsState.playlistsCtr.display.items },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
             ['updating', () => isUpdating(props.userProfile), 'userProfile']
           );
         },
         get playlist() {
-          return withSources(
+          return updateSources(
             {
               resource: playlistsState.playlistsCtr.highlight.item,
               resourceName: 'playlist',

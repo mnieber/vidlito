@@ -34,47 +34,54 @@ export const useClipsState = (props: PropsT) => {
   const clipsState = useBuilder<ClipsState>(() => {
     return new ClipsState({
       moveClipsToTrash: action((ids: string[]) => {
-        const mutation = moveClipsToTrash.mutateAsync({
-          playlist: propsRef.current?.playlist,
-          clipIds: ids,
-        } as MoveClipsToTrashArgsT);
-
         const clips = lookUp(ids, clipsState.clipsCtr.store.itemById);
+
         return trackPromise({
-          promise: mutation,
           name: 'moveClipsToTrash',
-          resourcesToUpdate: [...clips, moveClipsToTrash],
+          //
+          promise: moveClipsToTrash.mutateAsync({
+            playlist: propsRef.current?.playlist,
+            clipIds: ids,
+          } as MoveClipsToTrashArgsT),
+          //
+          states: {
+            updating: [...clips, moveClipsToTrash],
+          },
         }).result;
       }),
       saveClip: (values: ObjT) => {
-        const mutation = saveClip
-          .mutateAsync({
-            playlistId: propsRef.current?.playlist.id,
-            playlistSlug: propsRef.current?.playlist.slug,
-            clipForm: values.clipForm,
-            parentClipId: clipsState.clipsCtr.addition.parentId,
-          } as SaveClipArgsT)
-          .then(() => {
-            return values.clipForm;
-          });
-
         return trackPromise({
-          promise: mutation,
           name: 'saveClip',
-          resourcesToUpdate: [saveClip],
+          //
+          promise: saveClip
+            .mutateAsync({
+              playlistId: propsRef.current?.playlist.id,
+              playlistSlug: propsRef.current?.playlist.slug,
+              clipForm: values.clipForm,
+              parentClipId: clipsState.clipsCtr.addition.parentId,
+            } as SaveClipArgsT)
+            .then(() => {
+              return values.clipForm;
+            }),
+          //
+          states: {
+            updating: [saveClip],
+          },
         }).result;
       },
       saveClipOrdering: (clips: ClipT[]) => {
-        const mutation = saveClipOrdering.mutateAsync({
-          playlistSlug: propsRef.current?.playlist.slug,
-          playlistId: propsRef.current?.playlist.id,
-          clipIds: getIds(clips),
-        } as SaveClipOrderingArgsT);
-
         return trackPromise({
-          promise: mutation,
           name: 'saveClipOrdering',
-          resourcesToUpdate: [saveClipOrdering],
+          //
+          promise: saveClipOrdering.mutateAsync({
+            playlistSlug: propsRef.current?.playlist.slug,
+            playlistId: propsRef.current?.playlist.id,
+            clipIds: getIds(clips),
+          } as SaveClipOrderingArgsT),
+          //
+          states: {
+            updating: [saveClipOrdering],
+          },
         }).result;
       },
       moveClipsToPlaylist: (
@@ -82,18 +89,20 @@ export const useClipsState = (props: PropsT) => {
         playlistId: string,
         copy: boolean
       ) => {
-        const mutation = moveClipsToPlaylist.mutateAsync({
-          srcPlaylistId: propsRef.current?.playlist.id,
-          srcPlaylistSlug: propsRef.current?.playlist.slug,
-          destPlaylistId: playlistId,
-          clipIds: getIds(clips),
-          copy,
-        } as MoveClipsToPlaylistArgsT);
-
         return trackPromise({
-          promise: mutation,
           name: 'moveClipsToPlaylist',
-          resourcesToUpdate: [...clips, moveClipsToPlaylist],
+          //
+          promise: moveClipsToPlaylist.mutateAsync({
+            srcPlaylistId: propsRef.current?.playlist.id,
+            srcPlaylistSlug: propsRef.current?.playlist.slug,
+            destPlaylistId: playlistId,
+            clipIds: getIds(clips),
+            copy,
+          } as MoveClipsToPlaylistArgsT),
+          //
+          states: {
+            updating: [...clips, moveClipsToPlaylist],
+          },
         }).result;
       },
     });
