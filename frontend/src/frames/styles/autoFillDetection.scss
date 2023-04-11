@@ -1,0 +1,17 @@
+// This code is used to be able to detect autofill
+
+@keyframes onAutoFillStart {
+  from {
+    /** just an arbitrary change to detect the autofill **/
+    background-color: inherit;
+  }
+  to {
+    background-color: inherit;
+  }
+}
+
+input:-webkit-autofill {
+  /** trigger the animation **/
+  animation-name: onAutoFillStart;
+  animation-duration: 500ms;
+}
