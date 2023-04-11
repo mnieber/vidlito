@@ -1,10 +1,10 @@
 import { operation } from 'skandha';
-import { Cbs, getCallbacks, host } from 'skandha-facets';
+import { DefineCbs, getCallbacks, withCbs } from 'skandha-facets';
 
 export class Move {
   static className = () => 'Move';
 
-  @operation @host() move(args: {
+  @operation @withCbs() move(args: {
     //
     playlistId: string;
     copy: boolean;
@@ -15,8 +15,10 @@ export class Move {
   }
 }
 
-export type MoveCbs = {
-  move: Cbs<Move['move']> & {
+type Cbs = {
+  move: {
     moveItems(): any;
   };
 };
+
+export type MoveCbs = DefineCbs<Move, Cbs>;
