@@ -64,17 +64,13 @@ export class UrlEventHandler {
       : params;
   }
 
-  installEventLayer(
-    name: string,
-    route: string,
-    createEventLayer: CreateEventLayerFunctionT
-  ) {
+  installEventLayer(eventLayer: UrlEventLayer) {
     const urlEventLayer = R.find(
-      (x: UrlEventLayer) => x.name === name,
+      (x: UrlEventLayer) => x.name === eventLayer.name,
       this.eventLayers
     );
     if (R.isNil(urlEventLayer)) {
-      this.eventLayers.push(createEventLayer(name, route));
+      this.eventLayers.push(eventLayer);
     }
   }
 

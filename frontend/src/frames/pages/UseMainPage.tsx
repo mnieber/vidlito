@@ -16,8 +16,11 @@ export class MainUrlEventLayer
   implements MainUrlEventLayerT
 {
   closeActions(this: UrlEventHandler) {
-    const ufn = this.routeUfns.clip(this.history.push);
-    ufn(this.getParams(true));
+    const params = this.getParams(true);
+    if (params.clipSlug) {
+      const ufn = this.routeUfns.clip(this.history.push);
+      ufn(params);
+    }
   }
 
   goToActions(this: UrlEventHandler) {

@@ -1,7 +1,5 @@
 Bugs:
 
-- If you start on the actions page, then close it -> clip slug not defined
-- userProfileLoaded fired too often
 - SignIn form doesn't have labels above the inputs
 - Handle system errors
 
