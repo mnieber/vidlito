@@ -1,6 +1,5 @@
 Bugs:
 
-- SignIn form doesn't have labels above the inputs
 - Handle system errors
 
 Test:

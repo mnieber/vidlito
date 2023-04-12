@@ -16,7 +16,6 @@ export type FieldPropsT = {
   controlled?: boolean;
   disabled?: boolean;
   fieldType: FieldTypeT;
-  onAnimationStart?: (e: React.AnimationEvent<HTMLDivElement>) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
@@ -41,25 +40,8 @@ export const useFieldProps = (props: FieldPropsT) => {
     [formState, fieldContext, props.fieldType, props.onChange, props.controlled]
   );
 
-  const onAnimationStart = props.onAnimationStart;
-
-  const handleAnimationStart = React.useMemo(
-    () => (e: React.AnimationEvent<HTMLDivElement>) => {
-      if (e.animationName === 'onAutoFillStart') {
-        // We set a value to trigger the smart label. This value
-        // will be replaced by the autofill value.
-        formState.setValue(fieldContext.fieldName, ' ');
-      }
-      if (onAnimationStart) {
-        onAnimationStart(e);
-      }
-    },
-    [fieldContext, formState, onAnimationStart]
-  );
-
   return {
     ...formFieldProps,
-    onAnimationStart: handleAnimationStart,
     onFocus: (e: React.FocusEvent<HTMLInputElement>) => {
       if (props.autoSelect) {
         e.target.select();
@@ -68,9 +50,7 @@ export const useFieldProps = (props: FieldPropsT) => {
     },
     onBlur: props.onBlur,
     onKeyDown: handleKeyDown(fieldContext, formState),
-    placeholder:
-      props.placeholder ??
-      (fieldContext.useSmartLabel ? fieldContext.label : undefined),
+    placeholder: props.placeholder,
     autoFocus: fieldContext.autoFocus,
     disabled: props.disabled,
     tabIndex: props.tabIndex,

@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import * as R from 'ramda';
 import React from 'react';
-import { useFormStateContext } from 'react-form-state-context';
 import {
   FormFieldContext,
   FormFieldContextPropsT,
@@ -20,12 +18,6 @@ type PropsT = React.PropsWithChildren<
 >;
 
 export const Field = observer((props: PropsT) => {
-  const formState = useFormStateContext();
-
-  const value = formState.values[props.fieldName];
-  const hasValue = !R.isNil(value) && !R.isEmpty(value);
-  const showSmartLabel = !!(hasValue && props.useSmartLabel);
-
   return (
     <FormFieldContext {...props}>
       <div
@@ -33,16 +25,11 @@ export const Field = observer((props: PropsT) => {
           'Field',
           'mb-4',
           props.className,
-          (showSmartLabel || !props.useSmartLabel) && [
-            'pb-1',
-            props.classNameWithLabel,
-          ]
+          'pb-1',
+          props.classNameWithLabel
         )}
       >
-        {showSmartLabel && (
-          <div className={cn('Field__SmartLabel', 'mt-2')}>{props.label}</div>
-        )}
-        {!props.useSmartLabel && <FormFieldLabel buttons={props.buttons} />}
+        <FormFieldLabel buttons={props.buttons} />
         {props.children}
       </div>
       <FormFieldError />

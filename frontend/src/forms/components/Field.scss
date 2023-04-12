@@ -3,10 +3,6 @@
 .Field {
   @apply py-2;
 
-  .Field__SmartLabel {
-    @apply text-base;
-  }
-
   textarea, input {
     @apply border-b border-black;
     background-color: transparent !important;

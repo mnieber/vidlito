@@ -69,7 +69,6 @@ export function SignInForm(props: PropsT) {
         <Field
           fieldName={formFields.email}
           label="Email"
-          useSmartLabel={true}
           tabOnEnter={!useMagicLink}
           submitOnEnter={useMagicLink}
           autoFocus={true}
@@ -82,11 +81,10 @@ export function SignInForm(props: PropsT) {
           <Field
             fieldName="password"
             label="Password"
-            useSmartLabel={true}
             submitOnEnter={true}
             className="my-4"
           >
-            <PasswordField placeholder={messages.divEnterYourPassword} />
+            <PasswordField />
           </Field>
         )}
 

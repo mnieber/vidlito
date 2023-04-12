@@ -37,12 +37,7 @@ export function RequestPasswordResetForm(props: PropsT) {
       >
         <GlobalError />
 
-        <Field
-          fieldName={formFields.email}
-          label="Email"
-          useSmartLabel={true}
-          submitOnEnter={true}
-        >
+        <Field fieldName={formFields.email} label="Email" submitOnEnter={true}>
           <EmailField />
         </Field>
 

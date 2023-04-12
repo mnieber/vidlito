@@ -46,11 +46,10 @@ export function ActivateAccountForm(props: PropsT) {
         <Field
           fieldName={formFields.password}
           label="Password"
-          useSmartLabel={true}
           submitOnEnter={true}
           className="my-4"
         >
-          <PasswordField placeholder={'Choose a password'} />
+          <PasswordField />
         </Field>
 
         <SubmitButton

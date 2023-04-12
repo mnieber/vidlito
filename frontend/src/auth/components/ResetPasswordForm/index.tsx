@@ -39,10 +39,9 @@ export function ResetPasswordForm(props: PropsT) {
         <Field
           fieldName={formFields.password}
           label="Password"
-          useSmartLabel={true}
           submitOnEnter={true}
         >
-          <PasswordField placeholder="Enter your password" />
+          <PasswordField />
         </Field>
         <div className="my-4">{}</div>{' '}
         <SubmitButton dataCy="passwordChangeBtn" label="Change password" />

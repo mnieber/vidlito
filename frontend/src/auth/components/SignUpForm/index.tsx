@@ -4,8 +4,8 @@ import { SubmitButton } from 'src/auth/components/formFields/SubmitButton';
 import { ControlledCheckbox, Field, GlobalError } from 'src/forms/components';
 import { colSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
-import { form } from './form';
 import './SignUpForm.scss';
+import { form } from './form';
 import { useMessages } from './useMessages';
 
 export const formFields = {
@@ -42,7 +42,6 @@ export function SignUpForm(props: PropsT) {
         <Field
           fieldName={formFields.email}
           label="Email"
-          useSmartLabel={true}
           autoFocus={true}
           className="my-4"
         >
