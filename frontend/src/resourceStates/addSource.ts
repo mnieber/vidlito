@@ -13,7 +13,7 @@ export type ArgsT = {
 };
 
 export const addSource = (args: ArgsT) => {
-  for (const pair in R.toPairs(args.states ?? {})) {
+  for (const pair of R.toPairs(args.states ?? {})) {
     const state = pair[0];
     const resources = pair[1];
     for (const resource of resources) {
