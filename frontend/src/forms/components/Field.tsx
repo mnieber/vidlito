@@ -23,6 +23,7 @@ export const Field = observer((props: PropsT) => {
       <div
         className={cn(
           'Field',
+          'flex flex-col',
           'mb-4',
           props.className,
           'pb-1',

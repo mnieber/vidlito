@@ -18,23 +18,14 @@ export const smallButton = cn(
   'uk-button-small'
 );
 
-export const primaryBigButton = cn(
+export const bigButton = cn(
   //
   'BigButton',
-  ...base,
-  'uk-button-primary'
+  ...base
 );
 
 export const primaryButton = cn(
   //
   'PrimaryButton',
-  ...base,
-  'uk-button-primary'
-);
-
-export const bigButton = cn(
-  //
-  'BigButton',
-  'uk-button',
-  'uk-button-primary'
+  ...base
 );

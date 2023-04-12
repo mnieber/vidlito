@@ -1,13 +1,7 @@
 export { AccountMenu } from './AccountMenu';
 export { AppFrame } from './AppFrame';
 export { colBanner, rowBanner } from './Banner';
-export {
-  bigButton,
-  button,
-  primaryBigButton,
-  primaryButton,
-  smallButton,
-} from './Button';
+export { bigButton, button, primaryButton, smallButton } from './Button';
 export { card } from './Card';
 export { error } from './Error';
 export { Icon } from './Icon';

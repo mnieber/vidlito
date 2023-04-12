@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'Calibri';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/calibri-font-family/calibri-regular.ttf')
+    format('truetype');
+}
+
+@font-face {
+  font-family: 'Calibri';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/calibri-font-family/calibri-bold.ttf') format('truetype');
+}
+
+* {
+  font-family: Calibri;
+}

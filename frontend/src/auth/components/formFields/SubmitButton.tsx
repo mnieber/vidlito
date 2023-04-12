@@ -1,5 +1,5 @@
 import { FormState, useFormStateContext } from 'react-form-state-context';
-import { primaryBigButton } from 'src/frames/components/Button';
+import { bigButton } from 'src/frames/components/Button';
 import { cn } from 'src/utils/classnames';
 
 type PropsT = {
@@ -9,7 +9,7 @@ type PropsT = {
   className?: any;
 };
 
-export const submitButton = primaryBigButton;
+export const submitButton = bigButton;
 
 export const SubmitButton = (props: PropsT) => {
   const formState = useFormStateContext();
