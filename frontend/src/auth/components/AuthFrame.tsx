@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { withDefaultProps } from 'src/app/defaultProps';
-import { cn } from 'src/utils/classnames';
+import { cn, d } from 'src/utils/classnames';
 
 type PropsT = React.PropsWithChildren<{
   header: string;
@@ -16,13 +16,31 @@ export const AuthFrame = observer(
       <div
         id={props.id}
         className={cn(
-          'AuthFrame',
+          //
+          // 🔳 AuthFrame
+          //
+          d('AuthFrame'),
           'flex flex-col items-center',
           'mx-auto',
-          'px-1'
+          'p-16',
+          '',
+          'bg-gray-900',
+          'rounded-3xl'
         )}
       >
-        <div className={cn('AuthFrame__Title', 'mb-12')}>{props.header}</div>
+        <h1
+          className={cn(
+            //
+            // 🔳 AuthFrame__Title
+            //
+            d('AuthFrame__Title'),
+            'mb-12',
+            '',
+            'text-xl'
+          )}
+        >
+          {props.header}
+        </h1>
         {props.children}
       </div>
     );

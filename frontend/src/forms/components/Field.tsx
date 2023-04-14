@@ -13,7 +13,6 @@ type PropsT = React.PropsWithChildren<
   FormFieldContextPropsT & {
     buttons?: any[];
     className?: any;
-    classNameWithLabel?: any;
   }
 >;
 
@@ -22,12 +21,15 @@ export const Field = observer((props: PropsT) => {
     <FormFieldContext {...props}>
       <div
         className={cn(
+          //
+          // 🔳 Field
+          //
           'Field',
           'flex flex-col',
           'mb-4',
-          props.className,
-          'pb-1',
-          props.classNameWithLabel
+          'py-2 pb-1',
+          '',
+          props.className
         )}
       >
         <FormFieldLabel buttons={props.buttons} />
