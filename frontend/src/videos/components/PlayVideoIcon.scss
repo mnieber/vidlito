@@ -1,0 +1,11 @@
+.PlayVideoIcon {
+    .Icon {
+        @apply fill-white;
+    }
+}
+
+.PlayVideoIcon--loading {
+    .Icon {
+        @apply fill-blue-700;
+    }
+}

@@ -11,11 +11,11 @@
 }
 
 .PlaylistListViewItem--selected {
-  @apply bg-blue-200;
+  @apply bg-blue-200 text-white;
 }
 
 .PlaylistListViewItem--highlighted {
-  @apply font-bold;
+  @apply font-bold text-white;
 }
 
 .PlaylistListViewItem--drag-before {

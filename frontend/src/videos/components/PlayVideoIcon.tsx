@@ -6,14 +6,22 @@ import './PlayVideoIcon.scss';
 
 export type PropsT = {
   visible: boolean;
+  loading: boolean;
   videoController: VideoController;
   className?: any;
 };
 
 export const PlayVideoIcon = observer((props: PropsT) => {
-  return props.visible ? (
+  return props.visible || props.loading ? (
     <div
-      className={cn('PlayVideoIcon', rowSkewer, props.className)}
+      className={cn(
+        'PlayVideoIcon',
+        rowSkewer,
+        {
+          'PlayVideoIcon--loading': props.loading,
+        },
+        props.className
+      )}
       onClick={() => {
         props.videoController.togglePlay();
       }}

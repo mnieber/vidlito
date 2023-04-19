@@ -37,6 +37,9 @@ export const ClipListViewItem = observer(
       { 'animate-delete': isUpdating(props.clip) },
     ];
 
+    const loading =
+      !props.videoPlayerState.videoController.ready && props.isHighlighted;
+
     return (
       <ClipKeyHandler
         clip={props.clip}
@@ -60,6 +63,7 @@ export const ClipListViewItem = observer(
               props.videoPlayerState.videoController.ready &&
               props.isHighlighted
             }
+            loading={loading}
           />
           <div className={cn('ClipListViewItem__Title', lvi.title)}>
             {props.clip.name}

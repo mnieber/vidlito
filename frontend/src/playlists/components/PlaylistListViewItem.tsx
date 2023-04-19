@@ -58,7 +58,7 @@ export const PlaylistListViewItem = observer(
           <Icon className={cn('w-[15px] h-[15px]')} name="arrow-right" />
         </div>
         <div className={cn(['PlaylistListViewItem__Title', lvi.title])}>
-          {props.playlist.name}
+          {`${props.playlist.name} (${props.playlist.clipSet.length})`}
         </div>
       </div>
     );
