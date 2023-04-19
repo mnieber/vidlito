@@ -20,6 +20,7 @@ const getInitialValues = () => {
   return {
     [ff.email]: null,
     [ff.password]: null,
+    [ff.useMagicLink]: false,
   };
 };
 

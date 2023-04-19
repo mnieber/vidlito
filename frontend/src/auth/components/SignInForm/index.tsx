@@ -3,7 +3,7 @@ import { FormStateProvider } from 'react-form-state-context';
 import { EmailField } from 'src/auth/components/formFields/EmailField';
 import { PasswordField } from 'src/auth/components/formFields/PasswordField';
 import { SubmitButton } from 'src/auth/components/formFields/SubmitButton';
-import { Field, GlobalError } from 'src/forms/components';
+import { ControlledCheckbox, Field, GlobalError } from 'src/forms/components';
 import { colSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -12,6 +12,7 @@ import { useMessages } from './useMessages';
 export const formFields = {
   email: 'email',
   password: 'password',
+  useMagicLink: 'useMagicLink',
 };
 
 export type PropsT = {
@@ -42,30 +43,6 @@ export function SignInForm(props: PropsT) {
       >
         <GlobalError className="mb-2" />
 
-        <div className={cn('grid grid-cols-[1fr,1fr] gap-x-2')}>
-          <label>
-            <input
-              className={cn('uk-radio', 'mr-2')}
-              type="radio"
-              value={'password'}
-              checked={!useMagicLink}
-              onChange={() => setUseMagicLink(false)}
-            />
-            <span className="ml-2">{messages.divImUsingMyPassword}</span>
-          </label>
-          <label>
-            <input
-              className={cn('uk-radio', 'mr-2')}
-              data-cy="signInByMagicLinkBtn"
-              type="radio"
-              value={'magicLink'}
-              checked={useMagicLink}
-              onChange={() => setUseMagicLink(true)}
-            />
-            <span className="ml-2">{messages.divImUsingAMagicLink}</span>
-          </label>
-        </div>
-
         <Field
           fieldName={formFields.email}
           label="Email"
@@ -77,16 +54,25 @@ export function SignInForm(props: PropsT) {
           <EmailField />
         </Field>
 
-        {!useMagicLink && (
-          <Field
-            fieldName="password"
-            label="Password"
-            submitOnEnter={true}
-            className="my-4"
-          >
-            <PasswordField />
-          </Field>
-        )}
+        <Field
+          fieldName="password"
+          label="Password"
+          submitOnEnter={true}
+          className="my-4"
+        >
+          <PasswordField />
+        </Field>
+
+        <Field
+          fieldName={formFields.useMagicLink}
+          label=""
+          className={cn('my-4')}
+        >
+          <div className={cn('flex flex-row items-center')}>
+            <ControlledCheckbox />
+            <p className={cn('ml-4')}>{messages.divUseAMagicLink}</p>
+          </div>
+        </Field>
 
         <SubmitButton
           dataCy={useMagicLink ? 'sendMagicLinkBtn' : 'signInBtn'}

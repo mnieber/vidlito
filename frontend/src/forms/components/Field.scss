@@ -1,8 +1,6 @@
 .Field {
-  @apply py-2;
-
-  textarea, input {
+  textarea, input:not([type='checkbox']) {
     @apply border-b border-gray-50;
-    background-color: transparent !important;
+    @apply bg-white;
   }
 }

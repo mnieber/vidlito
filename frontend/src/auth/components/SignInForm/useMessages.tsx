@@ -8,10 +8,9 @@ export const useMessages = () => {
         'Check your internet connection, or try again later.',
       divPleaseEnterYourEmailAddress: 'Please enter your email address',
       divPleaseEnterYourPassword: 'Please enter your password',
-      divImUsingMyPassword: "I'm using my password",
-      divImUsingAMagicLink: "I'm using a magic link",
+      divUseAMagicLink: 'Use a magic link',
       divEnterYourPassword: 'Enter your password',
-      labelSendMeTheMagicLink: 'Send me the magic link',
+      labelSendMeTheMagicLink: 'Send me a magic link',
       labelSignIn: 'Sign in',
     },
   };
