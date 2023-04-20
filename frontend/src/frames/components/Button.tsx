@@ -6,8 +6,7 @@ const base = ['uk-button', 'min-w-[max-content]'];
 export const button = cn(
   //
   'Button',
-  ...base,
-  'uk-button-default'
+  ...base
 );
 
 export const smallButton = cn(

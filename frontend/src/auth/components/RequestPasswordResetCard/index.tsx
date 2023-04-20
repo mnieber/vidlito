@@ -1,19 +1,19 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { AuthFrame } from 'src/auth/components/AuthFrame';
+import { AuthCard, authCard } from 'src/auth/components/AuthCard';
 import { RequestPasswordResetForm } from 'src/auth/components/RequestPasswordResetForm';
 import { useRequestPasswordReset } from 'src/auth/endpoints';
 import { States } from 'src/auth/endpoints/states';
 import { useAuthStateContext } from 'src/auth/hooks';
+import { cn } from 'src/utils/classnames';
 import { useMessages } from './useMessages';
 
-export const RequestPasswordResetPage = observer(() => {
+export const RequestPasswordResetCard = observer(() => {
   const { messages } = useMessages();
   const authState = useAuthStateContext(true);
   const requestPasswordReset = useRequestPasswordReset(authState).mutateAsync;
 
   return (
-    <AuthFrame header="Reset your password" id="RequestPasswordResetPage">
+    <AuthCard id="RequestPasswordResetCard">
       {authState.state === States.REQUEST_PASSWORD_RESET_SUCCEEDED && (
         <div>{messages.divYourPasswordHasBeenReset}</div>
       )}
@@ -23,10 +23,10 @@ export const RequestPasswordResetPage = observer(() => {
             return requestPasswordReset({ email });
           }}
           errors={authState.errors}
-          className="mb-4"
+          className={cn(authCard.gapToSplitBody)}
         />
       )}
       <div>{messages.haveYouFoundYourPassword}</div>
-    </AuthFrame>
+    </AuthCard>
   );
 });

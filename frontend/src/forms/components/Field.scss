@@ -1,6 +1,5 @@
 .Field {
-  textarea, input:not([type='checkbox']) {
-    @apply border-b border-gray-50;
-    @apply bg-white;
+  textarea, input {
+    background-color: transparent;
   }
 }

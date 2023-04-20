@@ -1,14 +1,13 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { useParams } from 'react-router-dom';
-import { AuthFrame } from 'src/auth/components/AuthFrame';
+import { AuthCard } from 'src/auth/components/AuthCard';
 import { ResetPasswordForm } from 'src/auth/components/ResetPasswordForm';
 import { useResetPassword } from 'src/auth/endpoints';
 import { States } from 'src/auth/endpoints/states';
 import { useAuthStateContext } from 'src/auth/hooks';
 import { useMessages } from './useMessages';
 
-export const ResetPasswordPage = observer(() => {
+export const ResetPasswordCard = observer(() => {
   const { messages } = useMessages();
   const params = useParams();
   const authState = useAuthStateContext(true);
@@ -17,7 +16,7 @@ export const ResetPasswordPage = observer(() => {
   const isPasswordChanged = authState.state === States.RESET_PASSWORD_SUCCEEDED;
 
   return (
-    <AuthFrame header="Change your password" id="ResetPasswordPage">
+    <AuthCard id="ResetPasswordCard">
       {isPasswordChanged && <div>{messages.yourPasswordHasBeenChanged}</div>}
       {!isPasswordChanged && (
         <ResetPasswordForm
@@ -30,6 +29,6 @@ export const ResetPasswordPage = observer(() => {
           }}
         />
       )}
-    </AuthFrame>
+    </AuthCard>
   );
 });

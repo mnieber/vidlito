@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import React from 'react';
 import ReactResizeDetector from 'react-resize-detector';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { colBanner, Icon, rowSkewer } from 'src/frames/components';
+import { Icon, colBanner, rowSkewer } from 'src/frames/components';
 import { lvi } from 'src/frames/components/Lvi';
 import { cn } from 'src/utils/classnames';
 import { VideoPlayer } from 'src/videos/components/VideoPlayer';
@@ -51,7 +51,7 @@ export const VideoPlayerPanel = observer(
         className={cn(
           'VideoPlayerPanel__Placeholder',
           rowSkewer,
-          'bg-blue-200'
+          'bg-blue-300'
         )}
         style={{ height: ready ? 0 : height }}
       >

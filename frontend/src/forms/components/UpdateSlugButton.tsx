@@ -1,6 +1,6 @@
 import { useFormStateContext } from 'react-form-state-context';
 import { useFormFieldContext } from 'src/forms/components/FormFieldContext';
-import { smallButton } from 'src/frames/components';
+import { rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { slugify } from 'src/utils/slugify';
 
@@ -15,9 +15,9 @@ export const UpdateSlugButton = (props: PropsT) => {
   const fieldContext = useFormFieldContext();
 
   return (
-    <div
+    <button
       tabIndex={props.tabIndex ?? -1}
-      className={cn('UpdateSlugButton', smallButton, props.className)}
+      className={cn('UpdateSlugButton', rowSkewer, props.className)}
       onClick={() => {
         const newSlug = slugify(formState.values[props.relatedFieldName]);
         if (newSlug) {
@@ -25,7 +25,7 @@ export const UpdateSlugButton = (props: PropsT) => {
         }
       }}
     >
-      Update
-    </div>
+      update
+    </button>
   );
 };

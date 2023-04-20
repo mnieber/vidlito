@@ -42,7 +42,10 @@ export const PlaylistListViewItem = observer(
     return (
       <div
         className={cn(
-          ['PlaylistListViewItem', lvi.container],
+          'PlaylistListViewItem',
+          lvi.container,
+          'text-gray-700',
+          '',
           appearance,
           props.className
         )}
@@ -55,10 +58,20 @@ export const PlaylistListViewItem = observer(
             props.goToPlaylist(props.playlist);
           }}
         >
-          <Icon className={cn('w-[15px] h-[15px]')} name="arrow-right" />
+          <Icon
+            className={cn('w-[15px] h-[15px]', 'fill-gray-700')}
+            name="arrow-right"
+          />
         </div>
-        <div className={cn(['PlaylistListViewItem__Title', lvi.title])}>
-          {`${props.playlist.name} (${props.playlist.clipSet.length})`}
+        <div
+          className={cn([
+            'PlaylistListViewItem__Title',
+            lvi.title,
+            'flex flex-row justify-between',
+          ])}
+        >
+          <div>{props.playlist.name}</div>
+          <div>{props.playlist.clipSet.length}</div>
         </div>
       </div>
     );

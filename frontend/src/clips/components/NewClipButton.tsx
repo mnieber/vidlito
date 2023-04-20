@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { ClipT, createClip } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon, mainButton } from 'src/frames/components';
-import { lvi } from 'src/frames/components/Lvi';
+import { Icon } from 'src/frames/components';
+import { modestButton } from 'src/frames/components/ModestButton';
 import { ClipsUrlEventsT, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './NewClipButton.scss';
@@ -23,7 +23,7 @@ export const NewClipButton = observer(
 
     return (
       <button
-        className={cn('NewClipButton', mainButton, props.className)}
+        className={cn('NewClipButton', modestButton.container, props.className)}
         onClick={() => {
           props.clipsAddition
             .add({ values: createClip({}) })
@@ -32,8 +32,8 @@ export const NewClipButton = observer(
             });
         }}
       >
-        <Icon className={cn(lvi.leadingIcon)} name="plus" />
-        New Clip
+        <Icon className={cn(modestButton.icon)} name="plus" />
+        Clip
       </button>
     );
   }, DefaultProps)

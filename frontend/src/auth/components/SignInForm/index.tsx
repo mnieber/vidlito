@@ -1,9 +1,9 @@
-import React from 'react';
 import { FormStateProvider } from 'react-form-state-context';
+import { authCard } from 'src/auth/components/AuthCard';
 import { EmailField } from 'src/auth/components/formFields/EmailField';
 import { PasswordField } from 'src/auth/components/formFields/PasswordField';
 import { SubmitButton } from 'src/auth/components/formFields/SubmitButton';
-import { ControlledCheckbox, Field, GlobalError } from 'src/forms/components';
+import { Field, GlobalError } from 'src/forms/components';
 import { colSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -12,26 +12,23 @@ import { useMessages } from './useMessages';
 export const formFields = {
   email: 'email',
   password: 'password',
-  useMagicLink: 'useMagicLink',
 };
 
 export type PropsT = {
   signIn: (email: string, password: string) => any;
-  requestMagicLink: (email: string) => any;
   errors: Array<string>;
   className?: any;
 };
 
 export function SignInForm(props: PropsT) {
   const { messages } = useMessages();
-  const [useMagicLink, setUseMagicLink] = React.useState(false);
 
   return (
     <FormStateProvider
       initialValues={form.getInitialValues()}
       initialErrors={form.getExternalErrors(messages, props.errors)}
-      handleValidate={form.getHandleValidate(useMagicLink, messages)}
-      handleSubmit={form.getHandleSubmit(useMagicLink, props)}
+      handleValidate={form.getHandleValidate(messages)}
+      handleSubmit={form.getHandleSubmit(props)}
     >
       <div
         className={cn(
@@ -45,43 +42,21 @@ export function SignInForm(props: PropsT) {
 
         <Field
           fieldName={formFields.email}
-          label="Email"
-          tabOnEnter={!useMagicLink}
-          submitOnEnter={useMagicLink}
+          tabOnEnter={true}
           autoFocus={true}
-          className="my-4"
+          className=""
         >
           <EmailField />
         </Field>
 
-        <Field
-          fieldName="password"
-          label="Password"
-          submitOnEnter={true}
-          className="my-4"
-        >
+        <Field fieldName="password" submitOnEnter={true} className="">
           <PasswordField />
         </Field>
 
-        <Field
-          fieldName={formFields.useMagicLink}
-          label=""
-          className={cn('my-4')}
-        >
-          <div className={cn('flex flex-row items-center')}>
-            <ControlledCheckbox />
-            <p className={cn('ml-4')}>{messages.divUseAMagicLink}</p>
-          </div>
-        </Field>
-
         <SubmitButton
-          dataCy={useMagicLink ? 'sendMagicLinkBtn' : 'signInBtn'}
-          label={
-            useMagicLink
-              ? messages.labelSendMeTheMagicLink
-              : messages.labelSignIn
-          }
-          className={cn('place-self-center', 'my-4')}
+          dataCy={'signInBtn'}
+          label={messages.labelSignIn}
+          className={cn(authCard.submitButton.container)}
         />
       </div>
     </FormStateProvider>

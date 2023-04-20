@@ -29,8 +29,12 @@ const DefaultProps = {
 export const ClipListViewItem = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const appearance = [
+      'font-bold',
       {
         'ClipListViewItem--selected': props.selectionUIProps.isSelected,
+        'text-gray-700': !(
+          props.selectionUIProps.isSelected || props.isHighlighted
+        ),
         'ClipListViewItem--highlighted': props.isHighlighted,
       },
       `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
@@ -48,7 +52,9 @@ export const ClipListViewItem = observer(
         <div
           tabIndex={0}
           className={cn(
-            ['ClipListViewItem', lvi.container],
+            'ClipListViewItem',
+            lvi.container,
+            '',
             appearance,
             props.className
           )}

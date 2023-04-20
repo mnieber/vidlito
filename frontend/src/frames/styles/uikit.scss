@@ -2,11 +2,12 @@
 
 @import 'src/frames/styles/uikit/breakpoints.scss';
 
-$global-font-family: 'Calibri';
+$global-font-family: 'OpenSans';
 
 $button-default-background: #444466;
 $button-primary-background: #44aa66;
 $button-default-color: #ffffff;
+$global-link-color: hsl(201, 79%, 46%);
 
 // Headings
 
@@ -18,6 +19,7 @@ $base-h3-font-size-m: 12px;
 $base-h3-line-height: 1;
 $base-h4-font-size-m: 12px;
 $base-h4-line-height: 1;
+$base-heading-color: unset;
 
 // 2. Import default variables and available mixins.
 @import 'uikit/src/scss/variables.scss';

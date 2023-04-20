@@ -11,7 +11,7 @@ export const useMessages = () => {
       divUseAMagicLink: 'Use a magic link',
       divEnterYourPassword: 'Enter your password',
       labelSendMeTheMagicLink: 'Send me a magic link',
-      labelSignIn: 'Sign in',
+      labelSignIn: 'Sign In',
     },
   };
 };

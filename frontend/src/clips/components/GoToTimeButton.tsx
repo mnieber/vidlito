@@ -25,7 +25,7 @@ export const GoToTimeButton = (props: PropsT) => {
         }
       }}
     >
-      Go
+      go
     </button>
   );
 };

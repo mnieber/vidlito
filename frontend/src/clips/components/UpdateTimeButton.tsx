@@ -25,7 +25,7 @@ export const UpdateTimeButton = (props: PropsT) => {
         formState.setValue(props.fieldName, timeStamp);
       }}
     >
-      Set
+      set
     </button>
   );
 };

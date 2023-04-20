@@ -1,18 +1,29 @@
 @font-face {
-  font-family: 'Calibri';
+  font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/calibri-font-family/calibri-regular.ttf')
+  src: url('../fonts/open-sans-font-family/static/OpenSans/OpenSans-Regular.ttf')
     format('truetype');
 }
 
 @font-face {
-  font-family: 'Calibri';
+  font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  src: url('../fonts/calibri-font-family/calibri-bold.ttf') format('truetype');
+  src: url('../fonts/open-sans-font-family/static/OpenSans/OpenSans-Bold.ttf') format('truetype');
 }
 
 * {
-  font-family: Calibri;
+  font-family: Open Sans;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/inter-font-family/static/Inter-Bold.ttf') format('truetype');
+}
+
+* {
+  font-family: Open Sans;
 }

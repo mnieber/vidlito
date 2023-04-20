@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ActivateAccountForm } from 'src/auth/components/ActivateAccountForm';
-import { AuthFrame } from 'src/auth/components/AuthFrame';
+import { AuthCard } from 'src/auth/components/AuthCard';
 import { useActivateAccount } from 'src/auth/endpoints';
 import { States } from 'src/auth/endpoints/states';
 import { useAuthStateContext } from 'src/auth/hooks';
@@ -28,14 +27,12 @@ export const ActivateAccountPage = observer(() => {
   // then the authState will be updated which causes this component to also re-render.
 
   return (
-    <AuthFrame header="Activate your account" id="ActivateAccountPage">
-      <div id="ActivateAccountPage" className="">
-        {authState.state === States.ACTIVATE_ACCOUNT_SUCCEEDED && (
-          <div>{messages.yourAccountWasActivated}</div>
-        )}
-        {authState.state !== States.ACTIVATE_ACCOUNT_SUCCEEDED &&
-          activateAccountForm}
-      </div>
-    </AuthFrame>
+    <AuthCard id="ActivateAccountCard">
+      {authState.state === States.ACTIVATE_ACCOUNT_SUCCEEDED && (
+        <div>{messages.yourAccountWasActivated}</div>
+      )}
+      {authState.state !== States.ACTIVATE_ACCOUNT_SUCCEEDED &&
+        activateAccountForm}
+    </AuthCard>
   );
 });

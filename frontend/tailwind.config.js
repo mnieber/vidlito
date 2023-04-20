@@ -3,26 +3,32 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        'playlist-item': 'bounce 1s ease-in-out 3',
+        'playlist-item': 'bounce 1s ease-in-out 3.5',
         delete: 'pulse 1s ease-in-out infinite',
       },
     },
     colors: {
+      black: '#000',
       white: '#fff',
+      mossGreen: '#94ba93',
+      primaryBlue: 'hsl(199, 84%, 55%)',
+      primaryTeal: 'hsl(160, 51%, 49%)',
       blue: {
-        50: 'hsl(204, 96%, 27%)',
-        100: 'hsl(203, 87%, 34%)',
-        200: 'hsl(202, 83%, 41%)',
-        300: 'hsl(201, 79%, 46%)',
+        50: '#1F2933',
+        100: 'hsl(203, 87%, 20%)',
+        200: 'hsl(203, 87%, 34%)',
+        300: 'hsl(202, 83%, 41%)',
+        // primary blue
         400: 'hsl(199, 84%, 55%)',
         500: 'hsl(197, 92%, 61%)',
         600: 'hsl(196, 94%, 67%)',
         700: 'hsl(195, 97%, 75%)',
         800: 'hsl(195, 100%, 85%)',
         900: 'hsl(195, 100%, 95%)',
+        950: '#d9e6fb',
       },
       gray: {
-        50: 'hsl(210, 24%, 16%)',
+        50: '#3f4d5a',
         100: 'hsl(209, 20%, 25%)',
         200: 'hsl(209, 18%, 30%)',
         300: 'hsl(209, 14%, 37%)',
@@ -64,6 +70,7 @@ module.exports = {
         200: 'hsl(166, 72%, 28%)',
         300: 'hsl(164, 71%, 34%)',
         400: 'hsl(162, 63%, 41%)',
+        // primary teal
         500: 'hsl(160, 51%, 49%)',
         600: 'hsl(158, 58%, 62%)',
         700: 'hsl(156, 73%, 74%)',

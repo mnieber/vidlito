@@ -86,7 +86,7 @@ export const PlaylistFormView = observer(
               />,
             ]}
           >
-            <SlugField />
+            <SlugField relatedFieldName="playlistForm.name" />
           </Field>
           <Field
             fieldName="playlistForm.description"

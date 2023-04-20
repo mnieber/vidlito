@@ -4,10 +4,12 @@ import { SignInLi } from 'src/auth/components/SignInLi';
 import { SignOutLi } from 'src/auth/components/SignOutLi';
 import { button } from 'src/frames/components/Button';
 import { useMenuHandler } from 'src/frames/hooks/useMenuHandler';
-import { cn } from 'src/utils/classnames';
+import { cn, d } from 'src/utils/classnames';
 import './AccountMenu.scss';
 
-export type PropsT = {};
+export type PropsT = {
+  className?: any;
+};
 
 const DefaultProps = {
   ...dps.isAuthenticated,
@@ -18,9 +20,15 @@ export const AccountMenu = observer(
     const menuHandler = useMenuHandler();
 
     return (
-      <div className={cn('AccountMenu', 'uk-inline')}>
-        <button data-cy="accountMenu" className={button} type="button">
-          Account
+      <div
+        className={cn(d('AccountMenu'), 'mt-4', 'uk-inline', props.className)}
+      >
+        <button
+          data-cy="accountMenu"
+          className={cn(button, '', 'bg-teal-400 !text-blue-50')}
+          type="button"
+        >
+          <div className={cn('mb-1')}>Account</div>
         </button>
         <div ref={menuHandler.ref}>
           <ul className="uk-nav uk-dropdown-nav">

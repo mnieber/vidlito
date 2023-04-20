@@ -1,8 +1,9 @@
 import { FormStateProvider } from 'react-form-state-context';
+import { authCard } from 'src/auth/components/AuthCard';
 import { EmailField } from 'src/auth/components/formFields/EmailField';
 import { SubmitButton } from 'src/auth/components/formFields/SubmitButton';
 import { Field, GlobalError } from 'src/forms/components';
-import { colSkewer } from 'src/frames/components';
+import { colBanner } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import { useMessages } from './useMessages';
@@ -28,27 +29,22 @@ export function RequestPasswordResetForm(props: PropsT) {
       handleSubmit={form.getHandleSubmit(props)}
     >
       <div
-        className={cn(
-          'RequestPasswordResetForm',
-          colSkewer,
-          'items-stretch',
-          props.className
-        )}
+        className={cn('RequestPasswordResetForm', colBanner, props.className)}
       >
         <GlobalError />
 
-        <Field fieldName={formFields.email} label="Email" submitOnEnter={true}>
-          <EmailField />
-        </Field>
-
-        <div className={cn('place-self-center', 'my-4')}>
+        <div className={cn(authCard.form.stackOnMessage)}>
           {messages.divEnterYourEmailToResetYourPassword}
         </div>
+
+        <Field fieldName={formFields.email} submitOnEnter={true}>
+          <EmailField />
+        </Field>
 
         <SubmitButton
           dataCy="passwordResetBtn"
           label="Request password reset"
-          className={cn('place-self-center', 'my-4')}
+          className={cn(authCard.submitButton.container)}
         />
       </div>
     </FormStateProvider>

@@ -13,6 +13,7 @@ type PropsT = React.PropsWithChildren<
   FormFieldContextPropsT & {
     buttons?: any[];
     className?: any;
+    labelClassName?: any;
   }
 >;
 
@@ -26,13 +27,14 @@ export const Field = observer((props: PropsT) => {
           //
           'Field',
           'flex flex-col',
-          'mb-4',
-          'py-2 pb-1',
           '',
           props.className
         )}
       >
-        <FormFieldLabel buttons={props.buttons} />
+        <FormFieldLabel
+          buttons={props.buttons}
+          className={props.labelClassName}
+        />
         {props.children}
       </div>
       <FormFieldError />

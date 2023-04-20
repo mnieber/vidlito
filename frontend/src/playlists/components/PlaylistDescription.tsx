@@ -16,8 +16,16 @@ const DefaultProps = {
 export const PlaylistDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
-      <div className={cn('PlaylistDescription', 'p-4', props.className)}>
-        <div className="PlaylistDescription__Title">About this Playlist</div>
+      <div
+        className={cn(
+          'PlaylistDescription',
+          'pt-[18px] pb-[1px] px-4',
+          '',
+          'bg-gray-100 text-gray-700',
+          'rounded-lg',
+          props.className
+        )}
+      >
         <MarkdownView
           text={
             props.playlist.description ||
@@ -30,5 +38,5 @@ export const PlaylistDescription = observer(
 );
 
 const playlistDefaultDescription = (playlist: PlaylistT) => {
-  return `# Welcome to the playlist description!`;
+  return `# Welcome to the playlist description!\nsaid principal among complete market follow fence column film science possible frog how golden knife he border dead twelve union control eager better troops face outside cat someone beneath feel stop route composed or machine forest listen string cage wife sleep child story cannot felt explore four sale`;
 };

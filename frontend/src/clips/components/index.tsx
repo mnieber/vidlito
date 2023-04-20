@@ -1,12 +1,12 @@
+export { ClipDescription } from './ClipDescription';
 export { ClipFormView } from './ClipFormView';
 export { ClipHeaderView } from './ClipHeaderView';
 export { ClipKeyHandler } from './ClipKeyHandler';
 export { ClipListView } from './ClipListView';
 export { ClipListViewItem } from './ClipListViewItem';
 export { ClipMenu } from './ClipMenu';
-export { ClipsStateProvider } from './ClipsStateProvider';
 export { ClipTagsView } from './ClipTagsView';
-export { ClipView } from './ClipView';
+export { ClipsStateProvider } from './ClipsStateProvider';
 export { EditClipEffect } from './EditClipEffect';
 export { GoToTimeButton } from './GoToTimeButton';
 export { NewClipButton } from './NewClipButton';

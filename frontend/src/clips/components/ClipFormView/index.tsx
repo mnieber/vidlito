@@ -2,8 +2,6 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { FormState, FormStateProvider } from 'react-form-state-context';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { GoToTimeButton } from 'src/clips/components/GoToTimeButton';
-import { UpdateTimeButton } from 'src/clips/components/UpdateTimeButton';
 import { usePreviewButton } from 'src/clips/hooks/usePreviewButton';
 import {
   CancelButton,
@@ -14,9 +12,9 @@ import {
   SaveButton,
   SlugField,
   TextField,
-  UpdateSlugButton,
   ValuePickerField,
 } from 'src/forms/components';
+import { TimeField } from 'src/forms/components/TimeField';
 import { colBanner, rowSkewer } from 'src/frames/components';
 import {
   ClipsUrlEventsT,
@@ -26,6 +24,16 @@ import {
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import './index.scss';
+
+const field = ['uppercase', 'text-mossGreen text-sm', 'tracking-wider'];
+const fieldLabel = ['mb-1'];
+const input = [
+  'mb-6',
+  'bg-gray-200',
+  'text-gray-700 text-md',
+  'p-2',
+  'rounded-lg',
+];
 
 export type UrlEventsT = ClipsUrlEventsT;
 export type UrlEventHandlerT = UrlEventHandler & UrlEventsT;
@@ -54,7 +62,17 @@ export const ClipFormView = observer(
     const initialErrors = form.getInitialErrors(props);
 
     return (
-      <div className={cn('ClipFormView', colBanner, props.className)}>
+      <div
+        className={cn(
+          'ClipFormView',
+          colBanner,
+          'py-[18px] px-4',
+          '',
+          'bg-gray-100 text-gray-700',
+          'rounded-lg',
+          props.className
+        )}
+      >
         <FormStateProvider
           formStateRef={formStateRef}
           initialValues={initialValues}
@@ -69,8 +87,15 @@ export const ClipFormView = observer(
           handleCancel={form.getHandleCancel(props, urlEvents)}
         >
           <GlobalError />
-          <Field fieldName="clipForm.url" label="Url" autoFocus={true}>
+          <Field
+            className={cn(field)}
+            labelClassName={cn(fieldLabel)}
+            fieldName="clipForm.url"
+            label="Url"
+            autoFocus={true}
+          >
             <TextField
+              className={cn(input)}
               tabIndex={1}
               controlled={true}
               autoSelect={true}
@@ -83,51 +108,40 @@ export const ClipFormView = observer(
           </Field>
           <div className={cn(rowSkewer)}>
             <Field
-              className={cn('mr-2')}
+              className={cn(field, 'mr-2')}
+              labelClassName={cn(fieldLabel)}
               fieldName="clipForm.startTimeS"
               label="Start Time"
-              buttons={[
-                <UpdateTimeButton
-                  key="1"
-                  tabIndex={3}
-                  className={cn('mr-2')}
-                  videoController={props.videoPlayerState.videoController}
-                  fieldName="clipForm.startTimeS"
-                />,
-                <GoToTimeButton
-                  key="2"
-                  tabIndex={3}
-                  videoController={props.videoPlayerState.videoController}
-                  fieldName="clipForm.startTimeS"
-                />,
-              ]}
             >
-              <TextField controlled={true} tabIndex={2} />
+              <TimeField
+                className={cn(input, 'p-0')}
+                videoPlayerState={props.videoPlayerState}
+                controlled={true}
+                tabIndex={2}
+              />
             </Field>
             <Field
+              className={cn(field)}
+              labelClassName={cn(fieldLabel)}
               fieldName="clipForm.endTimeS"
               label="End Time"
-              buttons={[
-                <UpdateTimeButton
-                  key="1"
-                  tabIndex={5}
-                  className={cn('mr-2')}
-                  videoController={props.videoPlayerState.videoController}
-                  fieldName="clipForm.endTimeS"
-                />,
-                <GoToTimeButton
-                  key="2"
-                  tabIndex={5}
-                  videoController={props.videoPlayerState.videoController}
-                  fieldName="clipForm.endTimeS"
-                />,
-              ]}
             >
-              <TextField controlled={true} tabIndex={4} />
+              <TimeField
+                className={cn(input, 'p-0')}
+                videoPlayerState={props.videoPlayerState}
+                controlled={true}
+                tabIndex={4}
+              />
             </Field>
           </div>
-          <Field fieldName="clipForm.name" label="Name">
+          <Field
+            className={cn(field)}
+            labelClassName={cn(fieldLabel)}
+            fieldName="clipForm.name"
+            label="Name"
+          >
             <NameField
+              className={cn(input)}
               tabIndex={6}
               controlled={true}
               autoSelect={true}
@@ -139,32 +153,39 @@ export const ClipFormView = observer(
             />
           </Field>
           <Field
+            className={cn(field)}
+            labelClassName={cn(fieldLabel)}
             fieldName="clipForm.slug"
             label="Slug"
-            buttons={[
-              <UpdateSlugButton
-                tabIndex={7}
-                key="1"
-                relatedFieldName="clipForm.name"
-              />,
-            ]}
           >
-            <SlugField />
+            <SlugField
+              className={cn(input, 'p-0')}
+              relatedFieldName="clipForm.name"
+            />
           </Field>
           <Field
+            className={cn(field)}
+            labelClassName={cn(fieldLabel)}
             fieldName="clipForm.description"
             label="Description"
             tabOnEnter={false}
             buttons={[showPreviewButton]}
           >
             <MarkdownField
+              className={cn(input)}
               tabIndex={8}
               controlled={true}
               preview={descriptionPreview}
             />
           </Field>
-          <Field fieldName="clipForm.tags" label="Tags">
+          <Field
+            className={cn(field)}
+            labelClassName={cn(fieldLabel)}
+            fieldName="clipForm.tags"
+            label="Tags"
+          >
             <ValuePickerField
+              className={cn(input)}
               tabIndex={9}
               isCreatable={true}
               isMulti={true}

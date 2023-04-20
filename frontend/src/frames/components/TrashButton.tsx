@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon, mainButton, rowSkewer } from 'src/frames/components';
-import { lvi } from 'src/frames/components/Lvi';
+import { Icon } from 'src/frames/components';
+import { modestButton } from 'src/frames/components/ModestButton';
 import { ActionsUrlEventsT, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './TrashButton.scss';
@@ -22,13 +22,11 @@ export const TrashButton = observer(
 
     return (
       <button
-        className={cn('TrashButton', mainButton, props.className)}
+        className={cn('TrashButton', modestButton.container, props.className)}
         onClick={() => urlEvents.goToActions()}
       >
-        <div className={cn(rowSkewer)}>
-          <Icon className={cn(lvi.leadingIcon)} name="trash" />
-          Trash
-        </div>
+        <Icon className={cn(modestButton.icon)} name="trash" />
+        Trash
       </button>
     );
   }, DefaultProps)

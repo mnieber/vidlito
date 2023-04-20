@@ -3,12 +3,11 @@
 }
 
 .ClipListViewItem--selected {
-  @apply bg-blue-200 text-white;
+  @apply text-primaryTeal;
 }
 
 .ClipListViewItem--highlighted {
-  @apply font-bold;
-  @apply bg-blue-200 text-white;
+  @apply text-primaryTeal;
 }
 
 .ClipListViewItem--drag-before {

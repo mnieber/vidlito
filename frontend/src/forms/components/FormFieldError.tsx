@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { useFormStateContext } from 'react-form-state-context';
 import { useFormFieldContext } from 'src/forms/components';
 import { cn } from 'src/utils/classnames';
@@ -24,7 +23,6 @@ export const FormFieldError = observer(
         className={cn(
           'FormFieldError',
           'place-self-center',
-          'mt-[-8px]',
           extraClass,
           extraClassOnError
             ? {

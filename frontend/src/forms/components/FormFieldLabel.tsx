@@ -4,7 +4,7 @@ import { useFormFieldContext } from 'src/forms/components';
 import { cn } from 'src/utils/classnames';
 
 type PropsT = React.PropsWithChildren<{
-  classNames?: any;
+  className?: any;
   buttons?: any[];
 }>;
 
@@ -39,7 +39,7 @@ export const FormFieldLabel = (props: PropsT) => {
       <RowWrapper>
         {fieldContext.label && (
           <label
-            className={cn('FormFieldLabel font-bold', props.classNames)}
+            className={cn('FormFieldLabel font-bold', props.className)}
             htmlFor={fieldContext.fieldName}
           >
             {fieldContext.label}

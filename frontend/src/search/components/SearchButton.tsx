@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from 'src/app/defaultProps';
-import { Icon, mainButton, rowSkewer } from 'src/frames/components';
-import { lvi } from 'src/frames/components/Lvi';
+import { Icon } from 'src/frames/components';
+import { modestButton } from 'src/frames/components/ModestButton';
 import { cn } from 'src/utils/classnames';
 import './SearchButton.scss';
 
@@ -15,13 +15,11 @@ export const SearchButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <button
-        className={cn('SearchButton', mainButton, props.className)}
+        className={cn('SearchButton', modestButton.container, props.className)}
         onClick={() => (console as any).log('Moonleap Todo')}
       >
-        <div className={cn(rowSkewer)}>
-          <Icon className={cn(lvi.leadingIcon)} name="search" />
-          Search
-        </div>
+        <Icon className={cn(modestButton.icon)} name="search" />
+        Search
       </button>
     );
   }, DefaultProps)

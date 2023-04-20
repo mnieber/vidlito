@@ -15,9 +15,7 @@ export const history = createBrowserHistory();
 
 export const App = () => {
   return (
-    <div
-      className={cn('App', 'flex flex-col', 'mx-auto px-2', 'xl:w-4/5 xl:px-0')}
-    >
+    <div className={cn('App', 'flex flex-col')}>
       <Router history={history}>
         <UrlEventHandlerProvider>
           <AuthStateProvider>

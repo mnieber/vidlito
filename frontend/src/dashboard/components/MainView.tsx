@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
+import { ClipDescription } from 'src/clips/components/ClipDescription';
 import { ClipFormView } from 'src/clips/components/ClipFormView';
 import { ClipHeaderView } from 'src/clips/components/ClipHeaderView';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
-import { ClipView } from 'src/clips/components/ClipView';
-import { Spinner } from 'src/frames/components';
+import { AccountMenu, Spinner, rowBanner } from 'src/frames/components';
 import {
   PlaylistDescription,
   PlaylistFormView,
@@ -45,24 +45,33 @@ export const MainView = observer(
         clip={props.clip}
         videoPlayerState={props.videoPlayerState}
       >
-        <div
-          ref={parentElmRef}
-          tabIndex={0}
-          className={cn('MainView', props.className)}
-        >
-          <VideoPlayerPanel className={cn('mb-3')} />
-          <ClipHeaderView className={cn('mb-2')} />
-          {/*              */}
-          {/* 🟩 Switch 🟩 */}
-          {/*              */}
-          {props.dashboardState.showPlaylistDescription &&
-            !props.playlistsEdit.isEditing && <PlaylistDescription />}
-          {props.dashboardState.showPlaylistDescription &&
-            props.playlistsEdit.isEditing && <PlaylistFormView />}
-          {!props.dashboardState.showPlaylistDescription &&
-            props.clipsEdit.isEditing && <ClipFormView />}
-          {!props.dashboardState.showPlaylistDescription &&
-            !props.clipsEdit.isEditing && <ClipView />}
+        <div className={cn(rowBanner)}>
+          <div
+            ref={parentElmRef}
+            tabIndex={0}
+            className={cn('MainView', 'grow max-w-[800px]', props.className)}
+          >
+            <VideoPlayerPanel className={cn('mb-3')} />
+            <div className={cn('ml-6 mt-5')}>
+              <ClipHeaderView className={cn('mb-5')} />
+              {
+                //
+                // 🔳 Switch
+                //
+              }
+              {props.dashboardState.showPlaylistDescription &&
+                !props.playlistsEdit.isEditing && (
+                  <PlaylistDescription className="max-w-[776px]" />
+                )}
+              {props.dashboardState.showPlaylistDescription &&
+                props.playlistsEdit.isEditing && <PlaylistFormView />}
+              {!props.dashboardState.showPlaylistDescription &&
+                props.clipsEdit.isEditing && <ClipFormView />}
+              {!props.dashboardState.showPlaylistDescription &&
+                !props.clipsEdit.isEditing && <ClipDescription />}
+            </div>
+          </div>
+          <AccountMenu className="ml-8" />
         </div>
       </ClipKeyHandler>
     );

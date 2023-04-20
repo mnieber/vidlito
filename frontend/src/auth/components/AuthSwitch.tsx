@@ -1,5 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
 import { ActivateAccountPage } from 'src/auth/components/ActivateAccountPage';
+import { RequestMagicLinkPage } from 'src/auth/components/RequestMagicLinkPage';
 import { RequestPasswordResetPage } from 'src/auth/components/RequestPasswordResetPage';
 import { ResetPasswordPage } from 'src/auth/components/ResetPasswordPage';
 import { SignInPage } from 'src/auth/components/SignInPage';
@@ -25,6 +26,9 @@ export const AuthSwitch = () => {
       </Route>
       <Route exact path={routes.requestPasswordReset()}>
         <RequestPasswordResetPage />
+      </Route>
+      <Route exact path={routes.requestMagicLink()}>
+        <RequestMagicLinkPage />
       </Route>
       <Route exact path={routes.resetPassword()}>
         <ResetPasswordPage />
