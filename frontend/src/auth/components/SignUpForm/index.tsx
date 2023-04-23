@@ -29,6 +29,11 @@ export function SignUpForm(props: PropsT) {
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >
+      {
+        //
+        // 🔳 SignInForm
+        //
+      }
       <div
         className={cn(
           'SignInForm',
@@ -39,6 +44,11 @@ export function SignUpForm(props: PropsT) {
       >
         <GlobalError />
 
+        {
+          //
+          // 🔳 EmailField
+          //
+        }
         <Field
           fieldName={formFields.email}
           label="Email"
@@ -48,6 +58,11 @@ export function SignUpForm(props: PropsT) {
           <EmailField />
         </Field>
 
+        {
+          //
+          // 🔳 TermsField
+          //
+        }
         <Field
           fieldName={formFields.acceptsTerms}
           label=""
@@ -61,6 +76,11 @@ export function SignUpForm(props: PropsT) {
           </div>
         </Field>
 
+        {
+          //
+          // 🔳 SubmitButton
+          //
+        }
         <SubmitButton
           dataCy="signUpBtn"
           label="Sign Up"

@@ -5,6 +5,7 @@ import { usePreviewButton } from 'src/clips/hooks/usePreviewButton';
 import {
   CancelButton,
   Field,
+  FormFieldLabel,
   GlobalError,
   MarkdownField,
   SaveButton,
@@ -22,6 +23,8 @@ import {
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import './index.scss';
+
+const fieldLabel = ['mb-1'];
 
 export type UrlEventsT = PlaylistsUrlEventsT;
 export type UrlEventHandlerT = UrlEventHandler & UrlEventsT;
@@ -49,7 +52,15 @@ export const PlaylistFormView = observer(
     const initialErrors = form.getInitialErrors(props);
 
     return (
+      //
+      // 🔳 PlaylistFormView 🔳
+      //
       <div className={cn('PlaylistFormView', colBanner, props.className)}>
+        {
+          //
+          // 🔳 FormStateProvider 🔳
+          //
+        }
         <FormStateProvider
           initialValues={form.getInitialValues(props)}
           initialErrors={initialErrors}
@@ -63,7 +74,13 @@ export const PlaylistFormView = observer(
           handleCancel={form.getHandleCancel(props, urlEvents)}
         >
           <GlobalError />
+          {
+            //
+            // 🔳 NameField 🔳
+            //
+          }
           <Field fieldName="playlistForm.name" label="Name" autoFocus={true}>
+            <FormFieldLabel className={cn(fieldLabel)} />
             <NameField
               tabIndex={1}
               controlled={true}
@@ -75,32 +92,51 @@ export const PlaylistFormView = observer(
               }
             />
           </Field>
-          <Field
-            fieldName="playlistForm.slug"
-            label="Slug"
-            buttons={[
-              <UpdateSlugButton
-                key="1"
-                tabIndex={2}
-                relatedFieldName="playlistForm.name"
-              />,
-            ]}
-          >
+          {
+            //
+            // 🔳 SlugField 🔳
+            //
+          }
+          <Field fieldName="playlistForm.slug" label="Slug">
+            <FormFieldLabel
+              className={cn(fieldLabel)}
+              buttons={[
+                <UpdateSlugButton
+                  key="1"
+                  tabIndex={2}
+                  relatedFieldName="playlistForm.name"
+                />,
+              ]}
+            />
             <SlugField relatedFieldName="playlistForm.name" />
           </Field>
+          {
+            //
+            // 🔳 DescriptionField 🔳
+            //
+          }
           <Field
             fieldName="playlistForm.description"
             label="Description"
             tabOnEnter={false}
-            buttons={[showPreviewButton]}
           >
+            <FormFieldLabel
+              className={cn(fieldLabel)}
+              buttons={[showPreviewButton]}
+            />
             <MarkdownField
               controlled={true}
               tabIndex={3}
               preview={descriptionPreview}
             />
           </Field>
+          {
+            //
+            // 🔳 TagsField 🔳
+            //
+          }
           <Field fieldName="playlistForm.tags" label="Tags">
+            <FormFieldLabel className={cn(fieldLabel)} />
             <ValuePickerField
               tabIndex={5}
               isCreatable={true}

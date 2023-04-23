@@ -4,37 +4,20 @@ import {
   FormFieldContext,
   FormFieldContextPropsT,
   FormFieldError,
-  FormFieldLabel,
 } from 'src/forms/components';
 import { cn } from 'src/utils/classnames';
 import './Field.scss';
 
 type PropsT = React.PropsWithChildren<
   FormFieldContextPropsT & {
-    buttons?: any[];
     className?: any;
-    labelClassName?: any;
   }
 >;
 
 export const Field = observer((props: PropsT) => {
   return (
     <FormFieldContext {...props}>
-      <div
-        className={cn(
-          //
-          // 🔳 Field
-          //
-          'Field',
-          'flex flex-col',
-          '',
-          props.className
-        )}
-      >
-        <FormFieldLabel
-          buttons={props.buttons}
-          className={props.labelClassName}
-        />
+      <div className={cn('Field', 'flex flex-col', '', props.className)}>
         {props.children}
       </div>
       <FormFieldError />
