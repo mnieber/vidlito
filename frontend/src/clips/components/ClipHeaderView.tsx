@@ -21,9 +21,7 @@ export const ClipHeaderView = observer(
     return (
       <div className={cn('ClipHeaderView', rowBanner, props.className)}>
         {
-          //
-          // 🔳 Title
-          //
+          // 🔳 Title 🔳
         }
         <div
           className={cn(
@@ -74,9 +72,7 @@ export const ClipHeaderView = observer(
           </div>
         </div>
         {
-          //
-          // 🔳 EditAndAuthor
-          //
+          // 🔳 EditAndAuthor 🔳
         }
         <div
           className={cn(
@@ -88,9 +84,7 @@ export const ClipHeaderView = observer(
           )}
         >
           {
-            //
-            // 🔳 EditButton
-            //
+            // 🔳 EditButton 🔳
           }
           <button
             className={cn(

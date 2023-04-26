@@ -54,7 +54,14 @@ export const Dashboard = observer(
             <ClipListView className={cn('mt-6')} />
           </div>
         </div>
-        <div className={cn(d('Dashboard__RightMain'), 'grow', 'bg-gray-50')}>
+        <div
+          className={cn(
+            d('Dashboard__RightMain'),
+            'pb-6',
+            'grow',
+            'bg-gray-50'
+          )}
+        >
           {props.children}
         </div>
       </div>

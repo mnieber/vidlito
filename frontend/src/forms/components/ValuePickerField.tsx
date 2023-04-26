@@ -2,12 +2,14 @@ import { observer } from 'mobx-react-lite';
 import { useFormStateContext } from 'react-form-state-context';
 import { useFormFieldContext } from 'src/forms/components';
 import { handleEnterAsTabToNext } from 'src/forms/utils';
+import { cn } from 'src/utils/classnames';
 import {
   PickerValueT,
-  PropsT as ValuePickerPropsT,
   ValuePicker,
+  PropsT as ValuePickerPropsT,
 } from 'src/utils/components/ValuePicker';
 import { useScheduledCall } from 'src/utils/hooks';
+import { ObjT } from 'src/utils/types';
 
 type PropsT<ValueT> = Omit<
   ValuePickerPropsT<ValueT> & {
@@ -45,8 +47,8 @@ export const ValuePickerField = observer(<ValueT,>(props: PropsT<ValueT>) => {
   return (
     // @ts-ignore
     <ValuePicker
-      className="mt-1"
       {...valuePickerProps}
+      className={cn('ValuePickerField', props.className)}
       name={fieldContext.fieldName}
       placeholder={props.placeholder ?? fieldContext.label}
       onChange={saveChanges}
@@ -58,6 +60,59 @@ export const ValuePickerField = observer(<ValueT,>(props: PropsT<ValueT>) => {
           props.onKeyDown(e);
         }
       }}
+      styles={customStyles}
     ></ValuePicker>
   );
 });
+
+const gray = 'hsl(209, 18%, 30%)';
+const green = '#94ba93';
+const whitish = 'hsl(214, 15%, 91%)';
+
+export function controlRemoveBorder(state: ObjT) {
+  return {
+    border: state.isFocused ? 1 : 1,
+    // This line disable the blue border
+    boxShadow: state.isFocused ? 0 : 0,
+    '&:hover': {
+      boxShadow: state.isFocused ? 0 : 0,
+    },
+  };
+}
+
+const customStyles = {
+  control: (provided: ObjT, state: ObjT) => ({
+    ...provided,
+    ...controlRemoveBorder(state),
+    borderRadius: '8px',
+    borderColor: state.isFocused ? green : gray,
+    borderWidth: '1px',
+    border: true,
+    backgroundColor: gray,
+    padding: '4px',
+  }),
+  multiValue: (provided: ObjT, state: ObjT) => ({
+    ...provided,
+    backgroundColor: 'transparent',
+  }),
+  valueContainer: (provided: ObjT, state: ObjT) => ({
+    ...provided,
+    caretColor: whitish,
+  }),
+  multiValueLabel: (provided: ObjT, state: ObjT) => ({
+    ...provided,
+    color: whitish,
+    paddingLeft: '0px',
+  }),
+  option: (provided: ObjT, state: ObjT) => ({
+    ...provided,
+    color: whitish,
+    backgroundColor: 'transparent',
+  }),
+  menu: (provided: ObjT, state: ObjT) => ({
+    ...provided,
+    backgroundColor: gray,
+    borderRadius: '8px',
+    marginTop: '2px',
+  }),
+};

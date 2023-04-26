@@ -14,13 +14,11 @@ export const AuthCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       //
-      // 🔳 AuthCard
+      // 🔳 AuthCard 🔳
       //
       <div className={cn(d('AuthCard'), authCard.container.dimensions)}>
         {
-          //
-          // 🔳 AuthCard__Inner
-          //
+          // 🔳 AuthCard__Inner 🔳
         }
         <div
           id={props.id}

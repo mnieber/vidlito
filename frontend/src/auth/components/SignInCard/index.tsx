@@ -22,13 +22,11 @@ export const SignInCard = observer(() => {
 
   return (
     //
-    // 🔳 SignInCard
+    // 🔳 SignInCard 🔳
     //
     <AuthCard id="SignInCard">
       {
-        //
-        // 🔳 SignInForm
-        //
+        // 🔳 SignInForm 🔳
       }
       <SignInForm
         className={cn(authCard.form.stackOnMessage)}
@@ -40,9 +38,7 @@ export const SignInCard = observer(() => {
         errors={authState.errors}
       />
       {
-        //
-        // 🔳 ForgotPassword
-        //
+        // 🔳 ForgotPassword 🔳
       }
       <div
         className={cn(
@@ -54,9 +50,7 @@ export const SignInCard = observer(() => {
         {messages.divForgotYourPassword}
       </div>
       {
-        //
-        // 🔳 CreateAccountButton
-        //
+        // 🔳 CreateAccountButton 🔳
       }
       <button
         className={cn(

@@ -32,6 +32,7 @@ export const DashboardSwitch = withDefaultProps(
             <Route exact={true} path={routes.playlist()}>
               <ForwardToClipEffect />
             </Route>
+            {/* 🔳 */}
             <Dashboard>
               <Route
                 exact={true}
@@ -40,15 +41,18 @@ export const DashboardSwitch = withDefaultProps(
                   playlistSlug: 'new-playlist',
                 })}
               >
+                {/* 🔳 */}
                 <PlaylistFormView />
               </Route>
               <Route exact={true} path={routes.clip()}>
                 <SelectClipEffect />
                 <EditClipEffect />
+                {/* 🔳 */}
                 <MainView />
               </Route>
               <Route exact={true} path={routes.actions()}>
                 <UseActionsPage>
+                  {/* 🔳 */}
                   <ActionsView />
                 </UseActionsPage>
               </Route>

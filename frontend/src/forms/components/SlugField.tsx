@@ -18,7 +18,7 @@ export const SlugField = (props: PropsT) => {
 
   return (
     <div className={cn('SlugField', rowBanner, props.className)}>
-      <input {...{ ...fieldProps, className: cn('pt-1 pb-2 px-2') }} />
+      <input {...{ ...fieldProps, className: cn('py-2 px-3 grow') }} />
       <UpdateSlugButton
         className={cn('px-2', 'bg-gray-500 text-blue-50 font-bold rounded-lg')}
         tabIndex={props.tabIndex}

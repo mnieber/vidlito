@@ -4,6 +4,7 @@ import { ActionsStateProvider } from 'src/actions/components';
 import { AuthStateProvider } from 'src/auth/components/AuthStateProvider';
 import { ClipsStateProvider } from 'src/clips/components';
 import { DashboardStateProvider } from 'src/dashboard/components';
+import { colBanner } from 'src/frames/components/Banner';
 import { PlaylistsStateProvider } from 'src/playlists/components/PlaylistsStateProvider';
 import { UrlRouter } from 'src/routes/components';
 import { UrlEventHandlerProvider } from 'src/routes/components/UrlEventHandlerProvider';
@@ -15,7 +16,7 @@ export const history = createBrowserHistory();
 
 export const App = () => {
   return (
-    <div className={cn('App', 'flex flex-col')}>
+    <div className={cn('App', colBanner)}>
       <Router history={history}>
         <UrlEventHandlerProvider>
           <AuthStateProvider>

@@ -1,0 +1,12 @@
+.ClipFormView {
+    .TextField:focus-within,
+    .TimeField:focus-within,
+    .MarkdownField:focus-within
+    {
+        @apply outline outline-1 outline-mossGreen;
+    }
+
+    input:focus, textarea:focus {
+        @apply outline-0;
+    }
+}

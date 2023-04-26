@@ -19,7 +19,7 @@ export const TimeField = (props: PropsT) => {
 
   return (
     <div className={cn('TimeField', rowBanner, props.className)}>
-      <input {...{ ...fieldProps, className: cn('pt-1 pb-2 px-2') }} />
+      <input {...{ ...fieldProps, className: cn('pt-1 pb-2 px-3') }} />
       <UpdateTimeButton
         key="1"
         tabIndex={props.tabIndex}

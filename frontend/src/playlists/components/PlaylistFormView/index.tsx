@@ -15,6 +15,7 @@ import {
 } from 'src/forms/components';
 import { NameField } from 'src/forms/components/NameField';
 import { colBanner, rowSkewer } from 'src/frames/components';
+import { form as formStyle } from 'src/frames/components/Form';
 import {
   PlaylistsUrlEventsT,
   UrlEventHandler,
@@ -23,8 +24,6 @@ import {
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import './index.scss';
-
-const fieldLabel = ['mb-1'];
 
 export type UrlEventsT = PlaylistsUrlEventsT;
 export type UrlEventHandlerT = UrlEventHandler & UrlEventsT;
@@ -79,9 +78,15 @@ export const PlaylistFormView = observer(
             // 🔳 NameField 🔳
             //
           }
-          <Field fieldName="playlistForm.name" label="Name" autoFocus={true}>
-            <FormFieldLabel className={cn(fieldLabel)} />
+          <Field
+            fieldName="playlistForm.name"
+            label="Name"
+            autoFocus={true}
+            className={cn(formStyle.field)}
+          >
+            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
             <NameField
+              className={cn(formStyle.input)}
               tabIndex={1}
               controlled={true}
               autoSelect={true}
@@ -97,9 +102,13 @@ export const PlaylistFormView = observer(
             // 🔳 SlugField 🔳
             //
           }
-          <Field fieldName="playlistForm.slug" label="Slug">
+          <Field
+            fieldName="playlistForm.slug"
+            label="Slug"
+            className={cn(formStyle.field)}
+          >
             <FormFieldLabel
-              className={cn(fieldLabel)}
+              className={cn(formStyle.fieldLabel)}
               buttons={[
                 <UpdateSlugButton
                   key="1"
@@ -108,7 +117,10 @@ export const PlaylistFormView = observer(
                 />,
               ]}
             />
-            <SlugField relatedFieldName="playlistForm.name" />
+            <SlugField
+              className={cn(formStyle.input)}
+              relatedFieldName="playlistForm.name"
+            />
           </Field>
           {
             //
@@ -119,12 +131,14 @@ export const PlaylistFormView = observer(
             fieldName="playlistForm.description"
             label="Description"
             tabOnEnter={false}
+            className={cn(formStyle.field)}
           >
             <FormFieldLabel
-              className={cn(fieldLabel)}
+              className={cn(formStyle.fieldLabel)}
               buttons={[showPreviewButton]}
             />
             <MarkdownField
+              className={cn(formStyle.input)}
               controlled={true}
               tabIndex={3}
               preview={descriptionPreview}
@@ -135,9 +149,14 @@ export const PlaylistFormView = observer(
             // 🔳 TagsField 🔳
             //
           }
-          <Field fieldName="playlistForm.tags" label="Tags">
-            <FormFieldLabel className={cn(fieldLabel)} />
+          <Field
+            fieldName="playlistForm.tags"
+            label="Tags"
+            className={cn(formStyle.field)}
+          >
+            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
             <ValuePickerField
+              className={cn(formStyle.input)}
               tabIndex={5}
               isCreatable={true}
               isMulti={true}

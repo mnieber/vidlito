@@ -16,6 +16,7 @@ export type UrlEventsT = FramesUrlEventsT;
 
 export const SignUpCard = observer(() => {
   const urlEvents = useUrlEventHandler<UrlEventsT>();
+  console.log('SignUpCard todo, use url events', urlEvents);
 
   const { messages } = useMessages();
 
@@ -24,13 +25,11 @@ export const SignUpCard = observer(() => {
 
   return (
     //
-    // 🔳 SignUpCard
+    // 🔳 SignUpCard 🔳
     //
     <AuthCard id="SignUpCard">
       {
-        //
-        // 🔳 SignUpForm
-        //
+        // 🔳 SignUpForm 🔳
       }
       <SignUpForm
         signUp={(email: string, acceptsTerms: boolean) => {
@@ -43,9 +42,7 @@ export const SignUpCard = observer(() => {
         errors={authState.errors}
       />
       {
-        //
-        // 🔳 Confirmation
-        //
+        // 🔳 Confirmation 🔳
       }
       {authState.state === States.SIGN_UP_SUCCEEDED && (
         <div>{messages.divYouHaveBeenSignedUp}</div>

@@ -31,7 +31,7 @@ export function SignUpForm(props: PropsT) {
     >
       {
         //
-        // 🔳 SignInForm
+        // 🔳 SignInForm 🔳
         //
       }
       <div
@@ -45,9 +45,7 @@ export function SignUpForm(props: PropsT) {
         <GlobalError />
 
         {
-          //
-          // 🔳 EmailField
-          //
+          // 🔳 EmailField 🔳
         }
         <Field
           fieldName={formFields.email}
@@ -59,9 +57,7 @@ export function SignUpForm(props: PropsT) {
         </Field>
 
         {
-          //
-          // 🔳 TermsField
-          //
+          // 🔳 TermsField 🔳
         }
         <Field
           fieldName={formFields.acceptsTerms}
@@ -77,9 +73,7 @@ export function SignUpForm(props: PropsT) {
         </Field>
 
         {
-          //
-          // 🔳 SubmitButton
-          //
+          // 🔳 SubmitButton 🔳
         }
         <SubmitButton
           dataCy="signUpBtn"
