@@ -1,0 +1,16 @@
+.PlaylistListView {
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background: rgba(0,0,0,0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.5);
+    @apply rounded-xl;
+}
+
+::-webkit-resizer {
+    @apply bg-gray-700;
+}

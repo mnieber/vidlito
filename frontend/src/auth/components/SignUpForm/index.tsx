@@ -30,9 +30,7 @@ export function SignUpForm(props: PropsT) {
       handleSubmit={form.getHandleSubmit(props)}
     >
       {
-        //
         // 🔳 SignInForm 🔳
-        //
       }
       <div
         className={cn(

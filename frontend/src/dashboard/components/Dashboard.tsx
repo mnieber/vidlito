@@ -22,6 +22,9 @@ export const Dashboard = observer(
     const separator = ['my-2', 'border-t border-gray-700'];
 
     return (
+      //
+      // 🔳 DashBoard 🔳
+      //
       <div
         className={cn(
           //
@@ -32,33 +35,36 @@ export const Dashboard = observer(
         )}
       >
         <div className={cn('w-[160px]')} />
+        {
+          // 🔳 LeftSideBar 🔳
+        }
         <div
           className={cn(
             d('Dashboard__LeftSidebar'),
             colBanner,
-            'w-[290px] min-h-0 mr-4'
+            'w-[290px] mr-4'
           )}
         >
           <Logo />
           <MainButtonsPanel className={cn('')} />
           <div className={cn(d('Dashboard__Separator'), separator)} />
-          <div
-            className={cn('Dashboard__ClipListViewWrapper', 'overflow-y-auto')}
-          >
-            <PlaylistListHeader />
-            <PlaylistListView
-              className={cn('overflow-y-auto')}
-              isExpanded={props.dashboardState.isPlaylistListExpanded}
-            />
-            <div className={cn(d('Dashboard__Separator'), separator)} />
-            <ClipListView className={cn('mt-6')} />
-          </div>
+          <PlaylistListHeader />
+          <PlaylistListView
+            className={cn('overflow-y-auto')}
+            isExpanded={props.dashboardState.isPlaylistListExpanded}
+          />
+          <div className={cn(d('Dashboard__Separator'), separator)} />
+          <ClipListView className={cn('overflow-y-auto', 'mt-4')} />
         </div>
+        {
+          // 🔳 RightMain 🔳
+        }
         <div
           className={cn(
             d('Dashboard__RightMain'),
             'pb-6',
             'grow',
+            'overflow-y-auto',
             'bg-gray-50'
           )}
         >
