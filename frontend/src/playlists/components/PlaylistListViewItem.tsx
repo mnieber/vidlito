@@ -31,27 +31,29 @@ export const PlaylistListViewItem = observer(
       return <Spinner />;
     }
 
-    const appearance = [
-      {
-        'PlaylistListViewItem--selected': props.selectionUIProps.isSelected,
-        'PlaylistListViewItem--highlighted': props.isHighlighted,
-      },
-      `PlaylistListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
-    ];
-
     return (
+      //
+      // 🔳 PlaylistListViewItem 🔳
+      //
       <div
         className={cn(
           'PlaylistListViewItem',
           lvi.container,
           'text-gray-700',
           '',
-          appearance,
+          {
+            'PlaylistListViewItem--selected': props.selectionUIProps.isSelected,
+            'PlaylistListViewItem--highlighted': props.isHighlighted,
+          },
+          `PlaylistListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
           props.className
         )}
         {...selectionUIHandlers(props.selectionUIProps)}
         {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
       >
+        {
+          // 🔳 Icon 🔳
+        }
         <div
           className={cn('IconContainer', lvi.leadingIcon, rowSkewer)}
           onClick={() => {
@@ -63,6 +65,9 @@ export const PlaylistListViewItem = observer(
             name="arrow-right"
           />
         </div>
+        {
+          // 🔳 Title 🔳
+        }
         <div
           className={cn([
             'PlaylistListViewItem__Title',

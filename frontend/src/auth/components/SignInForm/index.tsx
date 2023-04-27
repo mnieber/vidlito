@@ -24,12 +24,18 @@ export function SignInForm(props: PropsT) {
   const { messages } = useMessages();
 
   return (
+    //
+    // 🔳 FormStateProvider 🔳
+    //
     <FormStateProvider
       initialValues={form.getInitialValues()}
       initialErrors={form.getExternalErrors(messages, props.errors)}
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >
+      {
+        // 🔳 SignInForm 🔳
+      }
       <div
         className={cn(
           'SignInForm',
@@ -40,6 +46,9 @@ export function SignInForm(props: PropsT) {
       >
         <GlobalError className="mb-2" />
 
+        {
+          // 🔳 EmailField 🔳
+        }
         <Field
           fieldName={formFields.email}
           tabOnEnter={true}
@@ -49,10 +58,16 @@ export function SignInForm(props: PropsT) {
           <EmailField />
         </Field>
 
+        {
+          // 🔳 PasswordField 🔳
+        }
         <Field fieldName="password" submitOnEnter={true} className="">
           <PasswordField />
         </Field>
 
+        {
+          // 🔳 SubmitButton 🔳
+        }
         <SubmitButton
           dataCy={'signInBtn'}
           label={messages.labelSignIn}

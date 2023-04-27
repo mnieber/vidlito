@@ -1,5 +1,5 @@
 export const form = {
   field: ['mb-6', 'text-gray-700 text-sm', 'tracking-wider'],
-  fieldLabel: ['mb-1'],
+  fieldLabel: ['mb-1', 'font-bold'],
   input: ['grow', '', 'text-gray-700 text-md', 'bg-gray-200', 'rounded-lg'],
 };

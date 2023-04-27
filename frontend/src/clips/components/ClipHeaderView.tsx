@@ -21,19 +21,17 @@ export const ClipHeaderView = observer(
     return (
       <div className={cn('ClipHeaderView', rowBanner, props.className)}>
         {
-          // 🔳 Title 🔳
+          // 🔳 Playlist button 🔳
         }
         <div
           className={cn(
             'ClipHeaderView__Title',
             'pt-2.5 pb-4 pr-4 pl-7',
             '',
-            'rounded-l-[32px]',
-            'text-gray-700',
-            'border-2 border-blue-50',
-            {
-              'bg-blue-50': props.dashboardState.showPlaylistDescription,
-            }
+            clipHeaderButton({
+              isPlaylist: true,
+              isActive: props.dashboardState.showPlaylistDescription,
+            })
           )}
         >
           <div className={cn('ClipHeaderView__TitleName', rowSkewer)}>
@@ -47,17 +45,18 @@ export const ClipHeaderView = observer(
             </button>
           </div>
         </div>
+        {
+          // 🔳 Clip button 🔳
+        }
         <div
           className={cn(
             'ClipHeaderView__Title',
             'ml-[3px] pt-2.5 pb-4 pl-4 pr-7',
             '',
-            'rounded-r-[32px]',
-            'text-gray-700',
-            'border-2 border-blue-50',
-            {
-              'bg-blue-50': !props.dashboardState.showPlaylistDescription,
-            }
+            clipHeaderButton({
+              isPlaylist: false,
+              isActive: !props.dashboardState.showPlaylistDescription,
+            })
           )}
         >
           <div className={cn('ClipHeaderView__TitleName', rowSkewer)}>
@@ -72,7 +71,7 @@ export const ClipHeaderView = observer(
           </div>
         </div>
         {
-          // 🔳 EditAndAuthor 🔳
+          // 🔳 Rhs: the edit button and author 🔳
         }
         <div
           className={cn(
@@ -105,6 +104,9 @@ export const ClipHeaderView = observer(
             />
             Edit
           </button>
+          {
+            // 🔳 Author 🔳
+          }
           <div className={cn('ClipHeaderView__TitleAuthor')}>
             By: {props.clip.owner.username}
           </div>
@@ -113,3 +115,20 @@ export const ClipHeaderView = observer(
     );
   }, DefaultProps)
 );
+
+const clipHeaderButton = ({
+  isPlaylist,
+  isActive,
+}: {
+  isPlaylist: boolean;
+  isActive: boolean;
+}) => {
+  return [
+    isPlaylist ? 'rounded-l-[32px]' : 'rounded-r-[32px]',
+    'text-gray-700',
+    'border-2 border-blue-50',
+    {
+      'bg-blue-50': isActive,
+    },
+  ];
+};

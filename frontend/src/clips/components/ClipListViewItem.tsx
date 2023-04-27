@@ -28,40 +28,45 @@ const DefaultProps = {
 
 export const ClipListViewItem = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const appearance = [
-      'font-bold',
-      {
-        'ClipListViewItem--selected': props.selectionUIProps.isSelected,
-        'text-gray-700': !(
-          props.selectionUIProps.isSelected || props.isHighlighted
-        ),
-        'ClipListViewItem--highlighted': props.isHighlighted,
-      },
-      `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
-      { 'animate-delete': isUpdating(props.clip) },
-    ];
-
     const loading =
       !props.videoPlayerState.videoController.ready && props.isHighlighted;
 
     return (
+      //
+      // 🔳 ClipKeyHandler 🔳
+      //
       <ClipKeyHandler
         clip={props.clip}
         videoPlayerState={props.videoPlayerState}
       >
+        {
+          // 🔳 ClipListViewItem 🔳
+        }
         <div
           tabIndex={0}
           className={cn(
             'ClipListViewItem',
             lvi.container,
             '',
-            appearance,
+            'font-bold',
+            {
+              'ClipListViewItem--selected': props.selectionUIProps.isSelected,
+              'text-gray-700': !(
+                props.selectionUIProps.isSelected || props.isHighlighted
+              ),
+              'ClipListViewItem--highlighted': props.isHighlighted,
+            },
+            `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
+            { 'animate-delete': isUpdating(props.clip) },
             props.className
           )}
           {...selectionUIHandlers(props.selectionUIProps)}
           {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
           onContextMenu={props.onContextMenu}
         >
+          {
+            // 🔳 PlayVideoIcon 🔳
+          }
           <PlayVideoIcon
             className={cn(lvi.leadingIcon)}
             videoController={props.videoPlayerState.videoController}
@@ -71,6 +76,9 @@ export const ClipListViewItem = observer(
             }
             loading={loading}
           />
+          {
+            // 🔳 Title 🔳
+          }
           <div className={cn('ClipListViewItem__Title', lvi.title)}>
             {props.clip.name}
           </div>

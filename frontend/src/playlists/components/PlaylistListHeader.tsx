@@ -23,14 +23,13 @@ export const PlaylistListHeader = observer(
         className={cn(
           d('PlaylistListHeader'),
           dropDownButton.container,
-          'font-bold text-primaryBlue',
           props.className
         )}
         onClick={() => props.dashboardState.toggleIsPlaylistListExpanded()}
       >
         <div className={cn(dropDownButton.text)}>{props.playlist.name}</div>
         <Icon
-          className={cn(dropDownButton.icon, 'fill-gray-700')}
+          className={cn(dropDownButton.icon)}
           name={
             props.dashboardState.isPlaylistListExpanded
               ? 'cheveron-down'

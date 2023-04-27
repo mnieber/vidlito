@@ -39,7 +39,7 @@ export const FormFieldLabel = (props: PropsT) => {
       <RowWrapper>
         {fieldContext.label && (
           <label
-            className={cn('FormFieldLabel font-bold', props.className)}
+            className={cn('FormFieldLabel', props.className)}
             htmlFor={fieldContext.fieldName}
           >
             {fieldContext.label}
