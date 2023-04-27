@@ -22,7 +22,7 @@ export const SlugField = (props: PropsT) => {
       <UpdateSlugButton
         className={cn(
           'px-2',
-          'bg-gray-100 text-blue-500 font-bold m-0.5 rounded-lg'
+          'bg-gray-100 text-primaryTeal font-bold m-0.5 rounded-lg'
         )}
         tabIndex={props.tabIndex}
         key="1"

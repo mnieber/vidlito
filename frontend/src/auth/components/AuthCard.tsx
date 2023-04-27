@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { withDefaultProps } from 'src/app/defaultProps';
-import { colBanner } from 'src/frames/components';
+import { colBanner } from 'src/frames/components/Banner';
+import { button } from 'src/frames/components/Button';
 import { cn, d } from 'src/utils/classnames';
 
 type PropsT = React.PropsWithChildren<{
@@ -39,7 +40,7 @@ export const AuthCard = observer(
 );
 
 export const authCard = {
-  submitButton: { container: ['bg-blue-400', '!text-white'] },
+  submitButton: { container: [button, 'bg-blue-400', 'text-white'] },
   form: { stackOnMessage: 'mb-2' },
   gapToSplitBody: 'mb-8',
   container: { dimensions: 'w-[396px] h-[332px]' },

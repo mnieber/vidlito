@@ -65,7 +65,7 @@ export const Dashboard = observer(
             'pb-6',
             'grow',
             'overflow-y-auto',
-            'bg-gray-50'
+            'bg-gray-200'
           )}
         >
           {props.children}

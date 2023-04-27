@@ -1,7 +1,7 @@
 import { cn } from 'src/utils/classnames';
 import './Button.scss';
 
-const base = ['uk-button', 'min-w-[max-content]'];
+const base = ['px-4 py-2 font-bold rounded-xl min-w-[max-content]'];
 
 export const button = cn(
   //

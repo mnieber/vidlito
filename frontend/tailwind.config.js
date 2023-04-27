@@ -10,7 +10,6 @@ module.exports = {
     colors: {
       black: '#000',
       white: '#fff',
-      mossGreen: '#94ba93',
       primaryBlue: 'hsl(199, 84%, 55%)',
       primaryTeal: 'hsl(160, 51%, 49%)',
       blue: {
@@ -28,7 +27,6 @@ module.exports = {
         950: '#d9e6fb',
       },
       gray: {
-        50: '#3f4d5a',
         100: 'hsl(209, 20%, 25%)',
         200: 'hsl(209, 18%, 30%)',
         300: 'hsl(209, 14%, 37%)',

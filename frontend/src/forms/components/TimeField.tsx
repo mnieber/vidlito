@@ -26,7 +26,7 @@ export const TimeField = (props: PropsT) => {
         className={cn(
           'mr-[2px]',
           'px-2',
-          'bg-gray-100 font-bold text-blue-500 m-0.5 rounded-l-lg'
+          'bg-gray-100 font-bold text-primaryTeal m-0.5 rounded-l-lg'
         )}
         videoController={props.videoPlayerState.videoController}
         fieldName={fieldProps.name}
@@ -36,7 +36,7 @@ export const TimeField = (props: PropsT) => {
         tabIndex={props.tabIndex}
         className={cn(
           'px-2',
-          'bg-gray-100 font-bold text-blue-500 m-0.5 rounded-r-lg'
+          'bg-gray-100 font-bold text-primaryTeal m-0.5 rounded-r-lg'
         )}
         videoController={props.videoPlayerState.videoController}
         fieldName={fieldProps.name}
