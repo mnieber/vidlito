@@ -28,7 +28,7 @@ export const AccountMenu = observer(
           className={cn(button, '', 'bg-teal-400 !text-blue-50')}
           type="button"
         >
-          <div className={cn('mb-1')}>Account</div>
+          <div className={cn('mb-0.5')}>Account</div>
         </button>
         <div ref={menuHandler.ref}>
           <ul className="uk-nav uk-dropdown-nav">
