@@ -16,7 +16,8 @@ import {
   ValuePickerField,
 } from 'src/forms/components';
 import { TimeField } from 'src/forms/components/TimeField';
-import { colBanner, rowSkewer } from 'src/frames/components';
+import { rowSkewer } from 'src/frames/components';
+import { card } from 'src/frames/components/Card';
 import { form as formStyle } from 'src/frames/components/Form';
 import {
   ClipsUrlEventsT,
@@ -57,17 +58,7 @@ export const ClipFormView = observer(
       //
       // 🔳 ClipFormView 🔳
       //
-      <div
-        className={cn(
-          'ClipFormView',
-          colBanner,
-          'py-[18px] px-4',
-          '',
-          'bg-gray-100 text-gray-700',
-          'rounded-lg',
-          props.className
-        )}
-      >
+      <div className={cn('ClipFormView', card, props.className)}>
         {
           // 🔳 FormStateProvider 🔳
         }

@@ -10,11 +10,11 @@ import {
   MarkdownField,
   SaveButton,
   SlugField,
-  UpdateSlugButton,
   ValuePickerField,
 } from 'src/forms/components';
 import { NameField } from 'src/forms/components/NameField';
-import { colBanner, rowSkewer } from 'src/frames/components';
+import { rowSkewer } from 'src/frames/components';
+import { card } from 'src/frames/components/Card';
 import { form as formStyle } from 'src/frames/components/Form';
 import {
   PlaylistsUrlEventsT,
@@ -54,11 +54,9 @@ export const PlaylistFormView = observer(
       //
       // 🔳 PlaylistFormView 🔳
       //
-      <div className={cn('PlaylistFormView', colBanner, props.className)}>
+      <div className={cn('PlaylistFormView', card, props.className)}>
         {
-          //
           // 🔳 FormStateProvider 🔳
-          //
         }
         <FormStateProvider
           initialValues={form.getInitialValues(props)}
@@ -74,9 +72,7 @@ export const PlaylistFormView = observer(
         >
           <GlobalError />
           {
-            //
             // 🔳 NameField 🔳
-            //
           }
           <Field
             fieldName="playlistForm.name"
@@ -98,34 +94,39 @@ export const PlaylistFormView = observer(
             />
           </Field>
           {
-            //
             // 🔳 SlugField 🔳
-            //
           }
           <Field
             fieldName="playlistForm.slug"
             label="Slug"
             className={cn(formStyle.field)}
           >
-            <FormFieldLabel
-              className={cn(formStyle.fieldLabel)}
-              buttons={[
-                <UpdateSlugButton
-                  key="1"
-                  tabIndex={2}
-                  relatedFieldName="playlistForm.name"
-                />,
-              ]}
-            />
+            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
             <SlugField
               className={cn(formStyle.input)}
               relatedFieldName="playlistForm.name"
             />
           </Field>
           {
-            //
+            // 🔳 TagsField 🔳
+          }
+          <Field
+            fieldName="playlistForm.tags"
+            label="Tags"
+            className={cn(formStyle.field)}
+          >
+            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
+            <ValuePickerField
+              className={cn(formStyle.input)}
+              tabIndex={5}
+              isCreatable={true}
+              isMulti={true}
+              pickableValues={['one', 'two']}
+              labelFromValue={(x: any) => x}
+            />
+          </Field>
+          {
             // 🔳 DescriptionField 🔳
-            //
           }
           <Field
             fieldName="playlistForm.description"
@@ -142,26 +143,6 @@ export const PlaylistFormView = observer(
               controlled={true}
               tabIndex={3}
               preview={descriptionPreview}
-            />
-          </Field>
-          {
-            //
-            // 🔳 TagsField 🔳
-            //
-          }
-          <Field
-            fieldName="playlistForm.tags"
-            label="Tags"
-            className={cn(formStyle.field)}
-          >
-            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
-            <ValuePickerField
-              className={cn(formStyle.input)}
-              tabIndex={5}
-              isCreatable={true}
-              isMulti={true}
-              pickableValues={['one', 'two']}
-              labelFromValue={(x: any) => x}
             />
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>
