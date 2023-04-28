@@ -1,9 +1,9 @@
-@import "src/frames/components/BigButton";
+@import "src/frames/components/DialogButton";
 @import "src/frames/components/Colors";
 
 .AuthCard {
     .SaveButton {
-        @include BigButton;
+        @include DialogButton;
         @include white-on-blue;
     }
 }

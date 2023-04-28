@@ -19,7 +19,7 @@ const darkBlueOnTeal = cn('bg-teal-400 text-blue-50 hover:bg-teal-600');
 
 export const bigButton = cn(
   //
-  'BigButton',
+  'DialogButton',
   ...base
 );
 
