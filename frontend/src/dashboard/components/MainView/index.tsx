@@ -13,7 +13,12 @@ import {
 import { isLoading } from 'src/resourceStates';
 import { cn } from 'src/utils/classnames';
 import { VideoPlayerPanel } from 'src/videos/components';
-import './MainView.scss';
+
+// Import styles
+import './FormField.scss';
+import './FormFieldLabel.scss';
+import './SaveButton.scss';
+import './index.scss';
 
 export type PropsT = {
   className?: any;
@@ -55,9 +60,7 @@ export const MainView = observer(
             <div className={cn('ml-6 mt-5')}>
               <ClipHeaderView className={cn('mb-5')} />
               {
-                //
                 // 🔳 Switch
-                //
               }
               {props.dashboardState.showPlaylistDescription &&
                 !props.playlistsEdit.isEditing && (
@@ -77,3 +80,7 @@ export const MainView = observer(
     );
   }, DefaultProps)
 );
+
+export const MainView_ = {
+  fieldStack: 'mb-6',
+};

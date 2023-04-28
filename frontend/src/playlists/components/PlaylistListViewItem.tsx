@@ -68,15 +68,8 @@ export const PlaylistListViewItem = observer(
         {
           // 🔳 Title 🔳
         }
-        <div
-          className={cn([
-            'PlaylistListViewItem__Title',
-            lvi.title,
-            'flex flex-row justify-between',
-          ])}
-        >
+        <div className={cn(['PlaylistListViewItem__Title', lvi.title])}>
           <div>{props.playlist.name}</div>
-          <div>{props.playlist.clipSet.length}</div>
         </div>
       </div>
     );

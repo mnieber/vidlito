@@ -10,9 +10,8 @@ export const ControlledCheckbox = (props: PropsT) => {
   });
 
   return (
-    <input
-      className={cn('ControlledCheckbox', 'text-primary')}
-      {...fieldProps}
-    />
+    <div className={cn('ControlledCheckbox', 'text-primary')}>
+      <input {...fieldProps} />
+    </div>
   );
 };

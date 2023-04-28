@@ -41,18 +41,24 @@ export function SignInForm(props: PropsT) {
         {
           // 🔳 EmailField 🔳
         }
-        <Field fieldName={formFields.email} tabOnEnter={true} autoFocus={true}>
-          <EmailField placeholder="Email" className={cn(AuthCard_.formField)} />
+        <Field
+          fieldName={formFields.email}
+          tabOnEnter={true}
+          autoFocus={true}
+          className={AuthCard_.fieldStack}
+        >
+          <EmailField placeholder="Email" />
         </Field>
 
         {
           // 🔳 PasswordField 🔳
         }
-        <Field fieldName="password" submitOnEnter={true}>
-          <PasswordField
-            placeholder="Password"
-            className={cn(AuthCard_.formField)}
-          />
+        <Field
+          fieldName="password"
+          submitOnEnter={true}
+          className={AuthCard_.fieldStack}
+        >
+          <PasswordField placeholder="Password" />
         </Field>
 
         {

@@ -1,5 +1,3 @@
-import { isEmpty, isNil } from 'ramda';
-import React from 'react';
 import { useFormFieldContext } from 'src/forms/components';
 import { rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
@@ -13,15 +11,8 @@ type PropsT = {
 export const FormFieldLabel = (props: PropsT) => {
   const fieldContext = useFormFieldContext();
 
-  const RowWrapper =
-    isNil(props.buttons) || isEmpty(props.buttons)
-      ? ({ children }: any) => <React.Fragment>{children}</React.Fragment>
-      : ({ children }: any) => (
-          <div className={cn('FormFieldLabel', rowSkewer)}>{children}</div>
-        );
-
   return (
-    <RowWrapper>
+    <div className={cn('FormFieldLabel', rowSkewer)}>
       {props.label && (
         <label
           className={cn('FormFieldLabel', props.className)}
@@ -36,6 +27,6 @@ export const FormFieldLabel = (props: PropsT) => {
           {props.buttons}
         </div>
       )}
-    </RowWrapper>
+    </div>
   );
 };

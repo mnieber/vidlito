@@ -1,8 +1,5 @@
 .AuthPage {
-    .TextField:focus-within,
-    .EmailField:focus-within,
-    .PasswordField:focus-within,
-    .MarkdownField:focus-within
+    .FormField:focus-within,
     {
         @apply border border-blue-700;
     }

@@ -47,10 +47,12 @@ export const ValuePickerField = observer(<ValueT,>(props: PropsT<ValueT>) => {
   return (
     // @ts-ignore
     <ValuePicker
-      {...valuePickerProps}
-      className={cn('ValuePickerField', props.className)}
+      {...{
+        ...valuePickerProps,
+        className: cn('ValuePickerField', props.className),
+      }}
       name={fieldContext.fieldName}
-      placeholder={props.placeholder}
+      placeholder={props.placeholder ?? ''}
       onChange={saveChanges}
       onKeyDown={(e: any) => {
         if (props.tabOnEnter ?? true) {
@@ -66,7 +68,6 @@ export const ValuePickerField = observer(<ValueT,>(props: PropsT<ValueT>) => {
 });
 
 const gray = 'hsl(209, 18%, 30%)';
-const green = '#94ba93';
 const whitish = 'hsl(214, 15%, 91%)';
 
 export function controlRemoveBorder(state: ObjT) {
@@ -85,7 +86,7 @@ const customStyles = {
     ...provided,
     ...controlRemoveBorder(state),
     borderRadius: '8px',
-    borderColor: state.isFocused ? green : gray,
+    borderColor: state.isFocused ? whitish : gray,
     borderWidth: '1px',
     border: true,
     backgroundColor: gray,

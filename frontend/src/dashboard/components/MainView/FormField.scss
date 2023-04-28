@@ -1,0 +1,27 @@
+@import "src/forms/components/FormField";
+
+.MainView {
+    .FormField {
+        @include form-field;
+
+        @apply text-gray-700 text-base;
+        @apply bg-gray-200;
+        @apply border;
+        border-color: transparent;
+    }
+
+    .FormField__Input {
+        @apply py-2 px-3;
+    }
+
+    .FormField:focus-within,
+    {
+        @apply border border-gray-700;
+    }
+
+    input:focus, textarea:focus {
+        @apply outline-0;
+        @apply border;
+        border-color: transparent;
+    }
+}

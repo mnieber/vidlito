@@ -48,6 +48,6 @@ export const AuthCard = observer(
 
 export const AuthCard_ = {
   form: { stackOnMessage: 'mb-2' },
-  formField: ['mb-2'],
+  fieldStack: 'mb-2',
   gapToSecundaryMsg: 'mb-8',
 };

@@ -23,10 +23,7 @@ export const TextField = (props: PropsT) => {
         props.className
       )}
     >
-      <input
-        {...{ ...fieldProps, className: undefined }}
-        className={FormField_.input}
-      />
+      <input {...fieldProps} className={FormField_.input} />
     </div>
   );
 };

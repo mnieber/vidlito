@@ -1,0 +1,9 @@
+@import "src/frames/components/DialogButton";
+@import "src/frames/components/Colors";
+
+.MainView {
+    .SaveButton {
+        @include dialog-button;
+        @include white-on-blue;
+    }
+}

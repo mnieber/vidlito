@@ -42,12 +42,8 @@ export function ActivateAccountForm(props: PropsT) {
           {messages.divToProceedPleaseChooseANewPassword}
         </div>
 
-        <Field
-          fieldName={formFields.password}
-          submitOnEnter={true}
-          className="my-4"
-        >
-          <PasswordField placeholder="Password" />
+        <Field fieldName={formFields.password} submitOnEnter={true}>
+          <PasswordField placeholder="Password" className="my-4" />
         </Field>
 
         <SaveButton

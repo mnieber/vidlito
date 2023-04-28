@@ -1,14 +1,1 @@
-.ClipFormView {
-    .TextField:focus-within,
-    .TimeField:focus-within,
-    .MarkdownField:focus-within
-    {
-        @apply border border-gray-700;
-    }
-
-    input:focus, textarea:focus {
-        @apply outline-0;
-        @apply border;
-        border-color: transparent;
-    }
-}
+.ClipFormView {}

@@ -51,14 +51,21 @@ export function SignUpForm(props: PropsT) {
         {
           // 🔳 EmailField 🔳
         }
-        <Field fieldName={formFields.email} autoFocus={true}>
-          <EmailField placeholder="Email" className={cn(AuthCard_.formField)} />
+        <Field
+          fieldName={formFields.email}
+          autoFocus={true}
+          className={AuthCard_.fieldStack}
+        >
+          <EmailField placeholder="Email" />
         </Field>
 
         {
           // 🔳 TermsField 🔳
         }
-        <Field fieldName={formFields.acceptsTerms}>
+        <Field
+          fieldName={formFields.acceptsTerms}
+          className={AuthCard_.fieldStack}
+        >
           <div className={cn('SignUpForm__Terms__', rowBanner)}>
             <ControlledCheckbox />
             <div className={cn('ml-2')}>{messages.divIAgreeToTheTerms}</div>

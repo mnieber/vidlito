@@ -36,8 +36,12 @@ export function RequestPasswordResetForm(props: PropsT) {
           {messages.divEnterYourEmailToResetYourPassword}
         </div>
 
-        <Field fieldName={formFields.email} submitOnEnter={true}>
-          <EmailField placeholder="Email" className={cn(AuthCard_.formField)} />
+        <Field
+          fieldName={formFields.email}
+          submitOnEnter={true}
+          className={AuthCard_.fieldStack}
+        >
+          <EmailField placeholder="Email" />
         </Field>
 
         <SaveButton dataCy="passwordResetBtn" label="Request password reset" />

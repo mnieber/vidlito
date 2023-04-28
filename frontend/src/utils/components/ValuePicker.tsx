@@ -73,6 +73,7 @@ export const ValuePicker = observer(
         }
       },
       ...others,
+      className: undefined,
     };
 
     const picker = isCreatable ? (

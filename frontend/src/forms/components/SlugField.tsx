@@ -1,4 +1,5 @@
 import { UpdateSlugButton } from 'src/forms/components';
+import { FormField_ } from 'src/forms/components/FormField';
 import { FieldPropsT, useFieldProps } from 'src/forms/hooks';
 import { rowBanner } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
@@ -17,17 +18,19 @@ export const SlugField = (props: PropsT) => {
   });
 
   return (
-    <div className={cn('SlugField', rowBanner, props.className)}>
-      <input {...{ ...fieldProps, className: cn('py-2 px-3 grow') }} />
-      <UpdateSlugButton
-        className={cn(
-          'px-2',
-          'bg-gray-100 text-primaryTeal font-bold m-0.5 rounded-lg'
-        )}
-        tabIndex={props.tabIndex}
-        key="1"
-        relatedFieldName={props.relatedFieldName}
-      />
+    <div className={cn('SlugField', FormField_.root, props.className)}>
+      <div className={cn(rowBanner)}>
+        <input {...fieldProps} className={FormField_.input} />
+        <UpdateSlugButton
+          className={cn(
+            'px-2',
+            'bg-gray-100 text-primaryTeal font-bold m-0.5 rounded-lg'
+          )}
+          tabIndex={props.tabIndex}
+          key="1"
+          relatedFieldName={props.relatedFieldName}
+        />
+      </div>
     </div>
   );
 };

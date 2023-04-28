@@ -22,7 +22,7 @@ export const EmailField = (props: PropsT) => {
     >
       <input
         placeholder={props.placeholder}
-        {...{ ...fieldProps, className: undefined }}
+        {...fieldProps}
         className={FormField_.input}
       />
     </div>
