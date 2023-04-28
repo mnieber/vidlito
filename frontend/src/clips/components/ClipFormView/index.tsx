@@ -17,6 +17,7 @@ import {
 } from 'src/forms/components';
 import { TimeField } from 'src/forms/components/TimeField';
 import { rowSkewer } from 'src/frames/components';
+import { primaryButton } from 'src/frames/components/Button';
 import { card } from 'src/frames/components/Card';
 import { form as formStyle } from 'src/frames/components/Form';
 import {
@@ -82,10 +83,9 @@ export const ClipFormView = observer(
           <Field
             className={cn(formStyle.field)}
             fieldName="clipForm.url"
-            label="URL"
             autoFocus={true}
           >
-            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
+            <FormFieldLabel className={cn(formStyle.fieldLabel)} label="URL" />
             <TextField
               className={cn(formStyle.input)}
               tabIndex={1}
@@ -105,9 +105,11 @@ export const ClipFormView = observer(
             <Field
               className={cn(formStyle.field, 'mr-2')}
               fieldName="clipForm.startTimeS"
-              label="START TIME"
             >
-              <FormFieldLabel className={cn(formStyle.fieldLabel)} />
+              <FormFieldLabel
+                className={cn(formStyle.fieldLabel)}
+                label="START TIME"
+              />
               <TimeField
                 className={cn(formStyle.input, 'p-0')}
                 videoPlayerState={props.videoPlayerState}
@@ -121,9 +123,11 @@ export const ClipFormView = observer(
             <Field
               className={cn(formStyle.field)}
               fieldName="clipForm.endTimeS"
-              label="END TIME"
             >
-              <FormFieldLabel className={cn(formStyle.fieldLabel)} />
+              <FormFieldLabel
+                className={cn(formStyle.fieldLabel)}
+                label="END TIME"
+              />
               <TimeField
                 className={cn(formStyle.input, 'p-0')}
                 videoPlayerState={props.videoPlayerState}
@@ -135,12 +139,8 @@ export const ClipFormView = observer(
           {
             // 🔳 NameField 🔳
           }
-          <Field
-            className={cn(formStyle.field)}
-            fieldName="clipForm.name"
-            label="NAME"
-          >
-            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
+          <Field className={cn(formStyle.field)} fieldName="clipForm.name">
+            <FormFieldLabel className={cn(formStyle.fieldLabel)} label="NAME" />
             <NameField
               className={cn(formStyle.input)}
               tabIndex={6}
@@ -156,12 +156,8 @@ export const ClipFormView = observer(
           {
             // 🔳 SlugField 🔳
           }
-          <Field
-            className={cn(formStyle.field)}
-            fieldName="clipForm.slug"
-            label="SLUG"
-          >
-            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
+          <Field className={cn(formStyle.field)} fieldName="clipForm.slug">
+            <FormFieldLabel className={cn(formStyle.fieldLabel)} label="SLUG" />
             <SlugField
               className={cn(formStyle.input, 'p-0')}
               relatedFieldName="clipForm.name"
@@ -170,12 +166,8 @@ export const ClipFormView = observer(
           {
             // 🔳 TagsField 🔳
           }
-          <Field
-            className={cn(formStyle.field)}
-            fieldName="clipForm.tags"
-            label="TAGS"
-          >
-            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
+          <Field className={cn(formStyle.field)} fieldName="clipForm.tags">
+            <FormFieldLabel className={cn(formStyle.fieldLabel)} label="TAGS" />
             <ValuePickerField
               className={cn()}
               tabIndex={9}
@@ -203,10 +195,10 @@ export const ClipFormView = observer(
           <Field
             className={cn(formStyle.field)}
             fieldName="clipForm.description"
-            label="DESCRIPTION"
             tabOnEnter={false}
           >
             <FormFieldLabel
+              label="DESCRIPTION"
               className={cn(formStyle.fieldLabel)}
               buttons={[showPreviewButton]}
             />
@@ -219,7 +211,11 @@ export const ClipFormView = observer(
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>
             <CancelButton className="mr-2" tabIndex={10} label="CANCEL" />
-            <SaveButton tabIndex={10} label="SAVE" />
+            <SaveButton
+              tabIndex={10}
+              label="SAVE"
+              className={cn(primaryButton)}
+            />
           </div>
         </FormStateProvider>
       </div>

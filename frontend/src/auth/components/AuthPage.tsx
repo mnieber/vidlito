@@ -1,14 +1,15 @@
 import React from 'react';
 import { cn } from 'src/utils/classnames';
+import './AuthPage.scss';
 
 type PropsT = React.PropsWithChildren<{}>;
 
 export const AuthPage = (props: PropsT) => {
   return (
-    <div className={cn('flex flex-row justify-center', 'my-auto')}>
+    <div className={cn('AuthPage', 'flex flex-row justify-center', 'my-auto')}>
       {props.children}
     </div>
   );
 };
 
-export const authPage = { gap: 'w-[300px]' };
+export const AuthPage_ = { gap: 'w-[300px]' };

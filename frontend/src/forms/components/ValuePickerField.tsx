@@ -50,7 +50,7 @@ export const ValuePickerField = observer(<ValueT,>(props: PropsT<ValueT>) => {
       {...valuePickerProps}
       className={cn('ValuePickerField', props.className)}
       name={fieldContext.fieldName}
-      placeholder={props.placeholder ?? fieldContext.label}
+      placeholder={props.placeholder}
       onChange={saveChanges}
       onKeyDown={(e: any) => {
         if (props.tabOnEnter ?? true) {

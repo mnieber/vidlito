@@ -1,8 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
-import { authCard } from 'src/auth/components/AuthCard';
-import { EmailField } from 'src/auth/components/formFields/EmailField';
-import { SubmitButton } from 'src/auth/components/formFields/SubmitButton';
-import { Field, GlobalError } from 'src/forms/components';
+import { AuthCard_ } from 'src/auth/components/AuthCard';
+import { Field, GlobalError, SaveButton } from 'src/forms/components';
+import { EmailField } from 'src/forms/components/FormField';
 import { colBanner } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -31,19 +30,15 @@ export function RequestMagicLinkForm(props: PropsT) {
       <div className={cn('RequestMagicLinkForm', colBanner, props.className)}>
         <GlobalError />
 
-        <div className={cn(authCard.form.stackOnMessage)}>
+        <div className={cn(AuthCard_.form.stackOnMessage)}>
           {messages.divEnterYourEmailToResetYourPassword}
         </div>
 
         <Field fieldName={formFields.email} submitOnEnter={true}>
-          <EmailField />
+          <EmailField placeholder="Email" className={cn(AuthCard_.formField)} />
         </Field>
 
-        <SubmitButton
-          dataCy="magicLinkBtn"
-          label="Request Magic Link"
-          className={cn(authCard.submitButton.container)}
-        />
+        <SaveButton dataCy="magicLinkBtn" label="Request Magic Link" />
       </div>
     </FormStateProvider>
   );

@@ -2,8 +2,13 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { colBanner } from 'src/frames/components/Banner';
-import { button } from 'src/frames/components/Button';
-import { cn, d } from 'src/utils/classnames';
+import { cln } from 'src/utils/classnames';
+
+// Import styles
+import './CreateAccountButton.scss';
+import './FormField.scss';
+import './SaveButton.scss';
+import './index.scss';
 
 type PropsT = React.PropsWithChildren<{
   id: string;
@@ -17,19 +22,21 @@ export const AuthCard = observer(
       //
       // 🔳 AuthCard 🔳
       //
-      <div className={cn(d('AuthCard'), authCard.container.dimensions)}>
+      <div
+        className={cln('AuthCard')(
+          //
+          'w-[396px] h-[332px]'
+        )}
+      >
         {
           // 🔳 AuthCard__Inner 🔳
         }
         <div
           id={props.id}
-          className={cn(
-            d('AuthCard__Inner'),
+          className={cln('AuthCard__Inner')(
+            //
             colBanner,
-            'px-8 py-6',
-            '',
-            'rounded-lg',
-            'bg-blue-950'
+            'px-8 py-6'
           )}
         >
           {props.children}
@@ -39,9 +46,8 @@ export const AuthCard = observer(
   }, DefaultProps)
 );
 
-export const authCard = {
-  submitButton: { container: [button, 'bg-blue-400', 'text-white'] },
+export const AuthCard_ = {
   form: { stackOnMessage: 'mb-2' },
-  gapToSplitBody: 'mb-8',
-  container: { dimensions: 'w-[396px] h-[332px]' },
+  formField: ['mb-2'],
+  gapToSecundaryMsg: 'mb-8',
 };

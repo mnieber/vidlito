@@ -1,0 +1,12 @@
+.PlaylistFormView {
+    .TextField:focus-within,
+    .TimeField:focus-within,
+    .MarkdownField:focus-within
+    {
+        @apply outline outline-1 outline-gray-700;
+    }
+
+    input:focus, textarea:focus {
+        @apply outline-0;
+    }
+}

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { AuthCard, authCard } from 'src/auth/components/AuthCard';
+import { AuthCard, AuthCard_ } from 'src/auth/components/AuthCard';
 import { RequestMagicLinkForm } from 'src/auth/components/RequestMagicLinkForm';
 import { useRequestMagicLink } from 'src/auth/endpoints';
 import { States } from 'src/auth/endpoints/states';
@@ -23,9 +23,9 @@ export const RequestMagicLinkCard = observer(() => {
             return requestMagicLink({ userId: email });
           }}
           errors={authState.errors}
-          className={cn(authCard.gapToSplitBody)}
         />
       )}
+      <div className={cn(AuthCard_.gapToSecundaryMsg)} />
       <div>{messages.haveYouFoundYourPassword}</div>
     </AuthCard>
   );

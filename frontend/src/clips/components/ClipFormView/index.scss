@@ -3,10 +3,12 @@
     .TimeField:focus-within,
     .MarkdownField:focus-within
     {
-        @apply outline outline-1 outline-gray-700;
+        @apply border border-gray-700;
     }
 
     input:focus, textarea:focus {
         @apply outline-0;
+        @apply border;
+        border-color: transparent;
     }
 }

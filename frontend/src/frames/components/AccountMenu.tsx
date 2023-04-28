@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { SignInLi } from 'src/auth/components/SignInLi';
 import { SignOutLi } from 'src/auth/components/SignOutLi';
-import { button } from 'src/frames/components/Button';
+import { secundaryButton } from 'src/frames/components/Button';
 import { useMenuHandler } from 'src/frames/hooks/useMenuHandler';
 import { cn, d } from 'src/utils/classnames';
 import './AccountMenu.scss';
@@ -25,7 +25,7 @@ export const AccountMenu = observer(
       >
         <button
           data-cy="accountMenu"
-          className={cn(button, '', 'bg-teal-400 !text-blue-50')}
+          className={cn(secundaryButton, '')}
           type="button"
         >
           <div className={cn('mb-0.5')}>Account</div>

@@ -1,7 +1,6 @@
 import { FormStateProvider } from 'react-form-state-context';
-import { PasswordField } from 'src/auth/components/formFields/PasswordField';
-import { SubmitButton } from 'src/auth/components/formFields/SubmitButton';
-import { Field, GlobalError } from 'src/forms/components';
+import { Field, GlobalError, SaveButton } from 'src/forms/components';
+import { PasswordField } from 'src/forms/components/FormField';
 import { colSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -36,15 +35,11 @@ export function ResetPasswordForm(props: PropsT) {
         )}
       >
         <GlobalError className="mb-4" />
-        <Field
-          fieldName={formFields.password}
-          label="Password"
-          submitOnEnter={true}
-        >
-          <PasswordField />
+        <Field fieldName={formFields.password} submitOnEnter={true}>
+          <PasswordField placeholder="Password" />
         </Field>
         <div className="my-4">{}</div>{' '}
-        <SubmitButton dataCy="passwordChangeBtn" label="Change password" />
+        <SaveButton dataCy="passwordChangeBtn" label="Change password" />
       </div>
     </FormStateProvider>
   );

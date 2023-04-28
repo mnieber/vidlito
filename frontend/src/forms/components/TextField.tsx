@@ -1,5 +1,6 @@
+import { FormField_ } from 'src/forms/components/FormField';
 import { FieldPropsT, useFieldProps } from 'src/forms/hooks';
-import { cn } from 'src/utils/classnames';
+import { cln } from 'src/utils/classnames';
 import './TextField.scss';
 
 type PropsT = Partial<FieldPropsT> & {
@@ -13,8 +14,19 @@ export const TextField = (props: PropsT) => {
   });
 
   return (
-    <div className={cn('TextField', 'flex flex-col', props.className)}>
-      <input {...{ ...fieldProps, className: cn('py-2 px-3 grow') }} />
+    <div
+      className={cln(
+        'TextField',
+        FormField_.root
+      )(
+        //
+        props.className
+      )}
+    >
+      <input
+        {...{ ...fieldProps, className: undefined }}
+        className={FormField_.input}
+      />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { AuthPage, authPage } from 'src/auth/components/AuthPage';
+import { AuthPage, AuthPage_ } from 'src/auth/components/AuthPage';
 import { RequestMagicLinkCard } from 'src/auth/components/RequestMagicLinkCard';
 import { FramesUrlEventsT } from 'src/frames/FramesUrlEvents';
 import { SignInLogo } from 'src/frames/components/SignInLogo';
@@ -11,7 +11,7 @@ export const RequestMagicLinkPage = observer(() => {
   return (
     <AuthPage>
       <SignInLogo />
-      <div className={cn(authPage.gap)} />
+      <div className={cn(AuthPage_.gap)} />
       <RequestMagicLinkCard />
     </AuthPage>
   );

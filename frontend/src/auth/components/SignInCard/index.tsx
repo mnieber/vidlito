@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react-lite';
-import { AuthCard, authCard } from 'src/auth/components/AuthCard';
+import { AuthCard, AuthCard_ } from 'src/auth/components/AuthCard';
 import { SignInForm } from 'src/auth/components/SignInForm';
 import { useSignIn } from 'src/auth/endpoints';
 import { useAuthStateContext } from 'src/auth/hooks';
 import { FramesUrlEventsT } from 'src/frames/FramesUrlEvents';
-import { bigButton, colBanner } from 'src/frames/components';
+import { colBanner } from 'src/frames/components';
 import { useUrlEventHandler } from 'src/frames/pages';
-import { cn, d } from 'src/utils/classnames';
+import { cln, cn } from 'src/utils/classnames';
 import { ObjT } from 'src/utils/types';
 import { useMessages } from './useMessages';
 
@@ -29,7 +29,7 @@ export const SignInCard = observer(() => {
         // 🔳 SignInForm 🔳
       }
       <SignInForm
-        className={cn(authCard.form.stackOnMessage)}
+        className={cn(AuthCard_.form.stackOnMessage)}
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
             urlEvents.userSignedIn();
@@ -40,24 +40,16 @@ export const SignInCard = observer(() => {
       {
         // 🔳 ForgotPassword 🔳
       }
-      <div
-        className={cn(
-          'SignInCard__ForgotPassword',
-          colBanner,
-          authCard.gapToSplitBody
-        )}
-      >
+      <div className={cln('SignInCard__ForgotPassword__')(colBanner)}>
         {messages.divForgotYourPassword}
       </div>
+      <div className={cn(AuthCard_.gapToSecundaryMsg)} />
       {
         // 🔳 CreateAccountButton 🔳
       }
       <button
-        className={cn(
-          d('SignInCard__CreateAccountButton'),
-          bigButton,
-          `bg-primaryTeal !text-white`
-        )}
+        className={cln('CreateAccountButton')()}
+        onClick={() => urlEvents.goToSignUp()}
       >
         {messages.createAccount}
       </button>

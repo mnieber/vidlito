@@ -1,0 +1,9 @@
+@import "src/frames/components/BigButton";
+@import "src/frames/components/Colors";
+
+.AuthCard {
+    .CreateAccountButton {
+        @include BigButton;
+        @include white-on-teal;
+    }
+}

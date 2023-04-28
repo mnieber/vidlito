@@ -2,7 +2,6 @@ import React from 'react';
 
 export type FormFieldContextPropsT = React.PropsWithChildren<{
   fieldName: string;
-  label?: string;
   submitOnEnter?: boolean;
   tabOnEnter?: boolean;
   autoFocus?: boolean;
@@ -11,7 +10,6 @@ export type FormFieldContextPropsT = React.PropsWithChildren<{
 const getNullFormFieldContext = (): FormFieldContextPropsT => {
   return {
     fieldName: '',
-    label: undefined,
     submitOnEnter: false,
     tabOnEnter: false,
     autoFocus: false,

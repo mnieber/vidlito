@@ -19,7 +19,6 @@ export type FieldPropsT = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-  placeholder?: string;
   autoSelect?: boolean;
   tabIndex?: number;
 };
@@ -50,7 +49,6 @@ export const useFieldProps = (props: FieldPropsT) => {
     },
     onBlur: props.onBlur,
     onKeyDown: handleKeyDown(fieldContext, formState),
-    placeholder: props.placeholder,
     autoFocus: fieldContext.autoFocus,
     disabled: props.disabled,
     tabIndex: props.tabIndex,

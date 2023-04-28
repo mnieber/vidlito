@@ -1,0 +1,7 @@
+@mixin white-on-teal {
+    @apply bg-teal-400 text-white hover:bg-teal-300;
+}
+
+@mixin white-on-blue {
+    @apply bg-blue-400 text-white hover:bg-blue-300;
+}

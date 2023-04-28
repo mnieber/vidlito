@@ -1,9 +1,14 @@
 import { FormStateProvider } from 'react-form-state-context';
-import { EmailField } from 'src/auth/components/formFields/EmailField';
-import { SubmitButton } from 'src/auth/components/formFields/SubmitButton';
-import { ControlledCheckbox, Field, GlobalError } from 'src/forms/components';
-import { colSkewer } from 'src/frames/components';
-import { cn } from 'src/utils/classnames';
+import { AuthCard_ } from 'src/auth/components/AuthCard';
+import {
+  ControlledCheckbox,
+  Field,
+  GlobalError,
+  SaveButton,
+} from 'src/forms/components';
+import { EmailField } from 'src/forms/components/FormField';
+import { colBanner, rowBanner } from 'src/frames/components';
+import { cln, cn } from 'src/utils/classnames';
 import './SignUpForm.scss';
 import { form } from './form';
 import { useMessages } from './useMessages';
@@ -30,14 +35,15 @@ export function SignUpForm(props: PropsT) {
       handleSubmit={form.getHandleSubmit(props)}
     >
       {
-        // 🔳 SignInForm 🔳
+        // 🔳 SignUpForm 🔳
       }
       <div
-        className={cn(
+        className={cln(
           'SignInForm',
-          colSkewer,
-          'items-stretch',
           props.className
+        )(
+          //
+          colBanner
         )}
       >
         <GlobalError />
@@ -45,39 +51,24 @@ export function SignUpForm(props: PropsT) {
         {
           // 🔳 EmailField 🔳
         }
-        <Field
-          fieldName={formFields.email}
-          label="Email"
-          autoFocus={true}
-          className="my-4"
-        >
-          <EmailField />
+        <Field fieldName={formFields.email} autoFocus={true}>
+          <EmailField placeholder="Email" className={cn(AuthCard_.formField)} />
         </Field>
 
         {
           // 🔳 TermsField 🔳
         }
-        <Field
-          fieldName={formFields.acceptsTerms}
-          label=""
-          className={cn('my-4')}
-        >
-          <div className={cn('flex flex-row items-center')}>
+        <Field fieldName={formFields.acceptsTerms}>
+          <div className={cn('SignUpForm__Terms__', rowBanner)}>
             <ControlledCheckbox />
-            <p className={cn('SignUpForm__TermsLabel', 'ml-4')}>
-              {messages.divIAgreeToTheTerms}
-            </p>
+            <div className={cn('ml-2')}>{messages.divIAgreeToTheTerms}</div>
           </div>
         </Field>
 
         {
-          // 🔳 SubmitButton 🔳
+          // 🔳 SaveButton 🔳
         }
-        <SubmitButton
-          dataCy="signUpBtn"
-          label="Sign Up"
-          className={cn('place-self-center', 'my-4')}
-        />
+        <SaveButton dataCy="signUpBtn" label="Sign Up" className={cn('my-4')} />
       </div>
     </FormStateProvider>
   );

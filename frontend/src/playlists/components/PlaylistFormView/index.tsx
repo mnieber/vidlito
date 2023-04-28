@@ -14,6 +14,7 @@ import {
 } from 'src/forms/components';
 import { NameField } from 'src/forms/components/NameField';
 import { rowSkewer } from 'src/frames/components';
+import { primaryButton } from 'src/frames/components/Button';
 import { card } from 'src/frames/components/Card';
 import { form as formStyle } from 'src/frames/components/Form';
 import {
@@ -76,11 +77,10 @@ export const PlaylistFormView = observer(
           }
           <Field
             fieldName="playlistForm.name"
-            label="Name"
             autoFocus={true}
             className={cn(formStyle.field)}
           >
-            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
+            <FormFieldLabel className={cn(formStyle.fieldLabel)} label="Name" />
             <NameField
               className={cn(formStyle.input)}
               tabIndex={1}
@@ -96,12 +96,8 @@ export const PlaylistFormView = observer(
           {
             // 🔳 SlugField 🔳
           }
-          <Field
-            fieldName="playlistForm.slug"
-            label="Slug"
-            className={cn(formStyle.field)}
-          >
-            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
+          <Field fieldName="playlistForm.slug" className={cn(formStyle.field)}>
+            <FormFieldLabel className={cn(formStyle.fieldLabel)} label="Slug" />
             <SlugField
               className={cn(formStyle.input)}
               relatedFieldName="playlistForm.name"
@@ -110,12 +106,8 @@ export const PlaylistFormView = observer(
           {
             // 🔳 TagsField 🔳
           }
-          <Field
-            fieldName="playlistForm.tags"
-            label="Tags"
-            className={cn(formStyle.field)}
-          >
-            <FormFieldLabel className={cn(formStyle.fieldLabel)} />
+          <Field fieldName="playlistForm.tags" className={cn(formStyle.field)}>
+            <FormFieldLabel className={cn(formStyle.fieldLabel)} label="Tags" />
             <ValuePickerField
               className={cn(formStyle.input)}
               tabIndex={5}
@@ -130,11 +122,11 @@ export const PlaylistFormView = observer(
           }
           <Field
             fieldName="playlistForm.description"
-            label="Description"
             tabOnEnter={false}
             className={cn(formStyle.field)}
           >
             <FormFieldLabel
+              label="Description"
               className={cn(formStyle.fieldLabel)}
               buttons={[showPreviewButton]}
             />
@@ -147,7 +139,11 @@ export const PlaylistFormView = observer(
           </Field>
           <div className={cn(rowSkewer, 'self-end')}>
             <CancelButton label="Cancel" tabIndex={6} />
-            <SaveButton label="Save" tabIndex={6} />
+            <SaveButton
+              label="Save"
+              tabIndex={6}
+              className={cn(primaryButton)}
+            />
           </div>
         </FormStateProvider>
       </div>

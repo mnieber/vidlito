@@ -1,21 +1,21 @@
 import { cn } from 'src/utils/classnames';
 import './Button.scss';
 
-const base = ['px-4 py-2 font-bold rounded-xl min-w-[max-content]'];
+// Default button styles
+const padding = 'px-4 py-2';
+const rounded = 'rounded-xl';
+const bold = 'font-bold';
+const autoScale = 'min-w-[max-content]';
 
-export const button = cn(
-  //
-  'Button',
-  ...base
-);
+const base = [padding, rounded, bold, autoScale];
 
-export const smallButton = cn(
-  //
-  'SmallButton',
-  ...base,
-  'uk-button-default',
-  'uk-button-small'
-);
+// Button variant styles
+
+const darkBlueOnSkyBlue = cn('bg-blue-400 text-blue-50 hover:bg-blue-600');
+const skyBlueText = 'text-blue-400 hover:text-blue-600';
+const darkBlueOnTeal = cn('bg-teal-400 text-blue-50 hover:bg-teal-600');
+
+// Button variants
 
 export const bigButton = cn(
   //
@@ -26,5 +26,20 @@ export const bigButton = cn(
 export const primaryButton = cn(
   //
   'PrimaryButton',
+  darkBlueOnSkyBlue,
+  ...base
+);
+
+export const primaryGhostButton = cn(
+  //
+  'PrimaryGhostButton',
+  skyBlueText,
+  ...base
+);
+
+export const secundaryButton = cn(
+  //
+  'SecundaryButton',
+  darkBlueOnTeal,
   ...base
 );

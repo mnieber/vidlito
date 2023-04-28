@@ -1,0 +1,13 @@
+.AuthPage {
+    .TextField:focus-within,
+    .EmailField:focus-within,
+    .PasswordField:focus-within,
+    .MarkdownField:focus-within
+    {
+        @apply border border-blue-700;
+    }
+
+    input:focus, textarea:focus {
+        @apply outline-0;
+    }
+}

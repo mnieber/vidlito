@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { AuthPage, AuthPage_ } from 'src/auth/components/AuthPage';
 import { ResetPasswordCard } from 'src/auth/components/ResetPasswordCard';
 import { FramesUrlEventsT } from 'src/frames/FramesUrlEvents';
 import { SignInLogo } from 'src/frames/components/SignInLogo';
@@ -8,9 +9,10 @@ export type UrlEventsT = FramesUrlEventsT;
 
 export const ResetPasswordPage = observer(() => {
   return (
-    <div className={cn('flex flex-row justify-around my-auto')}>
+    <AuthPage>
       <SignInLogo />
+      <div className={cn(AuthPage_.gap)} />
       <ResetPasswordCard />
-    </div>
+    </AuthPage>
   );
 });

@@ -5,7 +5,7 @@ import { ClipListView } from 'src/clips/components';
 import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
 import { Logo, colBanner, rowBanner } from 'src/frames/components';
 import { PlaylistListHeader, PlaylistListView } from 'src/playlists/components';
-import { cn, d } from 'src/utils/classnames';
+import { cln, cn, d } from 'src/utils/classnames';
 import './Dashboard.scss';
 
 export type PropsT = React.PropsWithChildren<{
@@ -60,12 +60,14 @@ export const Dashboard = observer(
           // 🔳 RightMain 🔳
         }
         <div
-          className={cn(
-            d('Dashboard__RightMain'),
-            'pb-6',
-            'grow',
+          className={cln(
+            'Dashboard__RightMain',
             'overflow-y-auto',
             'bg-gray-200'
+          )(
+            //
+            'pb-6',
+            'grow'
           )}
         >
           {props.children}

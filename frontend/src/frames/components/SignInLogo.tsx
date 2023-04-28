@@ -1,6 +1,6 @@
 import { colBanner, rowBanner } from 'src/frames/components';
 import { bigButton } from 'src/frames/components/Button';
-import { cn, d } from 'src/utils/classnames';
+import { cln, cn, d } from 'src/utils/classnames';
 
 import './SignInLogo.scss';
 
@@ -13,12 +13,12 @@ export const SignInLogo = (props: PropsT) => {
     //
     <div className={cn('SignInLogo', colBanner)}>
       <div
-        className={cn(
-          d('SignInLogo__TitlePrefix'),
-          rowBanner,
-          //
-          '',
+        className={cln(
+          'SignInLogo__TitlePrefix__',
           'text-6xl font-bold'
+        )(
+          //
+          rowBanner
         )}
       >
         <div className={cn(d('SignInLogo__TitlePrefix'), `text-primaryBlue`)}>

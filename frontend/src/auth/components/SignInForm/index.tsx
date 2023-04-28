@@ -1,12 +1,11 @@
 import { FormStateProvider } from 'react-form-state-context';
-import { authCard } from 'src/auth/components/AuthCard';
-import { EmailField } from 'src/auth/components/formFields/EmailField';
-import { PasswordField } from 'src/auth/components/formFields/PasswordField';
-import { SubmitButton } from 'src/auth/components/formFields/SubmitButton';
-import { Field, GlobalError } from 'src/forms/components';
-import { colSkewer } from 'src/frames/components';
+import { AuthCard_ } from 'src/auth/components/AuthCard';
+import { Field, GlobalError, SaveButton } from 'src/forms/components';
+import { EmailField, PasswordField } from 'src/forms/components/FormField';
+import { colBanner } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
+import './index.scss';
 import { useMessages } from './useMessages';
 
 export const formFields = {
@@ -36,43 +35,30 @@ export function SignInForm(props: PropsT) {
       {
         // 🔳 SignInForm 🔳
       }
-      <div
-        className={cn(
-          'SignInForm',
-          colSkewer,
-          'items-stretch',
-          props.className
-        )}
-      >
+      <div className={cn('SignInForm', colBanner, props.className)}>
         <GlobalError className="mb-2" />
 
         {
           // 🔳 EmailField 🔳
         }
-        <Field
-          fieldName={formFields.email}
-          tabOnEnter={true}
-          autoFocus={true}
-          className=""
-        >
-          <EmailField />
+        <Field fieldName={formFields.email} tabOnEnter={true} autoFocus={true}>
+          <EmailField placeholder="Email" className={cn(AuthCard_.formField)} />
         </Field>
 
         {
           // 🔳 PasswordField 🔳
         }
-        <Field fieldName="password" submitOnEnter={true} className="">
-          <PasswordField />
+        <Field fieldName="password" submitOnEnter={true}>
+          <PasswordField
+            placeholder="Password"
+            className={cn(AuthCard_.formField)}
+          />
         </Field>
 
         {
-          // 🔳 SubmitButton 🔳
+          // 🔳 SaveButton 🔳
         }
-        <SubmitButton
-          dataCy={'signInBtn'}
-          label={messages.labelSignIn}
-          className={cn(authCard.submitButton.container)}
-        />
+        <SaveButton dataCy={'signInBtn'} label={messages.labelSignIn} />
       </div>
     </FormStateProvider>
   );

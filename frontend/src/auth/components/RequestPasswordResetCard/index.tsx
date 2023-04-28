@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { AuthCard, authCard } from 'src/auth/components/AuthCard';
+import { AuthCard, AuthCard_ } from 'src/auth/components/AuthCard';
 import { RequestPasswordResetForm } from 'src/auth/components/RequestPasswordResetForm';
 import { useRequestPasswordReset } from 'src/auth/endpoints';
 import { States } from 'src/auth/endpoints/states';
@@ -23,9 +23,9 @@ export const RequestPasswordResetCard = observer(() => {
             return requestPasswordReset({ email });
           }}
           errors={authState.errors}
-          className={cn(authCard.gapToSplitBody)}
         />
       )}
+      <div className={cn(AuthCard_.gapToSecundaryMsg)} />
       <div>{messages.haveYouFoundYourPassword}</div>
     </AuthCard>
   );

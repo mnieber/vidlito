@@ -1,5 +1,5 @@
 import { useFormStateContext } from 'react-form-state-context';
-import { button } from 'src/frames/components/Button';
+import { primaryGhostButton } from 'src/frames/components/Button';
 import { cn } from 'src/utils/classnames';
 
 export type PropsT = {
@@ -15,7 +15,7 @@ export const CancelButton = (props: PropsT) => {
 
   return (
     <button
-      className={cn([button, 'text-blue-400'], props.className)}
+      className={cn(primaryGhostButton, props.className)}
       onClick={(e) => {
         e.preventDefault();
         formState.cancel();
