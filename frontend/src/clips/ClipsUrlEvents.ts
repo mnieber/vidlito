@@ -6,5 +6,3 @@ export const ClipsUrlEvents = {
   userHighlightsClip(this: UrlEventHandler, clipSlug: string) {},
   userSubmittedClipForm(this: UrlEventHandler, clipSlug: string) {},
 };
-
-export type ClipsUrlEventsT = typeof ClipsUrlEvents;

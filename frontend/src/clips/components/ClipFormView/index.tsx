@@ -21,7 +21,7 @@ import { primaryButton } from 'src/frames/components/Button';
 import { card } from 'src/frames/components/Card';
 import { form as formStyle } from 'src/frames/components/Form';
 import {
-  ClipsUrlEventsT,
+  ClipsUrlEvents,
   UrlEventHandler,
   useUrlEventHandler,
 } from 'src/frames/pages';
@@ -29,8 +29,10 @@ import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import './index.scss';
 
-export type UrlEventsT = ClipsUrlEventsT;
+export type UrlEventsT = typeof ClipsUrlEvents;
 export type UrlEventHandlerT = UrlEventHandler & UrlEventsT;
+
+const useUrlEvents = () => useUrlEventHandler<UrlEventsT>();
 
 export type PropsT = {
   className?: any;
@@ -45,7 +47,7 @@ export const DefaultProps = {
 
 export const ClipFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEventHandler<ClipsUrlEventsT>();
+    const urlEvents = useUrlEvents();
 
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,

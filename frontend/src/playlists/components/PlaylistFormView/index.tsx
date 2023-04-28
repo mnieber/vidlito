@@ -18,7 +18,7 @@ import { primaryButton } from 'src/frames/components/Button';
 import { card } from 'src/frames/components/Card';
 import { form as formStyle } from 'src/frames/components/Form';
 import {
-  PlaylistsUrlEventsT,
+  PlaylistsUrlEvents,
   UrlEventHandler,
   useUrlEventHandler,
 } from 'src/frames/pages';
@@ -26,8 +26,10 @@ import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import './index.scss';
 
-export type UrlEventsT = PlaylistsUrlEventsT;
+export type UrlEventsT = typeof PlaylistsUrlEvents;
 export type UrlEventHandlerT = UrlEventHandler & UrlEventsT;
+
+const useUrlEvents = () => useUrlEventHandler<UrlEventsT>();
 
 export type PropsT = {
   className?: any;
@@ -40,7 +42,7 @@ export const DefaultProps = {
 
 export const PlaylistFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEventHandler<UrlEventHandlerT>();
+    const urlEvents = useUrlEvents();
 
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 4,

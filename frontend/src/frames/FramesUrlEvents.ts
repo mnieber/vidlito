@@ -6,5 +6,3 @@ export const FramesUrlEvents = {
   userSignedIn(this: UrlEventHandler) {},
   userProfileLoaded(this: UrlEventHandler, username: string) {},
 };
-
-export type FramesUrlEventsT = typeof FramesUrlEvents;

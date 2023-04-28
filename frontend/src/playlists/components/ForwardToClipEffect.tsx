@@ -2,10 +2,10 @@ import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipsUrlEventsT, useUrlEventHandler } from 'src/frames/pages';
+import { ClipsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { useSearchAndUrlParams } from 'src/utils/hooks';
 
-export type UrlEventsT = ClipsUrlEventsT;
+const useUrlEvents = () => useUrlEventHandler<typeof ClipsUrlEvents>();
 
 type PropsT = {};
 
@@ -15,7 +15,7 @@ const DefaultProps = {
 
 export const ForwardToClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEventHandler<UrlEventsT>();
+    const urlEvents = useUrlEvents();
     const params = useSearchAndUrlParams();
 
     React.useEffect(() => {

@@ -3,11 +3,11 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { rowBanner } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
 import { lvi } from 'src/frames/components/Lvi';
-import { ActionsUrlEventsT, useUrlEventHandler } from 'src/frames/pages';
+import { ActionsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './ActionsBar.scss';
 
-export type UrlEventsT = ActionsUrlEventsT;
+const useUrlEvents = () => useUrlEventHandler<typeof ActionsUrlEvents>();
 
 export type PropsT = {
   className?: any;
@@ -19,7 +19,7 @@ const DefaultProps = {
 
 export const ActionsBar = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEventHandler<UrlEventsT>();
+    const urlEvents = useUrlEvents();
 
     return (
       <div className={cn('ActionsBar', rowBanner, props.className)}>

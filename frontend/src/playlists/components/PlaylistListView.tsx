@@ -7,16 +7,13 @@ import {
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Spinner } from 'src/frames/components';
-import {
-  PlaylistsUrlEventsT,
-  useUrlEventHandler,
-} from 'src/frames/pages/index';
+import { PlaylistsUrlEvents, useUrlEventHandler } from 'src/frames/pages/index';
 import { PlaylistListViewItem } from 'src/playlists/components/PlaylistListViewItem';
 import { isLoading } from 'src/resourceStates';
 import { cn } from 'src/utils/classnames';
 import './PlaylistListView.scss';
 
-export type UrlEventsT = PlaylistsUrlEventsT;
+const useUrlEvents = () => useUrlEventHandler<typeof PlaylistsUrlEvents>();
 
 export type PropsT = {
   isExpanded: boolean;
@@ -33,7 +30,7 @@ const DefaultProps = {
 
 export const PlaylistListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEventHandler<UrlEventsT>();
+    const urlEvents = useUrlEvents();
 
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.playlistsDragAndDrop

@@ -4,14 +4,14 @@ import { useRouteMatch } from 'react-router-dom';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
 import {
-  FramesUrlEventsT,
+  FramesUrlEvents,
   UrlEventHandler,
   useUrlEventHandler,
 } from 'src/frames/pages';
 import { useInstallEventLayer } from 'src/urlEvents';
 import { UrlEventLayer } from 'src/urlEvents/UrlEventHandler';
 
-export type FramesUrlEventLayerT = FramesUrlEventsT;
+export type FramesUrlEventLayerT = typeof FramesUrlEvents;
 
 export class FramesUrlEventLayer
   extends UrlEventLayer
@@ -31,6 +31,9 @@ export class FramesUrlEventLayer
   }
 }
 
+const useUrlEvents = () =>
+  useUrlEventHandler<UrlEventHandler & FramesUrlEventLayerT>();
+
 export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
@@ -40,9 +43,8 @@ const DefaultProps = {
 export const UseFramesPage = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const routeMatch = useRouteMatch();
-    const urlEventHandler = useUrlEventHandler<
-      UrlEventHandler & FramesUrlEventLayerT
-    >();
+    const urlEvents = useUrlEvents();
+
     useInstallEventLayer(
       'FramesUrlEventLayer',
       routeMatch.path,
@@ -52,13 +54,11 @@ export const UseFramesPage = observer(
     useUpdateStateReaction({
       getInputs: () => ({
         userProfile: props.userProfile,
-        framesUrlEventLayer: urlEventHandler.getEventLayer(
-          'FramesUrlEventLayer'
-        ),
+        framesUrlEventLayer: urlEvents.getEventLayer('FramesUrlEventLayer'),
       }),
       updateState: (inputs) => {
         if (inputs.framesUrlEventLayer) {
-          urlEventHandler.userProfileLoaded(inputs.userProfile?.username);
+          urlEvents.userProfileLoaded(inputs.userProfile?.username);
         }
       },
     });

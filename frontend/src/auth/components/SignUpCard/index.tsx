@@ -5,19 +5,12 @@ import { SignUpForm } from 'src/auth/components/SignUpForm';
 import { useSignUp } from 'src/auth/endpoints';
 import { States } from 'src/auth/endpoints/states';
 import { useAuthStateContext } from 'src/auth/hooks';
-import { FramesUrlEventsT } from 'src/frames/FramesUrlEvents';
-import { useUrlEventHandler } from 'src/frames/pages';
 import { useMessages } from './useMessages';
 
 export const termsVersion: string =
   process.env.REACT_APP_TERMS_VERSION ?? '1.0.0';
 
-export type UrlEventsT = FramesUrlEventsT;
-
 export const SignUpCard = observer(() => {
-  const urlEvents = useUrlEventHandler<UrlEventsT>();
-  console.log('SignUpCard todo, use url events', urlEvents);
-
   const { messages } = useMessages();
 
   const authState = useAuthStateContext(true);

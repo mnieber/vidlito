@@ -9,12 +9,12 @@ import { ClipT } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListViewItem } from 'src/clips/components/ClipListViewItem';
 import { Spinner } from 'src/frames/components';
-import { ClipsUrlEventsT, useUrlEventHandler } from 'src/frames/pages';
+import { ClipsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { createOnSelectItemHandler } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
 import './ClipListView.scss';
 
-export type UrlEventsT = ClipsUrlEventsT;
+const useUrlEvents = () => useUrlEventHandler<typeof ClipsUrlEvents>();
 
 export type PropsT = {
   className?: any;
@@ -30,7 +30,7 @@ const DefaultProps = {
 
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEventHandler<UrlEventsT>();
+    const urlEvents = useUrlEvents();
 
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.clipsDragAndDrop

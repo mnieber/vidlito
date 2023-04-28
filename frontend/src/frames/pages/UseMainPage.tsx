@@ -1,15 +1,15 @@
 import { useRouteMatch } from 'react-router-dom';
 import {
-  ActionsUrlEventsT,
-  ClipsUrlEventsT,
-  PlaylistsUrlEventsT,
+  ActionsUrlEvents,
+  ClipsUrlEvents,
+  PlaylistsUrlEvents,
 } from 'src/frames/pages';
 import { UrlEventHandler, useInstallEventLayer } from 'src/urlEvents';
 import { UrlEventLayer } from 'src/urlEvents/UrlEventHandler';
 
-export type MainUrlEventLayerT = ActionsUrlEventsT &
-  ClipsUrlEventsT &
-  PlaylistsUrlEventsT & {};
+export type MainUrlEventLayerT = typeof ActionsUrlEvents &
+  typeof ClipsUrlEvents &
+  typeof PlaylistsUrlEvents & {};
 
 export class MainUrlEventLayer
   extends UrlEventLayer
@@ -55,8 +55,6 @@ export class MainUrlEventLayer
   }
 
   userCancelledPlaylistForm(this: UrlEventHandler) {}
-
-  userCreatesNewPlaylist(this: UrlEventHandler) {}
 
   userHighlightsPlaylist(this: UrlEventHandler, playlistSlug: string) {
     this.hiddenParams.playlistSlug = playlistSlug;

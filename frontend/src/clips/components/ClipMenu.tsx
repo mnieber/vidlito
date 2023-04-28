@@ -10,11 +10,11 @@ import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon } from 'src/frames/components';
 import { lvi } from 'src/frames/components/Lvi';
-import { ClipsUrlEventsT, useUrlEventHandler } from 'src/frames/pages';
+import { ClipsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './ClipMenu.scss';
 
-export type UrlEventsT = ClipsUrlEventsT;
+const useUrlEvents = () => useUrlEventHandler<typeof ClipsUrlEvents>();
 
 export type PropsT = {
   className?: any;
@@ -33,7 +33,7 @@ const DefaultProps = {
 
 export const ClipMenu = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEventHandler<UrlEventsT>();
+    const urlEvents = useUrlEvents();
 
     const updateUrl = React.useMemo(
       () => () => {

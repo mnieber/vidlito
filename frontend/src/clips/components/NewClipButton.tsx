@@ -3,11 +3,11 @@ import { ClipT, createClip } from 'src/api/types/ClipT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon } from 'src/frames/components';
 import { modestButton } from 'src/frames/components/ModestButton';
-import { ClipsUrlEventsT, useUrlEventHandler } from 'src/frames/pages';
+import { ClipsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './NewClipButton.scss';
 
-export type UrlEventsT = ClipsUrlEventsT;
+const useUrlEvents = () => useUrlEventHandler<typeof ClipsUrlEvents>();
 
 export type PropsT = {
   className?: any;
@@ -19,7 +19,7 @@ const DefaultProps = {
 
 export const NewClipButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEventHandler<UrlEventsT>();
+    const urlEvents = useUrlEvents();
 
     return (
       <button
