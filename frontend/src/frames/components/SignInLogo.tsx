@@ -1,6 +1,5 @@
 import { colBanner, rowBanner } from 'src/frames/components';
-import { bigButton } from 'src/frames/components/Button';
-import { cln, cn, d } from 'src/utils/classnames';
+import { cln, cn } from 'src/utils/classnames';
 
 import './SignInLogo.scss';
 
@@ -14,17 +13,17 @@ export const SignInLogo = (props: PropsT) => {
     <div className={cn('SignInLogo', colBanner)}>
       <div
         className={cln(
-          'SignInLogo__TitlePrefix__',
+          'SignInLogo__Title__',
           'text-6xl font-bold'
         )(
           //
           rowBanner
         )}
       >
-        <div className={cn(d('SignInLogo__TitlePrefix'), `text-primaryBlue`)}>
+        <div className={cln('SignInLogo__TitlePrefix__', `text-primaryBlue`)()}>
           vid
         </div>
-        <div className={cn(d('SignInLogo__TitleSuffix'), `text-primaryTeal`)}>
+        <div className={cln('SignInLogo__TitleSuffix__', `text-primaryTeal`)()}>
           lito
         </div>
       </div>
@@ -35,10 +34,13 @@ export const SignInLogo = (props: PropsT) => {
       }
       <div
         className={cn(
-          d('SignInLogo__SubTitle'),
-          'mb-8',
-          //
-          'text-white tracking-wide'
+          cln(
+            'SignInLogo__SubTitle__',
+            'text-white tracking-wide'
+          )(
+            //
+            'mb-8'
+          )
         )}
       >
         Manage your lists of videos
@@ -48,15 +50,7 @@ export const SignInLogo = (props: PropsT) => {
         // 🔳🔳 SignInLogo__ExploreAsGuestButton
         //
       }
-      <button
-        className={cn(
-          d('SignInLogo__ExploreAsGuestButton'),
-          bigButton,
-          '',
-          `bg-blue-200 !text-blue-800`,
-          `border border-primaryBlue`
-        )}
-      >
+      <button className={cn('SignInLogo__ExploreAsGuestButton')}>
         Explore as Guest
       </button>
     </div>

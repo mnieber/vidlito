@@ -1,7 +1,7 @@
 export { AccountMenu } from './AccountMenu';
 export { AppFrame } from './AppFrame';
 export { colBanner, rowBanner } from './Banner';
-export { bigButton, primaryButton } from './Button';
+export { primaryButton } from './Button';
 export { card } from './Card';
 export { error } from './Error';
 export { Icon } from './Icon';

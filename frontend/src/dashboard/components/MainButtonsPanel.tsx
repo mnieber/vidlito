@@ -21,10 +21,10 @@ export const MainButtonsPanel = observer(
       <div
         className={cn('MainButtonsPanel', 'flex flex-wrap', props.className)}
       >
-        <SearchButton className={cn('w-1/2')} />
-        <TrashButton className={cn('w-1/2')} />
-        <NewPlaylistButton className={cn('w-1/2')} />
-        <NewClipButton className={cn('w-1/2')} />
+        <SearchButton className={cn('w-1/2', 'mb-6')} />
+        <TrashButton className={cn('w-1/2', 'mb-6')} />
+        <NewPlaylistButton className={cn('w-1/2', 'mb-6')} />
+        <NewClipButton className={cn('w-1/2', 'mb-6')} />
       </div>
     );
   }, DefaultProps)

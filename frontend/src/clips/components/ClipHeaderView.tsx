@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon, colBanner, rowBanner, rowSkewer } from 'src/frames/components';
+import { ToolButton_ } from 'src/frames/components/ToolButton';
 import { cn } from 'src/utils/classnames';
 import './ClipHeaderView.scss';
 
@@ -86,11 +87,7 @@ export const ClipHeaderView = observer(
             // 🔳 EditButton 🔳
           }
           <button
-            className={cn(
-              'ClipHeaderView__EditButton',
-              rowSkewer,
-              'text-md font-bold tracking-wider'
-            )}
+            className={cn('ClipHeaderView__EditButton', ToolButton_.root)}
             onClick={() => {
               const edit = props.dashboardState.showPlaylistDescription
                 ? props.playlistsEdit
@@ -98,10 +95,7 @@ export const ClipHeaderView = observer(
               edit.enable();
             }}
           >
-            <Icon
-              className={cn('h-[24px] w-[24px]', 'mr-2', 'p-1', 'bg-gray-700')}
-              name="pencil"
-            />
+            <Icon className={ToolButton_.icon.small} name="pencil" />
             Edit
           </button>
           {

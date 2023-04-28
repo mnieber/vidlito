@@ -17,12 +17,6 @@ const darkBlueOnTeal = cn('bg-teal-400 text-blue-50 hover:bg-teal-600');
 
 // Button variants
 
-export const bigButton = cn(
-  //
-  'DialogButton',
-  ...base
-);
-
 export const primaryButton = cn(
   //
   'PrimaryButton',

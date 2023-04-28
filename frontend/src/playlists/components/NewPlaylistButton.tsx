@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { PlaylistT, createPlaylist } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon } from 'src/frames/components';
-import { modestButton } from 'src/frames/components/ModestButton';
+import { ToolButton_ } from 'src/frames/components/ToolButton';
 import { PlaylistsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import './NewPlaylistButton.scss';
@@ -25,11 +25,7 @@ export const NewPlaylistButton = observer(
 
     return (
       <button
-        className={cn(
-          'NewPlaylistButton',
-          modestButton.container,
-          props.className
-        )}
+        className={cn('NewPlaylistButton', ToolButton_.root, props.className)}
         onClick={() => {
           props.playlistsAddition
             .add({ values: createPlaylist(props.userProfile, {}) })
@@ -38,7 +34,7 @@ export const NewPlaylistButton = observer(
             });
         }}
       >
-        <Icon className={cn(modestButton.icon)} name="plus" />
+        <Icon className={cn(ToolButton_.icon.normal)} name="plus" />
         Playlist
       </button>
     );

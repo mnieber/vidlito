@@ -3,7 +3,7 @@
 
 .AuthCard {
     .CreateAccountButton {
-        @include DialogButton;
+        @include dialog-button;
         @include white-on-teal;
     }
 }
