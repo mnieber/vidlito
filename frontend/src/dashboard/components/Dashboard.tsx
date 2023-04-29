@@ -4,7 +4,7 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListView } from 'src/clips/components';
 import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
 import { Logo, colBanner, rowBanner } from 'src/frames/components';
-import { PlaylistListHeader, PlaylistListView } from 'src/playlists/components';
+import { PlaylistListPicker } from 'src/playlists/components/PlaylistListPicker';
 import { cln, cn, d } from 'src/utils/classnames';
 import './Dashboard.scss';
 
@@ -13,14 +13,11 @@ export type PropsT = React.PropsWithChildren<{
 }>;
 
 const DefaultProps = {
-  ...dps.dashboardState,
   ...dps.playlist,
 };
 
 export const Dashboard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const separator = ['my-2', 'border-t border-gray-700'];
-
     return (
       //
       // 🔳 DashBoard 🔳
@@ -47,13 +44,7 @@ export const Dashboard = observer(
         >
           <Logo />
           <MainButtonsPanel className={cn('')} />
-          <div className={cn(d('Dashboard__Separator'), separator)} />
-          <PlaylistListHeader />
-          <PlaylistListView
-            className={cn('overflow-y-auto')}
-            isExpanded={props.dashboardState.isPlaylistListExpanded}
-          />
-          <div className={cn(d('Dashboard__Separator'), separator)} />
+          <PlaylistListPicker />
           <ClipListView className={cn('overflow-y-auto', 'mt-4')} />
         </div>
         {

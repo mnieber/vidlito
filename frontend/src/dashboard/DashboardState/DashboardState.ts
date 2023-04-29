@@ -24,7 +24,9 @@ export type PropsT = {};
 export class DashboardState {
   @observable contextMenu: ContextMenuT = {
     anchorPoint: undefined,
-    toggleMenu: () => {},
+    toggleMenu: () => {
+      console.log('toggleMenu not initialized');
+    },
     menuProps: {},
   };
 
