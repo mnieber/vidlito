@@ -1,15 +1,6 @@
 // 0. Custom styles
 @import 'src/frames/styles/root.scss';
+@import 'src/frames/styles/base.scss';
 @import 'src/frames/styles/autocomplete.scss';
 @import 'src/frames/styles/fonts.scss';
 @import 'src/frames/styles/font-sizes.scss';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-// 1. UIKit rules (this also imports various scss variables)
-@import 'src/frames/styles/uikit.scss';
-
-@import '@szhsin/react-menu/dist/index.css';
-@import '@szhsin/react-menu/dist/transitions/slide.css';
