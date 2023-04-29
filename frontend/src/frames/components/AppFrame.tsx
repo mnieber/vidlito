@@ -2,6 +2,7 @@ import { useMenuState } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
+import { ClipMenu } from 'src/clips/components';
 import './AppFrame.scss';
 
 export type PropsT = React.PropsWithChildren<{
@@ -22,6 +23,11 @@ export const AppFrame = observer(
       props.dashboardState.initContextMenu(toggleMenu, menuProps);
     }, [props.dashboardState, toggleMenu, menuProps]);
 
-    return <React.Fragment>{props.children}</React.Fragment>;
+    return (
+      <React.Fragment>
+        <ClipMenu />
+        {props.children}
+      </React.Fragment>
+    );
   }, DefaultProps)
 );
