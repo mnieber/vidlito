@@ -3,6 +3,7 @@
 }
 
 .ClipListViewItem--selected {
+  @apply bg-teal-25;
   @apply text-primaryTeal;
 }
 

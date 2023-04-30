@@ -57,6 +57,7 @@ export const ClipListView = observer(
         <ClipListViewItem
           key={`item-${clip.id}`}
           clip={clip}
+          showSelectionBg={props.clipsSelection.ids.length > 1}
           isHighlighted={clip && props.clipsHighlight.id === clip.id}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}

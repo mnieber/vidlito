@@ -3,7 +3,6 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        'playlist-item': 'bounce 1s ease-in-out 3.5',
         delete: 'pulse 1s ease-in-out infinite',
       },
     },
@@ -63,6 +62,7 @@ module.exports = {
         900: 'hsl(341, 100%, 95%)',
       },
       teal: {
+        25: 'hsl(170, 97%, 12%)',
         50: 'hsl(170, 97%, 15%)',
         100: 'hsl(168, 80%, 23%)',
         200: 'hsl(166, 72%, 28%)',

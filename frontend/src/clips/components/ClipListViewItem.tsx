@@ -9,12 +9,13 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
 import { lvi } from 'src/frames/components/Lvi';
 import { isUpdating } from 'src/resourceStates';
-import { cn } from 'src/utils/classnames';
+import { cln, cn } from 'src/utils/classnames';
 import { PlayVideoIcon } from 'src/videos/components';
 import './ClipListViewItem.scss';
 
 export type PropsT = {
   isHighlighted: boolean;
+  showSelectionBg: boolean;
   dragAndDropUIProps: DragAndDropUIPropsT;
   selectionUIProps: SelectionUIPropsT;
   onContextMenu?: (e: React.MouseEvent) => void;
@@ -31,6 +32,9 @@ export const ClipListViewItem = observer(
     const loading =
       !props.videoPlayerState.videoController.ready && props.isHighlighted;
 
+    const showAsSelected =
+      props.selectionUIProps.isSelected && props.showSelectionBg;
+
     return (
       //
       // 🔳 ClipKeyHandler 🔳
@@ -44,20 +48,19 @@ export const ClipListViewItem = observer(
         }
         <div
           tabIndex={0}
-          className={cn(
+          className={cln(
             'ClipListViewItem',
-            lvi.container,
-            '',
             'font-bold',
             {
-              'ClipListViewItem--selected': props.selectionUIProps.isSelected,
-              'text-gray-700': !(
-                props.selectionUIProps.isSelected || props.isHighlighted
-              ),
+              'ClipListViewItem--selected': showAsSelected,
+              'text-gray-700': !(showAsSelected || props.isHighlighted),
               'ClipListViewItem--highlighted': props.isHighlighted,
             },
             `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
-            { 'animate-delete': isUpdating(props.clip) },
+            { 'animate-delete': isUpdating(props.clip) }
+          )(
+            //
+            lvi.container,
             props.className
           )}
           {...selectionUIHandlers(props.selectionUIProps)}
