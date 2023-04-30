@@ -5,7 +5,10 @@
 @media (hover: hover) {
   .IconContainer {
     &:hover {
-      @apply animate-playlist-item;
+      svg {
+        @apply fill-primaryBlue;
+        transform: scale(1.2);
+      }
     }
   }
 }

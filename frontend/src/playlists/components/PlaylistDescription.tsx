@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { MarkdownView } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
@@ -15,6 +14,8 @@ const DefaultProps = {
 
 export const PlaylistDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    if (!props.playlist.description) return null;
+
     return (
       <div
         className={cn(
@@ -26,17 +27,8 @@ export const PlaylistDescription = observer(
           props.className
         )}
       >
-        <MarkdownView
-          text={
-            props.playlist.description ||
-            playlistDefaultDescription(props.playlist)
-          }
-        />
+        <MarkdownView text={props.playlist.description} />
       </div>
     );
   }, DefaultProps)
 );
-
-const playlistDefaultDescription = (playlist: PlaylistT) => {
-  return `# Welcome to the playlist description!\nsaid principal among complete market follow fence column film science possible frog how golden knife he border dead twelve union control eager better troops face outside cat someone beneath feel stop route composed or machine forest listen string cage wife sleep child story cannot felt explore four sale`;
-};
