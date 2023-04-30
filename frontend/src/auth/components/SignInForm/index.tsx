@@ -1,11 +1,15 @@
 import { FormStateProvider } from 'react-form-state-context';
-import { AuthCard_ } from 'src/auth/components/AuthCard';
-import { Field, GlobalError, SaveButton } from 'src/forms/components';
-import { EmailField, PasswordField } from 'src/forms/components/FormField';
+import {
+  EmailField,
+  Field,
+  GlobalError,
+  PasswordField,
+  SaveButton,
+} from 'src/forms/components';
 import { colBanner } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
-import './index.scss';
 import { useMessages } from './useMessages';
 
 export const formFields = {
@@ -21,6 +25,7 @@ export type PropsT = {
 
 export function SignInForm(props: PropsT) {
   const { messages } = useMessages();
+  const l = L.auth.AuthForm;
 
   return (
     //
@@ -35,17 +40,24 @@ export function SignInForm(props: PropsT) {
       {
         // 🔳 SignInForm 🔳
       }
-      <div className={cn('SignInForm', colBanner, props.className)}>
-        <GlobalError className="mb-2" />
+      <div
+        className={cn(
+          //
+          'SignInForm',
+          colBanner,
+          props.className
+        )}
+      >
+        <GlobalError className={l.GlobalError} />
 
         {
           // 🔳 EmailField 🔳
         }
         <Field
+          className={l.Field}
           fieldName={formFields.email}
           tabOnEnter={true}
           autoFocus={true}
-          className={AuthCard_.fieldStack}
         >
           <EmailField placeholder="Email" />
         </Field>
@@ -53,18 +65,18 @@ export function SignInForm(props: PropsT) {
         {
           // 🔳 PasswordField 🔳
         }
-        <Field
-          fieldName="password"
-          submitOnEnter={true}
-          className={AuthCard_.fieldStack}
-        >
+        <Field className={l.Field} fieldName="password" submitOnEnter={true}>
           <PasswordField placeholder="Password" />
         </Field>
 
         {
           // 🔳 SaveButton 🔳
         }
-        <SaveButton dataCy={'signInBtn'} label={messages.labelSignIn} />
+        <SaveButton
+          dataCy={'signInBtn'}
+          label={messages.labelSignIn}
+          className={l.Button}
+        />
       </div>
     </FormStateProvider>
   );

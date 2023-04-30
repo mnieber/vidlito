@@ -6,6 +6,8 @@ import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
 import { Logo, colBanner, rowBanner } from 'src/frames/components';
 import { PlaylistListPicker } from 'src/playlists/components/PlaylistListPicker';
 import { cln, cn, d } from 'src/utils/classnames';
+
+// Import styles
 import './Dashboard.scss';
 
 export type PropsT = React.PropsWithChildren<{

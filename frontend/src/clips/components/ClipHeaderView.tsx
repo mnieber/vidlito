@@ -1,8 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon, colBanner, rowBanner, rowSkewer } from 'src/frames/components';
-import { ToolButton_ } from 'src/frames/components/ToolButton';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './ClipHeaderView.scss';
 
 export type PropsT = {
@@ -27,7 +29,7 @@ export const ClipHeaderView = observer(
         <div
           className={cn(
             'ClipHeaderView__Title',
-            'pt-2.5 pb-4 pr-4 pl-7',
+            'py-3 pr-4 pl-7',
             '',
             clipHeaderButton({
               isPlaylist: true,
@@ -87,7 +89,7 @@ export const ClipHeaderView = observer(
             // 🔳 EditButton 🔳
           }
           <button
-            className={cn('ClipHeaderView__EditButton', ToolButton_.root)}
+            className={cn('ClipHeaderView__EditButton', L.ToolButton.root)}
             onClick={() => {
               const edit = props.dashboardState.showPlaylistDescription
                 ? props.playlistsEdit
@@ -95,7 +97,7 @@ export const ClipHeaderView = observer(
               edit.enable();
             }}
           >
-            <Icon className={ToolButton_.icon.small} name="pencil" />
+            <Icon className={L.ToolButton.icon.small} name="pencil" />
             Edit
           </button>
           {

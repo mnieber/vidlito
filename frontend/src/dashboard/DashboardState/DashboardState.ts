@@ -1,13 +1,7 @@
 import { action, makeObservable, observable } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import { UserProfileT } from 'src/api/types/UserProfileT';
-import { ObjT } from 'src/utils/types';
-
-type ContextMenuT = {
-  anchorPoint: any;
-  toggleMenu: Function;
-  menuProps: ObjT;
-};
+import { createContextMenu } from 'src/frames/utils/createContextMenu';
 
 type AccountT = {
   userProfile?: UserProfileT;
@@ -22,13 +16,8 @@ type VideoT = {
 export type PropsT = {};
 
 export class DashboardState {
-  @observable contextMenu: ContextMenuT = {
-    anchorPoint: undefined,
-    toggleMenu: () => {
-      console.log('toggleMenu not initialized');
-    },
-    menuProps: {},
-  };
+  clipListContextMenu = createContextMenu();
+  accountMenu = createContextMenu();
 
   @observable account: AccountT = {
     userProfile: undefined,
@@ -57,20 +46,6 @@ export class DashboardState {
 
   @action setIsPlaylistListExpanded(flag: boolean) {
     this.isPlaylistListExpanded = flag;
-  }
-
-  @action openContextMenuAtPoint(anchorPoint: any) {
-    this.contextMenu.anchorPoint = anchorPoint;
-    this.contextMenu.toggleMenu(true);
-  }
-
-  @action closeContextMenu() {
-    this.contextMenu.toggleMenu(false);
-  }
-
-  @action initContextMenu(toggleMenu: Function, menuProps: any) {
-    this.contextMenu.toggleMenu = toggleMenu;
-    this.contextMenu.menuProps = menuProps;
   }
 
   getSummary() {

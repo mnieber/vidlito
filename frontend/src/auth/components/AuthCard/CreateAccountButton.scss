@@ -1,9 +1,0 @@
-@import "src/frames/components/DialogButton";
-@import "src/frames/components/Colors";
-
-.AuthCard {
-    .CreateAccountButton {
-        @include dialog-button;
-        @include white-on-teal;
-    }
-}

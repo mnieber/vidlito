@@ -1,5 +1,7 @@
 import React from 'react';
 import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './AuthPage.scss';
 
 type PropsT = React.PropsWithChildren<{}>;
@@ -11,5 +13,3 @@ export const AuthPage = (props: PropsT) => {
     </div>
   );
 };
-
-export const AuthPage_ = { gap: 'w-[300px]' };

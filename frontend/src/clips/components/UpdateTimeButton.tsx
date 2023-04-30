@@ -2,6 +2,8 @@ import { useFormStateContext } from 'react-form-state-context';
 import { rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { VideoController } from 'src/videos/VideoController';
+
+// Import styles
 import './UpdateTimeButton.scss';
 
 export type PropsT = {

@@ -67,7 +67,7 @@ export const ValuePickerField = observer(<ValueT,>(props: PropsT<ValueT>) => {
   );
 });
 
-const gray = 'hsl(209, 18%, 30%)';
+const gray = 'hsl(209, 14%, 37%)';
 const whitish = 'hsl(214, 15%, 91%)';
 
 export function controlRemoveBorder(state: ObjT) {

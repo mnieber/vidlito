@@ -1,6 +1,7 @@
 export { CancelButton } from './CancelButton';
 export { Check } from './Check';
 export { ControlledCheckbox } from './ControlledCheckbox';
+export { EmailField } from './EmailField';
 export { Field } from './Field';
 export { FormFieldContext, useFormFieldContext } from './FormFieldContext';
 export type { FormFieldContextPropsT } from './FormFieldContext';
@@ -10,6 +11,7 @@ export { GlobalError } from './GlobalError';
 export { MarkdownField } from './MarkdownField';
 export { MobXFormState } from './MobXFormState';
 export { NameField } from './NameField';
+export { PasswordField } from './PasswordField';
 export { SaveButton } from './SaveButton';
 export { SlugField } from './SlugField';
 export { TextAreaField } from './TextAreaField';

@@ -12,6 +12,8 @@ import { Spinner } from 'src/frames/components';
 import { ClipsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { createOnSelectItemHandler } from 'src/routes/utils';
 import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './ClipListView.scss';
 
 const useUrlEvents = () => useUrlEventHandler<typeof ClipsUrlEvents>();
@@ -63,7 +65,7 @@ export const ClipListView = observer(
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
           onContextMenu={(e: any) => {
             e.preventDefault();
-            props.dashboardState.openContextMenuAtPoint({
+            props.dashboardState.clipListContextMenu.openAtPoint({
               x: e.clientX,
               y: e.clientY,
             });

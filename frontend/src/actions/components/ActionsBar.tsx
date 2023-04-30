@@ -5,6 +5,8 @@ import { Icon } from 'src/frames/components/Icon';
 import { lvi } from 'src/frames/components/Lvi';
 import { ActionsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './ActionsBar.scss';
 
 const useUrlEvents = () => useUrlEventHandler<typeof ActionsUrlEvents>();

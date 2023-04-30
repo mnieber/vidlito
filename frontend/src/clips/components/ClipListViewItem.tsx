@@ -11,6 +11,8 @@ import { lvi } from 'src/frames/components/Lvi';
 import { isUpdating } from 'src/resourceStates';
 import { cln, cn } from 'src/utils/classnames';
 import { PlayVideoIcon } from 'src/videos/components';
+
+// Import styles
 import './ClipListViewItem.scss';
 
 export type PropsT = {

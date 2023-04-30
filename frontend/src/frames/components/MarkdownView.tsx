@@ -2,6 +2,8 @@ import { observer } from 'mobx-react-lite';
 import ReactMarkdown from 'react-markdown';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './MarkdownView.scss';
 
 export type PropsT = {

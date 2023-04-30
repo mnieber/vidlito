@@ -5,6 +5,8 @@ import { SignUpForm } from 'src/auth/components/SignUpForm';
 import { useSignUp } from 'src/auth/endpoints';
 import { States } from 'src/auth/endpoints/states';
 import { useAuthStateContext } from 'src/auth/hooks';
+import { L } from 'src/frames/layout';
+import { cn } from 'src/utils/classnames';
 import { useMessages } from './useMessages';
 
 export const termsVersion: string =
@@ -16,6 +18,8 @@ export const SignUpCard = observer(() => {
   const authState = useAuthStateContext(true);
   const signUp = useSignUp(authState).mutateAsync;
 
+  const l = L.auth.AuthCard;
+
   return (
     //
     // 🔳 SignUpCard 🔳
@@ -25,6 +29,7 @@ export const SignUpCard = observer(() => {
         // 🔳 SignUpForm 🔳
       }
       <SignUpForm
+        className={cn(l.Form)}
         signUp={(email: string, acceptsTerms: boolean) => {
           return signUp({
             userId: email,
@@ -38,11 +43,15 @@ export const SignUpCard = observer(() => {
         // 🔳 Confirmation 🔳
       }
       {authState.state === States.SIGN_UP_SUCCEEDED && (
-        <div>{messages.divYouHaveBeenSignedUp}</div>
+        <div className={cn(l.CardFooter)}>
+          {messages.divYouHaveBeenSignedUp}
+        </div>
       )}
       {authState.state !== States.SIGN_UP_SUCCEEDED && (
         <React.Fragment>
-          <div className="mt-4">{messages.ifYouAlreadyHaveAnAccount}</div>
+          <div className={cn(l.CardFooter)}>
+            {messages.ifYouAlreadyHaveAnAccount}
+          </div>
         </React.Fragment>
       )}
     </AuthCard>

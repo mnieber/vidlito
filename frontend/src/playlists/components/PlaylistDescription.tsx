@@ -2,6 +2,8 @@ import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { MarkdownView } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './PlaylistDescription.scss';
 
 export type PropsT = {

@@ -3,7 +3,6 @@ import React from 'react';
 import { FormState, FormStateProvider } from 'react-form-state-context';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { usePreviewButton } from 'src/clips/hooks/usePreviewButton';
-import { MainView_ } from 'src/dashboard/components/MainView';
 import {
   CancelButton,
   Field,
@@ -20,6 +19,7 @@ import { TimeField } from 'src/forms/components/TimeField';
 import { rowSkewer } from 'src/frames/components';
 import { primaryButton } from 'src/frames/components/Button';
 import { card } from 'src/frames/components/Card';
+import { L } from 'src/frames/layout';
 import {
   ClipsUrlEvents,
   UrlEventHandler,
@@ -27,6 +27,8 @@ import {
 } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
+
+// Import styles
 import './index.scss';
 
 export type UrlEventsT = typeof ClipsUrlEvents;
@@ -58,6 +60,8 @@ export const ClipFormView = observer(
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
 
+    const l = L.main.MainForm;
+
     return (
       //
       // 🔳 ClipFormView 🔳
@@ -83,11 +87,7 @@ export const ClipFormView = observer(
             // 🔳 UrlField 🔳
           }
           <GlobalError />
-          <Field
-            fieldName="clipForm.url"
-            autoFocus={true}
-            className={MainView_.fieldStack}
-          >
+          <Field fieldName="clipForm.url" autoFocus={true} className={l.Field}>
             <FormFieldLabel label="URL" />
             <TextField
               tabIndex={1}
@@ -100,7 +100,7 @@ export const ClipFormView = observer(
               }}
             />
           </Field>
-          <div className={cn(rowSkewer, MainView_.fieldStack)}>
+          <div className={cn(rowSkewer, l.Field)}>
             {
               // 🔳 StartTimeField 🔳
             }
@@ -127,7 +127,7 @@ export const ClipFormView = observer(
           {
             // 🔳 NameField 🔳
           }
-          <Field fieldName="clipForm.name" className={MainView_.fieldStack}>
+          <Field fieldName="clipForm.name" className={l.Field}>
             <FormFieldLabel label="NAME" />
             <NameField
               tabIndex={6}
@@ -143,14 +143,14 @@ export const ClipFormView = observer(
           {
             // 🔳 SlugField 🔳
           }
-          <Field fieldName="clipForm.slug" className={MainView_.fieldStack}>
+          <Field fieldName="clipForm.slug" className={l.Field}>
             <FormFieldLabel label="SLUG" />
             <SlugField relatedFieldName="clipForm.name" />
           </Field>
           {
             // 🔳 TagsField 🔳
           }
-          <Field fieldName="clipForm.tags" className={MainView_.fieldStack}>
+          <Field fieldName="clipForm.tags" className={l.Field}>
             <FormFieldLabel label="TAGS" />
             <ValuePickerField
               tabIndex={9}
@@ -178,7 +178,7 @@ export const ClipFormView = observer(
           <Field
             fieldName="clipForm.description"
             tabOnEnter={false}
-            className={MainView_.fieldStack}
+            className={l.Field}
           >
             <FormFieldLabel label="DESCRIPTION" buttons={[showPreviewButton]} />
             <MarkdownField
@@ -187,12 +187,19 @@ export const ClipFormView = observer(
               preview={descriptionPreview}
             />
           </Field>
-          <div className={cn(rowSkewer, 'self-end')}>
-            <CancelButton className="mr-2" tabIndex={10} label="CANCEL" />
+          {
+            // 🔳 Buttons 🔳
+          }
+          <div className={cn(l.Buttons)}>
+            <CancelButton
+              className={cn(l.Button.root, l.Button.gap)}
+              tabIndex={10}
+              label="Cancel"
+            />
             <SaveButton
               tabIndex={10}
-              label="SAVE"
-              className={cn(primaryButton)}
+              label="Save"
+              className={cn(l.Button.root, primaryButton)}
             />
           </div>
         </FormStateProvider>

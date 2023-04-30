@@ -1,6 +1,6 @@
-import { FormField_ } from 'src/forms/components/FormField';
 import { useFieldProps } from 'src/forms/hooks';
-import { cln } from 'src/utils/classnames';
+import { L } from 'src/frames/layout';
+import { cn } from 'src/utils/classnames';
 
 type PropsT = {
   className?: any;
@@ -9,21 +9,21 @@ type PropsT = {
 
 export const EmailField = (props: PropsT) => {
   const fieldProps = useFieldProps({ fieldType: 'text' });
+  const l = L.FormField;
 
   return (
     <div
-      className={cln(
-        'EmailField',
-        FormField_.root
-      )(
+      className={cn(
         //
+        'EmailField',
+        l.root,
         props.className
       )}
     >
       <input
         placeholder={props.placeholder}
         {...fieldProps}
-        className={FormField_.input}
+        className={l.input}
       />
     </div>
   );

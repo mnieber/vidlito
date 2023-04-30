@@ -4,6 +4,8 @@ import { ActionsBar } from 'src/actions/components/ActionsBar';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { colBanner } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './ActionsView.scss';
 
 export type PropsT = {

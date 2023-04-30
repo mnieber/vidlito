@@ -1,4 +1,6 @@
 import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './Button.scss';
 
 // Default button styles
@@ -13,7 +15,6 @@ const base = [padding, rounded, bold, autoScale];
 
 const darkBlueOnSkyBlue = cn('bg-blue-400 text-blue-50 hover:bg-blue-600');
 const skyBlueText = 'text-blue-400 hover:text-blue-600';
-const darkBlueOnTeal = cn('bg-teal-400 text-blue-50 hover:bg-teal-600');
 
 // Button variants
 
@@ -28,12 +29,5 @@ export const primaryGhostButton = cn(
   //
   'PrimaryGhostButton',
   skyBlueText,
-  ...base
-);
-
-export const secundaryButton = cn(
-  //
-  'SecundaryButton',
-  darkBlueOnTeal,
   ...base
 );

@@ -1,7 +1,7 @@
 import { UpdateSlugButton } from 'src/forms/components';
-import { FormField_ } from 'src/forms/components/FormField';
 import { FieldPropsT, useFieldProps } from 'src/forms/hooks';
 import { rowBanner } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 
 type PropsT = Partial<FieldPropsT> & {
@@ -16,16 +16,21 @@ export const SlugField = (props: PropsT) => {
     disabled: true,
     controlled: true,
   });
+  const l = L.FormField;
 
   return (
-    <div className={cn('SlugField', FormField_.root, props.className)}>
+    <div
+      className={cn(
+        //
+        'SlugField',
+        l.root,
+        props.className
+      )}
+    >
       <div className={cn(rowBanner)}>
-        <input {...fieldProps} className={FormField_.input} />
+        <input {...fieldProps} className={l.input} />
         <UpdateSlugButton
-          className={cn(
-            'px-2',
-            'bg-gray-100 text-primaryTeal font-bold m-0.5 rounded-lg'
-          )}
+          className={l.FormFieldButton.root}
           tabIndex={props.tabIndex}
           key="1"
           relatedFieldName={props.relatedFieldName}

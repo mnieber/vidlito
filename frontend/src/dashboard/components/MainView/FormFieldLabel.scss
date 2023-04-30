@@ -1,11 +1,9 @@
-@import "src/forms/components/FormField";
-
 .MainView {
-    .FormFieldLabel {
-        @apply font-bold;
-        @apply text-gray-700 text-sm tracking-wider;
+  .FormFieldLabel {
+    @apply font-bold;
+    @apply text-gray-700 text-sm tracking-wider;
 
-        // Margin below the label is considered intrinsic.
-        @apply mb-1;
-    }
+    // Margin below the label is considered intrinsic.
+    @apply mb-1;
+  }
 }

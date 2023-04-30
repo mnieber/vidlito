@@ -3,6 +3,8 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipMenu } from 'src/clips/components';
+
+// Import styles
 import './AppFrame.scss';
 
 export type PropsT = React.PropsWithChildren<{
@@ -20,7 +22,7 @@ export const AppFrame = observer(
     // to do this in the DashboardStateProvider component.
     const [menuProps, toggleMenu] = useMenuState();
     React.useEffect(() => {
-      props.dashboardState.initContextMenu(toggleMenu, menuProps);
+      props.dashboardState.clipListContextMenu.init(toggleMenu, menuProps);
     }, [props.dashboardState, toggleMenu, menuProps]);
 
     return (

@@ -4,6 +4,6 @@
 .MainView {
     .SaveButton {
         @include dialog-button;
-        @include white-on-blue;
+        @include dark-blue-on-sky-blue;
     }
 }

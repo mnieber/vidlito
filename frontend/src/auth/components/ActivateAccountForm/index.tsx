@@ -1,7 +1,12 @@
 import { FormStateProvider } from 'react-form-state-context';
-import { Field, GlobalError, SaveButton } from 'src/forms/components';
-import { PasswordField } from 'src/forms/components/FormField';
-import { colSkewer } from 'src/frames/components';
+import {
+  Field,
+  GlobalError,
+  PasswordField,
+  SaveButton,
+} from 'src/forms/components';
+import { colBanner } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import { useMessages } from './useMessages';
@@ -19,6 +24,8 @@ export type PropsT = {
 export function ActivateAccountForm(props: PropsT) {
   const { messages } = useMessages();
 
+  const l = L.auth.AuthForm;
+
   return (
     <FormStateProvider
       initialValues={form.getInitialValues()}
@@ -26,30 +33,27 @@ export function ActivateAccountForm(props: PropsT) {
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >
-      <div
-        className={cn(
-          'ActivateAccountForm',
-          colSkewer,
-          'items-stretch',
-          props.className
-        )}
-      >
-        <GlobalError className="mb-4" />
+      <div className={cn('ActivateAccountForm', colBanner, props.className)}>
+        <GlobalError className={cn(l.GlobalError)} />
 
-        <div>
+        <div className={cn(l.Header)}>
           {messages.divYouAreOneStepAway}
           <br />
           {messages.divToProceedPleaseChooseANewPassword}
         </div>
 
-        <Field fieldName={formFields.password} submitOnEnter={true}>
-          <PasswordField placeholder="Password" className="my-4" />
+        <Field
+          fieldName={formFields.password}
+          submitOnEnter={true}
+          className={l.Field}
+        >
+          <PasswordField placeholder="Password" />
         </Field>
 
         <SaveButton
           dataCy="activateAccountBtn"
           label="Activate account"
-          className={cn('place-self-center', 'my-4')}
+          className={l.Button}
         />
       </div>
     </FormStateProvider>

@@ -2,6 +2,10 @@
     @apply bg-teal-400 text-white hover:bg-teal-300;
 }
 
-@mixin white-on-blue {
-    @apply bg-blue-400 text-white hover:bg-blue-300;
+@mixin dark-blue-on-sky-blue {
+    @apply bg-blue-400 text-blue-50 hover:bg-blue-300;
+}
+
+@mixin dark-blue-on-teal {
+    @apply bg-teal-400 text-blue-50 hover:bg-teal-600;
 }

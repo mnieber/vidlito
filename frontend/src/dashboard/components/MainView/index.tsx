@@ -15,9 +15,6 @@ import { cn } from 'src/utils/classnames';
 import { VideoPlayerPanel } from 'src/videos/components';
 
 // Import styles
-import './FormField.scss';
-import './FormFieldLabel.scss';
-import './SaveButton.scss';
 import './index.scss';
 
 export type PropsT = {
@@ -74,13 +71,9 @@ export const MainView = observer(
                 !props.clipsEdit.isEditing && <ClipDescription />}
             </div>
           </div>
-          <AccountMenu className="ml-8" />
+          <AccountMenu className="ml-8 self-start" />
         </div>
       </ClipKeyHandler>
     );
   }, DefaultProps)
 );
-
-export const MainView_ = {
-  fieldStack: 'mb-6',
-};

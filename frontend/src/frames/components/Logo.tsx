@@ -3,6 +3,8 @@ import { withDefaultProps } from 'src/app/defaultProps';
 import { rowSkewer } from 'src/frames/components';
 import { FramesUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { cln } from 'src/utils/classnames';
+
+// Import styles
 import './Logo.scss';
 
 const useUrlEvents = () => useUrlEventHandler<typeof FramesUrlEvents>();

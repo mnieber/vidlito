@@ -2,7 +2,6 @@ import { observer } from 'mobx-react-lite';
 import { FormStateProvider } from 'react-form-state-context';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { usePreviewButton } from 'src/clips/hooks/usePreviewButton';
-import { MainView_ } from 'src/dashboard/components/MainView';
 import {
   CancelButton,
   Field,
@@ -14,9 +13,9 @@ import {
   ValuePickerField,
 } from 'src/forms/components';
 import { NameField } from 'src/forms/components/NameField';
-import { rowSkewer } from 'src/frames/components';
 import { primaryButton } from 'src/frames/components/Button';
 import { card } from 'src/frames/components/Card';
+import { L } from 'src/frames/layout';
 import {
   PlaylistsUrlEvents,
   UrlEventHandler,
@@ -24,6 +23,8 @@ import {
 } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
+
+// Import styles
 import './index.scss';
 
 export type UrlEventsT = typeof PlaylistsUrlEvents;
@@ -54,6 +55,8 @@ export const PlaylistFormView = observer(
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
 
+    const l = L.main.MainForm;
+
     return (
       //
       // 🔳 PlaylistFormView 🔳
@@ -74,14 +77,14 @@ export const PlaylistFormView = observer(
           )}
           handleCancel={form.getHandleCancel(props, urlEvents)}
         >
-          <GlobalError />
+          <GlobalError className={l.GlobalError} />
           {
             // 🔳 NameField 🔳
           }
           <Field
             fieldName="playlistForm.name"
             autoFocus={true}
-            className={MainView_.fieldStack}
+            className={l.Field}
           >
             <FormFieldLabel label="Name" />
             <NameField
@@ -98,14 +101,14 @@ export const PlaylistFormView = observer(
           {
             // 🔳 SlugField 🔳
           }
-          <Field fieldName="playlistForm.slug" className={MainView_.fieldStack}>
+          <Field fieldName="playlistForm.slug" className={l.Field}>
             <FormFieldLabel label="Slug" />
             <SlugField relatedFieldName="playlistForm.name" />
           </Field>
           {
             // 🔳 TagsField 🔳
           }
-          <Field fieldName="playlistForm.tags" className={MainView_.fieldStack}>
+          <Field fieldName="playlistForm.tags" className={l.Field}>
             <FormFieldLabel label="Tags" />
             <ValuePickerField
               tabIndex={5}
@@ -121,7 +124,7 @@ export const PlaylistFormView = observer(
           <Field
             fieldName="playlistForm.description"
             tabOnEnter={false}
-            className={MainView_.fieldStack}
+            className={l.Field}
           >
             <FormFieldLabel label="Description" buttons={[showPreviewButton]} />
             <MarkdownField
@@ -130,7 +133,10 @@ export const PlaylistFormView = observer(
               preview={descriptionPreview}
             />
           </Field>
-          <div className={cn(rowSkewer, 'self-end')}>
+          {
+            // 🔳 Buttons 🔳
+          }
+          <div className={cn(l.Buttons)}>
             <CancelButton label="Cancel" tabIndex={6} />
             <SaveButton
               label="Save"

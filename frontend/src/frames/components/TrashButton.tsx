@@ -1,10 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon } from 'src/frames/components';
-import { ToolButton_ } from 'src/frames/components/ToolButton';
+import { L } from 'src/frames/layout';
 import { ActionsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
-import './TrashButton.scss';
 
 const useUrlEvents = () => useUrlEventHandler<typeof ActionsUrlEvents>();
 
@@ -19,13 +18,14 @@ const DefaultProps = {
 export const TrashButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const urlEvents = useUrlEvents();
+    const l = L.ToolButton;
 
     return (
       <button
-        className={cn('TrashButton', ToolButton_.root, props.className)}
+        className={cn('TrashButton', l.root, props.className)}
         onClick={() => urlEvents.goToActions()}
       >
-        <Icon className={cn(ToolButton_.icon.normal)} name="trash" />
+        <Icon className={cn(l.icon.normal)} name="trash" />
         Trash
       </button>
     );

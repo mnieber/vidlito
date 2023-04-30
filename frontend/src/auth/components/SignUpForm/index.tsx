@@ -1,15 +1,14 @@
 import { FormStateProvider } from 'react-form-state-context';
-import { AuthCard_ } from 'src/auth/components/AuthCard';
 import {
   ControlledCheckbox,
+  EmailField,
   Field,
   GlobalError,
   SaveButton,
 } from 'src/forms/components';
-import { EmailField } from 'src/forms/components/FormField';
 import { colBanner, rowBanner } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cln, cn } from 'src/utils/classnames';
-import './SignUpForm.scss';
 import { form } from './form';
 import { useMessages } from './useMessages';
 
@@ -26,6 +25,7 @@ export type PropsT = {
 
 export function SignUpForm(props: PropsT) {
   const { messages } = useMessages();
+  const l = L.auth.AuthForm;
 
   return (
     <FormStateProvider
@@ -46,7 +46,7 @@ export function SignUpForm(props: PropsT) {
           colBanner
         )}
       >
-        <GlobalError />
+        <GlobalError className={l.GlobalError} />
 
         {
           // 🔳 EmailField 🔳
@@ -54,7 +54,7 @@ export function SignUpForm(props: PropsT) {
         <Field
           fieldName={formFields.email}
           autoFocus={true}
-          className={AuthCard_.fieldStack}
+          className={l.Field}
         >
           <EmailField placeholder="Email" />
         </Field>
@@ -62,10 +62,7 @@ export function SignUpForm(props: PropsT) {
         {
           // 🔳 TermsField 🔳
         }
-        <Field
-          fieldName={formFields.acceptsTerms}
-          className={AuthCard_.fieldStack}
-        >
+        <Field fieldName={formFields.acceptsTerms} className={l.Field}>
           <div className={cn('SignUpForm__Terms__', rowBanner)}>
             <ControlledCheckbox />
             <div className={cn('ml-2')}>{messages.divIAgreeToTheTerms}</div>
@@ -75,7 +72,7 @@ export function SignUpForm(props: PropsT) {
         {
           // 🔳 SaveButton 🔳
         }
-        <SaveButton dataCy="signUpBtn" label="Sign Up" className={cn('my-4')} />
+        <SaveButton dataCy="signUpBtn" label="Sign Up" className={l.Button} />
       </div>
     </FormStateProvider>
   );

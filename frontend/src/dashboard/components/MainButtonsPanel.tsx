@@ -5,6 +5,8 @@ import { TrashButton } from 'src/frames/components';
 import { NewPlaylistButton } from 'src/playlists/components';
 import { SearchButton } from 'src/search/components/SearchButton';
 import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './MainButtonsPanel.scss';
 
 export type PropsT = {

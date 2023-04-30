@@ -11,6 +11,8 @@ import { PlaylistsUrlEvents, useUrlEventHandler } from 'src/frames/pages/index';
 import { PlaylistListViewItem } from 'src/playlists/components/PlaylistListViewItem';
 import { isLoading } from 'src/resourceStates';
 import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './PlaylistListView.scss';
 
 const useUrlEvents = () => useUrlEventHandler<typeof PlaylistsUrlEvents>();

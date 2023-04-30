@@ -27,3 +27,11 @@ input[type=checkbox]:checked
     background: #409fd6 url("data:image/gif;base64,R0lGODlhCwAKAIABAP////3cnSH5BAEKAAEALAAAAAALAAoAAAIUjH+AC73WHIsw0UCjglraO20PNhYAOw==") 0px 0px no-repeat;
     background-size: cover;
 }
+
+::selection{
+  @apply bg-primaryBlue;
+}
+
+::-moz-selection{
+  @apply bg-primaryBlue;
+}

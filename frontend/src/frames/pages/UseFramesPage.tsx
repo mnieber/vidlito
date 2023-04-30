@@ -24,6 +24,11 @@ export class FramesUrlEventLayer
     ufn();
   }
 
+  goToSignIn(this: UrlEventHandler) {
+    const ufn = this.routeUfns.signIn(this.history.push);
+    ufn();
+  }
+
   userSignedIn(this: UrlEventHandler) {}
 
   userProfileLoaded(this: UrlEventHandler, username: string) {

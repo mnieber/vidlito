@@ -1,0 +1,18 @@
+@import 'src/frames/components/DialogButton';
+@import 'src/frames/components/Colors';
+
+.AccountMenu {
+  button {
+    @include dialog-button;
+    @include dark-blue-on-teal;
+    @apply mb-4;
+  }
+
+  .szh-menu {
+    @apply font-bold;
+  }
+
+  ul {
+    @apply bg-gray-700 text-blue-50;
+  }
+}

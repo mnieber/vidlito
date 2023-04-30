@@ -1,6 +1,7 @@
 import { colBanner, rowBanner } from 'src/frames/components';
 import { cln, cn } from 'src/utils/classnames';
 
+// Import styles
 import './SignInLogo.scss';
 
 export type PropsT = {};

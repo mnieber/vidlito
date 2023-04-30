@@ -1,6 +1,8 @@
-import { FormField_ } from 'src/forms/components/FormField';
 import { FieldPropsT, useFieldProps } from 'src/forms/hooks';
-import { cln } from 'src/utils/classnames';
+import { L } from 'src/frames/layout';
+import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './TextField.scss';
 
 type PropsT = Partial<FieldPropsT> & {
@@ -12,18 +14,18 @@ export const TextField = (props: PropsT) => {
     ...props,
     fieldType: props.fieldType ?? 'text',
   });
+  const l = L.FormField;
 
   return (
     <div
-      className={cln(
-        'TextField',
-        FormField_.root
-      )(
+      className={cn(
         //
+        'TextField',
+        l.root,
         props.className
       )}
     >
-      <input {...fieldProps} className={FormField_.input} />
+      <input {...fieldProps} className={l.input} />
     </div>
   );
 };

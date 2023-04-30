@@ -2,6 +2,8 @@ import { observer } from 'mobx-react-lite';
 import { Icon, rowSkewer } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 import { VideoController } from 'src/videos/VideoController';
+
+// Import styles
 import './PlayVideoIcon.scss';
 
 export type PropsT = {

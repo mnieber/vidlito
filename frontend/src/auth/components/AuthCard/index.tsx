@@ -4,12 +4,6 @@ import { withDefaultProps } from 'src/app/defaultProps';
 import { colBanner } from 'src/frames/components/Banner';
 import { cln } from 'src/utils/classnames';
 
-// Import styles
-import './CreateAccountButton.scss';
-import './FormField.scss';
-import './SaveButton.scss';
-import './index.scss';
-
 type PropsT = React.PropsWithChildren<{
   id: string;
 }>;
@@ -22,21 +16,19 @@ export const AuthCard = observer(
       //
       // 🔳 AuthCard 🔳
       //
-      <div
-        className={cln('AuthCard')(
-          //
-          'w-[396px] h-[332px]'
-        )}
-      >
+      <div className={cln('AuthCard', 'w-[396px] h-[332px]')()}>
         {
           // 🔳 AuthCard__Inner 🔳
         }
         <div
           id={props.id}
-          className={cln('AuthCard__Inner')(
-            //
-            colBanner,
+          className={cln(
+            'AuthCard__Inner',
+            'rounded-lg bg-blue-950',
             'px-8 py-6'
+          )(
+            //
+            colBanner
           )}
         >
           {props.children}
@@ -45,9 +37,3 @@ export const AuthCard = observer(
     );
   }, DefaultProps)
 );
-
-export const AuthCard_ = {
-  form: { stackOnMessage: 'mb-2' },
-  fieldStack: 'mb-2',
-  gapToSecundaryMsg: 'mb-8',
-};

@@ -12,6 +12,8 @@ import { Icon } from 'src/frames/components';
 import { lvi } from 'src/frames/components/Lvi';
 import { ClipsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
+
+// Import styles
 import './ClipMenu.scss';
 
 const useUrlEvents = () => useUrlEventHandler<typeof ClipsUrlEvents>();
@@ -88,12 +90,12 @@ export const ClipMenu = observer(
         })
       : [noPlaylistsDiv];
 
-    return props.dashboardState.contextMenu.menuProps ? (
+    return props.dashboardState.clipListContextMenu.menuProps ? (
       <ControlledMenu
-        {...props.dashboardState.contextMenu.menuProps}
-        anchorPoint={props.dashboardState.contextMenu.anchorPoint}
+        {...props.dashboardState.clipListContextMenu.menuProps}
+        anchorPoint={props.dashboardState.clipListContextMenu.anchorPoint}
         direction="right"
-        onClose={() => props.dashboardState.closeContextMenu()}
+        onClose={() => props.dashboardState.clipListContextMenu.close()}
       >
         <MenuItem
           disabled={props.clipsDeletion.disabled}
