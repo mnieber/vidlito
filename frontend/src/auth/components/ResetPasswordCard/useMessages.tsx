@@ -10,6 +10,7 @@ export const useMessages = () => {
       <RouterLink dataCy={'goToSignInLink'} to={routes.signIn()}>
         sign in
       </RouterLink>
+      .
     </div>
   );
 

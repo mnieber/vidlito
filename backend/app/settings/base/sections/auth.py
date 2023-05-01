@@ -16,6 +16,7 @@ DJANGO_RTK = {
     },
     "EMAIL_CONTEXT": {
         "domain": "www.vidlito.org",
+        "project_name": "vidlito",
     },
     "EMAIL_FROM": "noreply@vidlito.org",
 }

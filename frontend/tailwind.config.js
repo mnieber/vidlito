@@ -8,6 +8,7 @@ module.exports = {
     },
     colors: {
       black: '#000',
+      bodyText: 'hsl(210, 20%, 25%)',
       white: '#fff',
       errorRed: '#ff0000',
       primaryBlue: 'hsl(199, 84%, 55%)',
@@ -27,6 +28,7 @@ module.exports = {
         950: '#d9e6fb',
       },
       gray: {
+        // Default text color
         50: 'hsl(210, 20%, 25%)',
         100: 'hsl(209, 20%, 25%)',
         200: 'hsl(209, 18%, 30%)',

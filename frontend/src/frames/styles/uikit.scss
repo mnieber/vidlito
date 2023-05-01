@@ -4,6 +4,7 @@
 
 $global-font-family: 'OpenSans';
 
+$base-body-color: hsl(210, 20%, 25%);
 $button-default-background: #444466;
 $button-primary-background: #44aa66;
 $button-default-color: #ffffff;
@@ -26,7 +27,10 @@ $base-heading-color: unset;
 @import 'uikit/src/scss/mixins.scss';
 
 // 3. Your custom mixin overwrites.
-@mixin hook-button() { border-radius: 16px; font-weight: bold; }
+@mixin hook-button() {
+  border-radius: 16px;
+  font-weight: bold;
+}
 
 // 4. Import UIkit.
 @import 'uikit/src/scss/uikit.scss';

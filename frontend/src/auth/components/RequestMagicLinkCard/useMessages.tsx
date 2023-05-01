@@ -23,7 +23,8 @@ export const useMessages = () => {
     messages: {
       haveYouFoundYourPassword,
       divYourPasswordHasBeenReset:
-        'Your password has been reset. Please check your email for further instructions.',
+        "You've requested a magic link. " +
+        'Please check your email for further instructions.',
     },
   };
 };

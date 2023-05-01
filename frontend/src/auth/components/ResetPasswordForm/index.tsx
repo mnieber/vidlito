@@ -1,3 +1,4 @@
+import React from 'react';
 import { FormStateProvider } from 'react-form-state-context';
 import {
   Field,
@@ -5,6 +6,7 @@ import {
   PasswordField,
   SaveButton,
 } from 'src/forms/components';
+import { getErrorKeys } from 'src/forms/utils/createFormErrorsObject';
 import { colBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
@@ -24,11 +26,12 @@ export type PropsT = {
 export function ResetPasswordForm(props: PropsT) {
   const { messages } = useMessages();
   const l = L.auth.AuthForm;
+  const externalErrors = form.getExternalErrors(messages, props.errors);
 
   return (
     <FormStateProvider
       initialValues={form.getInitialValues()}
-      initialErrors={form.getExternalErrors(messages, props.errors)}
+      initialErrors={externalErrors}
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >
@@ -40,19 +43,28 @@ export function ResetPasswordForm(props: PropsT) {
           props.className
         )}
       >
-        <GlobalError className={l.GlobalError} />
-        <Field
-          className={l.Field}
-          fieldName={formFields.password}
-          submitOnEnter={true}
-        >
-          <PasswordField placeholder="Password" />
-        </Field>
-        <SaveButton
-          dataCy="passwordChangeBtn"
-          label="Change password"
-          className={l.Button}
-        />
+        <GlobalError className={cn(l.GlobalError, '!text-bodyText')} />
+
+        {!getErrorKeys(externalErrors).includes('global') && (
+          <React.Fragment>
+            <div className={cn(l.Header)}>
+              {messages.divEnterYourNewPassword}
+            </div>
+
+            <Field
+              className={l.Field}
+              fieldName={formFields.password}
+              submitOnEnter={true}
+            >
+              <PasswordField placeholder="Password" />
+            </Field>
+            <SaveButton
+              dataCy="passwordChangeBtn"
+              label="Change password"
+              className={l.Button}
+            />
+          </React.Fragment>
+        )}
       </div>
     </FormStateProvider>
   );
