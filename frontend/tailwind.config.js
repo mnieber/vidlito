@@ -9,6 +9,7 @@ module.exports = {
     colors: {
       black: '#000',
       white: '#fff',
+      errorRed: '#ff0000',
       primaryBlue: 'hsl(199, 84%, 55%)',
       primaryTeal: 'hsl(160, 51%, 49%)',
       blue: {

@@ -21,8 +21,8 @@ export const Field = observer((props: PropsT) => {
     <FormFieldContext {...props}>
       <div className={cn('Field', 'flex flex-col', '', props.className)}>
         {props.children}
+        <FormFieldError />
       </div>
-      <FormFieldError />
     </FormFieldContext>
   );
 });

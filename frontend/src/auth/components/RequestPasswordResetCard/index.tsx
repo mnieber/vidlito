@@ -28,7 +28,7 @@ export const RequestPasswordResetCard = observer(() => {
           errors={authState.errors}
         />
       )}
-      <div className={l.FormCaption}>{messages.haveYouFoundYourPassword}</div>
+      <div className={l.CardFooter}>{messages.haveYouFoundYourPassword}</div>
     </AuthCard>
   );
 });

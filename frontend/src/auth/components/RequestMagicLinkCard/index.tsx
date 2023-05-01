@@ -31,7 +31,7 @@ export const RequestMagicLinkCard = observer(() => {
           />
         </React.Fragment>
       )}
-      <div className={l.FormCaption}>{messages.haveYouFoundYourPassword}</div>
+      <div className={l.CardFooter}>{messages.haveYouFoundYourPassword}</div>
     </AuthCard>
   );
 });

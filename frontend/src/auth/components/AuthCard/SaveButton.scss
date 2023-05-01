@@ -1,9 +1,9 @@
-@import "src/frames/components/DialogButton";
-@import "src/frames/components/Colors";
+@import 'src/frames/components/DialogButton';
+@import 'src/frames/components/Colors';
 
 .AuthCard {
-    .SaveButton {
-        @include dialog-button;
-        @include dark-blue-on-sky-blue;
-    }
+  .SaveButton {
+    @include dialog-button;
+    @include white-on-sky-blue;
+  }
 }

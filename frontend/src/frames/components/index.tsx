@@ -3,7 +3,6 @@ export { AppFrame } from './AppFrame';
 export { colBanner, rowBanner } from './Banner';
 export { primaryButton } from './Button';
 export { card } from './Card';
-export { error } from './Error';
 export { Icon } from './Icon';
 export { Logo } from './Logo';
 export { mainButton } from './MainButton';
