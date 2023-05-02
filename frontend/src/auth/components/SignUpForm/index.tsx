@@ -6,7 +6,8 @@ import {
   GlobalError,
   SaveButton,
 } from 'src/forms/components';
-import { colBanner, rowBanner } from 'src/frames/components';
+import { colBanner } from 'src/frames/components';
+import { rowSkewer } from 'src/frames/components/Skewer';
 import { L } from 'src/frames/layout';
 import { cln, cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -63,7 +64,7 @@ export function SignUpForm(props: PropsT) {
           // 🔳 TermsField 🔳
         }
         <Field fieldName={formFields.acceptsTerms} className={l.Field}>
-          <div className={cn('SignUpForm__Terms__', rowBanner)}>
+          <div className={cn('SignUpForm__Terms__', rowSkewer)}>
             <ControlledCheckbox />
             <div className={cn('ml-2')}>{messages.divIAgreeToTheTerms}</div>
           </div>

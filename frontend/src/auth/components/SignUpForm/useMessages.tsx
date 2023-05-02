@@ -5,12 +5,12 @@ export const useMessages = () => {
   const routes = useRoutes();
 
   const divIAgreeToTheTerms = (
-    <div>
+    <label htmlFor={'acceptsTerms'}>
       I agree to the{' '}
       <RouterLink key="termsAndConditions" to={routes.termsAndConditions()}>
         Terms and Conditions
       </RouterLink>
-    </div>
+    </label>
   );
 
   return {

@@ -12,8 +12,8 @@ export const ControlledCheckbox = (props: PropsT) => {
   });
 
   return (
-    <div className={cn('ControlledCheckbox', 'text-primary')}>
-      <input {...fieldProps} />
+    <div className={cn('ControlledCheckbox', 'flex flex-row')}>
+      <input className="py-2" {...fieldProps} />
     </div>
   );
 };
