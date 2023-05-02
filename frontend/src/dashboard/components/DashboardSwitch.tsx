@@ -4,6 +4,7 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { EditClipEffect, SelectClipEffect } from 'src/clips/components';
 import { Dashboard } from 'src/dashboard/components/Dashboard';
 import { MainView } from 'src/dashboard/components/MainView';
+import { VideoCard } from 'src/dashboard/components/MainView/VideoCard';
 import { UseActionsPage } from 'src/frames/pages/UseActionsPage';
 import { UseMainPage } from 'src/frames/pages/UseMainPage';
 import {
@@ -48,12 +49,16 @@ export const DashboardSwitch = withDefaultProps(
                 <SelectClipEffect />
                 <EditClipEffect />
                 {/* 🔳 */}
-                <MainView />
+                <MainView>
+                  <VideoCard />
+                </MainView>
               </Route>
               <Route exact={true} path={routes.actions()}>
                 <UseActionsPage>
                   {/* 🔳 */}
-                  <ActionsView />
+                  <MainView>
+                    <ActionsView />
+                  </MainView>
                 </UseActionsPage>
               </Route>
             </Dashboard>

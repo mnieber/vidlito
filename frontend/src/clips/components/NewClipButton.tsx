@@ -17,6 +17,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clipsAddition,
+  ...dps.userProfile,
 };
 
 export const NewClipButton = observer(
@@ -29,7 +30,7 @@ export const NewClipButton = observer(
         className={cn('NewClipButton', l.root, props.className)}
         onClick={() => {
           props.clipsAddition
-            .add({ values: createClip({}) })
+            .add({ values: createClip(props.userProfile, {}) })
             .then((localClip: ClipT) => {
               urlEvents.userHighlightsClip(localClip.slug);
             });

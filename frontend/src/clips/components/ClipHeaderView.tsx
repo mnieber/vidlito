@@ -21,6 +21,10 @@ const DefaultProps = {
 
 export const ClipHeaderView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    if (!props.clip) {
+      return null;
+    }
+
     return (
       <div className={cn('ClipHeaderView', rowBanner, props.className)}>
         {

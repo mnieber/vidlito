@@ -1,30 +1,20 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipDescription } from 'src/clips/components/ClipDescription';
-import { ClipFormView } from 'src/clips/components/ClipFormView';
-import { ClipHeaderView } from 'src/clips/components/ClipHeaderView';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
 import { AccountMenu, Spinner, rowBanner } from 'src/frames/components';
-import {
-  PlaylistDescription,
-  PlaylistFormView,
-} from 'src/playlists/components';
 import { isLoading } from 'src/resourceStates';
 import { cn } from 'src/utils/classnames';
-import { VideoPlayerPanel } from 'src/videos/components';
 
 // Import styles
 import './index.scss';
 
-export type PropsT = {
+export type PropsT = React.PropsWithChildren<{
   className?: any;
-};
+}>;
 
 const DefaultProps = {
   ...dps.clip,
-  ...dps.clipsEdit,
-  ...dps.playlistsEdit,
   ...dps.videoPlayerState,
   ...dps.dashboardState,
 };
@@ -53,25 +43,9 @@ export const MainView = observer(
             tabIndex={0}
             className={cn('MainView', 'grow max-w-[800px]', props.className)}
           >
-            <VideoPlayerPanel className={cn('mb-3')} />
-            <div className={cn('ml-6 mt-5')}>
-              <ClipHeaderView className={cn('mb-5')} />
-              {
-                // 🔳 Switch
-              }
-              {props.dashboardState.showPlaylistDescription &&
-                !props.playlistsEdit.isEditing && (
-                  <PlaylistDescription className="max-w-[776px]" />
-                )}
-              {props.dashboardState.showPlaylistDescription &&
-                props.playlistsEdit.isEditing && <PlaylistFormView />}
-              {!props.dashboardState.showPlaylistDescription &&
-                props.clipsEdit.isEditing && <ClipFormView />}
-              {!props.dashboardState.showPlaylistDescription &&
-                !props.clipsEdit.isEditing && <ClipDescription />}
-            </div>
+            {props.children}
           </div>
-          <AccountMenu className="ml-8 self-start" />
+          <AccountMenu className="mt-4 ml-8 self-start" />
         </div>
       </ClipKeyHandler>
     );

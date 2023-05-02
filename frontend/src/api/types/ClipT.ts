@@ -28,10 +28,11 @@ export type ClipFormT = {
   url?: string;
 };
 
-export const createClip = (values: ObjT): ClipT => {
+export const createClip = (me: UserProfileT, values: ObjT): ClipT => {
   return initRS({
     id: createUUID(),
     name: 'New clip',
+    owner: me,
     slug: 'new-clip',
   } as ClipT);
 };

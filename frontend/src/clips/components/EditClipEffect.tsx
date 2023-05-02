@@ -20,12 +20,14 @@ export const EditClipEffect = observer(
     React.useEffect(() => {
       return autorun(() => {
         if (params.clipSlug === 'new-clip') {
-          if (!props.clipsAddition.item) {
-            props.clipsAddition.add({ values: createClip({}) });
+          if (!props.clipsAddition.item && props.userProfile) {
+            props.clipsAddition.add({
+              values: createClip(props.userProfile, {}),
+            });
           }
         }
       });
-    }, [params, props.dashboardState, props.clipsAddition]);
+    }, [params, props.dashboardState, props.clipsAddition, props.userProfile]);
 
     return null;
   }, DefaultProps)
