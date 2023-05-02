@@ -31,7 +31,7 @@ export const TimeField = (props: PropsT) => {
       )}
     >
       <div className={cn(rowBanner)}>
-        <input {...fieldProps} className={l.input} />
+        <input {...fieldProps} className={cn(l.input, 'max-w-[128px]')} />
         <UpdateTimeButton
           key="1"
           tabIndex={props.tabIndex}

@@ -33,7 +33,7 @@ export const Dashboard = observer(
           props.className
         )}
       >
-        <div className={cn('w-[160px]')} />
+        <div className={cn('lg:w-[160px]')} />
         {
           // 🔳 LeftSideBar 🔳
         }
@@ -41,7 +41,7 @@ export const Dashboard = observer(
           className={cn(
             d('Dashboard__LeftSidebar'),
             colBanner,
-            'w-[290px] mr-4'
+            'w-[290px] mx-2 lg:mx-4'
           )}
         >
           <Logo />
