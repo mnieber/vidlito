@@ -111,7 +111,7 @@ export class UrlEventHandler {
 
 export function createUrlEventHandler(props: PropsT) {
   const urlEventHandler = new UrlEventHandler(props);
-  return new Proxy(urlEventHandler, {
+  const proxy: UrlEventHandler = new Proxy(urlEventHandler, {
     get(target, prop: string) {
       if (prop in target) {
         return (target as any)[prop];
@@ -119,12 +119,14 @@ export function createUrlEventHandler(props: PropsT) {
 
       const eventHandler = target._getEventHandler(prop);
       if (eventHandler) {
-        return eventHandler.bind(target);
+        return eventHandler.bind(proxy);
       }
       console.warn(`UrlEventHandler: no handler for ${prop}`);
       return () => {};
     },
   });
+
+  return proxy;
 }
 
 export function sortLayers(
