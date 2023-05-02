@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { rowBanner } from 'src/frames/components';
+import { rowBanner, rowSkewer } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
 import { lvi } from 'src/frames/components/Lvi';
 import { ActionsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
@@ -25,25 +25,35 @@ export const ActionsBar = observer(
 
     return (
       <div className={cn('ActionsBar', rowBanner, props.className)}>
-        <label className={cn('mr-2')}>
-          <input
-            className={cn('uk-radio', '!mr-2')}
-            type="radio"
-            onChange={() => {
-              props.actionsState.settings.setShowAllActions(true);
-            }}
-            checked={!!props.actionsState.settings.showAllActions}
+        <label
+          className={cn('mr-4', rowSkewer)}
+          onClick={() => {
+            props.actionsState.settings.setShowAllActions(true);
+          }}
+        >
+          <Icon
+            className={cn('mr-1')}
+            name={
+              props.actionsState.settings.showAllActions
+                ? 'radioButtonOn'
+                : 'radioButtonOff'
+            }
           />
           All actions
         </label>
-        <label>
-          <input
-            className={cn('uk-radio', '!mr-2')}
-            type="radio"
-            onChange={() => {
-              props.actionsState.settings.setShowAllActions(false);
-            }}
-            checked={!props.actionsState.settings.showAllActions}
+        <label
+          className={cn(rowSkewer)}
+          onClick={() => {
+            props.actionsState.settings.setShowAllActions(false);
+          }}
+        >
+          <Icon
+            className={cn('mr-1')}
+            name={
+              !props.actionsState.settings.showAllActions
+                ? 'radioButtonOn'
+                : 'radioButtonOff'
+            }
           />
           Playlist actions
         </label>

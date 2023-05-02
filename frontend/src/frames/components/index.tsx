@@ -9,6 +9,4 @@ export { mainButton } from './MainButton';
 export { MarkdownView } from './MarkdownView';
 export { colSkewer, rowSkewer } from './Skewer';
 export { Spinner } from './Spinner';
-export { Tab } from './Tab';
-export { Tabs } from './Tabs';
 export { TrashButton } from './TrashButton';

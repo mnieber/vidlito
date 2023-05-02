@@ -1,0 +1,11 @@
+.ActionsBar {
+  label {
+    @apply text-gray-700 font-bold;
+  }
+
+  .Icon {
+    svg {
+      @apply fill-gray-700;
+    }
+  }
+}

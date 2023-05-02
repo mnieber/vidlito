@@ -32,20 +32,24 @@ export const AccountMenu = observer(
     return props.dashboardState.accountMenu.menuProps ? (
       <div className={cn('AccountMenu', props.className)}>
         <Menu menuButton={<MenuButton>Account</MenuButton>} transition>
-          <MenuItem onClick={() => urlEvents.goToSignIn()}>
-            <Icon className={cn(lvi.leadingIcon)} name="check" />
-            Sign In
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              signOut({}).then(() => {
-                urlEvents.goToSignIn();
-              });
-            }}
-          >
-            <Icon className={cn(lvi.leadingIcon)} name="check" />
-            Sign Out
-          </MenuItem>
+          {!props.isAuthenticated && (
+            <MenuItem onClick={() => urlEvents.goToSignIn()}>
+              <Icon className={cn(lvi.leadingIcon)} name="signIn" />
+              Sign In
+            </MenuItem>
+          )}
+          {props.isAuthenticated && (
+            <MenuItem
+              onClick={() => {
+                signOut({}).then(() => {
+                  urlEvents.goToSignIn();
+                });
+              }}
+            >
+              <Icon className={cn(lvi.leadingIcon)} name="signOut" />
+              Sign Out
+            </MenuItem>
+          )}
         </Menu>
       </div>
     ) : null;

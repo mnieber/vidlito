@@ -14,6 +14,7 @@ import {
   SelectPlaylistEffect,
 } from 'src/playlists/components';
 import { useRoutes } from 'src/routes/hooks/useRoutes';
+import { cn } from 'src/utils/classnames';
 
 export type PropsT = {};
 
@@ -57,7 +58,7 @@ export const DashboardSwitch = withDefaultProps(
                 <UseActionsPage>
                   {/* 🔳 */}
                   <MainView>
-                    <ActionsView />
+                    <ActionsView className={cn('ml-2 lg:ml-4 mt-4')} />
                   </MainView>
                 </UseActionsPage>
               </Route>
