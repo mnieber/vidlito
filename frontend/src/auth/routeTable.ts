@@ -1,3 +1,4 @@
+import { getHomeRoute } from 'src/routes/getHomeRoute';
 import { RouteTable } from 'src/routes/utils/RouteTable';
 
 export const getRouteTable = () => {
@@ -5,6 +6,7 @@ export const getRouteTable = () => {
 
   routeTable.addRoutes({
     signIn: () => '/auth/sign-in/',
+    home: () => getHomeRoute(),
     signInByMagicLink: () => '/auth/sign-in/:magicLinkToken/',
     signUp: () => '/auth/sign-up/',
     termsAndConditions: () => '/auth/terms-and-conditions/',

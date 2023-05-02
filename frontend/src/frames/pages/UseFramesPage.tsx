@@ -17,7 +17,10 @@ export class FramesUrlEventLayer
   extends UrlEventLayer
   implements FramesUrlEventLayerT
 {
-  goToHome(this: UrlEventHandler) {}
+  goToHome(this: UrlEventHandler) {
+    const ufn = this.routeUfns.home(this.history.push);
+    ufn();
+  }
 
   goToSignUp(this: UrlEventHandler) {
     const ufn = this.routeUfns.signUp(this.history.push);
@@ -29,7 +32,9 @@ export class FramesUrlEventLayer
     ufn();
   }
 
-  userSignedIn(this: UrlEventHandler) {}
+  userSignedIn(this: UrlEventHandler & FramesUrlEventLayer) {
+    this.goToHome();
+  }
 
   userProfileLoaded(this: UrlEventHandler, username: string) {
     this.hiddenParams.username = username;
