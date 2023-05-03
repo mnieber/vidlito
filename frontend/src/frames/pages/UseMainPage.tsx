@@ -15,14 +15,6 @@ export class MainUrlEventLayer
   extends UrlEventLayer
   implements MainUrlEventLayerT
 {
-  closeActions(this: UrlEventHandler) {
-    const params = this.getParams(true);
-    if (params.clipSlug) {
-      const ufn = this.routeUfns.clip(this.history.push);
-      ufn(params);
-    }
-  }
-
   goToActions(this: UrlEventHandler) {
     this.updateHiddenParams();
     const ufn = this.routeUfns.actions(this.history.push);

@@ -1,0 +1,8 @@
+@import 'src/frames/components/Colors';
+
+.MainForm {
+  @apply c-card-bg-color;
+
+  @apply rounded-lg;
+  @apply py-[18px] px-4;
+}

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+// @layer components {
+//   .card-bg-color {
+//     @apply bg-gray-50;
+//   }
+// }
+
 // UIKit rules (this also imports various scss variables)
 @import 'src/frames/styles/uikit.scss';
 

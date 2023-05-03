@@ -1,11 +1,22 @@
+@import 'src/frames/components/DialogButton';
+@import 'src/frames/components/Colors';
+
 .ActionsBar {
   label {
     @apply text-gray-700 font-bold;
   }
 
-  .Icon {
-    svg {
-      @apply fill-gray-700;
+  .ActionsBar__AllActionsRadioBtn,
+  .ActionsBar__PlaylistActionsRadioBtn {
+    .Icon {
+      svg {
+        @apply fill-gray-700;
+      }
     }
+  }
+
+  .ActionsBar__UndoActionButton {
+    @apply c-dialog-button;
+    @apply c-dark-blue-on-sky-blue-btn-color;
   }
 }

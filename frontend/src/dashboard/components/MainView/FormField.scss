@@ -2,9 +2,9 @@
 
 .MainView {
   .FormField {
-    @include form-field;
+    @apply c-form-field;
 
-    @apply text-gray-700 text-base;
+    @apply text-white text-base;
     @apply bg-gray-300;
     @apply border;
     border-color: transparent;

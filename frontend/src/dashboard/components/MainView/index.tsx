@@ -1,12 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
-import { AccountMenu, Spinner, rowBanner } from 'src/frames/components';
-import { isLoading } from 'src/resourceStates';
+import { AccountMenu, rowBanner } from 'src/frames/components';
 import { cn } from 'src/utils/classnames';
 
 // Import styles
+import 'src/dashboard/components/MainView/FormField.scss';
+import 'src/dashboard/components/MainView/FormFieldLabel.scss';
+import 'src/dashboard/components/MainView/SaveButton.scss';
+import 'src/frames/components/MainView/MainForm.scss';
 import './index.scss';
 
 export type PropsT = React.PropsWithChildren<{
@@ -14,8 +16,6 @@ export type PropsT = React.PropsWithChildren<{
 }>;
 
 const DefaultProps = {
-  ...dps.clip,
-  ...dps.videoPlayerState,
   ...dps.dashboardState,
 };
 
@@ -28,26 +28,17 @@ export const MainView = observer(
       props.dashboardState.setVideoPlayerParentElm(parentElm);
     }, [props.dashboardState, parentElm]);
 
-    if (isLoading(props.clip)) {
-      return <Spinner />;
-    } else if (!props.clip) return null;
-
     return (
-      <ClipKeyHandler
-        clip={props.clip}
-        videoPlayerState={props.videoPlayerState}
-      >
-        <div className={cn(rowBanner)}>
-          <div
-            ref={parentElmRef}
-            tabIndex={0}
-            className={cn('MainView', 'grow max-w-[800px]', props.className)}
-          >
-            {props.children}
-          </div>
-          <AccountMenu className="mt-4 ml-8 self-start" />
+      <div className={cn(rowBanner)}>
+        <div
+          ref={parentElmRef}
+          tabIndex={0}
+          className={cn('MainView', 'grow max-w-[800px]', props.className)}
+        >
+          {props.children}
         </div>
-      </ClipKeyHandler>
+        <AccountMenu className="mt-4 ml-8 self-start" />
+      </div>
     );
   }, DefaultProps)
 );

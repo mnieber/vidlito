@@ -2,7 +2,7 @@
 
 .AuthCard {
   .FormField {
-    @include form-field;
+    @apply c-form-field;
 
     @apply border border-blue-400;
     @apply bg-white;

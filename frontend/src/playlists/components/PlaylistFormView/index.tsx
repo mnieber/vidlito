@@ -13,8 +13,6 @@ import {
   ValuePickerField,
 } from 'src/forms/components';
 import { NameField } from 'src/forms/components/NameField';
-import { primaryButton } from 'src/frames/components/Button';
-import { card } from 'src/frames/components/Card';
 import { L } from 'src/frames/layout';
 import {
   PlaylistsUrlEvents,
@@ -61,7 +59,7 @@ export const PlaylistFormView = observer(
       //
       // 🔳 PlaylistFormView 🔳
       //
-      <div className={cn('PlaylistFormView', card, props.className)}>
+      <div className={cn('PlaylistFormView', l.root, props.className)}>
         {
           // 🔳 FormStateProvider 🔳
         }
@@ -137,11 +135,15 @@ export const PlaylistFormView = observer(
             // 🔳 Buttons 🔳
           }
           <div className={cn(l.Buttons)}>
-            <CancelButton label="Cancel" tabIndex={6} />
+            <CancelButton
+              className={cn(l.Button.root, l.Button.gap)}
+              label="Cancel"
+              tabIndex={6}
+            />
             <SaveButton
               label="Save"
               tabIndex={6}
-              className={cn(primaryButton)}
+              className={cn(l.Button.root)}
             />
           </div>
         </FormStateProvider>

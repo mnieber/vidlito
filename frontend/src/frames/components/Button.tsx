@@ -13,17 +13,9 @@ const base = [padding, rounded, bold, autoScale];
 
 // Button variant styles
 
-const darkBlueOnSkyBlue = cn('bg-blue-400 text-blue-50 hover:bg-blue-600');
 const skyBlueText = 'text-blue-400 hover:text-blue-600';
 
 // Button variants
-
-export const primaryButton = cn(
-  //
-  'PrimaryButton',
-  darkBlueOnSkyBlue,
-  ...base
-);
 
 export const primaryGhostButton = cn(
   //

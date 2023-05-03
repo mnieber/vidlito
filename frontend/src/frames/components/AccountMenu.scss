@@ -3,8 +3,8 @@
 
 .AccountMenu {
   button {
-    @include dialog-button;
-    @include dark-blue-on-teal;
+    @apply c-dialog-button;
+    @apply c-dark-blue-on-teal-btn-color;
     @apply mb-4;
   }
 

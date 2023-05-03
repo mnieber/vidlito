@@ -1,15 +1,25 @@
-@mixin white-on-teal {
+.c-white-on-teal-btn-color {
   @apply bg-teal-400 text-white hover:bg-teal-300;
 }
 
-@mixin white-on-sky-blue {
+.c-white-on-sky-blue-btn-color {
   @apply bg-blue-400 text-white hover:bg-blue-300;
 }
 
-@mixin dark-blue-on-sky-blue {
-  @apply bg-blue-400 text-blue-50 hover:bg-blue-300;
+.c-dark-blue-on-sky-blue-btn-color {
+  @apply bg-blue-400 text-blue-50 hover:bg-blue-600;
+
+  .Icon {
+    svg {
+      @apply fill-blue-50;
+    }
+  }
 }
 
-@mixin dark-blue-on-teal {
+.c-dark-blue-on-teal-btn-color {
   @apply bg-teal-400 text-blue-50 hover:bg-teal-600;
+}
+
+.c-card-bg-color {
+  @apply bg-gray-50;
 }

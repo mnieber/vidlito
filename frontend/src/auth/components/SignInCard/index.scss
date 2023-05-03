@@ -2,6 +2,6 @@
 @import 'src/frames/components/Colors';
 
 .SignInCard__CreateAccountButton {
-  @include dialog-button;
-  @include white-on-teal;
+  @apply c-dialog-button;
+  @apply c-white-on-teal-btn-color;
 }

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import graphene
 from django.db import transaction
 from graphene.types.generic import GenericScalar
@@ -22,6 +24,9 @@ class MoveClipsToTrash(graphene.Mutation):
         owner = UserProfile.get(info)
         clips = Clip.objects.filter(id__in=clip_ids)
 
+        current_datetime = datetime.now()
+        current_datetime_str = current_datetime.isoformat()
+
         with transaction.atomic():
             action = Action(
                 type="TrashEntries",
@@ -32,6 +37,7 @@ class MoveClipsToTrash(graphene.Mutation):
                     "clip_names": [x.name for x in clips],
                     "playlist_name": playlist.name,
                     "playlist_id": str(playlist.id),
+                    "date": current_datetime_str,
                 },
             )
             action.save()

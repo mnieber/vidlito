@@ -1,9 +1,9 @@
-@import "src/frames/components/DialogButton";
-@import "src/frames/components/Colors";
+@import 'src/frames/components/DialogButton';
+@import 'src/frames/components/Colors';
 
 .MainView {
-    .SaveButton {
-        @include dialog-button;
-        @include dark-blue-on-sky-blue;
-    }
+  .SaveButton {
+    @apply c-dialog-button;
+    @apply c-dark-blue-on-sky-blue-btn-color;
+  }
 }

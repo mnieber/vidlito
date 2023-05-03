@@ -3,7 +3,7 @@
 
 .AuthCard {
   .SaveButton {
-    @include dialog-button;
-    @include white-on-sky-blue;
+    @apply c-dialog-button;
+    @apply c-white-on-sky-blue-btn-color;
   }
 }

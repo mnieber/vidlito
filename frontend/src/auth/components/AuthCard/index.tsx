@@ -4,6 +4,10 @@ import { withDefaultProps } from 'src/app/defaultProps';
 import { colBanner } from 'src/frames/components/Banner';
 import { cln } from 'src/utils/classnames';
 
+// Import styles
+import 'src/auth/components/AuthCard/FormField.scss';
+import 'src/auth/components/AuthCard/SaveButton.scss';
+
 type PropsT = React.PropsWithChildren<{
   id: string;
 }>;

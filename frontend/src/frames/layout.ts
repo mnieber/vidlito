@@ -1,12 +1,8 @@
+import { colBanner } from 'src/frames/components/Banner';
 import { rowSkewer } from 'src/frames/components/Skewer';
 import { cn } from 'src/utils/classnames';
 
 // Import styles
-import 'src/auth/components/AuthCard/FormField.scss';
-import 'src/auth/components/AuthCard/SaveButton.scss';
-import 'src/dashboard/components/MainView/FormField.scss';
-import 'src/dashboard/components/MainView/FormFieldLabel.scss';
-import 'src/dashboard/components/MainView/SaveButton.scss';
 import 'src/forms/components/FormField.scss';
 import 'src/forms/components/FormFieldButton.scss';
 import 'src/frames/components/ToolButton.scss';
@@ -68,6 +64,7 @@ export const L = {
     // - a Buttons container (optional, if there is more than one button).
     // - one or more Button components. E.g. a 'Save Clip' button.
     MainForm: {
+      root: cn('MainForm', colBanner),
       GlobalError: 'mb-2',
       Field: 'mb-6',
       Buttons: cn([rowSkewer, 'self-end']),

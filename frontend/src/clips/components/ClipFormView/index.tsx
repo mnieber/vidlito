@@ -17,8 +17,6 @@ import {
 } from 'src/forms/components';
 import { TimeField } from 'src/forms/components/TimeField';
 import { rowSkewer } from 'src/frames/components';
-import { primaryButton } from 'src/frames/components/Button';
-import { card } from 'src/frames/components/Card';
 import { L } from 'src/frames/layout';
 import {
   ClipsUrlEvents,
@@ -66,7 +64,7 @@ export const ClipFormView = observer(
       //
       // 🔳 ClipFormView 🔳
       //
-      <div className={cn('ClipFormView', card, props.className)}>
+      <div className={cn('ClipFormView', l.root, props.className)}>
         {
           // 🔳 FormStateProvider 🔳
         }
@@ -199,7 +197,7 @@ export const ClipFormView = observer(
             <SaveButton
               tabIndex={10}
               label="Save"
-              className={cn(l.Button.root, primaryButton)}
+              className={cn(l.Button.root)}
             />
           </div>
         </FormStateProvider>

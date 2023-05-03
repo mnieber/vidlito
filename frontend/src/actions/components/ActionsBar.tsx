@@ -1,32 +1,39 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { rowBanner, rowSkewer } from 'src/frames/components';
+import { rowFlagPole, rowSkewer } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
 import { lvi } from 'src/frames/components/Lvi';
-import { ActionsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { cn } from 'src/utils/classnames';
 
 // Import styles
 import './ActionsBar.scss';
 
-const useUrlEvents = () => useUrlEventHandler<typeof ActionsUrlEvents>();
+// const useUrlEvents = () => useUrlEventHandler<typeof ActionsUrlEvents>();
 
 export type PropsT = {
   className?: any;
 };
 
 const DefaultProps = {
+  ...dps.action,
   ...dps.actionsState,
 };
 
 export const ActionsBar = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEvents();
+    // const urlEvents = useUrlEvents();
+    console.log('ActionsBar props', props.action, props.action?.id);
 
     return (
-      <div className={cn('ActionsBar', rowBanner, props.className)}>
+      //
+      // 🔳 ActionsBar 🔳
+      //
+      <div className={cn('ActionsBar', rowFlagPole, props.className)}>
+        {
+          // 🔳 Button all actions 🔳
+        }
         <label
-          className={cn('mr-4', rowSkewer)}
+          className={cn('ActionsBar__AllActionsRadioBtn', 'mr-4', rowSkewer)}
           onClick={() => {
             props.actionsState.settings.setShowAllActions(true);
           }}
@@ -41,8 +48,11 @@ export const ActionsBar = observer(
           />
           All actions
         </label>
+        {
+          // 🔳 Button playlist actions 🔳
+        }
         <label
-          className={cn(rowSkewer)}
+          className={cn('ActionsBar__PlaylistActionsRadioBtn', rowSkewer)}
           onClick={() => {
             props.actionsState.settings.setShowAllActions(false);
           }}
@@ -57,9 +67,18 @@ export const ActionsBar = observer(
           />
           Playlist actions
         </label>
+        {
+          // 🔳 Undo Button 🔳
+        }
         <div className={cn('ml-auto')}>
-          <button onClick={() => urlEvents.closeActions()}>
-            <Icon className={cn(lvi.leadingIcon)} name="close" />
+          <button
+            className={cn('ActionsBar__UndoActionButton', rowSkewer, {
+              invisible: !props.action,
+            })}
+            onClick={() => props.actionsState.undoAction(props.action)}
+          >
+            <Icon className={cn(lvi.leadingIcon)} name="reply" />
+            Undo
           </button>
         </div>
       </div>
