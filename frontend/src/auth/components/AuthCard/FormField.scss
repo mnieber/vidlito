@@ -1,6 +1,10 @@
 @import 'src/forms/components/FormField';
 
 .AuthCard {
+  .FormField:focus-within {
+    @apply border border-blue-700;
+  }
+
   .FormField {
     @apply c-form-field;
 
