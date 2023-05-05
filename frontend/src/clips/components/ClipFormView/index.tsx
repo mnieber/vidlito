@@ -7,10 +7,10 @@ import {
   CancelButton,
   Field,
   FormFieldLabel,
+  FormSaveButton,
   GlobalError,
   MarkdownField,
   NameField,
-  SaveButton,
   SlugField,
   TextField,
   ValuePickerField,
@@ -194,7 +194,7 @@ export const ClipFormView = observer(
               tabIndex={10}
               label="Cancel"
             />
-            <SaveButton
+            <FormSaveButton
               tabIndex={10}
               label="Save"
               className={cn(l.Button.root)}

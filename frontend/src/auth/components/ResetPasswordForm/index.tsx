@@ -2,9 +2,9 @@ import React from 'react';
 import { FormStateProvider } from 'react-form-state-context';
 import {
   Field,
+  FormSaveButton,
   GlobalError,
   PasswordField,
-  SaveButton,
 } from 'src/forms/components';
 import { getErrorKeys } from 'src/forms/utils/createFormErrorsObject';
 import { colBanner } from 'src/frames/components';
@@ -58,7 +58,7 @@ export function ResetPasswordForm(props: PropsT) {
             >
               <PasswordField placeholder="Password" />
             </Field>
-            <SaveButton
+            <FormSaveButton
               dataCy="passwordChangeBtn"
               label="Change password"
               className={l.Button}

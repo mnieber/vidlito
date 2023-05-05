@@ -1,9 +1,9 @@
 import { FormStateProvider } from 'react-form-state-context';
 import {
   Field,
+  FormSaveButton,
   GlobalError,
   PasswordField,
-  SaveButton,
 } from 'src/forms/components';
 import { colBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
@@ -50,7 +50,7 @@ export function ActivateAccountForm(props: PropsT) {
           <PasswordField placeholder="Password" />
         </Field>
 
-        <SaveButton
+        <FormSaveButton
           dataCy="activateAccountBtn"
           label="Activate account"
           className={l.Button}

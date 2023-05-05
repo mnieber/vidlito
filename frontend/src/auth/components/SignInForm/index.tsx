@@ -2,9 +2,9 @@ import { FormStateProvider } from 'react-form-state-context';
 import {
   EmailField,
   Field,
+  FormSaveButton,
   GlobalError,
   PasswordField,
-  SaveButton,
 } from 'src/forms/components';
 import { colBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
@@ -70,9 +70,9 @@ export function SignInForm(props: PropsT) {
         </Field>
 
         {
-          // 🔳 SaveButton 🔳
+          // 🔳 FormSaveButton 🔳
         }
-        <SaveButton
+        <FormSaveButton
           dataCy={'signInBtn'}
           label={messages.labelSignIn}
           className={l.Button}

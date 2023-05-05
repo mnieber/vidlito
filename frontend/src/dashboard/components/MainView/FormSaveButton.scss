@@ -2,7 +2,7 @@
 @import 'src/frames/components/Colors';
 
 .MainView {
-  .SaveButton {
+  .FormSaveButton {
     @apply c-dialog-button;
     @apply c-dark-blue-on-sky-blue-btn-color;
   }

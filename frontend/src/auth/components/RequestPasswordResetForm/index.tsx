@@ -2,8 +2,8 @@ import { FormStateProvider } from 'react-form-state-context';
 import {
   EmailField,
   Field,
+  FormSaveButton,
   GlobalError,
-  SaveButton,
 } from 'src/forms/components';
 import { colBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
@@ -49,7 +49,7 @@ export function RequestPasswordResetForm(props: PropsT) {
           <EmailField placeholder="Email" />
         </Field>
 
-        <SaveButton
+        <FormSaveButton
           dataCy="passwordResetBtn"
           label="Request password reset"
           className={l.Button}

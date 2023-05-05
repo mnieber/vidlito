@@ -3,8 +3,8 @@ import {
   ControlledCheckbox,
   EmailField,
   Field,
+  FormSaveButton,
   GlobalError,
-  SaveButton,
 } from 'src/forms/components';
 import { colBanner } from 'src/frames/components';
 import { rowSkewer } from 'src/frames/components/Skewer';
@@ -71,9 +71,13 @@ export function SignUpForm(props: PropsT) {
         </Field>
 
         {
-          // 🔳 SaveButton 🔳
+          // 🔳 FormSaveButton 🔳
         }
-        <SaveButton dataCy="signUpBtn" label="Sign Up" className={l.Button} />
+        <FormSaveButton
+          dataCy="signUpBtn"
+          label="Sign Up"
+          className={l.Button}
+        />
       </div>
     </FormStateProvider>
   );

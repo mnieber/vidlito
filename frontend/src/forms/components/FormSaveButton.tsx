@@ -9,11 +9,11 @@ export type PropsT = {
   className?: any;
 };
 
-export const SaveButton = (props: PropsT) => {
+export const FormSaveButton = (props: PropsT) => {
   const formState = useFormStateContext();
   return (
     <button
-      className={cn('SaveButton', props.className)}
+      className={cn('FormSaveButton', props.className)}
       data-cy={props.dataCy}
       tabIndex={props.tabIndex}
       onClick={(e) => {

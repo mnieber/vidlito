@@ -6,9 +6,9 @@ import {
   CancelButton,
   Field,
   FormFieldLabel,
+  FormSaveButton,
   GlobalError,
   MarkdownField,
-  SaveButton,
   SlugField,
   ValuePickerField,
 } from 'src/forms/components';
@@ -140,7 +140,7 @@ export const PlaylistFormView = observer(
               label="Cancel"
               tabIndex={6}
             />
-            <SaveButton
+            <FormSaveButton
               label="Save"
               tabIndex={6}
               className={cn(l.Button.root)}

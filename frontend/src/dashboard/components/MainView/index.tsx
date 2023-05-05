@@ -7,7 +7,7 @@ import { cn } from 'src/utils/classnames';
 // Import styles
 import 'src/dashboard/components/MainView/FormField.scss';
 import 'src/dashboard/components/MainView/FormFieldLabel.scss';
-import 'src/dashboard/components/MainView/SaveButton.scss';
+import 'src/dashboard/components/MainView/FormSaveButton.scss';
 import 'src/frames/components/MainView/MainForm.scss';
 import './index.scss';
 

@@ -2,7 +2,7 @@
 @import 'src/frames/components/Colors';
 
 .AuthCard {
-  .SaveButton {
+  .FormSaveButton {
     @apply c-dialog-button;
     @apply c-white-on-sky-blue-btn-color;
   }

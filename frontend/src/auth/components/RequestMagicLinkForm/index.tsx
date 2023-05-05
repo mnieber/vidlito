@@ -2,8 +2,8 @@ import { FormStateProvider } from 'react-form-state-context';
 import {
   EmailField,
   Field,
+  FormSaveButton,
   GlobalError,
-  SaveButton,
 } from 'src/forms/components';
 import { colBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
@@ -47,7 +47,7 @@ export function RequestMagicLinkForm(props: PropsT) {
           <EmailField placeholder="Email" />
         </Field>
 
-        <SaveButton
+        <FormSaveButton
           dataCy="magicLinkBtn"
           label="Request Magic Link"
           className={l.Button}
