@@ -3,8 +3,8 @@ import { FormStateProvider } from 'react-form-state-context';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { usePreviewButton } from 'src/clips/hooks/usePreviewButton';
 import {
-  CancelButton,
   Field,
+  FormCancelButton,
   FormFieldLabel,
   FormSaveButton,
   GlobalError,
@@ -59,7 +59,7 @@ export const PlaylistFormView = observer(
       //
       // 🔳 PlaylistFormView 🔳
       //
-      <div className={cn('PlaylistFormView', l.root, props.className)}>
+      <div className={cn('PlaylistFormView', l.root(), props.className)}>
         {
           // 🔳 FormStateProvider 🔳
         }
@@ -75,14 +75,14 @@ export const PlaylistFormView = observer(
           )}
           handleCancel={form.getHandleCancel(props, urlEvents)}
         >
-          <GlobalError className={l.GlobalError} />
+          <GlobalError className={l.GlobalError()} />
           {
             // 🔳 NameField 🔳
           }
           <Field
             fieldName="playlistForm.name"
             autoFocus={true}
-            className={l.Field}
+            className={l.Field()}
           >
             <FormFieldLabel label="Name" />
             <NameField
@@ -99,14 +99,14 @@ export const PlaylistFormView = observer(
           {
             // 🔳 SlugField 🔳
           }
-          <Field fieldName="playlistForm.slug" className={l.Field}>
+          <Field fieldName="playlistForm.slug" className={l.Field()}>
             <FormFieldLabel label="Slug" />
             <SlugField relatedFieldName="playlistForm.name" />
           </Field>
           {
             // 🔳 TagsField 🔳
           }
-          <Field fieldName="playlistForm.tags" className={l.Field}>
+          <Field fieldName="playlistForm.tags" className={l.Field()}>
             <FormFieldLabel label="Tags" />
             <ValuePickerField
               tabIndex={5}
@@ -122,7 +122,7 @@ export const PlaylistFormView = observer(
           <Field
             fieldName="playlistForm.description"
             tabOnEnter={false}
-            className={l.Field}
+            className={l.Field()}
           >
             <FormFieldLabel label="Description" buttons={[showPreviewButton]} />
             <MarkdownField
@@ -134,16 +134,16 @@ export const PlaylistFormView = observer(
           {
             // 🔳 Buttons 🔳
           }
-          <div className={cn(l.Buttons)}>
-            <CancelButton
-              className={cn(l.Button.root, l.Button.gap)}
+          <div className={cn(l.Buttons())}>
+            <FormCancelButton
+              className={cn(l.Button.root(), l.Button.gap())}
               label="Cancel"
               tabIndex={6}
             />
             <FormSaveButton
               label="Save"
               tabIndex={6}
-              className={cn(l.Button.root)}
+              className={cn(l.Button.root())}
             />
           </div>
         </FormStateProvider>

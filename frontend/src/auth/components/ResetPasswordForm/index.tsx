@@ -7,7 +7,6 @@ import {
   PasswordField,
 } from 'src/forms/components';
 import { getErrorKeys } from 'src/forms/utils/createFormErrorsObject';
-import { colBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -39,20 +38,20 @@ export function ResetPasswordForm(props: PropsT) {
         className={cn(
           //
           'ResetPasswordForm',
-          colBanner,
+          L.col.banner(),
           props.className
         )}
       >
-        <GlobalError className={cn(l.GlobalError, '!text-bodyText')} />
+        <GlobalError className={cn(l.GlobalError(), '!text-bodyText')} />
 
         {!getErrorKeys(externalErrors).includes('global') && (
           <React.Fragment>
-            <div className={cn(l.Header)}>
+            <div className={cn(l.Header())}>
               {messages.divEnterYourNewPassword}
             </div>
 
             <Field
-              className={l.Field}
+              className={l.Field()}
               fieldName={formFields.password}
               submitOnEnter={true}
             >
@@ -61,7 +60,7 @@ export function ResetPasswordForm(props: PropsT) {
             <FormSaveButton
               dataCy="passwordChangeBtn"
               label="Change password"
-              className={l.Button}
+              className={l.Button()}
             />
           </React.Fragment>
         )}

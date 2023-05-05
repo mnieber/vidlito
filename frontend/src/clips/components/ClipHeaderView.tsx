@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon, colBanner, rowBanner, rowSkewer } from 'src/frames/components';
+import { Icon } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 
@@ -26,7 +26,7 @@ export const ClipHeaderView = observer(
     }
 
     return (
-      <div className={cn('ClipHeaderView', rowBanner, props.className)}>
+      <div className={cn('ClipHeaderView', L.row.banner(), props.className)}>
         {
           // 🔳 Playlist button 🔳
         }
@@ -41,7 +41,7 @@ export const ClipHeaderView = observer(
             })
           )}
         >
-          <div className={cn('ClipHeaderView__TitleName', rowSkewer)}>
+          <div className={cn('ClipHeaderView__TitleName', L.row.skewer())}>
             <button
               className={cn('ClipHeaderView__PlaylistName')}
               onClick={() => {
@@ -66,7 +66,7 @@ export const ClipHeaderView = observer(
             })
           )}
         >
-          <div className={cn('ClipHeaderView__TitleName', rowSkewer)}>
+          <div className={cn('ClipHeaderView__TitleName', L.row.skewer())}>
             <button
               className={cn('ClipHeaderView__ClipName')}
               onClick={() => {
@@ -82,7 +82,7 @@ export const ClipHeaderView = observer(
         }
         <div
           className={cn(
-            colBanner,
+            L.col.banner(),
             'justify-between',
             'ml-8',
             '',
@@ -93,7 +93,7 @@ export const ClipHeaderView = observer(
             // 🔳 EditButton 🔳
           }
           <button
-            className={cn('ClipHeaderView__EditButton', L.ToolButton.root)}
+            className={cn('ClipHeaderView__EditButton', L.ToolButton.root())}
             onClick={() => {
               const edit = props.dashboardState.showPlaylistDescription
                 ? props.playlistsEdit
@@ -101,7 +101,7 @@ export const ClipHeaderView = observer(
               edit.enable();
             }}
           >
-            <Icon className={L.ToolButton.icon.small} name="pencil" />
+            <Icon className={L.ToolButton.icon.small()} name="pencil" />
             Edit
           </button>
           {

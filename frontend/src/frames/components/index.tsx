@@ -1,11 +1,7 @@
 export { AccountMenu } from './AccountMenu';
 export { AppFrame } from './AppFrame';
-export { colBanner, rowBanner } from './Banner';
-export { colFlagPole, rowFlagPole } from './FlagPole';
 export { Icon } from './Icon';
 export { Logo } from './Logo';
-export { mainButton } from './MainButton';
 export { MarkdownView } from './MarkdownView';
-export { colSkewer, rowSkewer } from './Skewer';
 export { Spinner } from './Spinner';
 export { TrashButton } from './TrashButton';

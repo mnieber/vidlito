@@ -4,8 +4,8 @@ import { FormState, FormStateProvider } from 'react-form-state-context';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { usePreviewButton } from 'src/clips/hooks/usePreviewButton';
 import {
-  CancelButton,
   Field,
+  FormCancelButton,
   FormFieldLabel,
   FormSaveButton,
   GlobalError,
@@ -16,7 +16,6 @@ import {
   ValuePickerField,
 } from 'src/forms/components';
 import { TimeField } from 'src/forms/components/TimeField';
-import { rowSkewer } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import {
   ClipsUrlEvents,
@@ -64,7 +63,7 @@ export const ClipFormView = observer(
       //
       // 🔳 ClipFormView 🔳
       //
-      <div className={cn('ClipFormView', l.root, props.className)}>
+      <div className={cn('ClipFormView', l.root(), props.className)}>
         {
           // 🔳 FormStateProvider 🔳
         }
@@ -85,7 +84,11 @@ export const ClipFormView = observer(
             // 🔳 UrlField 🔳
           }
           <GlobalError />
-          <Field fieldName="clipForm.url" autoFocus={true} className={l.Field}>
+          <Field
+            fieldName="clipForm.url"
+            autoFocus={true}
+            className={l.Field()}
+          >
             <FormFieldLabel label="URL" />
             <TextField
               tabIndex={1}
@@ -98,7 +101,7 @@ export const ClipFormView = observer(
               }}
             />
           </Field>
-          <div className={cn(rowSkewer, l.Field)}>
+          <div className={cn(L.row.skewer(), l.Field())}>
             {
               // 🔳 StartTimeField 🔳
             }
@@ -125,7 +128,7 @@ export const ClipFormView = observer(
           {
             // 🔳 NameField 🔳
           }
-          <Field fieldName="clipForm.name" className={l.Field}>
+          <Field fieldName="clipForm.name" className={l.Field()}>
             <FormFieldLabel label="NAME" />
             <NameField
               tabIndex={6}
@@ -141,14 +144,14 @@ export const ClipFormView = observer(
           {
             // 🔳 SlugField 🔳
           }
-          <Field fieldName="clipForm.slug" className={l.Field}>
+          <Field fieldName="clipForm.slug" className={l.Field()}>
             <FormFieldLabel label="SLUG" />
             <SlugField relatedFieldName="clipForm.name" />
           </Field>
           {
             // 🔳 TagsField 🔳
           }
-          <Field fieldName="clipForm.tags" className={l.Field}>
+          <Field fieldName="clipForm.tags" className={l.Field()}>
             <FormFieldLabel label="TAGS" />
             <ValuePickerField
               tabIndex={9}
@@ -176,7 +179,7 @@ export const ClipFormView = observer(
           <Field
             fieldName="clipForm.description"
             tabOnEnter={false}
-            className={l.Field}
+            className={l.Field()}
           >
             <FormFieldLabel label="DESCRIPTION" buttons={[showPreviewButton]} />
             <MarkdownField
@@ -188,16 +191,16 @@ export const ClipFormView = observer(
           {
             // 🔳 Buttons 🔳
           }
-          <div className={cn(l.Buttons)}>
-            <CancelButton
-              className={cn(l.Button.root, l.Button.gap)}
+          <div className={cn(l.Buttons())}>
+            <FormCancelButton
+              className={cn(l.Button.root(), l.Button.gap())}
               tabIndex={10}
               label="Cancel"
             />
             <FormSaveButton
               tabIndex={10}
               label="Save"
-              className={cn(l.Button.root)}
+              className={cn(l.Button.root())}
             />
           </div>
         </FormStateProvider>

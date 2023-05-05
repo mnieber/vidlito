@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { useFormStateContext } from 'react-form-state-context';
-import { rowSkewer } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 import { VideoController } from 'src/videos/VideoController';
 
@@ -18,7 +18,7 @@ export const GoToTimeButton = (props: PropsT) => {
   const formState = useFormStateContext();
   return (
     <button
-      className={cn('GoToTimeButton', rowSkewer, props.className)}
+      className={cn('GoToTimeButton', L.row.skewer(), props.className)}
       tabIndex={props.tabIndex}
       onClick={() => {
         const timestamp = formState.getValue(props.fieldName);

@@ -3,7 +3,8 @@ import { useHighlightUIConnector } from 'skandha-mobx/hooks';
 import { ActionListViewItem } from 'src/actions/components/ActionListViewItem';
 import { isLoading } from 'src/api/getState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Spinner, colBanner } from 'src/frames/components';
+import { Spinner } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 
 // Import styles
@@ -43,7 +44,7 @@ export const ActionListView = observer(
     });
 
     return (
-      <div className={cn('ActionListView', colBanner, props.className)}>
+      <div className={cn('ActionListView', L.col.banner(), props.className)}>
         {actionDivs.length > 0 && actionDivs}
         {actionDivs.length === 0 && noItems}
       </div>

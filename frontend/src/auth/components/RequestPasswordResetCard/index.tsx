@@ -21,14 +21,14 @@ export const RequestPasswordResetCard = observer(() => {
       )}
       {authState.state !== States.REQUEST_PASSWORD_RESET_SUCCEEDED && (
         <RequestPasswordResetForm
-          className={l.Form}
+          className={l.Form()}
           requestPasswordReset={(email: string) => {
             return requestPasswordReset({ email });
           }}
           errors={authState.errors}
         />
       )}
-      <div className={l.CardFooter}>{messages.haveYouFoundYourPassword}</div>
+      <div className={l.CardFooter()}>{messages.haveYouFoundYourPassword}</div>
     </AuthCard>
   );
 });

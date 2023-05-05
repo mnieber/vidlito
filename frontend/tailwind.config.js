@@ -7,6 +7,7 @@ module.exports = {
       },
     },
     colors: {
+      transparent: 'transparent',
       black: '#000',
       bodyText: 'hsl(210, 20%, 25%)',
       white: '#fff',

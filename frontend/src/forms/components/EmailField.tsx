@@ -16,14 +16,14 @@ export const EmailField = (props: PropsT) => {
       className={cn(
         //
         'EmailField',
-        l.root,
+        l.root(),
         props.className
       )}
     >
       <input
         placeholder={props.placeholder}
         {...fieldProps}
-        className={l.input}
+        className={l.input()}
       />
     </div>
   );

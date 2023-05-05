@@ -1,10 +1,10 @@
-import { colBanner } from 'src/frames/components/Banner';
-import { rowSkewer } from 'src/frames/components/Skewer';
 import { cn } from 'src/utils/classnames';
 
 // Import styles
 import 'src/forms/components/FormField.scss';
 import 'src/forms/components/FormFieldButton.scss';
+import 'src/frames/components/DialogButton.scss';
+import 'src/frames/components/DropdownButton.scss';
 import 'src/frames/components/ToolButton.scss';
 
 export const breakpoints = {
@@ -22,9 +22,9 @@ export const L = {
     // - a FormCaption that appears just below the form (e.g. "Did you forget your password?")
     // - a CardFooter that appears at the bottom of the card (e.g. "Register for an account")
     AuthCard: {
-      Form: '',
-      FormCaption: 'mt-2',
-      CardFooter: 'mt-8',
+      Form: () => '',
+      FormCaption: () => 'mt-2',
+      CardFooter: () => 'mt-8',
     },
     // An AuthForm has:
     // - a GlobalError. This component shows an error message with some space below it.
@@ -34,26 +34,39 @@ export const L = {
     //   and the form-field-error.
     // - a Button, e.g. 'Sign In'.
     AuthForm: {
-      GlobalError: 'mb-2',
-      Header: 'mb-2',
-      Field: 'mb-2',
-      Button: '',
+      GlobalError: () => 'mb-2',
+      Header: () => 'mb-2',
+      Field: () => 'mb-2',
+      Button: () => '',
     },
     // An AuthPage has:
     // - a LogoCard that appears on the left, e.g. 'Welcome to vidlito'.
     // - a Gap that separates the LogoCard from the AuthCard.
     // - an AuthCard on the right, e.g. a card for signing in.
     AuthPage: {
-      Gap: 'w-[300px]',
+      Gap: () => 'w-[300px]',
     },
   },
-  FormField: {
-    root: 'FormField flex flex-col',
-    input: 'FormField__Input grow',
-    FormFieldButton: {
-      root: 'FormFieldButton',
-      gap: 'mr-0.5',
+  DropdownButton: {
+    root: () => cn('DropdownButton', L.row.skewer(), 'justify-between'),
+    color: {
+      blue: () => 'text-primaryBlue',
     },
+    text: () => '',
+    icon: () => cn('h-[30px]', 'w-[30px]', 'fill-gray-700'),
+  },
+  FormField: {
+    root: () => 'FormField flex flex-col',
+    input: () => 'FormField__Input grow',
+    FormFieldButton: {
+      root: () => 'FormFieldButton',
+      gap: () => 'mr-0.5',
+    },
+  },
+  Lvi: {
+    root: () => cn('py-1', 'my-1', L.row.skewer()),
+    icon: () => L.DialogButton.icon(),
+    title: () => cn('grow', 'pr-2.5'),
   },
   main: {
     // A MainForm has:
@@ -64,21 +77,40 @@ export const L = {
     // - a Buttons container (optional, if there is more than one button).
     // - one or more Button components. E.g. a 'Save Clip' button.
     MainForm: {
-      root: cn('MainForm', colBanner),
-      GlobalError: 'mb-2',
-      Field: 'mb-6',
-      Buttons: cn([rowSkewer, 'self-end']),
+      root: () => cn('MainForm', L.col.banner()),
+      GlobalError: () => 'mb-2',
+      Field: () => 'mb-6',
+      Buttons: () => cn([L.row.skewer(), 'self-end']),
       Button: {
-        root: '',
-        gap: 'mr-2',
+        root: () => '',
+        gap: () => 'mr-2',
       },
     },
   },
-  ToolButton: {
-    root: cn(['ToolButton', rowSkewer]),
-    icon: {
-      normal: cn(['h-[32px] w-[32px]', 'mr-2', 'p-2']),
-      small: cn(['h-[24px] w-[24px]', 'mr-2', 'p-1']),
+  DialogButton: {
+    root: () => cn('DialogButton', L.row.skewer()),
+    // Clients should pick one color from the list below.
+    color: {
+      darkBlueOnSkyBlue: () => 'c-dark-blue-on-sky-blue-btn-color',
+      darkBlueOnTeal: () => 'c-dark-blue-on-teal-btn-color',
     },
+    icon: () => cn('mr-2', 'h-[20px]', 'w-[20px]'),
+  },
+  ToolButton: {
+    root: () => cn(['ToolButton', L.row.skewer()]),
+    icon: {
+      normal: () => cn(['h-[32px] w-[32px]', 'mr-2', 'p-2']),
+      small: () => cn(['h-[24px] w-[24px]', 'mr-2', 'p-1']),
+    },
+  },
+  row: {
+    skewer: () => 'flex flex-row items-center',
+    banner: () => 'flex flex-row items-stretch',
+    flagPole: () => 'flex flex-row items-start',
+  },
+  col: {
+    skewer: () => 'flex flex-col items-center',
+    banner: () => 'flex flex-col items-stretch',
+    flagPole: () => 'flex flex-col items-start',
   },
 };

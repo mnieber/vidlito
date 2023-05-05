@@ -26,8 +26,8 @@ export const MarkdownField = (props: PropsT) => {
       className={cn(
         //
         'MarkdownField',
-        l.root,
-        l.input,
+        l.root(),
+        l.input(),
         props.className
       )}
     >

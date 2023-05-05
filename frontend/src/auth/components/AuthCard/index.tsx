@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { withDefaultProps } from 'src/app/defaultProps';
-import { colBanner } from 'src/frames/components/Banner';
+import { L } from 'src/frames/layout';
 import { cln } from 'src/utils/classnames';
 
 // Import styles
@@ -32,7 +32,7 @@ export const AuthCard = observer(
             'px-8 py-6'
           )(
             //
-            colBanner
+            L.col.banner()
           )}
         >
           {props.children}

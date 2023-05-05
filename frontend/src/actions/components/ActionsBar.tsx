@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { rowFlagPole, rowSkewer } from 'src/frames/components';
 import { Icon } from 'src/frames/components/Icon';
-import { lvi } from 'src/frames/components/Lvi';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 
 // Import styles
@@ -23,12 +22,16 @@ export const ActionsBar = observer(
       //
       // 🔳 ActionsBar 🔳
       //
-      <div className={cn('ActionsBar', rowFlagPole, props.className)}>
+      <div className={cn('ActionsBar', L.row.flagPole(), props.className)}>
         {
           // 🔳 Button all actions 🔳
         }
         <label
-          className={cn('ActionsBar__AllActionsRadioBtn', 'mr-4', rowSkewer)}
+          className={cn(
+            'ActionsBar__AllActionsRadioBtn',
+            'mr-4',
+            L.row.skewer()
+          )}
           onClick={() => {
             props.actionsState.settings.setShowAllActions(true);
           }}
@@ -47,7 +50,7 @@ export const ActionsBar = observer(
           // 🔳 Button playlist actions 🔳
         }
         <label
-          className={cn('ActionsBar__PlaylistActionsRadioBtn', rowSkewer)}
+          className={cn('ActionsBar__PlaylistActionsRadioBtn', L.row.skewer())}
           onClick={() => {
             props.actionsState.settings.setShowAllActions(false);
           }}
@@ -67,12 +70,17 @@ export const ActionsBar = observer(
         }
         <div className={cn('ml-auto')}>
           <button
-            className={cn('ActionsBar__UndoActionButton', rowSkewer, {
-              invisible: !props.action,
-            })}
+            className={cn(
+              'ActionsBar__UndoActionButton',
+              L.DialogButton.root(),
+              L.DialogButton.color.darkBlueOnSkyBlue(),
+              {
+                invisible: !props.action,
+              }
+            )}
             onClick={() => props.actionsState.undoAction(props.action)}
           >
-            <Icon className={cn(lvi.leadingIcon)} name="reply" />
+            <Icon className={cn(L.DialogButton.icon())} name="reply" />
             Undo
           </button>
         </div>

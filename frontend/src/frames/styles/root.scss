@@ -9,7 +9,7 @@
 // }
 
 // UIKit rules (this also imports various scss variables)
-@import 'src/frames/styles/uikit.scss';
+@import 'src/frames/styles/uikit/index.scss';
 
 // Import other third party styles
 @import '@szhsin/react-menu/dist/index.css';

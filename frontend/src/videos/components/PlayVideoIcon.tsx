@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { Icon, rowSkewer } from 'src/frames/components';
+import { Icon } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 import { VideoController } from 'src/videos/VideoController';
 
@@ -18,7 +19,7 @@ export const PlayVideoIcon = observer((props: PropsT) => {
     <div
       className={cn(
         'PlayVideoIcon',
-        rowSkewer,
+        L.row.skewer(),
         {
           'PlayVideoIcon--loading': props.loading,
         },

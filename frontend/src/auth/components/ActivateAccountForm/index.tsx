@@ -5,7 +5,6 @@ import {
   GlobalError,
   PasswordField,
 } from 'src/forms/components';
-import { colBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -33,10 +32,12 @@ export function ActivateAccountForm(props: PropsT) {
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >
-      <div className={cn('ActivateAccountForm', colBanner, props.className)}>
-        <GlobalError className={cn(l.GlobalError)} />
+      <div
+        className={cn('ActivateAccountForm', L.col.banner(), props.className)}
+      >
+        <GlobalError className={cn(l.GlobalError())} />
 
-        <div className={cn(l.Header)}>
+        <div className={cn(l.Header())}>
           {messages.divYouAreOneStepAway}
           <br />
           {messages.divToProceedPleaseChooseANewPassword}
@@ -45,7 +46,7 @@ export function ActivateAccountForm(props: PropsT) {
         <Field
           fieldName={formFields.password}
           submitOnEnter={true}
-          className={l.Field}
+          className={l.Field()}
         >
           <PasswordField placeholder="Password" />
         </Field>
@@ -53,7 +54,7 @@ export function ActivateAccountForm(props: PropsT) {
         <FormSaveButton
           dataCy="activateAccountBtn"
           label="Activate account"
-          className={l.Button}
+          className={l.Button()}
         />
       </div>
     </FormStateProvider>

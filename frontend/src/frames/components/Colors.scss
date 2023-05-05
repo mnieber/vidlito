@@ -16,6 +16,10 @@
   }
 }
 
+.c-sky-blue-text {
+  @apply text-blue-400 hover:text-blue-600;
+}
+
 .c-dark-blue-on-teal-btn-color {
   @apply bg-teal-400 text-blue-50 hover:bg-teal-600;
 }

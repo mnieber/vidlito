@@ -6,7 +6,6 @@ import {
   GlobalError,
   PasswordField,
 } from 'src/forms/components';
-import { colBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -44,17 +43,17 @@ export function SignInForm(props: PropsT) {
         className={cn(
           //
           'SignInForm',
-          colBanner,
+          L.col.banner(),
           props.className
         )}
       >
-        <GlobalError className={l.GlobalError} />
+        <GlobalError className={l.GlobalError()} />
 
         {
           // 🔳 EmailField 🔳
         }
         <Field
-          className={l.Field}
+          className={l.Field()}
           fieldName={formFields.email}
           tabOnEnter={true}
           autoFocus={true}
@@ -65,7 +64,7 @@ export function SignInForm(props: PropsT) {
         {
           // 🔳 PasswordField 🔳
         }
-        <Field className={l.Field} fieldName="password" submitOnEnter={true}>
+        <Field className={l.Field()} fieldName="password" submitOnEnter={true}>
           <PasswordField placeholder="Password" />
         </Field>
 
@@ -75,7 +74,7 @@ export function SignInForm(props: PropsT) {
         <FormSaveButton
           dataCy={'signInBtn'}
           label={messages.labelSignIn}
-          className={l.Button}
+          className={l.Button()}
         />
       </div>
     </FormStateProvider>

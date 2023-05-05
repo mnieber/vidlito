@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from 'src/app/defaultProps';
-import { rowSkewer } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { FramesUrlEvents, useUrlEventHandler } from 'src/frames/pages';
 import { cln } from 'src/utils/classnames';
 
@@ -23,7 +23,7 @@ export const Logo = observer(
       <div
         className={cln('Logo', 'text-3xl font-bold')(
           //
-          rowSkewer,
+          L.row.skewer(),
           'mt-4 mb-6',
           'self-center',
           props.className

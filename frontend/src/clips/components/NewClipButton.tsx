@@ -27,7 +27,7 @@ export const NewClipButton = observer(
 
     return (
       <button
-        className={cn('NewClipButton', l.root, props.className)}
+        className={cn('NewClipButton', l.root(), props.className)}
         onClick={() => {
           props.clipsAddition
             .add({ values: createClip(props.userProfile, {}) })
@@ -36,7 +36,7 @@ export const NewClipButton = observer(
             });
         }}
       >
-        <Icon className={cn(l.icon.normal)} name="plus" />
+        <Icon className={cn(l.icon.normal())} name="plus" />
         Clip
       </button>
     );

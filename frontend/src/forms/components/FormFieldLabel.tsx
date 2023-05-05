@@ -1,5 +1,5 @@
 import { useFormFieldContext } from 'src/forms/components';
-import { rowSkewer } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 
 type PropsT = {
@@ -12,7 +12,7 @@ export const FormFieldLabel = (props: PropsT) => {
   const fieldContext = useFormFieldContext();
 
   return (
-    <div className={cn('FormFieldLabel', rowSkewer)}>
+    <div className={cn('FormFieldLabel', L.row.skewer())}>
       {props.label && (
         <label
           className={cn('FormFieldLabel', props.className)}

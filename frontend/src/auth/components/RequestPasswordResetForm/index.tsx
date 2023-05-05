@@ -5,7 +5,6 @@ import {
   FormSaveButton,
   GlobalError,
 } from 'src/forms/components';
-import { colBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -33,18 +32,22 @@ export function RequestPasswordResetForm(props: PropsT) {
       handleSubmit={form.getHandleSubmit(props)}
     >
       <div
-        className={cn('RequestPasswordResetForm', colBanner, props.className)}
+        className={cn(
+          'RequestPasswordResetForm',
+          L.col.banner(),
+          props.className
+        )}
       >
-        <GlobalError className={l.GlobalError} />
+        <GlobalError className={l.GlobalError()} />
 
-        <div className={cn(l.Header)}>
+        <div className={cn(l.Header())}>
           {messages.divEnterYourEmailToResetYourPassword}
         </div>
 
         <Field
           fieldName={formFields.email}
           submitOnEnter={true}
-          className={l.Field}
+          className={l.Field()}
         >
           <EmailField placeholder="Email" />
         </Field>
@@ -52,7 +55,7 @@ export function RequestPasswordResetForm(props: PropsT) {
         <FormSaveButton
           dataCy="passwordResetBtn"
           label="Request password reset"
-          className={l.Button}
+          className={l.Button()}
         />
       </div>
     </FormStateProvider>

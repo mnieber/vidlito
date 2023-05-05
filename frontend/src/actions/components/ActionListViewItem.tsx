@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import { highlightUIHandlers, HighlightUIPropsT } from 'skandha-facets';
 import { ActionT } from 'src/api/types/ActionT';
-import { colBanner, rowSkewer } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { isUpdating } from 'src/resourceStates';
 import { cln, cn } from 'src/utils/classnames';
 
@@ -31,12 +31,12 @@ export const ActionListViewItem = observer((props: PropsT) => {
         props.className
       )(
         //
-        colBanner,
+        L.col.banner(),
         'py-3 px-4'
       )}
       {...highlightUIHandlers(props.highlightUIProps)}
     >
-      <div className={cn('ActionListViewItem__Header', rowSkewer)}>
+      <div className={cn('ActionListViewItem__Header', L.row.skewer())}>
         <div className={cn('ActionListViewItem__Title', 'mr-2')}>
           {getTitle(props.action)}
         </div>

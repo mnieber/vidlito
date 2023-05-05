@@ -21,11 +21,11 @@ export const TextField = (props: PropsT) => {
       className={cn(
         //
         'TextField',
-        l.root,
+        l.root(),
         props.className
       )}
     >
-      <input {...fieldProps} className={l.input} />
+      <input {...fieldProps} className={l.input()} />
     </div>
   );
 };

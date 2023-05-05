@@ -1,10 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { AccountMenu, rowBanner } from 'src/frames/components';
+import { AccountMenu } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 
 // Import styles
+import 'src/dashboard/components/MainView/FormCancelButton.scss';
 import 'src/dashboard/components/MainView/FormField.scss';
 import 'src/dashboard/components/MainView/FormFieldLabel.scss';
 import 'src/dashboard/components/MainView/FormSaveButton.scss';
@@ -29,7 +31,7 @@ export const MainView = observer(
     }, [props.dashboardState, parentElm]);
 
     return (
-      <div className={cn(rowBanner)}>
+      <div className={cn(L.row.banner())}>
         <div
           ref={parentElmRef}
           tabIndex={0}

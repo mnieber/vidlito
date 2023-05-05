@@ -29,7 +29,7 @@ export const SignUpCard = observer(() => {
         // 🔳 SignUpForm 🔳
       }
       <SignUpForm
-        className={cn(l.Form)}
+        className={cn(l.Form())}
         signUp={(email: string, acceptsTerms: boolean) => {
           return signUp({
             userId: email,
@@ -43,13 +43,13 @@ export const SignUpCard = observer(() => {
         // 🔳 Confirmation 🔳
       }
       {authState.state === States.SIGN_UP_SUCCEEDED && (
-        <div className={cn(l.CardFooter)}>
+        <div className={cn(l.CardFooter())}>
           {messages.divYouHaveBeenSignedUp}
         </div>
       )}
       {authState.state !== States.SIGN_UP_SUCCEEDED && (
         <React.Fragment>
-          <div className={cn(l.CardFooter)}>
+          <div className={cn(l.CardFooter())}>
             {messages.ifYouAlreadyHaveAnAccount}
           </div>
         </React.Fragment>

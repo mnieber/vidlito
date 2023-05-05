@@ -7,8 +7,8 @@ import {
 } from 'skandha-facets';
 import { PlaylistT } from 'src/api/types/PlaylistT';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon, rowSkewer, Spinner } from 'src/frames/components';
-import { lvi } from 'src/frames/components/Lvi';
+import { Icon, Spinner } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { isUpdating } from 'src/resourceStates';
 import { cn } from 'src/utils/classnames';
 
@@ -33,6 +33,8 @@ export const PlaylistListViewItem = observer(
       return <Spinner />;
     }
 
+    const l = L.Lvi;
+
     return (
       //
       // 🔳 PlaylistListViewItem 🔳
@@ -40,7 +42,7 @@ export const PlaylistListViewItem = observer(
       <div
         className={cn(
           'PlaylistListViewItem',
-          lvi.container,
+          l.root(),
           'text-gray-700',
           '',
           {
@@ -57,7 +59,7 @@ export const PlaylistListViewItem = observer(
           // 🔳 Icon 🔳
         }
         <div
-          className={cn('IconContainer', lvi.leadingIcon, rowSkewer)}
+          className={cn('IconContainer', l.icon(), L.row.skewer())}
           onClick={() => {
             props.goToPlaylist(props.playlist);
           }}
@@ -70,7 +72,7 @@ export const PlaylistListViewItem = observer(
         {
           // 🔳 Title 🔳
         }
-        <div className={cn(['PlaylistListViewItem__Title', lvi.title])}>
+        <div className={cn(['PlaylistListViewItem__Title', l.title()])}>
           <div>{props.playlist.name}</div>
         </div>
       </div>

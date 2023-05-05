@@ -1,4 +1,4 @@
-import { colBanner, rowBanner } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cln, cn } from 'src/utils/classnames';
 
 // Import styles
@@ -11,14 +11,14 @@ export const SignInLogo = (props: PropsT) => {
     //
     // 🔳🔳 SignInLogo__SubTitle
     //
-    <div className={cn('SignInLogo', colBanner)}>
+    <div className={cn('SignInLogo', L.col.banner())}>
       <div
         className={cln(
           'SignInLogo__Title__',
           'text-6xl font-bold'
         )(
           //
-          rowBanner
+          L.row.banner()
         )}
       >
         <div className={cln('SignInLogo__TitlePrefix__', `text-primaryBlue`)()}>

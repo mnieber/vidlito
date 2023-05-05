@@ -4,8 +4,8 @@ import * as R from 'ramda';
 import React from 'react';
 import ReactResizeDetector from 'react-resize-detector';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon, colBanner, rowSkewer } from 'src/frames/components';
-import { lvi } from 'src/frames/components/Lvi';
+import { Icon } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 import { VideoPlayer } from 'src/videos/components/VideoPlayer';
 import { getVideoWidth, widthToHeight } from 'src/videos/utils/aspectRatio';
@@ -50,7 +50,7 @@ export const VideoPlayerPanel = observer(
       <div
         className={cn(
           'VideoPlayerPanel__Placeholder',
-          rowSkewer,
+          L.row.skewer(),
           'bg-blue-300'
         )}
         style={{ height: ready ? 0 : height }}
@@ -63,7 +63,7 @@ export const VideoPlayerPanel = observer(
           }}
         />
         <div className={cn('mx-auto', { hidden: ready })}>
-          <Icon className={cn(lvi.leadingIcon)} name="play" />
+          <Icon className={cn(L.Lvi.icon())} name="play" />
         </div>
       </div>
     );
@@ -71,7 +71,7 @@ export const VideoPlayerPanel = observer(
     return (
       <div
         ref={ref}
-        className={cn('VideoPlayerPanel', colBanner, props.className)}
+        className={cn('VideoPlayerPanel', L.col.banner(), props.className)}
       >
         {placeholder}
         <div className={cn({ hidden: !ready })} style={{ height: height }}>

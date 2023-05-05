@@ -5,7 +5,7 @@ import { useSignOut } from 'src/auth/endpoints';
 import { useAuthStateContext } from 'src/auth/hooks';
 import { FramesUrlEvents } from 'src/frames/FramesUrlEvents';
 import { Icon } from 'src/frames/components';
-import { lvi } from 'src/frames/components/Lvi';
+import { L } from 'src/frames/layout';
 import { useUrlEventHandler } from 'src/urlEvents';
 import { cn } from 'src/utils/classnames';
 
@@ -29,26 +29,45 @@ export const AccountMenu = observer(
     const authState = useAuthStateContext(true);
     const signOut = useSignOut(authState).mutateAsync;
 
+    const StyledMenuItem = (props: any) => {
+      return <MenuItem {...props} className="bg-transparent text-blue-50" />;
+    };
+
     return props.dashboardState.accountMenu.menuProps ? (
       <div className={cn('AccountMenu', props.className)}>
-        <Menu menuButton={<MenuButton>Account</MenuButton>} transition>
+        <Menu
+          menuButton={
+            <MenuButton
+              className={cn(
+                L.DialogButton.root(),
+                L.DialogButton.color.darkBlueOnTeal(),
+                'mb-4'
+              )}
+            >
+              Account
+            </MenuButton>
+          }
+          className="mt-4 font-bold bg-white"
+          offsetY={10}
+          transition
+        >
           {!props.isAuthenticated && (
-            <MenuItem onClick={() => urlEvents.goToSignIn()}>
-              <Icon className={cn(lvi.leadingIcon)} name="signIn" />
+            <StyledMenuItem onClick={() => urlEvents.goToSignIn()}>
+              <Icon className={cn(L.DialogButton.icon())} name="signIn" />
               Sign In
-            </MenuItem>
+            </StyledMenuItem>
           )}
           {props.isAuthenticated && (
-            <MenuItem
+            <StyledMenuItem
               onClick={() => {
                 signOut({}).then(() => {
                   urlEvents.goToSignIn();
                 });
               }}
             >
-              <Icon className={cn(lvi.leadingIcon)} name="signOut" />
+              <Icon className={cn(L.DialogButton.icon())} name="signOut" />
               Sign Out
-            </MenuItem>
+            </StyledMenuItem>
           )}
         </Menu>
       </div>

@@ -1,5 +1,5 @@
 import { useFormStateContext } from 'react-form-state-context';
-import { rowSkewer } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 import { VideoController } from 'src/videos/VideoController';
 
@@ -22,7 +22,7 @@ export const UpdateTimeButton = (props: PropsT) => {
   return (
     <button
       tabIndex={props.tabIndex}
-      className={cn('UpdateTimeButton', rowSkewer, props.className)}
+      className={cn('UpdateTimeButton', L.row.skewer(), props.className)}
       onClick={() => {
         formState.setValue(props.fieldName, timeStamp);
       }}

@@ -4,7 +4,6 @@ import { SignInForm } from 'src/auth/components/SignInForm';
 import { useSignIn } from 'src/auth/endpoints';
 import { useAuthStateContext } from 'src/auth/hooks';
 import { FramesUrlEvents } from 'src/frames/FramesUrlEvents';
-import { colBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import { useUrlEventHandler } from 'src/frames/pages';
 import { cln, cn } from 'src/utils/classnames';
@@ -33,7 +32,7 @@ export const SignInCard = observer(() => {
         // 🔳 SignInForm 🔳
       }
       <SignInForm
-        className={cn(l.Form)}
+        className={cn(l.Form())}
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
             urlEvents.userSignedIn();
@@ -47,8 +46,8 @@ export const SignInCard = observer(() => {
       <div
         className={cln(
           'SignInCard__ForgotPassword__',
-          l.FormCaption
-        )(colBanner)}
+          l.FormCaption()
+        )(L.col.banner())}
       >
         {messages.divForgotYourPassword}
       </div>
@@ -59,7 +58,7 @@ export const SignInCard = observer(() => {
         className={cln(
           //
           'SignInCard__CreateAccountButton',
-          l.CardFooter
+          l.CardFooter()
         )()}
         onClick={() => urlEvents.goToSignUp()}
       >

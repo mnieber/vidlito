@@ -1,6 +1,5 @@
 import { UpdateSlugButton } from 'src/forms/components';
 import { FieldPropsT, useFieldProps } from 'src/forms/hooks';
-import { rowBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 
@@ -23,14 +22,14 @@ export const SlugField = (props: PropsT) => {
       className={cn(
         //
         'SlugField',
-        l.root,
+        l.root(),
         props.className
       )}
     >
-      <div className={cn(rowBanner)}>
-        <input {...fieldProps} className={l.input} />
+      <div className={cn(L.row.banner())}>
+        <input {...fieldProps} className={l.input()} />
         <UpdateSlugButton
-          className={l.FormFieldButton.root}
+          className={l.FormFieldButton.root()}
           tabIndex={props.tabIndex}
           key="1"
           relatedFieldName={props.relatedFieldName}

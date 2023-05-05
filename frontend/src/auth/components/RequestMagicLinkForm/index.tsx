@@ -5,7 +5,6 @@ import {
   FormSaveButton,
   GlobalError,
 } from 'src/forms/components';
-import { colBanner } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -32,17 +31,19 @@ export function RequestMagicLinkForm(props: PropsT) {
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >
-      <div className={cn('RequestMagicLinkForm', colBanner, props.className)}>
-        <GlobalError className={l.GlobalError} />
+      <div
+        className={cn('RequestMagicLinkForm', L.col.banner(), props.className)}
+      >
+        <GlobalError className={l.GlobalError()} />
 
-        <div className={cn(l.Header)}>
+        <div className={cn(l.Header())}>
           {messages.divEnterYourEmailToResetYourPassword}
         </div>
 
         <Field
           fieldName={formFields.email}
           submitOnEnter={true}
-          className={l.Field}
+          className={l.Field()}
         >
           <EmailField placeholder="Email" />
         </Field>
@@ -50,7 +51,7 @@ export function RequestMagicLinkForm(props: PropsT) {
         <FormSaveButton
           dataCy="magicLinkBtn"
           label="Request Magic Link"
-          className={l.Button}
+          className={l.Button()}
         />
       </div>
     </FormStateProvider>

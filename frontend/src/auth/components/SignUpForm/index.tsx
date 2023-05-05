@@ -6,8 +6,6 @@ import {
   FormSaveButton,
   GlobalError,
 } from 'src/forms/components';
-import { colBanner } from 'src/frames/components';
-import { rowSkewer } from 'src/frames/components/Skewer';
 import { L } from 'src/frames/layout';
 import { cln, cn } from 'src/utils/classnames';
 import { form } from './form';
@@ -44,10 +42,10 @@ export function SignUpForm(props: PropsT) {
           props.className
         )(
           //
-          colBanner
+          L.col.banner()
         )}
       >
-        <GlobalError className={l.GlobalError} />
+        <GlobalError className={l.GlobalError()} />
 
         {
           // 🔳 EmailField 🔳
@@ -55,7 +53,7 @@ export function SignUpForm(props: PropsT) {
         <Field
           fieldName={formFields.email}
           autoFocus={true}
-          className={l.Field}
+          className={l.Field()}
         >
           <EmailField placeholder="Email" />
         </Field>
@@ -63,8 +61,8 @@ export function SignUpForm(props: PropsT) {
         {
           // 🔳 TermsField 🔳
         }
-        <Field fieldName={formFields.acceptsTerms} className={l.Field}>
-          <div className={cn('SignUpForm__Terms__', rowSkewer)}>
+        <Field fieldName={formFields.acceptsTerms} className={l.Field()}>
+          <div className={cn('SignUpForm__Terms__', L.row.skewer())}>
             <ControlledCheckbox />
             <div className={cn('ml-2')}>{messages.divIAgreeToTheTerms}</div>
           </div>
@@ -76,7 +74,7 @@ export function SignUpForm(props: PropsT) {
         <FormSaveButton
           dataCy="signUpBtn"
           label="Sign Up"
-          className={l.Button}
+          className={l.Button()}
         />
       </div>
     </FormStateProvider>

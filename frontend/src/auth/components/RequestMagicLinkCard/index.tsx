@@ -23,7 +23,7 @@ export const RequestMagicLinkCard = observer(() => {
       {authState.state !== States.REQUEST_MAGIC_LINK_SUCCEEDED && (
         <React.Fragment>
           <RequestMagicLinkForm
-            className={l.Form}
+            className={l.Form()}
             requestMagicLink={(email: string) => {
               return requestMagicLink({ userId: email });
             }}
@@ -31,7 +31,7 @@ export const RequestMagicLinkCard = observer(() => {
           />
         </React.Fragment>
       )}
-      <div className={l.CardFooter}>{messages.haveYouFoundYourPassword}</div>
+      <div className={l.CardFooter()}>{messages.haveYouFoundYourPassword}</div>
     </AuthCard>
   );
 });

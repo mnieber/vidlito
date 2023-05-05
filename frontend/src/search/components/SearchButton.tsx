@@ -19,10 +19,10 @@ export const SearchButton = observer(
 
     return (
       <button
-        className={cn('SearchButton', l.root, props.className)}
+        className={cn('SearchButton', l.root(), props.className)}
         onClick={() => (console as any).log('Moonleap Todo')}
       >
-        <Icon className={cn(l.icon.normal)} name="search" />
+        <Icon className={cn(l.icon.normal())} name="search" />
         Search
       </button>
     );

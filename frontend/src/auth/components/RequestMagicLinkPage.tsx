@@ -11,7 +11,7 @@ export const RequestMagicLinkPage = observer(() => {
   return (
     <AuthPage>
       <SignInLogo />
-      <div className={cn(l.Gap)} />
+      <div className={cn(l.Gap())} />
       <RequestMagicLinkCard />
     </AuthPage>
   );

@@ -3,7 +3,8 @@ import React from 'react';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipListView } from 'src/clips/components';
 import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
-import { Logo, colBanner, rowBanner } from 'src/frames/components';
+import { Logo } from 'src/frames/components';
+import { L } from 'src/frames/layout';
 import { PlaylistListPicker } from 'src/playlists/components/PlaylistListPicker';
 import { cln, cn, d } from 'src/utils/classnames';
 
@@ -29,7 +30,7 @@ export const Dashboard = observer(
           //
           'Dashboard',
           'grow',
-          rowBanner,
+          L.row.banner(),
           props.className
         )}
       >
@@ -40,7 +41,7 @@ export const Dashboard = observer(
         <div
           className={cn(
             d('Dashboard__LeftSidebar'),
-            colBanner,
+            L.col.banner(),
             'w-[290px] mx-2 lg:mx-4'
           )}
         >

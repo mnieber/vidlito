@@ -1,7 +1,7 @@
 import { Icon } from 'src/frames/components/Icon';
-import { lvi } from 'src/frames/components/Lvi';
+import { L } from 'src/frames/layout';
 import { cn } from 'src/utils/classnames';
 
 export const Spinner = () => {
-  return <Icon className={cn(lvi.leadingIcon)} name="check" />;
+  return <Icon className={cn(L.DialogButton.icon())} name="check" />;
 };

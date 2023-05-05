@@ -4,3 +4,7 @@
   @apply font-bold;
   @apply min-w-[max-content]; // auto-scale
 }
+
+.DialogButton {
+  @apply c-dialog-button;
+}

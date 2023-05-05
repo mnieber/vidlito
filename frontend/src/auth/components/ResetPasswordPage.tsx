@@ -14,7 +14,7 @@ export const ResetPasswordPage = observer(() => {
   return (
     <AuthPage>
       <SignInLogo />
-      <div className={cn(l.Gap)} />
+      <div className={cn(l.Gap())} />
       <ResetPasswordCard />
     </AuthPage>
   );

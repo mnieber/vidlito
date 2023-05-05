@@ -4,8 +4,7 @@ import { ActionsStateProvider } from 'src/actions/components';
 import { AuthStateProvider } from 'src/auth/components/AuthStateProvider';
 import { ClipsStateProvider } from 'src/clips/components';
 import { DashboardStateProvider } from 'src/dashboard/components';
-import { colBanner } from 'src/frames/components/Banner';
-import { breakpoints } from 'src/frames/layout';
+import { L, breakpoints } from 'src/frames/layout';
 import { PlaylistsStateProvider } from 'src/playlists/components/PlaylistsStateProvider';
 import { UrlRouter } from 'src/routes/components';
 import { UrlEventHandlerProvider } from 'src/routes/components/UrlEventHandlerProvider';
@@ -22,7 +21,7 @@ export const App = () => {
         `min-width-[${breakpoints.xs}] h-[100vh] overflow-x-hidden`
       )(
         //
-        colBanner
+        L.col.banner()
       )}
     >
       <Router history={history}>

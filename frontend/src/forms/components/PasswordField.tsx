@@ -16,14 +16,14 @@ export const PasswordField = (props: PropsT) => {
       className={cn(
         //
         'PasswordField',
-        l.root,
+        l.root(),
         props.className
       )}
     >
       <input
         placeholder={props.placeholder}
         {...fieldProps}
-        className={l.input}
+        className={l.input()}
       />
     </div>
   );
