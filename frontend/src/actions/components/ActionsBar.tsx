@@ -8,8 +8,6 @@ import { cn } from 'src/utils/classnames';
 // Import styles
 import './ActionsBar.scss';
 
-// const useUrlEvents = () => useUrlEventHandler<typeof ActionsUrlEvents>();
-
 export type PropsT = {
   className?: any;
 };
@@ -21,9 +19,6 @@ const DefaultProps = {
 
 export const ActionsBar = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    // const urlEvents = useUrlEvents();
-    console.log('ActionsBar props', props.action, props.action?.id);
-
     return (
       //
       // 🔳 ActionsBar 🔳

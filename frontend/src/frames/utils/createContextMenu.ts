@@ -5,7 +5,7 @@ export function createContextMenu() {
     {
       anchorPoint: undefined,
       toggleMenu: function (flag: boolean) {
-        console.log('toggleMenu not initialized');
+        console['log']('toggleMenu not initialized');
       },
       menuProps: {},
 
