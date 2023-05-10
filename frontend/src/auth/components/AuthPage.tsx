@@ -8,7 +8,15 @@ type PropsT = React.PropsWithChildren<{}>;
 
 export const AuthPage = (props: PropsT) => {
   return (
-    <div className={cn('AuthPage', 'flex flex-row justify-center', 'my-auto')}>
+    <div
+      className={cn(
+        'AuthPage',
+        //
+        //
+        'flex flex-row justify-center',
+        'my-auto'
+      )}
+    >
       {props.children}
     </div>
   );

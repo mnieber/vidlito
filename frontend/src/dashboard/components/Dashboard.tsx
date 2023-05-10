@@ -6,7 +6,7 @@ import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
 import { Logo } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import { PlaylistListPicker } from 'src/playlists/components/PlaylistListPicker';
-import { cn, d } from 'src/utils/classnames';
+import { cn } from 'src/utils/classnames';
 
 // Import styles
 import './Dashboard.scss';
@@ -27,9 +27,10 @@ export const Dashboard = observer(
       //
       <div
         className={cn(
-          //
           'Dashboard',
           'grow',
+          //
+          //
           L.row.banner(),
           props.className
         )}
@@ -40,7 +41,9 @@ export const Dashboard = observer(
         }
         <div
           className={cn(
-            d('Dashboard__LeftSidebar'),
+            'Dashboard__LeftSidebar__',
+            //
+            //
             L.col.banner(),
             'w-[290px] mx-2 lg:mx-4'
           )}

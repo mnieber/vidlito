@@ -22,7 +22,13 @@ export const UpdateTimeButton = (props: PropsT) => {
   return (
     <button
       tabIndex={props.tabIndex}
-      className={cn('UpdateTimeButton', L.row.skewer(), props.className)}
+      className={cn(
+        'UpdateTimeButton',
+        //
+        //
+        L.row.skewer(),
+        props.className
+      )}
       onClick={() => {
         formState.setValue(props.fieldName, timeStamp);
       }}

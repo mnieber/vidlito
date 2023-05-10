@@ -19,10 +19,12 @@ export const PlayVideoIcon = observer((props: PropsT) => {
     <div
       className={cn(
         'PlayVideoIcon',
-        L.row.skewer(),
         {
           'PlayVideoIcon--loading': props.loading,
         },
+        //
+        //
+        L.row.skewer(),
         props.className
       )}
       onClick={() => {

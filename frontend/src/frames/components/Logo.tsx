@@ -38,6 +38,7 @@ export const Logo = observer(
             'Logo__TitlePrefix__',
             `text-primaryBlue`
             //
+            //
           )}
         >
           vid
@@ -46,6 +47,7 @@ export const Logo = observer(
           className={cn(
             'Logo__TitleSuffix__',
             `text-primaryTeal`
+            //
             //
           )}
         >

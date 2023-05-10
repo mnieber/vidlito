@@ -22,13 +22,23 @@ export const ActionsBar = observer(
       //
       // 🔳 ActionsBar 🔳
       //
-      <div className={cn('ActionsBar', L.row.flagPole(), props.className)}>
+      <div
+        className={cn(
+          'ActionsBar',
+          //
+          //
+          L.row.flagPole(),
+          props.className
+        )}
+      >
         {
           // 🔳 Button all actions 🔳
         }
         <label
           className={cn(
             'ActionsBar__AllActionsRadioBtn',
+            //
+            //
             'mr-4',
             L.row.skewer()
           )}
@@ -50,7 +60,12 @@ export const ActionsBar = observer(
           // 🔳 Button playlist actions 🔳
         }
         <label
-          className={cn('ActionsBar__PlaylistActionsRadioBtn', L.row.skewer())}
+          className={cn(
+            'ActionsBar__PlaylistActionsRadioBtn',
+            //
+            //
+            L.row.skewer()
+          )}
           onClick={() => {
             props.actionsState.settings.setShowAllActions(false);
           }}
@@ -72,6 +87,8 @@ export const ActionsBar = observer(
           <button
             className={cn(
               'ActionsBar__UndoActionButton',
+              //
+              //
               L.DialogButton.root(),
               L.DialogButton.color.darkBlueOnSkyBlue(),
               {

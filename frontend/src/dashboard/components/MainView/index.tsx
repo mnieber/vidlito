@@ -35,7 +35,13 @@ export const MainView = observer(
         <div
           ref={parentElmRef}
           tabIndex={0}
-          className={cn('MainView', 'grow max-w-[800px]', props.className)}
+          className={cn(
+            'MainView',
+            //
+            //
+            'grow max-w-[800px]',
+            props.className
+          )}
         >
           {props.children}
         </div>

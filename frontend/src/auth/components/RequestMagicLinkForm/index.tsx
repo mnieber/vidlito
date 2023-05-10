@@ -32,7 +32,13 @@ export function RequestMagicLinkForm(props: PropsT) {
       handleSubmit={form.getHandleSubmit(props)}
     >
       <div
-        className={cn('RequestMagicLinkForm', L.col.banner(), props.className)}
+        className={cn(
+          'RequestMagicLinkForm',
+          //
+          //
+          L.col.banner(),
+          props.className
+        )}
       >
         <GlobalError className={l.GlobalError()} />
 

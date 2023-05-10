@@ -22,10 +22,9 @@ export const ClipDescription = observer(
       <div
         className={cn(
           'ClipDescription',
+          //
+          //
           'pt-[18px] pb-[1px] px-4',
-          '',
-          'bg-gray-100 text-gray-700',
-          'rounded-lg',
           props.className
         )}
       >

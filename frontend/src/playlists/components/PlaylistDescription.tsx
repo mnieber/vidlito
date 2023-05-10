@@ -22,10 +22,11 @@ export const PlaylistDescription = observer(
       <div
         className={cn(
           'PlaylistDescription',
-          'pt-[18px] pb-[1px] px-4',
-          '',
           'bg-gray-100 text-gray-700',
           'rounded-lg',
+          //
+          //
+          'pt-[18px] pb-[1px] px-4',
           props.className
         )}
       >

@@ -41,8 +41,9 @@ export function SignInForm(props: PropsT) {
       }
       <div
         className={cn(
-          //
           'SignInForm',
+          //
+          //
           L.col.banner(),
           props.className
         )}

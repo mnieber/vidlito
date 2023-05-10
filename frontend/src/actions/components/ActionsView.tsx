@@ -17,7 +17,15 @@ const DefaultProps = {};
 export const ActionsView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
-      <div className={cn('ActionsView', L.col.banner(), props.className)}>
+      <div
+        className={cn(
+          'ActionsView',
+          //
+          //
+          L.col.banner(),
+          props.className
+        )}
+      >
         <ActionsBar className="mb-4" />
         <ActionListView />
       </div>

@@ -27,7 +27,13 @@ export const NewClipButton = observer(
 
     return (
       <button
-        className={cn('NewClipButton', l.root(), props.className)}
+        className={cn(
+          'NewClipButton',
+          //
+          //
+          l.root(),
+          props.className
+        )}
         onClick={() => {
           props.clipsAddition
             .add({ values: createClip(props.userProfile, {}) })

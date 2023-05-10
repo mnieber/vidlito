@@ -62,7 +62,14 @@ export function SignUpForm(props: PropsT) {
           // 🔳 TermsField 🔳
         }
         <Field fieldName={formFields.acceptsTerms} className={l.Field()}>
-          <div className={cn('SignUpForm__Terms__', L.row.skewer())}>
+          <div
+            className={cn(
+              'SignUpForm__Terms__',
+              //
+              //
+              L.row.skewer()
+            )}
+          >
             <ControlledCheckbox />
             <div className={cn('ml-2')}>{messages.divIAgreeToTheTerms}</div>
           </div>

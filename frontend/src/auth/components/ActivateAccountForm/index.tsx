@@ -33,7 +33,13 @@ export function ActivateAccountForm(props: PropsT) {
       handleSubmit={form.getHandleSubmit(props)}
     >
       <div
-        className={cn('ActivateAccountForm', L.col.banner(), props.className)}
+        className={cn(
+          'ActivateAccountForm',
+          //
+          //
+          L.col.banner(),
+          props.className
+        )}
       >
         <GlobalError className={cn(l.GlobalError())} />
 

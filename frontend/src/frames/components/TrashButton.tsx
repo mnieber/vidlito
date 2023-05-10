@@ -22,7 +22,13 @@ export const TrashButton = observer(
 
     return (
       <button
-        className={cn('TrashButton', l.root(), props.className)}
+        className={cn(
+          'TrashButton',
+          //
+          //
+          l.root(),
+          props.className
+        )}
         onClick={() => urlEvents.goToActions()}
       >
         <Icon className={cn(l.icon.normal())} name="trash" />

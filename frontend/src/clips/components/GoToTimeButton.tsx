@@ -18,7 +18,13 @@ export const GoToTimeButton = (props: PropsT) => {
   const formState = useFormStateContext();
   return (
     <button
-      className={cn('GoToTimeButton', L.row.skewer(), props.className)}
+      className={cn(
+        'GoToTimeButton',
+        //
+        //
+        L.row.skewer(),
+        props.className
+      )}
       tabIndex={props.tabIndex}
       onClick={() => {
         const timestamp = formState.getValue(props.fieldName);

@@ -28,7 +28,13 @@ export const NewPlaylistButton = observer(
 
     return (
       <button
-        className={cn('NewPlaylistButton', l.root(), props.className)}
+        className={cn(
+          'NewPlaylistButton',
+          //
+          //
+          l.root(),
+          props.className
+        )}
         onClick={() => {
           props.playlistsAddition
             .add({ values: createPlaylist(props.userProfile, {}) })

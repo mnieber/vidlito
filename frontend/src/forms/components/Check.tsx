@@ -16,6 +16,8 @@ export const Check = (props: PropsT) => {
         {
           'FilterComboItem__Check--checked': props.value,
         },
+        //
+        //
         props.className
       )}
       type="checkbox"

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { Icon } from 'src/frames/components';
 import { L } from 'src/frames/layout';
-import { cn, d } from 'src/utils/classnames';
+import { cn } from 'src/utils/classnames';
 
 // Import styles
 import './PlaylistListHeader.scss';
@@ -25,7 +25,9 @@ export const PlaylistListHeader = observer(
     return (
       <div
         className={cn(
-          d('PlaylistListHeader'),
+          'PlaylistListHeader__',
+          //
+          //
           l.root(),
           l.color.blue(),
           props.className

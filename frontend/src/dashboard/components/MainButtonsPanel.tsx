@@ -21,7 +21,13 @@ export const MainButtonsPanel = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <div
-        className={cn('MainButtonsPanel', 'flex flex-wrap', props.className)}
+        className={cn(
+          'MainButtonsPanel',
+          //
+          //
+          'flex flex-wrap',
+          props.className
+        )}
       >
         <SearchButton className={cn('w-1/2', 'mb-6')} />
         <TrashButton className={cn('w-1/2', 'mb-6')} />

@@ -33,8 +33,22 @@ export const ActionListViewItem = observer((props: PropsT) => {
       )}
       {...highlightUIHandlers(props.highlightUIProps)}
     >
-      <div className={cn('ActionListViewItem__Header', L.row.skewer())}>
-        <div className={cn('ActionListViewItem__Title', 'mr-2')}>
+      <div
+        className={cn(
+          'ActionListViewItem__Header',
+          //
+          //
+          L.row.skewer()
+        )}
+      >
+        <div
+          className={cn(
+            'ActionListViewItem__Title',
+            //
+            //
+            'mr-2'
+          )}
+        >
           {getTitle(props.action)}
         </div>
         <div className={cn('ActionListViewItem__PlaylistName')}>
@@ -44,6 +58,8 @@ export const ActionListViewItem = observer((props: PropsT) => {
       <div
         className={cn(
           'ActionListViewItem__ClipNames',
+          //
+          //
           'flex flex-row flex-wrap'
         )}
       >

@@ -50,8 +50,10 @@ export const VideoPlayerPanel = observer(
       <div
         className={cn(
           'VideoPlayerPanel__Placeholder',
-          L.row.skewer(),
-          'bg-blue-300'
+          'bg-blue-300',
+          //
+          //
+          L.row.skewer()
         )}
         style={{ height: ready ? 0 : height }}
       >
@@ -71,7 +73,13 @@ export const VideoPlayerPanel = observer(
     return (
       <div
         ref={ref}
-        className={cn('VideoPlayerPanel', L.col.banner(), props.className)}
+        className={cn(
+          'VideoPlayerPanel',
+          //
+          //
+          L.col.banner(),
+          props.className
+        )}
       >
         {placeholder}
         <div className={cn('', { hidden: !ready })} style={{ height: height }}>

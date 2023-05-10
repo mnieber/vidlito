@@ -3,7 +3,7 @@ import { isLoading } from 'src/api/getState';
 import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { L } from 'src/frames/layout';
 import { PlaylistListHeader, PlaylistListView } from 'src/playlists/components';
-import { cn, d } from 'src/utils/classnames';
+import { cn } from 'src/utils/classnames';
 
 export type PropsT = {};
 
@@ -21,14 +21,21 @@ export const PlaylistListPicker = observer(
     const separator = ['my-2', 'border-t border-gray-700'];
 
     return (
-      <div className={cn('PlaylistListPicker', L.col.banner())}>
-        <div className={cn(d('Dashboard__Separator'), separator)} />
+      <div
+        className={cn(
+          'PlaylistListPicker',
+          //
+          //
+          L.col.banner()
+        )}
+      >
+        <div className={cn('Dashboard__Separator__', separator)} />
         <PlaylistListHeader />
         <PlaylistListView
           className={cn('overflow-y-auto')}
           isExpanded={props.dashboardState.isPlaylistListExpanded}
         />
-        <div className={cn(d('Dashboard__Separator'), separator)} />
+        <div className={cn('Dashboard__Separator__', separator)} />
       </div>
     );
   }, DefaultProps)

@@ -36,13 +36,21 @@ export function ResetPasswordForm(props: PropsT) {
     >
       <div
         className={cn(
-          //
           'ResetPasswordForm',
+          //
+          //
           L.col.banner(),
           props.className
         )}
       >
-        <GlobalError className={cn(l.GlobalError(), '!text-bodyText')} />
+        <GlobalError
+          className={cn(
+            l.GlobalError(),
+            '!text-bodyText'
+            //
+            //
+          )}
+        />
 
         {!getErrorKeys(externalErrors).includes('global') && (
           <React.Fragment>

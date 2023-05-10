@@ -26,7 +26,15 @@ export const ClipHeaderView = observer(
     }
 
     return (
-      <div className={cn('ClipHeaderView', L.row.banner(), props.className)}>
+      <div
+        className={cn(
+          'ClipHeaderView',
+          //
+          //
+          L.row.banner(),
+          props.className
+        )}
+      >
         {
           // 🔳 Playlist button 🔳
         }
@@ -42,7 +50,14 @@ export const ClipHeaderView = observer(
             'py-3 pr-4 pl-7'
           )}
         >
-          <div className={cn('ClipHeaderView__TitleName', L.row.skewer())}>
+          <div
+            className={cn(
+              'ClipHeaderView__TitleName',
+              //
+              //
+              L.row.skewer()
+            )}
+          >
             <button
               className={cn('ClipHeaderView__PlaylistName')}
               onClick={() => {
@@ -68,7 +83,14 @@ export const ClipHeaderView = observer(
             'ml-[3px] pt-2.5 pb-4 pl-4 pr-7'
           )}
         >
-          <div className={cn('ClipHeaderView__TitleName', L.row.skewer())}>
+          <div
+            className={cn(
+              'ClipHeaderView__TitleName',
+              //
+              //
+              L.row.skewer()
+            )}
+          >
             <button
               className={cn('ClipHeaderView__ClipName')}
               onClick={() => {

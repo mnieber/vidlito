@@ -42,14 +42,14 @@ export const PlaylistListViewItem = observer(
       <div
         className={cn(
           'PlaylistListViewItem',
-          l.root(),
-          'text-gray-700',
-          '',
           {
             'PlaylistListViewItem--selected': props.selectionUIProps.isSelected,
             'PlaylistListViewItem--highlighted': props.isHighlighted,
           },
           `PlaylistListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
+          //
+          //
+          l.root(),
           props.className
         )}
         {...selectionUIHandlers(props.selectionUIProps)}
@@ -59,7 +59,13 @@ export const PlaylistListViewItem = observer(
           // 🔳 Icon 🔳
         }
         <div
-          className={cn('IconContainer', l.icon(), L.row.skewer())}
+          className={cn(
+            'IconContainer',
+            //
+            //
+            l.icon(),
+            L.row.skewer()
+          )}
           onClick={() => {
             props.goToPlaylist(props.playlist);
           }}
@@ -72,7 +78,14 @@ export const PlaylistListViewItem = observer(
         {
           // 🔳 Title 🔳
         }
-        <div className={cn('', ['PlaylistListViewItem__Title', l.title()])}>
+        <div
+          className={cn(
+            'PlaylistListViewItem__Title',
+            //
+            //
+            l.title()
+          )}
+        >
           <div>{props.playlist.name}</div>
         </div>
       </div>

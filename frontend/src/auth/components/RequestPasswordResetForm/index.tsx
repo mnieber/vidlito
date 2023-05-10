@@ -34,6 +34,8 @@ export function RequestPasswordResetForm(props: PropsT) {
       <div
         className={cn(
           'RequestPasswordResetForm',
+          //
+          //
           L.col.banner(),
           props.className
         )}

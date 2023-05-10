@@ -1,5 +1,6 @@
 .PlaylistListViewItem {
   @apply cursor-pointer;
+  @apply text-gray-700;
 }
 
 @media (hover: hover) {
@@ -28,4 +29,3 @@
 .PlaylistListViewItem--drag-after {
   border-bottom: solid;
 }
-
