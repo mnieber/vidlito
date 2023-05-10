@@ -2,35 +2,20 @@
 
 @import 'src/frames/styles/uikit/breakpoints.scss';
 
-$global-font-family: 'OpenSans';
-
-$base-body-color: hsl(210, 20%, 25%);
-$button-default-background: #444466;
-$button-primary-background: #44aa66;
-$button-default-color: #ffffff;
-$global-link-color: hsl(201, 79%, 46%);
-
-// Headings
-
-$base-h1-font-size-m: 12px;
-$base-h1-line-height: 1;
-$base-h2-font-size-m: 12px;
-$base-h2-line-height: 1;
-$base-h3-font-size-m: 12px;
-$base-h3-line-height: 1;
-$base-h4-font-size-m: 12px;
-$base-h4-line-height: 1;
-$base-heading-color: unset;
-
 // 2. Import default variables and available mixins.
 @import 'uikit/src/scss/variables.scss';
 @import 'uikit/src/scss/mixins.scss';
 
-// 3. Your custom mixin overwrites.
-@mixin hook-button() {
-  border-radius: 16px;
-  font-weight: bold;
-}
-
-// 4. Import UIkit.
+// 3. Import UIkit.
 @import 'uikit/src/scss/uikit.scss';
+
+// 4. Reset some of the UIkit styles that TailwindCSS will not reset
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: inherit;
+}
