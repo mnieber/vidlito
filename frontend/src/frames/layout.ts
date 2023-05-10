@@ -1,11 +1,11 @@
-import { cn } from 'src/utils/classnames';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
-import 'src/forms/components/FormField.scss';
-import 'src/forms/components/FormFieldButton.scss';
-import 'src/frames/components/DialogButton.scss';
-import 'src/frames/components/DropdownButton.scss';
-import 'src/frames/components/ToolButton.scss';
+import '/src/forms/components/FormField.scss';
+import '/src/forms/components/FormFieldButton.scss';
+import '/src/frames/components/DialogButton.scss';
+import '/src/frames/components/DropdownButton.scss';
+import '/src/frames/components/ToolButton.scss';
 
 export const breakpoints = {
   xs: '320px',

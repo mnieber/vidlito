@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon } from 'src/frames/components';
-import { L } from 'src/frames/layout';
-import { ActionsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
-import { cn } from 'src/utils/classnames';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { Icon } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { ActionsUrlEvents, useUrlEventHandler } from '/src/frames/pages';
+import { cn } from '/src/utils/classnames';
 
 const useUrlEvents = () => useUrlEventHandler<typeof ActionsUrlEvents>();
 

@@ -1,15 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
 import {
   FramesUrlEvents,
   UrlEventHandler,
   useUrlEventHandler,
-} from 'src/frames/pages';
-import { useInstallEventLayer } from 'src/urlEvents';
-import { UrlEventLayer } from 'src/urlEvents/UrlEventHandler';
+} from '/src/frames/pages';
+import { useInstallEventLayer } from '/src/urlEvents';
+import { UrlEventLayer } from '/src/urlEvents/UrlEventHandler';
 
 export type FramesUrlEventLayerT = typeof FramesUrlEvents;
 

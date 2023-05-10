@@ -1,5 +1,5 @@
-import { useRouteUfns, useRoutes } from 'src/routes/hooks/useRoutes';
-import { UrlEventHandlerContext, createUrlEventHandler } from 'src/urlEvents';
+import { useRouteUfns, useRoutes } from '/src/routes/hooks/useRoutes';
+import { UrlEventHandlerContext, createUrlEventHandler } from '/src/urlEvents';
 
 type PropsT = React.PropsWithChildren<{}>;
 

@@ -16,10 +16,10 @@ import {
   topOfTheList,
 } from 'skandha-facets';
 import { correctHighlight } from 'skandha-facets/policies';
-import { ClipT } from 'src/api/types/ClipT';
-import { ClipsState, PropsT } from 'src/clips/ClipsState';
-import { MoveCbs } from 'src/clips/ClipsState/facets/Move';
-import { ObjT } from 'src/utils/types';
+import { ClipT } from '/src/api/types/ClipT';
+import { ClipsState, PropsT } from '/src/clips/ClipsState';
+import { MoveCbs } from '/src/clips/ClipsState/facets/Move';
+import { ObjT } from '/src/utils/types';
 
 export const initClips = (state: ClipsState, props: PropsT) => {
   const ctr = state.clipsCtr;

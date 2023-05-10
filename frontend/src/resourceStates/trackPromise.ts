@@ -1,7 +1,7 @@
 import { action, makeAutoObservable } from 'mobx';
-import { addSource } from 'src/resourceStates/addSource';
-import { createUUID } from 'src/utils/ids';
-import { ObjT } from 'src/utils/types';
+import { addSource } from '/src/resourceStates/addSource';
+import { createUUID } from '/src/utils/ids';
+import { ObjT } from '/src/utils/types';
 
 export type TrackerT = {
   isRunning: boolean;

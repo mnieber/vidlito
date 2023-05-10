@@ -1,9 +1,9 @@
 import { runInAction } from 'mobx';
 import React from 'react';
-import { QueryData } from 'src/api/QueryData';
-import { flags } from 'src/app/flags';
-import { useBuilder } from 'src/utils/hooks/useBuilder';
-import { ObjT } from 'src/utils/types';
+import { QueryData } from '/src/api/QueryData';
+import { flags } from '/src/app/flags';
+import { useBuilder } from '/src/utils/hooks/useBuilder';
+import { ObjT } from '/src/utils/types';
 
 export type OptionsT = {
   fetchAsLoad?: boolean;

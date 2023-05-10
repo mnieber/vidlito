@@ -1,20 +1,20 @@
 import { Route, Switch } from 'react-router-dom';
-import { ActionsView } from 'src/actions/components';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { EditClipEffect, SelectClipEffect } from 'src/clips/components';
-import { Dashboard } from 'src/dashboard/components/Dashboard';
-import { MainView } from 'src/dashboard/components/MainView';
-import { VideoCard } from 'src/dashboard/components/MainView/VideoCard';
-import { UseActionsPage } from 'src/frames/pages/UseActionsPage';
-import { UseMainPage } from 'src/frames/pages/UseMainPage';
+import { ActionsView } from '/src/actions/components';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { EditClipEffect, SelectClipEffect } from '/src/clips/components';
+import { Dashboard } from '/src/dashboard/components/Dashboard';
+import { MainView } from '/src/dashboard/components/MainView';
+import { VideoCard } from '/src/dashboard/components/MainView/VideoCard';
+import { UseActionsPage } from '/src/frames/pages/UseActionsPage';
+import { UseMainPage } from '/src/frames/pages/UseMainPage';
 import {
   EditPlaylistEffect,
   ForwardToClipEffect,
   PlaylistFormView,
   SelectPlaylistEffect,
-} from 'src/playlists/components';
-import { useRoutes } from 'src/routes/hooks/useRoutes';
-import { cn } from 'src/utils/classnames';
+} from '/src/playlists/components';
+import { useRoutes } from '/src/routes/hooks/useRoutes';
+import { cn } from '/src/utils/classnames';
 
 export type PropsT = {};
 

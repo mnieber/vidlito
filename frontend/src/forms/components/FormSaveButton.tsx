@@ -1,5 +1,5 @@
 import { useFormStateContext } from 'react-form-state-context';
-import { cn } from 'src/utils/classnames';
+import { cn } from '/src/utils/classnames';
 
 // Note: there is no .scss file for this component because the style depends
 // on the context in which it is used.

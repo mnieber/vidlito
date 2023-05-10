@@ -1,9 +1,9 @@
 import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { createClip } from 'src/api/types/ClipT';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { useSearchAndUrlParams } from 'src/utils/hooks';
+import { createClip } from '/src/api/types/ClipT';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { useSearchAndUrlParams } from '/src/utils/hooks';
 
 type PropsT = {};
 

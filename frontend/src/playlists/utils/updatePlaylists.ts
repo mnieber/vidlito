@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { PlaylistT } from 'src/api/types/PlaylistT';
+import { PlaylistT } from '/src/api/types/PlaylistT';
 
 export const updatePlaylists = (
   playlists: PlaylistT[],

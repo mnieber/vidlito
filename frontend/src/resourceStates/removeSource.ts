@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { getRS } from 'src/resourceStates';
+import { getRS } from '/src/resourceStates';
 
 export type ArgsT = {
   states?: {

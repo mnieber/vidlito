@@ -1,6 +1,6 @@
 import TextareaAutosize from 'react-textarea-autosize';
-import { FieldPropsT, useFieldProps } from 'src/forms/hooks';
-import { cn } from 'src/utils/classnames';
+import { FieldPropsT, useFieldProps } from '/src/forms/hooks';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './TextAreaField.scss';

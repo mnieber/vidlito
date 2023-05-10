@@ -6,14 +6,14 @@ import {
   HandleValidateArgsT,
   unflatten,
 } from 'react-form-state-context';
-import { PlaylistT } from 'src/api/types/PlaylistT';
-import { createUUID } from 'src/utils/ids';
 import { DefaultProps, PropsT, UrlEventHandlerT } from './index';
+import { PlaylistT } from '/src/api/types/PlaylistT';
+import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
     'playlistForm.description': props.playlist.description ?? null,
-    'playlistForm.id': props.playlist.id ?? createUUID().hex,
+    'playlistForm.id': props.playlist.id ?? createUUID(),
     'playlistForm.name': props.playlist.name ?? null,
     'playlistForm.slug': props.playlist.slug ?? null,
     'playlistForm.tags': props.playlist.tags ?? [],

@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { PlaylistT, createPlaylist } from 'src/api/types/PlaylistT';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon } from 'src/frames/components';
-import { L } from 'src/frames/layout';
-import { PlaylistsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
-import { cn } from 'src/utils/classnames';
+import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { Icon } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { PlaylistsUrlEvents, useUrlEventHandler } from '/src/frames/pages';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './NewPlaylistButton.scss';

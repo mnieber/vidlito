@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
-import { useBuilder } from 'src/utils/hooks/useBuilder';
+import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export class MobXFormState {
   @observable values: any[];

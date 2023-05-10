@@ -1,5 +1,5 @@
-import { getHomeRoute } from 'src/routes/getHomeRoute';
-import { RouteTable } from 'src/routes/utils/RouteTable';
+import { getHomeRoute } from '/src/routes/getHomeRoute';
+import { RouteTable } from '/src/routes/utils/RouteTable';
 
 export const getRouteTable = () => {
   const routeTable = new RouteTable();

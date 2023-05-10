@@ -1,4 +1,4 @@
-import { ConditionT, getRS, initRS, nullResource } from 'src/resourceStates';
+import { ConditionT, getRS, initRS, nullResource } from '/src/resourceStates';
 
 export type OptionsT = {
   resource: any;

@@ -1,9 +1,9 @@
 import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
-import { useSearchAndUrlParams } from 'src/utils/hooks';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { ClipsUrlEvents, useUrlEventHandler } from '/src/frames/pages';
+import { useSearchAndUrlParams } from '/src/utils/hooks';
 
 const useUrlEvents = () => useUrlEventHandler<typeof ClipsUrlEvents>();
 

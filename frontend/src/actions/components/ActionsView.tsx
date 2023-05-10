@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import { ActionListView } from 'src/actions/components/ActionListView';
-import { ActionsBar } from 'src/actions/components/ActionsBar';
-import { withDefaultProps } from 'src/app/defaultProps';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
+import { ActionListView } from '/src/actions/components/ActionListView';
+import { ActionsBar } from '/src/actions/components/ActionsBar';
+import { withDefaultProps } from '/src/app/defaultProps';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './ActionsView.scss';

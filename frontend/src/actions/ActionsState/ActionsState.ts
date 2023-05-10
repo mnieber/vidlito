@@ -4,9 +4,9 @@ import * as Skandha from 'skandha';
 import { mapDataToProps } from 'skandha';
 import { Highlight } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
-import { ActionT } from 'src/api/types/ActionT';
 import { Settings } from './Settings';
 import { ActionsData, initActions } from './actions';
+import { ActionT } from '/src/api/types/ActionT';
 
 export type PropsT = {
   undoAction: (actionId: string) => Promise<any>;

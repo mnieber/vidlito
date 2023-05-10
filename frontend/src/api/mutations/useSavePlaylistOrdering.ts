@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 import * as R from 'ramda';
-import { doQuery } from 'src/api/graphqlClient';
-import { queryClient } from 'src/api/queryClient';
-import { UserProfileT } from 'src/api/types/UserProfileT';
-import { applyUpdate } from 'src/utils/applyUpdate';
-import { sortByIds } from 'src/utils/ids';
-import { ObjT } from 'src/utils/types';
-import { wait } from 'src/utils/wait';
+import { doQuery } from '/src/api/graphqlClient';
+import { queryClient } from '/src/api/queryClient';
+import { UserProfileT } from '/src/api/types/UserProfileT';
+import { applyUpdate } from '/src/utils/applyUpdate';
+import { sortByIds } from '/src/utils/ids';
+import { ObjT } from '/src/utils/types';
+import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   playlistIds: string[];
@@ -26,10 +26,7 @@ export const savePlaylistOrdering = (args: ArgsT) => {
     }`,
     args
   ).then((response: ObjT) => {
-    return wait(
-      process.env.NODE_ENV === 'development' ? 1000 : 0,
-      response.savePlaylistOrdering
-    );
+    return wait(import.meta.env.DEV ? 1000 : 0, response.savePlaylistOrdering);
   });
 };
 

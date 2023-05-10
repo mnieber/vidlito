@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { doQuery } from 'src/api/graphqlClient';
-import { createQueryKey } from 'src/utils/createQueryKey';
-import { ObjT } from 'src/utils/types';
-import { wait } from 'src/utils/wait';
+import { doQuery } from '/src/api/graphqlClient';
+import { createQueryKey } from '/src/utils/createQueryKey';
+import { ObjT } from '/src/utils/types';
+import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   playlistSlug?: string;
@@ -46,10 +46,7 @@ export const getPlaylist = (args: ArgsT) => {
     }`,
     args
   ).then((response: ObjT) => {
-    return wait(
-      process.env.NODE_ENV === 'development' ? 1000 : 0,
-      response.getPlaylist
-    );
+    return wait(import.meta.env.DEV ? 1000 : 0, response.getPlaylist);
   });
 };
 

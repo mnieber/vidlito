@@ -1,4 +1,4 @@
-import { UrlEventHandler } from 'src/urlEvents';
+import { UrlEventHandler } from '/src/urlEvents';
 
 export const ClipsUrlEvents = {
   clipHighlightIsCorrectedTo(this: UrlEventHandler, clipSlug: string) {},

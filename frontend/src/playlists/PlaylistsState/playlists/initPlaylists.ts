@@ -13,8 +13,8 @@ import {
   handleSelectItem,
   topOfTheList,
 } from 'skandha-facets';
-import { PlaylistT } from 'src/api/types/PlaylistT';
-import { PlaylistsState, PropsT } from 'src/playlists/PlaylistsState';
+import { PlaylistT } from '/src/api/types/PlaylistT';
+import { PlaylistsState, PropsT } from '/src/playlists/PlaylistsState';
 
 export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
   const ctr = state.playlistsCtr;

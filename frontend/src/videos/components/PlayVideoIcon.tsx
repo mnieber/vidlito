@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { Icon } from 'src/frames/components';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
-import { VideoController } from 'src/videos/VideoController';
+import { Icon } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
+import { VideoController } from '/src/videos/VideoController';
 
 // Import styles
 import './PlayVideoIcon.scss';

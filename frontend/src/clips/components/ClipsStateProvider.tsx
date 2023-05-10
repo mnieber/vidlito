@@ -2,13 +2,17 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { updateSources } from 'src/api/utils';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { useClipsState } from 'src/clips/hooks/useClipsState';
-import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
-import { graftResourceStates, isLoading, isUpdating } from 'src/resourceStates';
-import { useBuilder } from 'src/utils/hooks/useBuilder';
-import { log } from 'src/utils/logging';
+import { updateSources } from '/src/api/utils';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { useClipsState } from '/src/clips/hooks/useClipsState';
+import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
+import {
+  graftResourceStates,
+  isLoading,
+  isUpdating,
+} from '/src/resourceStates';
+import { useBuilder } from '/src/utils/hooks/useBuilder';
+import { log } from '/src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
 

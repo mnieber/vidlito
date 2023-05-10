@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import { useHighlightUIConnector } from 'skandha-mobx/hooks';
-import { ActionListViewItem } from 'src/actions/components/ActionListViewItem';
-import { isLoading } from 'src/api/getState';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Spinner } from 'src/frames/components';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
+import { ActionListViewItem } from '/src/actions/components/ActionListViewItem';
+import { isLoading } from '/src/api/getState';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { Spinner } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './ActionListView.scss';

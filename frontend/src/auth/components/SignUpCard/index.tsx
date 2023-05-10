@@ -1,16 +1,16 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { AuthCard } from 'src/auth/components/AuthCard';
-import { SignUpForm } from 'src/auth/components/SignUpForm';
-import { useSignUp } from 'src/auth/endpoints';
-import { States } from 'src/auth/endpoints/states';
-import { useAuthStateContext } from 'src/auth/hooks';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
 import { useMessages } from './useMessages';
+import { AuthCard } from '/src/auth/components/AuthCard';
+import { SignUpForm } from '/src/auth/components/SignUpForm';
+import { useSignUp } from '/src/auth/endpoints';
+import { States } from '/src/auth/endpoints/states';
+import { useAuthStateContext } from '/src/auth/hooks';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 export const termsVersion: string =
-  process.env.REACT_APP_TERMS_VERSION ?? '1.0.0';
+  import.meta.env.VITE_TERMS_VERSION ?? '1.0.0';
 
 export const SignUpCard = observer(() => {
   const { messages } = useMessages();

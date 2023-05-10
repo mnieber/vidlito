@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { FormStateProvider } from 'react-form-state-context';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { usePreviewButton } from 'src/clips/hooks/usePreviewButton';
+import { form } from './form';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { usePreviewButton } from '/src/clips/hooks/usePreviewButton';
 import {
   Field,
   FormCancelButton,
@@ -11,16 +12,15 @@ import {
   MarkdownField,
   SlugField,
   ValuePickerField,
-} from 'src/forms/components';
-import { NameField } from 'src/forms/components/NameField';
-import { L } from 'src/frames/layout';
+} from '/src/forms/components';
+import { NameField } from '/src/forms/components/NameField';
+import { L } from '/src/frames/layout';
 import {
   PlaylistsUrlEvents,
   UrlEventHandler,
   useUrlEventHandler,
-} from 'src/frames/pages';
-import { cn } from 'src/utils/classnames';
-import { form } from './form';
+} from '/src/frames/pages';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './index.scss';

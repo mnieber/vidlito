@@ -1,17 +1,17 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { AccountMenu } from 'src/frames/components';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { AccountMenu } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
-import 'src/dashboard/components/MainView/FormCancelButton.scss';
-import 'src/dashboard/components/MainView/FormField.scss';
-import 'src/dashboard/components/MainView/FormFieldLabel.scss';
-import 'src/dashboard/components/MainView/FormSaveButton.scss';
-import 'src/frames/components/MainView/MainForm.scss';
 import './index.scss';
+import '/src/dashboard/components/MainView/FormCancelButton.scss';
+import '/src/dashboard/components/MainView/FormField.scss';
+import '/src/dashboard/components/MainView/FormFieldLabel.scss';
+import '/src/dashboard/components/MainView/FormSaveButton.scss';
+import '/src/frames/components/MainView/MainForm.scss';
 
 export type PropsT = React.PropsWithChildren<{
   className?: any;

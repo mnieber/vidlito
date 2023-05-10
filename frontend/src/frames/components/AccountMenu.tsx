@@ -1,13 +1,13 @@
 import { Menu, MenuButton, MenuItem } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { useSignOut } from 'src/auth/endpoints';
-import { useAuthStateContext } from 'src/auth/hooks';
-import { FramesUrlEvents } from 'src/frames/FramesUrlEvents';
-import { Icon } from 'src/frames/components';
-import { L } from 'src/frames/layout';
-import { useUrlEventHandler } from 'src/urlEvents';
-import { cn } from 'src/utils/classnames';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { useSignOut } from '/src/auth/endpoints';
+import { useAuthStateContext } from '/src/auth/hooks';
+import { FramesUrlEvents } from '/src/frames/FramesUrlEvents';
+import { Icon } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { useUrlEventHandler } from '/src/urlEvents';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './AccountMenu.scss';

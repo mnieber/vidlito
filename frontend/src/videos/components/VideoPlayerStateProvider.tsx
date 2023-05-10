@@ -2,12 +2,12 @@ import { comparer } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { flags } from 'src/app/flags';
-import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
-import { useBuilder } from 'src/utils/hooks/useBuilder';
-import { log } from 'src/utils/logging';
-import { VideoPlayerState } from 'src/videos/VideoPlayerState';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { flags } from '/src/app/flags';
+import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
+import { useBuilder } from '/src/utils/hooks/useBuilder';
+import { log } from '/src/utils/logging';
+import { VideoPlayerState } from '/src/videos/VideoPlayerState';
 
 export type PropsT = React.PropsWithChildren<{}>;
 

@@ -1,9 +1,12 @@
 import { observer } from 'mobx-react-lite';
-import { isLoading } from 'src/api/getState';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { L } from 'src/frames/layout';
-import { PlaylistListHeader, PlaylistListView } from 'src/playlists/components';
-import { cn } from 'src/utils/classnames';
+import { isLoading } from '/src/api/getState';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { L } from '/src/frames/layout';
+import {
+  PlaylistListHeader,
+  PlaylistListView,
+} from '/src/playlists/components';
+import { cn } from '/src/utils/classnames';
 
 export type PropsT = {};
 

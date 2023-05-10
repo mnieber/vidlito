@@ -1,7 +1,7 @@
-import { UpdateSlugButton } from 'src/forms/components';
-import { FieldPropsT, useFieldProps } from 'src/forms/hooks';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
+import { UpdateSlugButton } from '/src/forms/components';
+import { FieldPropsT, useFieldProps } from '/src/forms/hooks';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 type PropsT = Partial<FieldPropsT> & {
   className?: any;

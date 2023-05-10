@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from 'mobx';
-import { createUUID } from 'src/utils/ids';
-import { log } from 'src/utils/logging';
-import { ObjT } from 'src/utils/types';
+import { createUUID } from '/src/utils/ids';
+import { log } from '/src/utils/logging';
+import { ObjT } from '/src/utils/types';
 
 export class QueryData {
   query: ObjT = {};

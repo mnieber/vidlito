@@ -1,5 +1,5 @@
-import { splitKeyHandlerKeys } from 'src/utils';
-import { VideoController } from 'src/videos/VideoController';
+import { splitKeyHandlerKeys } from '/src/utils';
+import { VideoController } from '/src/videos/VideoController';
 
 export const createVideoKeyHandlers = (
   videoController: VideoController,

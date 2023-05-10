@@ -7,11 +7,11 @@ import {
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon } from 'src/frames/components';
-import { L } from 'src/frames/layout';
-import { ClipsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
-import { cn } from 'src/utils/classnames';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { Icon } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { ClipsUrlEvents, useUrlEventHandler } from '/src/frames/pages';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './ClipMenu.scss';

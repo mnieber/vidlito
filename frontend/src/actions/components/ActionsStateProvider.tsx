@@ -2,16 +2,16 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
-import { useActionsState } from 'src/actions/hooks/useActionsState';
-import { isQueryLoading, isQueryUpdating } from 'src/api/QueryData';
-import { useGetActions } from 'src/api/endpoints';
-import { useQueryData } from 'src/api/hooks';
-import { updateSources } from 'src/api/utils/updateSources';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { useUpdateStateReaction } from 'src/frames/hooks/useUpdateStateReaction';
-import { graftResourceStates } from 'src/resourceStates/graftResourceStates';
-import { useBuilder } from 'src/utils/hooks/useBuilder';
-import { log } from 'src/utils/logging';
+import { useActionsState } from '/src/actions/hooks/useActionsState';
+import { isQueryLoading, isQueryUpdating } from '/src/api/QueryData';
+import { useGetActions } from '/src/api/endpoints';
+import { useQueryData } from '/src/api/hooks';
+import { updateSources } from '/src/api/utils/updateSources';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
+import { graftResourceStates } from '/src/resourceStates/graftResourceStates';
+import { useBuilder } from '/src/utils/hooks/useBuilder';
+import { log } from '/src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
 

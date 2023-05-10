@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { matchPath } from 'react-router-dom';
-import { ObjT } from 'src/utils/types';
+import { ObjT } from '/src/utils/types';
 
 export type RouteMatchT = {
   path: string;

@@ -7,17 +7,17 @@ import {
   useMoveClipsToTrash,
   useSaveClip,
   useSaveClipOrdering,
-} from 'src/api/endpoints';
-import { MoveClipsToPlaylistArgsT, SaveClipArgsT } from 'src/api/mutations';
-import { ClipT } from 'src/api/types/ClipT';
-import { PlaylistT } from 'src/api/types/PlaylistT';
-import { ClipsState } from 'src/clips/ClipsState';
-import { initRS } from 'src/resourceStates/ResourceState';
-import { trackPromise } from 'src/resourceStates/trackPromise';
-import { useBuilder } from 'src/utils/hooks/useBuilder';
-import { usePropsRef } from 'src/utils/hooks/usePropsRef';
-import { getIds, lookUp } from 'src/utils/ids';
-import { ObjT } from 'src/utils/types';
+} from '/src/api/endpoints';
+import { MoveClipsToPlaylistArgsT, SaveClipArgsT } from '/src/api/mutations';
+import { ClipT } from '/src/api/types/ClipT';
+import { PlaylistT } from '/src/api/types/PlaylistT';
+import { ClipsState } from '/src/clips/ClipsState';
+import { initRS } from '/src/resourceStates/ResourceState';
+import { trackPromise } from '/src/resourceStates/trackPromise';
+import { useBuilder } from '/src/utils/hooks/useBuilder';
+import { usePropsRef } from '/src/utils/hooks/usePropsRef';
+import { getIds, lookUp } from '/src/utils/ids';
+import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
   playlist: PlaylistT;

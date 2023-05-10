@@ -1,8 +1,8 @@
-import { GoToTimeButton, UpdateTimeButton } from 'src/clips/components';
-import { FieldPropsT, useFieldProps } from 'src/forms/hooks';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
-import { VideoPlayerState } from 'src/videos/VideoPlayerState';
+import { GoToTimeButton, UpdateTimeButton } from '/src/clips/components';
+import { FieldPropsT, useFieldProps } from '/src/forms/hooks';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
+import { VideoPlayerState } from '/src/videos/VideoPlayerState';
 
 // Import styles
 import './TimeField.scss';

@@ -6,15 +6,15 @@ import {
   HandleValidateArgsT,
   unflatten,
 } from 'react-form-state-context';
-import { ClipT } from 'src/api/types/ClipT';
-import { createUUID } from 'src/utils/ids';
 import { DefaultProps, PropsT, UrlEventHandlerT } from './index';
+import { ClipT } from '/src/api/types/ClipT';
+import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
     'clipForm.description': props.clip.description ?? null,
     'clipForm.endTimeS': _toSeconds(props.clip.endTimeMs) ?? null,
-    'clipForm.id': props.clip.id ?? createUUID().hex,
+    'clipForm.id': props.clip.id ?? createUUID(),
     'clipForm.name': props.clip.name ?? null,
     'clipForm.slug': props.clip.slug ?? null,
     'clipForm.startTimeS': _toSeconds(props.clip.startTimeMs) ?? null,

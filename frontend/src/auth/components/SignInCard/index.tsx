@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react-lite';
-import { AuthCard } from 'src/auth/components/AuthCard';
-import { SignInForm } from 'src/auth/components/SignInForm';
-import { useSignIn } from 'src/auth/endpoints';
-import { useAuthStateContext } from 'src/auth/hooks';
-import { FramesUrlEvents } from 'src/frames/FramesUrlEvents';
-import { L } from 'src/frames/layout';
-import { useUrlEventHandler } from 'src/frames/pages';
-import { cn } from 'src/utils/classnames';
-import { ObjT } from 'src/utils/types';
 import { useMessages } from './useMessages';
+import { AuthCard } from '/src/auth/components/AuthCard';
+import { SignInForm } from '/src/auth/components/SignInForm';
+import { useSignIn } from '/src/auth/endpoints';
+import { useAuthStateContext } from '/src/auth/hooks';
+import { FramesUrlEvents } from '/src/frames/FramesUrlEvents';
+import { L } from '/src/frames/layout';
+import { useUrlEventHandler } from '/src/frames/pages';
+import { cn } from '/src/utils/classnames';
+import { ObjT } from '/src/utils/types';
 
 // Import styles
 import './index.scss';

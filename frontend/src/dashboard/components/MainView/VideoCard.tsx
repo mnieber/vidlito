@@ -1,15 +1,15 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipDescription } from 'src/clips/components/ClipDescription';
-import { ClipFormView } from 'src/clips/components/ClipFormView';
-import { ClipHeaderView } from 'src/clips/components/ClipHeaderView';
-import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { ClipDescription } from '/src/clips/components/ClipDescription';
+import { ClipFormView } from '/src/clips/components/ClipFormView';
+import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
+import { ClipKeyHandler } from '/src/clips/components/ClipKeyHandler';
 import {
   PlaylistDescription,
   PlaylistFormView,
-} from 'src/playlists/components';
-import { cn } from 'src/utils/classnames';
-import { VideoPlayerPanel } from 'src/videos/components';
+} from '/src/playlists/components';
+import { cn } from '/src/utils/classnames';
+import { VideoPlayerPanel } from '/src/videos/components';
 
 export type PropsT = {
   className?: any;

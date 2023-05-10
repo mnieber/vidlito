@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipListView } from 'src/clips/components';
-import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
-import { Logo } from 'src/frames/components';
-import { L } from 'src/frames/layout';
-import { PlaylistListPicker } from 'src/playlists/components/PlaylistListPicker';
-import { cn } from 'src/utils/classnames';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { ClipListView } from '/src/clips/components';
+import { MainButtonsPanel } from '/src/dashboard/components/MainButtonsPanel';
+import { Logo } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { PlaylistListPicker } from '/src/playlists/components/PlaylistListPicker';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './Dashboard.scss';

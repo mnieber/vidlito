@@ -1,7 +1,7 @@
 import React from 'react';
-import { Icon } from 'src/frames/components/Icon';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
+import { Icon } from '/src/frames/components/Icon';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 export type PropsT = {
   tabIndex?: number;

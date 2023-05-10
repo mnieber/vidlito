@@ -1,5 +1,5 @@
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './SignInLogo.scss';

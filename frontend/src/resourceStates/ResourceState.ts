@@ -1,7 +1,7 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
-import { flags } from 'src/app/flags';
-import { log } from 'src/utils/logging';
+import { flags } from '/src/app/flags';
+import { log } from '/src/utils/logging';
 
 export const symbolRS = Symbol('ResourceState');
 

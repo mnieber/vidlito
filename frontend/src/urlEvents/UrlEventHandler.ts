@@ -1,9 +1,9 @@
 import { action, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
 import { matchPath } from 'react-router-dom';
-import { getBestRouteMatch } from 'src/routes/utils/getRouteMatches';
-import { ObjT } from 'src/utils/types';
-import { pathname } from 'src/utils/urls';
+import { getBestRouteMatch } from '/src/routes/utils/getRouteMatches';
+import { ObjT } from '/src/utils/types';
+import { pathname } from '/src/utils/urls';
 
 export class UrlEventLayer {
   route: string;

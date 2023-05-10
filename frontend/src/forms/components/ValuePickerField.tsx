@@ -1,15 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import { useFormStateContext } from 'react-form-state-context';
-import { useFormFieldContext } from 'src/forms/components';
-import { handleEnterAsTabToNext } from 'src/forms/utils';
-import { cn } from 'src/utils/classnames';
+import { useFormFieldContext } from '/src/forms/components';
+import { handleEnterAsTabToNext } from '/src/forms/utils';
+import { cn } from '/src/utils/classnames';
 import {
   PickerValueT,
   ValuePicker,
   PropsT as ValuePickerPropsT,
-} from 'src/utils/components/ValuePicker';
-import { useScheduledCall } from 'src/utils/hooks';
-import { ObjT } from 'src/utils/types';
+} from '/src/utils/components/ValuePicker';
+import { useScheduledCall } from '/src/utils/hooks';
+import { ObjT } from '/src/utils/types';
 
 type PropsT<ValueT> = Omit<
   ValuePickerPropsT<ValueT> & {

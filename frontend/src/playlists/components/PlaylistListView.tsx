@@ -4,13 +4,16 @@ import {
   useDragAndDropUIConnector,
   useSelectionUIConnector,
 } from 'skandha-mobx/hooks';
-import { PlaylistT } from 'src/api/types/PlaylistT';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Spinner } from 'src/frames/components';
-import { PlaylistsUrlEvents, useUrlEventHandler } from 'src/frames/pages/index';
-import { PlaylistListViewItem } from 'src/playlists/components/PlaylistListViewItem';
-import { isLoading } from 'src/resourceStates';
-import { cn } from 'src/utils/classnames';
+import { PlaylistT } from '/src/api/types/PlaylistT';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { Spinner } from '/src/frames/components';
+import {
+  PlaylistsUrlEvents,
+  useUrlEventHandler,
+} from '/src/frames/pages/index';
+import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
+import { isLoading } from '/src/resourceStates';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './PlaylistListView.scss';

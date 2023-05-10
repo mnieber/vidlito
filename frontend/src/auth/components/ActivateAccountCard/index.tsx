@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
-import { ActivateAccountForm } from 'src/auth/components/ActivateAccountForm';
-import { AuthCard } from 'src/auth/components/AuthCard';
-import { useActivateAccount } from 'src/auth/endpoints';
-import { States } from 'src/auth/endpoints/states';
-import { useAuthStateContext } from 'src/auth/hooks';
-import { ObjT } from 'src/utils/types';
 import { useMessages } from './useMessages';
+import { ActivateAccountForm } from '/src/auth/components/ActivateAccountForm';
+import { AuthCard } from '/src/auth/components/AuthCard';
+import { useActivateAccount } from '/src/auth/endpoints';
+import { States } from '/src/auth/endpoints/states';
+import { useAuthStateContext } from '/src/auth/hooks';
+import { ObjT } from '/src/utils/types';
 
 export const ActivateAccountCard = observer(() => {
   const { messages } = useMessages();

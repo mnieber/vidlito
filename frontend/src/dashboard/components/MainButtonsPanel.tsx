@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { NewClipButton } from 'src/clips/components';
-import { TrashButton } from 'src/frames/components';
-import { NewPlaylistButton } from 'src/playlists/components';
-import { SearchButton } from 'src/search/components/SearchButton';
-import { cn } from 'src/utils/classnames';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { NewClipButton } from '/src/clips/components';
+import { TrashButton } from '/src/frames/components';
+import { NewPlaylistButton } from '/src/playlists/components';
+import { SearchButton } from '/src/search/components/SearchButton';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './MainButtonsPanel.scss';

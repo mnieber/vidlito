@@ -8,17 +8,17 @@ import {
   Insertion,
   Selection,
 } from 'skandha-facets';
-import { ActionsState } from 'src/actions/ActionsState';
-import { ActionT } from 'src/api/types/ActionT';
-import { ClipT } from 'src/api/types/ClipT';
-import { PlaylistT } from 'src/api/types/PlaylistT';
-import { UserProfileT } from 'src/api/types/UserProfileT';
-import { ClipsState } from 'src/clips/ClipsState';
-import { Move } from 'src/clips/ClipsState/facets/Move';
-import { DashboardState } from 'src/dashboard/DashboardState';
-import { PlaylistsState } from 'src/playlists/PlaylistsState';
-import { VideoController } from 'src/videos/VideoController';
-import { VideoPlayerState } from 'src/videos/VideoPlayerState';
+import { ActionsState } from '/src/actions/ActionsState';
+import { ActionT } from '/src/api/types/ActionT';
+import { ClipT } from '/src/api/types/ClipT';
+import { PlaylistT } from '/src/api/types/PlaylistT';
+import { UserProfileT } from '/src/api/types/UserProfileT';
+import { ClipsState } from '/src/clips/ClipsState';
+import { Move } from '/src/clips/ClipsState/facets/Move';
+import { DashboardState } from '/src/dashboard/DashboardState';
+import { PlaylistsState } from '/src/playlists/PlaylistsState';
+import { VideoController } from '/src/videos/VideoController';
+import { VideoPlayerState } from '/src/videos/VideoPlayerState';
 export { stub, withDefaultProps } from 'react-default-props-context';
 
 // This is a workaround for a bug in webpack

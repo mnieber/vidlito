@@ -5,12 +5,12 @@ import {
   selectionUIHandlers,
   SelectionUIPropsT,
 } from 'skandha-facets';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
-import { L } from 'src/frames/layout';
-import { isUpdating } from 'src/resourceStates';
-import { cn } from 'src/utils/classnames';
-import { PlayVideoIcon } from 'src/videos/components';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { ClipKeyHandler } from '/src/clips/components/ClipKeyHandler';
+import { L } from '/src/frames/layout';
+import { isUpdating } from '/src/resourceStates';
+import { cn } from '/src/utils/classnames';
+import { PlayVideoIcon } from '/src/videos/components';
 
 // Import styles
 import './ClipListViewItem.scss';

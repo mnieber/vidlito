@@ -1,15 +1,15 @@
 import { FormStateProvider } from 'react-form-state-context';
+import { form } from './form';
+import { useMessages } from './useMessages';
 import {
   EmailField,
   Field,
   FormSaveButton,
   GlobalError,
   PasswordField,
-} from 'src/forms/components';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
-import { form } from './form';
-import { useMessages } from './useMessages';
+} from '/src/forms/components';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 export const formFields = {
   email: 'email',

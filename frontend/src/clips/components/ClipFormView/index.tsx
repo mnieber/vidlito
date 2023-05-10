@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { FormState, FormStateProvider } from 'react-form-state-context';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { usePreviewButton } from 'src/clips/hooks/usePreviewButton';
+import { form } from './form';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { usePreviewButton } from '/src/clips/hooks/usePreviewButton';
 import {
   Field,
   FormCancelButton,
@@ -14,16 +15,15 @@ import {
   SlugField,
   TextField,
   ValuePickerField,
-} from 'src/forms/components';
-import { TimeField } from 'src/forms/components/TimeField';
-import { L } from 'src/frames/layout';
+} from '/src/forms/components';
+import { TimeField } from '/src/forms/components/TimeField';
+import { L } from '/src/frames/layout';
 import {
   ClipsUrlEvents,
   UrlEventHandler,
   useUrlEventHandler,
-} from 'src/frames/pages';
-import { cn } from 'src/utils/classnames';
-import { form } from './form';
+} from '/src/frames/pages';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './index.scss';

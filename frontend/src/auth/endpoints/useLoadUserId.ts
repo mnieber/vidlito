@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { doQuery, getRefreshToken, setToken } from 'src/api/graphqlClient';
-import { refreshToken } from 'src/auth/endpoints/refreshToken';
-import { ObjT } from 'src/utils/types';
+import { doQuery, getRefreshToken, setToken } from '/src/api/graphqlClient';
+import { refreshToken } from '/src/auth/endpoints/refreshToken';
+import { ObjT } from '/src/utils/types';
 
 export class Anonymous {}
 export const anonymous = new Anonymous();

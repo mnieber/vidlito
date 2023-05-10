@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
-import { AuthCard } from 'src/auth/components/AuthCard';
-import { ResetPasswordForm } from 'src/auth/components/ResetPasswordForm';
-import { useResetPassword } from 'src/auth/endpoints';
-import { States } from 'src/auth/endpoints/states';
-import { useAuthStateContext } from 'src/auth/hooks';
 import { useMessages } from './useMessages';
+import { AuthCard } from '/src/auth/components/AuthCard';
+import { ResetPasswordForm } from '/src/auth/components/ResetPasswordForm';
+import { useResetPassword } from '/src/auth/endpoints';
+import { States } from '/src/auth/endpoints/states';
+import { useAuthStateContext } from '/src/auth/hooks';
 
 export const ResetPasswordCard = observer(() => {
   const { messages } = useMessages();

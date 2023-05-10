@@ -1,9 +1,9 @@
 import urlParser from 'js-video-url-parser';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
-import { VideoUrlPropsT } from 'src/api/types/VideoUrlPropsT';
-import { VideoController } from 'src/videos/VideoController';
-import { VideoIFrame } from 'src/videos/VideoIFrame';
+import { VideoUrlPropsT } from '/src/api/types/VideoUrlPropsT';
+import { VideoController } from '/src/videos/VideoController';
+import { VideoIFrame } from '/src/videos/VideoIFrame';
 
 export type PropsT = {};
 

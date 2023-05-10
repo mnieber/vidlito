@@ -1,7 +1,7 @@
 import { comparer, IEqualsComparer, reaction } from 'mobx';
 import React from 'react';
-import { flags } from 'src/app/flags';
-import { useBuilder } from 'src/utils/hooks/useBuilder';
+import { flags } from '/src/app/flags';
+import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT<ArgsT> = {
   getInputs: () => ArgsT;

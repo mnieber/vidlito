@@ -5,14 +5,14 @@ import {
   useDeletePlaylists,
   useSavePlaylist,
   useSavePlaylistOrdering,
-} from 'src/api/endpoints';
-import { PlaylistT } from 'src/api/types/PlaylistT';
-import { PlaylistsState } from 'src/playlists/PlaylistsState';
-import { initRS } from 'src/resourceStates';
-import { trackPromise } from 'src/resourceStates/trackPromise';
-import { useBuilder } from 'src/utils/hooks/useBuilder';
-import { getIds, lookUp } from 'src/utils/ids';
-import { ObjT } from 'src/utils/types';
+} from '/src/api/endpoints';
+import { PlaylistT } from '/src/api/types/PlaylistT';
+import { PlaylistsState } from '/src/playlists/PlaylistsState';
+import { initRS } from '/src/resourceStates';
+import { trackPromise } from '/src/resourceStates/trackPromise';
+import { useBuilder } from '/src/utils/hooks/useBuilder';
+import { getIds, lookUp } from '/src/utils/ids';
+import { ObjT } from '/src/utils/types';
 
 export type PropsT = {};
 

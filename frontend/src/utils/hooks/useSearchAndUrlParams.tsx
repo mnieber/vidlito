@@ -1,10 +1,10 @@
-import { merge } from 'ramda';
+import { mergeLeft } from 'ramda';
 import { useParams } from 'react-router-dom';
-import { useSearchParams } from 'src/utils/hooks/useSearchParams';
-import { ObjT } from 'src/utils/types';
+import { useSearchParams } from '/src/utils/hooks/useSearchParams';
+import { ObjT } from '/src/utils/types';
 
 export const useSearchAndUrlParams = (): ObjT => {
   const params = useParams();
   const { all: searchParams } = useSearchParams();
-  return merge(params, searchParams);
+  return mergeLeft(params, searchParams);
 };

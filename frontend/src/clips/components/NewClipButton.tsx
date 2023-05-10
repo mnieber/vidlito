@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { ClipT, createClip } from 'src/api/types/ClipT';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon } from 'src/frames/components';
-import { L } from 'src/frames/layout';
-import { ClipsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
-import { cn } from 'src/utils/classnames';
+import { ClipT, createClip } from '/src/api/types/ClipT';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { Icon } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { ClipsUrlEvents, useUrlEventHandler } from '/src/frames/pages';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './NewClipButton.scss';

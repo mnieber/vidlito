@@ -1,8 +1,8 @@
 import { useMenuState } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipMenu } from 'src/clips/components';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { ClipMenu } from '/src/clips/components';
 
 // Import styles
 import './AppFrame.scss';

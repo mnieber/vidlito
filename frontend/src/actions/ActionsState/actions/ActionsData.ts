@@ -1,6 +1,6 @@
 import { input, output } from 'skandha';
-import { ActionByIdT, ActionT } from 'src/api/types/ActionT';
-import { listToItemById } from 'src/utils/ids';
+import { ActionByIdT, ActionT } from '/src/api/types/ActionT';
+import { listToItemById } from '/src/utils/ids';
 
 export class ActionsData {
   static className = () => 'ActionsData';

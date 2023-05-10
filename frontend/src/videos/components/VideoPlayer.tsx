@@ -1,7 +1,7 @@
 // @ts-ignore
 import * as React from 'react';
-import { YoutubePlayer } from 'src/videos/components/YoutubePlayer';
-import { VideoPlayerState } from 'src/videos/VideoPlayerState';
+import { VideoPlayerState } from '/src/videos/VideoPlayerState';
+import { YoutubePlayer } from '/src/videos/components/YoutubePlayer';
 
 type PropsT = {
   videoPlayerState: VideoPlayerState;

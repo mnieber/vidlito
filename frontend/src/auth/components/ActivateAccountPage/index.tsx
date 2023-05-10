@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { ActivateAccountCard } from 'src/auth/components/ActivateAccountCard';
-import { AuthPage } from 'src/auth/components/AuthPage';
-import { FramesUrlEvents } from 'src/frames/FramesUrlEvents';
-import { SignInLogo } from 'src/frames/components/SignInLogo';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
+import { ActivateAccountCard } from '/src/auth/components/ActivateAccountCard';
+import { AuthPage } from '/src/auth/components/AuthPage';
+import { FramesUrlEvents } from '/src/frames/FramesUrlEvents';
+import { SignInLogo } from '/src/frames/components/SignInLogo';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 export type UrlEventsT = typeof FramesUrlEvents;
 

@@ -1,9 +1,9 @@
 import * as R from 'ramda';
 import { useFormStateContext } from 'react-form-state-context';
-import { useFormFieldContext } from 'src/forms/components';
-import { TextField } from 'src/forms/components/TextField';
-import { FieldPropsT } from 'src/forms/hooks';
-import { slugify } from 'src/utils';
+import { useFormFieldContext } from '/src/forms/components';
+import { TextField } from '/src/forms/components/TextField';
+import { FieldPropsT } from '/src/forms/hooks';
+import { slugify } from '/src/utils';
 
 // Import styles
 import './TextField.scss';

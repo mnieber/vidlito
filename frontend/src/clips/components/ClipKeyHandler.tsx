@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import { ClipT } from 'src/api/types/ClipT';
-import { createKeyDownHandler } from 'src/utils';
-import { createVideoKeyHandlers } from 'src/videos/createVideoKeyHandlers';
-import { VideoPlayerState } from 'src/videos/VideoPlayerState';
+import { ClipT } from '/src/api/types/ClipT';
+import { createKeyDownHandler } from '/src/utils';
+import { VideoPlayerState } from '/src/videos/VideoPlayerState';
+import { createVideoKeyHandlers } from '/src/videos/createVideoKeyHandlers';
 
 export type PropsT = React.PropsWithChildren<{
   clip: ClipT;

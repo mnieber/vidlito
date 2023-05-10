@@ -1,4 +1,4 @@
-import 'src/frames/styles/index.scss';
+import '/src/frames/styles/index.scss';
 
 import { QueryClientProvider } from '@tanstack/react-query';
 import { action, toJS } from 'mobx';
@@ -6,10 +6,10 @@ import { applyFormatters } from 'mobx-log';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { setOptions } from 'skandha';
-import { queryClient } from 'src/api/queryClient';
-import { App } from 'src/app/components';
-import { flags } from 'src/app/flags';
-import { RoutesProvider } from 'src/routes/components/RoutesProvider';
+import { queryClient } from '/src/api/queryClient';
+import { App } from '/src/app/components';
+import { flags } from '/src/app/flags';
+import { RoutesProvider } from '/src/routes/components/RoutesProvider';
 
 const strict = false;
 
@@ -17,7 +17,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-if (process.env.NODE_ENV === 'development') {
+if (import.meta.env.DEV) {
   applyFormatters();
 }
 

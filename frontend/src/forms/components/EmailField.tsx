@@ -1,6 +1,6 @@
-import { useFieldProps } from 'src/forms/hooks';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
+import { useFieldProps } from '/src/forms/hooks';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 type PropsT = {
   className?: any;

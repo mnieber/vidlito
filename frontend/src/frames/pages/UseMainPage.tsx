@@ -3,9 +3,9 @@ import {
   ActionsUrlEvents,
   ClipsUrlEvents,
   PlaylistsUrlEvents,
-} from 'src/frames/pages';
-import { UrlEventHandler, useInstallEventLayer } from 'src/urlEvents';
-import { UrlEventLayer } from 'src/urlEvents/UrlEventHandler';
+} from '/src/frames/pages';
+import { UrlEventHandler, useInstallEventLayer } from '/src/urlEvents';
+import { UrlEventLayer } from '/src/urlEvents/UrlEventHandler';
 
 export type MainUrlEventLayerT = typeof ActionsUrlEvents &
   typeof ClipsUrlEvents &

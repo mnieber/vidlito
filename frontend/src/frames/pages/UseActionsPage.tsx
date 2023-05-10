@@ -1,6 +1,6 @@
 import { useRouteMatch } from 'react-router-dom';
-import { UrlEventHandler, useInstallEventLayer } from 'src/urlEvents';
-import { UrlEventLayer } from 'src/urlEvents/UrlEventHandler';
+import { UrlEventHandler, useInstallEventLayer } from '/src/urlEvents';
+import { UrlEventLayer } from '/src/urlEvents/UrlEventHandler';
 
 export type ActionsUrlEventLayerT = {};
 

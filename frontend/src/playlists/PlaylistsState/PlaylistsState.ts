@@ -17,11 +17,11 @@ import {
   createInsertionPreview,
 } from 'skandha-facets/policies';
 import { registerCtr } from 'skandha-mobx';
-import { PlaylistT } from 'src/api/types/PlaylistT';
-import { getIds } from 'src/utils/ids';
-import { ObjT } from 'src/utils/types';
 import { Settings } from './Settings';
 import { initPlaylists } from './playlists';
+import { PlaylistT } from '/src/api/types/PlaylistT';
+import { getIds } from '/src/utils/ids';
+import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
   deletePlaylists: (ids: string[]) => Promise<any>;

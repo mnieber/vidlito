@@ -1,5 +1,5 @@
-import { cn } from 'src/utils/classnames';
-import { ObjT } from 'src/utils/types';
+import { cn } from '/src/utils/classnames';
+import { ObjT } from '/src/utils/types';
 
 // Import styles
 import './Icon.scss';

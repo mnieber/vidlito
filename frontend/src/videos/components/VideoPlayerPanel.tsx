@@ -3,12 +3,12 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import ReactResizeDetector from 'react-resize-detector';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { Icon } from 'src/frames/components';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
-import { VideoPlayer } from 'src/videos/components/VideoPlayer';
-import { getVideoWidth, widthToHeight } from 'src/videos/utils/aspectRatio';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { Icon } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
+import { VideoPlayer } from '/src/videos/components/VideoPlayer';
+import { getVideoWidth, widthToHeight } from '/src/videos/utils/aspectRatio';
 
 type PropsT = {
   className?: any;

@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
-import { UserProfileT } from 'src/api/types/UserProfileT';
-import { createContextMenu } from 'src/frames/utils/createContextMenu';
+import { UserProfileT } from '/src/api/types/UserProfileT';
+import { createContextMenu } from '/src/frames/utils/createContextMenu';
 
 type AccountT = {
   userProfile?: UserProfileT;

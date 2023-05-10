@@ -1,8 +1,8 @@
 import TextareaAutosize from 'react-textarea-autosize';
-import { FieldPropsT, useFieldProps } from 'src/forms/hooks';
-import { MarkdownView } from 'src/frames/components';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
+import { FieldPropsT, useFieldProps } from '/src/forms/hooks';
+import { MarkdownView } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './MarkdownField.scss';

@@ -2,8 +2,8 @@ import { runInAction } from 'mobx';
 import * as R from 'ramda';
 import * as React from 'react';
 import YouTube from 'react-youtube';
-import { widthToHeight } from 'src/videos/utils/aspectRatio';
-import { VideoPlayerState } from 'src/videos/VideoPlayerState';
+import { VideoPlayerState } from '/src/videos/VideoPlayerState';
+import { widthToHeight } from '/src/videos/utils/aspectRatio';
 
 type PropsT = {
   videoPlayerState: VideoPlayerState;

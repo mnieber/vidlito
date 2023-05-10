@@ -1,8 +1,8 @@
 import React from 'react';
-import { CreateEventLayerFunctionT } from 'src/urlEvents/UrlEventHandler';
-import { useBuilder } from 'src/utils/hooks/useBuilder';
 import { UrlEventHandler } from './UrlEventHandler';
 import { useUrlEventHandler } from './useUrlEventHandler';
+import { CreateEventLayerFunctionT } from '/src/urlEvents/UrlEventHandler';
+import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export function useInstallEventLayer(
   name: string,

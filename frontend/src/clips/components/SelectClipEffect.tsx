@@ -2,10 +2,10 @@ import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
-import { ClipT } from 'src/api/types/ClipT';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { ClipsUrlEvents, useUrlEventHandler } from 'src/frames/pages';
-import { useSearchAndUrlParams } from 'src/utils/hooks';
+import { ClipT } from '/src/api/types/ClipT';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { ClipsUrlEvents, useUrlEventHandler } from '/src/frames/pages';
+import { useSearchAndUrlParams } from '/src/utils/hooks';
 
 const useUrlEvents = () => useUrlEventHandler<typeof ClipsUrlEvents>();
 

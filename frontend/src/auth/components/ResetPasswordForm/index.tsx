@@ -1,16 +1,16 @@
 import React from 'react';
 import { FormStateProvider } from 'react-form-state-context';
+import { form } from './form';
+import { useMessages } from './useMessages';
 import {
   Field,
   FormSaveButton,
   GlobalError,
   PasswordField,
-} from 'src/forms/components';
-import { getErrorKeys } from 'src/forms/utils/createFormErrorsObject';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
-import { form } from './form';
-import { useMessages } from './useMessages';
+} from '/src/forms/components';
+import { getErrorKeys } from '/src/forms/utils/createFormErrorsObject';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
 
 export const formFields = {
   password: 'password',
@@ -43,14 +43,7 @@ export function ResetPasswordForm(props: PropsT) {
           props.className
         )}
       >
-        <GlobalError
-          className={cn(
-            l.GlobalError(),
-            '!text-bodyText'
-            //
-            //
-          )}
-        />
+        <GlobalError className={cn(l.GlobalError())} />
 
         {!getErrorKeys(externalErrors).includes('global') && (
           <React.Fragment>

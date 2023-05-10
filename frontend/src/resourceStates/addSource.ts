@@ -1,7 +1,7 @@
 import * as R from 'ramda';
-import { ConditionT } from 'src/resourceStates';
-import { removeSource } from 'src/resourceStates/removeSource';
 import { getRS } from './ResourceState';
+import { ConditionT } from '/src/resourceStates';
+import { removeSource } from '/src/resourceStates/removeSource';
 
 export type ArgsT = {
   states?: {

@@ -1,8 +1,8 @@
 import * as R from 'ramda';
 import { useFormStateContext } from 'react-form-state-context';
-import { L } from 'src/frames/layout';
-import { cn } from 'src/utils/classnames';
-import { VideoController } from 'src/videos/VideoController';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
+import { VideoController } from '/src/videos/VideoController';
 
 // Import styles
 import './GoToTimeButton.scss';

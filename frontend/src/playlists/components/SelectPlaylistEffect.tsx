@@ -2,9 +2,9 @@ import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
-import { PlaylistT } from 'src/api/types/PlaylistT';
-import { dps, withDefaultProps } from 'src/app/defaultProps';
-import { useSearchAndUrlParams } from 'src/utils/hooks';
+import { PlaylistT } from '/src/api/types/PlaylistT';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { useSearchAndUrlParams } from '/src/utils/hooks';
 
 type PropsT = {};
 
