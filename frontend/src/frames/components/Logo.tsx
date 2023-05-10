@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { L } from 'src/frames/layout';
 import { FramesUrlEvents, useUrlEventHandler } from 'src/frames/pages';
-import { cln } from 'src/utils/classnames';
+import { cn } from 'src/utils/classnames';
 
 // Import styles
 import './Logo.scss';
@@ -21,7 +21,10 @@ export const Logo = observer(
 
     return (
       <div
-        className={cln('Logo', 'text-3xl font-bold')(
+        className={cn(
+          'Logo',
+          'text-3xl font-bold',
+          //
           //
           L.row.skewer(),
           'mt-4 mb-6',
@@ -30,10 +33,22 @@ export const Logo = observer(
         )}
         onClick={() => urlEvents.goToHome()}
       >
-        <div className={cln('Logo__TitlePrefix__', `text-primaryBlue`)()}>
+        <div
+          className={cn(
+            'Logo__TitlePrefix__',
+            `text-primaryBlue`
+            //
+          )}
+        >
           vid
         </div>
-        <div className={cln('Logo__TitleSuffix__', `text-primaryTeal`)()}>
+        <div
+          className={cn(
+            'Logo__TitleSuffix__',
+            `text-primaryTeal`
+            //
+          )}
+        >
           lito
         </div>
       </div>

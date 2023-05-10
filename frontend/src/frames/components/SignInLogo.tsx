@@ -1,5 +1,5 @@
 import { L } from 'src/frames/layout';
-import { cln, cn } from 'src/utils/classnames';
+import { cn } from 'src/utils/classnames';
 
 // Import styles
 import './SignInLogo.scss';
@@ -13,18 +13,32 @@ export const SignInLogo = (props: PropsT) => {
     //
     <div className={cn('SignInLogo', L.col.banner())}>
       <div
-        className={cln(
+        className={cn(
           'SignInLogo__Title__',
-          'text-6xl font-bold'
-        )(
+          'text-6xl font-bold',
+          //
           //
           L.row.banner()
         )}
       >
-        <div className={cln('SignInLogo__TitlePrefix__', `text-primaryBlue`)()}>
+        <div
+          className={cn(
+            'SignInLogo__TitlePrefix__',
+            `text-primaryBlue`
+            //
+            //
+          )}
+        >
           vid
         </div>
-        <div className={cln('SignInLogo__TitleSuffix__', `text-primaryTeal`)()}>
+        <div
+          className={cn(
+            'SignInLogo__TitleSuffix__',
+            `text-primaryTeal`
+            //
+            //
+          )}
+        >
           lito
         </div>
       </div>
@@ -35,10 +49,10 @@ export const SignInLogo = (props: PropsT) => {
       }
       <div
         className={cn(
-          cln(
+          cn(
             'SignInLogo__SubTitle__',
-            'text-white tracking-wide'
-          )(
+            'text-white tracking-wide',
+            //
             //
             'mb-8'
           )

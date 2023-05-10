@@ -7,7 +7,7 @@ import {
   GlobalError,
 } from 'src/forms/components';
 import { L } from 'src/frames/layout';
-import { cln, cn } from 'src/utils/classnames';
+import { cn } from 'src/utils/classnames';
 import { form } from './form';
 import { useMessages } from './useMessages';
 
@@ -37,12 +37,12 @@ export function SignUpForm(props: PropsT) {
         // 🔳 SignUpForm 🔳
       }
       <div
-        className={cln(
+        className={cn(
           'SignInForm',
-          props.className
-        )(
           //
-          L.col.banner()
+          //
+          L.col.banner(),
+          props.className
         )}
       >
         <GlobalError className={l.GlobalError()} />

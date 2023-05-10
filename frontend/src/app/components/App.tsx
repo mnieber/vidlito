@@ -8,7 +8,7 @@ import { L, breakpoints } from 'src/frames/layout';
 import { PlaylistsStateProvider } from 'src/playlists/components/PlaylistsStateProvider';
 import { UrlRouter } from 'src/routes/components';
 import { UrlEventHandlerProvider } from 'src/routes/components/UrlEventHandlerProvider';
-import { cln } from 'src/utils/classnames';
+import { cn } from 'src/utils/classnames';
 import { VideoPlayerStateProvider } from 'src/videos/components';
 
 export const history = createBrowserHistory();
@@ -16,12 +16,12 @@ export const history = createBrowserHistory();
 export const App = () => {
   return (
     <div
-      className={cln(
+      className={cn(
         'App',
-        `min-width-[${breakpoints.xs}] h-[100vh] overflow-x-hidden`
-      )(
         //
-        L.col.banner()
+        //
+        L.col.banner(),
+        `min-width-[${breakpoints.xs}] h-[100vh] overflow-x-hidden`
       )}
     >
       <Router history={history}>

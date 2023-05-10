@@ -44,7 +44,15 @@ export const ActionListView = observer(
     });
 
     return (
-      <div className={cn('ActionListView', L.col.banner(), props.className)}>
+      <div
+        className={cn(
+          'ActionListView',
+          //
+          //
+          L.col.banner(),
+          props.className
+        )}
+      >
         {actionDivs.length > 0 && actionDivs}
         {actionDivs.length === 0 && noItems}
       </div>

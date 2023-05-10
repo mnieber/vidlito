@@ -4,7 +4,7 @@ import { highlightUIHandlers, HighlightUIPropsT } from 'skandha-facets';
 import { ActionT } from 'src/api/types/ActionT';
 import { L } from 'src/frames/layout';
 import { isUpdating } from 'src/resourceStates';
-import { cln, cn } from 'src/utils/classnames';
+import { cn } from 'src/utils/classnames';
 
 // Import styles
 import './ActionListViewItem.scss';
@@ -16,23 +16,20 @@ export type PropsT = {
 };
 
 export const ActionListViewItem = observer((props: PropsT) => {
-  const appearance = [
-    {
-      'ActionListViewItem--highlighted': props.highlightUIProps.isHighlighted,
-    },
-    { 'animate-delete': isUpdating(props.action) },
-  ];
-
   return (
     <div
-      className={cln(
+      className={cn(
         'ActionListViewItem',
-        appearance,
-        props.className
-      )(
+        {
+          'ActionListViewItem--highlighted':
+            props.highlightUIProps.isHighlighted,
+        },
+        { 'animate-delete': isUpdating(props.action) },
+        //
         //
         L.col.banner(),
-        'py-3 px-4'
+        'py-3 px-4',
+        props.className
       )}
       {...highlightUIHandlers(props.highlightUIProps)}
     >

@@ -32,13 +32,14 @@ export const ClipHeaderView = observer(
         }
         <div
           className={cn(
-            'ClipHeaderView__Title',
-            'py-3 pr-4 pl-7',
-            '',
-            clipHeaderButton({
-              isPlaylist: true,
-              isActive: props.dashboardState.showPlaylistDescription,
-            })
+            'ClipHeaderView__PlaylistButton',
+            {
+              'ClipHeaderView__PlaylistButton--active':
+                props.dashboardState.showPlaylistDescription,
+            },
+            //
+            //
+            'py-3 pr-4 pl-7'
           )}
         >
           <div className={cn('ClipHeaderView__TitleName', L.row.skewer())}>
@@ -57,13 +58,14 @@ export const ClipHeaderView = observer(
         }
         <div
           className={cn(
-            'ClipHeaderView__Title',
-            'ml-[3px] pt-2.5 pb-4 pl-4 pr-7',
-            '',
-            clipHeaderButton({
-              isPlaylist: false,
-              isActive: !props.dashboardState.showPlaylistDescription,
-            })
+            'ClipHeaderView__ClipButton',
+            {
+              'ClipHeaderView__ClipButton--active':
+                !props.dashboardState.showPlaylistDescription,
+            },
+            //
+            //
+            'ml-[3px] pt-2.5 pb-4 pl-4 pr-7'
           )}
         >
           <div className={cn('ClipHeaderView__TitleName', L.row.skewer())}>
@@ -82,18 +84,24 @@ export const ClipHeaderView = observer(
         }
         <div
           className={cn(
+            'text-gray-700',
+            //
+            //
             L.col.banner(),
             'justify-between',
-            'ml-8',
-            '',
-            'text-gray-700'
+            'ml-8'
           )}
         >
           {
             // 🔳 EditButton 🔳
           }
           <button
-            className={cn('ClipHeaderView__EditButton', L.ToolButton.root())}
+            className={cn(
+              'ClipHeaderView__EditButton',
+              //
+              //
+              L.ToolButton.root()
+            )}
             onClick={() => {
               const edit = props.dashboardState.showPlaylistDescription
                 ? props.playlistsEdit
@@ -115,20 +123,3 @@ export const ClipHeaderView = observer(
     );
   }, DefaultProps)
 );
-
-const clipHeaderButton = ({
-  isPlaylist,
-  isActive,
-}: {
-  isPlaylist: boolean;
-  isActive: boolean;
-}) => {
-  return [
-    isPlaylist ? 'rounded-l-[32px]' : 'rounded-r-[32px]',
-    'text-gray-700',
-    'border-2 border-blue-50',
-    {
-      'bg-blue-50': isActive,
-    },
-  ];
-};

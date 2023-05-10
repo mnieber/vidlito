@@ -74,7 +74,7 @@ export const VideoPlayerPanel = observer(
         className={cn('VideoPlayerPanel', L.col.banner(), props.className)}
       >
         {placeholder}
-        <div className={cn({ hidden: !ready })} style={{ height: height }}>
+        <div className={cn('', { hidden: !ready })} style={{ height: height }}>
           <VideoPlayer
             key={props.videoPlayerState.url} // yes, we need this
             videoPlayerParentElm={
@@ -87,7 +87,7 @@ export const VideoPlayerPanel = observer(
             // During a resize we make the video image absolute so that it doesn't
             // affect the layout of the container. Without this trick, the container
             // cannot be made smaller than the video image.
-            className={cn({ absolute: isResizing })}
+            className={cn('', { absolute: isResizing })}
           />
         </div>
       </div>

@@ -6,7 +6,7 @@ import { MainButtonsPanel } from 'src/dashboard/components/MainButtonsPanel';
 import { Logo } from 'src/frames/components';
 import { L } from 'src/frames/layout';
 import { PlaylistListPicker } from 'src/playlists/components/PlaylistListPicker';
-import { cln, cn, d } from 'src/utils/classnames';
+import { cn, d } from 'src/utils/classnames';
 
 // Import styles
 import './Dashboard.scss';
@@ -54,11 +54,11 @@ export const Dashboard = observer(
           // 🔳 RightMain 🔳
         }
         <div
-          className={cln(
+          className={cn(
             'Dashboard__RightMain',
             'overflow-y-auto',
-            'bg-gray-200'
-          )(
+            'bg-gray-200',
+            //
             //
             'pb-6',
             'grow'

@@ -9,7 +9,7 @@ import { dps, withDefaultProps } from 'src/app/defaultProps';
 import { ClipKeyHandler } from 'src/clips/components/ClipKeyHandler';
 import { L } from 'src/frames/layout';
 import { isUpdating } from 'src/resourceStates';
-import { cln, cn } from 'src/utils/classnames';
+import { cn } from 'src/utils/classnames';
 import { PlayVideoIcon } from 'src/videos/components';
 
 // Import styles
@@ -52,7 +52,7 @@ export const ClipListViewItem = observer(
         }
         <div
           tabIndex={0}
-          className={cln(
+          className={cn(
             'ClipListViewItem',
             'font-bold',
             {
@@ -61,8 +61,8 @@ export const ClipListViewItem = observer(
               'ClipListViewItem--highlighted': props.isHighlighted,
             },
             `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
-            { 'animate-delete': isUpdating(props.clip) }
-          )(
+            { 'animate-delete': isUpdating(props.clip) },
+            //
             //
             l.root(),
             props.className

@@ -6,7 +6,7 @@ import { useAuthStateContext } from 'src/auth/hooks';
 import { FramesUrlEvents } from 'src/frames/FramesUrlEvents';
 import { L } from 'src/frames/layout';
 import { useUrlEventHandler } from 'src/frames/pages';
-import { cln, cn } from 'src/utils/classnames';
+import { cn } from 'src/utils/classnames';
 import { ObjT } from 'src/utils/types';
 import { useMessages } from './useMessages';
 
@@ -44,10 +44,13 @@ export const SignInCard = observer(() => {
         // 🔳 ForgotPassword 🔳
       }
       <div
-        className={cln(
+        className={cn(
           'SignInCard__ForgotPassword__',
-          l.FormCaption()
-        )(L.col.banner())}
+          //
+          //
+          l.FormCaption(),
+          L.col.banner()
+        )}
       >
         {messages.divForgotYourPassword}
       </div>
@@ -55,11 +58,12 @@ export const SignInCard = observer(() => {
         // 🔳 CreateAccountButton 🔳
       }
       <button
-        className={cln(
-          //
+        className={cn(
           'SignInCard__CreateAccountButton',
+          //
+          //
           l.CardFooter()
-        )()}
+        )}
         onClick={() => urlEvents.goToSignUp()}
       >
         {messages.createAccount}

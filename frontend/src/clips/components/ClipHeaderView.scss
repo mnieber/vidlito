@@ -1,3 +1,23 @@
 .ClipHeaderView__TitleName {
-    @apply font-bold;
+  @apply font-bold;
+}
+
+.ClipHeaderView__ClipButton {
+  @apply rounded-r-[32px];
+  @apply text-gray-700;
+  @apply border-2 border-blue-50;
+}
+
+.ClipHeaderView__ClipButton--active {
+  @apply bg-blue-50;
+}
+
+.ClipHeaderView__PlaylistButton {
+  @apply rounded-l-[32px];
+  @apply text-gray-700;
+  @apply border-2 border-blue-50;
+}
+
+.ClipHeaderView__PlaylistButton--active {
+  @apply bg-blue-50;
 }

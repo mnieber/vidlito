@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { withDefaultProps } from 'src/app/defaultProps';
 import { L } from 'src/frames/layout';
-import { cln } from 'src/utils/classnames';
+import { cn } from 'src/utils/classnames';
 
 // Import styles
 import 'src/auth/components/AuthCard/FormField.scss';
@@ -20,19 +20,26 @@ export const AuthCard = observer(
       //
       // 🔳 AuthCard 🔳
       //
-      <div className={cln('AuthCard', 'w-[396px] h-[332px]')()}>
+      <div
+        className={cn(
+          'AuthCard',
+          //
+          //
+          'w-[396px] h-[332px]'
+        )}
+      >
         {
           // 🔳 AuthCard__Inner 🔳
         }
         <div
           id={props.id}
-          className={cln(
+          className={cn(
             'AuthCard__Inner',
             'rounded-lg bg-blue-950',
-            'px-8 py-6'
-          )(
             //
-            L.col.banner()
+            //
+            L.col.banner(),
+            'px-8 py-6'
           )}
         >
           {props.children}

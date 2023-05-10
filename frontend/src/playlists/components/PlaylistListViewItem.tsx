@@ -72,7 +72,7 @@ export const PlaylistListViewItem = observer(
         {
           // 🔳 Title 🔳
         }
-        <div className={cn(['PlaylistListViewItem__Title', l.title()])}>
+        <div className={cn('', ['PlaylistListViewItem__Title', l.title()])}>
           <div>{props.playlist.name}</div>
         </div>
       </div>

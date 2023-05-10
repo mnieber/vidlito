@@ -80,7 +80,7 @@ export const L = {
       root: () => cn('MainForm', L.col.banner()),
       GlobalError: () => 'mb-2',
       Field: () => 'mb-6',
-      Buttons: () => cn([L.row.skewer(), 'self-end']),
+      Buttons: () => cn('', [L.row.skewer(), 'self-end']),
       Button: {
         root: () => '',
         gap: () => 'mr-2',
@@ -97,10 +97,10 @@ export const L = {
     icon: () => cn('mr-2', 'h-[20px]', 'w-[20px]'),
   },
   ToolButton: {
-    root: () => cn(['ToolButton', L.row.skewer()]),
+    root: () => cn('', ['ToolButton', L.row.skewer()]),
     icon: {
-      normal: () => cn(['h-[32px] w-[32px]', 'mr-2', 'p-2']),
-      small: () => cn(['h-[24px] w-[24px]', 'mr-2', 'p-1']),
+      normal: () => cn('', ['h-[32px] w-[32px]', 'mr-2', 'p-2']),
+      small: () => cn('', ['h-[24px] w-[24px]', 'mr-2', 'p-1']),
     },
   },
   row: {
