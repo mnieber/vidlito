@@ -7,7 +7,7 @@ export const updatePlaylists = (
 ) => {
   const playlistIdx =
     playlist && playlists
-      ? R.findIndex(R.propEq('id', playlist.id), playlists)
+      ? R.findIndex(R.propEq(playlist.id, 'id'), playlists)
       : -1;
   if (playlistIdx >= 0) {
     return R.update(playlistIdx, playlist!, playlists);
