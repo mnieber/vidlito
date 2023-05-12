@@ -1,10 +1,10 @@
-def create_undo_action_mutation(playlist_id, output_values=None):
+def create_undo_action_mutation(action_id, output_values=None):
     result = """
         mutation undoAction(
-            $playlistId: UUID!
+            $actionId: UUID!
         ) {
             undoAction(
-                playlistId: $playlistId
+                actionId: $actionId
             ) {
                 output_values
             }
@@ -15,6 +15,6 @@ def create_undo_action_mutation(playlist_id, output_values=None):
 
     operation_name = "undoAction"
     variables = dict(
-        playlistId=playlist_id,
+        actionId=action_id,
     )
     return result, operation_name, variables

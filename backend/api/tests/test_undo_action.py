@@ -1,7 +1,7 @@
 import pytest
 
+from actions.tests.random_data import create_random_action
 from api.tests.graphqltestcase import GraphqlTestCase
-from playlists.tests.random_data import create_random_playlist
 from user_profiles.tests.random_data import create_random_user_profile
 
 from .create_undo_action_mutation import create_undo_action_mutation
@@ -9,17 +9,17 @@ from .create_undo_action_mutation import create_undo_action_mutation
 
 class TestUndoActionMutation(GraphqlTestCase):
     @pytest.fixture()
-    def playlist(self, owner):
-        return create_random_playlist(owner_id=owner.id)
+    def action(self, owner):
+        return create_random_action(owner_id=owner.id)
 
     @pytest.mark.django_db()
     def test_undo_action__(
         self,
-        playlist,
+        action,
         client_query,
     ):
         query, operation_name, variables = create_undo_action_mutation(
-            playlist_id=str(playlist.id),
+            action_id=str(action.id),
             output_values=["success", "errors"],
         )
         response = client_query(

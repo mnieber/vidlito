@@ -1,4 +1,4 @@
-import { nullResource, symbolRS } from '../resourceStates/ResourceState';
+import { nullResource, symbolRS } from '/src/resourceStates/ResourceState';
 
 export const getState = <StateT = string>(resource: any): StateT[] => {
   if (!!resource && !resource[symbolRS]) {

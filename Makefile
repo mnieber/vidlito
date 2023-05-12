@@ -8,13 +8,12 @@ compile-env:
 
 create-opt-paths:
 	sudo mkdir -p /opt/projects/vidlito/backend
-	sudo echo     "- cmd: echo "start of the fish history" >> /opt/projects/vidlito/backend/fish_history
+	sudo echo     "- cmd: echo 'start of the fish history'" >> /opt/projects/vidlito/backend/fish_history
 	sudo mkdir -p /opt/projects/vidlito/backend/ipython
 	sudo mkdir -p /opt/projects/vidlito/backend/assets
 	sudo touch    /opt/projects/vidlito/backend/pytest_report.html
 	sudo mkdir -p /opt/projects/vidlito/backend/media
 	sudo mkdir -p /opt/projects/vidlito/backend/static
 	sudo mkdir -p /opt/projects/vidlito/frontend
-	sudo echo     "- cmd: echo "start of the fish history" >> /opt/projects/vidlito/frontend/fish_history
+	sudo echo     "- cmd: echo 'start of the fish history'" >> /opt/projects/vidlito/frontend/fish_history
 	sudo chmod -R 777 -p /opt/projects/vidlito
-

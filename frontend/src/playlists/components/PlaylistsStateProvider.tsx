@@ -4,17 +4,14 @@ import React from 'react';
 import { NestedDefaultPropsContext } from 'react-default-props-context';
 import { isQueryLoading, isQueryUpdating } from '/src/api/QueryData';
 import { useGetPlaylist } from '/src/api/endpoints';
+import { isLoading, isUpdating } from '/src/api/getState';
 import { useQueryData } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from '/src/playlists/utils';
-import {
-  graftResourceStates,
-  isLoading,
-  isUpdating,
-} from '/src/resourceStates';
+import { graftResourceStates } from '/src/resourceStates';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { log } from '/src/utils/logging';
 

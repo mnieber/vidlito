@@ -25,13 +25,11 @@ class TestMoveClipsToPlaylistMutation(GraphqlTestCase):
     def test_move_clips_to_playlist__(
         self,
         playlist,
-        playlist,
         clips,
         client_query,
     ):
         clip_ids = [str(x.id) for x in clips]
         query, operation_name, variables = create_move_clips_to_playlist_mutation(
-            playlist_id=str(playlist.id),
             playlist_id=str(playlist.id),
             clip_ids=clip_ids,
             output_values=["success", "errors"],
