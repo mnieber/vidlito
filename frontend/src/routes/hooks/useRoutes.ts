@@ -1,10 +1,10 @@
 import React from 'react';
 import { history } from '/src/app/components/App';
-import { RoutesContext } from '/src/routes/components/RoutesProvider';
+import { RouteTableContext } from '/src/routes/components/RouteTableProvider';
 import { RouteTable } from '/src/routes/utils/RouteTable';
 
 export const useRouteTable = () => {
-  const routeTable: RouteTable = React.useContext(RoutesContext);
+  const routeTable: RouteTable = React.useContext(RouteTableContext);
   return routeTable;
 };
 
