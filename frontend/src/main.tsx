@@ -11,20 +11,20 @@ import { flags } from '/src/app/flags';
 
 const strict = false;
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-
 if (import.meta.env.DEV) {
   applyFormatters();
 }
-
-const body = <App />;
-
-root.render(strict ? <React.StrictMode>{body}</React.StrictMode> : body);
 
 setOptions({
   logging: flags.logSkandha,
   formatObject: toJS,
   decorateCb: action,
 });
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+
+const body = <App />;
+
+root.render(strict ? <React.StrictMode>{body}</React.StrictMode> : body);
