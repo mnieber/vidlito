@@ -1,5 +1,16 @@
-// 0. Custom styles
-@import '/src/frames/styles/root.scss';
+// Import third party styles
+@import '/src/frames/styles/thirdParty.scss';
+
+// The base layer contains uikit and tailwindcss
 @import '/src/frames/styles/base.scss';
-@import '/src/frames/styles/autocomplete.scss';
+
+// Import fonts
 @import '/src/frames/styles/fonts.scss';
+
+// Customize base level styles
+@import '/src/frames/styles/inputElement.scss';
+@import '/src/frames/styles/selection.scss';
+@import '/src/frames/styles/autocomplete.scss';
+
+// Style the root element in index.html
+@import '/src/frames/styles/rootElement.scss';

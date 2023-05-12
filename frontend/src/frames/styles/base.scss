@@ -1,29 +1,8 @@
-#root {
-  @apply bg-blue-50;
-}
+// UIkit rules (this also imports various scss variables)
+@import '/src/frames/styles/uikit/index.scss';
 
-input[type='checkbox']:focus {
-  outline: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-input[type='checkbox'] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  width: 17px;
-  height: 17px;
-  cursor: pointer;
-}
-
-input[type='checkbox']:checked {
-  background-color: #409fd6 !important;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 11l2-2 5 5L18 3l2 2L7 18z" fill="%23ffffff" /></svg>');
-}
-
-::selection {
-  @apply bg-primaryBlue;
-}
-
-::-moz-selection {
-  @apply bg-primaryBlue;
-}
+// TailwindCSS comes after UIkit, so that many of the styles introduced by
+// UIkit are reset.
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
