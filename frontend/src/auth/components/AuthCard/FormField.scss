@@ -1,18 +1,16 @@
 @import '/src/forms/components/FormField';
 
-.AuthCard {
-  .FormField:focus-within {
-    @apply border border-blue-700;
-  }
+.AuthCard .FormField {
+  @apply c-form-field;
 
-  .FormField {
-    @apply c-form-field;
+  @apply border border-blue-400;
+  @apply bg-white;
+}
 
-    @apply border border-blue-400;
-    @apply bg-white;
-  }
+.AuthCard .FormField:focus-within {
+  @apply border border-blue-700;
+}
 
-  .FormField__Input {
-    @apply py-2 px-3;
-  }
+.AuthCard .FormField__Input {
+  @apply py-2 px-3;
 }

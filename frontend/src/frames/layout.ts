@@ -6,6 +6,7 @@ import '/src/forms/components/FormFieldButton.scss';
 import '/src/frames/components/DialogButton.scss';
 import '/src/frames/components/DropdownButton.scss';
 import '/src/frames/components/ToolButton.scss';
+import '/src/frames/layout.scss';
 
 export const breakpoints = {
   xs: '320px',

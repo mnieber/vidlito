@@ -1,2 +1,3 @@
-__pycache__
+node_modules
 docker-compose.dev.override.yml
+__pycache__
