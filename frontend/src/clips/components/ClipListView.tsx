@@ -10,7 +10,6 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
 import { Spinner } from '/src/frames/components';
 import { ClipsUrlEvents, useUrlEventHandler } from '/src/frames/pages';
-import { createOnSelectItemHandler } from '/src/routes/utils';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -41,9 +40,6 @@ export const ClipListView = observer(
       props.clipsSelection as Selection<ClipT>,
       {
         itemSelector: '.ClipListViewItem',
-        onSelectItem: createOnSelectItemHandler(props.clips, (clip: ClipT) =>
-          urlEvents.userHighlightsClip(clip.slug)
-        ),
       },
       [props.clips, urlEvents]
     );
@@ -63,6 +59,7 @@ export const ClipListView = observer(
           isHighlighted={clip && props.clipsHighlight.id === clip.id}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
+          onClick={() => urlEvents.userHighlightsClip(clip.slug)}
           onContextMenu={(e: any) => {
             e.preventDefault();
             props.dashboardState.clipListContextMenu.openAtPoint({

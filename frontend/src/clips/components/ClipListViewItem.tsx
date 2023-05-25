@@ -21,6 +21,7 @@ export type PropsT = {
   dragAndDropUIProps: DragAndDropUIPropsT;
   selectionUIProps: SelectionUIPropsT;
   onContextMenu?: (e: React.MouseEvent) => void;
+  onClick?: (e: React.MouseEvent) => void;
   className?: any;
 };
 
@@ -67,7 +68,10 @@ export const ClipListViewItem = observer(
             l.root(),
             props.className
           )}
-          {...selectionUIHandlers(props.selectionUIProps)}
+          {...mergeProps(
+            selectionUIHandlers(props.selectionUIProps),
+            props.onClick ? { onClick: props.onClick } : {}
+          }
           {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
           onContextMenu={props.onContextMenu}
         >
