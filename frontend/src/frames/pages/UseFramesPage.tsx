@@ -3,46 +3,41 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
-import {
-  FramesUrlEvents,
-  UrlEventHandler,
-  useUrlEventHandler,
-} from '/src/frames/pages';
-import { useInstallEventLayer } from '/src/urlEvents';
-import { UrlEventLayer } from '/src/urlEvents/UrlEventHandler';
+import { FramesNavEvents, NavHandler, useNavHandler } from '/src/frames/pages';
+import { useInstallNavLayer } from '/src/navHandler';
+import { NavLayer } from '/src/navHandler/NavHandler';
 
-export type FramesUrlEventLayerT = typeof FramesUrlEvents;
+export type FramesNavEventLayerT = typeof FramesNavEvents;
 
-export class FramesUrlEventLayer
-  extends UrlEventLayer
-  implements FramesUrlEventLayerT
+export class FramesNavEventLayer
+  extends NavLayer
+  implements FramesNavEventLayerT
 {
-  goToHome(this: UrlEventHandler) {
+  goToHome(this: NavHandler) {
     const ufn = this.routeUfns.home(this.history.push);
     ufn();
   }
 
-  goToSignUp(this: UrlEventHandler) {
+  goToSignUp(this: NavHandler) {
     const ufn = this.routeUfns.signUp(this.history.push);
     ufn();
   }
 
-  goToSignIn(this: UrlEventHandler) {
+  goToSignIn(this: NavHandler) {
     const ufn = this.routeUfns.signIn(this.history.push);
     ufn();
   }
 
-  userSignedIn(this: UrlEventHandler & FramesUrlEventLayer) {
+  userSignedIn(this: NavHandler & FramesNavEventLayer) {
     this.goToHome();
   }
 
-  userProfileLoaded(this: UrlEventHandler, username: string) {
+  userProfileLoaded(this: NavHandler, username: string) {
     this.hiddenParams.username = username;
   }
 }
 
-const useUrlEvents = () =>
-  useUrlEventHandler<UrlEventHandler & FramesUrlEventLayerT>();
+const useNavEvents = () => useNavHandler<NavHandler & FramesNavEventLayerT>();
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -53,22 +48,22 @@ const DefaultProps = {
 export const UseFramesPage = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const routeMatch = useRouteMatch();
-    const urlEvents = useUrlEvents();
+    const nav = useNavEvents();
 
-    useInstallEventLayer(
-      'FramesUrlEventLayer',
+    useInstallNavLayer(
+      'FramesNavEventLayer',
       routeMatch.path,
-      (name: string, route: string) => new FramesUrlEventLayer(name, route)
+      (name: string, route: string) => new FramesNavEventLayer(name, route)
     );
 
     useUpdateStateReaction({
       getInputs: () => ({
         userProfile: props.userProfile,
-        framesUrlEventLayer: urlEvents.getEventLayer('FramesUrlEventLayer'),
+        framesNavEventLayer: nav.getNavLayer('FramesNavEventLayer'),
       }),
       updateState: (inputs) => {
-        if (inputs.framesUrlEventLayer) {
-          urlEvents.userProfileLoaded(inputs.userProfile?.username);
+        if (inputs.framesNavEventLayer) {
+          nav.userProfileLoaded(inputs.userProfile?.username);
         }
       },
     });

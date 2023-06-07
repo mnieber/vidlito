@@ -18,20 +18,16 @@ import {
 } from '/src/forms/components';
 import { TimeField } from '/src/forms/components/TimeField';
 import { L } from '/src/frames/layout';
-import {
-  ClipsUrlEvents,
-  UrlEventHandler,
-  useUrlEventHandler,
-} from '/src/frames/pages';
+import { ClipsNavEvents, NavHandler, useNavHandler } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './index.scss';
 
-export type UrlEventsT = typeof ClipsUrlEvents;
-export type UrlEventHandlerT = UrlEventHandler & UrlEventsT;
+export type NavEventsT = typeof ClipsNavEvents;
+export type NavEventHandlerT = NavHandler & NavEventsT;
 
-const useUrlEvents = () => useUrlEventHandler<UrlEventsT>();
+const useNavEvents = () => useNavHandler<NavEventsT>();
 
 export type PropsT = {
   className?: any;
@@ -46,7 +42,7 @@ export const DefaultProps = {
 
 export const ClipFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEvents();
+    const nav = useNavEvents();
 
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,
@@ -82,11 +78,11 @@ export const ClipFormView = observer(
           handleValidate={form.getHandleValidate(props)}
           handleSubmit={form.getHandleSubmit(
             props,
-            urlEvents,
+            nav,
             initialValues,
             initialErrors
           )}
-          handleCancel={form.getHandleCancel(props, urlEvents)}
+          handleCancel={form.getHandleCancel(props, nav)}
         >
           {
             // 🔳 UrlField 🔳

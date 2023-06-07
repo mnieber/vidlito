@@ -24,7 +24,10 @@ export const ActionListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const highlightUIConnector = useHighlightUIConnector(
       props.actionsHighlight,
-      { itemSelector: '.ActionListViewItem' }
+      {
+        getDomElement: (id: string, idx: number) =>
+          document.querySelectorAll('.ActionListViewItem')[idx],
+      }
     );
 
     if (isLoading(props.actions)) {

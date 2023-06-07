@@ -7,10 +7,10 @@ import { AuthStateProvider } from '/src/auth/components/AuthStateProvider';
 import { ClipsStateProvider } from '/src/clips/components';
 import { DashboardStateProvider } from '/src/dashboard/components';
 import { L, breakpoints } from '/src/frames/layout';
+import { NavHandlerProvider } from '/src/navHandler/components/NavHandlerProvider';
 import { PlaylistsStateProvider } from '/src/playlists/components/PlaylistsStateProvider';
 import { UrlRouter } from '/src/routes/components';
 import { RouteTableProvider } from '/src/routes/components/RouteTableProvider';
-import { UrlEventHandlerProvider } from '/src/routes/components/UrlEventHandlerProvider';
 import { cn } from '/src/utils/classnames';
 import { VideoPlayerStateProvider } from '/src/videos/components';
 
@@ -30,7 +30,7 @@ export const App = () => {
           )}
         >
           <RouteTableProvider>
-            <UrlEventHandlerProvider>
+            <NavHandlerProvider>
               <AuthStateProvider>
                 <DashboardStateProvider>
                   <PlaylistsStateProvider>
@@ -44,7 +44,7 @@ export const App = () => {
                   </PlaylistsStateProvider>
                 </DashboardStateProvider>
               </AuthStateProvider>
-            </UrlEventHandlerProvider>
+            </NavHandlerProvider>
           </RouteTableProvider>
         </div>
       </Router>

@@ -1,11 +1,12 @@
 import { action, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
 import { matchPath } from 'react-router-dom';
+import { WrapUfn } from '/src/routes/utils/RouteTable';
 import { getBestRouteMatch } from '/src/routes/utils/getRouteMatches';
 import { ObjT } from '/src/utils/types';
 import { pathname } from '/src/utils/urls';
 
-export class UrlEventLayer {
+export class NavLayer {
   route: string;
   name: string;
 
@@ -21,33 +22,32 @@ export type PropsT = {
   routeUfns: ObjT;
 };
 
-export type CreateEventLayerFunctionT = (
-  name: string,
-  route: string
-) => UrlEventLayer;
-
 // This class handles url events. A url event is any UI event that may require
 // changing the url. For example, when a user selects an item in a list of employees,
 // then the EmployeeListComponent may fire the userSelectedAnEmployee event, and the effect
 // may be that the url changes to reflect the selected employee.
 //
-// When userSelectedAnEmployee is called then the UrlEventHandler executes the following steps:
+// When userSelectedAnEmployee is called then the NavHandler executes the following steps:
 //
-// 1. it selects the UrlEventLayers that match the current route, and sorts them by the number
+// 1. it selects the NavLayers that match the current route, and sorts them by the number
 //    of matching url parameters.
-// 2. it finds the UrlEventLayer that contains the userSelectedAnEmployee event handler.
+// 2. it finds the NavLayer that contains the userSelectedAnEmployee event handler.
 // 3. it executes the userSelectedAnEmployee event handler.
 //
 // The above means that:
 // - the handling of url events is context dependent.
 // - the component that fires the event does not need to know anything about the url.
 
-export class UrlEventHandler {
+export class NavHandler {
   history: any;
   routes: ObjT;
   routeUfns: ObjT;
   hiddenParams: ObjT = {};
-  eventLayers: Array<UrlEventLayer> = [];
+  navLayers: Array<NavLayer> = [];
+
+  getRouteUfns<T>() {
+    return this.routeUfns as WrapUfn<T>;
+  }
 
   updateHiddenParams() {
     this.hiddenParams = R.mergeLeft(this.hiddenParams, this.getParams());
@@ -64,28 +64,28 @@ export class UrlEventHandler {
       : params;
   }
 
-  installEventLayer(eventLayer: UrlEventLayer) {
-    const urlEventLayer = R.find(
-      (x: UrlEventLayer) => x.name === eventLayer.name,
-      this.eventLayers
+  installNavLayer(navLayer: NavLayer) {
+    const existingNavLayer = R.find(
+      (x: NavLayer) => x.name === navLayer.name,
+      this.navLayers
     );
-    if (R.isNil(urlEventLayer)) {
-      this.eventLayers.push(eventLayer);
+    if (R.isNil(existingNavLayer)) {
+      this.navLayers.push(navLayer);
     }
   }
 
-  getEventLayer(name: string) {
-    return R.find((x: UrlEventLayer) => x.name === name)(this.eventLayers);
+  getNavLayer(name: string) {
+    return R.find((x: NavLayer) => x.name === name)(this.navLayers);
   }
 
-  uninstallEventLayer(name: string) {
-    this.eventLayers = this.eventLayers.filter(
-      (urlEventLayer: UrlEventLayer) => urlEventLayer.name !== name
+  uninstallNavLayer(name: string) {
+    this.navLayers = this.navLayers.filter(
+      (navLayer: NavLayer) => navLayer.name !== name
     );
   }
 
   _getEventHandler(name: string): Function | undefined {
-    const sortedLayers = sortLayers(this.eventLayers, pathname());
+    const sortedLayers = sortNavLayers(this.navLayers, pathname());
     for (let i = 0; i < sortedLayers.length; i++) {
       const layer = sortedLayers[i];
       const handler = (layer as ObjT)[name];
@@ -102,16 +102,16 @@ export class UrlEventHandler {
     this.routeUfns = props.routeUfns;
 
     makeObservable(this, {
-      eventLayers: observable,
-      installEventLayer: action,
-      uninstallEventLayer: action,
+      navLayers: observable,
+      installNavLayer: action,
+      uninstallNavLayer: action,
     });
   }
 }
 
-export function createUrlEventHandler(props: PropsT) {
-  const urlEventHandler = new UrlEventHandler(props);
-  const proxy: UrlEventHandler = new Proxy(urlEventHandler, {
+export function createNavHandler(props: PropsT) {
+  const navHandler = new NavHandler(props);
+  const proxy: NavHandler = new Proxy(navHandler, {
     get(target, prop: string) {
       if (prop in target) {
         return (target as any)[prop];
@@ -121,7 +121,7 @@ export function createUrlEventHandler(props: PropsT) {
       if (eventHandler) {
         return eventHandler.bind(proxy);
       }
-      console.warn(`UrlEventHandler: no handler for ${prop}`);
+      console.warn(`NavHandler: no handler for ${prop}`);
       return () => {};
     },
   });
@@ -129,12 +129,12 @@ export function createUrlEventHandler(props: PropsT) {
   return proxy;
 }
 
-export function sortLayers(
-  layers: UrlEventLayer[],
+export function sortNavLayers(
+  layers: NavLayer[],
   pathname: string
-): UrlEventLayer[] {
+): NavLayer[] {
   type ResultT = {
-    layer: UrlEventLayer;
+    layer: NavLayer;
     match: ObjT | undefined;
   };
 

@@ -4,19 +4,19 @@ import { AuthCard } from '/src/auth/components/AuthCard';
 import { SignInForm } from '/src/auth/components/SignInForm';
 import { useSignIn } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
-import { FramesUrlEvents } from '/src/frames/FramesUrlEvents';
+import { FramesNavEvents } from '/src/frames/FramesNavEvents';
 import { L } from '/src/frames/layout';
-import { useUrlEventHandler } from '/src/frames/pages';
+import { useNavHandler } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 import { ObjT } from '/src/utils/types';
 
 // Import styles
 import './index.scss';
 
-const useUrlEvents = () => useUrlEventHandler<typeof FramesUrlEvents>();
+const useNavEvents = () => useNavHandler<typeof FramesNavEvents>();
 
 export const SignInCard = observer(() => {
-  const urlEvents = useUrlEvents();
+  const nav = useNavEvents();
   const { messages } = useMessages();
   const authState = useAuthStateContext(true);
   const signIn = useSignIn(authState).mutateAsync;
@@ -35,7 +35,7 @@ export const SignInCard = observer(() => {
         className={cn(l.Form())}
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
-            urlEvents.userSignedIn();
+            nav.userSignedIn();
           });
         }}
         errors={authState.errors}
@@ -64,7 +64,7 @@ export const SignInCard = observer(() => {
           //
           l.CardFooter()
         )}
-        onClick={() => urlEvents.goToSignUp()}
+        onClick={() => nav.goToSignUp()}
       >
         {messages.createAccount}
       </button>

@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { NestedDefaultPropsContext } from 'react-default-props-context';
+import { DefaultPropsProvider } from 'react-default-props-context';
 import { isQueryLoading, isQueryUpdating } from '/src/api/QueryData';
 import { useQueryData } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils';
@@ -62,9 +62,9 @@ export const DashboardStateProvider = observer(
     };
 
     return (
-      <NestedDefaultPropsContext value={getDefaultPropsContext()}>
+      <DefaultPropsProvider extend value={getDefaultPropsContext()}>
         {props.children}
-      </NestedDefaultPropsContext>
+      </DefaultPropsProvider>
     );
   }, DefaultProps)
 );

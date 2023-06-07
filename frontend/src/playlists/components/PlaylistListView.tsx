@@ -8,17 +8,14 @@ import { isLoading } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Spinner } from '/src/frames/components';
-import {
-  PlaylistsUrlEvents,
-  useUrlEventHandler,
-} from '/src/frames/pages/index';
+import { PlaylistsNavEvents, useNavHandler } from '/src/frames/pages/index';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './PlaylistListView.scss';
 
-const useUrlEvents = () => useUrlEventHandler<typeof PlaylistsUrlEvents>();
+const useNavEvents = () => useNavHandler<typeof PlaylistsNavEvents>();
 
 export type PropsT = {
   isExpanded: boolean;
@@ -35,7 +32,7 @@ const DefaultProps = {
 
 export const PlaylistListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEvents();
+    const nav = useNavEvents();
 
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.playlistsDragAndDrop
@@ -43,7 +40,8 @@ export const PlaylistListView = observer(
     const selectionUIConnector = useSelectionUIConnector(
       props.playlistsSelection,
       {
-        itemSelector: '.PlaylistListViewItem',
+        getDomElement: (id: string, idx: number) =>
+          document.querySelectorAll('.PlaylistListViewItem')[idx],
       }
     );
 
@@ -53,9 +51,9 @@ export const PlaylistListView = observer(
         playlistsHighlight.highlightItem({ id: playlist.id });
         playlistsSelection.selectItem({ itemId: playlist.id });
         dashboardState.setIsPlaylistListExpanded(false);
-        urlEvents.userHighlightsPlaylist(playlist.slug);
+        nav.userHighlightsPlaylist(playlist.slug);
       },
-      [urlEvents, dashboardState, playlistsHighlight, playlistsSelection]
+      [nav, dashboardState, playlistsHighlight, playlistsSelection]
     );
 
     if (isLoading(props.playlists)) {

@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { NestedDefaultPropsContext } from 'react-default-props-context';
+import { DefaultPropsProvider } from 'react-default-props-context';
 import { isLoading, isUpdating } from '/src/api/getState';
 import { updateSources } from '/src/api/utils';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -81,9 +81,9 @@ export const ClipsStateProvider = observer(
     };
 
     return (
-      <NestedDefaultPropsContext value={getDefaultPropsContext()}>
+      <DefaultPropsProvider extend value={getDefaultPropsContext()}>
         {props.children}
-      </NestedDefaultPropsContext>
+      </DefaultPropsProvider>
     );
   }, DefaultProps)
 );

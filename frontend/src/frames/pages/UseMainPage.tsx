@@ -1,21 +1,18 @@
 import { useRouteMatch } from 'react-router-dom';
 import {
-  ActionsUrlEvents,
-  ClipsUrlEvents,
-  PlaylistsUrlEvents,
+  ActionsNavEvents,
+  ClipsNavEvents,
+  PlaylistsNavEvents,
 } from '/src/frames/pages';
-import { UrlEventHandler, useInstallEventLayer } from '/src/urlEvents';
-import { UrlEventLayer } from '/src/urlEvents/UrlEventHandler';
+import { NavHandler, useInstallNavLayer } from '/src/navHandler';
+import { NavLayer } from '/src/navHandler/NavHandler';
 
-export type MainUrlEventLayerT = typeof ActionsUrlEvents &
-  typeof ClipsUrlEvents &
-  typeof PlaylistsUrlEvents & {};
+export type MainNavEventLayerT = typeof ActionsNavEvents &
+  typeof ClipsNavEvents &
+  typeof PlaylistsNavEvents & {};
 
-export class MainUrlEventLayer
-  extends UrlEventLayer
-  implements MainUrlEventLayerT
-{
-  goToActions(this: UrlEventHandler) {
+export class MainNavEventLayer extends NavLayer implements MainNavEventLayerT {
+  goToActions(this: NavHandler) {
     this.updateHiddenParams();
     const ufn = this.routeUfns.actions(this.history.push);
     ufn({
@@ -24,47 +21,47 @@ export class MainUrlEventLayer
     });
   }
 
-  clipHighlightIsCorrectedTo(this: UrlEventHandler, clipSlug: string) {
+  clipHighlightIsCorrectedTo(this: NavHandler, clipSlug: string) {
     this.hiddenParams.clipSlug = clipSlug;
     const ufn = this.routeUfns.clip(this.history.push);
     ufn({ ...this.getParams(), clipSlug });
   }
 
-  userHighlightsClip(this: UrlEventHandler, clipSlug: string) {
+  userHighlightsClip(this: NavHandler, clipSlug: string) {
     this.hiddenParams.clipSlug = clipSlug;
     const ufn = this.routeUfns.clip(this.history.push);
     ufn({ ...this.getParams(), clipSlug });
   }
 
-  userCancelledClipForm(this: UrlEventHandler) {}
+  userCancelledClipForm(this: NavHandler) {}
 
-  userSubmittedClipForm(this: UrlEventHandler, clipSlug: string) {}
+  userSubmittedClipForm(this: NavHandler, clipSlug: string) {}
 
-  playlistHighlightIsCorrectedTo(this: UrlEventHandler, playlistSlug: string) {
+  playlistHighlightIsCorrectedTo(this: NavHandler, playlistSlug: string) {
     this.hiddenParams.playlistSlug = playlistSlug;
     const ufn = this.routeUfns.playlist(this.history.push);
     ufn({ ...this.getParams(), playlistSlug });
   }
 
-  userCancelledPlaylistForm(this: UrlEventHandler) {}
+  userCancelledPlaylistForm(this: NavHandler) {}
 
-  userHighlightsPlaylist(this: UrlEventHandler, playlistSlug: string) {
+  userHighlightsPlaylist(this: NavHandler, playlistSlug: string) {
     this.hiddenParams.playlistSlug = playlistSlug;
     const ufn = this.routeUfns.playlist(this.history.push);
     ufn({ ...this.getParams(true), playlistSlug });
   }
 
-  userSubmittedPlaylistForm(this: UrlEventHandler, playlistSlug: string) {}
+  userSubmittedPlaylistForm(this: NavHandler, playlistSlug: string) {}
 }
 
 export type PropsT = React.PropsWithChildren<{}>;
 
 export const UseMainPage = (props: PropsT) => {
   const routeMatch = useRouteMatch();
-  useInstallEventLayer(
-    'MainUrlEventLayer',
+  useInstallNavLayer(
+    'MainNavEventLayer',
     routeMatch.path,
-    (name: string, route: string) => new MainUrlEventLayer(name, route)
+    (name: string, route: string) => new MainNavEventLayer(name, route)
   );
   return <>{props.children}</>;
 };

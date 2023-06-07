@@ -1,7 +1,7 @@
 import { comparer } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { NestedDefaultPropsContext } from 'react-default-props-context';
+import { DefaultPropsProvider } from 'react-default-props-context';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { flags } from '/src/app/flags';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
@@ -48,9 +48,9 @@ export const VideoPlayerStateProvider = observer(
     };
 
     return (
-      <NestedDefaultPropsContext value={getDefaultPropsContext()}>
+      <DefaultPropsProvider extend value={getDefaultPropsContext()}>
         {props.children}
-      </NestedDefaultPropsContext>
+      </DefaultPropsProvider>
     );
   }, DefaultProps)
 );

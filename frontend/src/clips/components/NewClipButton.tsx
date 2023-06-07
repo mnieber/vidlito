@@ -3,13 +3,13 @@ import { ClipT, createClip } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
-import { ClipsUrlEvents, useUrlEventHandler } from '/src/frames/pages';
+import { ClipsNavEvents, useNavHandler } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './NewClipButton.scss';
 
-const useUrlEvents = () => useUrlEventHandler<typeof ClipsUrlEvents>();
+const useNavEvents = () => useNavHandler<typeof ClipsNavEvents>();
 
 export type PropsT = {
   className?: any;
@@ -22,7 +22,7 @@ const DefaultProps = {
 
 export const NewClipButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEvents();
+    const nav = useNavEvents();
     const l = L.ToolButton;
 
     return (
@@ -38,7 +38,7 @@ export const NewClipButton = observer(
           props.clipsAddition
             .add({ values: createClip(props.userProfile, {}) })
             .then((localClip: ClipT) => {
-              urlEvents.userHighlightsClip(localClip.slug);
+              nav.userHighlightsClip(localClip.slug);
             });
         }}
       >

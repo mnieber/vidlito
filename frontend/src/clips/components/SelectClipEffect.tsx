@@ -4,10 +4,10 @@ import * as R from 'ramda';
 import React from 'react';
 import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { ClipsUrlEvents, useUrlEventHandler } from '/src/frames/pages';
+import { ClipsNavEvents, useNavHandler } from '/src/frames/pages';
 import { useSearchAndUrlParams } from '/src/utils/hooks';
 
-const useUrlEvents = () => useUrlEventHandler<typeof ClipsUrlEvents>();
+const useNavEvents = () => useNavHandler<typeof ClipsNavEvents>();
 
 type PropsT = {};
 
@@ -20,7 +20,7 @@ const DefaultProps = {
 
 export const SelectClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEvents();
+    const nav = useNavEvents();
     const params = useSearchAndUrlParams();
 
     React.useEffect(() => {
@@ -38,7 +38,7 @@ export const SelectClipEffect = observer(
         ) {
           const clip = R.head(props.clips);
           if (clip) {
-            urlEvents.clipHighlightIsCorrectedTo(clip.slug);
+            nav.clipHighlightIsCorrectedTo(clip.slug);
           }
         }
         // If the clip slug in the url is valid, but the corresponding clipId is
@@ -47,13 +47,7 @@ export const SelectClipEffect = observer(
           props.clipsSelection.selectItem({ itemId: clipId });
         }
       });
-    }, [
-      params,
-      props.clips,
-      props.clipsSelection,
-      props.clipsHighlight,
-      urlEvents,
-    ]);
+    }, [params, props.clips, props.clipsSelection, props.clipsHighlight, nav]);
 
     return null;
   }, DefaultProps)

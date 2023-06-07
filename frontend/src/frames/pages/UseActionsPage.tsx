@@ -1,14 +1,11 @@
 import { useRouteMatch } from 'react-router-dom';
-import { UrlEventHandler, useInstallEventLayer } from '/src/urlEvents';
-import { UrlEventLayer } from '/src/urlEvents/UrlEventHandler';
+import { NavHandler, useInstallNavLayer } from '/src/navHandler';
+import { NavLayer } from '/src/navHandler/NavHandler';
 
-export type ActionsUrlEventLayerT = {};
+export type ActionsNavEventLayerT = {};
 
-class ActionsUrlEventLayer
-  extends UrlEventLayer
-  implements ActionsUrlEventLayerT
-{
-  clipHighlightIsCorrectedTo(this: UrlEventHandler, clipSlug: string) {
+class ActionsNavEventLayer extends NavLayer implements ActionsNavEventLayerT {
+  clipHighlightIsCorrectedTo(this: NavHandler, clipSlug: string) {
     this.hiddenParams.clipSlug = clipSlug;
   }
 }
@@ -17,10 +14,10 @@ export type PropsT = React.PropsWithChildren<{}>;
 
 export const UseActionsPage = (props: PropsT) => {
   const routeMatch = useRouteMatch();
-  useInstallEventLayer(
-    'ActionsUrlEventLayer',
+  useInstallNavLayer(
+    'ActionsNavEventLayer',
     routeMatch.path,
-    (name: string, route: string) => new ActionsUrlEventLayer(name, route)
+    (name: string, route: string) => new ActionsNavEventLayer(name, route)
   );
   return <>{props.children}</>;
 };

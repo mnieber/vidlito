@@ -9,13 +9,13 @@ import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
 import { Spinner } from '/src/frames/components';
-import { ClipsUrlEvents, useUrlEventHandler } from '/src/frames/pages';
+import { ClipsNavEvents, useNavHandler } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './ClipListView.scss';
 
-const useUrlEvents = () => useUrlEventHandler<typeof ClipsUrlEvents>();
+const useNavEvents = () => useNavHandler<typeof ClipsNavEvents>();
 
 export type PropsT = {
   className?: any;
@@ -31,7 +31,7 @@ const DefaultProps = {
 
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEvents();
+    const nav = useNavEvents();
 
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.clipsDragAndDrop
@@ -39,9 +39,10 @@ export const ClipListView = observer(
     const selectionUIConnector = useSelectionUIConnector(
       props.clipsSelection as Selection<ClipT>,
       {
-        itemSelector: '.ClipListViewItem',
+        getDomElement: (id: string, idx: number) =>
+          document.querySelectorAll('.ClipListViewItem')[idx],
       },
-      [props.clips, urlEvents]
+      [props.clips, nav]
     );
 
     if (isLoading(props.clips)) {
@@ -59,7 +60,7 @@ export const ClipListView = observer(
           isHighlighted={clip && props.clipsHighlight.id === clip.id}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
-          onClick={() => urlEvents.userHighlightsClip(clip.slug)}
+          onClick={() => nav.userHighlightsClip(clip.slug)}
           onContextMenu={(e: any) => {
             e.preventDefault();
             props.dashboardState.clipListContextMenu.openAtPoint({

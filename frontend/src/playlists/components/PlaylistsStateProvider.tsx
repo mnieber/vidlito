@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { NestedDefaultPropsContext } from 'react-default-props-context';
+import { DefaultPropsProvider } from 'react-default-props-context';
 import { isQueryLoading, isQueryUpdating } from '/src/api/QueryData';
 import { useGetPlaylist } from '/src/api/endpoints';
 import { isLoading, isUpdating } from '/src/api/getState';
@@ -103,9 +103,9 @@ export const PlaylistsStateProvider = observer(
     };
 
     return (
-      <NestedDefaultPropsContext value={getDefaultPropsContext()}>
+      <DefaultPropsProvider extend value={getDefaultPropsContext()}>
         {props.children}
-      </NestedDefaultPropsContext>
+      </DefaultPropsProvider>
     );
   }, DefaultProps)
 );

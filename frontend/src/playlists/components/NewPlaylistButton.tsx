@@ -3,13 +3,13 @@ import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
-import { PlaylistsUrlEvents, useUrlEventHandler } from '/src/frames/pages';
+import { PlaylistsNavEvents, useNavHandler } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './NewPlaylistButton.scss';
 
-const useUrlEvents = () => useUrlEventHandler<typeof PlaylistsUrlEvents>();
+const useNavEvents = () => useNavHandler<typeof PlaylistsNavEvents>();
 
 export type PropsT = {
   className?: any;
@@ -23,7 +23,7 @@ const DefaultProps = {
 
 export const NewPlaylistButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const urlEvents = useUrlEvents();
+    const nav = useNavEvents();
     const l = L.ToolButton;
 
     return (
@@ -39,7 +39,7 @@ export const NewPlaylistButton = observer(
           props.playlistsAddition
             .add({ values: createPlaylist(props.userProfile, {}) })
             .then((localPlaylist: PlaylistT) => {
-              urlEvents.userHighlightsPlaylist(localPlaylist.slug);
+              nav.userHighlightsPlaylist(localPlaylist.slug);
             });
         }}
       >

@@ -1,8 +1,8 @@
-import { useUrlEventHandler as useUrlEventHandler_ } from '/src/urlEvents/useUrlEventHandler';
-export { ActionsUrlEvents } from '/src/actions/ActionsUrlEvents';
-export { ClipsUrlEvents } from '/src/clips/ClipsUrlEvents';
-export { FramesUrlEvents } from '/src/frames/FramesUrlEvents';
-export { PlaylistsUrlEvents } from '/src/playlists/PlaylistsUrlEvents';
-export { UrlEventHandler } from '/src/urlEvents/UrlEventHandler';
+import { useNavHandler as useNavEventHandler_ } from '/src/navHandler/useNavHandler';
+export { ActionsNavEvents } from '/src/actions/ActionsNavEvents';
+export { ClipsNavEvents } from '/src/clips/ClipsNavEvents';
+export { FramesNavEvents } from '/src/frames/FramesNavEvents';
+export { NavHandler } from '/src/navHandler/NavHandler';
+export { PlaylistsNavEvents } from '/src/playlists/PlaylistsNavEvents';
 
-export const useUrlEventHandler = useUrlEventHandler_;
+export const useNavHandler = useNavEventHandler_;
