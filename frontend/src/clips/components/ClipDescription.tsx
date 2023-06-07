@@ -24,7 +24,7 @@ export const ClipDescription = observer(
           'ClipDescription',
           //
           //
-          'pt-[18px] pb-[1px] px-4',
+          'py-[18px] px-4',
           props.className
         )}
       >

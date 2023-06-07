@@ -47,7 +47,7 @@ export const ClipHeaderView = observer(
             },
             //
             //
-            'py-3 pr-4 pl-7'
+            'pt-2.5 pb-3 pr-4 pl-7'
           )}
         >
           <div
@@ -80,7 +80,7 @@ export const ClipHeaderView = observer(
             },
             //
             //
-            'ml-[3px] pt-2.5 pb-4 pl-4 pr-7'
+            'ml-[3px] pt-2.5 pb-3 pl-4 pr-7'
           )}
         >
           <div
