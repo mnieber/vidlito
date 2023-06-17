@@ -25,8 +25,10 @@ export const ActionListView = observer(
     const highlightUIConnector = useHighlightUIConnector(
       props.actionsHighlight,
       {
-        getDomElement: (id: string, idx: number) =>
-          document.querySelectorAll('.ActionListViewItem')[idx],
+        focusElm: (id: string, idx: number) => {
+          const elm = document.querySelectorAll('.ActionListViewItem')[idx];
+          elm && (elm as any).focus();
+        },
       }
     );
 

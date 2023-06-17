@@ -1,4 +1,3 @@
-import mergeProps from 'merge-props';
 import { observer } from 'mobx-react-lite';
 import {
   dragAndDropUIHandlers,
@@ -11,7 +10,6 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipKeyHandler } from '/src/clips/components/ClipKeyHandler';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
-import { ObjT } from '/src/utils/types';
 import { PlayVideoIcon } from '/src/videos/components';
 
 // Import styles
@@ -23,7 +21,6 @@ export type PropsT = {
   dragAndDropUIProps: DragAndDropUIPropsT;
   selectionUIProps: SelectionUIPropsT;
   onContextMenu?: (e: React.MouseEvent) => void;
-  onClick?: (e: React.MouseEvent) => void;
   className?: any;
 };
 
@@ -70,10 +67,7 @@ export const ClipListViewItem = observer(
             l.root(),
             props.className
           )}
-          {...(mergeProps(
-            selectionUIHandlers(props.selectionUIProps),
-            props.onClick ? { onClick: props.onClick } : {}
-          ) as ObjT)}
+          {...selectionUIHandlers(props.selectionUIProps)}
           {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
           onContextMenu={props.onContextMenu}
         >

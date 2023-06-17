@@ -39,8 +39,16 @@ export const ClipListView = observer(
     const selectionUIConnector = useSelectionUIConnector(
       props.clipsSelection as Selection<ClipT>,
       {
-        getDomElement: (id: string, idx: number) =>
-          document.querySelectorAll('.ClipListViewItem')[idx],
+        focusElm: (id: string, idx: number) => {
+          const elm = document.querySelectorAll('.ClipListViewItem')[idx];
+          if (elm) {
+            (elm as any).focus();
+            const clip = props.clips.find((clip) => clip.id === id);
+            if (clip) {
+              nav.userHighlightsClip(clip.slug);
+            }
+          }
+        },
       },
       [props.clips, nav]
     );
@@ -60,7 +68,6 @@ export const ClipListView = observer(
           isHighlighted={clip && props.clipsHighlight.id === clip.id}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
-          onClick={() => nav.userHighlightsClip(clip.slug)}
           onContextMenu={(e: any) => {
             e.preventDefault();
             props.dashboardState.clipListContextMenu.openAtPoint({

@@ -40,8 +40,10 @@ export const PlaylistListView = observer(
     const selectionUIConnector = useSelectionUIConnector(
       props.playlistsSelection,
       {
-        getDomElement: (id: string, idx: number) =>
-          document.querySelectorAll('.PlaylistListViewItem')[idx],
+        focusElm: (id: string, idx: number) => {
+          const elm = document.querySelectorAll('.PlaylistListViewItem')[idx];
+          elm && (elm as any).focus();
+        },
       }
     );
 

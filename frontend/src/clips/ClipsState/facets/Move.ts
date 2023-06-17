@@ -1,5 +1,5 @@
+import { DefineCbs, getCallbacks, withCbs } from 'aspiration';
 import { operation } from 'skandha';
-import { DefineCbs, getCallbacks, withCbs } from 'skandha-facets';
 
 export class Move {
   static className = () => 'Move';
