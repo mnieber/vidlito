@@ -41,9 +41,9 @@ export const SelectClipEffect = observer(
             nav.clipHighlightIsCorrectedTo(clip.slug);
           }
         }
-        // If the clip slug in the url is valid, but the corresponding clipId is
-        // not highlighted, then select it.
-        else if (clipId && props.clipsHighlight.id !== clipId) {
+        // If the clip slug in the url is valid, but no clip is currently highlighted,
+        // then select it.
+        else if (clipId && R.isNil(props.clipsHighlight.id)) {
           props.clipsSelection.selectItem({ itemId: clipId });
         }
       });
