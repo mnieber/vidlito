@@ -2,17 +2,26 @@ import { action, autorun, makeObservable, observable, runInAction } from 'mobx';
 
 export type PropsT = {};
 
+export type PlayerT = {
+  seekTo: (t: number) => void;
+  playVideo: () => void;
+  pauseVideo: () => void;
+  getPlayerState: () => number;
+  setPlaybackRate: (r: number) => void;
+  getCurrentTime: () => number;
+};
+
 export class VideoController {
   @observable isPlaying: boolean = false;
-  @observable player: any;
+  @observable player?: PlayerT;
   @observable ready: boolean = false;
 
   // We use _player to allow non-observer access to the player via getPlayer
-  _player: any;
+  _player?: PlayerT;
   _pauseAt: number = -1;
   _disposeAutoRun: Function = () => {};
 
-  @action setPlayer(player: any) {
+  @action setPlayer(player: PlayerT) {
     this.player = this._player = player;
 
     this._disposeAutoRun();

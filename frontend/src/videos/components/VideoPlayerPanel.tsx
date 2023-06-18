@@ -73,6 +73,7 @@ export const VideoPlayerPanel = observer(
     return (
       <div
         ref={ref}
+        tabIndex={0}
         className={cn(
           'VideoPlayerPanel',
           //

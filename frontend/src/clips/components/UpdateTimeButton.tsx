@@ -15,10 +15,9 @@ export type PropsT = {
 
 export const UpdateTimeButton = (props: PropsT) => {
   const formState = useFormStateContext();
-  const timeStamp =
-    Math.round(
-      1000 * props.videoController.getPlayer()?.getCurrentTime() ?? 0
-    ) / 1000;
+  const player = props.videoController.getPlayer();
+  const currentTime = player?.getCurrentTime();
+  const timeStamp = Math.round(1000 * (currentTime ?? 0)) / 1000;
   return (
     <button
       tabIndex={props.tabIndex}

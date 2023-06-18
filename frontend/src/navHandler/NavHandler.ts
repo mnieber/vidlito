@@ -44,6 +44,7 @@ export class NavHandler {
   routeUfns: ObjT;
   hiddenParams: ObjT = {};
   navLayers: Array<NavLayer> = [];
+  _currentNavLayer?: NavLayer;
 
   getRouteUfns<T>() {
     return this.routeUfns as WrapUfn<T>;
@@ -84,13 +85,13 @@ export class NavHandler {
     );
   }
 
-  _getEventHandler(name: string): Function | undefined {
+  _getNavLayer(name: string): NavLayer | undefined {
     const sortedLayers = sortNavLayers(this.navLayers, pathname());
     for (let i = 0; i < sortedLayers.length; i++) {
       const layer = sortedLayers[i];
       const handler = (layer as ObjT)[name];
       if (handler) {
-        return handler;
+        return layer;
       }
     }
     return undefined;
@@ -117,9 +118,15 @@ export function createNavHandler(props: PropsT) {
         return (target as any)[prop];
       }
 
-      const eventHandler = target._getEventHandler(prop);
-      if (eventHandler) {
-        return eventHandler.bind(proxy);
+      const navLayer = target._getNavLayer(prop);
+      if (navLayer) {
+        const f = ((navLayer as ObjT)[prop] as Function).bind(proxy);
+        return (...args: any[]) => {
+          const memo = target._currentNavLayer;
+          target._currentNavLayer = navLayer;
+          f(...args);
+          target._currentNavLayer = memo;
+        };
       }
       console.warn(`NavHandler: no handler for ${prop}`);
       return () => {};

@@ -1,4 +1,5 @@
 import { useRouteMatch } from 'react-router-dom';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
 import {
   ActionsNavEvents,
   ClipsNavEvents,
@@ -12,6 +13,8 @@ export type MainNavEventLayerT = typeof ActionsNavEvents &
   typeof PlaylistsNavEvents & {};
 
 export class MainNavEventLayer extends NavLayer implements MainNavEventLayerT {
+  maybePausePlayer: (clipSlug: string) => void;
+
   goToActions(this: NavHandler) {
     this.updateHiddenParams();
     const ufn = this.routeUfns.actions(this.history.push);
@@ -28,6 +31,7 @@ export class MainNavEventLayer extends NavLayer implements MainNavEventLayerT {
   }
 
   userHighlightsClip(this: NavHandler, clipSlug: string) {
+    (this._currentNavLayer as MainNavEventLayer).maybePausePlayer(clipSlug);
     this.hiddenParams.clipSlug = clipSlug;
     const ufn = this.routeUfns.clip(this.history.push);
     ufn({ ...this.getParams(), clipSlug });
@@ -52,16 +56,39 @@ export class MainNavEventLayer extends NavLayer implements MainNavEventLayerT {
   }
 
   userSubmittedPlaylistForm(this: NavHandler, playlistSlug: string) {}
+
+  constructor(
+    name: string,
+    route: string,
+    maybePausePlayer: (clipSlug: string) => void
+  ) {
+    super(name, route);
+    this.maybePausePlayer = maybePausePlayer;
+  }
 }
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-export const UseMainPage = (props: PropsT) => {
-  const routeMatch = useRouteMatch();
-  useInstallNavLayer(
-    'MainNavEventLayer',
-    routeMatch.path,
-    (name: string, route: string) => new MainNavEventLayer(name, route)
-  );
-  return <>{props.children}</>;
+export const DefaultProps = {
+  ...dps.videoController,
+  ...dps.clips,
+  ...dps.clipsHighlight,
 };
+
+export const UseMainPage = withDefaultProps(
+  (props: PropsT & typeof DefaultProps) => {
+    const routeMatch = useRouteMatch();
+    const maybePausePlayer = (name: string, route: string) =>
+      new MainNavEventLayer(name, route, (clipSlug: string) => {
+        const clip = props.clips.find((c) => c.slug === clipSlug);
+        if (clip) {
+          if (props.clipsHighlight.id !== clip.id) {
+            props.videoController.togglePlay(false);
+          }
+        }
+      });
+    useInstallNavLayer('MainNavEventLayer', routeMatch.path, maybePausePlayer);
+    return <>{props.children}</>;
+  },
+  DefaultProps
+);

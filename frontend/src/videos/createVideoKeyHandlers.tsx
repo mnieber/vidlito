@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import { splitKeyHandlerKeys } from '/src/utils';
 import { VideoController } from '/src/videos/VideoController';
 
@@ -26,7 +27,9 @@ export const createVideoKeyHandlers = (
     'ctrl+shift+down': () => player.seekTo(player.getCurrentTime() - 0.15),
     'ctrl+up': () => player.seekTo(player.getCurrentTime() + 0.5),
     'ctrl+shift+up': () => player.seekTo(player.getCurrentTime() + 0.1),
-    'ctrl+shift+home;ctrl+h': () => player.seekTo(startTime),
-    'ctrl+shift+end;ctrl+shift+h': () => player.seekTo(endTime),
+    'ctrl+shift+home;ctrl+h': () =>
+      !R.isNil(startTime) && player.seekTo(startTime),
+    'ctrl+shift+end;ctrl+shift+h': () =>
+      !R.isNil(endTime) && player.seekTo(endTime),
   });
 };

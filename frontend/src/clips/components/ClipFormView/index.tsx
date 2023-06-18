@@ -87,7 +87,7 @@ export const ClipFormView = observer(
           {
             // 🔳 UrlField 🔳
           }
-          <GlobalError />
+          <GlobalError className={l.GlobalError()} />
           <Field
             fieldName="clipForm.url"
             autoFocus={true}
