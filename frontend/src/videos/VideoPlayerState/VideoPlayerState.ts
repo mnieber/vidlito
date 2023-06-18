@@ -20,6 +20,9 @@ export class VideoPlayerState {
   }
 
   @action setUrl(url: string, startTimeMs: number) {
+    if (this.url && this.url !== url) {
+      this.videoController.togglePlay(false);
+    }
     this.url = url;
     this.startTimeMs = startTimeMs;
     this.videoController.reset();
