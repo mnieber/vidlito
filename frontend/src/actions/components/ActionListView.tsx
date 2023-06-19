@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useHighlightUIConnector } from 'skandha-mobx/hooks';
+import { createHighlightUIConnector } from 'skandha-facets';
 import { ActionListViewItem } from '/src/actions/components/ActionListViewItem';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -22,14 +22,8 @@ const DefaultProps = {
 
 export const ActionListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const highlightUIConnector = useHighlightUIConnector(
-      props.actionsHighlight,
-      {
-        focusElm: (id: string, idx: number) => {
-          const elm = document.querySelectorAll('.ActionListViewItem')[idx];
-          elm && (elm as any).focus();
-        },
-      }
+    const highlightUIConnector = createHighlightUIConnector(
+      props.actionsHighlight
     );
 
     if (isLoading(props.actions)) {

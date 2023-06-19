@@ -1,9 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import {
-  useDragAndDropUIConnector,
-  useSelectionUIConnector,
-} from 'skandha-mobx/hooks';
+import { createSelectionUIConnector } from 'skandha-facets';
+import { useDragAndDropUIConnector } from 'skandha-mobx/hooks';
 import { isLoading } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -37,14 +35,8 @@ export const PlaylistListView = observer(
     const dragAndDropUIConnector = useDragAndDropUIConnector(
       props.playlistsDragAndDrop
     );
-    const selectionUIConnector = useSelectionUIConnector(
-      props.playlistsSelection,
-      {
-        focusElm: (id: string, idx: number) => {
-          const elm = document.querySelectorAll('.PlaylistListViewItem')[idx];
-          elm && (elm as any).focus();
-        },
-      }
+    const selectionUIConnector = createSelectionUIConnector(
+      props.playlistsSelection
     );
 
     const { playlistsHighlight, playlistsSelection, dashboardState } = props;
