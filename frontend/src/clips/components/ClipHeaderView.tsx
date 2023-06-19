@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import * as R from 'ramda';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
@@ -17,6 +18,7 @@ const DefaultProps = {
   ...dps.playlistsEdit,
   ...dps.playlist,
   ...dps.dashboardState,
+  ...dps.username,
 };
 
 export const ClipHeaderView = observer(
@@ -24,6 +26,12 @@ export const ClipHeaderView = observer(
     if (!props.clip) {
       return null;
     }
+
+    const isOwnerClip = props.clip.owner.username === props.username;
+    const isOwnerPlaylist = props.playlist.owner.username === props.username;
+    const isOwner = props.dashboardState.showPlaylistDescription
+      ? isOwnerPlaylist
+      : isOwnerClip;
 
     return (
       <div
@@ -120,10 +128,17 @@ export const ClipHeaderView = observer(
           <button
             className={cn(
               'ClipHeaderView__EditButton',
+              {
+                'ClipHeaderView__EditButton--disabled': !isOwner,
+                'ClipHeaderView__EditButton--invisible': R.isNil(
+                  props.username
+                ),
+              },
               //
               //
               L.ToolButton.root()
             )}
+            disabled={!isOwner}
             onClick={() => {
               const edit = props.dashboardState.showPlaylistDescription
                 ? props.playlistsEdit
@@ -131,7 +146,16 @@ export const ClipHeaderView = observer(
               edit.enable();
             }}
           >
-            <Icon className={L.ToolButton.icon.small()} name="pencil" />
+            <Icon
+              className={cn(
+                'ClipHeaderView__EditButtonIcon',
+                L.ToolButton.icon.small(),
+                {
+                  'ClipHeaderView__EditButtonIcon--disabled': !isOwner,
+                }
+              )}
+              name="pencil"
+            />
             Edit
           </button>
           {
