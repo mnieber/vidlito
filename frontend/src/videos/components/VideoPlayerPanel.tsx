@@ -45,6 +45,8 @@ export const VideoPlayerPanel = observer(
       panelWidth ?? elm?.getBoundingClientRect().width ?? 0
     );
 
+    const maxWidth = ready ? {} : { maxWidth: width };
+
     const height = widthToHeight(width);
     const placeholder = (
       <div
@@ -55,7 +57,7 @@ export const VideoPlayerPanel = observer(
           //
           L.row.skewer()
         )}
-        style={{ height: ready ? 0 : height }}
+        style={{ height: ready ? 0 : height, ...maxWidth }}
       >
         <ReactResizeDetector
           handleWidth
