@@ -35,15 +35,13 @@ export const VideoCard = observer(
         videoPlayerState={props.videoPlayerState}
       >
         <VideoPlayerPanel className={cn('mb-3')} />
-        <div className={cn('ml-6 mt-5')}>
+        <div className={cn('ml-6 mt-5', 'max-w-[776px]')}>
           <ClipHeaderView className={cn('mb-5')} />
           {
             // 🔳 Switch
           }
           {props.dashboardState.showPlaylistDescription &&
-            !props.playlistsEdit.isEditing && (
-              <PlaylistDescription className="max-w-[776px]" />
-            )}
+            !props.playlistsEdit.isEditing && <PlaylistDescription />}
           {props.dashboardState.showPlaylistDescription &&
             props.playlistsEdit.isEditing && <PlaylistFormView />}
           {!props.dashboardState.showPlaylistDescription &&

@@ -39,13 +39,13 @@ export const MainView = observer(
             'MainView',
             //
             //
-            'grow max-w-[800px]',
+            'grow max-w-[1200px]',
             props.className
           )}
         >
           {props.children}
         </div>
-        <AccountMenu className="mt-4 ml-8 self-start" />
+        <AccountMenu className="mt-4 mx-8 self-start" />
       </div>
     );
   }, DefaultProps)
