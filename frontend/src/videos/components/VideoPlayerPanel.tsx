@@ -17,7 +17,6 @@ type PropsT = {
 const DefaultProps = {
   ...dps.dashboardState,
   ...dps.videoPlayerState,
-  ...dps.clip,
 };
 
 export const VideoPlayerPanel = observer(
@@ -56,7 +55,7 @@ export const VideoPlayerPanel = observer(
           //
           L.row.skewer()
         )}
-        style={{ height: ready ? 0 : height, width: width }}
+        style={{ height: ready ? 0 : height }}
       >
         <ReactResizeDetector
           handleWidth
@@ -74,7 +73,6 @@ export const VideoPlayerPanel = observer(
     return (
       <div
         ref={ref}
-        tabIndex={0}
         className={cn(
           'VideoPlayerPanel',
           //
@@ -84,7 +82,10 @@ export const VideoPlayerPanel = observer(
         )}
       >
         {placeholder}
-        <div className={cn('', { hidden: !ready })} style={{ height: height }}>
+        <div
+          className={cn('VideoPlayerPanel__Body', { hidden: !ready })}
+          style={{ height: height }}
+        >
           <VideoPlayer
             key={props.videoPlayerState.url} // yes, we need this
             videoPlayerParentElm={

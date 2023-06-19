@@ -44,9 +44,7 @@ const ClipDescriptionLoader = observer(
           'rounded bg-gray-300',
           props.className
         )}
-      >
-        Hello
-      </div>
+      ></div>
     );
   }
 );

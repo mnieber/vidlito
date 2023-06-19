@@ -12,10 +12,6 @@ export type PropsT = React.PropsWithChildren<{
 }>;
 
 export const ClipKeyHandler = observer((props: PropsT) => {
-  if (!props.clip) {
-    return <>{props.children}</>;
-  }
-
   const keyHandlers = {
     'ctrl+shift+space': () => {
       props.videoPlayerState.setIsFullVideoWidth(
@@ -24,8 +20,8 @@ export const ClipKeyHandler = observer((props: PropsT) => {
     },
     ...createVideoKeyHandlers(
       props.videoPlayerState.videoController,
-      props.clip.startTimeMs ? props.clip.startTimeMs / 1000 : undefined,
-      props.clip.endTimeMs ? props.clip.endTimeMs / 1000 : undefined
+      props.clip?.startTimeMs ? props.clip.startTimeMs / 1000 : undefined,
+      props.clip?.endTimeMs ? props.clip.endTimeMs / 1000 : undefined
     ),
   };
 
