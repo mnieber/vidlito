@@ -11,16 +11,21 @@ export type PropsT = {
 
 export const FormCancelButton = (props: PropsT) => {
   const formState = useFormStateContext();
+  const disabled = props.disabled || formState.getFlag('submitting');
 
   return (
     <button
-      className={cn('FormCancelButton', props.className)}
+      className={cn(
+        'FormCancelButton',
+        { 'FormCancelButton--disabled': disabled },
+        props.className
+      )}
       onClick={(e) => {
         e.preventDefault();
         formState.cancel();
       }}
       tabIndex={props.tabIndex}
-      disabled={props.disabled || formState.getFlag('submitting')}
+      disabled={disabled}
     >
       {props.label}
     </button>

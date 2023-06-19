@@ -14,16 +14,22 @@ export type PropsT = {
 
 export const FormSaveButton = (props: PropsT) => {
   const formState = useFormStateContext();
+  const disabled = props.disabled || formState.getFlag('submitting');
+
   return (
     <button
-      className={cn('FormSaveButton', props.className)}
+      className={cn(
+        'FormSaveButton',
+        { 'FormSaveButton--disabled': disabled },
+        props.className
+      )}
       data-cy={props.dataCy}
       tabIndex={props.tabIndex}
       onClick={(e) => {
         e.preventDefault();
         formState.submit();
       }}
-      disabled={props.disabled || formState.getFlag('submitting')}
+      disabled={disabled}
     >
       {props.label}
     </button>

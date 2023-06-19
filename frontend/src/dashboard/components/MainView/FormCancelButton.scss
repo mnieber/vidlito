@@ -1,9 +1,11 @@
 @import 'src/frames/components/DialogButton';
 @import 'src/frames/components/Colors';
 
-.MainView {
-  .FormCancelButton {
-    @apply c-dialog-button;
-    @apply c-sky-blue-text;
-  }
+.MainView .FormCancelButton {
+  @apply c-dialog-button;
+  @apply c-sky-blue-text;
+}
+
+.MainView .FormCancelButton--disabled {
+  @apply text-gray-500;
 }

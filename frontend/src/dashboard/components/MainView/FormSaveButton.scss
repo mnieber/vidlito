@@ -1,9 +1,11 @@
 @import 'src/frames/components/DialogButton';
 @import 'src/frames/components/Colors';
 
-.MainView {
-  .FormSaveButton {
-    @apply c-dialog-button;
-    @apply c-dark-blue-on-sky-blue-btn-color;
-  }
+.MainView .FormSaveButton {
+  @apply c-dialog-button;
+  @apply c-dark-blue-on-sky-blue-btn-color;
+}
+
+.MainView .FormSaveButton--disabled {
+  @apply bg-gray-500;
 }
