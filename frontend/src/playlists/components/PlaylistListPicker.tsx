@@ -8,20 +8,23 @@ import {
 } from '/src/playlists/components';
 import { cn } from '/src/utils/classnames';
 
-export type PropsT = {};
+const separator = ['my-2', 'border-t border-gray-700'];
+
+export type PropsT = {
+  className?: any;
+};
 
 const DefaultProps = {
   ...dps.playlists,
+  ...dps.clips,
   ...dps.dashboardState,
 };
 
 export const PlaylistListPicker = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (isLoading(props.playlists)) {
-      return null;
+    if (isLoading(props.playlists) || isLoading(props.clips)) {
+      return <PlaylistListPickerLoader {...props} />;
     }
-
-    const separator = ['my-2', 'border-t border-gray-700'];
 
     return (
       <div
@@ -29,7 +32,8 @@ export const PlaylistListPicker = observer(
           'PlaylistListPicker',
           //
           //
-          L.col.banner()
+          L.col.banner(),
+          props.className
         )}
       >
         <div className={cn('Dashboard__Separator__', separator)} />
@@ -42,4 +46,22 @@ export const PlaylistListPicker = observer(
       </div>
     );
   }, DefaultProps)
+);
+
+export const PlaylistListPickerLoader = observer(
+  (props: PropsT & typeof DefaultProps) => {
+    return (
+      <div className={cn('ClipListViewLoader', props.className)}>
+        <div className={cn('Dashboard__Separator__', separator)} />
+        <div
+          className={cn(
+            'ClipListViewLoader__Body',
+            'h-3 my-4',
+            'rounded bg-gray-300'
+          )}
+        ></div>
+        <div className={cn('Dashboard__Separator__', separator)} />
+      </div>
+    );
+  }
 );

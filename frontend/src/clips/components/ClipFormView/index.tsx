@@ -50,6 +50,10 @@ export const ClipFormView = observer(
     });
     const formStateRef = React.useRef<FormState>(null);
 
+    if (!props.clip) {
+      return null;
+    }
+
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
 

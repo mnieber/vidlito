@@ -8,7 +8,7 @@ import { isLoading } from '/src/api/getState';
 import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
-import { Spinner } from '/src/frames/components';
+import { L } from '/src/frames/layout';
 import { ClipsNavEvents, useNavHandler } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 
@@ -54,7 +54,7 @@ export const ClipListView = observer(
     );
 
     if (isLoading(props.clips)) {
-      return <Spinner />;
+      return <ClipListViewLoader {...props} />;
     }
 
     const noItems = <h2>There are no clips</h2>;
@@ -86,4 +86,29 @@ export const ClipListView = observer(
       </div>
     );
   }, DefaultProps)
+);
+
+export const ClipListViewLoader = observer(
+  (props: PropsT & typeof DefaultProps) => {
+    const l = L.Lvi;
+    const clipDivs = [1, 2, 3, 4, 5].map((idx) => {
+      return (
+        <div
+          key={`item-${idx}`}
+          className={cn(
+            'ClipListViewLoader__Item',
+            l.root(),
+            'h-2 my-4',
+            'rounded bg-gray-300'
+          )}
+        ></div>
+      );
+    });
+
+    return (
+      <div className={cn('ClipListViewLoader', props.className)}>
+        {clipDivs}
+      </div>
+    );
+  }
 );

@@ -12,6 +12,10 @@ export type PropsT = React.PropsWithChildren<{
 }>;
 
 export const ClipKeyHandler = observer((props: PropsT) => {
+  if (!props.clip) {
+    return <>{props.children}</>;
+  }
+
   const keyHandlers = {
     'ctrl+shift+space': () => {
       props.videoPlayerState.setIsFullVideoWidth(

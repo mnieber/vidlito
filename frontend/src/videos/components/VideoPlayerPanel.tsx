@@ -17,6 +17,7 @@ type PropsT = {
 const DefaultProps = {
   ...dps.dashboardState,
   ...dps.videoPlayerState,
+  ...dps.clip,
 };
 
 export const VideoPlayerPanel = observer(
@@ -55,7 +56,7 @@ export const VideoPlayerPanel = observer(
           //
           L.row.skewer()
         )}
-        style={{ height: ready ? 0 : height }}
+        style={{ height: ready ? 0 : height, width: width }}
       >
         <ReactResizeDetector
           handleWidth

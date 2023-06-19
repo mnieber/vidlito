@@ -25,10 +25,6 @@ const DefaultProps = {
 
 export const VideoCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (!props.clip) {
-      return null;
-    }
-
     return (
       <ClipKeyHandler
         clip={props.clip}
@@ -40,14 +36,14 @@ export const VideoCard = observer(
           {
             // 🔳 Switch
           }
+          {!props.dashboardState.showPlaylistDescription &&
+            !props.clipsEdit.isEditing && <ClipDescription />}
+          {!props.dashboardState.showPlaylistDescription &&
+            props.clipsEdit.isEditing && <ClipFormView />}
           {props.dashboardState.showPlaylistDescription &&
             !props.playlistsEdit.isEditing && <PlaylistDescription />}
           {props.dashboardState.showPlaylistDescription &&
             props.playlistsEdit.isEditing && <PlaylistFormView />}
-          {!props.dashboardState.showPlaylistDescription &&
-            props.clipsEdit.isEditing && <ClipFormView />}
-          {!props.dashboardState.showPlaylistDescription &&
-            !props.clipsEdit.isEditing && <ClipDescription />}
         </div>
       </ClipKeyHandler>
     );
