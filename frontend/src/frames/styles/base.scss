@@ -1,8 +1,3 @@
-// UIkit rules (this also imports various scss variables)
-@import '/src/frames/styles/uikit/index.scss';
-
-// TailwindCSS comes after UIkit, so that many of the styles introduced by
-// UIkit are reset.
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
