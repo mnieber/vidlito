@@ -22,32 +22,16 @@ const DefaultProps = {
 export const VideoPlayerPanel = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
-    const [isResizing, setIsResizing] = React.useState(false);
-    const [panelWidth, setPanelWidth] = React.useState<number | undefined>(
-      undefined
-    );
-
-    const handleResize = React.useMemo(
-      () =>
-        _debounce((width?: number) => {
-          if (!R.isNil(width)) {
-            setPanelWidth(width);
-            setIsResizing(false);
-          }
-        }, 200),
-      [setPanelWidth]
-    );
+    const { panelWidth, isResizing, onResize } = useResize();
 
     const ready = props.videoPlayerState.ready;
-    const elm = ref.current;
     const width = getVideoWidth(
       props.videoPlayerState.isFullVideoWidth,
-      panelWidth ?? elm?.getBoundingClientRect().width ?? 0
+      panelWidth ?? ref.current?.getBoundingClientRect().width ?? 0
     );
-
     const maxWidth = ready ? {} : { maxWidth: width };
-
     const height = widthToHeight(width);
+
     const placeholder = (
       <div
         className={cn(
@@ -59,13 +43,7 @@ export const VideoPlayerPanel = observer(
         )}
         style={{ height: ready ? 0 : height, ...maxWidth }}
       >
-        <ReactResizeDetector
-          handleWidth
-          onResize={(width: number | undefined) => {
-            setIsResizing(true);
-            handleResize(width);
-          }}
-        />
+        <ReactResizeDetector handleWidth onResize={onResize} />
         <div className={cn('mx-auto', { hidden: ready })}>
           <Icon className={cn(L.Lvi.icon())} name="play" />
         </div>
@@ -107,3 +85,31 @@ export const VideoPlayerPanel = observer(
     );
   }, DefaultProps)
 );
+
+export const useResize = () => {
+  const [isResizing, setIsResizing] = React.useState(false);
+  const [panelWidth, setPanelWidth] = React.useState<number | undefined>(
+    undefined
+  );
+
+  const handleResize = React.useMemo(
+    () =>
+      _debounce((width?: number) => {
+        if (!R.isNil(width)) {
+          setPanelWidth(width);
+          setIsResizing(false);
+        }
+      }, 200),
+    [setPanelWidth]
+  );
+
+  return {
+    isResizing,
+    panelWidth,
+    handleResize,
+    onResize: (width: number | undefined) => {
+      setIsResizing(true);
+      handleResize(width);
+    },
+  };
+};
