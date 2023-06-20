@@ -5,6 +5,7 @@ import {
   DragAndDrop,
   Edit,
   Highlight,
+  Hovering,
   Insertion,
   Selection,
 } from 'skandha-facets';
@@ -67,6 +68,9 @@ const dpsClips = {
   clipsDragAndDrop: {
     clipsDragAndDrop: stub as DragAndDrop,
   },
+  clipsHovering: {
+    clipsHovering: stub as Hovering,
+  },
   clipsEdit: {
     clipsEdit: stub as Edit,
   },
@@ -111,6 +115,9 @@ const dpsPlaylists = {
   },
   playlistsDragAndDrop: {
     playlistsDragAndDrop: stub as DragAndDrop,
+  },
+  playlistsHovering: {
+    playlistsHovering: stub as Hovering,
   },
   playlistsEdit: {
     playlistsEdit: stub as Edit,

@@ -73,6 +73,7 @@ export const ClipsStateProvider = observer(
         clipsDragAndDrop: () => clipsState.clipsCtr.dragAndDrop,
         clipsEdit: () => clipsState.clipsCtr.edit,
         clipsHighlight: () => clipsState.clipsCtr.highlight,
+        clipsHovering: () => clipsState.clipsCtr.hovering,
         clipsMove: () => clipsState.clipsCtr.move,
         clipsSelection: () => clipsState.clipsCtr.selection,
       };

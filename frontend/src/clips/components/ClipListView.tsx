@@ -1,6 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import { Selection, createSelectionUIConnector } from 'skandha-facets';
-import { useDragAndDropUIConnector } from 'skandha-mobx/hooks';
+import {
+  Selection,
+  createDragAndDropUIConnector,
+  createSelectionUIConnector,
+} from 'skandha-facets';
 import { isLoading } from '/src/api/getState';
 import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -21,6 +24,7 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.clips,
   ...dps.clipsDragAndDrop,
+  ...dps.clipsHovering,
   ...dps.clipsHighlight,
   ...dps.clipsSelection,
   ...dps.dashboardState,
@@ -29,10 +33,12 @@ const DefaultProps = {
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const nav = useNavEvents();
-    console.log(nav);
+    if (nav) {
+    }
 
-    const dragAndDropUIConnector = useDragAndDropUIConnector(
-      props.clipsDragAndDrop
+    const dragAndDropUIConnector = createDragAndDropUIConnector(
+      props.clipsDragAndDrop,
+      props.clipsHovering
     );
     const selectionUIConnector = createSelectionUIConnector(
       props.clipsSelection as Selection<ClipT>

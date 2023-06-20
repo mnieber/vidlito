@@ -1,7 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { createSelectionUIConnector } from 'skandha-facets';
-import { useDragAndDropUIConnector } from 'skandha-mobx/hooks';
+import {
+  createDragAndDropUIConnector,
+  createSelectionUIConnector,
+} from 'skandha-facets';
 import { isLoading } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -23,6 +25,7 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.playlists,
   ...dps.playlistsDragAndDrop,
+  ...dps.playlistsHovering,
   ...dps.playlistsHighlight,
   ...dps.playlistsSelection,
   ...dps.dashboardState,
@@ -32,8 +35,9 @@ export const PlaylistListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const nav = useNavEvents();
 
-    const dragAndDropUIConnector = useDragAndDropUIConnector(
-      props.playlistsDragAndDrop
+    const dragAndDropUIConnector = createDragAndDropUIConnector(
+      props.playlistsDragAndDrop,
+      props.playlistsHovering
     );
     const selectionUIConnector = createSelectionUIConnector(
       props.playlistsSelection

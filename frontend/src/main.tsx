@@ -1,7 +1,7 @@
 // Import styles. This needs to be done before importing any components.
 import '/src/frames/styles/index.scss';
 
-import { action, toJS } from 'mobx';
+import { toJS } from 'mobx';
 import { applyFormatters } from 'mobx-log';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -18,7 +18,6 @@ if (import.meta.env.DEV) {
 setOptions({
   logging: flags.logSkandha,
   formatObject: toJS,
-  decorateCb: action,
 });
 
 const root = ReactDOM.createRoot(

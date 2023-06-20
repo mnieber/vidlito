@@ -96,6 +96,7 @@ export const PlaylistsStateProvider = observer(
         playlistsDragAndDrop: () => playlistsState.playlistsCtr.dragAndDrop,
         playlistsEdit: () => playlistsState.playlistsCtr.edit,
         playlistsHighlight: () => playlistsState.playlistsCtr.highlight,
+        playlistsHovering: () => playlistsState.playlistsCtr.hovering,
         playlistsSelection: () => playlistsState.playlistsCtr.selection,
       };
 
