@@ -43,10 +43,7 @@ export const ClipListViewItem = observer(
       //
       // 🔳 ClipKeyHandler 🔳
       //
-      <ClipKeyHandler
-        clip={props.clip}
-        videoPlayerState={props.videoPlayerState}
-      >
+      <ClipKeyHandler>
         {
           // 🔳 ClipListViewItem 🔳
         }

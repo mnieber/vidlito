@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withDefaultProps } from '/src/app/defaultProps';
 import { ClipListView } from '/src/clips/components';
 import { ClipKeyHandler } from '/src/clips/components/ClipKeyHandler';
 import { MainButtonsPanel } from '/src/dashboard/components/MainButtonsPanel';
@@ -16,11 +16,7 @@ export type PropsT = React.PropsWithChildren<{
   className?: any;
 }>;
 
-const DefaultProps = {
-  ...dps.playlist,
-  ...dps.clip,
-  ...dps.videoPlayerState,
-};
+const DefaultProps = {};
 
 export const Dashboard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
@@ -70,12 +66,7 @@ export const Dashboard = observer(
             'grow'
           )}
         >
-          <ClipKeyHandler
-            clip={props.clip}
-            videoPlayerState={props.videoPlayerState}
-          >
-            {props.children}
-          </ClipKeyHandler>
+          <ClipKeyHandler>{props.children}</ClipKeyHandler>
         </div>
       </div>
     );
