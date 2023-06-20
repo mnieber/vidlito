@@ -1,5 +1,4 @@
 import React from 'react';
-import { history } from '/src/app/components/App';
 import { RouteTableContext } from '/src/routes/components/RouteTableProvider';
 import { RouteTable, WrapUfn } from '/src/routes/utils/RouteTable';
 

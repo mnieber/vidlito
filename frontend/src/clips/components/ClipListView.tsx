@@ -9,13 +9,11 @@ import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
 import { L } from '/src/frames/layout';
-import { ClipsNavEvents, useNavHandler } from '/src/frames/pages';
+import { navUserHighlightsClip } from '/src/frames/pages/UseMainPage';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './ClipListView.scss';
-
-const useNavEvents = () => useNavHandler<typeof ClipsNavEvents>();
 
 export type PropsT = {
   className?: any;
@@ -32,8 +30,6 @@ const DefaultProps = {
 
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const nav = useNavEvents();
-
     const dragAndDropUIConnector = createDragAndDropUIConnector(
       props.clipsDragAndDrop,
       props.clipsHovering
@@ -48,7 +44,7 @@ export const ClipListView = observer(
         if (!selectionParams.isShift && !selectionParams.isCtrl) {
           const clip = props.clips.find((c) => c.id === selectionParams.itemId);
           if (clip) {
-            nav.userHighlightsClip(clip.slug);
+            navUserHighlightsClip(clip.slug);
           }
         }
       },

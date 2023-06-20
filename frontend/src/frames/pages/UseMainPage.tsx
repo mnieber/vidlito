@@ -7,6 +7,7 @@ import {
 } from '/src/frames/pages';
 import { NavHandler, useInstallNavLayer } from '/src/navHandler';
 import { NavLayer } from '/src/navHandler/NavHandler';
+import { navHandler } from '/src/navHandler/useNavHandler';
 
 export type MainNavEventLayerT = typeof ActionsNavEvents &
   typeof ClipsNavEvents &
@@ -75,3 +76,12 @@ export const UseMainPage = withDefaultProps(
   },
   DefaultProps
 );
+
+export const navUserHighlightsClip = (clipSlug: string): void => {
+  return getNavHandler('userHighlightsClip', navUserHighlightsClip)(clipSlug);
+};
+
+export const getNavHandler = <T,>(prop: string, f: T): T => {
+  const navLayer = navHandler._getNavLayer(prop) as any;
+  return navLayer[prop].bind(navHandler) as T;
+};
