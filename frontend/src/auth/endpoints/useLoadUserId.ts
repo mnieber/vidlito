@@ -21,6 +21,9 @@ export function loadUserId(args: ArgsT): Promise<any> {
               id
               name
               slug
+              owner {
+                username
+              }
             }
           }
         }
