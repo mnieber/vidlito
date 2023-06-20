@@ -16,7 +16,8 @@ export type PropsT = {
 
 export const PlayVideoIcon = observer((props: PropsT) => {
   return props.visible || props.loading ? (
-    <div
+    <button
+      disabled={!props.videoController.ready || props.loading}
       className={cn(
         'PlayVideoIcon',
         {
@@ -35,7 +36,7 @@ export const PlayVideoIcon = observer((props: PropsT) => {
         className={cn('w-full', 'h-full')}
         name={props.videoController.isPlaying ? 'pause' : 'play-circle'}
       />
-    </div>
+    </button>
   ) : (
     <div className={cn(props.className)}></div>
   );
