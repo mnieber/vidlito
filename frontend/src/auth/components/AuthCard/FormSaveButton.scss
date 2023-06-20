@@ -7,5 +7,5 @@
 }
 
 .AuthCard .FormSaveButton--disabled {
-  @apply text-red-800;
+  @apply bg-gray-500 #{!important};
 }

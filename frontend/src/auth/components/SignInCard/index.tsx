@@ -35,7 +35,9 @@ export const SignInCard = observer(() => {
         className={cn(l.Form())}
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
-            nav.userSignedIn();
+            if (response.success) {
+              nav.userSignedIn();
+            }
           });
         }}
         errors={authState.errors}
