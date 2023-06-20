@@ -11,6 +11,6 @@ module.exports = {
   includePaths: [baseDir + 'src'],
   processImportPath: (importPath, absImportPath, activeFilepath, projectRoot) =>
     absImportPath.startsWith(projectRoot)
-      ? absImportPath.slice(baseDir.length)
+      ? absImportPath.slice(baseDir.length - 1)
       : null,
 };
