@@ -25,7 +25,7 @@ export const ForwardToClipEffect = observer(
           props.playlist.slug === params.playlistSlug &&
           props.playlist.clipSet.length
         ) {
-          nav.clipHighlightIsCorrectedTo(props.playlist.clipSet[0].slug);
+          nav.correctClipSlugUrlParam(props.playlist.clipSet[0].slug);
         }
       });
     }, [params, props.playlist, nav]);

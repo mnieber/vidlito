@@ -5,7 +5,7 @@ import { NavLayer } from '/src/navHandler/NavHandler';
 export type ActionsNavEventLayerT = {};
 
 class ActionsNavEventLayer extends NavLayer implements ActionsNavEventLayerT {
-  clipHighlightIsCorrectedTo(this: NavHandler, clipSlug: string) {
+  correctClipSlugUrlParam(this: NavHandler, clipSlug: string) {
     this.hiddenParams.clipSlug = clipSlug;
   }
 }

@@ -41,7 +41,7 @@ export const ClipMenu = observer(
       () => () => {
         const clip = props.clipsHighlight.item;
         if (!R.isNil(clip)) {
-          nav.clipHighlightIsCorrectedTo(clip.slug);
+          nav.correctClipSlugUrlParam(clip.slug);
         }
       },
       [props.clipsHighlight, nav]

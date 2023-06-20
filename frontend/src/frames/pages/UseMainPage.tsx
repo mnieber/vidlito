@@ -22,7 +22,7 @@ export class MainNavEventLayer extends NavLayer implements MainNavEventLayerT {
     });
   }
 
-  clipHighlightIsCorrectedTo(this: NavHandler, clipSlug: string) {
+  correctClipSlugUrlParam(this: NavHandler, clipSlug: string) {
     this.hiddenParams.clipSlug = clipSlug;
     const ufn = this.routeUfns.clip(this.history.push);
     ufn({ ...this.getParams(), clipSlug });
