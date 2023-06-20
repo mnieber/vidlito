@@ -1,4 +1,3 @@
-export { EditPlaylistEffect } from './EditPlaylistEffect';
 export { ForwardToClipEffect } from './ForwardToClipEffect';
 export { NewPlaylistButton } from './NewPlaylistButton';
 export { PlaylistDescription } from './PlaylistDescription';
@@ -7,4 +6,4 @@ export { PlaylistListHeader } from './PlaylistListHeader';
 export { PlaylistListView } from './PlaylistListView';
 export { PlaylistListViewItem } from './PlaylistListViewItem';
 export { PlaylistsStateProvider } from './PlaylistsStateProvider';
-export { SelectPlaylistEffect } from './SelectPlaylistEffect';
+export { SyncPlaylistWithUrlEffect } from './SyncPlaylistWithUrlEffect';

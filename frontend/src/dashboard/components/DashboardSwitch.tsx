@@ -8,10 +8,9 @@ import { VideoCard } from '/src/dashboard/components/MainView/VideoCard';
 import { UseActionsPage } from '/src/frames/pages/UseActionsPage';
 import { UseMainPage } from '/src/frames/pages/UseMainPage';
 import {
-  EditPlaylistEffect,
   ForwardToClipEffect,
   PlaylistFormView,
-  SelectPlaylistEffect,
+  SyncPlaylistWithUrlEffect,
 } from '/src/playlists/components';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
 import { cn } from '/src/utils/classnames';
@@ -29,8 +28,7 @@ export const DashboardSwitch = withDefaultProps(
       <Switch>
         <Route exact={false} path={routes.playlist()}>
           <UseMainPage>
-            <SelectPlaylistEffect />
-            <EditPlaylistEffect />
+            <SyncPlaylistWithUrlEffect />
             <Route exact={true} path={routes.playlist()}>
               <ForwardToClipEffect />
             </Route>

@@ -27,7 +27,7 @@ export const SyncClipWithUrlEffect = observer(
 
     React.useEffect(() => {
       return autorun(() => {
-        // If there is no highlighted clip, then try to sync from the url to the state.
+        // If there is no highlighted item, then try to sync from the url to the state.
         if (R.isNil(props.clipsHighlight.id)) {
           if (
             params.clipSlug === 'new-clip' &&

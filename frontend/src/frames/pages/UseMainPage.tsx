@@ -38,7 +38,7 @@ export class MainNavEventLayer extends NavLayer implements MainNavEventLayerT {
 
   userSubmittedClipForm(this: NavHandler, clipSlug: string) {}
 
-  playlistHighlightIsCorrectedTo(this: NavHandler, playlistSlug: string) {
+  correctPlaylistSlugUrlParam(this: NavHandler, playlistSlug: string) {
     this.hiddenParams.playlistSlug = playlistSlug;
     const ufn = this.routeUfns.playlist(this.history.push);
     ufn({ ...this.getParams(), playlistSlug });

@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import {
   createDragAndDropUIConnector,
   SelectionUIConnector,
@@ -28,6 +27,7 @@ const DefaultProps = {
   ...dps.playlistsHovering,
   ...dps.playlistsHighlight,
   ...dps.playlistsSelection,
+  ...dps.clipsSelection,
   ...dps.dashboardState,
 };
 
@@ -43,16 +43,15 @@ export const PlaylistListView = observer(
       selection: props.playlistsSelection,
     });
 
-    const { playlistsHighlight, playlistsSelection, dashboardState } = props;
-    const goToPlaylist = React.useMemo(
-      () => (playlist: PlaylistT) => {
-        playlistsHighlight.highlightItem({ id: playlist.id });
-        playlistsSelection.selectItem({ itemId: playlist.id });
-        dashboardState.setIsPlaylistListExpanded(false);
-        nav.userHighlightsPlaylist(playlist.slug);
-      },
-      [nav, dashboardState, playlistsHighlight, playlistsSelection]
-    );
+    const goToPlaylist = (playlist: PlaylistT) => {
+      props.playlistsHighlight.highlightItem({ id: playlist.id });
+      props.playlistsSelection.selectItem({ itemId: playlist.id });
+      props.dashboardState.setIsPlaylistListExpanded(false);
+      props.clipsSelection.selectItem({
+        itemId: props.clipsSelection.selectableIds[0],
+      });
+      nav.userHighlightsPlaylist(playlist.slug);
+    };
 
     if (isLoading(props.playlists)) {
       return <Spinner />;
