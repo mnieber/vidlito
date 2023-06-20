@@ -1,5 +1,4 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { ActionsStateProvider } from '/src/actions/components';
 import { queryClient } from '/src/api/queryClient';
@@ -8,13 +7,12 @@ import { ClipsStateProvider } from '/src/clips/components';
 import { DashboardStateProvider } from '/src/dashboard/components';
 import { L, breakpoints } from '/src/frames/layout';
 import { NavHandlerProvider } from '/src/navHandler/components/NavHandlerProvider';
+import { history } from '/src/navHandler/useNavHandler';
 import { PlaylistsStateProvider } from '/src/playlists/components/PlaylistsStateProvider';
 import { UrlRouter } from '/src/routes/components';
 import { RouteTableProvider } from '/src/routes/components/RouteTableProvider';
 import { cn } from '/src/utils/classnames';
 import { VideoPlayerStateProvider } from '/src/videos/components';
-
-export const history = createBrowserHistory();
 
 export const App = () => {
   return (

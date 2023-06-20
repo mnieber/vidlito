@@ -1,5 +1,5 @@
-@import 'src/frames/components/DialogButton';
-@import 'src/frames/components/Colors';
+@import '/src/frames/components/DialogButton';
+@import '/src/frames/components/Colors';
 
 .AuthCard .FormSaveButton {
   @apply c-dialog-button;

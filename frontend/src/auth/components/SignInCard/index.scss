@@ -1,5 +1,5 @@
-@import 'src/frames/components/DialogButton';
-@import 'src/frames/components/Colors';
+@import '/src/frames/components/DialogButton';
+@import '/src/frames/components/Colors';
 
 .SignInCard__CreateAccountButton {
   @apply c-dialog-button;
