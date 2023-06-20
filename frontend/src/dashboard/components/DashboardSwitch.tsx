@@ -1,7 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import { ActionsView } from '/src/actions/components';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { EditClipEffect, SelectClipEffect } from '/src/clips/components';
+import { SyncClipWithUrlEffect } from '/src/clips/components';
 import { Dashboard } from '/src/dashboard/components/Dashboard';
 import { MainView } from '/src/dashboard/components/MainView';
 import { VideoCard } from '/src/dashboard/components/MainView/VideoCard';
@@ -47,8 +47,7 @@ export const DashboardSwitch = withDefaultProps(
                 <PlaylistFormView />
               </Route>
               <Route exact={true} path={routes.clip()}>
-                <SelectClipEffect />
-                <EditClipEffect />
+                <SyncClipWithUrlEffect />
                 {/* 🔳 */}
                 <MainView>
                   <VideoCard />

@@ -32,8 +32,11 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
       },
     },
     cancel: {
-      unstageAdd() {
+      unstageAdd(parentId: string | undefined) {
         ctr.edit.cancel();
+        if (parentId) {
+          ctr.selection.selectItem({ itemId: parentId });
+        }
       },
     },
   } as AdditionCbs<PlaylistT>);

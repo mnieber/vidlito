@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import {
   createDragAndDropUIConnector,
-  createSelectionUIConnector,
+  SelectionUIConnector,
 } from 'skandha-facets';
 import { isLoading } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
@@ -39,9 +39,9 @@ export const PlaylistListView = observer(
       props.playlistsDragAndDrop,
       props.playlistsHovering
     );
-    const selectionUIConnector = createSelectionUIConnector(
-      props.playlistsSelection
-    );
+    const selectionUIConnector = new SelectionUIConnector({
+      selection: props.playlistsSelection,
+    });
 
     const { playlistsHighlight, playlistsSelection, dashboardState } = props;
     const goToPlaylist = React.useMemo(
