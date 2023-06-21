@@ -1,4 +1,4 @@
 import { getNavFn } from '/src/navHandler/NavHandler';
 
-export const navUserHighlightsPlaylist = (playlistSlug: string): void =>
-  getNavFn('userHighlightsPlaylist', navUserHighlightsPlaylist)(playlistSlug);
+export const navToPlaylist = (playlistSlug: string): void =>
+  getNavFn('navToPlaylist', navToPlaylist)(playlistSlug);

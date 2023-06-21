@@ -8,7 +8,7 @@ import {
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
 import { ClipT } from '/src/api/types/ClipT';
-import { navUserHighlightsClip } from '/src/clips/ClipsNavEvents';
+import { navToClip } from '/src/clips/ClipsNavEvents';
 import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
@@ -59,7 +59,7 @@ const getHandleSubmit =
     })
       .then((localClip: ClipT) => {
         formState.reset(initialValues, initialErrors);
-        navUserHighlightsClip(localClip.slug);
+        navToClip(localClip.slug);
       })
       .catch((error: any) => {
         formState.setError(

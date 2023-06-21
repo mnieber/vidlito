@@ -7,7 +7,7 @@ import {
 import { isLoading } from '/src/api/getState';
 import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navUserHighlightsClip } from '/src/clips/ClipsNavEvents';
+import { navToClip } from '/src/clips/ClipsNavEvents';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -44,7 +44,7 @@ export const ClipListView = observer(
         if (!selectionParams.isShift && !selectionParams.isCtrl) {
           const clip = props.clips.find((c) => c.id === selectionParams.itemId);
           if (clip) {
-            navUserHighlightsClip(clip.slug);
+            navToClip(clip.slug);
           }
         }
       },

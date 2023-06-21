@@ -8,7 +8,7 @@ import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Spinner } from '/src/frames/components';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
-import { navUserHighlightsPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -46,7 +46,7 @@ export const PlaylistListView = observer(
       props.clipsSelection.selectItem({
         itemId: props.clipsSelection.selectableIds[0],
       });
-      navUserHighlightsPlaylist(playlist.slug);
+      navToPlaylist(playlist.slug);
     };
 
     if (isLoading(props.playlists)) {

@@ -2,7 +2,7 @@ import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navUserHighlightsClip } from '/src/clips/ClipsNavEvents';
+import { navToClip } from '/src/clips/ClipsNavEvents';
 import { useSearchAndUrlParams } from '/src/utils/hooks';
 
 type PropsT = {};
@@ -22,7 +22,7 @@ export const ForwardToClipEffect = observer(
           props.playlist.slug === params.playlistSlug &&
           props.playlist.clipSet.length
         ) {
-          navUserHighlightsClip(props.playlist.clipSet[0].slug);
+          navToClip(props.playlist.clipSet[0].slug);
         }
       });
     }, [params, props.playlist]);
