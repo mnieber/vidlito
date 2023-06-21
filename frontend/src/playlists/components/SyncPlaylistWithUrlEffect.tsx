@@ -26,16 +26,18 @@ export const SyncPlaylistWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const nav = useNavEvents();
     const params = useSearchAndUrlParams();
+    const refSyncFromUrl = React.useRef(true);
 
     React.useEffect(() => {
       return autorun(() => {
-        // If there is no highlighted item, then try to sync from the url to the state.
-        if (R.isNil(props.playlistsHighlight.id)) {
+        // If the effect is mounting then sync from the url to the state.
+        if (refSyncFromUrl.current) {
           if (
             params.playlistSlug === 'new-playlist' &&
             !props.playlistsAddition.item &&
             props.userProfile
           ) {
+            refSyncFromUrl.current = false;
             props.dashboardState.setIsPlaylistListExpanded(true);
             props.playlistsAddition.add({
               values: createPlaylist(props.userProfile, {}),
@@ -46,6 +48,7 @@ export const SyncPlaylistWithUrlEffect = observer(
                 props.playlists
               ) ?? R.head(props.playlists);
             if (playlist) {
+              refSyncFromUrl.current = false;
               props.playlistsSelection.selectItem({ itemId: playlist?.id });
               props.playlistsHighlight.highlightItem({ id: playlist?.id });
             }

@@ -24,16 +24,18 @@ export const SyncClipWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const nav = useNavEvents();
     const params = useSearchAndUrlParams();
+    const refSyncFromUrl = React.useRef(true);
 
     React.useEffect(() => {
       return autorun(() => {
-        // If there is no highlighted item, then try to sync from the url to the state.
-        if (R.isNil(props.clipsHighlight.id)) {
+        // If the effect is mounting then sync from the url to the state.
+        if (refSyncFromUrl.current) {
           if (
             params.clipSlug === 'new-clip' &&
             !props.clipsAddition.item &&
             props.userProfile
           ) {
+            refSyncFromUrl.current = false;
             props.clipsAddition.add({
               values: createClip(props.userProfile, {}),
             });
@@ -42,6 +44,7 @@ export const SyncClipWithUrlEffect = observer(
               R.find((x: ClipT) => x.slug === params.clipSlug)(props.clips) ??
               R.head(props.clips);
             if (clip) {
+              refSyncFromUrl.current = false;
               props.clipsSelection.selectItem({ itemId: clip?.id });
             }
           }
