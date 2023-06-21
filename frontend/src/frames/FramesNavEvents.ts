@@ -1,15 +1,13 @@
 import { getNavFn } from '/src/navHandler/NavHandler';
 
-export const navGoToHome = (): void => getNavFn('goToHome', navGoToHome)();
+export const navToHome = (): void => getNavFn('navToHome', navToHome)();
 
-export const navGoToSignUp = (): void =>
-  getNavFn('goToSignUp', navGoToSignUp)();
+export const navToSignUp = (): void => getNavFn('navToSignUp', navToSignUp)();
 
-export const navGoToSignIn = (): void =>
-  getNavFn('goToSignIn', navGoToSignIn)();
+export const navToSignIn = (): void => getNavFn('navToSignIn', navToSignIn)();
 
-export const navUserSignedIn = (): void =>
-  getNavFn('userSignedIn', navUserSignedIn)();
+export const navToNextPageAfterSignIn = (): void =>
+  getNavFn('navToNextPageAfterSignIn', navToNextPageAfterSignIn)();
 
 export const navUserProfileLoaded = (userName: string): void =>
   getNavFn('userProfileLoaded', navUserProfileLoaded)(userName);

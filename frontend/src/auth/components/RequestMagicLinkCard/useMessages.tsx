@@ -9,7 +9,7 @@ export const useMessages = () => {
       If you've found your password then you can{' '}
       <RouterLink
         key="_signIn"
-        dataCy="goToSignInLink"
+        dataCy="linkToSignIn"
         to={routes.signIn()}
         className="ml-1"
       >

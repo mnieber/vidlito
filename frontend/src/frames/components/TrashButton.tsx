@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { navGoToActions } from '/src/actions/ActionsNavEvents';
+import { navToActions } from '/src/actions/ActionsNavEvents';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
@@ -26,7 +26,7 @@ export const TrashButton = observer(
           l.root(),
           props.className
         )}
-        onClick={() => navGoToActions()}
+        onClick={() => navToActions()}
       >
         <Icon className={cn(l.icon.normal())} name="trash" />
         Trash

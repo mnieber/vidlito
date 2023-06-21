@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
-import { navGoToHome } from '/src/frames/FramesNavEvents';
+import { navToHome } from '/src/frames/FramesNavEvents';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -27,7 +27,7 @@ export const Logo = observer(
           'self-center',
           props.className
         )}
-        onClick={() => navGoToHome()}
+        onClick={() => navToHome()}
       >
         <div
           className={cn(

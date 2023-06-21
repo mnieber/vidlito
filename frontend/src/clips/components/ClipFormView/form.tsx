@@ -8,10 +8,7 @@ import {
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
 import { ClipT } from '/src/api/types/ClipT';
-import {
-  navUserCancelledClipForm,
-  navUserHighlightsClip,
-} from '/src/clips/ClipsNavEvents';
+import { navUserHighlightsClip } from '/src/clips/ClipsNavEvents';
 import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
@@ -76,7 +73,6 @@ const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
     props.clipsEdit.cancel();
-    navUserCancelledClipForm();
   };
 
 const _toSeconds = (ms: number | undefined) => {

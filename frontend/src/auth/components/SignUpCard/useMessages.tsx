@@ -9,7 +9,7 @@ export const useMessages = () => {
       If you already have an account then you can{' '}
       <RouterLink
         key="_signIn"
-        dataCy={'goToSignInLink'}
+        dataCy={'navToSignInLink'}
         className=""
         to={routes.signIn()}
       >

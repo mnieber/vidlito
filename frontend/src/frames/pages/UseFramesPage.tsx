@@ -3,11 +3,11 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import {
-  navGoToHome,
-  navGoToSignIn,
-  navGoToSignUp,
+  navToHome,
+  navToNextPageAfterSignIn,
+  navToSignIn,
+  navToSignUp,
   navUserProfileLoaded,
-  navUserSignedIn,
 } from '/src/frames/FramesNavEvents';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
 import { useInstallNavLayer } from '/src/navHandler';
@@ -15,21 +15,21 @@ import { navHandler } from '/src/navHandler/NavHandler';
 
 export const createFramesNavEventLayer = () => {
   return {
-    goToHome: (() => {
+    navToHome: (() => {
       const ufn = navHandler.routeUfns.home(navHandler.history.push);
       ufn();
-    }) as typeof navGoToHome,
-    goToSignUp: (() => {
+    }) as typeof navToHome,
+    navToSignUp: (() => {
       const ufn = navHandler.routeUfns.signUp(navHandler.history.push);
       ufn();
-    }) as typeof navGoToSignUp,
-    goToSignIn: (() => {
+    }) as typeof navToSignUp,
+    navToSignIn: (() => {
       const ufn = navHandler.routeUfns.signIn(navHandler.history.push);
       ufn();
-    }) as typeof navGoToSignIn,
-    userSignedIn: (() => {
-      navGoToHome();
-    }) as typeof navUserSignedIn,
+    }) as typeof navToSignIn,
+    navToNextPageAfterSignIn: (() => {
+      navToHome();
+    }) as typeof navToNextPageAfterSignIn,
     userProfileLoaded: ((username: string) => {
       navHandler.hiddenParams.username = username;
     }) as typeof navUserProfileLoaded,

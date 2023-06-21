@@ -8,10 +8,6 @@ import {
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import {
-  navUserCancelledPlaylistForm,
-  navUserSubmittedPlaylistForm,
-} from '/src/playlists/PlaylistsNavEvents';
 import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
@@ -52,7 +48,6 @@ const getHandleSubmit =
       .save({ values: unflatten(values) })
       .then((localPlaylist: PlaylistT) => {
         formState.reset(initialValues, initialErrors);
-        navUserSubmittedPlaylistForm(localPlaylist.slug);
       })
       .catch((error: any) => {
         formState.setError(
@@ -66,7 +61,6 @@ const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
     props.playlistsEdit.cancel();
-    navUserCancelledPlaylistForm();
   };
 
 export const form = {

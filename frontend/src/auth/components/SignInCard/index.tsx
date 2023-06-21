@@ -4,7 +4,10 @@ import { AuthCard } from '/src/auth/components/AuthCard';
 import { SignInForm } from '/src/auth/components/SignInForm';
 import { useSignIn } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
-import { navGoToSignUp, navUserSignedIn } from '/src/frames/FramesNavEvents';
+import {
+  navToNextPageAfterSignIn,
+  navToSignUp,
+} from '/src/frames/FramesNavEvents';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { ObjT } from '/src/utils/types';
@@ -32,7 +35,7 @@ export const SignInCard = observer(() => {
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
             if (response.success) {
-              navUserSignedIn();
+              navToNextPageAfterSignIn();
             }
           });
         }}
@@ -62,7 +65,7 @@ export const SignInCard = observer(() => {
           //
           l.CardFooter()
         )}
-        onClick={() => navGoToSignUp()}
+        onClick={() => navToSignUp()}
       >
         {messages.createAccount}
       </button>

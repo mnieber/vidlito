@@ -8,7 +8,7 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navSetClipSlugUrlParam } from '/src/clips/ClipsNavEvents';
+import { navToClip } from '/src/clips/ClipsNavEvents';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -37,7 +37,7 @@ export const ClipMenu = observer(
       () => () => {
         const clip = props.clipsHighlight.item;
         if (!R.isNil(clip)) {
-          navSetClipSlugUrlParam(clip.slug);
+          navToClip(clip.slug);
         }
       },
       [props.clipsHighlight]

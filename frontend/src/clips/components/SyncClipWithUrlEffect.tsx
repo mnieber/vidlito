@@ -4,7 +4,7 @@ import * as R from 'ramda';
 import React from 'react';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navSetClipSlugUrlParam } from '/src/clips/ClipsNavEvents';
+import { navHandler } from '/src/navHandler/NavHandler';
 import { useSearchAndUrlParams } from '/src/utils/hooks';
 
 type PropsT = {};
@@ -27,7 +27,6 @@ export const SyncClipWithUrlEffect = observer(
       return autorun(() => {
         // If the effect is mounting then sync from the url to the state.
         if (refSyncFromUrl.current) {
-          navSetClipSlugUrlParam(params.clipSlug);
           if (
             params.clipSlug === 'new-clip' &&
             !props.clipsAddition.item &&
@@ -46,6 +45,8 @@ export const SyncClipWithUrlEffect = observer(
               props.clipsSelection.selectItem({ itemId: clip?.id });
             }
           }
+        } else {
+          navHandler.updateHiddenParams();
         }
       });
     }, [params, props.clips, props.clipsSelection, props.clipsHighlight]);

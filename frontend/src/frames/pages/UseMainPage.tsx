@@ -1,43 +1,35 @@
 import { useRouteMatch } from 'react-router-dom';
-import { navGoToActions } from '/src/actions/ActionsNavEvents';
+import { navToActions } from '/src/actions/ActionsNavEvents';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { navToClip, navUserHighlightsClip } from '/src/clips/ClipsNavEvents';
 import { useInstallNavLayer } from '/src/navHandler';
 import { navHandler } from '/src/navHandler/NavHandler';
+import { navUserHighlightsPlaylist } from '/src/playlists/PlaylistsNavEvents';
 
 export const createMainNavEventLayer = () => {
   return {
-    goToActions: (() => {
-      navHandler.updateHiddenParams();
+    navToActions: (() => {
       const ufn = navHandler.routeUfns.actions(navHandler.history.push);
       ufn({
         ...navHandler.getParams(true),
         ownerUsername: navHandler.hiddenParams.username,
       });
-    }) as typeof navGoToActions,
-    setClipSlugUrlParam: (clipSlug: string) => {
+    }) as typeof navToActions,
+    navToClip: ((clipSlug: string) => {
       navHandler.hiddenParams.clipSlug = clipSlug;
       const ufn = navHandler.routeUfns.clip(navHandler.history.push);
       ufn({ ...navHandler.getParams(), clipSlug });
-    },
-    userHighlightsClip: (clipSlug: string) => {
+    }) as typeof navToClip,
+    userHighlightsClip: ((clipSlug: string) => {
       navHandler.hiddenParams.clipSlug = clipSlug;
       const ufn = navHandler.routeUfns.clip(navHandler.history.push);
       ufn({ ...navHandler.getParams(), clipSlug });
-    },
-    userCancelledClipForm: () => {},
-    userSubmittedClipForm: (clipSlug: string) => {},
-    correctPlaylistSlugUrlParam: (playlistSlug: string) => {
-      navHandler.hiddenParams.playlistSlug = playlistSlug;
-      const ufn = navHandler.routeUfns.playlist(navHandler.history.push);
-      ufn({ ...navHandler.getParams(), playlistSlug });
-    },
-    userCancelledPlaylistForm: () => {},
-    userHighlightsPlaylist: (playlistSlug: string) => {
+    }) as typeof navUserHighlightsClip,
+    userHighlightsPlaylist: ((playlistSlug: string) => {
       navHandler.hiddenParams.playlistSlug = playlistSlug;
       const ufn = navHandler.routeUfns.playlist(navHandler.history.push);
       ufn({ ...navHandler.getParams(true), playlistSlug });
-    },
-    userSubmittedPlaylistForm: (playlistSlug: string) => {},
+    }) as typeof navUserHighlightsPlaylist,
   };
 };
 

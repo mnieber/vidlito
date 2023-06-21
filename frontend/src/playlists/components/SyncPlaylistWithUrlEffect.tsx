@@ -5,7 +5,6 @@ import React from 'react';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navHandler } from '/src/navHandler/NavHandler';
-import { navCorrectPlaylistSlugUrlParam } from '/src/playlists/PlaylistsNavEvents';
 import { useSearchAndUrlParams } from '/src/utils/hooks';
 
 type PropsT = {};
@@ -52,13 +51,8 @@ export const SyncPlaylistWithUrlEffect = observer(
               props.playlistsHighlight.highlightItem({ id: playlist?.id });
             }
           }
-        }
-        // Else try to sync from the state to the url
-        else {
-          const playlist = props.playlistsHighlight.item;
-          if (playlist && playlist.slug !== params.playlistSlug) {
-            navCorrectPlaylistSlugUrlParam(playlist.slug);
-          }
+        } else {
+          navHandler.updateHiddenParams();
         }
       });
     }, [
