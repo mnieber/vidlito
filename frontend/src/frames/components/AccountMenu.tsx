@@ -3,16 +3,13 @@ import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useSignOut } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
-import { FramesNavEvents } from '/src/frames/FramesNavEvents';
+import { navGoToSignIn } from '/src/frames/FramesNavEvents';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
-import { useNavHandler } from '/src/navHandler';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './AccountMenu.scss';
-
-const useNavEvents = () => useNavHandler<typeof FramesNavEvents>();
 
 export type PropsT = {
   className?: any;
@@ -25,7 +22,6 @@ const DefaultProps = {
 
 export const AccountMenu = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const nav = useNavEvents();
     const authState = useAuthStateContext(true);
     const signOut = useSignOut(authState).mutateAsync;
 
@@ -52,7 +48,7 @@ export const AccountMenu = observer(
           transition
         >
           {!props.isAuthenticated && (
-            <StyledMenuItem onClick={() => nav.goToSignIn()}>
+            <StyledMenuItem onClick={() => navGoToSignIn()}>
               <Icon className={cn(L.DialogButton.icon())} name="signIn" />
               Sign In
             </StyledMenuItem>
@@ -61,7 +57,7 @@ export const AccountMenu = observer(
             <StyledMenuItem
               onClick={() => {
                 signOut({}).then(() => {
-                  nav.goToSignIn();
+                  navGoToSignIn();
                 });
               }}
             >

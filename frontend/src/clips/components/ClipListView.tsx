@@ -7,9 +7,9 @@ import {
 import { isLoading } from '/src/api/getState';
 import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { navUserHighlightsClip } from '/src/clips/ClipsNavEvents';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
 import { L } from '/src/frames/layout';
-import { navUserHighlightsClip } from '/src/frames/pages/UseMainPage';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

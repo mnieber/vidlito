@@ -6,8 +6,7 @@ import { AuthStateProvider } from '/src/auth/components/AuthStateProvider';
 import { ClipsStateProvider } from '/src/clips/components';
 import { DashboardStateProvider } from '/src/dashboard/components';
 import { L, breakpoints } from '/src/frames/layout';
-import { NavHandlerProvider } from '/src/navHandler/components/NavHandlerProvider';
-import { history } from '/src/navHandler/useNavHandler';
+import { history } from '/src/navHandler/NavHandler';
 import { PlaylistsStateProvider } from '/src/playlists/components/PlaylistsStateProvider';
 import { UrlRouter } from '/src/routes/components';
 import { RouteTableProvider } from '/src/routes/components/RouteTableProvider';
@@ -28,21 +27,19 @@ export const App = () => {
           )}
         >
           <RouteTableProvider>
-            <NavHandlerProvider>
-              <AuthStateProvider>
-                <DashboardStateProvider>
-                  <PlaylistsStateProvider>
-                    <ClipsStateProvider>
-                      <ActionsStateProvider>
-                        <VideoPlayerStateProvider>
-                          <UrlRouter />
-                        </VideoPlayerStateProvider>
-                      </ActionsStateProvider>
-                    </ClipsStateProvider>
-                  </PlaylistsStateProvider>
-                </DashboardStateProvider>
-              </AuthStateProvider>
-            </NavHandlerProvider>
+            <AuthStateProvider>
+              <DashboardStateProvider>
+                <PlaylistsStateProvider>
+                  <ClipsStateProvider>
+                    <ActionsStateProvider>
+                      <VideoPlayerStateProvider>
+                        <UrlRouter />
+                      </VideoPlayerStateProvider>
+                    </ActionsStateProvider>
+                  </ClipsStateProvider>
+                </PlaylistsStateProvider>
+              </DashboardStateProvider>
+            </AuthStateProvider>
           </RouteTableProvider>
         </div>
       </Router>

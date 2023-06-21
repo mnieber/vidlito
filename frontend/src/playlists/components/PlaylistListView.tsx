@@ -7,14 +7,12 @@ import { isLoading } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Spinner } from '/src/frames/components';
-import { PlaylistsNavEvents, useNavHandler } from '/src/frames/pages/index';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
+import { navUserHighlightsPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './PlaylistListView.scss';
-
-const useNavEvents = () => useNavHandler<typeof PlaylistsNavEvents>();
 
 export type PropsT = {
   isExpanded: boolean;
@@ -33,8 +31,6 @@ const DefaultProps = {
 
 export const PlaylistListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const nav = useNavEvents();
-
     const dragAndDropUIConnector = createDragAndDropUIConnector(
       props.playlistsDragAndDrop,
       props.playlistsHovering
@@ -50,7 +46,7 @@ export const PlaylistListView = observer(
       props.clipsSelection.selectItem({
         itemId: props.clipsSelection.selectableIds[0],
       });
-      nav.userHighlightsPlaylist(playlist.slug);
+      navUserHighlightsPlaylist(playlist.slug);
     };
 
     if (isLoading(props.playlists)) {

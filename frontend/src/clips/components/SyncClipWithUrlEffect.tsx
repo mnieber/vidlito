@@ -4,10 +4,8 @@ import * as R from 'ramda';
 import React from 'react';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { ClipsNavEvents, useNavHandler } from '/src/frames/pages';
+import { navCorrectClipSlugUrlParam } from '/src/clips/ClipsNavEvents';
 import { useSearchAndUrlParams } from '/src/utils/hooks';
-
-const useNavEvents = () => useNavHandler<typeof ClipsNavEvents>();
 
 type PropsT = {};
 
@@ -22,7 +20,6 @@ const DefaultProps = {
 
 export const SyncClipWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const nav = useNavEvents();
     const params = useSearchAndUrlParams();
     const refSyncFromUrl = React.useRef(true);
 
@@ -53,11 +50,11 @@ export const SyncClipWithUrlEffect = observer(
         else {
           const clip = props.clipsHighlight.item;
           if (clip && clip.slug !== params.clipSlug) {
-            nav.correctClipSlugUrlParam(clip.slug);
+            navCorrectClipSlugUrlParam(clip.slug);
           }
         }
       });
-    }, [params, props.clips, props.clipsSelection, props.clipsHighlight, nav]);
+    }, [params, props.clips, props.clipsSelection, props.clipsHighlight]);
 
     return null;
   }, DefaultProps)

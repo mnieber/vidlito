@@ -1,5 +1,8 @@
-import { NavHandler } from '/src/navHandler';
+import { getNavFn } from '/src/navHandler/NavHandler';
 
 export const ActionsNavEvents = {
-  goToActions(this: NavHandler) {},
+  goToActions() {},
 };
+
+export const navGoToActions = (): void =>
+  getNavFn('goToActions', navGoToActions)();

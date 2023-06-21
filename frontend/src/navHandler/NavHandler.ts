@@ -1,20 +1,18 @@
+import { createBrowserHistory } from 'history';
 import { action, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
-import { matchPath } from 'react-router-dom';
+import { sortNavLayers } from '/src/navHandler/sortNavLayers';
+import { routeTable } from '/src/routes/components/RouteTableProvider';
 import { WrapUfn } from '/src/routes/utils/RouteTable';
 import { getBestRouteMatch } from '/src/routes/utils/getRouteMatches';
 import { ObjT } from '/src/utils/types';
 import { pathname } from '/src/utils/urls';
 
-export class NavLayer {
+export type NavLayerT = {
   route: string;
   name: string;
-
-  constructor(name: string, route: string) {
-    this.name = name;
-    this.route = route;
-  }
-}
+  fns: ObjT;
+};
 
 export type PropsT = {
   history: any;
@@ -43,8 +41,7 @@ export class NavHandler {
   routes: ObjT;
   routeUfns: ObjT;
   hiddenParams: ObjT = {};
-  navLayers: Array<NavLayer> = [];
-  _currentNavLayer?: NavLayer;
+  navLayers: Array<NavLayerT> = [];
 
   getRouteUfns<T>() {
     return this.routeUfns as WrapUfn<T>;
@@ -65,9 +62,9 @@ export class NavHandler {
       : params;
   }
 
-  installNavLayer(navLayer: NavLayer) {
+  installNavLayer(navLayer: NavLayerT) {
     const existingNavLayer = R.find(
-      (x: NavLayer) => x.name === navLayer.name,
+      (x: NavLayerT) => x.name === navLayer.name,
       this.navLayers
     );
     if (R.isNil(existingNavLayer)) {
@@ -76,20 +73,20 @@ export class NavHandler {
   }
 
   getNavLayer(name: string) {
-    return R.find((x: NavLayer) => x.name === name)(this.navLayers);
+    return R.find((x: NavLayerT) => x.name === name)(this.navLayers);
   }
 
   uninstallNavLayer(name: string) {
     this.navLayers = this.navLayers.filter(
-      (navLayer: NavLayer) => navLayer.name !== name
+      (navLayer: NavLayerT) => navLayer.name !== name
     );
   }
 
-  _getNavLayer(name: string): NavLayer | undefined {
+  _getNavLayer(name: string): NavLayerT | undefined {
     const sortedLayers = sortNavLayers(this.navLayers, pathname());
     for (let i = 0; i < sortedLayers.length; i++) {
       const layer = sortedLayers[i];
-      const handler = (layer as ObjT)[name];
+      const handler = layer.fns[name];
       if (handler) {
         return layer;
       }
@@ -110,62 +107,18 @@ export class NavHandler {
   }
 }
 
-export function createNavHandler(props: PropsT) {
-  const navHandler = new NavHandler(props);
-  const proxy: NavHandler = new Proxy(navHandler, {
-    get(target, prop: string) {
-      if (prop in target) {
-        return (target as any)[prop];
-      }
+export const history = createBrowserHistory();
 
-      const navLayer = target._getNavLayer(prop);
-      if (navLayer) {
-        const f = ((navLayer as ObjT)[prop] as Function).bind(proxy);
-        return (...args: any[]) => {
-          const memo = target._currentNavLayer;
-          target._currentNavLayer = navLayer;
-          f(...args);
-          target._currentNavLayer = memo;
-        };
-      }
-      console.warn(`NavHandler: no handler for ${prop}`);
-      return () => {};
-    },
-  });
+export const navHandler = new NavHandler({
+  history: history,
+  routes: routeTable.routeFnByName,
+  routeUfns: routeTable.routeUfnByName,
+});
 
-  return proxy;
-}
-
-export function sortNavLayers(
-  layers: NavLayer[],
-  pathname: string
-): NavLayer[] {
-  type ResultT = {
-    layer: NavLayer;
-    match: ObjT | undefined;
-  };
-
-  let result: ResultT[] = [];
-  for (const layer of layers) {
-    const match =
-      matchPath(pathname, {
-        path: layer.route,
-        strict: false,
-      }) ?? undefined;
-    result.push({ layer, match });
+export const getNavFn = <T>(prop: string, f: T): T => {
+  const navLayer = navHandler._getNavLayer(prop) as any;
+  if (R.isNil(navLayer)) {
+    console.error(`NavHandler: no navLayer found for ${prop}`);
   }
-
-  const nrMatchingParams = (match: ObjT | undefined) =>
-    R.keys(match?.params ?? {}).length;
-
-  result =
-    R.sort((lhs: ResultT, rhs: ResultT) => {
-      const lhsScore = nrMatchingParams(lhs.match);
-      const rhsScore = nrMatchingParams(rhs.match);
-      return (
-        lhsScore > rhsScore || (lhsScore === rhsScore && lhs.match?.isExact)
-      );
-    }, result) ?? undefined;
-
-  return R.map((result: ResultT) => result.layer, result);
-}
+  return navLayer.fns[prop] as T;
+};

@@ -1,9 +1,23 @@
-import { NavHandler } from '/src/navHandler';
+import { getNavFn } from '/src/navHandler/NavHandler';
 
 export const FramesNavEvents = {
-  goToHome(this: NavHandler) {},
-  goToSignUp(this: NavHandler) {},
-  goToSignIn(this: NavHandler) {},
-  userSignedIn(this: NavHandler) {},
-  userProfileLoaded(this: NavHandler, username: string) {},
+  goToHome() {},
+  goToSignUp() {},
+  goToSignIn() {},
+  userSignedIn() {},
+  userProfileLoaded(username: string) {},
 };
+
+export const navGoToHome = (): void => getNavFn('goToHome', navGoToHome)();
+
+export const navGoToSignUp = (): void =>
+  getNavFn('goToSignUp', navGoToSignUp)();
+
+export const navGoToSignIn = (): void =>
+  getNavFn('goToSignIn', navGoToSignIn)();
+
+export const navUserSignedIn = (): void =>
+  getNavFn('userSignedIn', navUserSignedIn)();
+
+export const navUserProfileLoaded = (userName: string): void =>
+  getNavFn('userProfileLoaded', navUserProfileLoaded)(userName);

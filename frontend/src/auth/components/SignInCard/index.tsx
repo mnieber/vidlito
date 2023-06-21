@@ -4,19 +4,15 @@ import { AuthCard } from '/src/auth/components/AuthCard';
 import { SignInForm } from '/src/auth/components/SignInForm';
 import { useSignIn } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
-import { FramesNavEvents } from '/src/frames/FramesNavEvents';
+import { navGoToSignUp, navUserSignedIn } from '/src/frames/FramesNavEvents';
 import { L } from '/src/frames/layout';
-import { useNavHandler } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 import { ObjT } from '/src/utils/types';
 
 // Import styles
 import './index.scss';
 
-const useNavEvents = () => useNavHandler<typeof FramesNavEvents>();
-
 export const SignInCard = observer(() => {
-  const nav = useNavEvents();
   const { messages } = useMessages();
   const authState = useAuthStateContext(true);
   const signIn = useSignIn(authState).mutateAsync;
@@ -36,7 +32,7 @@ export const SignInCard = observer(() => {
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
             if (response.success) {
-              nav.userSignedIn();
+              navUserSignedIn();
             }
           });
         }}
@@ -66,7 +62,7 @@ export const SignInCard = observer(() => {
           //
           l.CardFooter()
         )}
-        onClick={() => nav.goToSignUp()}
+        onClick={() => navGoToSignUp()}
       >
         {messages.createAccount}
       </button>

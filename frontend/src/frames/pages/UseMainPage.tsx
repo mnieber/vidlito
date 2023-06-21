@@ -1,60 +1,54 @@
 import { useRouteMatch } from 'react-router-dom';
+import { navGoToActions } from '/src/actions/ActionsNavEvents';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import {
   ActionsNavEvents,
   ClipsNavEvents,
   PlaylistsNavEvents,
 } from '/src/frames/pages';
-import { NavHandler, useInstallNavLayer } from '/src/navHandler';
-import { NavLayer } from '/src/navHandler/NavHandler';
-import { navHandler } from '/src/navHandler/useNavHandler';
+import { useInstallNavLayer } from '/src/navHandler';
+import { navHandler } from '/src/navHandler/NavHandler';
 
 export type MainNavEventLayerT = typeof ActionsNavEvents &
   typeof ClipsNavEvents &
   typeof PlaylistsNavEvents & {};
 
-export class MainNavEventLayer extends NavLayer implements MainNavEventLayerT {
-  goToActions(this: NavHandler) {
-    this.updateHiddenParams();
-    const ufn = this.routeUfns.actions(this.history.push);
-    ufn({
-      ...this.getParams(true),
-      ownerUsername: this.hiddenParams.username,
-    });
-  }
-
-  correctClipSlugUrlParam(this: NavHandler, clipSlug: string) {
-    this.hiddenParams.clipSlug = clipSlug;
-    const ufn = this.routeUfns.clip(this.history.push);
-    ufn({ ...this.getParams(), clipSlug });
-  }
-
-  userHighlightsClip(this: NavHandler, clipSlug: string) {
-    this.hiddenParams.clipSlug = clipSlug;
-    const ufn = this.routeUfns.clip(this.history.push);
-    ufn({ ...this.getParams(), clipSlug });
-  }
-
-  userCancelledClipForm(this: NavHandler) {}
-
-  userSubmittedClipForm(this: NavHandler, clipSlug: string) {}
-
-  correctPlaylistSlugUrlParam(this: NavHandler, playlistSlug: string) {
-    this.hiddenParams.playlistSlug = playlistSlug;
-    const ufn = this.routeUfns.playlist(this.history.push);
-    ufn({ ...this.getParams(), playlistSlug });
-  }
-
-  userCancelledPlaylistForm(this: NavHandler) {}
-
-  userHighlightsPlaylist(this: NavHandler, playlistSlug: string) {
-    this.hiddenParams.playlistSlug = playlistSlug;
-    const ufn = this.routeUfns.playlist(this.history.push);
-    ufn({ ...this.getParams(true), playlistSlug });
-  }
-
-  userSubmittedPlaylistForm(this: NavHandler, playlistSlug: string) {}
-}
+export const createMainNavEventLayer = () => {
+  return {
+    goToActions: (() => {
+      navHandler.updateHiddenParams();
+      const ufn = navHandler.routeUfns.actions(navHandler.history.push);
+      ufn({
+        ...navHandler.getParams(true),
+        ownerUsername: navHandler.hiddenParams.username,
+      });
+    }) as typeof navGoToActions,
+    correctClipSlugUrlParam: (clipSlug: string) => {
+      navHandler.hiddenParams.clipSlug = clipSlug;
+      const ufn = navHandler.routeUfns.clip(navHandler.history.push);
+      ufn({ ...navHandler.getParams(), clipSlug });
+    },
+    userHighlightsClip: (clipSlug: string) => {
+      navHandler.hiddenParams.clipSlug = clipSlug;
+      const ufn = navHandler.routeUfns.clip(navHandler.history.push);
+      ufn({ ...navHandler.getParams(), clipSlug });
+    },
+    userCancelledClipForm: () => {},
+    userSubmittedClipForm: (clipSlug: string) => {},
+    correctPlaylistSlugUrlParam: (playlistSlug: string) => {
+      navHandler.hiddenParams.playlistSlug = playlistSlug;
+      const ufn = navHandler.routeUfns.playlist(navHandler.history.push);
+      ufn({ ...navHandler.getParams(), playlistSlug });
+    },
+    userCancelledPlaylistForm: () => {},
+    userHighlightsPlaylist: (playlistSlug: string) => {
+      navHandler.hiddenParams.playlistSlug = playlistSlug;
+      const ufn = navHandler.routeUfns.playlist(navHandler.history.push);
+      ufn({ ...navHandler.getParams(true), playlistSlug });
+    },
+    userSubmittedPlaylistForm: (playlistSlug: string) => {},
+  };
+};
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -70,18 +64,9 @@ export const UseMainPage = withDefaultProps(
     useInstallNavLayer(
       'MainNavEventLayer',
       routeMatch.path,
-      (name: string, route: string) => new MainNavEventLayer(name, route)
+      createMainNavEventLayer()
     );
     return <>{props.children}</>;
   },
   DefaultProps
 );
-
-export const navUserHighlightsClip = (clipSlug: string): void => {
-  return getNavHandler('userHighlightsClip', navUserHighlightsClip)(clipSlug);
-};
-
-export const getNavHandler = <T,>(prop: string, f: T): T => {
-  const navLayer = navHandler._getNavLayer(prop) as any;
-  return navLayer[prop].bind(navHandler) as T;
-};

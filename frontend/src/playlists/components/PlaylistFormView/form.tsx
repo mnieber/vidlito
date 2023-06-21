@@ -6,8 +6,12 @@ import {
   HandleValidateArgsT,
   unflatten,
 } from 'react-form-state-context';
-import { DefaultProps, NavEventHandlerT, PropsT } from './index';
+import { DefaultProps, PropsT } from './index';
 import { PlaylistT } from '/src/api/types/PlaylistT';
+import {
+  navUserCancelledPlaylistForm,
+  navUserSubmittedPlaylistForm,
+} from '/src/playlists/PlaylistsNavEvents';
 import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
@@ -40,7 +44,6 @@ const getHandleValidate =
 const getHandleSubmit =
   (
     props: PropsT & typeof DefaultProps,
-    nav: NavEventHandlerT,
     initialValues: FormState['values'],
     initialErrors: FormState['errors']
   ) =>
@@ -49,7 +52,7 @@ const getHandleSubmit =
       .save({ values: unflatten(values) })
       .then((localPlaylist: PlaylistT) => {
         formState.reset(initialValues, initialErrors);
-        nav.userSubmittedPlaylistForm(localPlaylist.slug);
+        navUserSubmittedPlaylistForm(localPlaylist.slug);
       })
       .catch((error: any) => {
         formState.setError(
@@ -60,10 +63,10 @@ const getHandleSubmit =
   };
 
 const getHandleCancel =
-  (props: PropsT & typeof DefaultProps, nav: NavEventHandlerT) =>
+  (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
     props.playlistsEdit.cancel();
-    nav.userCancelledPlaylistForm();
+    navUserCancelledPlaylistForm();
   };
 
 export const form = {

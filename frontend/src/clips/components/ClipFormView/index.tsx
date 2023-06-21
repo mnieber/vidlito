@@ -18,7 +18,7 @@ import {
 } from '/src/forms/components';
 import { TimeField } from '/src/forms/components/TimeField';
 import { L } from '/src/frames/layout';
-import { ClipsNavEvents, NavHandler, useNavHandler } from '/src/frames/pages';
+import { ClipsNavEvents, NavHandler } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -26,8 +26,6 @@ import './index.scss';
 
 export type NavEventsT = typeof ClipsNavEvents;
 export type NavEventHandlerT = NavHandler & NavEventsT;
-
-const useNavEvents = () => useNavHandler<NavEventsT>();
 
 export type PropsT = {
   className?: any;
@@ -42,8 +40,6 @@ export const DefaultProps = {
 
 export const ClipFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const nav = useNavEvents();
-
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,
       className: 'font-normal',
@@ -82,11 +78,10 @@ export const ClipFormView = observer(
           handleValidate={form.getHandleValidate(props)}
           handleSubmit={form.getHandleSubmit(
             props,
-            nav,
             initialValues,
             initialErrors
           )}
-          handleCancel={form.getHandleCancel(props, nav)}
+          handleCancel={form.getHandleCancel(props)}
         >
           {
             // 🔳 UrlField 🔳

@@ -2,42 +2,42 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import {
+  navGoToHome,
+  navGoToSignIn,
+  navGoToSignUp,
+  navUserProfileLoaded,
+  navUserSignedIn,
+} from '/src/frames/FramesNavEvents';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
-import { FramesNavEvents, NavHandler, useNavHandler } from '/src/frames/pages';
+import { FramesNavEvents } from '/src/frames/pages';
 import { useInstallNavLayer } from '/src/navHandler';
-import { NavLayer } from '/src/navHandler/NavHandler';
+import { navHandler } from '/src/navHandler/NavHandler';
 
 export type FramesNavEventLayerT = typeof FramesNavEvents;
 
-export class FramesNavEventLayer
-  extends NavLayer
-  implements FramesNavEventLayerT
-{
-  goToHome(this: NavHandler) {
-    const ufn = this.routeUfns.home(this.history.push);
-    ufn();
-  }
-
-  goToSignUp(this: NavHandler) {
-    const ufn = this.routeUfns.signUp(this.history.push);
-    ufn();
-  }
-
-  goToSignIn(this: NavHandler) {
-    const ufn = this.routeUfns.signIn(this.history.push);
-    ufn();
-  }
-
-  userSignedIn(this: NavHandler & FramesNavEventLayer) {
-    this.goToHome();
-  }
-
-  userProfileLoaded(this: NavHandler, username: string) {
-    this.hiddenParams.username = username;
-  }
-}
-
-const useNavEvents = () => useNavHandler<NavHandler & FramesNavEventLayerT>();
+export const createFramesNavEventLayer = () => {
+  return {
+    goToHome: (() => {
+      const ufn = navHandler.routeUfns.home(navHandler.history.push);
+      ufn();
+    }) as typeof navGoToHome,
+    goToSignUp: (() => {
+      const ufn = navHandler.routeUfns.signUp(navHandler.history.push);
+      ufn();
+    }) as typeof navGoToSignUp,
+    goToSignIn: (() => {
+      const ufn = navHandler.routeUfns.signIn(navHandler.history.push);
+      ufn();
+    }) as typeof navGoToSignIn,
+    userSignedIn: (() => {
+      navGoToHome();
+    }) as typeof navUserSignedIn,
+    userProfileLoaded: ((username: string) => {
+      navHandler.hiddenParams.username = username;
+    }) as typeof navUserProfileLoaded,
+  };
+};
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -48,22 +48,21 @@ const DefaultProps = {
 export const UseFramesPage = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const routeMatch = useRouteMatch();
-    const nav = useNavEvents();
 
     useInstallNavLayer(
       'FramesNavEventLayer',
       routeMatch.path,
-      (name: string, route: string) => new FramesNavEventLayer(name, route)
+      createFramesNavEventLayer()
     );
 
     useUpdateStateReaction({
       getInputs: () => ({
         userProfile: props.userProfile,
-        framesNavEventLayer: nav.getNavLayer('FramesNavEventLayer'),
+        framesNavEventLayer: navHandler.getNavLayer('FramesNavEventLayer'),
       }),
       updateState: (inputs) => {
         if (inputs.framesNavEventLayer) {
-          nav.userProfileLoaded(inputs.userProfile?.username);
+          navUserProfileLoaded(inputs.userProfile?.username);
         }
       },
     });

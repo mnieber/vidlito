@@ -1,13 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
+import { navGoToHome } from '/src/frames/FramesNavEvents';
 import { L } from '/src/frames/layout';
-import { FramesNavEvents, useNavHandler } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './Logo.scss';
-
-const useNavEvents = () => useNavHandler<typeof FramesNavEvents>();
 
 export type PropsT = {
   className?: any;
@@ -17,8 +15,6 @@ const DefaultProps = {};
 
 export const Logo = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const nav = useNavEvents();
-
     return (
       <div
         className={cn(
@@ -31,7 +27,7 @@ export const Logo = observer(
           'self-center',
           props.className
         )}
-        onClick={() => nav.goToHome()}
+        onClick={() => navGoToHome()}
       >
         <div
           className={cn(

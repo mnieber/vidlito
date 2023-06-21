@@ -4,11 +4,8 @@ import * as R from 'ramda';
 import React from 'react';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { useNavHandler } from '/src/frames/pages';
-import { PlaylistsNavEvents } from '/src/playlists/PlaylistsNavEvents';
+import { navCorrectPlaylistSlugUrlParam } from '/src/playlists/PlaylistsNavEvents';
 import { useSearchAndUrlParams } from '/src/utils/hooks';
-
-const useNavEvents = () => useNavHandler<typeof PlaylistsNavEvents>();
 
 type PropsT = {};
 
@@ -24,7 +21,6 @@ const DefaultProps = {
 
 export const SyncPlaylistWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const nav = useNavEvents();
     const params = useSearchAndUrlParams();
     const refSyncFromUrl = React.useRef(true);
 
@@ -58,7 +54,7 @@ export const SyncPlaylistWithUrlEffect = observer(
         else {
           const playlist = props.playlistsHighlight.item;
           if (playlist && playlist.slug !== params.playlistSlug) {
-            nav.correctPlaylistSlugUrlParam(playlist.slug);
+            navCorrectPlaylistSlugUrlParam(playlist.slug);
           }
         }
 

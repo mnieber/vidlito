@@ -8,15 +8,13 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { navCorrectClipSlugUrlParam } from '/src/clips/ClipsNavEvents';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
-import { ClipsNavEvents, useNavHandler } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './ClipMenu.scss';
-
-const useNavEvents = () => useNavHandler<typeof ClipsNavEvents>();
 
 export type PropsT = {
   className?: any;
@@ -35,16 +33,14 @@ const DefaultProps = {
 
 export const ClipMenu = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const nav = useNavEvents();
-
     const updateUrl = React.useMemo(
       () => () => {
         const clip = props.clipsHighlight.item;
         if (!R.isNil(clip)) {
-          nav.correctClipSlugUrlParam(clip.slug);
+          navCorrectClipSlugUrlParam(clip.slug);
         }
       },
-      [props.clipsHighlight, nav]
+      [props.clipsHighlight]
     );
 
     if (!props.playlists || !props.playlist) return null;
