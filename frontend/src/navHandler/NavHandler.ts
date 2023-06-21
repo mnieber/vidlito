@@ -20,21 +20,14 @@ export type PropsT = {
   routeUfns: ObjT;
 };
 
-// This class handles url events. A url event is any UI event that may require
-// changing the url. For example, when a user selects an item in a list of employees,
-// then the EmployeeListComponent may fire the userSelectedAnEmployee event, and the effect
-// may be that the url changes to reflect the selected employee.
-//
-// When userSelectedAnEmployee is called then the NavHandler executes the following steps:
+// This class returns the NavLayer for a particular prop name:
 //
 // 1. it selects the NavLayers that match the current route, and sorts them by the number
 //    of matching url parameters.
-// 2. it finds the NavLayer that contains the userSelectedAnEmployee event handler.
-// 3. it executes the userSelectedAnEmployee event handler.
+// 2. it finds the NavLayer that contains the event handler with the given prop name.
 //
-// The above means that:
-// - the handling of url events is context dependent.
-// - the component that fires the event does not need to know anything about the url.
+// The above means that the handling of url events depends on the current url
+// The component that looks up the navigation function doesn't need to know anything about the url.
 
 export class NavHandler {
   history: any;
