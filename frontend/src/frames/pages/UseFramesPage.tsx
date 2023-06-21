@@ -10,11 +10,8 @@ import {
   navUserSignedIn,
 } from '/src/frames/FramesNavEvents';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
-import { FramesNavEvents } from '/src/frames/pages';
 import { useInstallNavLayer } from '/src/navHandler';
 import { navHandler } from '/src/navHandler/NavHandler';
-
-export type FramesNavEventLayerT = typeof FramesNavEvents;
 
 export const createFramesNavEventLayer = () => {
   return {

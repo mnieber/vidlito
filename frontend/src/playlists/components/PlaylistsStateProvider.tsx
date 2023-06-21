@@ -9,6 +9,7 @@ import { useQueryData } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
+import { navHandler } from '/src/navHandler/NavHandler';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from '/src/playlists/utils';
 import { graftResourceStates } from '/src/resourceStates';
@@ -24,8 +25,9 @@ const DefaultProps = {
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { playlistsState } = usePlaylistsState({});
-
-    const getPlaylistSlug = () => playlistsState.settings.playlistSlug;
+    const getPlaylistSlug = () => {
+      return navHandler.hiddenParams.playlistSlug;
+    };
 
     const getPlaylist = useQueryData(
       useGetPlaylist({

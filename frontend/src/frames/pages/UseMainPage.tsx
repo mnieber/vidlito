@@ -1,17 +1,8 @@
 import { useRouteMatch } from 'react-router-dom';
 import { navGoToActions } from '/src/actions/ActionsNavEvents';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import {
-  ActionsNavEvents,
-  ClipsNavEvents,
-  PlaylistsNavEvents,
-} from '/src/frames/pages';
 import { useInstallNavLayer } from '/src/navHandler';
 import { navHandler } from '/src/navHandler/NavHandler';
-
-export type MainNavEventLayerT = typeof ActionsNavEvents &
-  typeof ClipsNavEvents &
-  typeof PlaylistsNavEvents & {};
 
 export const createMainNavEventLayer = () => {
   return {
@@ -23,7 +14,7 @@ export const createMainNavEventLayer = () => {
         ownerUsername: navHandler.hiddenParams.username,
       });
     }) as typeof navGoToActions,
-    correctClipSlugUrlParam: (clipSlug: string) => {
+    setClipSlugUrlParam: (clipSlug: string) => {
       navHandler.hiddenParams.clipSlug = clipSlug;
       const ufn = navHandler.routeUfns.clip(navHandler.history.push);
       ufn({ ...navHandler.getParams(), clipSlug });

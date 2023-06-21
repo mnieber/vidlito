@@ -1,12 +1,5 @@
 import { getNavFn } from '/src/navHandler/NavHandler';
 
-export const PlaylistsNavEvents = {
-  correctPlaylistSlugUrlParam(playlistSlug: string) {},
-  userCancelledPlaylistForm() {},
-  userHighlightsPlaylist(playlistSlug: string) {},
-  userSubmittedPlaylistForm(playlistSlug: string) {},
-};
-
 export const navCorrectPlaylistSlugUrlParam = (playlistSlug: string): void =>
   getNavFn(
     'correctPlaylistSlugUrlParam',

@@ -1,14 +1,8 @@
 import { useRouteMatch } from 'react-router-dom';
-import { navCorrectClipSlugUrlParam } from '/src/clips/ClipsNavEvents';
 import { useInstallNavLayer } from '/src/navHandler';
-import { navHandler } from '/src/navHandler/NavHandler';
 
 export const createActionsNavEventLayer = () => {
-  return {
-    correctClipSlugUrlParam: ((clipSlug: string) => {
-      navHandler.hiddenParams.clipSlug = clipSlug;
-    }) as typeof navCorrectClipSlugUrlParam,
-  };
+  return {};
 };
 
 export type PropsT = React.PropsWithChildren<{}>;

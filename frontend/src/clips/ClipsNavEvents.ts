@@ -1,14 +1,7 @@
 import { getNavFn } from '/src/navHandler/NavHandler';
 
-export const ClipsNavEvents = {
-  correctClipSlugUrlParam(clipSlug: string) {},
-  userCancelledClipForm() {},
-  userHighlightsClip(clipSlug: string) {},
-  userSubmittedClipForm(clipSlug: string) {},
-};
-
-export const navCorrectClipSlugUrlParam = (clipSlug: string): void =>
-  getNavFn('correctClipSlugUrlParam', navCorrectClipSlugUrlParam)(clipSlug);
+export const navSetClipSlugUrlParam = (clipSlug: string): void =>
+  getNavFn('setClipSlugUrlParam', navSetClipSlugUrlParam)(clipSlug);
 
 export const navUserCancelledClipForm = (): void =>
   getNavFn('userCancelledClipForm', navUserCancelledClipForm)();

@@ -1,13 +1,5 @@
 import { getNavFn } from '/src/navHandler/NavHandler';
 
-export const FramesNavEvents = {
-  goToHome() {},
-  goToSignUp() {},
-  goToSignIn() {},
-  userSignedIn() {},
-  userProfileLoaded(username: string) {},
-};
-
 export const navGoToHome = (): void => getNavFn('goToHome', navGoToHome)();
 
 export const navGoToSignUp = (): void =>

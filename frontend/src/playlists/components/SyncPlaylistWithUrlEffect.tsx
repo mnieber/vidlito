@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import React from 'react';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { navHandler } from '/src/navHandler/NavHandler';
 import { navCorrectPlaylistSlugUrlParam } from '/src/playlists/PlaylistsNavEvents';
 import { useSearchAndUrlParams } from '/src/utils/hooks';
 
@@ -28,6 +29,8 @@ export const SyncPlaylistWithUrlEffect = observer(
       return autorun(() => {
         // If the effect is mounting then sync from the url to the state.
         if (refSyncFromUrl.current) {
+          navHandler.hiddenParams.playlistSlug = params.playlistSlug;
+
           if (
             params.playlistSlug === 'new-playlist' &&
             !props.playlistsAddition.item &&
@@ -57,12 +60,6 @@ export const SyncPlaylistWithUrlEffect = observer(
             navCorrectPlaylistSlugUrlParam(playlist.slug);
           }
         }
-
-        // HACK: can we remove this?
-        props.playlistsState.settings.setPlaylistOwnerAndSlug(
-          params.ownerUsername,
-          params.playlistSlug
-        );
       });
     }, [
       params,

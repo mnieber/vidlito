@@ -1,13 +1,10 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, makeObservable } from 'mobx';
 
 export class Settings {
-  @observable playlistSlug?: string;
-  @observable ownerUserName?: string;
-
-  @action setPlaylistOwnerAndSlug(ownerUserName: string, playlistSlug: string) {
-    this.ownerUserName = ownerUserName;
-    this.playlistSlug = playlistSlug;
-  }
+  @action setPlaylistOwnerAndSlug(
+    ownerUserName: string,
+    playlistSlug: string
+  ) {}
   constructor() {
     makeObservable(this);
   }

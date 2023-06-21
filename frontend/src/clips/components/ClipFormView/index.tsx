@@ -18,14 +18,10 @@ import {
 } from '/src/forms/components';
 import { TimeField } from '/src/forms/components/TimeField';
 import { L } from '/src/frames/layout';
-import { ClipsNavEvents, NavHandler } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './index.scss';
-
-export type NavEventsT = typeof ClipsNavEvents;
-export type NavEventHandlerT = NavHandler & NavEventsT;
 
 export type PropsT = {
   className?: any;

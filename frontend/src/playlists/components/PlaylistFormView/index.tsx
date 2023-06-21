@@ -15,14 +15,10 @@ import {
 } from '/src/forms/components';
 import { NameField } from '/src/forms/components/NameField';
 import { L } from '/src/frames/layout';
-import { NavHandler, PlaylistsNavEvents } from '/src/frames/pages';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './index.scss';
-
-export type NavEventsT = typeof PlaylistsNavEvents;
-export type NavEventHandlerT = NavHandler & NavEventsT;
 
 export type PropsT = {
   className?: any;
