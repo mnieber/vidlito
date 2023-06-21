@@ -36,7 +36,7 @@ export const SyncPlaylistWithUrlEffect = observer(
             props.userProfile
           ) {
             refSyncFromUrl.current = false;
-            props.dashboardState.setIsPlaylistListExpanded(true);
+            props.dashboardState.toggleIsPlaylistListExpanded(true);
             props.playlistsAddition.add({
               values: createPlaylist(props.userProfile, {}),
             });

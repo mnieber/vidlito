@@ -8,11 +8,11 @@ import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 
 export const createMainNavEventLayer = () => {
   return {
-    navToActions: (() => {
+    navToActions: ((username: string) => {
       const ufn = navHandler.routeUfns.actions(navHandler.history.push);
       ufn({
         ...navHandler.getParams(true),
-        ownerUsername: navHandler.hiddenParams.username,
+        ownerUsername: username,
       });
     }) as typeof navToActions,
     navToClip: ((clipSlug: string) => {

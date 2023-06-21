@@ -15,6 +15,7 @@ import {
   handleSelectItem,
   topOfTheList,
 } from 'skandha-facets';
+import * as FacetPolicies from 'skandha-facets/policies';
 import { correctHighlight } from 'skandha-facets/policies';
 import { ClipT } from '/src/api/types/ClipT';
 import { ClipsState, PropsT } from '/src/clips/ClipsState';
@@ -44,6 +45,11 @@ export const initClips = (state: ClipsState, props: PropsT) => {
             ctr.selection.selectableIds[0] ??
             ctr.store.items?.[0]?.id,
         });
+      },
+    },
+    confirm: {
+      confirmAdd() {
+        FacetPolicies.newItemsAreInsertedWhenConfirmed(ctr.addition);
       },
     },
   } as AdditionCbs<ClipT>);

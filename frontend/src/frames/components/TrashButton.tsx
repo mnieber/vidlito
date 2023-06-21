@@ -11,6 +11,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.playlist,
+  ...dps.userProfile,
 };
 
 export const TrashButton = observer(
@@ -26,7 +27,7 @@ export const TrashButton = observer(
           l.root(),
           props.className
         )}
-        onClick={() => navToActions()}
+        onClick={() => navToActions(props.userProfile.username)}
       >
         <Icon className={cn(l.icon.normal())} name="trash" />
         Trash

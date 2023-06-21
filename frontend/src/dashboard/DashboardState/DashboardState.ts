@@ -44,10 +44,6 @@ export class DashboardState {
     this.video.videoPlayerParentElm = videoPlayerParentElm;
   }
 
-  @action setIsPlaylistListExpanded(flag: boolean) {
-    this.isPlaylistListExpanded = flag;
-  }
-
   getSummary() {
     return {};
   }

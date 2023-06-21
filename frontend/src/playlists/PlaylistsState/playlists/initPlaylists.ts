@@ -13,6 +13,7 @@ import {
   handleSelectItem,
   topOfTheList,
 } from 'skandha-facets';
+import * as FacetPolicies from 'skandha-facets/policies';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { PlaylistsState, PropsT } from '/src/playlists/PlaylistsState';
 
@@ -37,6 +38,11 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
         if (parentId) {
           ctr.selection.selectItem({ itemId: parentId });
         }
+      },
+    },
+    confirm: {
+      confirmAdd() {
+        FacetPolicies.newItemsAreInsertedWhenConfirmed(ctr.addition);
       },
     },
   } as AdditionCbs<PlaylistT>);

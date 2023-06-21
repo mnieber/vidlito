@@ -42,7 +42,7 @@ export const PlaylistListView = observer(
     const goToPlaylist = (playlist: PlaylistT) => {
       props.playlistsHighlight.highlightItem({ id: playlist.id });
       props.playlistsSelection.selectItem({ itemId: playlist.id });
-      props.dashboardState.setIsPlaylistListExpanded(false);
+      props.dashboardState.toggleIsPlaylistListExpanded(false);
       props.clipsSelection.selectItem({
         itemId: props.clipsSelection.selectableIds[0],
       });

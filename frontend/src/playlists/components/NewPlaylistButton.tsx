@@ -17,6 +17,7 @@ const DefaultProps = {
   ...dps.username,
   ...dps.playlistsAddition,
   ...dps.userProfile,
+  ...dps.dashboardState,
 };
 
 export const NewPlaylistButton = observer(
@@ -33,6 +34,7 @@ export const NewPlaylistButton = observer(
           props.className
         )}
         onClick={() => {
+          props.dashboardState.toggleIsPlaylistListExpanded(true);
           props.playlistsAddition
             .add({ values: createPlaylist(props.userProfile, {}) })
             .then((localPlaylist: PlaylistT) => {

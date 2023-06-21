@@ -8,6 +8,3 @@ export const navToSignIn = (): void => getNavFn('navToSignIn', navToSignIn)();
 
 export const navToNextPageAfterSignIn = (): void =>
   getNavFn('navToNextPageAfterSignIn', navToNextPageAfterSignIn)();
-
-export const navUserProfileLoaded = (userName: string): void =>
-  getNavFn('userProfileLoaded', navUserProfileLoaded)(userName);

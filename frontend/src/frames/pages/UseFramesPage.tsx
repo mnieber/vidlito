@@ -7,9 +7,7 @@ import {
   navToNextPageAfterSignIn,
   navToSignIn,
   navToSignUp,
-  navUserProfileLoaded,
 } from '/src/frames/FramesNavEvents';
-import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
 import { useInstallNavLayer } from '/src/navHandler';
 import { navHandler } from '/src/navHandler/NavHandler';
 
@@ -30,9 +28,6 @@ export const createFramesNavEventLayer = () => {
     navToNextPageAfterSignIn: (() => {
       navToHome();
     }) as typeof navToNextPageAfterSignIn,
-    userProfileLoaded: ((username: string) => {
-      navHandler.hiddenParams.username = username;
-    }) as typeof navUserProfileLoaded,
   };
 };
 
@@ -51,18 +46,6 @@ export const UseFramesPage = observer(
       routeMatch.path,
       createFramesNavEventLayer()
     );
-
-    useUpdateStateReaction({
-      getInputs: () => ({
-        userProfile: props.userProfile,
-        framesNavEventLayer: navHandler.getNavLayer('FramesNavEventLayer'),
-      }),
-      updateState: (inputs) => {
-        if (inputs.framesNavEventLayer) {
-          navUserProfileLoaded(inputs.userProfile?.username);
-        }
-      },
-    });
 
     return <>{props.children}</>;
   }, DefaultProps)
