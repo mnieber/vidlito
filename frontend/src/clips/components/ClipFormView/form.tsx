@@ -73,6 +73,7 @@ const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
     props.clipsEdit.cancel();
+    navToClip(props.clip.slug);
   };
 
 const _toSeconds = (ms: number | undefined) => {

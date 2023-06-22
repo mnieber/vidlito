@@ -35,9 +35,11 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
     cancel: {
       unstageAdd(parentId: string | undefined) {
         ctr.edit.cancel();
-        if (parentId) {
-          ctr.selection.selectItem({ itemId: parentId });
-        }
+        const itemId = (parentId === topOfTheList ? undefined : parentId) ??
+          ctr.selection.selectableIds[0] ??
+          ctr.store.items?.[0]?.id;
+        ctr.selection.selectItem({itemId: itemId});
+        ctr.highlight.highlightItem({id: itemId});
       },
     },
     confirm: {
