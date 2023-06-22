@@ -2,6 +2,8 @@ import graphene
 from graphene.types.generic import GenericScalar
 
 from api.types import *
+from app.utils.ids import sort_items
+from user_profiles.models import UserProfile
 
 
 class SavePlaylistOrdering(graphene.Mutation):
@@ -12,7 +14,8 @@ class SavePlaylistOrdering(graphene.Mutation):
         playlist_ids = graphene.List(graphene.UUID, required=True)
 
     def mutate(self, info, playlist_ids):
-        # Moonleap Todo: implement mutation
+        user_profile = UserProfile.get(info)
+        sort_items(user_profile.follow_set.all(), playlist_ids, lambda x: x.playlist_id)
 
         return SavePlaylistOrdering(
             success=True,

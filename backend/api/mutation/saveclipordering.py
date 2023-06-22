@@ -3,7 +3,7 @@ from graphene.types.generic import GenericScalar
 
 from api.types import *
 from app.utils.ids import sort_items
-from playlists.models import Entry, Playlist
+from playlists.models import Playlist
 
 
 class SaveClipOrdering(graphene.Mutation):

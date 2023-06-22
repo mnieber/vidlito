@@ -22,7 +22,7 @@ class Playlist(Entity):
     description = MartorField(null=True, blank=True)
     name = models.CharField(max_length=90)
     owner = models.ForeignKey(
-        UserProfile, on_delete=models.CASCADE, related_name="playlist_set"
+        UserProfile, on_delete=models.CASCADE, related_name="owned_playlist_set"
     )
     slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
     sort_pos = models.IntegerField(default=0)
@@ -64,3 +64,17 @@ class Entry(Entity):
 
     def __str__(self):
         return f"{self.playlist.name} / {self.clip.name}"
+
+
+class Follow(Entity):
+    class Meta:
+        ordering = ["sort_pos"]
+
+    user_profile = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name="follow_set"
+    )
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="+")
+    sort_pos = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.user_profile.username} / {self.playlist.name}"

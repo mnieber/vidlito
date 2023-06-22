@@ -41,7 +41,7 @@ export const PlaylistsStateProvider = observer(
     useUpdateStateReaction({
       getInputs: () => {
         return {
-          playlists: props.userProfile?.playlistSet,
+          playlists: props.userProfile?.followSet,
           fullPlaylist: getPlaylist.data?.playlist,
         };
       },

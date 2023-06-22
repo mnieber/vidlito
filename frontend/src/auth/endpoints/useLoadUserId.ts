@@ -17,7 +17,7 @@ export function loadUserId(args: ArgsT): Promise<any> {
         getUserProfile {
           userProfile {
             username
-            playlistSet {
+            followSet {
               id
               name
               slug
@@ -31,7 +31,7 @@ export function loadUserId(args: ArgsT): Promise<any> {
     {}
   )
     .then((response: ObjT) => {
-      response.getUserProfile.userProfile?.playlistSet.forEach(
+      response.getUserProfile.userProfile?.followSet.forEach(
         (playlist: ObjT) => {
           playlist.clipSet = [];
         }

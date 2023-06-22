@@ -17,3 +17,8 @@ class PlaylistAdmin(SortableAdminBase, admin.ModelAdmin):
 @admin.register(models.Entry)
 class EntryAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(models.Follow)
+class FollowAdmin(admin.ModelAdmin):
+    pass

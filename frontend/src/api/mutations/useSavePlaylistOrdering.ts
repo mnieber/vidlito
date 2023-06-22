@@ -36,11 +36,11 @@ export const useSavePlaylistOrdering = () => {
     mutationFn: savePlaylistOrdering,
     onMutate: (args: ArgsT) => {
       const updateUserProfile = (userProfile: UserProfileT) => {
-        return R.isNil(userProfile.playlistSet)
+        return R.isNil(userProfile.followSet)
           ? userProfile
           : {
               ...userProfile,
-              playlistSet: sortByIds(userProfile.playlistSet, args.playlistIds),
+              followSet: sortByIds(userProfile.followSet, args.playlistIds),
             };
       };
       queryClient.setQueriesData({ queryKey: ['loadUserId'] }, (data: any) => {
