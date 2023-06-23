@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { withDefaultProps } from '/src/app/defaultProps';
 import { ClipListView } from '/src/clips/components';
-import { ClipKeyHandler } from '/src/clips/components/ClipKeyHandler';
+import { ClipVideoKeyHandler } from '/src/clips/components/ClipVideoKeyHandler';
 import { MainButtonsPanel } from '/src/dashboard/components/MainButtonsPanel';
 import { Logo } from '/src/frames/components';
 import { L } from '/src/frames/layout';
@@ -24,51 +24,53 @@ export const Dashboard = observer(
       //
       // 🔳 DashBoard 🔳
       //
-      <div
-        className={cn(
-          'Dashboard',
-          'grow',
-          //
-          //
-          L.row.banner(),
-          props.className
-        )}
-      >
-        <div className={cn('lg:w-[160px]')} />
-        {
-          // 🔳 LeftSideBar 🔳
-        }
+      <ClipVideoKeyHandler>
         <div
           className={cn(
-            'Dashboard__LeftSidebar__',
+            'Dashboard',
+            'grow',
             //
             //
-            L.col.banner(),
-            'w-[290px] mx-2 lg:mx-4'
+            L.row.banner(),
+            props.className
           )}
         >
-          <Logo />
-          <MainButtonsPanel className={cn('')} />
-          <PlaylistListPicker />
-          <ClipListView className={cn('overflow-y-auto', 'mt-4')} />
+          <div className={cn('lg:w-[160px]')} />
+          {
+            // 🔳 LeftSideBar 🔳
+          }
+          <div
+            className={cn(
+              'Dashboard__LeftSidebar__',
+              //
+              //
+              L.col.banner(),
+              'w-[290px] mx-2 lg:mx-4'
+            )}
+          >
+            <Logo />
+            <MainButtonsPanel className={cn('')} />
+            <PlaylistListPicker />
+            <ClipListView className={cn('overflow-y-auto', 'mt-4')} />
+          </div>
+          {
+            // 🔳 RightMain 🔳
+          }
+          <div
+            className={cn(
+              'Dashboard__RightMain',
+              'overflow-y-auto',
+              'bg-gray-200',
+              //
+              //
+              'pb-6',
+              'grow'
+            )}
+          >
+            {props.children}
+          </div>
         </div>
-        {
-          // 🔳 RightMain 🔳
-        }
-        <div
-          className={cn(
-            'Dashboard__RightMain',
-            'overflow-y-auto',
-            'bg-gray-200',
-            //
-            //
-            'pb-6',
-            'grow'
-          )}
-        >
-          <ClipKeyHandler>{props.children}</ClipKeyHandler>
-        </div>
-      </div>
+      </ClipVideoKeyHandler>
     );
   }, DefaultProps)
 );

@@ -5,30 +5,16 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { createSelectionKeyHandlers } from 'skandha-facets';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { createKeyDownHandler } from '/src/utils';
-import { createVideoKeyHandlers } from '/src/videos/createVideoKeyHandlers';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
-  ...dps.clip,
-  ...dps.videoPlayerState,
-  ...dps.clipsHighlight,
   ...dps.clipsSelection,
 };
 
-export const ClipKeyHandler = observer(
+export const ClipListKeyHandler = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const keyHandlers = {
-      'ctrl+shift+space': () => {
-        props.videoPlayerState.setIsFullVideoWidth(
-          !props.videoPlayerState.isFullVideoWidth
-        );
-      },
-      ...createVideoKeyHandlers(
-        props.videoPlayerState.videoController,
-        props.clip?.startTimeMs ? props.clip.startTimeMs / 1000 : undefined,
-        props.clip?.endTimeMs ? props.clip.endTimeMs / 1000 : undefined
-      ),
       ...createSelectionKeyHandlers(props.clipsSelection),
     };
 

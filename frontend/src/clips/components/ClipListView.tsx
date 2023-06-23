@@ -7,6 +7,7 @@ import {
 import { isLoading } from '/src/api/getState';
 import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { ClipListKeyHandler } from '/src/clips/components/ClipListKeyHandler';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -64,10 +65,12 @@ export const ClipListView = observer(
     });
 
     return (
-      <div className={cn('ClipListView', props.className)}>
-        {clipDivs.length > 0 && clipDivs}
-        {clipDivs.length === 0 && noItems}
-      </div>
+      <ClipListKeyHandler>
+        <div className={cn('ClipListView', props.className)} tabIndex={0}>
+          {clipDivs.length > 0 && clipDivs}
+          {clipDivs.length === 0 && noItems}
+        </div>
+      </ClipListKeyHandler>
     );
   }, DefaultProps)
 );

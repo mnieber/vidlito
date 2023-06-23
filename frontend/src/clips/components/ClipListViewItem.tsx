@@ -7,7 +7,6 @@ import {
 } from 'skandha-facets';
 import { isUpdating } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { ClipKeyHandler } from '/src/clips/components/ClipKeyHandler';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { PlayVideoIcon } from '/src/videos/components';
@@ -41,53 +40,47 @@ export const ClipListViewItem = observer(
 
     return (
       //
-      // 🔳 ClipKeyHandler 🔳
+      // 🔳 ClipListViewItem 🔳
       //
-      <ClipKeyHandler>
+      <div
+        className={cn(
+          'ClipListViewItem',
+          'font-bold',
+          {
+            'ClipListViewItem--selected': showAsSelected,
+            'text-gray-700': !(showAsSelected || props.isHighlighted),
+            'ClipListViewItem--highlighted': props.isHighlighted,
+          },
+          `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
+          { 'animate-delete': isUpdating(props.clip) },
+          //
+          //
+          l.root(),
+          props.className
+        )}
+        {...selectionUIHandlers(props.selectionUIProps)}
+        {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
+        onContextMenu={props.onContextMenu}
+      >
         {
-          // 🔳 ClipListViewItem 🔳
+          // 🔳 PlayVideoIcon 🔳
         }
-        <div
-          tabIndex={0}
-          className={cn(
-            'ClipListViewItem',
-            'font-bold',
-            {
-              'ClipListViewItem--selected': showAsSelected,
-              'text-gray-700': !(showAsSelected || props.isHighlighted),
-              'ClipListViewItem--highlighted': props.isHighlighted,
-            },
-            `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
-            { 'animate-delete': isUpdating(props.clip) },
-            //
-            //
-            l.root(),
-            props.className
-          )}
-          {...selectionUIHandlers(props.selectionUIProps)}
-          {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
-          onContextMenu={props.onContextMenu}
-        >
-          {
-            // 🔳 PlayVideoIcon 🔳
+        <PlayVideoIcon
+          className={cn(l.icon())}
+          videoController={props.videoPlayerState.videoController}
+          visible={
+            props.videoPlayerState.videoController.ready &&
+            props.isHighlighted
           }
-          <PlayVideoIcon
-            className={cn(l.icon())}
-            videoController={props.videoPlayerState.videoController}
-            visible={
-              props.videoPlayerState.videoController.ready &&
-              props.isHighlighted
-            }
-            loading={loading}
-          />
-          {
-            // 🔳 Title 🔳
-          }
-          <div className={cn('ClipListViewItem__Title', l.title())}>
-            {props.clip.name}
-          </div>
+          loading={loading}
+        />
+        {
+          // 🔳 Title 🔳
+        }
+        <div className={cn('ClipListViewItem__Title', l.title())}>
+          {props.clip.name}
         </div>
-      </ClipKeyHandler>
+      </div>
     );
   }, DefaultProps)
 );

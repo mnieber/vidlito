@@ -1,7 +1,7 @@
 export { ClipDescription } from './ClipDescription';
 export { ClipFormView } from './ClipFormView';
 export { ClipHeaderView } from './ClipHeaderView';
-export { ClipKeyHandler } from './ClipKeyHandler';
+export { ClipListKeyHandler } from './ClipListKeyHandler';
 export { ClipListView } from './ClipListView';
 export { ClipListViewItem } from './ClipListViewItem';
 export { ClipMenu } from './ClipMenu';
@@ -11,3 +11,4 @@ export { GoToTimeButton } from './GoToTimeButton';
 export { NewClipButton } from './NewClipButton';
 export { SyncClipWithUrlEffect } from './SyncClipWithUrlEffect';
 export { UpdateTimeButton } from './UpdateTimeButton';
+
