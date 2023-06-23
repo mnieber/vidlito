@@ -75,7 +75,7 @@ export const PlaylistsStateProvider = observer(
               resourceName: 'playlist',
             },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
-            ['loading', () => isQueryLoading(getPlaylist), 'getPlaylist'],
+            ['loading', () => getPlaylistSlug() !== 'new-playlist' && isQueryLoading(getPlaylist), 'getPlaylist'],
             ['updating', () => isQueryUpdating(getPlaylist), 'getPlaylist']
           );
         },
