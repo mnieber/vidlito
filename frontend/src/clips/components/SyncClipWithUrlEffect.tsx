@@ -21,19 +21,19 @@ const DefaultProps = {
 
 export const SyncClipWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const loc = useLocation();
+    const location = useLocation();
     const params = useParams() as ObjT;
     const refUrl = React.useRef<string>("");
 
     React.useEffect(() => {
       // If there is a new url
-      if (refUrl.current !== loc.pathname) {
+      if (refUrl.current !== location.pathname) {
         if (
           params.clipSlug === 'new-clip' &&
           !props.clipsAddition.item &&
           props.userProfile
         ) {
-          refUrl.current = loc.pathname;
+          refUrl.current = location.pathname;
           props.clipsAddition.add({
             values: createClip(props.userProfile, {}),
           });
@@ -42,7 +42,7 @@ export const SyncClipWithUrlEffect = observer(
             R.find((x: ClipT) => x.slug === params.clipSlug)(props.clips) ??
             R.head(props.clips);
           if (clip) {
-            refUrl.current = loc.pathname;
+            refUrl.current = location.pathname;
             if (props.clip?.id !== clip.id) {
               props.clipsSelection.selectItem({ itemId: clip?.id });
             }

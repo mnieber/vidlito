@@ -9,7 +9,6 @@ import { useQueryData } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
-import { navHandler } from '/src/navHandler/NavHandler';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from '/src/playlists/utils';
 import { graftResourceStates } from '/src/resourceStates';
@@ -26,7 +25,7 @@ export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { playlistsState } = usePlaylistsState({});
     const getPlaylistSlug = () => {
-      return navHandler.hiddenParams.playlistSlug;
+      return playlistsState.playlistsCtr.highlight.item?.slug;
     };
 
     const getPlaylist = useQueryData(
@@ -42,14 +41,18 @@ export const PlaylistsStateProvider = observer(
       getInputs: () => {
         return {
           playlists: props.userProfile?.followSet,
-          fullPlaylist: getPlaylist.data?.playlist,
+          // Instead of using getPlaylist.data?.playlist, we use getPlaylist.status
+          // as a proxy that tells us when getPlaylist.data?.playlist has changed.
+          // This prevents an infinite loop where getPlaylist.data?.playlist keeps
+          // updating without actually having changed.
+          getPlaylistState: getPlaylist.status,
         };
       },
       updateState: (inputs) => {
         playlistsState.playlistsCtr.store.items = graftResourceStates({
           resources: updatePlaylists(
             inputs.playlists ?? [],
-            inputs.fullPlaylist
+            getPlaylist.data?.playlist
           ),
           prevResources: playlistsState.playlistsCtr.store.items,
         });

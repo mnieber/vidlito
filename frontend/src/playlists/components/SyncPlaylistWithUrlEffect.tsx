@@ -28,10 +28,9 @@ export const SyncPlaylistWithUrlEffect = observer(
     const refUrl = React.useRef<string>("");
 
     React.useEffect(() => {
+
       // If there is a new url
       if (refUrl.current !== location.pathname) {
-        navHandler.hiddenParams.playlistSlug = params.playlistSlug;
-
         if (
           params.playlistSlug === 'new-playlist' &&
           !props.playlistsAddition.item &&
@@ -66,7 +65,6 @@ export const SyncPlaylistWithUrlEffect = observer(
       props.playlists,
       props.playlistsHighlight,
       props.playlistsSelection,
-      props.playlistsState,
     ]);
 
     return null;
