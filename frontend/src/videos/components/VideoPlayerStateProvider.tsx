@@ -26,9 +26,7 @@ export const VideoPlayerStateProvider = observer(
         startTimeMs: props.clip?.startTimeMs ?? 0,
       }),
       updateState: (inputs) => {
-        if (inputs.url) {
-          videoPlayerState.setUrl(inputs.url!, inputs.startTimeMs);
-        }
+        videoPlayerState.setUrl(inputs.url ?? '', inputs.startTimeMs);
         if (flags.logStateProviders) {
           log('VideoPlayerState updated', videoPlayerState.getSummary());
         }
