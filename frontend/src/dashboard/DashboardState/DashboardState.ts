@@ -1,4 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
+import * as R from 'ramda';
 import { cleanUpCtr } from 'react-default-props-context';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { createContextMenu } from '/src/frames/utils/createContextMenu';
@@ -33,14 +34,16 @@ export class DashboardState {
 
   @observable showPlaylistDescription: boolean = false;
   @observable isPlaylistListExpanded: boolean = false;
-  @observable navigationPoint: string = '';
+  @observable navigationPoint?: string;
 
   @action storeNavigationPoint() {
     this.navigationPoint = pathname();
   }
 
   @action restoreNavigationPoint() {
+    if (R.isNil(this.navigationPoint)) return false;
     history.push(this.navigationPoint);
+    return true;
   }
 
   @action toggleShowPlaylistDescription(flag?: boolean) {
