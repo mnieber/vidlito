@@ -8,7 +8,6 @@ import {
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
@@ -62,7 +61,6 @@ const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
     props.playlistsEdit.cancel();
-    navToPlaylist(props.playlist.slug);
   };
 
 export const form = {

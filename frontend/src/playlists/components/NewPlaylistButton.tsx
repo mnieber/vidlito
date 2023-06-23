@@ -3,7 +3,6 @@ import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
-import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -18,6 +17,8 @@ const DefaultProps = {
   ...dps.playlistsAddition,
   ...dps.userProfile,
   ...dps.dashboardState,
+  ...dps.playlistsSelection,
+  ...dps.playlistsHighlight,
 };
 
 export const NewPlaylistButton = observer(
@@ -38,7 +39,8 @@ export const NewPlaylistButton = observer(
           props.playlistsAddition
             .add({ values: createPlaylist(props.userProfile, {}) })
             .then((localPlaylist: PlaylistT) => {
-              navToPlaylist(localPlaylist.slug);
+              props.playlistsSelection.selectItem({ itemId: localPlaylist.id })
+              props.playlistsHighlight.highlightItem({ id: localPlaylist.id })
             });
         }}
       >

@@ -6,7 +6,6 @@ import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navHandler } from '/src/navHandler/NavHandler';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
-import { useSearchAndUrlParams } from '/src/utils/hooks';
 import { pathname } from '/src/utils/urls';
 
 type PropsT = {};
@@ -24,7 +23,7 @@ const DefaultProps = {
 
 export const SyncPlaylistWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const params = useSearchAndUrlParams();
+    const params = navHandler.getParams();
     const refUrl = React.useRef<string>("");
 
     React.useEffect(() => {
