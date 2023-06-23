@@ -6,6 +6,7 @@ import {
 import { isLoading } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { PlaylistListKeyHandler } from '/src/playlists/components/PlaylistListKeyHandler';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
 import { cn } from '/src/utils/classnames';
 
@@ -72,10 +73,12 @@ export const PlaylistListView = observer(
     });
 
     return (
-      <div className={cn('PlaylistListView', props.className)}>
-        {playlistDivs.length > 0 && playlistDivs}
-        {playlistDivs.length === 0 && noItems}
-      </div>
+      <PlaylistListKeyHandler>
+        <div className={cn('PlaylistListView', props.className)} tabIndex={0}>
+          {playlistDivs.length > 0 && playlistDivs}
+          {playlistDivs.length === 0 && noItems}
+        </div>
+      </PlaylistListKeyHandler>
     );
   }, DefaultProps)
 );
