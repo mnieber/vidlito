@@ -6,7 +6,6 @@ import {
 import { isLoading } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { Spinner } from '/src/frames/components';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
 import { cn } from '/src/utils/classnames';
 
@@ -48,7 +47,7 @@ export const PlaylistListView = observer(
     };
 
     if (isLoading(props.playlists)) {
-      return <Spinner />;
+      return null;
     }
 
     if (!props.isExpanded) {

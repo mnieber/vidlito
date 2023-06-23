@@ -8,7 +8,7 @@ import {
 import { isUpdating } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { Icon, Spinner } from '/src/frames/components';
+import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -30,7 +30,7 @@ const DefaultProps = {
 export const PlaylistListViewItem = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     if (isUpdating(props.playlist)) {
-      return <Spinner />;
+      return null;
     }
 
     const l = L.Lvi;
