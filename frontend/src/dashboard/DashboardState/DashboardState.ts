@@ -2,6 +2,8 @@ import { action, makeObservable, observable } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { createContextMenu } from '/src/frames/utils/createContextMenu';
+import { history } from '/src/navHandler/NavHandler';
+import { pathname } from '/src/utils/urls';
 
 type AccountT = {
   userProfile?: UserProfileT;
@@ -31,6 +33,15 @@ export class DashboardState {
 
   @observable showPlaylistDescription: boolean = false;
   @observable isPlaylistListExpanded: boolean = false;
+  @observable navigationPoint: string = '';
+
+  @action storeNavigationPoint() {
+    this.navigationPoint = pathname();
+  }
+
+  @action restoreNavigationPoint() {
+    history.push(this.navigationPoint);
+  }
 
   @action toggleShowPlaylistDescription(flag?: boolean) {
     this.showPlaylistDescription = flag ?? !this.showPlaylistDescription;

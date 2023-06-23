@@ -60,7 +60,11 @@ const getHandleSubmit =
 const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
+    const mustRestore = !!props.playlistsAddition.item;
     props.playlistsEdit.cancel();
+    if (mustRestore) {
+      props.dashboardState.restoreNavigationPoint();
+    }
   };
 
 export const form = {

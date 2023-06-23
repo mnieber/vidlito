@@ -27,6 +27,8 @@ export type PropsT = {
 export const DefaultProps = {
   ...dps.playlist,
   ...dps.playlistsEdit,
+  ...dps.playlistsAddition,
+  ...dps.dashboardState,
 };
 
 export const PlaylistFormView = observer(
