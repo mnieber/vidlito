@@ -34,31 +34,29 @@ export const DashboardSwitch = withDefaultProps(
             </Route>
             {/* 🔳 */}
             <Dashboard>
-              <Route
-                exact={true}
-                path={routes.playlist({
-                  ownerUsername: ':ownerUsername',
-                  playlistSlug: 'new-playlist',
-                })}
-              >
-                {/* 🔳 */}
-                <PlaylistFormView />
-              </Route>
-              <Route exact={true} path={routes.clip()}>
-                <SyncClipWithUrlEffect />
-                {/* 🔳 */}
-                <MainView>
-                  <VideoCard />
-                </MainView>
-              </Route>
-              <Route exact={true} path={routes.actions()}>
-                <UseActionsPage>
+              <MainView>
+                <Route
+                  exact={true}
+                  path={routes.playlist({
+                    ownerUsername: ':ownerUsername',
+                    playlistSlug: 'new-playlist',
+                  })}
+                >
                   {/* 🔳 */}
-                  <MainView>
+                  <PlaylistFormView />
+                </Route>
+                <Route exact={true} path={routes.clip()}>
+                  <SyncClipWithUrlEffect />
+                  {/* 🔳 */}
+                  <VideoCard />
+                </Route>
+                <Route exact={true} path={routes.actions()}>
+                  <UseActionsPage>
+                    {/* 🔳 */}
                     <ActionsView className={cn('ml-2 lg:ml-4 mt-4')} />
-                  </MainView>
-                </UseActionsPage>
-              </Route>
+                  </UseActionsPage>
+                </Route>
+              </MainView>
             </Dashboard>
           </UseMainPage>
         </Route>
