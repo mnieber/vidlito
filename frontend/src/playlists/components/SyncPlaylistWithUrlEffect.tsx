@@ -5,13 +5,16 @@ import React from 'react';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navHandler } from '/src/navHandler/NavHandler';
+import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { useSearchAndUrlParams } from '/src/utils/hooks';
+import { pathname } from '/src/utils/urls';
 
 type PropsT = {};
 
 const DefaultProps = {
   ...dps.dashboardState,
   ...dps.playlists,
+  ...dps.playlist,
   ...dps.playlistsHighlight,
   ...dps.playlistsSelection,
   ...dps.playlistsState,
@@ -22,12 +25,12 @@ const DefaultProps = {
 export const SyncPlaylistWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const params = useSearchAndUrlParams();
-    const refSyncFromUrl = React.useRef(true);
+    const refUrl = React.useRef<string>("");
 
     React.useEffect(() => {
       return autorun(() => {
-        // If the effect is mounting then sync from the url to the state.
-        if (refSyncFromUrl.current) {
+        // If there is a new url
+        if (refUrl.current !== pathname()) {
           navHandler.hiddenParams.playlistSlug = params.playlistSlug;
 
           if (
@@ -35,7 +38,7 @@ export const SyncPlaylistWithUrlEffect = observer(
             !props.playlistsAddition.item &&
             props.userProfile
           ) {
-            refSyncFromUrl.current = false;
+            refUrl.current = pathname();
             props.dashboardState.toggleIsPlaylistListExpanded(true);
             props.playlistsAddition.add({
               values: createPlaylist(props.userProfile, {}),
@@ -46,13 +49,17 @@ export const SyncPlaylistWithUrlEffect = observer(
                 props.playlists
               ) ?? R.head(props.playlists);
             if (playlist) {
-              refSyncFromUrl.current = false;
-              props.playlistsSelection.selectItem({ itemId: playlist?.id });
-              props.playlistsHighlight.highlightItem({ id: playlist?.id });
+              refUrl.current = pathname();
+              if (props.playlist?.id !== playlist.id) {
+                props.playlistsSelection.selectItem({ itemId: playlist?.id });
+                props.playlistsHighlight.highlightItem({ id: playlist?.id });
+              }
             }
           }
         } else {
-          navHandler.updateHiddenParams();
+          if (props.playlist && navHandler.getParams().playlistSlug !== props.playlist.slug) {
+            navToPlaylist(props.playlist.slug);
+          }
         }
       });
     }, [

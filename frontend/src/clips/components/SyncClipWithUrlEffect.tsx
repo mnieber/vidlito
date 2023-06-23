@@ -7,6 +7,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
 import { navHandler } from '/src/navHandler/NavHandler';
 import { useSearchAndUrlParams } from '/src/utils/hooks';
+import { pathname } from '/src/utils/urls';
 
 type PropsT = {};
 
@@ -23,18 +24,18 @@ const DefaultProps = {
 export const SyncClipWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const params = useSearchAndUrlParams();
-    const refSyncFromUrl = React.useRef(true);
+    const refUrl = React.useRef<string>("");
 
     React.useEffect(() => {
       return autorun(() => {
-        // If the effect is mounting then sync from the url to the state.
-        if (refSyncFromUrl.current) {
+        // If there is a new url
+        if (refUrl.current !== pathname()) {
           if (
             params.clipSlug === 'new-clip' &&
             !props.clipsAddition.item &&
             props.userProfile
           ) {
-            refSyncFromUrl.current = false;
+            refUrl.current = pathname();
             props.clipsAddition.add({
               values: createClip(props.userProfile, {}),
             });
@@ -43,8 +44,10 @@ export const SyncClipWithUrlEffect = observer(
               R.find((x: ClipT) => x.slug === params.clipSlug)(props.clips) ??
               R.head(props.clips);
             if (clip) {
-              refSyncFromUrl.current = false;
-              props.clipsSelection.selectItem({ itemId: clip?.id });
+              refUrl.current = pathname();
+              if (props.clip?.id !== clip.id) {
+                props.clipsSelection.selectItem({ itemId: clip?.id });
+              }
             }
           }
         } else {
