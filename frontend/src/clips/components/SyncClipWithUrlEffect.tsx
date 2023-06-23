@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
-import { navHandler } from '/src/navHandler/NavHandler';
-import { pathname } from '/src/utils/urls';
+import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
 
@@ -21,18 +21,19 @@ const DefaultProps = {
 
 export const SyncClipWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const params = navHandler.getParams();
+    const loc = useLocation();
+    const params = useParams() as ObjT;
     const refUrl = React.useRef<string>("");
 
     React.useEffect(() => {
       // If there is a new url
-      if (refUrl.current !== pathname()) {
+      if (refUrl.current !== loc.pathname) {
         if (
           params.clipSlug === 'new-clip' &&
           !props.clipsAddition.item &&
           props.userProfile
         ) {
-          refUrl.current = pathname();
+          refUrl.current = loc.pathname;
           props.clipsAddition.add({
             values: createClip(props.userProfile, {}),
           });
@@ -41,14 +42,14 @@ export const SyncClipWithUrlEffect = observer(
             R.find((x: ClipT) => x.slug === params.clipSlug)(props.clips) ??
             R.head(props.clips);
           if (clip) {
-            refUrl.current = pathname();
+            refUrl.current = loc.pathname;
             if (props.clip?.id !== clip.id) {
               props.clipsSelection.selectItem({ itemId: clip?.id });
             }
           }
         }
       } else {
-        if (props.clip && navHandler.getParams().clipSlug !== props.clip.slug) {
+        if (props.clip && params.clipSlug !== props.clip.slug) {
           navToClip(props.clip.slug);
         }
       }

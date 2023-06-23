@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navHandler } from '/src/navHandler/NavHandler';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
-import { pathname } from '/src/utils/urls';
+import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
 
@@ -22,12 +23,13 @@ const DefaultProps = {
 
 export const SyncPlaylistWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const params = navHandler.getParams();
+    const location = useLocation();
+    const params = useParams() as ObjT;
     const refUrl = React.useRef<string>("");
 
     React.useEffect(() => {
       // If there is a new url
-      if (refUrl.current !== pathname()) {
+      if (refUrl.current !== location.pathname) {
         navHandler.hiddenParams.playlistSlug = params.playlistSlug;
 
         if (
@@ -35,7 +37,7 @@ export const SyncPlaylistWithUrlEffect = observer(
           !props.playlistsAddition.item &&
           props.userProfile
         ) {
-          refUrl.current = pathname();
+          refUrl.current = location.pathname;
           props.dashboardState.toggleIsPlaylistListExpanded(true);
           props.playlistsAddition.add({
             values: createPlaylist(props.userProfile, {}),
@@ -46,7 +48,7 @@ export const SyncPlaylistWithUrlEffect = observer(
               props.playlists
             ) ?? R.head(props.playlists);
           if (playlist) {
-            refUrl.current = pathname();
+            refUrl.current = location.pathname;
             if (props.playlist?.id !== playlist.id) {
               props.playlistsSelection.selectItem({ itemId: playlist?.id });
               props.playlistsHighlight.highlightItem({ id: playlist?.id });
