@@ -5,10 +5,7 @@ import {
   SubMenu,
 } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
-import * as R from 'ramda';
-import React from 'react';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/ClipsNavEvents';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -33,16 +30,6 @@ const DefaultProps = {
 
 export const ClipMenu = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const updateUrl = React.useMemo(
-      () => () => {
-        const clip = props.clipsHighlight.item;
-        if (!R.isNil(clip)) {
-          navToClip(clip.slug);
-        }
-      },
-      [props.clipsHighlight]
-    );
-
     if (!props.playlists || !props.playlist) return null;
 
     const otherPlaylists = props.playlists.filter(
@@ -61,8 +48,7 @@ export const ClipMenu = observer(
               onClick={(e) => {
                 e.stopPropagation = true;
                 props.clipsMove
-                  .move({ playlistId: playlist.id, copy: false })
-                  .then(updateUrl);
+                  .move({ playlistId: playlist.id, copy: false });
               }}
             >
               {playlist.name}
@@ -98,7 +84,6 @@ export const ClipMenu = observer(
           onClick={() =>
             props.clipsDeletion
               .delete({ itemIds: props.clipsSelection.ids, moveToTrash: true })
-              .then(updateUrl)
           }
         >
           <Icon className={cn(L.DialogButton.icon())} name="trash" />

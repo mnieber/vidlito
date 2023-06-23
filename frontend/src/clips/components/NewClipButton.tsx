@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/ClipsNavEvents';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -15,6 +14,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clipsAddition,
+  ...dps.clipsSelection,
   ...dps.userProfile,
 };
 
@@ -35,7 +35,7 @@ export const NewClipButton = observer(
           props.clipsAddition
             .add({ values: createClip(props.userProfile, {}) })
             .then((localClip: ClipT) => {
-              navToClip(localClip.slug);
+              props.clipsSelection.selectItem({ itemId: localClip.id })
             });
         }}
       >

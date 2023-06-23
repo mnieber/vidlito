@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import React from 'react';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { navToClip } from '/src/clips/ClipsNavEvents';
 import { navHandler } from '/src/navHandler/NavHandler';
 import { useSearchAndUrlParams } from '/src/utils/hooks';
 
@@ -15,6 +16,7 @@ const DefaultProps = {
   ...dps.clipsAddition,
   ...dps.playlist,
   ...dps.clips,
+  ...dps.clip,
   ...dps.userProfile,
 };
 
@@ -46,7 +48,9 @@ export const SyncClipWithUrlEffect = observer(
             }
           }
         } else {
-          navHandler.updateHiddenParams();
+          if (props.clip && navHandler.getParams().clipSlug !== props.clip.slug) {
+            navToClip(props.clip.slug);
+          }
         }
       });
     }, [params, props.clips, props.clipsSelection, props.clipsHighlight]);
