@@ -23,9 +23,11 @@ export class VideoPlayerState {
     if (this.url && this.url !== url) {
       this.videoController.togglePlay(false);
     }
-    this.url = url;
+    if (this.url !== url) {
+      this.url = url;
+      this.videoController.reset();
+    }
     this.startTimeMs = startTimeMs;
-    this.videoController.reset();
   }
 
   @action setIsFullVideoWidth(x: boolean) {

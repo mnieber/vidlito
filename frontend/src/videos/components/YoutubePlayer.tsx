@@ -1,4 +1,5 @@
 import { runInAction } from 'mobx';
+import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import * as React from 'react';
 import YouTube from 'react-youtube';
@@ -11,7 +12,7 @@ type PropsT = {
   width: number;
 };
 
-export function YoutubePlayer(props: PropsT) {
+export const YoutubePlayer = observer((props: PropsT) => {
   const params = props.videoPlayerState.videoUrlProps.params;
   const videoController = props.videoPlayerState.videoController;
   const videoUrlProps = props.videoPlayerState.videoUrlProps;
@@ -66,4 +67,4 @@ export function YoutubePlayer(props: PropsT) {
       onPause={_onPause}
     />
   );
-}
+});
