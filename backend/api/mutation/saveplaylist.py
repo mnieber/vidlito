@@ -2,7 +2,7 @@ import graphene
 from graphene.types.generic import GenericScalar
 
 from api.types import *
-from playlists.models import Playlist, create_tags
+from playlists.models import Follow, Playlist, create_tags
 from user_profiles.models import UserProfile
 
 
@@ -21,5 +21,8 @@ class SavePlaylist(graphene.Mutation):
         playlist, created = Playlist.objects.update_or_create(
             defaults=playlist_form, id=id, owner_id=user_profile.id
         )
+        if created:
+            follow = Follow.objects.create(user_profile=user_profile, playlist=playlist)
+            follow.save()
 
         return SavePlaylist(success=True, errors={}, created=created)
