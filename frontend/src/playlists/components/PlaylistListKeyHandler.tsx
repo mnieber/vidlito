@@ -10,12 +10,16 @@ export type PropsT = React.PropsWithChildren<{}>;
 
 const DefaultProps = {
   ...dps.playlistsSelection,
+  ...dps.playlistsHighlight,
 };
 
 export const PlaylistListKeyHandler = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const keyHandlers = {
       ...createSelectionKeyHandlers(props.playlistsSelection),
+      'enter': () => {
+        props.playlistsHighlight.highlightItem({id: props.playlistsSelection.anchorId})
+      }
     };
 
     const handledKeys = R.keys(keyHandlers);
