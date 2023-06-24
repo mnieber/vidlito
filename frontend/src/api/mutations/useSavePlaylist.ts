@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
+import { getPlaylistQueryKey } from '/src/api/queries';
 import { queryClient } from '/src/api/queryClient';
 import { PlaylistFormT } from '/src/api/types/PlaylistT';
 import { ObjT } from '/src/utils/types';
@@ -20,11 +21,12 @@ export const savePlaylist = (args: ArgsT) => {
       ) {
         errors
         success
+        created
       }
     }`,
     args
   ).then((response: ObjT) => {
-    return wait(import.meta.env.DEV ? 1000 : 0, response.savePlaylist);
+    return wait(!!import.meta.env.DEV ? 1000 : 0, response.savePlaylist);
   });
 };
 
@@ -33,9 +35,17 @@ export const useSavePlaylist = () => {
     mutationKey: ['savePlaylist'],
     mutationFn: savePlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      return queryClient.invalidateQueries({
-        queryKey: ['loadUserId'],
-      });
-    },
+      const invalidateLoadUserId = response.created
+        ? [queryClient.invalidateQueries({ queryKey: ['loadUserId'] })]
+        : [];
+      return Promise.all([
+        ...invalidateLoadUserId,
+        queryClient.invalidateQueries({
+          queryKey: getPlaylistQueryKey({
+            playlistSlug: args.playlistForm.slug
+          })
+        })
+      ]);
+    }
   });
 };

@@ -9,6 +9,7 @@ from user_profiles.models import UserProfile
 class SavePlaylist(graphene.Mutation):
     success = graphene.Boolean()
     errors = GenericScalar()
+    created = graphene.Boolean()
 
     class Arguments:
         playlist_form = PlaylistFormT(required=True)
@@ -21,7 +22,4 @@ class SavePlaylist(graphene.Mutation):
             defaults=playlist_form, id=id, owner_id=user_profile.id
         )
 
-        return SavePlaylist(
-            success=True,
-            errors={},
-        )
+        return SavePlaylist(success=True, errors={}, created=created)

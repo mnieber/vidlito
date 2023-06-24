@@ -42,7 +42,7 @@ export const ClipListView = observer(
       return <ClipListViewLoader {...props} />;
     }
 
-    const noItems = <h2 className="text-primaryTeal">There are no clips</h2>;
+    const noItems = <h2 className="text-primaryTeal">There are no clips yet</h2>;
 
     const clipDivs = props.clips.map((clip, idx) => {
       return (
