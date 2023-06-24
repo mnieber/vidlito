@@ -4,7 +4,6 @@ import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navHandler } from '/src/navHandler/NavHandler';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { ObjT } from '/src/utils/types';
 
@@ -55,7 +54,7 @@ export const SyncPlaylistWithUrlEffect = observer(
           }
         }
       } else {
-        if (props.playlist && navHandler.getParams().playlistSlug !== props.playlist.slug) {
+        if (props.playlist && params.playlistSlug !== props.playlist.slug) {
           navToPlaylist(props.playlist.slug);
         }
       }
