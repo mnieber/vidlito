@@ -23,9 +23,9 @@ class MoveClipsToPlaylist(graphene.Mutation):
         )
         for entry in Entry.objects.filter(playlist_id=src_playlist_id):
             if entry.clip_id in clip_ids:
+                if entry.clip_id.hex in dest_clips_ids:
+                    continue
                 if copy:
-                    if entry.clip_id.hex in dest_clips_ids:
-                        continue
                     entry.pk = None
                 entry.playlist_id = dest_playlist_id
                 entry.save()
