@@ -18,7 +18,6 @@ import {
   createInsertionPreview,
 } from 'skandha-facets/policies';
 import { registerCtr } from 'skandha-mobx';
-import { Settings } from './Settings';
 import { initPlaylists } from './playlists';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { getIds } from '/src/utils/ids';
@@ -31,8 +30,6 @@ export type PropsT = {
 };
 
 export class PlaylistsState {
-  settings = new Settings();
-
   playlistsCtr = {
     addition: new Addition<PlaylistT>(),
     deletion: new Deletion(),
