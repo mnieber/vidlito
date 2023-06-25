@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
 import { getPlaylistQueryKey } from '/src/api/queries';
+import { getPlaylist } from '/src/api/queries/useGetPlaylist';
 import { queryClient } from '/src/api/queryClient';
 import { PlaylistFormT } from '/src/api/types/PlaylistT';
 import { ObjT } from '/src/utils/types';
@@ -22,6 +23,7 @@ export const savePlaylist = (args: ArgsT) => {
         errors
         success
         created
+        playlistSlug
       }
     }`,
     args
@@ -35,6 +37,7 @@ export const useSavePlaylist = () => {
     mutationKey: ['savePlaylist'],
     mutationFn: savePlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
+      const getPlaylistArgs = { playlistSlug: response.playlistSlug };
       const invalidateLoadUserId = response.created
         ? [queryClient.invalidateQueries({ queryKey: ['loadUserId'] })]
         : [];
@@ -42,10 +45,18 @@ export const useSavePlaylist = () => {
         ...invalidateLoadUserId,
         queryClient.invalidateQueries({
           queryKey: getPlaylistQueryKey({
-            playlistSlug: args.playlistForm.slug
-          })
-        })
+            playlistSlug: args.playlistForm.slug,
+          }),
+        }),
+        getPlaylist(getPlaylistArgs).then((response: ObjT) => {
+          // To avoid showing a loader, we populate the cache with the
+          // playlist that was just saved.
+          queryClient.setQueryData(
+            getPlaylistQueryKey(getPlaylistArgs),
+            response.playlist
+          );
+        }),
       ]);
-    }
+    },
   });
 };
