@@ -94,7 +94,7 @@ export const L = {
       darkBlueOnSkyBlue: () => 'c-dark-blue-on-sky-blue-btn-color',
       darkBlueOnTeal: () => 'c-dark-blue-on-teal-btn-color',
     },
-    icon: () => cn('mr-2', 'h-[20px]', 'w-[20px]'),
+    icon: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
   },
   ToolButton: {
     root: () => cn('', ['ToolButton', L.row.skewer()]),
