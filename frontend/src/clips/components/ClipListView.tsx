@@ -36,13 +36,24 @@ export const ClipListView = observer(
     );
     const selectionUIConnector = new SelectionUIConnector({
       selection: props.clipsSelection as Selection<ClipT>,
+      onSelect: (args: {
+        itemId: string | undefined;
+        isShift?: boolean | undefined;
+        isCtrl?: boolean | undefined;
+      }) => {
+        if (!args.isShift && !args.isCtrl) {
+          navToClipVideoView(args.itemId);
+        }
+      },
     });
 
     if (isLoading(props.clips)) {
       return <ClipListViewLoader {...props} />;
     }
 
-    const noItems = <h2 className="text-primaryTeal">There are no clips yet</h2>;
+    const noItems = (
+      <h2 className="text-primaryTeal">There are no clips yet</h2>
+    );
 
     const clipDivs = props.clips.map((clip, idx) => {
       return (

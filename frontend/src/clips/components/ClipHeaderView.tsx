@@ -4,6 +4,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
+import { textTrunc } from '/src/utils/strings';
 
 // Import styles
 import './ClipHeaderView.scss';
@@ -162,7 +163,7 @@ export const ClipHeaderView = observer(
             // 🔳 Author 🔳
           }
           <div className={cn('ClipHeaderView__TitleAuthor')}>
-            By: {props.clip.owner.username}
+            By: {textTrunc(props.clip.owner.username, 24)}
           </div>
         </div>
       </div>
