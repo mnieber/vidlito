@@ -7,6 +7,7 @@ import {
 import { isLoading } from '/src/api/getState';
 import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { navToClip } from '/src/clips/ClipsNavEvents';
 import { ClipListKeyHandler } from '/src/clips/components/ClipListKeyHandler';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
 import { L } from '/src/frames/layout';
@@ -42,7 +43,10 @@ export const ClipListView = observer(
         isCtrl?: boolean | undefined;
       }) => {
         if (!args.isShift && !args.isCtrl) {
-          navToClipVideoView(args.itemId);
+          const clip = props.clips.find((x) => x.id === args.itemId);
+          if (clip) {
+            navToClip(clip.slug);
+          }
         }
       },
     });
