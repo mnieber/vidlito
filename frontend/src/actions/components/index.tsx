@@ -1,3 +1,4 @@
+export { ActionListKeyHandler } from './ActionListKeyHandler';
 export { ActionListView } from './ActionListView';
 export { ActionListViewItem } from './ActionListViewItem';
 export { ActionsBar } from './ActionsBar';

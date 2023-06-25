@@ -63,7 +63,7 @@ export class PlaylistsState {
           createInsertionPreview(
             [DragSourceFromNewItem],
             ctr
-          )(ctr.insertion.inputItems),
+          )(ctr.insertion.inputItems ),
       },
       display: {
         items: () => ctr.insertion.preview,

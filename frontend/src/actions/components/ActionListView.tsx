@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { createHighlightUIConnector } from 'skandha-facets';
+import { ActionListKeyHandler } from '/src/actions/components';
 import { ActionListViewItem } from '/src/actions/components/ActionListViewItem';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { Spinner } from '/src/frames/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -27,7 +27,7 @@ export const ActionListView = observer(
     );
 
     if (isLoading(props.actions)) {
-      return <Spinner />;
+      return <ActionListViewLoader />;
     } else if (!props.actions?.length) return null;
 
     const noItems = <h2>There are no actions</h2>;
@@ -43,18 +43,52 @@ export const ActionListView = observer(
     });
 
     return (
-      <div
-        className={cn(
-          'ActionListView',
-          //
-          //
-          L.col.banner(),
-          props.className
-        )}
-      >
-        {actionDivs.length > 0 && actionDivs}
-        {actionDivs.length === 0 && noItems}
-      </div>
+      <ActionListKeyHandler>
+        <div
+          className={cn(
+            'ActionListView',
+            //
+            //
+            L.col.banner(),
+            props.className
+          )}
+          tabIndex={0}
+        >
+          {actionDivs.length > 0 && actionDivs}
+          {actionDivs.length === 0 && noItems}
+        </div>
+      </ActionListKeyHandler>
     );
   }, DefaultProps)
 );
+
+export const ActionListViewLoader = (props: PropsT) => {
+  const l = L.Lvi;
+  const divs = ['1', '2', '3'].map((id: string) => {
+    return (
+      <div
+        key={id}
+        className={cn(
+          'ActionListViewLoader__Item',
+          l.root(),
+          'h-4 my-4',
+          'rounded bg-gray-300'
+        )}
+      />
+    );
+  });
+
+  return (
+    <div
+      className={cn(
+        'ActionListViewLoader',
+        //
+        //
+        L.col.banner(),
+        props.className
+      )}
+    >
+      {divs}
+    </div>
+  );
+};

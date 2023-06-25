@@ -75,7 +75,7 @@ const getTitle = (action: ActionT) => {
   const date = action.data.date ? new Date(action.data.date) : new Date();
   return `Removed ${clipNames.length
     .toString()
-    .padStart(2, ' ')} ${label} on ${formatDate(date)}`;
+    .padStart(2, ' ')} ${label} on ${formatDate(date)} from`;
 };
 
 const getClipNames = (action: ActionT, isExpanded: boolean) => {

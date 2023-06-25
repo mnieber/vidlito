@@ -7,6 +7,7 @@ import { registerCtr } from 'skandha-mobx';
 import { Settings } from './Settings';
 import { ActionsData, initActions } from './actions';
 import { ActionT } from '/src/api/types/ActionT';
+import { getIds } from '/src/utils/ids';
 
 export type PropsT = {
   undoAction: (actionId: string) => Promise<any>;
@@ -30,6 +31,7 @@ export class ActionsState {
     mapDataToProps(ctr, {
       highlight: {
         item: () => getActionById(ctr.highlight.id),
+        highlightableIds: () => getIds(ctr.data.actions),
       },
     });
   }
