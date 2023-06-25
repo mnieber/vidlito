@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { comparer, makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
@@ -41,18 +41,19 @@ export const PlaylistsStateProvider = observer(
       getInputs: () => {
         return {
           playlists: props.userProfile?.followSet,
-          // Instead of using getPlaylist.data?.playlist, we use getPlaylist.status
-          // as a proxy that tells us when getPlaylist.data?.playlist has changed.
-          // This prevents an infinite loop where getPlaylist.data?.playlist keeps
-          // updating without actually having changed.
-          getPlaylistState: getPlaylist.status,
+          playlist: getPlaylist.data?.playlist,
         };
       },
       updateState: (inputs) => {
+        // Here we have to do a deep compare to avoid infinite loops. If the playlist (that we get from
+        // getPlaylist) is equal to the currently highlighted playlist, then keep using the latter.
+        const playlist = comparer.structural(inputs.playlist, playlistsState.playlistsCtr.highlight.item)
+          ? playlistsState.playlistsCtr.highlight.item
+          : inputs.playlist;
         playlistsState.playlistsCtr.store.items = graftResourceStates({
           resources: updatePlaylists(
             inputs.playlists ?? [],
-            getPlaylist.data?.playlist
+            playlist
           ),
           prevResources: playlistsState.playlistsCtr.store.items,
         });
