@@ -48,12 +48,12 @@ export const useSavePlaylist = () => {
             playlistSlug: args.playlistForm.slug,
           }),
         }),
-        getPlaylist(getPlaylistArgs).then((response: ObjT) => {
+        getPlaylist(getPlaylistArgs).then((getPlaylistResponse: ObjT) => {
           // To avoid showing a loader, we populate the cache with the
           // playlist that was just saved.
           queryClient.setQueryData(
             getPlaylistQueryKey(getPlaylistArgs),
-            response.playlist
+            getPlaylistResponse.playlist
           );
         }),
       ]);

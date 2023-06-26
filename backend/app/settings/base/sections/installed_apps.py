@@ -40,6 +40,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 ADMIN_REORDER = (
     "clips",
     {"app": "playlists", "models": ("playlists.Playlist",)},
+    {"app": "app", "models": ("app.SlugSequence",)},
     "user_profiles",
     "users",
     {

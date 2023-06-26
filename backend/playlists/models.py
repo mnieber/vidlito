@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from martor.models import MartorField
 
 from app.models import Entity
+from app.utils.slug_seq import update_slug
 from clips.models import Clip
 from user_profiles.models import UserProfile
 
@@ -31,6 +32,11 @@ class Playlist(Entity):
     def save(self, *args, **kwargs):
         if self.slug is None:
             self.slug = slugify(self.name)
+        existing_playlist = (
+            Playlist.objects.filter(id=self.id).first() if self.id else None
+        )
+        if not (existing_playlist and existing_playlist.slug == self.slug):
+            self.slug = update_slug(self.slug, "playlist")
         super().save(*args, **kwargs)
 
     def __str__(self):
