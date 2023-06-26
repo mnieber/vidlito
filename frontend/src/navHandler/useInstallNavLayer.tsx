@@ -5,15 +5,16 @@ import { ObjT } from '/src/utils/types';
 
 export function useInstallNavLayer(name: string, path: string, navFns: ObjT) {
   const navLayer = useBuilder(() => {
-    return {
+    const navLayer = {
       name: name,
       route: path,
       fns: navFns,
     };
+    navHandler.installNavLayer(navLayer);
+    return navLayer;
   });
 
   React.useEffect(() => {
-    navHandler.installNavLayer(navLayer);
     return () => {
       navHandler.uninstallNavLayer(navLayer.name);
     };
