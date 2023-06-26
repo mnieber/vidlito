@@ -29,26 +29,6 @@ export const VideoPlayerPanel = observer(
       props.videoPlayerState.isFullVideoWidth,
       panelWidth ?? ref.current?.getBoundingClientRect().width ?? 0
     );
-    const maxWidth = ready ? {} : { maxWidth: width };
-    const height = widthToHeight(width);
-
-    const placeholder = (
-      <div
-        className={cn(
-          'VideoPlayerPanel__Placeholder',
-          'bg-blue-300',
-          //
-          //
-          L.row.skewer()
-        )}
-        style={{ height: ready ? 0 : height, ...maxWidth }}
-      >
-        <ReactResizeDetector handleWidth onResize={onResize} />
-        <div className={cn('mx-auto', { hidden: ready })}>
-          <Icon className={cn(L.Lvi.icon())} name="play" />
-        </div>
-      </div>
-    );
 
     return (
       <div
@@ -61,10 +41,14 @@ export const VideoPlayerPanel = observer(
           props.className
         )}
       >
-        {placeholder}
+        <VideoPlayerPanelPlaceholder
+          onResize={onResize}
+          width={width}
+          ready={ready}
+        />
         <div
           className={cn('VideoPlayerPanel__Body', { hidden: !ready })}
-          style={{ height: height }}
+          style={{ height: widthToHeight(width) }}
         >
           <VideoPlayer
             key={props.videoPlayerState.url} // yes, we need this
@@ -112,4 +96,32 @@ export const useResize = () => {
       handleResize(width);
     },
   };
+};
+
+export const VideoPlayerPanelPlaceholder = (props: {
+  onResize: any;
+  ready: boolean;
+  width: number;
+}) => {
+  const maxWidth = props.ready ? {} : { maxWidth: props.width };
+  return (
+    <div
+      className={cn(
+        'VideoPlayerPanelPlaceholder',
+        'bg-blue-300',
+        //
+        //
+        L.row.skewer()
+      )}
+      style={{
+        height: props.ready ? 0 : widthToHeight(props.width),
+        ...maxWidth,
+      }}
+    >
+      <ReactResizeDetector handleWidth onResize={props.onResize} />
+      <div className={cn('mx-auto', { hidden: props.ready })}>
+        <Icon className={cn(L.Lvi.icon())} name="play" />
+      </div>
+    </div>
+  );
 };
