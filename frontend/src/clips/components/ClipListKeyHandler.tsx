@@ -5,8 +5,9 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { createSelectionKeyHandlers } from 'skandha-facets';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { createKeyDownHandler } from '/src/utils';
+import { cn } from '/src/utils/classnames';
 
-export type PropsT = React.PropsWithChildren<{}>;
+export type PropsT = React.PropsWithChildren<{ className?: any }>;
 
 const DefaultProps = {
   ...dps.clipsSelection,
@@ -22,7 +23,11 @@ export const ClipListKeyHandler = observer(
     const onKeyDown = createKeyDownHandler(keyHandlers);
 
     return (
-      <KeyboardEventHandler handleKeys={handledKeys} onKeyEvent={onKeyDown}>
+      <KeyboardEventHandler
+        handleKeys={handledKeys}
+        onKeyEvent={onKeyDown}
+        className={cn('ClipListKeyHandler', props.className)}
+      >
         {props.children}
       </KeyboardEventHandler>
     );

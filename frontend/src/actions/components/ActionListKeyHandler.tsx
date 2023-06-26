@@ -5,8 +5,9 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { createHighlightKeyHandlers } from 'skandha-facets';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { createKeyDownHandler } from '/src/utils';
+import { cn } from '/src/utils/classnames';
 
-export type PropsT = React.PropsWithChildren<{}>;
+export type PropsT = React.PropsWithChildren<{ className?: any }>;
 
 const DefaultProps = {
   ...dps.actionsHighlight,
@@ -24,7 +25,11 @@ export const ActionListKeyHandler = observer(
     const onKeyDown = createKeyDownHandler(keyHandlers);
 
     return (
-      <KeyboardEventHandler handleKeys={handledKeys} onKeyEvent={onKeyDown}>
+      <KeyboardEventHandler
+        handleKeys={handledKeys}
+        onKeyEvent={onKeyDown}
+        className={cn('ActionListKeyHandler', props.className)}
+      >
         {props.children}
       </KeyboardEventHandler>
     );

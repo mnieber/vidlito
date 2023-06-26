@@ -4,9 +4,10 @@ import React from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { createKeyDownHandler } from '/src/utils';
+import { cn } from '/src/utils/classnames';
 import { createVideoKeyHandlers } from '/src/videos/createVideoKeyHandlers';
 
-export type PropsT = React.PropsWithChildren<{}>;
+export type PropsT = React.PropsWithChildren<{ className?: any }>;
 
 const DefaultProps = {
   ...dps.clip,
@@ -32,7 +33,11 @@ export const ClipVideoKeyHandler = observer(
     const onKeyDown = createKeyDownHandler(keyHandlers);
 
     return (
-      <KeyboardEventHandler handleKeys={handledKeys} onKeyEvent={onKeyDown}>
+      <KeyboardEventHandler
+        handleKeys={handledKeys}
+        onKeyEvent={onKeyDown}
+        className={cn('ClipVideoKeyHandler', props.className)}
+      >
         {props.children}
       </KeyboardEventHandler>
     );
