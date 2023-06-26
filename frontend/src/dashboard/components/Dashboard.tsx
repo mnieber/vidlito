@@ -24,18 +24,19 @@ export const Dashboard = observer(
       //
       // 🔳 DashBoard 🔳
       //
-      <ClipVideoKeyHandler>
+      <ClipVideoKeyHandler className="h-full">
         <div
           className={cn(
             'Dashboard',
             'grow',
+            'h-full',
             //
             //
             L.row.banner(),
             props.className
           )}
         >
-          <div className={cn('lg:w-[160px]')} />
+          <div className={cn('Dashboard__LeftSpacer', 'lg:w-[160px]')} />
           {
             // 🔳 LeftSideBar 🔳
           }
@@ -61,9 +62,9 @@ export const Dashboard = observer(
               'Dashboard__RightMain',
               'overflow-y-auto',
               'bg-gray-200',
+              'h-full',
               //
               //
-              'pb-6',
               'grow'
             )}
           >

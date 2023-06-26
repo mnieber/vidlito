@@ -31,15 +31,15 @@ export const MainView = observer(
     }, [props.dashboardState, parentElm]);
 
     return (
-      <div className={cn(L.row.banner())}>
+      <div className={cn('MainView', L.row.banner(), 'h-full')}>
         <div
           ref={parentElmRef}
           tabIndex={0}
           className={cn(
-            'MainView',
+            'MainView__Body',
             //
             //
-            'grow max-w-[1200px]',
+            'grow max-w-[1200px] h-full',
             props.className
           )}
         >
