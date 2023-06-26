@@ -3,6 +3,7 @@ import { cn } from '/src/utils/classnames';
 // Import styles
 import '/src/forms/components/FormField.scss';
 import '/src/forms/components/FormFieldButton.scss';
+import '/src/frames/components/CtaButton.scss';
 import '/src/frames/components/DialogButton.scss';
 import '/src/frames/components/DropdownButton.scss';
 import '/src/frames/components/ToolButton.scss';
@@ -95,6 +96,15 @@ export const L = {
       darkBlueOnTeal: () => 'c-dark-blue-on-teal-btn-color',
     },
     icon: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
+  },
+  CtaButton: {
+    root: () => cn('CtaButton', L.row.skewer()),
+    // Clients should pick one color from the list below.
+    color: {
+      darkBlueOnSkyBlue: () => 'c-dark-blue-on-sky-blue-btn-color',
+      darkBlueOnTeal: () => 'c-dark-blue-on-teal-btn-color',
+    },
+    icon: () => cn('mr-4', 'h-[30px]', 'w-[30px]', 'min-w-[30px]'),
   },
   ToolButton: {
     root: () => cn('', ['ToolButton', L.row.skewer()]),
