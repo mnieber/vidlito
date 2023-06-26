@@ -12,6 +12,7 @@ import {
   PlaylistFormView,
   SyncPlaylistWithUrlEffect,
 } from '/src/playlists/components';
+import { CreateFirstClip } from '/src/playlists/components/CreateFirstClip';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
 import { cn } from '/src/utils/classnames';
 
@@ -29,12 +30,13 @@ export const DashboardSwitch = withDefaultProps(
         <Route exact={false} path={routes.playlist()}>
           <UseMainPage>
             <SyncPlaylistWithUrlEffect />
-            <Route exact={true} path={routes.playlist()}>
-              <ForwardToClipEffect />
-            </Route>
             {/* 🔳 */}
             <Dashboard>
               <MainView>
+                <Route exact={true} path={routes.playlist()}>
+                  <ForwardToClipEffect />
+                  <CreateFirstClip />
+                </Route>
                 <Route
                   exact={true}
                   path={routes.playlist({
