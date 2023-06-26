@@ -1,31 +1,27 @@
-import { autorun } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
-import { useSearchAndUrlParams } from '/src/utils/hooks';
+import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
 
 const DefaultProps = {
   ...dps.playlist,
+  ...dps.clips,
 };
 
 export const ForwardToClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const params = useSearchAndUrlParams();
+    const params = useParams() as ObjT;
 
     React.useEffect(() => {
-      return autorun(() => {
-        if (
-          props.playlist &&
-          props.playlist.slug === params.playlistSlug &&
-          props.playlist.clipSet.length
-        ) {
-          navToClip(props.playlist.clipSet[0].slug);
-        }
-      });
-    }, [params, props.playlist]);
+      if (!params.clipSlug && isLoading(props.clips)) {
+        navToClip('-');
+      }
+    }, [props.playlist, props.clips]);
 
     return null;
   }, DefaultProps)

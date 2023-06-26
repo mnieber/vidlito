@@ -4,6 +4,7 @@ import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { navToClip } from '/src/clips/ClipsNavEvents';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { ObjT } from '/src/utils/types';
 
@@ -15,7 +16,6 @@ const DefaultProps = {
   ...dps.playlist,
   ...dps.playlistsHighlight,
   ...dps.playlistsSelection,
-  ...dps.playlistsState,
   ...dps.playlistsAddition,
   ...dps.userProfile,
 };
@@ -24,17 +24,17 @@ export const SyncPlaylistWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const location = useLocation();
     const params = useParams() as ObjT;
-    const refUrl = React.useRef<string>("");
+    const refUrl = React.useRef<string>('');
 
     React.useEffect(() => {
-
       // If there is a new url
       if (refUrl.current !== location.pathname) {
-        if (
+        const createNewPlaylist =
           params.playlistSlug === 'new-playlist' &&
           !props.playlistsAddition.item &&
-          props.userProfile
-        ) {
+          props.userProfile;
+
+        if (createNewPlaylist) {
           refUrl.current = location.pathname;
           props.dashboardState.toggleIsPlaylistListExpanded(true);
           props.playlistsAddition.add({
@@ -56,6 +56,7 @@ export const SyncPlaylistWithUrlEffect = observer(
       } else {
         if (props.playlist && params.playlistSlug !== props.playlist.slug) {
           navToPlaylist(props.playlist.slug);
+          navToClip('-');
         }
       }
     }, [
