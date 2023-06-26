@@ -25,7 +25,7 @@ const DefaultProps = {
 export const ClipHeaderView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     if (!props.clip) {
-      return <ClipHeaderViewLoader {...props} />;
+      return <ClipHeaderViewLoader className={props.className} />;
     }
 
     const isOwnerClip = props.clip.owner.username === props.username;
@@ -171,17 +171,15 @@ export const ClipHeaderView = observer(
   }, DefaultProps)
 );
 
-export const ClipHeaderViewLoader = observer(
-  (props: PropsT & typeof DefaultProps) => {
-    return (
-      <div
-        className={cn(
-          'ClipHeaderViewLoader',
-          'h-[50px] my-4',
-          'rounded bg-gray-300',
-          props.className
-        )}
-      ></div>
-    );
-  }
-);
+export const ClipHeaderViewLoader = observer((props: { className?: any }) => {
+  return (
+    <div
+      className={cn(
+        'ClipHeaderViewLoader',
+        'h-[50px] my-4',
+        'rounded bg-gray-300',
+        props.className
+      )}
+    ></div>
+  );
+});
