@@ -1,15 +1,8 @@
-.ClipHeaderView__TitleName {
-  @apply font-bold;
-}
-
 .ClipHeaderView__ClipButton {
   @apply rounded-r-[32px];
   @apply text-gray-700 text-start;
   @apply border-2 border-blue-50;
-}
-
-.ClipHeaderView__ClipName {
-  @apply text-start;
+  @apply font-bold;
 }
 
 .ClipHeaderView__ClipButton--active {
@@ -18,13 +11,9 @@
 
 .ClipHeaderView__PlaylistButton {
   @apply rounded-l-[32px];
-  @apply text-start;
-  @apply text-gray-700;
+  @apply text-gray-700 text-start;
   @apply border-2 border-blue-50;
-}
-
-.ClipHeaderView__PlaylistName {
-  @apply text-start;
+  @apply font-bold;
 }
 
 .ClipHeaderView__PlaylistButton--active {

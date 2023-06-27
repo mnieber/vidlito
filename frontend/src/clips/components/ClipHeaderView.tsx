@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
+import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
@@ -24,15 +25,16 @@ const DefaultProps = {
 
 export const ClipHeaderView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (!props.clip) {
+    if (isLoading(props.clip) || !props.playlist) {
       return <ClipHeaderViewLoader className={props.className} />;
     }
 
-    const isOwnerClip = props.clip.owner.username === props.username;
+    const owner = props.clip?.owner ?? props.playlist.owner;
+    const noClip = !props.clip && !isLoading(props.clip);
+    const showPlaylist = noClip || props.dashboardState.showPlaylistDescription;
+    const isOwnerClip = props.clip?.owner.username === props.username;
     const isOwnerPlaylist = props.playlist.owner.username === props.username;
-    const isOwner = props.dashboardState.showPlaylistDescription
-      ? isOwnerPlaylist
-      : isOwnerClip;
+    const isOwner = showPlaylist ? isOwnerPlaylist : isOwnerClip;
 
     return (
       <div
@@ -47,69 +49,45 @@ export const ClipHeaderView = observer(
         {
           // 🔳 Playlist button 🔳
         }
-        <div
+        <button
           className={cn(
             'ClipHeaderView__PlaylistButton',
             {
-              'ClipHeaderView__PlaylistButton--active':
-                props.dashboardState.showPlaylistDescription,
+              'ClipHeaderView__PlaylistButton--active': showPlaylist,
             },
             //
             //
+            L.row.skewer(),
             'pt-2.5 pb-3 pr-4 pl-7'
           )}
+          onClick={() => {
+            props.dashboardState.toggleShowPlaylistDescription(true);
+          }}
         >
-          <div
-            className={cn(
-              'ClipHeaderView__TitleName',
-              //
-              //
-              L.row.skewer()
-            )}
-          >
-            <button
-              className={cn('ClipHeaderView__PlaylistName')}
-              onClick={() => {
-                props.dashboardState.toggleShowPlaylistDescription(true);
-              }}
-            >
-              {props.playlist.name}
-            </button>
-          </div>
-        </div>
+          {props.playlist.name}
+        </button>
         {
           // 🔳 Clip button 🔳
         }
-        <div
-          className={cn(
-            'ClipHeaderView__ClipButton',
-            {
-              'ClipHeaderView__ClipButton--active':
-                !props.dashboardState.showPlaylistDescription,
-            },
-            //
-            //
-            'ml-[3px] pt-2.5 pb-3 pl-4 pr-7'
-          )}
-        >
-          <div
+        {!noClip && (
+          <button
             className={cn(
-              'ClipHeaderView__TitleName',
+              'ClipHeaderView__ClipButton',
+              {
+                'ClipHeaderView__ClipButton--active': !showPlaylist,
+              },
               //
               //
-              L.row.skewer()
+              L.row.skewer(),
+              'ml-[3px] pt-2.5 pb-3 pl-4 pr-7'
             )}
+            onClick={() => {
+              props.dashboardState.toggleShowPlaylistDescription(false);
+            }}
           >
-            <button
-              className={cn('ClipHeaderView__ClipName')}
-              onClick={() => {
-                props.dashboardState.toggleShowPlaylistDescription(false);
-              }}
-            >
-              {props.clip.name}
-            </button>
-          </div>
-        </div>
+            {props.clip.name}
+          </button>
+        )}
         {
           // 🔳 Rhs: the edit button and author 🔳
         }
@@ -141,9 +119,7 @@ export const ClipHeaderView = observer(
             )}
             disabled={!isOwner}
             onClick={() => {
-              const edit = props.dashboardState.showPlaylistDescription
-                ? props.playlistsEdit
-                : props.clipsEdit;
+              const edit = showPlaylist ? props.playlistsEdit : props.clipsEdit;
               edit.enable();
             }}
           >
@@ -163,7 +139,7 @@ export const ClipHeaderView = observer(
             // 🔳 Author 🔳
           }
           <div className={cn('ClipHeaderView__TitleAuthor')}>
-            By: {textTrunc(props.clip.owner.username, 24)}
+            By: {textTrunc(owner.username, 24)}
           </div>
         </div>
       </div>

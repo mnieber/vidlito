@@ -16,7 +16,7 @@ const DefaultProps = {
 
 export const PlaylistDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (!props.playlist.description) return null;
+    if (!props.playlist?.description) return null;
 
     return (
       <div

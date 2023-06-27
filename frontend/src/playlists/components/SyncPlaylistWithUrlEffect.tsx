@@ -4,7 +4,6 @@ import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/ClipsNavEvents';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { ObjT } from '/src/utils/types';
 
@@ -29,34 +28,48 @@ export const SyncPlaylistWithUrlEffect = observer(
     React.useEffect(() => {
       // If there is a new url
       if (refUrl.current !== location.pathname) {
-        const createNewPlaylist =
+        const mustAddNewPlaylist =
           params.playlistSlug === 'new-playlist' &&
           !props.playlistsAddition.item &&
           props.userProfile;
 
-        if (createNewPlaylist) {
-          refUrl.current = location.pathname;
+        const addNewPlaylist = () => {
           props.dashboardState.toggleIsPlaylistListExpanded(true);
           props.playlistsAddition.add({
             values: createPlaylist(props.userProfile, {}),
           });
-        } else {
-          const playlist =
+        };
+
+        const getPlaylistForCurrentUrl = () => {
+          return (
             R.find((x: PlaylistT) => x.slug === params.playlistSlug)(
               props.playlists
-            ) ?? R.head(props.playlists);
-          if (playlist) {
+            ) ?? R.head(props.playlists)
+          );
+        };
+
+        const selectPlaylist = (playlist: PlaylistT) => {
+          props.playlistsSelection.selectItem({ itemId: playlist?.id });
+          props.playlistsHighlight.highlightItem({ id: playlist?.id });
+        };
+
+        if (mustAddNewPlaylist) {
+          refUrl.current = location.pathname;
+          addNewPlaylist();
+        } else {
+          // Check if we must update the playlist selection based on the current url.
+          const playlistForCurrentUrl = getPlaylistForCurrentUrl();
+          if (playlistForCurrentUrl) {
             refUrl.current = location.pathname;
-            if (props.playlist?.id !== playlist.id) {
-              props.playlistsSelection.selectItem({ itemId: playlist?.id });
-              props.playlistsHighlight.highlightItem({ id: playlist?.id });
+            if (props.playlist?.id !== playlistForCurrentUrl.id) {
+              selectPlaylist(playlistForCurrentUrl);
             }
           }
         }
       } else {
+        // Check if we must update the current url based on the highlighted playlist.
         if (props.playlist && params.playlistSlug !== props.playlist.slug) {
           navToPlaylist(props.playlist.slug);
-          navToClip('-');
         }
       }
     }, [

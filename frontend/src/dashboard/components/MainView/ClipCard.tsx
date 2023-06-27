@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipDescription } from '/src/clips/components/ClipDescription';
 import { ClipFormView } from '/src/clips/components/ClipFormView';
@@ -15,29 +16,34 @@ export type PropsT = {
 };
 
 const DefaultProps = {
+  ...dps.clip,
   ...dps.clipsEdit,
   ...dps.playlistsEdit,
   ...dps.dashboardState,
 };
 
-export const VideoCard = observer(
+export const ClipCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const noClips = !props.clip && !isLoading(props.clip);
+    const showPlaylist =
+      props.dashboardState.showPlaylistDescription || noClips;
+
     return (
       <>
-        <VideoPlayerPanel className={cn('mb-3')} />
-        <div className={cn('ml-6 mt-5', 'max-w-[776px]')}>
+        {!noClips && <VideoPlayerPanel className={cn('mb-3')} />}
+        <div className={cn('VideoCard__Body', 'ml-6 mt-5', 'max-w-[776px]')}>
           <ClipHeaderView className={cn('mb-5')} />
           {
             // 🔳 Switch
           }
-          {!props.dashboardState.showPlaylistDescription &&
-            !props.clipsEdit.isEditing && <ClipDescription />}
-          {!props.dashboardState.showPlaylistDescription &&
-            props.clipsEdit.isEditing && <ClipFormView />}
-          {props.dashboardState.showPlaylistDescription &&
-            !props.playlistsEdit.isEditing && <PlaylistDescription />}
-          {props.dashboardState.showPlaylistDescription &&
-            props.playlistsEdit.isEditing && <PlaylistFormView />}
+          {!showPlaylist && !props.clipsEdit.isEditing && <ClipDescription />}
+          {!showPlaylist && props.clipsEdit.isEditing && <ClipFormView />}
+          {showPlaylist && !props.playlistsEdit.isEditing && (
+            <PlaylistDescription />
+          )}
+          {showPlaylist && props.playlistsEdit.isEditing && (
+            <PlaylistFormView />
+          )}
         </div>
       </>
     );

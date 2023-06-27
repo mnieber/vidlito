@@ -4,7 +4,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { SyncClipWithUrlEffect } from '/src/clips/components';
 import { Dashboard } from '/src/dashboard/components/Dashboard';
 import { MainView } from '/src/dashboard/components/MainView';
-import { VideoCard } from '/src/dashboard/components/MainView/VideoCard';
+import { ClipCard } from '/src/dashboard/components/MainView/ClipCard';
 import { UseActionsPage } from '/src/frames/pages/UseActionsPage';
 import { UseMainPage } from '/src/frames/pages/UseMainPage';
 import {
@@ -12,7 +12,6 @@ import {
   PlaylistFormView,
   SyncPlaylistWithUrlEffect,
 } from '/src/playlists/components';
-import { CreateFirstClip } from '/src/playlists/components/CreateFirstClip';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
 import { cn } from '/src/utils/classnames';
 
@@ -35,7 +34,6 @@ export const DashboardSwitch = withDefaultProps(
               <MainView>
                 <Route exact={true} path={routes.playlist()}>
                   <ForwardToClipEffect />
-                  <CreateFirstClip />
                 </Route>
                 <Route
                   exact={true}
@@ -50,7 +48,7 @@ export const DashboardSwitch = withDefaultProps(
                 <Route exact={true} path={routes.clip()}>
                   <SyncClipWithUrlEffect />
                   {/* 🔳 */}
-                  <VideoCard />
+                  <ClipCard />
                 </Route>
                 <Route exact={true} path={routes.actions()}>
                   <UseActionsPage>
