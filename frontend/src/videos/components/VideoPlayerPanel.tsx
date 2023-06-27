@@ -41,11 +41,8 @@ export const VideoPlayerPanel = observer(
           props.className
         )}
       >
-        <VideoPlayerPanelPlaceholder
-          onResize={onResize}
-          width={width}
-          hidden={ready}
-        />
+        <ReactResizeDetector handleWidth onResize={onResize} />
+        <VideoPlayerPanelPlaceholder width={width} hidden={ready} />
         <div
           className={cn('VideoPlayerPanel__Body', { hidden: !ready })}
           style={{ height: widthToHeight(width) }}
@@ -99,7 +96,6 @@ export const useResize = () => {
 };
 
 export const VideoPlayerPanelPlaceholder = (props: {
-  onResize: any;
   hidden: boolean;
   width: number;
 }) => {
@@ -120,7 +116,6 @@ export const VideoPlayerPanelPlaceholder = (props: {
         ...maxWidth,
       }}
     >
-      <ReactResizeDetector handleWidth onResize={props.onResize} />
       {!props.hidden && (
         <div className={cn('mx-auto')}>
           <Icon className={cn(L.Lvi.icon())} name="play" />
