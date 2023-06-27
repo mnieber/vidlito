@@ -28,8 +28,8 @@ export const FormFieldLabel = (props: PropsT) => {
           {props.label}
         </label>
       )}
-      {props.buttons?.length && <div className="flex-grow" />}
-      {props.buttons?.length && (
+      {!!props.buttons?.length && <div className="flex-grow" />}
+      {!!props.buttons?.length && (
         <div
           className={cn(
             'FormFieldLabel__Buttons',
