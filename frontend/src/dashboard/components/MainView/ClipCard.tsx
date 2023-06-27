@@ -18,7 +18,6 @@ export type PropsT = {
 };
 
 const DefaultProps = {
-  ...dps.clip,
   ...dps.clips,
   ...dps.clipsEdit,
   ...dps.playlistsEdit,

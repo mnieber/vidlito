@@ -1,5 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
+import { queryClient } from '/src/api/queryClient';
+import { PlaylistT } from '/src/api/types/PlaylistT';
+import { applyUpdate } from '/src/utils/applyUpdate';
 import { createQueryKey } from '/src/utils/createQueryKey';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
@@ -60,5 +63,20 @@ export const useGetPlaylist = (args: ArgsT) => {
     queryKey: queryKey({ playlistId: args.playlistId ?? null }),
     queryFn: () => getPlaylist(args),
     enabled: !!args.playlistId,
+    onSuccess: (response: ObjT) => {
+      queryClient.setQueriesData({ queryKey: ['loadUserId'] }, (data: any) => {
+        return applyUpdate(
+          ['userProfile.followSet'],
+          data,
+          (playlists: PlaylistT[]) => {
+            return playlists.map((playlist: PlaylistT) => {
+              return playlist.id === response.playlist.id
+                ? response.playlist
+                : playlist;
+            });
+          }
+        );
+      });
+    },
   });
 };
