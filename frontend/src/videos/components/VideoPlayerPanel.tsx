@@ -121,9 +121,11 @@ export const VideoPlayerPanelPlaceholder = (props: {
       }}
     >
       <ReactResizeDetector handleWidth onResize={props.onResize} />
-      <div className={cn('mx-auto', { hidden: props.hidden })}>
-        <Icon className={cn(L.Lvi.icon())} name="play" />
-      </div>
+      {!props.hidden && (
+        <div className={cn('mx-auto')}>
+          <Icon className={cn(L.Lvi.icon())} name="play" />
+        </div>
+      )}
     </div>
   );
 };
