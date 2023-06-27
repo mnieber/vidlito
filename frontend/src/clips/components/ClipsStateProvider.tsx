@@ -42,14 +42,20 @@ export const ClipsStateProvider = observer(
       makeAutoObservable({
         get clips() {
           return updateSources(
-            { resource: clipsState.clipsCtr.display.items },
+            {
+              resource: clipsState.clipsCtr.display.items,
+              resourceName: 'clips',
+            },
             ['loading', () => isLoading(props.playlist), 'playlist'],
             ['updating', () => isUpdating(props.playlist), 'playlist']
           );
         },
         get clip() {
           return updateSources(
-            { resource: clipsState.clipsCtr.highlight.item },
+            {
+              resource: clipsState.clipsCtr.highlight.item,
+              resourceName: 'clip',
+            },
             //
             ['loading', () => isLoading(props.playlist), 'playlist']
           );

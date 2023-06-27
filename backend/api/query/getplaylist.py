@@ -11,12 +11,8 @@ class GetPlaylistOutputs(graphene.ObjectType):
 class GetPlaylist:
     get_playlist = graphene.Field(
         GetPlaylistOutputs,
-        playlist_slug=graphene.String(required=True),
-        playlist_id=graphene.UUID(),
+        playlist_id=graphene.UUID(required=True),
     )
 
-    def resolve_get_playlist(self, info, playlist_slug, playlist_id=None):
-        if playlist_id:
-            return GetPlaylistOutputs(playlist=Playlist.objects.get(id=playlist_id))
-
-        return GetPlaylistOutputs(playlist=Playlist.objects.get(slug=playlist_slug))
+    def resolve_get_playlist(self, info, playlist_id=None):
+        return GetPlaylistOutputs(playlist=Playlist.objects.get(id=playlist_id))

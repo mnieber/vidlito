@@ -40,7 +40,10 @@ export const DashboardStateProvider = observer(
       makeAutoObservable({
         get userProfile() {
           return updateSources(
-            { resource: loadUserId.data?.userProfile },
+            {
+              resource: loadUserId.data?.userProfile,
+              resourceName: 'userProfile',
+            },
             ['loading', () => isQueryLoading(loadUserId), 'loadUserId'],
             ['updating', () => isQueryUpdating(loadUserId), 'loadUserId']
           );

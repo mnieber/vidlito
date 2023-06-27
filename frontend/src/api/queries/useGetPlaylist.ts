@@ -5,18 +5,15 @@ import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
-  playlistSlug?: string;
   playlistId?: string;
 };
 
 export const getPlaylist = (args: ArgsT) => {
   return doQuery(
     `query getPlaylist(
-      $playlistSlug: String!
-      $playlistId: UUID
+      $playlistId: UUID!
     ) {
       getPlaylist(
-        playlistSlug: $playlistSlug
         playlistId: $playlistId
       ) {
         playlist {
@@ -51,7 +48,7 @@ export const getPlaylist = (args: ArgsT) => {
 };
 
 export type QueryKeyT = {
-  playlistSlug: string | null;
+  playlistId: string | null;
 };
 
 export function queryKey(args: QueryKeyT) {
@@ -60,8 +57,8 @@ export function queryKey(args: QueryKeyT) {
 
 export const useGetPlaylist = (args: ArgsT) => {
   return useQuery({
-    queryKey: queryKey({ playlistSlug: args.playlistSlug ?? null }),
+    queryKey: queryKey({ playlistId: args.playlistId ?? null }),
     queryFn: () => getPlaylist(args),
-    enabled: !!args.playlistSlug,
+    enabled: !!args.playlistId,
   });
 };

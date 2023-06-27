@@ -104,6 +104,8 @@ export const VideoPlayerPanelPlaceholder = (props: {
   width: number;
 }) => {
   const maxWidth = props.hidden ? {} : { maxWidth: props.width };
+  const height = widthToHeight(props.width);
+
   return (
     <div
       className={cn(
@@ -114,7 +116,7 @@ export const VideoPlayerPanelPlaceholder = (props: {
         L.row.skewer()
       )}
       style={{
-        height: props.hidden ? 0 : widthToHeight(props.width),
+        height: props.hidden ? 0 : height,
         ...maxWidth,
       }}
     >

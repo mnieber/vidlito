@@ -25,13 +25,12 @@ const DefaultProps = {
 
 export const ClipCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const noClips = !props.clip && !isLoading(props.clip);
-    const showPlaylist =
-      props.dashboardState.showPlaylistDescription || noClips;
+    const noClip = !props.clip && !isLoading(props.clip);
+    const showPlaylist = props.dashboardState.showPlaylistDescription || noClip;
 
     return (
       <>
-        {!noClips && <VideoPlayerPanel className={cn('mb-3')} />}
+        {!noClip && <VideoPlayerPanel className={cn('mb-3')} />}
         <div className={cn('VideoCard__Body', 'ml-6 mt-5', 'max-w-[776px]')}>
           <ClipHeaderView className={cn('mb-5')} />
           {
@@ -45,7 +44,7 @@ export const ClipCard = observer(
           {showPlaylist && props.playlistsEdit.isEditing && (
             <PlaylistFormView />
           )}
-          {noClips && <CreateFirstClip className="mt-4 h-[400px]" />}
+          {noClip && <CreateFirstClip className="mt-4 h-[400px]" />}
         </div>
       </>
     );

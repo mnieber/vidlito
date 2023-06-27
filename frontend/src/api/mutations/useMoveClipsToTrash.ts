@@ -47,7 +47,7 @@ export const useMoveClipsToTrash = () => {
 export function invalidateActions(playlist: PlaylistT): unknown {
   return Promise.all([
     queryClient.invalidateQueries({
-      queryKey: getPlaylistQueryKey({ playlistSlug: playlist.slug }),
+      queryKey: getPlaylistQueryKey({ playlistId: playlist.id }),
     }),
     queryClient.invalidateQueries({
       queryKey: getActionsQueryKey({ playlistId: playlist.id }),

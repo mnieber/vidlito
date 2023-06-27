@@ -24,17 +24,12 @@ const DefaultProps = {
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { playlistsState } = usePlaylistsState({});
-    const getPlaylistSlug = () => {
-      return playlistsState.playlistsCtr.highlight.item?.slug;
-    };
 
     const getPlaylist = useQueryData(
       useGetPlaylist({
-        playlistSlug:
-          getPlaylistSlug() === 'new-playlist' ? undefined : getPlaylistSlug(),
         playlistId: playlistsState.playlistsCtr.highlight.id,
       }),
-      { fetchAsLoad: true }
+      { fetchAsLoad: true, debugLabel: 'getPlaylist' }
     );
 
     useUpdateStateReaction({
@@ -48,8 +43,8 @@ export const PlaylistsStateProvider = observer(
         // Here we have to do a deep compare to avoid infinite loops. If the playlist (that we get from
         // getPlaylist) is equal to the currently highlighted playlist, then keep using the latter.
         const playlist = comparer.structural(
-          inputs.playlist,
-          playlistsState.playlistsCtr.highlight.item
+          playlistsState.playlistsCtr.highlight.item,
+          inputs.playlist
         )
           ? playlistsState.playlistsCtr.highlight.item
           : inputs.playlist;
@@ -79,7 +74,7 @@ export const PlaylistsStateProvider = observer(
               resourceName: 'playlist',
             },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
-            ['loading', () => getPlaylistSlug() !== 'new-playlist' && isQueryLoading(getPlaylist), 'getPlaylist'],
+            ['loading', () => isQueryLoading(getPlaylist), 'getPlaylist'],
             ['updating', () => isQueryUpdating(getPlaylist), 'getPlaylist']
           );
         },
