@@ -25,11 +25,17 @@ export const VideoPlayerPanel = observer(
     const { panelWidth, isResizing, onResize } = useResize();
 
     const ready = props.videoPlayerState.ready;
-    const width = getVideoWidth(
-      props.videoPlayerState.isFullVideoWidth,
-      panelWidth ?? ref.current?.getBoundingClientRect().width ?? 0
-    );
+    const nextPanelWidth = !!panelWidth
+      ? getVideoWidth(props.videoPlayerState.isFullVideoWidth, panelWidth)
+      : undefined;
 
+    React.useEffect(() => {
+      if (!R.isNil(nextPanelWidth)) {
+        props.videoPlayerState.setPanelWidth(nextPanelWidth);
+      }
+    }, [nextPanelWidth]);
+
+    const width = props.videoPlayerState.panelWidth;
     return (
       <div
         ref={ref}
@@ -42,26 +48,32 @@ export const VideoPlayerPanel = observer(
         )}
       >
         <ReactResizeDetector handleWidth onResize={onResize} />
-        <VideoPlayerPanelPlaceholder width={width} hidden={ready} />
-        <div
-          className={cn('VideoPlayerPanel__Body', { hidden: !ready })}
-          style={{ height: widthToHeight(width) }}
-        >
-          <VideoPlayer
-            key={props.videoPlayerState.url} // yes, we need this
-            videoPlayerParentElm={
-              props.dashboardState.video.videoPlayerParentElm
-            }
-            videoPlayerState={props.videoPlayerState}
-            // The video image is slightly smaller than the container so
-            // that the ResizeDetector can detect the resize towards a smaller image.
-            width={width - 1}
-            // During a resize we make the video image absolute so that it doesn't
-            // affect the layout of the container. Without this trick, the container
-            // cannot be made smaller than the video image.
-            className={cn('', { absolute: isResizing })}
-          />
-        </div>
+        {!R.isNil(width) && (
+          <>
+            <VideoPlayerPanelPlaceholder width={width} hidden={ready} />
+            <div
+              className={cn('VideoPlayerPanel__Body', { hidden: !ready })}
+              style={{
+                height: widthToHeight(width),
+              }}
+            >
+              <VideoPlayer
+                key={props.videoPlayerState.url} // yes, we need this
+                videoPlayerParentElm={
+                  props.dashboardState.video.videoPlayerParentElm
+                }
+                videoPlayerState={props.videoPlayerState}
+                // The video image is slightly smaller than the container so
+                // that the ResizeDetector can detect the resize towards a smaller image.
+                width={width - 1}
+                // During a resize we make the video image absolute so that it doesn't
+                // affect the layout of the container. Without this trick, the container
+                // cannot be made smaller than the video image.
+                className={cn('', { absolute: isResizing })}
+              />
+            </div>
+          </>
+        )}
       </div>
     );
   }, DefaultProps)

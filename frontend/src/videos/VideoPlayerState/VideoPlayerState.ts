@@ -11,11 +11,11 @@ export class VideoPlayerState {
   @observable url: string = '';
   @observable startTimeMs: number = 0;
   @observable videoIFrame?: VideoIFrame;
-  @observable panelWidth: number = 100;
+  @observable panelWidth: number | undefined = undefined;
   @observable isFullVideoWidth: boolean = false;
   @observable videoController = new VideoController();
 
-  @action setPanelWidth(x: number) {
+  @action setPanelWidth(x: number | undefined) {
     this.panelWidth = x;
   }
 

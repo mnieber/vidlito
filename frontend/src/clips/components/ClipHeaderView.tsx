@@ -16,6 +16,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clip,
+  ...dps.clips,
   ...dps.clipsEdit,
   ...dps.playlistsEdit,
   ...dps.playlist,
@@ -25,14 +26,15 @@ const DefaultProps = {
 
 export const ClipHeaderView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const noClip = !props.clip && !isLoading(props.clip);
+    const noClips = !props.clips.length && !isLoading(props.clips);
 
-    if ((!props.clip && !noClip) || !props.playlist) {
+    if ((!props.clip && !noClips) || !props.playlist) {
       return <ClipHeaderViewLoader className={props.className} />;
     }
 
     const owner = props.clip?.owner ?? props.playlist.owner;
-    const showPlaylist = noClip || props.dashboardState.showPlaylistDescription;
+    const showPlaylist =
+      noClips || props.dashboardState.showPlaylistDescription;
     const isOwnerClip = props.clip?.owner.username === props.username;
     const isOwnerPlaylist = props.playlist.owner.username === props.username;
     const isOwner = showPlaylist ? isOwnerPlaylist : isOwnerClip;
@@ -55,7 +57,7 @@ export const ClipHeaderView = observer(
             'ClipHeaderView__PlaylistButton',
             {
               'ClipHeaderView__PlaylistButton--active': showPlaylist,
-              'rounded-r-[32px] pr-7': noClip,
+              'rounded-r-[32px] pr-7': noClips,
             },
             //
             //
