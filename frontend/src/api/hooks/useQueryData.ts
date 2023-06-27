@@ -17,20 +17,30 @@ export const useQueryData = (query: ObjT, options?: OptionsT) => {
   const queryData = useBuilder(() => {
     const queryData = new QueryData();
     queryData.debugLabel = debugLabel;
+    updateQueryData(queryData, query, fetchAsLoad);
     return queryData;
   });
 
   React.useEffect(() => {
     runInAction(() => {
-      queryData.query = query;
-      queryData.data = query.data;
-      queryData.status =
-        fetchAsLoad && query.isFetching ? 'loading' : query.status;
+      updateQueryData(queryData, query, fetchAsLoad);
       if (debugLabel && flags.logQueries) {
-        queryData.log(`QueryData ${queryData.id} (${debugLabel}) updated`);
+        queryData.log(
+          `QueryData ${queryData.id} (${debugLabel}) updated to ${queryData.status}`
+        );
       }
     });
   }, [query, queryData, fetchAsLoad, debugLabel]);
 
   return queryData;
 };
+
+function updateQueryData(
+  queryData: QueryData,
+  query: ObjT,
+  fetchAsLoad: boolean | undefined
+) {
+  queryData.query = query;
+  queryData.data = query.data;
+  queryData.status = fetchAsLoad && query.isFetching ? 'loading' : query.status;
+}
