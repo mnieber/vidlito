@@ -47,14 +47,14 @@ export const PlaylistsStateProvider = observer(
       updateState: (inputs) => {
         // Here we have to do a deep compare to avoid infinite loops. If the playlist (that we get from
         // getPlaylist) is equal to the currently highlighted playlist, then keep using the latter.
-        const playlist = comparer.structural(inputs.playlist, playlistsState.playlistsCtr.highlight.item)
+        const playlist = comparer.structural(
+          inputs.playlist,
+          playlistsState.playlistsCtr.highlight.item
+        )
           ? playlistsState.playlistsCtr.highlight.item
           : inputs.playlist;
         playlistsState.playlistsCtr.store.items = graftResourceStates({
-          resources: updatePlaylists(
-            inputs.playlists ?? [],
-            playlist
-          ),
+          resources: updatePlaylists(inputs.playlists ?? [], playlist),
           prevResources: playlistsState.playlistsCtr.store.items,
         });
       },
