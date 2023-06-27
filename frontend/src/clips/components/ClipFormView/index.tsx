@@ -32,6 +32,7 @@ export const DefaultProps = {
   ...dps.clipsEdit,
   ...dps.clipsAddition,
   ...dps.videoPlayerState,
+  ...dps.dashboardState,
 };
 
 export const ClipFormView = observer(

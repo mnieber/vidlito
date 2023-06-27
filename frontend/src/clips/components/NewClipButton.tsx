@@ -1,6 +1,9 @@
 import { observer } from 'mobx-react-lite';
+import { Addition, Selection } from 'skandha-facets';
 import { ClipT, createClip } from '/src/api/types/ClipT';
+import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { DashboardState } from '/src/dashboard/DashboardState/DashboardState';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -16,6 +19,7 @@ const DefaultProps = {
   ...dps.clipsAddition,
   ...dps.clipsSelection,
   ...dps.userProfile,
+  ...dps.dashboardState,
 };
 
 export const NewClipButton = observer(
@@ -32,11 +36,7 @@ export const NewClipButton = observer(
           props.className
         )}
         onClick={() => {
-          props.clipsAddition
-            .add({ values: createClip(props.userProfile, {}) })
-            .then((localClip: ClipT) => {
-              props.clipsSelection.selectItem({ itemId: localClip.id })
-            });
+          onClickNewClipButton(props);
         }}
       >
         <Icon className={cn(l.icon.normal())} name="plus" />
@@ -45,3 +45,18 @@ export const NewClipButton = observer(
     );
   }, DefaultProps)
 );
+
+export function onClickNewClipButton(props: {
+  dashboardState: DashboardState;
+  userProfile: UserProfileT;
+  clipsSelection: Selection;
+  clipsAddition: Addition;
+}) {
+  props.dashboardState.storeNavigationPoint();
+  props.dashboardState.toggleShowPlaylistDescription(false);
+  props.clipsAddition
+    .add({ values: createClip(props.userProfile, {}) })
+    .then((localClip: ClipT) => {
+      props.clipsSelection.selectItem({ itemId: localClip.id });
+    });
+}

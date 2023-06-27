@@ -39,12 +39,7 @@ export const initClips = (state: ClipsState, props: PropsT) => {
     cancel: {
       unstageAdd(parentId: string | undefined) {
         ctr.edit.cancel();
-        ctr.selection.selectItem({
-          itemId:
-            (parentId === topOfTheList ? undefined : parentId) ??
-            ctr.selection.selectableIds[0] ??
-            ctr.store.items?.[0]?.id,
-        });
+        // The UI will restore the previous url
       },
     },
     confirm: {

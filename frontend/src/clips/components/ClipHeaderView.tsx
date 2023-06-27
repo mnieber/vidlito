@@ -30,8 +30,9 @@ export const ClipHeaderView = observer(
     }
 
     const owner = props.clip?.owner ?? props.playlist.owner;
-    const noClip = !props.clip && !isLoading(props.clip);
-    const showPlaylist = noClip || props.dashboardState.showPlaylistDescription;
+    const noClips = !props.clip && !isLoading(props.clip);
+    const showPlaylist =
+      noClips || props.dashboardState.showPlaylistDescription;
     const isOwnerClip = props.clip?.owner.username === props.username;
     const isOwnerPlaylist = props.playlist.owner.username === props.username;
     const isOwner = showPlaylist ? isOwnerPlaylist : isOwnerClip;
@@ -54,6 +55,7 @@ export const ClipHeaderView = observer(
             'ClipHeaderView__PlaylistButton',
             {
               'ClipHeaderView__PlaylistButton--active': showPlaylist,
+              'rounded-r-[32px] pr-7': noClips,
             },
             //
             //
@@ -69,7 +71,7 @@ export const ClipHeaderView = observer(
         {
           // 🔳 Clip button 🔳
         }
-        {!noClip && (
+        {!noClips && (
           <button
             className={cn(
               'ClipHeaderView__ClipButton',

@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { onClickNewClipButton } from '/src/clips/components/NewClipButton';
 import { Icon } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -14,6 +15,10 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clips,
+  ...dps.clipsAddition,
+  ...dps.clipsSelection,
+  ...dps.userProfile,
+  ...dps.dashboardState,
 };
 
 export const CreateFirstClip = observer(
@@ -40,21 +45,12 @@ export const CreateFirstClip = observer(
             L.CtaButton.root(),
             L.CtaButton.color.darkBlueOnSkyBlue()
           )}
+          onClick={() => {
+            onClickNewClipButton(props);
+          }}
         >
           <Icon className={cn(L.CtaButton.icon())} name="plus" />
           Create first clip
-        </button>
-        <button
-          className={cn(
-            'CreateFirstClip__Button',
-            'w-[280px]',
-            'self-center',
-            L.CtaButton.root(),
-            L.CtaButton.color.darkBlueOnSkyBlue()
-          )}
-        >
-          <Icon className={cn(L.CtaButton.icon())} name="pencil" />
-          Edit playlist
         </button>
       </div>
     );

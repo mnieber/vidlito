@@ -8,6 +8,7 @@ import {
   PlaylistDescription,
   PlaylistFormView,
 } from '/src/playlists/components';
+import { CreateFirstClip } from '/src/playlists/components/CreateFirstClip';
 import { cn } from '/src/utils/classnames';
 import { VideoPlayerPanel } from '/src/videos/components';
 
@@ -44,6 +45,7 @@ export const ClipCard = observer(
           {showPlaylist && props.playlistsEdit.isEditing && (
             <PlaylistFormView />
           )}
+          {noClips && <CreateFirstClip className="mt-4 h-[400px]" />}
         </div>
       </>
     );

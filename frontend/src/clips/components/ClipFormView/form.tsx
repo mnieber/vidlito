@@ -8,6 +8,7 @@ import {
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
 import { ClipT } from '/src/api/types/ClipT';
+import { navToHome } from '/src/frames/FramesNavEvents';
 import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
@@ -70,7 +71,13 @@ const getHandleSubmit =
 const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
+    const mustRestore = !!props.clipsAddition.item;
     props.clipsEdit.cancel();
+    if (mustRestore) {
+      if (!props.dashboardState.restoreNavigationPoint()) {
+        navToHome();
+      }
+    }
   };
 
 const _toSeconds = (ms: number | undefined) => {
