@@ -1,0 +1,27 @@
+.PlaylistFollowCard__Button--disabled {
+  @apply text-gray-500;
+}
+
+.PlaylistFollowCard__Button__Icon--disabled {
+  @apply fill-gray-300;
+  background-color: #999999 !important;
+}
+
+.PlaylistFollowCard__Button--invisible {
+  @apply invisible;
+}
+
+.PlaylistFollowCard__Text {
+  @apply text-sm peer-checked:text-primaryBlue;
+}
+
+.PlaylistFollowCard__Toggle {
+}
+
+.PlaylistFollowCard__ToggleContainer {
+  @apply border-2 absolute inset-0 rounded-full transition border-gray-700 peer-checked:border-primaryBlue;
+}
+
+.PlaylistFollowCard__Toggle {
+  @apply absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-gray-700 peer-checked:bg-primaryBlue transition-all peer-checked:start-4;
+}

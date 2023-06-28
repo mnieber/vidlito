@@ -3,5 +3,5 @@ import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 export const Spinner = () => {
-  return <Icon className={cn(L.DialogButton.icon())} name="check" />;
+  return <Icon className={cn(L.DialogButton.icon.root())} name="check" />;
 };

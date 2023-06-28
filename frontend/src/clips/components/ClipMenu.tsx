@@ -47,8 +47,7 @@ export const ClipMenu = observer(
               key={playlist.id}
               onClick={(e) => {
                 e.stopPropagation = true;
-                props.clipsMove
-                  .move({ playlistId: playlist.id, copy: false });
+                props.clipsMove.move({ playlistId: playlist.id, copy: false });
               }}
             >
               {playlist.name}
@@ -82,11 +81,13 @@ export const ClipMenu = observer(
         <MenuItem
           disabled={props.clipsDeletion.disabled}
           onClick={() =>
-            props.clipsDeletion
-              .delete({ itemIds: props.clipsSelection.ids, moveToTrash: true })
+            props.clipsDeletion.delete({
+              itemIds: props.clipsSelection.ids,
+              moveToTrash: true,
+            })
           }
         >
-          <Icon className={cn(L.DialogButton.icon())} name="trash" />
+          <Icon className={cn(L.DialogButton.icon.root())} name="trash" />
           Move to Trash
         </MenuItem>
         <MenuDivider />

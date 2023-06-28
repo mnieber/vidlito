@@ -66,11 +66,10 @@ export const ClipListViewItem = observer(
           // 🔳 PlayVideoIcon 🔳
         }
         <PlayVideoIcon
-          className={cn(l.icon())}
+          className={cn(l.icon.root())}
           videoController={props.videoPlayerState.videoController}
           visible={
-            props.videoPlayerState.videoController.ready &&
-            props.isHighlighted
+            props.videoPlayerState.videoController.ready && props.isHighlighted
           }
           loading={loading}
         />

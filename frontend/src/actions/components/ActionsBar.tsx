@@ -97,7 +97,7 @@ export const ActionsBar = observer(
             )}
             onClick={() => props.actionsState.undoAction(props.action)}
           >
-            <Icon className={cn(L.DialogButton.icon())} name="reply" />
+            <Icon className={cn(L.DialogButton.icon.root())} name="reply" />
             Undo
           </button>
         </div>

@@ -34,7 +34,7 @@ export const PlayVideoIcon = observer((props: PropsT) => {
     >
       <Icon
         className={cn('w-full', 'h-full')}
-        name={props.videoController.isPlaying ? 'pause' : 'play-circle'}
+        name={props.videoController.isPlaying ? 'pause' : 'playCircle'}
       />
     </button>
   ) : (

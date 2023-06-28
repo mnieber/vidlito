@@ -4,10 +4,9 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
-import { textTrunc } from '/src/utils/strings';
 
 // Import styles
-import './ClipHeaderView.scss';
+import './ClipEditButton.scss';
 
 export type PropsT = {
   showPlaylist: boolean;
@@ -26,7 +25,6 @@ export const ClipEditButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const isOwnerClip = props.clip?.owner.username === props.username;
     const isOwnerPlaylist = props.playlist.owner.username === props.username;
-    const owner = props.clip?.owner ?? props.playlist.owner;
     const isOwner = props.showPlaylist ? isOwnerPlaylist : isOwnerClip;
 
     return (
@@ -73,12 +71,6 @@ export const ClipEditButton = observer(
           />
           Edit
         </button>
-        {
-          // 🔳 Author 🔳
-        }
-        <div className={cn('ClipEditButton__Author')}>
-          By: {textTrunc(owner.username, 24)}
-        </div>
       </div>
     );
   }, DefaultProps)

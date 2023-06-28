@@ -130,7 +130,7 @@ export const VideoPlayerPanelPlaceholder = (props: {
     >
       {!props.hidden && (
         <div className={cn('mx-auto')}>
-          <Icon className={cn(L.Lvi.icon())} name="play" />
+          <Icon className={cn(L.Lvi.icon.root())} name="play" />
         </div>
       )}
     </div>

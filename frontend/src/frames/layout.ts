@@ -66,7 +66,7 @@ export const L = {
   },
   Lvi: {
     root: () => cn('py-1', 'my-1', L.row.skewer()),
-    icon: () => L.DialogButton.icon(),
+    icon: { root: () => L.DialogButton.icon.root() },
     title: () => cn('grow', 'pr-2.5'),
   },
   main: {
@@ -94,8 +94,12 @@ export const L = {
     color: {
       darkBlueOnSkyBlue: () => 'c-dark-blue-on-sky-blue-btn-color',
       darkBlueOnTeal: () => 'c-dark-blue-on-teal-btn-color',
+      skyBlueTextAndBorder: () => 'c-sky-blue-text border-2 border-primaryBlue',
     },
-    icon: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
+    icon: {
+      root: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
+      color: { skyBlue: () => 'fill-primaryBlue' },
+    },
   },
   CtaButton: {
     root: () => cn('CtaButton', L.row.skewer()),

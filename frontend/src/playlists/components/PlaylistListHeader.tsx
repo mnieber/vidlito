@@ -39,8 +39,8 @@ export const PlaylistListHeader = observer(
           className={cn(l.icon())}
           name={
             props.dashboardState.isPlaylistListExpanded
-              ? 'cheveron-down'
-              : 'cheveron-right'
+              ? 'cheveronDown'
+              : 'cheveronRight'
           }
         />
       </div>

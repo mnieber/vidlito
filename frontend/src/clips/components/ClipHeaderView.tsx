@@ -3,6 +3,8 @@ import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipEditButton } from '/src/clips/components/ClipEditButton';
 import { L } from '/src/frames/layout';
+import { AuthorCard } from '/src/playlists/components/AuthorCard';
+import { PlaylistFollowCard } from '/src/playlists/components/PlaylistFollowCard';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -36,54 +38,69 @@ export const ClipHeaderView = observer(
           'ClipHeaderView',
           //
           //
-          L.row.banner(),
+          L.col.banner(),
           props.className
         )}
       >
-        {
-          // 🔳 Playlist button 🔳
-        }
-        <button
+        <div
           className={cn(
-            'ClipHeaderView__PlaylistButton',
-            {
-              'ClipHeaderView__PlaylistButton--active': showPlaylist,
-              'rounded-r-[32px] pr-7': noClips,
-            },
+            'ClipHeaderView__Buttons',
             //
             //
-            L.row.skewer(),
-            'pt-2.5 pb-3 pr-4 pl-7'
+            L.row.banner(),
+            props.className
           )}
-          onClick={() => {
-            props.dashboardState.toggleShowPlaylistDescription(true);
-          }}
         >
-          {props.playlist.name}
-        </button>
-        {
-          // 🔳 Clip button 🔳
-        }
-        {props.clip && (
+          {
+            // 🔳 Playlist button 🔳
+          }
           <button
             className={cn(
-              'ClipHeaderView__ClipButton',
+              'ClipHeaderView__PlaylistButton',
               {
-                'ClipHeaderView__ClipButton--active': !showPlaylist,
+                'ClipHeaderView__PlaylistButton--active': showPlaylist,
+                'rounded-r-[32px] pr-7': noClips,
               },
               //
               //
               L.row.skewer(),
-              'ml-[3px] pt-2.5 pb-3 pl-4 pr-7'
+              'pt-2.5 pb-3 pr-4 pl-7'
             )}
             onClick={() => {
-              props.dashboardState.toggleShowPlaylistDescription(false);
+              props.dashboardState.toggleShowPlaylistDescription(true);
             }}
           >
-            {props.clip.name}
+            {props.playlist.name}
           </button>
-        )}
-        <ClipEditButton showPlaylist={showPlaylist} />
+          {
+            // 🔳 Clip button 🔳
+          }
+          {props.clip && (
+            <button
+              className={cn(
+                'ClipHeaderView__ClipButton',
+                {
+                  'ClipHeaderView__ClipButton--active': !showPlaylist,
+                },
+                //
+                //
+                L.row.skewer(),
+                'ml-[3px] pt-2.5 pb-3 pl-4 pr-7'
+              )}
+              onClick={() => {
+                props.dashboardState.toggleShowPlaylistDescription(false);
+              }}
+            >
+              {props.clip.name}
+            </button>
+          )}
+          <div className={cn('grow')} />
+          <PlaylistFollowCard />
+        </div>
+        <div className={cn(L.row.skewer(), 'grow', 'justify-between')}>
+          <AuthorCard />
+          <ClipEditButton showPlaylist={showPlaylist} />
+        </div>
       </div>
     );
   }, DefaultProps)

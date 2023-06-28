@@ -18,7 +18,7 @@ export const usePreviewButton = (props: PropsT) => {
       onClick={() => setDescriptionPreview(!descriptionPreview)}
     >
       {descriptionPreview && (
-        <Icon className={cn(L.DialogButton.icon())} name="check" />
+        <Icon className={cn(L.DialogButton.icon.root())} name="check" />
       )}
       Preview
     </button>

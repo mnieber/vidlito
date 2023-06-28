@@ -49,7 +49,7 @@ export const AccountMenu = observer(
         >
           {!props.isAuthenticated && (
             <StyledMenuItem onClick={() => navToSignIn()}>
-              <Icon className={cn(L.DialogButton.icon())} name="signIn" />
+              <Icon className={cn(L.DialogButton.icon.root())} name="signIn" />
               Sign In
             </StyledMenuItem>
           )}
@@ -61,7 +61,7 @@ export const AccountMenu = observer(
                 });
               }}
             >
-              <Icon className={cn(L.DialogButton.icon())} name="signOut" />
+              <Icon className={cn(L.DialogButton.icon.root())} name="signOut" />
               Sign Out
             </StyledMenuItem>
           )}

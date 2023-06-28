@@ -63,7 +63,7 @@ export const PlaylistListViewItem = observer(
             'IconContainer',
             //
             //
-            l.icon(),
+            l.icon.root(),
             L.row.skewer()
           )}
           onClick={() => {
@@ -72,7 +72,7 @@ export const PlaylistListViewItem = observer(
         >
           <Icon
             className={cn('w-[15px] h-[15px]', 'fill-gray-700')}
-            name="arrow-right"
+            name="arrowRight"
           />
         </div>
         {

@@ -36,7 +36,7 @@ export const ClipCard = observer(
         {!noClips && <VideoPlayerPanel className={cn('mb-3')} />}
         {!R.isNil(props.videoPlayerState.panelWidth) && (
           <div className={cn('VideoCard__Body', 'ml-6 mt-5', 'max-w-[776px]')}>
-            <ClipHeaderView className={cn('mb-5')} />
+            <ClipHeaderView className={cn('mb-4')} />
             {
               // 🔳 Switch
             }
