@@ -1,3 +1,7 @@
-.AuthorCard__Item {
+.AuthorCard__Label {
   @apply text-sm text-gray-700;
+}
+
+.AuthorCard__Owner {
+  @apply text-sm;
 }

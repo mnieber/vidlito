@@ -18,7 +18,7 @@ const DefaultProps = {
 
 export const PlaylistFollowCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const [isChecked, setIsChecked] = React.useState(false);
+    const [isChecked, setIsChecked] = React.useState(true);
 
     const onChange = (e: any) => {
       setIsChecked(e.target.checked);
@@ -51,6 +51,7 @@ export const PlaylistFollowCard = observer(
             id="followPlaylist"
             className="peer sr-only"
             onChange={onChange}
+            defaultChecked={isChecked}
           />
           <span className="PlaylistFollowCard__ToggleContainer"></span>
           <span className="PlaylistFollowCard__Toggle"></span>
