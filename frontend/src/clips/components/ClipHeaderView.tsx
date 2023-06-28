@@ -1,11 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import * as R from 'ramda';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { Icon } from '/src/frames/components';
+import { ClipEditButton } from '/src/clips/components/ClipEditButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
-import { textTrunc } from '/src/utils/strings';
 
 // Import styles
 import './ClipHeaderView.scss';
@@ -17,11 +15,8 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.clip,
   ...dps.clips,
-  ...dps.clipsEdit,
-  ...dps.playlistsEdit,
   ...dps.playlist,
   ...dps.dashboardState,
-  ...dps.username,
 };
 
 export const ClipHeaderView = observer(
@@ -32,12 +27,8 @@ export const ClipHeaderView = observer(
       return <ClipHeaderViewLoader className={props.className} />;
     }
 
-    const owner = props.clip?.owner ?? props.playlist.owner;
     const showPlaylist =
       noClips || props.dashboardState.showPlaylistDescription;
-    const isOwnerClip = props.clip?.owner.username === props.username;
-    const isOwnerPlaylist = props.playlist.owner.username === props.username;
-    const isOwner = showPlaylist ? isOwnerPlaylist : isOwnerClip;
 
     return (
       <div
@@ -92,60 +83,7 @@ export const ClipHeaderView = observer(
             {props.clip.name}
           </button>
         )}
-        {
-          // 🔳 Rhs: the edit button and author 🔳
-        }
-        <div
-          className={cn(
-            'text-gray-700',
-            //
-            //
-            L.col.banner(),
-            'justify-between',
-            'ml-8'
-          )}
-        >
-          {
-            // 🔳 EditButton 🔳
-          }
-          <button
-            className={cn(
-              'ClipHeaderView__EditButton',
-              {
-                'ClipHeaderView__EditButton--disabled': !isOwner,
-                'ClipHeaderView__EditButton--invisible': R.isNil(
-                  props.username
-                ),
-              },
-              //
-              //
-              L.ToolButton.root()
-            )}
-            disabled={!isOwner}
-            onClick={() => {
-              const edit = showPlaylist ? props.playlistsEdit : props.clipsEdit;
-              edit.enable();
-            }}
-          >
-            <Icon
-              className={cn(
-                'ClipHeaderView__EditButtonIcon',
-                L.ToolButton.icon.small(),
-                {
-                  'ClipHeaderView__EditButtonIcon--disabled': !isOwner,
-                }
-              )}
-              name="pencil"
-            />
-            Edit
-          </button>
-          {
-            // 🔳 Author 🔳
-          }
-          <div className={cn('ClipHeaderView__TitleAuthor')}>
-            By: {textTrunc(owner.username, 24)}
-          </div>
-        </div>
+        <ClipEditButton showPlaylist={showPlaylist} />
       </div>
     );
   }, DefaultProps)

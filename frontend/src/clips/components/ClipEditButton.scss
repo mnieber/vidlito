@@ -1,0 +1,12 @@
+.ClipEditButton--disabled {
+  @apply text-gray-500;
+}
+
+.ClipEditButton__Icon--disabled {
+  @apply fill-gray-300;
+  background-color: #999999 !important;
+}
+
+.ClipEditButton--invisible {
+  @apply invisible;
+}

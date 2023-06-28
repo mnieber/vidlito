@@ -19,16 +19,3 @@
 .ClipHeaderView__PlaylistButton--active {
   @apply bg-blue-50;
 }
-
-.ClipHeaderView__EditButton--disabled {
-  @apply text-gray-500;
-}
-
-.ClipHeaderView__EditButtonIcon--disabled {
-  @apply fill-gray-300;
-  background-color: #999999 !important;
-}
-
-.ClipHeaderView__EditButton--invisible {
-  @apply invisible;
-}

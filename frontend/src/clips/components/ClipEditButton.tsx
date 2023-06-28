@@ -1,0 +1,85 @@
+import { observer } from 'mobx-react-lite';
+import * as R from 'ramda';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { Icon } from '/src/frames/components';
+import { L } from '/src/frames/layout';
+import { cn } from '/src/utils/classnames';
+import { textTrunc } from '/src/utils/strings';
+
+// Import styles
+import './ClipHeaderView.scss';
+
+export type PropsT = {
+  showPlaylist: boolean;
+};
+
+const DefaultProps = {
+  ...dps.clip,
+  ...dps.clipsEdit,
+  ...dps.playlistsEdit,
+  ...dps.playlist,
+  ...dps.username,
+  ...dps.dashboardState,
+};
+
+export const ClipEditButton = observer(
+  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const isOwnerClip = props.clip?.owner.username === props.username;
+    const isOwnerPlaylist = props.playlist.owner.username === props.username;
+    const owner = props.clip?.owner ?? props.playlist.owner;
+    const isOwner = props.showPlaylist ? isOwnerPlaylist : isOwnerClip;
+
+    return (
+      //
+      // 🔳 Rhs: the edit button and author 🔳
+      //
+      <div
+        className={cn(
+          'text-gray-700',
+          //
+          //
+          L.col.banner(),
+          'justify-between',
+          'ml-8'
+        )}
+      >
+        {
+          // 🔳 EditButton 🔳
+        }
+        <button
+          className={cn(
+            'ClipEditButton',
+            {
+              'ClipEditButton--disabled': !isOwner,
+              'ClipEditButton--invisible': R.isNil(props.username),
+            },
+            //
+            //
+            L.ToolButton.root()
+          )}
+          disabled={!isOwner}
+          onClick={() => {
+            const edit = props.showPlaylist
+              ? props.playlistsEdit
+              : props.clipsEdit;
+            edit.enable();
+          }}
+        >
+          <Icon
+            className={cn('ClipEditButton__Icon', L.ToolButton.icon.small(), {
+              'ClipEditButton__Icon--disabled': !isOwner,
+            })}
+            name="pencil"
+          />
+          Edit
+        </button>
+        {
+          // 🔳 Author 🔳
+        }
+        <div className={cn('ClipEditButton__Author')}>
+          By: {textTrunc(owner.username, 24)}
+        </div>
+      </div>
+    );
+  }, DefaultProps)
+);
