@@ -27,19 +27,17 @@ export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { playlistsState } = usePlaylistsState({});
     const params: ObjT = navHandler.getParams();
+    const playlistId = playlistsState.playlistsCtr.highlight.id;
+    const playlistSlug = !!playlistId
+      ? undefined
+      : params.playlistSlug ?? playlistsState.playlistsCtr.highlight.item?.slug;
 
     const getPlaylist = useQueryData(
       useGetPlaylist({
-        playlistId: playlistsState.playlistsCtr.highlight.id,
+        playlistId: playlistId,
+        playlistSlug: playlistSlug,
       }),
       { fetchAsLoad: true, debugLabel: 'getPlaylist' }
-    );
-
-    const getPlaylistFromSlug = useQueryData(
-      useGetPlaylist({
-        playlistSlug: params.playlistSlug,
-      }),
-      { fetchAsLoad: true, debugLabel: 'getPlaylistFromSlug' }
     );
 
     useUpdateStateReaction({
@@ -47,24 +45,17 @@ export const PlaylistsStateProvider = observer(
         return {
           playlists: props.userProfile?.followSet,
           playlist: getPlaylist.data?.playlist,
-          playlistFromSlug: getPlaylistFromSlug.data?.playlist,
         };
       },
       updateState: (inputs) => {
-        // The fully loaded playlist may come either from the current slug (this takes
-        // precedence) or from the highlighted playlist.
-        console.log('inputs.playlistFromSlug', inputs.playlistFromSlug);
-
-        const fullPlaylist = inputs.playlistFromSlug ?? inputs.playlist;
-
         // Here we have to do a deep compare to avoid infinite loops. If the playlist (that we get from
         // getPlaylist) is equal to the currently highlighted playlist, then keep using the latter.
         const playlist = comparer.structural(
           playlistsState.playlistsCtr.highlight.item,
-          fullPlaylist
+          inputs.playlist
         )
           ? playlistsState.playlistsCtr.highlight.item
-          : fullPlaylist;
+          : inputs.playlist;
 
         playlistsState.playlistsCtr.store.items = graftResourceStates({
           resources: updatePlaylists(inputs.playlists ?? [], playlist),
@@ -92,20 +83,8 @@ export const PlaylistsStateProvider = observer(
               resourceName: 'playlist',
             },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
-            [
-              'loading',
-              () =>
-                isQueryLoading(getPlaylist) ||
-                isQueryLoading(getPlaylistFromSlug),
-              'getPlaylist',
-            ],
-            [
-              'updating',
-              () =>
-                isQueryUpdating(getPlaylist) ||
-                isQueryUpdating(getPlaylistFromSlug),
-              'getPlaylist',
-            ]
+            ['loading', () => isQueryLoading(getPlaylist), 'getPlaylist'],
+            ['updating', () => isQueryUpdating(getPlaylist), 'getPlaylist']
           );
         },
       })
