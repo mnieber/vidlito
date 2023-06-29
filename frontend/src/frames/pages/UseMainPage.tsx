@@ -5,6 +5,7 @@ import { navToClip } from '/src/clips/ClipsNavEvents';
 import { useInstallNavLayer } from '/src/navHandler';
 import { navHandler } from '/src/navHandler/NavHandler';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { navToSearch } from '/src/search/SearchNavEvents';
 
 export const createMainNavEventLayer = () => {
   return {
@@ -15,6 +16,12 @@ export const createMainNavEventLayer = () => {
         ownerUsername: username,
       });
     }) as typeof navToActions,
+    navToSearch: (() => {
+      const ufn = navHandler.routeUfns.search(navHandler.history.push);
+      ufn({
+        ...navHandler.getParams(true),
+      });
+    }) as typeof navToSearch,
     navToClip: ((clipSlug: string) => {
       navHandler.hiddenParams.clipSlug = clipSlug;
       const ufn = navHandler.routeUfns.clip(navHandler.history.push);

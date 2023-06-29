@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
+import { navToSearch } from '/src/search/SearchNavEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -26,7 +27,7 @@ export const SearchButton = observer(
           l.root(),
           props.className
         )}
-        onClick={() => (console as any).log('Moonleap Todo')}
+        onClick={() => navToSearch()}
       >
         <Icon className={cn(l.icon.normal())} name="search" />
         Search

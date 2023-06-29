@@ -13,6 +13,7 @@ import {
   SyncPlaylistWithUrlEffect,
 } from '/src/playlists/components';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
+import { SearchFormView } from '/src/search/components/SearchFormView';
 import { cn } from '/src/utils/classnames';
 
 export type PropsT = {};
@@ -26,12 +27,15 @@ export const DashboardSwitch = withDefaultProps(
     const routes = useRoutes();
     return (
       <Switch>
-        <Route exact={false} path={routes.playlist()}>
-          <UseMainPage>
-            <SyncPlaylistWithUrlEffect />
-            {/* 🔳 */}
-            <Dashboard>
-              <MainView>
+        <UseMainPage>
+          {/* 🔳 */}
+          <Dashboard>
+            <MainView>
+              <Route exact={false} path={routes.search()}>
+                <SearchFormView />
+              </Route>
+              <Route exact={false} path={routes.playlist()}>
+                <SyncPlaylistWithUrlEffect />
                 <Route exact={true} path={routes.playlist()}>
                   <ForwardToClipEffect />
                 </Route>
@@ -56,10 +60,10 @@ export const DashboardSwitch = withDefaultProps(
                     <ActionsView className={cn('ml-2 lg:ml-4 mt-4')} />
                   </UseActionsPage>
                 </Route>
-              </MainView>
-            </Dashboard>
-          </UseMainPage>
-        </Route>
+              </Route>
+            </MainView>
+          </Dashboard>
+        </UseMainPage>
       </Switch>
     );
   },

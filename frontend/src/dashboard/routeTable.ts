@@ -7,6 +7,7 @@ export const getRouteTable = () => {
     playlist: () => '/playlist/:ownerUsername/:playlistSlug',
     clip: () => '/playlist/:ownerUsername/:playlistSlug/:clipSlug',
     actions: () => '/playlist/:ownerUsername/:playlistSlug/actions/_',
+    search: () => '/search',
   });
 
   return routeTable;

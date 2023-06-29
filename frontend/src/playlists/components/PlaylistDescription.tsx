@@ -16,7 +16,8 @@ const DefaultProps = {
 
 export const PlaylistDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (!props.playlist?.description) return null;
+    if (!props.playlist?.description)
+      return <PlaylistDescriptionLoader {...props} />;
 
     return (
       <div
@@ -34,4 +35,19 @@ export const PlaylistDescription = observer(
       </div>
     );
   }, DefaultProps)
+);
+
+const PlaylistDescriptionLoader = observer(
+  (props: PropsT & typeof DefaultProps) => {
+    return (
+      <div
+        className={cn(
+          'PlaylistDescriptionLoader',
+          'h-[200px] my-4',
+          'rounded bg-gray-300',
+          props.className
+        )}
+      ></div>
+    );
+  }
 );
