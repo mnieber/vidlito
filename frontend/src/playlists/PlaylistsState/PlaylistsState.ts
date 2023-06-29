@@ -58,7 +58,7 @@ export class PlaylistsState {
         item: () => getPlaylistById(ctr.highlight.id),
       },
       insertion: {
-        inputItems: () => ctr.store.items ?? [],
+        inputItems: () => ctr.store.outputItems ?? [],
         preview: () =>
           createInsertionPreview(
             [DragSourceFromNewItem],

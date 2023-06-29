@@ -9,11 +9,13 @@ import { useQueryData } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
+import { navHandler } from '/src/navHandler/NavHandler';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from '/src/playlists/utils';
 import { graftResourceStates } from '/src/resourceStates';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { log } from '/src/utils/logging';
+import { ObjT } from '/src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -24,6 +26,7 @@ const DefaultProps = {
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { playlistsState } = usePlaylistsState({});
+    const params: ObjT = navHandler.getParams();
 
     const getPlaylist = useQueryData(
       useGetPlaylist({
@@ -32,22 +35,37 @@ export const PlaylistsStateProvider = observer(
       { fetchAsLoad: true, debugLabel: 'getPlaylist' }
     );
 
+    const getPlaylistFromSlug = useQueryData(
+      useGetPlaylist({
+        playlistSlug: params.playlistSlug,
+      }),
+      { fetchAsLoad: true, debugLabel: 'getPlaylistFromSlug' }
+    );
+
     useUpdateStateReaction({
       getInputs: () => {
         return {
           playlists: props.userProfile?.followSet,
           playlist: getPlaylist.data?.playlist,
+          playlistFromSlug: getPlaylistFromSlug.data?.playlist,
         };
       },
       updateState: (inputs) => {
+        // The fully loaded playlist may come either from the current slug (this takes
+        // precedence) or from the highlighted playlist.
+        console.log('inputs.playlistFromSlug', inputs.playlistFromSlug);
+
+        const fullPlaylist = inputs.playlistFromSlug ?? inputs.playlist;
+
         // Here we have to do a deep compare to avoid infinite loops. If the playlist (that we get from
         // getPlaylist) is equal to the currently highlighted playlist, then keep using the latter.
         const playlist = comparer.structural(
           playlistsState.playlistsCtr.highlight.item,
-          inputs.playlist
+          fullPlaylist
         )
           ? playlistsState.playlistsCtr.highlight.item
-          : inputs.playlist;
+          : fullPlaylist;
+
         playlistsState.playlistsCtr.store.items = graftResourceStates({
           resources: updatePlaylists(inputs.playlists ?? [], playlist),
           prevResources: playlistsState.playlistsCtr.store.items,
@@ -74,8 +92,20 @@ export const PlaylistsStateProvider = observer(
               resourceName: 'playlist',
             },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
-            ['loading', () => isQueryLoading(getPlaylist), 'getPlaylist'],
-            ['updating', () => isQueryUpdating(getPlaylist), 'getPlaylist']
+            [
+              'loading',
+              () =>
+                isQueryLoading(getPlaylist) ||
+                isQueryLoading(getPlaylistFromSlug),
+              'getPlaylist',
+            ],
+            [
+              'updating',
+              () =>
+                isQueryUpdating(getPlaylist) ||
+                isQueryUpdating(getPlaylistFromSlug),
+              'getPlaylist',
+            ]
           );
         },
       })

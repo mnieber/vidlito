@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import { isLoading } from '/src/api/getState';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
@@ -44,7 +45,8 @@ export const SyncPlaylistWithUrlEffect = observer(
           return (
             R.find((x: PlaylistT) => x.slug === params.playlistSlug)(
               props.playlists
-            ) ?? R.head(props.playlists)
+            ) ??
+            (isLoading(props.playlist) ? undefined : R.head(props.playlists))
           );
         };
 
@@ -57,7 +59,6 @@ export const SyncPlaylistWithUrlEffect = observer(
           refUrl.current = location.pathname;
           addNewPlaylist();
         } else {
-          // Check if we must update the playlist selection based on the current url.
           const playlistForCurrentUrl = getPlaylistForCurrentUrl();
           if (playlistForCurrentUrl) {
             refUrl.current = location.pathname;

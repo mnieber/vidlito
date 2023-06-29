@@ -10,15 +10,18 @@ import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   playlistId?: string;
+  playlistSlug?: string;
 };
 
 export const getPlaylist = (args: ArgsT) => {
   return doQuery(
     `query getPlaylist(
-      $playlistId: UUID!
+      $playlistId: UUID
+      $playlistSlug: String
     ) {
       getPlaylist(
         playlistId: $playlistId
+        playlistSlug: $playlistSlug
       ) {
         playlist {
           description
@@ -53,7 +56,8 @@ export const getPlaylist = (args: ArgsT) => {
 };
 
 export type QueryKeyT = {
-  playlistId: string | null;
+  playlistId?: string;
+  playlistSlug?: string;
 };
 
 export function queryKey(args: QueryKeyT) {
@@ -62,10 +66,20 @@ export function queryKey(args: QueryKeyT) {
 
 export const useGetPlaylist = (args: ArgsT) => {
   return useQuery({
-    queryKey: queryKey({ playlistId: args.playlistId ?? null }),
+    queryKey: queryKey(args),
     queryFn: () => getPlaylist(args),
-    enabled: !!args.playlistId,
+    enabled: !!args.playlistId || !!args.playlistSlug,
     onSuccess: (response: ObjT) => {
+      // If the playlist was loaded by slug,
+      // then set the query data for loading it by id, and vice versa.
+      const altQueryKeyArgs = args.playlistId
+        ? { playlistSlug: response.playlist.slug }
+        : { playlistId: response.playlist.id };
+      queryClient.setQueriesData(
+        { queryKey: queryKey(altQueryKeyArgs) },
+        response
+      );
+
       queryClient.setQueriesData(
         { queryKey: loadUserIdQueryKey({}) },
         (data: any) => {

@@ -13,7 +13,7 @@ export const updatePlaylists = (
     return R.update(playlistIdx, playlist!, playlists);
   }
   if (playlist) {
-    return [...playlists, playlist];
+    return [playlist, ...playlists];
   }
   return playlists;
 };
