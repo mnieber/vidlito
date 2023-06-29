@@ -3,6 +3,7 @@ import * as R from 'ramda';
 import { doQuery } from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
 import { UserProfileT } from '/src/api/types/UserProfileT';
+import { loadUserIdQueryKey } from '/src/auth/endpoints';
 import { applyUpdate } from '/src/utils/applyUpdate';
 import { sortByIds } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
@@ -43,9 +44,12 @@ export const useSavePlaylistOrdering = () => {
               followSet: sortByIds(userProfile.followSet, args.playlistIds),
             };
       };
-      queryClient.setQueriesData({ queryKey: ['loadUserId'] }, (data: any) => {
-        return applyUpdate(['userProfile'], data, updateUserProfile);
-      });
+      queryClient.setQueriesData(
+        { queryKey: loadUserIdQueryKey({}) },
+        (data: any) => {
+          return applyUpdate(['userProfile'], data, updateUserProfile);
+        }
+      );
     },
   });
 };

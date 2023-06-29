@@ -1,5 +1,9 @@
 export { activateAccount, useActivateAccount } from './useActivateAccount';
-export { loadUserId, useLoadUserId } from './useLoadUserId';
+export {
+  loadUserId,
+  queryKey as loadUserIdQueryKey,
+  useLoadUserId,
+} from './useLoadUserId';
 export { requestMagicLink, useRequestMagicLink } from './useRequestMagicLink';
 export {
   requestPasswordReset,

@@ -4,6 +4,7 @@ import { getPlaylistQueryKey } from '/src/api/queries';
 import { getPlaylist } from '/src/api/queries/useGetPlaylist';
 import { queryClient } from '/src/api/queryClient';
 import { PlaylistFormT } from '/src/api/types/PlaylistT';
+import { loadUserIdQueryKey } from '/src/auth/endpoints';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
@@ -38,7 +39,7 @@ export const useSavePlaylist = () => {
     onSuccess: (response: ObjT, args: ArgsT) => {
       const getPlaylistArgs = { playlistId: args.playlistForm.id };
       const invalidateLoadUserId = response.created
-        ? [queryClient.invalidateQueries({ queryKey: ['loadUserId'] })]
+        ? [queryClient.invalidateQueries({ queryKey: loadUserIdQueryKey({}) })]
         : [];
       return Promise.all([
         ...invalidateLoadUserId,

@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { doQuery, setToken } from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
 import { AuthState } from '/src/auth/AuthState';
+import { loadUserIdQueryKey } from '/src/auth/endpoints';
 import { States } from '/src/auth/endpoints/states';
 import { hasErrorCode, isError } from '/src/auth/endpoints/utils';
 import { ObjT } from '/src/utils/types';
@@ -69,7 +70,7 @@ export const useSignIn = (authState?: AuthState) => {
     },
     onSuccess: (data: ObjT) => {
       if (authState) authState.onUpdated(queryName, data);
-      queryClient.invalidateQueries({ queryKey: ['loadUserId'] });
+      queryClient.invalidateQueries({ queryKey: loadUserIdQueryKey({}) });
     },
     onError: (error: Error) => {
       if (authState) authState.onErrored(queryName, error.message);

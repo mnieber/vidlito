@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { doQuery, getRefreshToken, setToken } from '/src/api/graphqlClient';
 import { refreshToken } from '/src/auth/endpoints/refreshToken';
+import { createQueryKey } from '/src/utils/createQueryKey';
 import { ObjT } from '/src/utils/types';
 
 export class Anonymous {}
@@ -74,9 +75,15 @@ export function loadUserId(args: ArgsT): Promise<any> {
     });
 }
 
+export type QueryKeyT = {};
+
+export function queryKey(args: QueryKeyT) {
+  return createQueryKey<QueryKeyT>('loadUserId', args);
+}
+
 export const useLoadUserId = () => {
   return useQuery({
-    queryKey: ['loadUserId'],
+    queryKey: queryKey({}),
     queryFn: () => {
       return loadUserId({ maybeRefreshToken: true });
     },

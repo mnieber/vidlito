@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
+import { loadUserIdQueryKey } from '/src/auth/endpoints';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
@@ -35,7 +36,7 @@ export const useFollowPlaylist = () => {
     mutationFn: followPlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['loadUserId'] }),
+        queryClient.invalidateQueries({ queryKey: loadUserIdQueryKey({}) }),
       ]);
     },
   });
