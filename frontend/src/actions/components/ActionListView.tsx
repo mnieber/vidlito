@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { createHighlightUIConnector } from 'skandha-facets';
 import { ActionListKeyHandler } from '/src/actions/components';
 import { ActionListViewItem } from '/src/actions/components/ActionListViewItem';
+import { NoActionsMatchTheFilter } from '/src/actions/components/NoActionsMatchTheFilter';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { L } from '/src/frames/layout';
@@ -28,7 +29,7 @@ export const ActionListView = observer(
 
     if (isLoading(props.actions)) {
       return <ActionListViewLoader />;
-    } else if (!props.actions?.length) return null;
+    } else if (!props.actions?.length) return <NoActionsMatchTheFilter />;
 
     const noItems = <h2>There are no actions</h2>;
 

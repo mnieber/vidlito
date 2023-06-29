@@ -23,6 +23,7 @@ export const ActionsView = observer(
           //
           //
           L.col.banner(),
+          'grow',
           props.className
         )}
       >
