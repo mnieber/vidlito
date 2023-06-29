@@ -62,7 +62,6 @@ export const Dashboard = observer(
               'Dashboard__RightMain',
               'overflow-y-auto',
               'bg-gray-200',
-              'h-full',
               //
               //
               'grow'

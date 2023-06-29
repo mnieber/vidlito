@@ -39,7 +39,8 @@ export const MainView = observer(
             'MainView__Body',
             //
             //
-            'grow max-w-[1200px] h-full',
+            L.col.banner(),
+            'grow max-w-[1200px]',
             props.className
           )}
         >

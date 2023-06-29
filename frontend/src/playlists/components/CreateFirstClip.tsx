@@ -32,8 +32,8 @@ export const CreateFirstClip = observer(
         className={cn(
           'CreateFirstClip',
           'flex flex-col justify-evenly',
-          'h-full',
           'w-full bg-red-300',
+          'grow',
           props.className
         )}
       >

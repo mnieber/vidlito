@@ -5,6 +5,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipDescription } from '/src/clips/components/ClipDescription';
 import { ClipFormView } from '/src/clips/components/ClipFormView';
 import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
+import { L } from '/src/frames/layout';
 import {
   PlaylistDescription,
   PlaylistFormView,
@@ -35,7 +36,17 @@ export const ClipCard = observer(
       <>
         {!noClips && <VideoPlayerPanel className={cn('mb-3')} />}
         {!R.isNil(props.videoPlayerState.panelWidth) && (
-          <div className={cn('VideoCard__Body', 'ml-6 mt-5', 'max-w-[776px]')}>
+          <div
+            className={cn(
+              'ClipCard__Body',
+              //
+              //
+              L.col.banner(),
+              'grow',
+              'ml-6 mt-5',
+              'max-w-[776px]'
+            )}
+          >
             <ClipHeaderView className={cn('mb-6')} />
             {
               // 🔳 Switch
@@ -48,7 +59,7 @@ export const ClipCard = observer(
             {showPlaylist && props.playlistsEdit.isEditing && (
               <PlaylistFormView />
             )}
-            {noClips && <CreateFirstClip className="mt-4 h-[400px]" />}
+            {noClips && <CreateFirstClip className="mt-4" />}
           </div>
         )}
       </>
