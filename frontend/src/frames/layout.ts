@@ -126,5 +126,6 @@ export const L = {
     skewer: () => 'flex flex-col items-center',
     banner: () => 'flex flex-col items-stretch',
     flagPole: () => 'flex flex-col items-start',
+    flagPoleRev: () => 'flex flex-col items-end',
   },
 };

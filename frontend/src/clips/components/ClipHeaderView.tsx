@@ -47,7 +47,8 @@ export const ClipHeaderView = observer(
             'ClipHeaderView__Buttons',
             //
             //
-            L.row.banner()
+            L.row.banner(),
+            'mb-4'
           )}
         >
           {
@@ -94,7 +95,7 @@ export const ClipHeaderView = observer(
             </button>
           )}
           <div className={cn('grow')} />
-          <PlaylistFollowCard />
+          <PlaylistFollowCard className={cn('ml-4')} />
         </div>
         <div className={cn(L.row.skewer(), 'grow', 'justify-between')}>
           <AuthorCard className="self-end mt-3" />
