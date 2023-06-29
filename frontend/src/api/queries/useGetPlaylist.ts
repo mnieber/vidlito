@@ -25,6 +25,7 @@ export const getPlaylist = (args: ArgsT) => {
           name
           slug
           tags
+          nrClips
           clipSet {
             description
             endTimeMs

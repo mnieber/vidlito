@@ -46,6 +46,8 @@ class MoveClipsToTrash(graphene.Mutation):
                 entry.is_deleted = True
                 entry.save()
 
+            playlist.update_nr_clips()
+
         return MoveClipsToTrash(
             success=True,
             errors={},

@@ -2,7 +2,7 @@ import graphene
 from graphene.types.generic import GenericScalar
 
 from api.types import *
-from playlists.models import Entry
+from playlists.models import Entry, Playlist
 
 
 class MoveClipsToPlaylist(graphene.Mutation):
@@ -29,6 +29,9 @@ class MoveClipsToPlaylist(graphene.Mutation):
                     entry.pk = None
                 entry.playlist_id = dest_playlist_id
                 entry.save()
+
+        Playlist.objects.get(id=src_playlist_id).update_nr_clips()
+        Playlist.objects.get(id=dest_playlist_id).update_nr_clips()
 
         return MoveClipsToPlaylist(
             success=True,

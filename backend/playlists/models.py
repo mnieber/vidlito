@@ -28,6 +28,11 @@ class Playlist(Entity):
     slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
     sort_pos = models.IntegerField(default=0)
     tags = models.JSONField(default=create_empty_tags)
+    nr_clips = models.IntegerField(default=0)
+
+    def update_nr_clips(self):
+        self.nr_clips = self.clip_set.count()
+        self.save()
 
     def save(self, *args, **kwargs):
         if self.slug is None:

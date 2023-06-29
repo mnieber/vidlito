@@ -24,6 +24,7 @@ class UndoAction(graphene.Mutation):
                 entry.is_deleted = False
                 entry.save()
             action.delete()
+            Playlist.objects.get(id=playlist_id).update_nr_clips()
 
         return UndoAction(
             success=True,

@@ -35,6 +35,8 @@ class SaveClip(graphene.Mutation):
                 ids = insert_id([x.clip_id for x in entries], parent_clip_id, clip.id)
                 sort_items(entries, ids, lambda x: x.clip_id)
 
+            playlist.update_nr_clips()
+
         return SaveClip(
             success=True,
             errors={},
