@@ -28,9 +28,7 @@ export const PlaylistsStateProvider = observer(
     const { playlistsState } = usePlaylistsState({});
     const params: ObjT = navHandler.getParams();
     const playlistId = playlistsState.playlistsCtr.highlight.id;
-    const playlistSlug = !!playlistId
-      ? undefined
-      : params.playlistSlug ?? playlistsState.playlistsCtr.highlight.item?.slug;
+    const playlistSlug = !!playlistId ? undefined : params.playlistSlug;
 
     const getPlaylist = useQueryData(
       useGetPlaylist({
