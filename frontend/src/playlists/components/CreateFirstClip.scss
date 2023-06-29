@@ -1,27 +1,5 @@
-.CreateFirstClip__Body2 {
-  --s: 30px; /* control the size */
-
-  background: linear-gradient(135deg, #0000 18.75%, #eaeaea 0 31.25%, #0000 0),
-    repeating-linear-gradient(45deg, #eaeaea -6.25% 6.25%, #fafafa 0 18.75%);
-  background-size: var(--s) var(--s);
-}
+@import '/src/frames/components/WallPaper';
 
 .CreateFirstClip {
-  --s: 140px; /* control the size */
-  --c: #3333;
-
-  --_l: #0000 46%, var(--c) 47% 53%, #0000 54%;
-  background: radial-gradient(100% 100% at 100% 100%, var(--_l)) var(--s)
-      var(--s),
-    radial-gradient(100% 100% at 0 0, var(--_l)) var(--s) var(--s),
-    radial-gradient(
-        100% 100%,
-        #0000 22%,
-        var(--c) 23% 29%,
-        #0000 30% 34%,
-        var(--c) 35% 41%,
-        #0000 42%
-      )
-      #6666;
-  background-size: calc(var(--s) * 2) calc(var(--s) * 2);
+  @apply WallPaper;
 }
