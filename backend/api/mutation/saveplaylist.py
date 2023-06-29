@@ -10,7 +10,7 @@ class SavePlaylist(graphene.Mutation):
     success = graphene.Boolean()
     errors = GenericScalar()
     created = graphene.Boolean()
-    playlistSlug = graphene.String()
+    playlist_slug = graphene.String()
 
     class Arguments:
         playlist_form = PlaylistFormT(required=True)
@@ -27,5 +27,5 @@ class SavePlaylist(graphene.Mutation):
             follow.save()
 
         return SavePlaylist(
-            success=True, errors={}, created=created, playlistSlug=playlist.slug
+            success=True, errors={}, created=created, playlist_slug=playlist.slug
         )

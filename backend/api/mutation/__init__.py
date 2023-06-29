@@ -4,6 +4,7 @@ import user_accounts.schema
 
 from .deleteclips import DeleteClips
 from .deleteplaylist import DeletePlaylist
+from .followplaylist import FollowPlaylist
 from .moveclipstoplaylist import MoveClipsToPlaylist
 from .moveclipstotrash import MoveClipsToTrash
 from .saveclip import SaveClip
@@ -23,6 +24,7 @@ class GrapheneNonEmptyMutation(graphene.Mutation):
 class Mutation(user_accounts.schema.Mutation, GrapheneNonEmptyMutation):
     delete_clips = DeleteClips.Field()
     delete_playlist = DeletePlaylist.Field()
+    follow_playlist = FollowPlaylist.Field()
     move_clips_to_trash = MoveClipsToTrash.Field()
     move_clips_to_playlist = MoveClipsToPlaylist.Field()
     save_clip = SaveClip.Field()
