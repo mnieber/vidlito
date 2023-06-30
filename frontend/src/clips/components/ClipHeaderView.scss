@@ -1,21 +1,28 @@
-.ClipHeaderView__ClipButton {
-  @apply rounded-r-[32px];
-  @apply text-gray-700 text-start;
+.ClipHeaderView__Button {
+  @apply text-gray-700 text-start bg-transparent;
   @apply border-2 border-blue-50;
   @apply font-bold;
+  @apply bg-blue-50;
+}
+
+.ClipHeaderView__Button--active {
+  @apply border-gray-700;
+}
+
+.ClipHeaderView__ClipButton {
+  @apply ClipHeaderView__Button;
+  @apply rounded-r-[32px];
 }
 
 .ClipHeaderView__ClipButton--active {
-  @apply bg-blue-50;
+  @apply ClipHeaderView__Button--active;
 }
 
 .ClipHeaderView__PlaylistButton {
+  @apply ClipHeaderView__Button;
   @apply rounded-l-[32px];
-  @apply text-gray-700 text-start;
-  @apply border-2 border-blue-50;
-  @apply font-bold;
 }
 
 .ClipHeaderView__PlaylistButton--active {
-  @apply bg-blue-50;
+  @apply ClipHeaderView__Button--active;
 }
