@@ -11,6 +11,7 @@ import {
   Hovering,
   Insertion,
   Selection,
+  Store,
 } from 'skandha-facets';
 import {
   DragSourceFromNewItem,
@@ -19,7 +20,6 @@ import {
 import { registerCtr } from 'skandha-mobx';
 import { initPlaylists } from './playlists';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { PlaylistsStore } from '/src/playlists/PlaylistsState/facets/PlaylistsStore';
 import { getIds } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 
@@ -40,7 +40,7 @@ export class PlaylistsState {
     hovering: new Hovering(),
     insertion: new Insertion<PlaylistT>(),
     selection: new Selection<PlaylistT>(),
-    store: new PlaylistsStore(),
+    store: new Store<PlaylistT>(),
   };
 
   _playlistsMapData(props: PropsT) {
@@ -58,7 +58,7 @@ export class PlaylistsState {
         item: () => getPlaylistById(ctr.highlight.id),
       },
       insertion: {
-        inputItems: () => ctr.store.outputItems ?? [],
+        inputItems: () => ctr.store.items ?? [],
         preview: () =>
           createInsertionPreview(
             [DragSourceFromNewItem],
