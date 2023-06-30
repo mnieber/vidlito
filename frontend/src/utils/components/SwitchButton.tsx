@@ -10,6 +10,7 @@ export type PropsT = {
   onToggle: (state: 'left' | 'right') => void;
   textLeft: string;
   textRight: string;
+  className?: any;
 };
 
 export const SwitchButton = (props: PropsT) => {
@@ -19,7 +20,8 @@ export const SwitchButton = (props: PropsT) => {
         'SwitchButton',
         //
         //
-        L.row.banner()
+        L.row.banner(),
+        props.className
       )}
     >
       {

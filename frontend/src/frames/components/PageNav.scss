@@ -1,0 +1,20 @@
+.PageNav {
+  @apply text-blue-50;
+}
+
+.PageNav__Item {
+  @apply px-1 text-xl rounded;
+  @apply border-2;
+  @apply cursor-pointer;
+}
+
+.PageNav__Item--active {
+  @apply text-primaryBlue font-bold border-primaryBlue border-dotted;
+}
+
+.PageNav__Item--passive {
+}
+
+.PageNav__Icon {
+  @apply h-9 w-9 fill-blue-50 cursor-pointer;
+}

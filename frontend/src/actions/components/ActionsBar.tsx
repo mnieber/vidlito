@@ -33,6 +33,7 @@ export const ActionsBar = observer(
         )}
       >
         <SwitchButton
+          className="mb-4"
           state={props.actionsState.settings.showAllActions ? 'left' : 'right'}
           onToggle={(state: 'left' | 'right') =>
             props.actionsState.settings.setShowAllActions(state === 'left')
@@ -43,24 +44,23 @@ export const ActionsBar = observer(
         {
           // 🔳 Undo Button 🔳
         }
-        <div className={cn('ml-auto')}>
-          <button
-            className={cn(
-              'ActionsBar__UndoActionButton',
-              //
-              //
-              L.DialogButton.root(),
-              L.DialogButton.color.darkBlueOnSkyBlue(),
-              {
-                invisible: !props.action,
-              }
-            )}
-            onClick={() => props.actionsState.undoAction(props.action)}
-          >
-            <Icon className={cn(L.DialogButton.icon.root())} name="reply" />
-            Undo
-          </button>
-        </div>
+        <button
+          className={cn(
+            'ActionsBar__UndoActionButton',
+            //
+            //
+            'ml-auto',
+            L.DialogButton.root(),
+            L.DialogButton.color.darkBlueOnSkyBlue(),
+            {
+              invisible: !props.action,
+            }
+          )}
+          onClick={() => props.actionsState.undoAction(props.action)}
+        >
+          <Icon className={cn(L.DialogButton.icon.root())} name="reply" />
+          Undo
+        </button>
       </div>
     );
   }, DefaultProps)

@@ -40,8 +40,6 @@ export const ActionListView = observer(
         />
       );
 
-    const noItems = <h2>There are no actions</h2>;
-
     const actionDivs: any[] = props.actions.map((action) => {
       return (
         <ActionListViewItem
@@ -65,7 +63,6 @@ export const ActionListView = observer(
           tabIndex={0}
         >
           {actionDivs.length > 0 && actionDivs}
-          {actionDivs.length === 0 && noItems}
         </div>
       </ActionListKeyHandler>
     );

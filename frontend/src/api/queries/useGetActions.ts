@@ -7,15 +7,18 @@ import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   playlistId?: string;
+  page?: number;
 };
 
 export const getActions = (args: ArgsT) => {
   return doQuery(
     `query getActions(
       $playlistId: UUID
+      $page: Int
     ) {
       getActions(
         playlistId: $playlistId
+        page: $page
       ) {
         actionSet {
           data
@@ -24,7 +27,6 @@ export const getActions = (args: ArgsT) => {
           playlistId
         }
         pagination {
-          page
           nrOfPages
           pageSize
         }

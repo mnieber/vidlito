@@ -32,7 +32,7 @@ export const ActionsStateProvider = observer(
         playlistId: actionsState.settings.showAllActions
           ? undefined
           : props.playlist?.id,
-        username: props.userProfile?.username,
+        page: actionsState.actionsCtr.pagination.page,
       })
     );
 
@@ -46,6 +46,10 @@ export const ActionsStateProvider = observer(
           resources: inputs.actions ?? [],
           prevResources: actionsState.actionsCtr.data.actions,
         });
+        actionsState.actionsCtr.pagination.nrOfPages =
+          inputs.pagination?.nrOfPages ?? 0;
+        actionsState.actionsCtr.pagination.pageSize =
+          inputs.pagination?.pageSize ?? 0;
       },
       logState: () => {
         log('ActionsState updated', actionsState.getSummary());

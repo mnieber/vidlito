@@ -5,6 +5,22 @@ import { ObjT } from '/src/utils/types';
 import './Icon.scss';
 
 export const icons: ObjT = {
+  arrowLeftSmall: (
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"
+      ></path>
+    </svg>
+  ),
+  arrowRightSmall: (
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+      ></path>
+    </svg>
+  ),
   arrowRight: (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
       <polygon points="16.172 9 10.101 2.929 11.515 1.515 20 10 19.293 10.707 11.515 18.485 10.101 17.071 16.172 11 0 11 0 9" />
