@@ -3,6 +3,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
+import { SwitchButton } from '/src/utils/components/SwitchButton';
 
 // Import styles
 import './ActionsBar.scss';
@@ -31,55 +32,14 @@ export const ActionsBar = observer(
           props.className
         )}
       >
-        {
-          // 🔳 Button all actions 🔳
-        }
-        <label
-          className={cn(
-            'ActionsBar__AllActionsRadioBtn',
-            //
-            //
-            'mr-4',
-            L.row.skewer()
-          )}
-          onClick={() => {
-            props.actionsState.settings.setShowAllActions(true);
-          }}
-        >
-          <Icon
-            className={cn('mr-1')}
-            name={
-              props.actionsState.settings.showAllActions
-                ? 'radioButtonOn'
-                : 'radioButtonOff'
-            }
-          />
-          All actions
-        </label>
-        {
-          // 🔳 Button playlist actions 🔳
-        }
-        <label
-          className={cn(
-            'ActionsBar__PlaylistActionsRadioBtn',
-            //
-            //
-            L.row.skewer()
-          )}
-          onClick={() => {
-            props.actionsState.settings.setShowAllActions(false);
-          }}
-        >
-          <Icon
-            className={cn('mr-1')}
-            name={
-              !props.actionsState.settings.showAllActions
-                ? 'radioButtonOn'
-                : 'radioButtonOff'
-            }
-          />
-          Playlist actions
-        </label>
+        <SwitchButton
+          state={props.actionsState.settings.showAllActions ? 'left' : 'right'}
+          onToggle={(state: 'left' | 'right') =>
+            props.actionsState.settings.setShowAllActions(state === 'left')
+          }
+          textLeft={'All actions'}
+          textRight={'Playlist actions'}
+        />
         {
           // 🔳 Undo Button 🔳
         }

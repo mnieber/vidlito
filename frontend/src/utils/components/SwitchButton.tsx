@@ -6,7 +6,7 @@ import './SwitchButton.scss';
 
 export type PropsT = {
   state: 'left' | 'right';
-  hasRight: boolean;
+  hasRight?: boolean;
   onToggle: (state: 'left' | 'right') => void;
   textLeft: string;
   textRight: string;
@@ -30,7 +30,7 @@ export const SwitchButton = (props: PropsT) => {
           'SwitchButton__LeftButton',
           {
             'SwitchButton__LeftButton--active': props.state === 'left',
-            'rounded-r-[32px] pr-7': !props.hasRight,
+            'rounded-r-[32px] pr-7': !(props.hasRight ?? true),
           },
           //
           //
@@ -46,7 +46,7 @@ export const SwitchButton = (props: PropsT) => {
       {
         // 🔳 Right button 🔳
       }
-      {props.hasRight && (
+      {(props.hasRight ?? true) && (
         <button
           className={cn(
             'SwitchButton__RightButton',
