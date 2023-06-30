@@ -1,5 +1,6 @@
 import { useRouteMatch } from 'react-router-dom';
 import { navToActions } from '/src/actions/ActionsNavEvents';
+import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
 import { useInstallNavLayer } from '/src/navHandler';
@@ -22,10 +23,15 @@ export const createMainNavEventLayer = () => {
         ...navHandler.getParams(true),
       });
     }) as typeof navToSearch,
-    navToClip: ((clipSlug: string) => {
+    navToClip: ((playlist: PlaylistT, clipSlug: string) => {
       navHandler.hiddenParams.clipSlug = clipSlug;
       const ufn = navHandler.routeUfns.clip(navHandler.history.push);
-      ufn({ ...navHandler.getParams(), clipSlug });
+      ufn({
+        ...navHandler.getParams(),
+        ownerUsername: playlist.owner.username,
+        playlistSlug: playlist.slug,
+        clipSlug,
+      });
     }) as typeof navToClip,
     navToPlaylist: ((playlistSlug: string) => {
       navHandler.hiddenParams.playlistSlug = playlistSlug;

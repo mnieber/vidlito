@@ -21,6 +21,7 @@ export type PropsT = {
 };
 
 const DefaultProps = {
+  ...dps.playlist,
   ...dps.clips,
   ...dps.clipsDragAndDrop,
   ...dps.clipsHovering,
@@ -45,7 +46,7 @@ export const ClipListView = observer(
         if (!args.isShift && !args.isCtrl) {
           const clip = props.clips.find((x) => x.id === args.itemId);
           if (clip) {
-            navToClip(clip.slug);
+            navToClip(props.playlist, clip.slug);
           }
         }
       },
