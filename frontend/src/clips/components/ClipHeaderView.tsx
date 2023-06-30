@@ -85,7 +85,7 @@ export const ClipHeaderView = observer(
                 //
                 //
                 L.row.skewer(),
-                'ml-[3px] pt-2.5 pb-3 pl-4 pr-7'
+                'ml-[4px] pt-2.5 pb-3 pl-4 pr-7'
               )}
               onClick={() => {
                 props.dashboardState.toggleShowPlaylistDescription(false);

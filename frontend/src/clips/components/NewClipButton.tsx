@@ -3,6 +3,7 @@ import { Addition, Selection } from 'skandha-facets';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { navToClip } from '/src/clips/ClipsNavEvents';
 import { DashboardState } from '/src/dashboard/DashboardState/DashboardState';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
@@ -16,6 +17,7 @@ export type PropsT = {
 };
 
 const DefaultProps = {
+  ...dps.playlist,
   ...dps.clipsAddition,
   ...dps.clipsSelection,
   ...dps.userProfile,
@@ -36,7 +38,9 @@ export const NewClipButton = observer(
           props.className
         )}
         onClick={() => {
-          onClickNewClipButton(props);
+          return onClickNewClipButton(props).then((localClip: ClipT) => {
+            navToClip(props.playlist, localClip.slug);
+          });
         }}
       >
         <Icon className={cn(l.icon.normal())} name="plus" />
@@ -54,9 +58,10 @@ export function onClickNewClipButton(props: {
 }) {
   props.dashboardState.storeNavigationPoint();
   props.dashboardState.toggleShowPlaylistDescription(false);
-  props.clipsAddition
+  return props.clipsAddition
     .add({ values: createClip(props.userProfile, {}) })
     .then((localClip: ClipT) => {
       props.clipsSelection.selectItem({ itemId: localClip.id });
+      return localClip;
     });
 }

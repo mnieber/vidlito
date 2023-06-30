@@ -39,6 +39,7 @@ export const DashboardSwitch = withDefaultProps(
               <Route exact={true} path={routes.actions()}>
                 <UseActionsPage>
                   {/* 🔳 */}
+                  <SelectPlaylistEffect />
                   <ActionsView className={cn('ml-2 lg:ml-4 mt-4')} />
                 </UseActionsPage>
               </Route>
