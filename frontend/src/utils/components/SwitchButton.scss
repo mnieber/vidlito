@@ -1,0 +1,28 @@
+.SwitchButton__Button {
+  @apply text-gray-700 text-start bg-transparent;
+  @apply border-2 border-blue-50;
+  @apply font-bold;
+  @apply bg-blue-50;
+}
+
+.SwitchButton__Button--active {
+  @apply border-gray-700;
+}
+
+.SwitchButton__RightButton {
+  @apply SwitchButton__Button;
+  @apply rounded-r-[32px];
+}
+
+.SwitchButton__RightButton--active {
+  @apply SwitchButton__Button--active;
+}
+
+.SwitchButton__LeftButton {
+  @apply SwitchButton__Button;
+  @apply rounded-l-[32px];
+}
+
+.SwitchButton__LeftButton--active {
+  @apply SwitchButton__Button--active;
+}

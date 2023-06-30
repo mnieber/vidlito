@@ -6,6 +6,7 @@ import { L } from '/src/frames/layout';
 import { AuthorCard } from '/src/playlists/components/AuthorCard';
 import { PlaylistFollowCard } from '/src/playlists/components/PlaylistFollowCard';
 import { cn } from '/src/utils/classnames';
+import { SwitchButton } from '/src/utils/components/SwitchButton';
 
 // Import styles
 import './ClipHeaderView.scss';
@@ -51,49 +52,17 @@ export const ClipHeaderView = observer(
             'mb-4'
           )}
         >
-          {
-            // 🔳 Playlist button 🔳
-          }
-          <button
-            className={cn(
-              'ClipHeaderView__PlaylistButton',
-              {
-                'ClipHeaderView__PlaylistButton--active': showPlaylist,
-                'rounded-r-[32px] pr-7': noClips,
-              },
-              //
-              //
-              L.row.skewer(),
-              'pt-2.5 pb-3 pr-4 pl-7'
-            )}
-            onClick={() => {
-              props.dashboardState.toggleShowPlaylistDescription(true);
-            }}
-          >
-            {props.playlist.name}
-          </button>
-          {
-            // 🔳 Clip button 🔳
-          }
-          {props.clip && (
-            <button
-              className={cn(
-                'ClipHeaderView__ClipButton',
-                {
-                  'ClipHeaderView__ClipButton--active': !showPlaylist,
-                },
-                //
-                //
-                L.row.skewer(),
-                'ml-[4px] pt-2.5 pb-3 pl-4 pr-7'
-              )}
-              onClick={() => {
-                props.dashboardState.toggleShowPlaylistDescription(false);
-              }}
-            >
-              {props.clip.name}
-            </button>
-          )}
+          <SwitchButton
+            state={showPlaylist ? 'left' : 'right'}
+            hasRight={!!props.clip}
+            onToggle={(state: 'left' | 'right') =>
+              props.dashboardState.toggleShowPlaylistDescription(
+                state === 'left'
+              )
+            }
+            textLeft={props.playlist.name}
+            textRight={props.clip?.name}
+          />
           <div className={cn('grow')} />
           <PlaylistFollowCard className={cn('ml-4')} />
         </div>
