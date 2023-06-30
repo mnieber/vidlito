@@ -7,6 +7,7 @@ import { cn } from '/src/utils/classnames';
 import './NoActionsMatchTheFilter.scss';
 
 export type PropsT = {
+  msg: string;
   className?: any;
 };
 
@@ -35,7 +36,7 @@ export const NoActionsMatchTheFilter = observer(
             L.CtaButton.color.darkBlueOnSkyBlue()
           )}
         >
-          No actions match the current filter
+          {props.msg}
         </div>
       </div>
     );

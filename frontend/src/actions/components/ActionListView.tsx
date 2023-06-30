@@ -29,7 +29,16 @@ export const ActionListView = observer(
 
     if (isLoading(props.actions)) {
       return <ActionListViewLoader />;
-    } else if (!props.actions?.length) return <NoActionsMatchTheFilter />;
+    } else if (!props.actions?.length)
+      return (
+        <NoActionsMatchTheFilter
+          msg={
+            props.actionsState.settings.showAllActions
+              ? 'There currently are no actions'
+              : 'There are no actions for the current playlist'
+          }
+        />
+      );
 
     const noItems = <h2>There are no actions</h2>;
 
@@ -63,7 +72,7 @@ export const ActionListView = observer(
   }, DefaultProps)
 );
 
-export const ActionListViewLoader = (props: PropsT) => {
+export const ActionListViewLoader = (props: { className?: any }) => {
   const l = L.Lvi;
   const divs = ['1', '2', '3'].map((id: string) => {
     return (
