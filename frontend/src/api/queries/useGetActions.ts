@@ -23,6 +23,11 @@ export const getActions = (args: ArgsT) => {
           type
           playlistId
         }
+        pagination {
+          page
+          nrOfPages
+          pageSize
+        }
       }
     }`,
     args

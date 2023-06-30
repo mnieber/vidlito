@@ -7,6 +7,7 @@ from playlists.models import Playlist
 
 class GetActionsOutputs(graphene.ObjectType):
     action_set = graphene.List(ActionT)
+    pagination = graphene.Field(PaginationT)
 
 
 class GetActions:
@@ -26,4 +27,7 @@ class GetActions:
             actions = Action.objects.filter(owner__user_id=info.context.user.id)
 
         print("GetActions", playlist_id, actions)
-        return GetActionsOutputs(action_set=actions)
+        return GetActionsOutputs(
+            action_set=actions,
+            pagination=PaginationT(nr_of_pages=1, page=0, page_size=20),
+        )

@@ -39,6 +39,7 @@ export const ActionsStateProvider = observer(
     useUpdateStateReaction({
       getInputs: () => ({
         actions: getActions.data?.actionSet,
+        pagination: getActions.data?.pagination,
       }),
       updateState: (inputs) => {
         actionsState.actionsCtr.data.actions = graftResourceStates({
@@ -78,6 +79,7 @@ export const ActionsStateProvider = observer(
         actions: () => cache.actions,
         action: () => cache.action,
         actionsHighlight: () => actionsState.actionsCtr.highlight,
+        actionsPagination: () => actionsState.actionsCtr.pagination,
       };
 
       return result;

@@ -7,6 +7,7 @@ import { registerCtr } from 'skandha-mobx';
 import { Settings } from './Settings';
 import { ActionsData, initActions } from './actions';
 import { ActionT } from '/src/api/types/ActionT';
+import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { getIds } from '/src/utils/ids';
 
 export type PropsT = {
@@ -20,6 +21,7 @@ export class ActionsState {
   actionsCtr = {
     data: new ActionsData(),
     highlight: new Highlight<ActionT>(),
+    pagination: new Pagination(),
   };
 
   _actionsMapData(props: PropsT) {

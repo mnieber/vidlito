@@ -18,6 +18,7 @@ import { ClipsState } from '/src/clips/ClipsState';
 import { Move } from '/src/clips/ClipsState/facets/Move';
 import { DashboardState } from '/src/dashboard/DashboardState';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
+import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { VideoController } from '/src/videos/VideoController';
 import { VideoPlayerState } from '/src/videos/VideoPlayerState';
 export { stub, withDefaultProps } from 'react-default-props-context';
@@ -49,6 +50,9 @@ const dpsActions = {
   },
   actionsHighlight: {
     actionsHighlight: stub as Highlight,
+  },
+  actionsPagination: {
+    actionsPagination: stub as Pagination,
   },
 };
 
