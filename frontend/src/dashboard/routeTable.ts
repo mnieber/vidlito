@@ -6,7 +6,7 @@ export const getRouteTable = () => {
   routeTable.addRoutes({
     playlist: () => '/playlist/:ownerUsername/:playlistSlug',
     clip: () => '/playlist/:ownerUsername/:playlistSlug/:clipSlug',
-    actions: () => '/playlist/:ownerUsername/:playlistSlug/actions/_',
+    actions: () => '/actions',
     search: () => '/search',
   });
 
