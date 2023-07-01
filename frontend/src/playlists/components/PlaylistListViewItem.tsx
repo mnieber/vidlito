@@ -19,8 +19,8 @@ export type PropsT = {
   isHighlighted: boolean;
   dragAndDropUIProps: DragAndDropUIPropsT;
   selectionUIProps: SelectionUIPropsT;
-  className?: any;
   goToPlaylist: (playlist: PlaylistT) => void;
+  className?: any;
 };
 
 const DefaultProps = {

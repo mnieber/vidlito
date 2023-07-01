@@ -26,6 +26,7 @@ const DefaultProps = {
   ...dps.playlistsSelection,
   ...dps.clipsSelection,
   ...dps.dashboardState,
+  ...dps.userProfile,
 };
 
 export const PlaylistListView = observer(
@@ -57,7 +58,11 @@ export const PlaylistListView = observer(
 
     const noItems = <h2>There are no playlists</h2>;
 
-    const playlistDivs = props.playlists.map((playlist) => {
+    const playlistDivs = props.playlists.map((playlist, idx) => {
+      const isFollowing = !!props.userProfile.followSet.find(
+        (x: PlaylistT) => x.id === playlist.id
+      );
+
       return (
         <PlaylistListViewItem
           key={playlist.id}
@@ -68,6 +73,7 @@ export const PlaylistListView = observer(
           selectionUIProps={selectionUIConnector.handle(playlist.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(playlist.id)}
           goToPlaylist={goToPlaylist}
+          className={cn('', { underline: !isFollowing })}
         />
       );
     });
