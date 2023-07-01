@@ -10,6 +10,7 @@ import { history } from '/src/navHandler/NavHandler';
 import { PlaylistsStateProvider } from '/src/playlists/components/PlaylistsStateProvider';
 import { UrlRouter } from '/src/routes/components';
 import { RouteTableProvider } from '/src/routes/components/RouteTableProvider';
+import { SearchStateProvider } from '/src/search/components/SearchStateProvider';
 import { cn } from '/src/utils/classnames';
 import { VideoPlayerStateProvider } from '/src/videos/components';
 
@@ -29,15 +30,17 @@ export const App = () => {
           <RouteTableProvider>
             <AuthStateProvider>
               <DashboardStateProvider>
-                <PlaylistsStateProvider>
-                  <ClipsStateProvider>
-                    <ActionsStateProvider>
-                      <VideoPlayerStateProvider>
-                        <UrlRouter />
-                      </VideoPlayerStateProvider>
-                    </ActionsStateProvider>
-                  </ClipsStateProvider>
-                </PlaylistsStateProvider>
+                <SearchStateProvider>
+                  <PlaylistsStateProvider>
+                    <ClipsStateProvider>
+                      <ActionsStateProvider>
+                        <VideoPlayerStateProvider>
+                          <UrlRouter />
+                        </VideoPlayerStateProvider>
+                      </ActionsStateProvider>
+                    </ClipsStateProvider>
+                  </PlaylistsStateProvider>
+                </SearchStateProvider>
               </DashboardStateProvider>
             </AuthStateProvider>
           </RouteTableProvider>
