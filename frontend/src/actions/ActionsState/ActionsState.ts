@@ -2,10 +2,10 @@ import { action } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { mapDataToProps } from 'skandha';
-import { Highlight } from 'skandha-facets';
+import { Highlight, Store } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
 import { Settings } from './Settings';
-import { ActionsData, initActions } from './actions';
+import { initActions } from './actions';
 import { ActionT } from '/src/api/types/ActionT';
 import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { getIds } from '/src/utils/ids';
@@ -19,7 +19,7 @@ export class ActionsState {
   settings = new Settings();
 
   actionsCtr = {
-    data: new ActionsData(),
+    store: new Store<ActionT>(),
     highlight: new Highlight<ActionT>(),
     pagination: new Pagination(),
   };
@@ -28,12 +28,12 @@ export class ActionsState {
     const ctr = this.actionsCtr;
 
     const getActionById = (x: string | undefined) =>
-      x ? ctr.data.actionById[x] : undefined;
+      x ? ctr.store.itemById[x] : undefined;
 
     mapDataToProps(ctr, {
       highlight: {
         item: () => getActionById(ctr.highlight.id),
-        highlightableIds: () => getIds(ctr.data.actions),
+        highlightableIds: () => getIds(ctr.store.items ?? []),
       },
     });
   }

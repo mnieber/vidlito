@@ -19,7 +19,7 @@ export const useActionsState = (props: PropsT) => {
     return new ActionsState({
       undoAction: action((actionId: string) => {
         const action: ActionT | undefined =
-          actionsState.actionsCtr.data.actionById[actionId];
+          actionsState.actionsCtr.store.itemById[actionId];
         if (!action) {
           return Promise.reject('Action not found');
         }

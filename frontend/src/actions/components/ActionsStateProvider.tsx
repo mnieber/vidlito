@@ -43,9 +43,9 @@ export const ActionsStateProvider = observer(
         pagination: getActions.data?.pagination,
       }),
       updateState: (inputs) => {
-        actionsState.actionsCtr.data.actions = graftResourceStates({
+        actionsState.actionsCtr.store.items = graftResourceStates({
           resources: inputs.actions ?? [],
-          prevResources: actionsState.actionsCtr.data.actions,
+          prevResources: actionsState.actionsCtr.store.items,
         });
         actionsState.actionsCtr.pagination.nrOfPages =
           inputs.pagination?.nrOfPages ?? 0;
@@ -61,7 +61,7 @@ export const ActionsStateProvider = observer(
       makeAutoObservable({
         get actions() {
           return updateSources(
-            { resource: actionsState.actionsCtr.data.actions },
+            { resource: actionsState.actionsCtr.store.items },
             ['loading', () => isQueryLoading(getActions), 'getActions'],
             ['updating', () => isQueryUpdating(getActions), 'getActions']
           );
