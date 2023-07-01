@@ -29,12 +29,11 @@ export const PlaylistsStateProvider = observer(
       userProfile: props.userProfile,
     });
     const params: ObjT = navHandler.getParams();
-    const playlistId = playlistsState.playlistsCtr.highlight.id;
-    const playlistSlug = !!playlistId ? undefined : params.playlistSlug;
+    const playlistSlug =
+      playlistsState.playlistsCtr.highlight.item?.slug ?? params.playlistSlug;
 
     const getPlaylist = useQueryData(
       useGetPlaylist({
-        playlistId: playlistId,
         playlistSlug: playlistSlug,
       }),
       { fetchAsLoad: true, debugLabel: 'getPlaylist' }
@@ -57,6 +56,7 @@ export const PlaylistsStateProvider = observer(
           ? playlistsState.playlistsCtr.highlight.item
           : inputs.playlist;
 
+        playlistsState.playlistsCtr.store.followedPlaylists = inputs.playlists;
         playlistsState.playlistsCtr.store.items = graftResourceStates({
           resources: updatePlaylists(inputs.playlists ?? [], playlist),
           prevResources: playlistsState.playlistsCtr.store.items,
