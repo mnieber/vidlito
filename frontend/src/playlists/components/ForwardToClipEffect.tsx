@@ -16,7 +16,11 @@ export const ForwardToClipEffect = observer(
     const params = useParams() as ObjT;
 
     React.useEffect(() => {
-      if (!params.clipSlug) {
+      if (
+        !params.clipSlug &&
+        props.playlist &&
+        props.playlist.slug !== 'new-playlist'
+      ) {
         navToClip(props.playlist, '-');
       }
     });

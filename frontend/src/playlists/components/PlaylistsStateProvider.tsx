@@ -34,7 +34,8 @@ export const PlaylistsStateProvider = observer(
 
     const getPlaylist = useQueryData(
       useGetPlaylist({
-        playlistSlug: playlistSlug,
+        playlistSlug:
+          playlistSlug === 'new-playlist' ? undefined : playlistSlug,
       }),
       { fetchAsLoad: true, debugLabel: 'getPlaylist' }
     );

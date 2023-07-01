@@ -29,7 +29,7 @@ class GetActions:
                     playlist_id=playlist.id, owner__user_id=info.context.user.id
                 )
                 if playlist
-                else []
+                else Action.objects.none()
             )
         else:
             actions = Action.objects.filter(owner__user_id=info.context.user.id)
