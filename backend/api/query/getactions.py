@@ -20,7 +20,7 @@ class GetActions:
         page_size=graphene.Int(),
     )
 
-    def resolve_get_actions(self, info, playlist_id=None, page=0, page_size=10):
+    def resolve_get_actions(self, info, playlist_id=None, page=1, page_size=10):
         if playlist_id:
             playlist = Playlist.objects.filter(id=playlist_id).first()
 
@@ -34,13 +34,14 @@ class GetActions:
         else:
             actions = Action.objects.filter(owner__user_id=info.context.user.id)
 
-        start_idx = page * page_size
+        page_idx = page - 1
+        start_idx = page_idx * page_size
         end_idx = start_idx + page_size
         return GetActionsOutputs(
             action_set=actions[start_idx:end_idx],
             pagination=PaginationT(
                 nr_of_pages=math.ceil(actions.count() / page_size),
-                page=0,
+                page=page,
                 page_size=page_size,
             ),
         )

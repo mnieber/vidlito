@@ -17,7 +17,24 @@ const DefaultProps = {};
 
 export const PageNav = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const pages = [0, 1, 2, 10, 40];
+    const page = props.pagination.page;
+    const pages = [1];
+
+    const pushPage = (newPage: number) => {
+      if (
+        newPage >= 1 &&
+        newPage > pages[pages.length - 1] &&
+        newPage <= props.pagination.nrOfPages
+      ) {
+        pages.push(newPage);
+      }
+    };
+
+    pushPage(page - 1);
+    pushPage(page);
+    pushPage(page + 1);
+    pushPage(Math.floor(page + props.pagination.nrOfPages / 2));
+    pushPage(props.pagination.nrOfPages);
 
     const itemDivs = pages.map((page: number, idx: number) => {
       const isActive = props.pagination.page === page;
@@ -40,7 +57,7 @@ export const PageNav = observer(
             }
           )}
         >
-          {page + 1}
+          {page}
         </div>
       );
     });
@@ -61,7 +78,7 @@ export const PageNav = observer(
             className={cn('PageNav__Icon', 'mr-2')}
             name="arrowLeftSmall"
             onClick={() => {
-              if (props.pagination.page > 0) {
+              if (props.pagination.page > 1) {
                 props.pagination.setPage(props.pagination.page - 1);
               }
             }}
@@ -75,7 +92,7 @@ export const PageNav = observer(
             className={cn('PageNav__Icon', 'ml-2')}
             name="arrowRightSmall"
             onClick={() => {
-              if (props.pagination.page < props.pagination.nrOfPages - 1) {
+              if (props.pagination.page < props.pagination.nrOfPages) {
                 props.pagination.setPage(props.pagination.page + 1);
               }
             }}

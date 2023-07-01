@@ -33,7 +33,7 @@ export const ActionsView = observer(
       >
         <ActionsBar className="mb-4" />
         <ActionListView />
-        {!!props.actionsPagination.nrOfPages && (
+        {props.actionsPagination.nrOfPages > 1 && (
           <PageNav pagination={props.actionsPagination} className="mt-8" />
         )}
       </div>

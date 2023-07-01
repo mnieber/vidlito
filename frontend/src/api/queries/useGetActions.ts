@@ -8,6 +8,7 @@ import { wait } from '/src/utils/wait';
 export type ArgsT = {
   playlistId?: string;
   page?: number;
+  pageSize?: number;
 };
 
 export const getActions = (args: ArgsT) => {
@@ -15,10 +16,12 @@ export const getActions = (args: ArgsT) => {
     `query getActions(
       $playlistId: UUID
       $page: Int
+      $pageSize: Int
     ) {
       getActions(
         playlistId: $playlistId
         page: $page
+        pageSize: $pageSize
       ) {
         actionSet {
           data

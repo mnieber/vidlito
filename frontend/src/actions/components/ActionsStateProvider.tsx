@@ -33,6 +33,7 @@ export const ActionsStateProvider = observer(
           ? undefined
           : props.playlist?.id,
         page: actionsState.actionsCtr.pagination.page,
+        pageSize: 10,
       })
     );
 
