@@ -25,7 +25,9 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { playlistsState } = usePlaylistsState({});
+    const { playlistsState } = usePlaylistsState({
+      userProfile: props.userProfile,
+    });
     const params: ObjT = navHandler.getParams();
     const playlistId = playlistsState.playlistsCtr.highlight.id;
     const playlistSlug = !!playlistId ? undefined : params.playlistSlug;

@@ -6,6 +6,7 @@ import {
 import {
   AdditionCbs,
   DeletionCbs,
+  DragAndDropCbs,
   EditCbs,
   HighlightCbs,
   InsertionCbs,
@@ -16,6 +17,7 @@ import {
 import * as FacetPolicies from 'skandha-facets/policies';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { PlaylistsState, PropsT } from '/src/playlists/PlaylistsState';
+import { followedSelectedPlaylistsAreInsertedOnDrop } from '/src/playlists/PlaylistsState/playlists/followedSelectedPlaylistsAreInsertedOnDrop';
 
 export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
   const ctr = state.playlistsCtr;
@@ -35,11 +37,12 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
     cancel: {
       unstageAdd(parentId: string | undefined) {
         ctr.edit.cancel();
-        const itemId = (parentId === topOfTheList ? undefined : parentId) ??
+        const itemId =
+          (parentId === topOfTheList ? undefined : parentId) ??
           ctr.selection.selectableIds[0] ??
           ctr.store.items?.[0]?.id;
-        ctr.selection.selectItem({itemId: itemId});
-        ctr.highlight.highlightItem({id: itemId});
+        ctr.selection.selectItem({ itemId: itemId });
+        ctr.highlight.highlightItem({ id: itemId });
       },
     },
     confirm: {
@@ -56,6 +59,18 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
       },
     },
   } as DeletionCbs);
+
+  setCallbackMap(ctr.dragAndDrop, {
+    drop: {
+      drop(this: DragAndDropCbs['drop']) {
+        followedSelectedPlaylistsAreInsertedOnDrop(
+          ctr.dragAndDrop,
+          this.args.hoverPosition,
+          ctr.store.followedPlaylists
+        );
+      },
+    },
+  } as DragAndDropCbs);
 
   setCallbackMap(ctr.edit, {
     save: {
