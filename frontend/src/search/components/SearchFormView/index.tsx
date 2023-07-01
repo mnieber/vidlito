@@ -9,6 +9,7 @@ import {
   GlobalError,
   TextField,
 } from '/src/forms/components';
+import { FormSaveButton } from '/src/forms/components/FormSaveButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -74,6 +75,16 @@ export const SearchFormView = observer(
             <FormFieldLabel label="Clip" />
             <TextField tabIndex={2} controlled={true} />
           </Field>
+          {
+            // 🔳 Buttons 🔳
+          }
+          <div className={cn(l.Buttons())}>
+            <FormSaveButton
+              tabIndex={10}
+              label="Search"
+              className={cn(l.Button.root())}
+            />
+          </div>
         </FormStateProvider>
       </div>
     );
