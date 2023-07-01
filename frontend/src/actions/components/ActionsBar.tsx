@@ -1,7 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { navToClip } from '/src/clips/ClipsNavEvents';
 import { Icon } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
+import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { cn } from '/src/utils/classnames';
 import { SwitchButton } from '/src/utils/components/SwitchButton';
 
@@ -15,6 +17,8 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.action,
   ...dps.actionsState,
+  ...dps.playlist,
+  ...dps.clip,
 };
 
 export const ActionsBar = observer(
@@ -41,6 +45,7 @@ export const ActionsBar = observer(
           textLeft={'All actions'}
           textRight={'Playlist actions'}
         />
+        <div className="flex-grow" />
         {
           // 🔳 Undo Button 🔳
         }
@@ -49,7 +54,7 @@ export const ActionsBar = observer(
             'ActionsBar__UndoActionButton',
             //
             //
-            'ml-auto',
+            'mx-4',
             L.DialogButton.root(),
             L.DialogButton.color.darkBlueOnSkyBlue(),
             {
@@ -60,6 +65,37 @@ export const ActionsBar = observer(
         >
           <Icon className={cn(L.DialogButton.icon.root())} name="reply" />
           Undo
+        </button>
+        {
+          // 🔳 Close Button 🔳
+        }
+        <button
+          className={cn(
+            'ActionsBar__CloseActionButton',
+            //
+            //
+            L.DialogButton.root(),
+            L.DialogButton.color.skyBlueTextAndBorder(),
+            {
+              invisible: !props.playlist,
+            }
+          )}
+          onClick={() => {
+            if (props.clip) {
+              navToClip(props.playlist, props.clip.slug);
+            } else {
+              navToPlaylist(props.playlist);
+            }
+          }}
+        >
+          <Icon
+            className={cn(
+              L.DialogButton.icon.root(),
+              L.DialogButton.icon.color.skyBlue()
+            )}
+            name="close"
+          />
+          Close
         </button>
       </div>
     );

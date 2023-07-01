@@ -33,10 +33,14 @@ export const createMainNavEventLayer = () => {
         clipSlug,
       });
     }) as typeof navToClip,
-    navToPlaylist: ((ownerUsername: string, playlistSlug: string) => {
-      navHandler.hiddenParams.playlistSlug = playlistSlug;
+    navToPlaylist: ((playlist: PlaylistT) => {
+      navHandler.hiddenParams.playlistSlug = playlist.slug;
       const ufn = navHandler.routeUfns.playlist(navHandler.history.push);
-      ufn({ ...navHandler.getParams(true), ownerUsername, playlistSlug });
+      ufn({
+        ...navHandler.getParams(true),
+        ownerUsername: playlist.owner.username,
+        playlistSlug: playlist.slug,
+      });
     }) as typeof navToPlaylist,
   };
 };

@@ -1,7 +1,5 @@
+import { PlaylistT } from '/src/api/types/PlaylistT';
 import { getNavFn } from '/src/navHandler/NavHandler';
 
-export const navToPlaylist = (
-  ownerUsername: string,
-  playlistSlug: string
-): void =>
-  getNavFn('navToPlaylist', navToPlaylist)(ownerUsername, playlistSlug);
+export const navToPlaylist = (playlist: PlaylistT): void =>
+  getNavFn('navToPlaylist', navToPlaylist)(playlist);

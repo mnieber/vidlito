@@ -43,7 +43,7 @@ export const NewPlaylistButton = observer(
             .then((localPlaylist: PlaylistT) => {
               props.playlistsSelection.selectItem({ itemId: localPlaylist.id });
               props.playlistsHighlight.highlightItem({ id: localPlaylist.id });
-              navToPlaylist(localPlaylist.owner.username, localPlaylist.slug);
+              navToPlaylist(localPlaylist);
             });
         }}
       >
