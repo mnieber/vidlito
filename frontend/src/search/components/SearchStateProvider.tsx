@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
+import { isUpdating } from '/src/api/getState';
 import { updateSources } from '/src/api/utils/updateSources';
 import { withDefaultProps } from '/src/app/defaultProps';
 import { useSearchState } from '/src/search/hooks/useSearchState';
@@ -13,14 +14,17 @@ const DefaultProps = {};
 
 export const SearchStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { searchState } = useSearchState({});
+    const { searchContent, searchState } = useSearchState({});
 
     const cache = useBuilder(() =>
       makeAutoObservable({
         get searchResults() {
-          return updateSources({
-            resource: searchState.searchResultsCtr.store.items,
-          });
+          return updateSources(
+            {
+              resource: searchState.searchResultsCtr.store.items,
+            },
+            ['updating', () => isUpdating(searchContent), 'searchContent']
+          );
         },
         get searchResult() {
           return searchState.searchResultsCtr.highlight.item;

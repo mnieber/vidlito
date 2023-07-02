@@ -14,7 +14,7 @@ import {
 } from '/src/playlists/components';
 import { SelectPlaylistEffect } from '/src/playlists/components/SelectPlaylistEffect';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
-import { SearchFormView } from '/src/search/components/SearchFormView';
+import { SearchView } from '/src/search/components/SearchView';
 import { cn } from '/src/utils/classnames';
 
 export type PropsT = {};
@@ -34,7 +34,7 @@ export const DashboardSwitch = withDefaultProps(
             <MainView>
               <Route exact={false} path={routes.search()}>
                 <SelectPlaylistEffect />
-                <SearchFormView />
+                <SearchView />
               </Route>
               <Route exact={true} path={routes.actions()}>
                 <UseActionsPage>

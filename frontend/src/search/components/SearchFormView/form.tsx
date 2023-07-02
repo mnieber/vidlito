@@ -1,4 +1,3 @@
-import * as R from 'ramda';
 import {
   FormState,
   HandleCancelArgsT,
@@ -9,8 +8,8 @@ import { DefaultProps, PropsT } from './index';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
-    'searchForm.playlist': null,
-    'searchForm.clip': null,
+    'searchForm.playlistTerms': null,
+    'searchForm.clipTerms': null,
   };
 };
 
@@ -20,11 +19,7 @@ const getInitialErrors = (props: PropsT & typeof DefaultProps) => {
 
 const getHandleValidate =
   (props: PropsT & typeof DefaultProps) =>
-  ({ values, setError }: HandleValidateArgsT) => {
-    if (R.isNil(values['searchForm.name'])) {
-      setError('searchForm.name', 'This field is required');
-    }
-  };
+  ({ values, setError }: HandleValidateArgsT) => {};
 
 const getHandleSubmit =
   (
@@ -33,7 +28,12 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
-    return Promise.resolve();
+    return props.searchState.searchContent({
+      clipTerms: values['searchForm.clipTerms'],
+      clipTags: [],
+      playlistTerms: values['searchForm.playlistTerms'],
+      playlistTags: [],
+    });
   };
 
 const getHandleCancel =

@@ -1,3 +1,4 @@
+import { action } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { mapDataToProps } from 'skandha';
@@ -5,11 +6,14 @@ import { Highlight, Store } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
 import { Settings } from './Settings';
 import { initSearchResults } from './searchResults';
+import { SearchContentArgsT } from '/src/api/mutations';
 import { SearchResultT } from '/src/api/types/SearchResultT';
 import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { getIds } from '/src/utils/ids';
 
-export type PropsT = {};
+export type PropsT = {
+  searchContent: (args: SearchContentArgsT) => Promise<SearchResultT[]>;
+};
 
 export class SearchState {
   props: PropsT;
@@ -43,6 +47,13 @@ export class SearchState {
 
   destroy() {
     cleanUpCtr(this);
+  }
+
+  @action searchContent(args: SearchContentArgsT) {
+    return this.props.searchContent(args).then((results) => {
+      this.searchResultsCtr.store.items = results;
+      return results;
+    });
   }
 
   constructor(props: PropsT) {

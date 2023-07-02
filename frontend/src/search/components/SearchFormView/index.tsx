@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { FormState, FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
 import {
   Field,
   FormFieldLabel,
@@ -20,7 +20,9 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {};
+export const DefaultProps = {
+  ...dps.searchState,
+};
 
 export const SearchFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
@@ -64,15 +66,15 @@ export const SearchFormView = observer(
           }
           <GlobalError className={l.GlobalError()} />
           <Field
-            fieldName="searchForm.playlist"
+            fieldName="searchForm.playlistTerms"
             autoFocus={true}
             className={l.Field()}
           >
-            <FormFieldLabel label="Playlist" />
+            <FormFieldLabel label="Playlist terms and #tags" />
             <TextField tabIndex={1} controlled={true} autoSelect={true} />
           </Field>
-          <Field fieldName="searchForm.clip" className={l.Field()}>
-            <FormFieldLabel label="Clip" />
+          <Field fieldName="searchForm.clipTerms" className={l.Field()}>
+            <FormFieldLabel label="Clip terms and #tags" />
             <TextField tabIndex={2} controlled={true} />
           </Field>
           {

@@ -5,4 +5,5 @@ from api.types.entry_t import EntryT  # noqa
 from api.types.pagination_t import PaginationT  # noqa
 from api.types.playlist_form_t import PlaylistFormT  # noqa
 from api.types.playlist_t import PlaylistT  # noqa
+from api.types.searchresult_t import SearchResultT  # noqa
 from api.types.userprofile_t import UserProfileT  # noqa

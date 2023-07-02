@@ -11,6 +11,7 @@ from .saveclip import SaveClip
 from .saveclipordering import SaveClipOrdering
 from .saveplaylist import SavePlaylist
 from .saveplaylistordering import SavePlaylistOrdering
+from .searchcontent import SearchContent
 from .undoaction import UndoAction
 
 
@@ -23,6 +24,7 @@ class GrapheneNonEmptyMutation(graphene.Mutation):
 
 class Mutation(user_accounts.schema.Mutation, GrapheneNonEmptyMutation):
     delete_clips = DeleteClips.Field()
+    search_content = SearchContent.Field()
     delete_playlist = DeletePlaylist.Field()
     follow_playlist = FollowPlaylist.Field()
     move_clips_to_trash = MoveClipsToTrash.Field()

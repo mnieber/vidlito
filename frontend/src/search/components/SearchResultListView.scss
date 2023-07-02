@@ -1,0 +1,6 @@
+@import '/src/frames/components/Colors';
+
+.SearchResultListView {
+  @apply c-card-bg-color;
+  @apply rounded-xl;
+}

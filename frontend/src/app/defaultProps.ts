@@ -13,12 +13,14 @@ import { ActionsState } from '/src/actions/ActionsState';
 import { ActionT } from '/src/api/types/ActionT';
 import { ClipT } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
+import { SearchResultT } from '/src/api/types/SearchResultT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { ClipsState } from '/src/clips/ClipsState';
 import { Move } from '/src/clips/ClipsState/facets/Move';
 import { DashboardState } from '/src/dashboard/DashboardState';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
+import { SearchState } from '/src/search/SearchState/SearchState';
 import { VideoController } from '/src/videos/VideoController';
 import { VideoPlayerState } from '/src/videos/VideoPlayerState';
 export { stub, withDefaultProps } from 'react-default-props-context';
@@ -39,6 +41,9 @@ const dpsStates = {
   playlistsState: {
     playlistsState: stub as PlaylistsState,
   },
+  searchState: {
+    searchState: stub as SearchState,
+  },
 };
 
 const dpsActions = {
@@ -53,6 +58,21 @@ const dpsActions = {
   },
   actionsPagination: {
     actionsPagination: stub as Pagination,
+  },
+};
+
+const dpsSearchResults = {
+  searchResults: {
+    searchResults: stub as SearchResultT[],
+  },
+  searchResult: {
+    searchResult: stub as SearchResultT,
+  },
+  searchResultsHighlight: {
+    searchResultsHighlight: stub as Highlight,
+  },
+  searchResultsPagination: {
+    searchResultsPagination: stub as Pagination,
   },
 };
 
@@ -151,6 +171,7 @@ export const defaultProps = {
   ...dpsClips,
   ...dpsDashboard,
   ...dpsPlaylists,
+  ...dpsSearchResults,
   ...dpsStates,
   ...dpsVideoPlayer,
 };
