@@ -4,6 +4,7 @@ from martor.models import MartorField
 
 from app.models import Entity
 from app.utils.slug_seq import update_slug
+from playlists.models import Playlist
 from user_profiles.models import UserProfile
 
 
@@ -16,6 +17,9 @@ class Clip(Entity):
     end_time_ms = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=90)
     owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
+    source_playlist = models.ForeignKey(
+        Playlist, on_delete=models.SET_NULL, null=True, blank=True, related_name="+"
+    )
     slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
     start_time_ms = models.IntegerField(null=True, blank=True)
     tags = models.JSONField(default=create_empty_tags)

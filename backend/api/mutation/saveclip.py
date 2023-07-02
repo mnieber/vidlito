@@ -23,10 +23,13 @@ class SaveClip(graphene.Mutation):
         id = clip_form.pop("id")
         clip_form["tags"] = create_tags(clip_form.get("tags", []))
         clip, created = Clip.objects.update_or_create(
-            defaults=clip_form, id=id, owner=playlist.owner
+            defaults=clip_form, id=id, owner=info.context.user.id
         )
 
         if created:
+            clip.source_playlist_id = playlist.id
+            clip.save()
+
             entry = Entry(clip=clip, playlist=playlist)
             entry.save()
 
