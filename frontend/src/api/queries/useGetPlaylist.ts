@@ -83,17 +83,19 @@ export const useGetPlaylist = (args: ArgsT) => {
       queryClient.setQueriesData(
         { queryKey: loadUserIdQueryKey({}) },
         (data: any) => {
-          return applyUpdate(
-            ['userProfile.followSet'],
-            data,
-            (playlists: PlaylistT[]) => {
-              return playlists.map((playlist: PlaylistT) => {
-                return playlist.id === response.playlist.id
-                  ? response.playlist
-                  : playlist;
-              });
-            }
-          );
+          return data.userProfile
+            ? applyUpdate(
+                ['userProfile.followSet'],
+                data,
+                (playlists: PlaylistT[]) => {
+                  return playlists.map((playlist: PlaylistT) => {
+                    return playlist.id === response.playlist.id
+                      ? response.playlist
+                      : playlist;
+                  });
+                }
+              )
+            : data;
         }
       );
     },

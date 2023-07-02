@@ -26,7 +26,7 @@ const DefaultProps = {
   ...dps.playlistsSelection,
   ...dps.clipsSelection,
   ...dps.dashboardState,
-  ...dps.userProfile,
+  ...dps.followSet,
 };
 
 export const PlaylistListView = observer(
@@ -59,7 +59,7 @@ export const PlaylistListView = observer(
     const noItems = <h2>There are no playlists</h2>;
 
     const playlistDivs = props.playlists.map((playlist, idx) => {
-      const isFollowing = !!props.userProfile.followSet.find(
+      const isFollowing = !!props.followSet.find(
         (x: PlaylistT) => x.id === playlist.id
       );
 

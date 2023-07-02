@@ -16,12 +16,12 @@ const DefaultProps = {
   ...dps.playlist,
   ...dps.username,
   ...dps.dashboardState,
-  ...dps.userProfile,
+  ...dps.followSet,
 };
 
 export const PlaylistFollowCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const isFollowing = !!props.userProfile.followSet.find(
+    const isFollowing = !!props.followSet.find(
       (x: PlaylistT) => x.id === props.playlist.id
     );
     const [isChecked, setIsChecked] = React.useState(isFollowing);

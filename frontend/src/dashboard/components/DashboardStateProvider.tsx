@@ -48,6 +48,9 @@ export const DashboardStateProvider = observer(
             ['updating', () => isQueryUpdating(loadUserId), 'loadUserId']
           );
         },
+        get followSet() {
+          return cache.userProfile?.followSet ?? [];
+        },
       })
     );
 
@@ -58,6 +61,7 @@ export const DashboardStateProvider = observer(
           isAuthenticated: () => dashboardState.account.isAuthenticated,
           username: () => dashboardState.account.username,
           userProfile: () => cache.userProfile,
+          followSet: () => cache.followSet,
         },
       };
 

@@ -113,6 +113,9 @@ const dpsClips = {
 };
 
 const dpsDashboard = {
+  followSet: {
+    followSet: stub as PlaylistT[],
+  },
   userProfile: {
     userProfile: stub as UserProfileT,
   },
