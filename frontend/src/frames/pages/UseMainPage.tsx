@@ -10,7 +10,11 @@ import { navHandler } from '/src/navHandler/NavHandler';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { navToSearch } from '/src/search/SearchNavEvents';
 
-export const createMainNavEventLayer = () => {
+export type EventLayerPropsT = {
+  getUserProfile: () => UserProfileT | null;
+};
+
+export const createMainNavEventLayer = (props: EventLayerPropsT) => {
   return {
     navToActions: ((username: string) => {
       const ufn = navHandler.routeUfns.actions(navHandler.history.push);
@@ -25,11 +29,7 @@ export const createMainNavEventLayer = () => {
         ...navHandler.getParams(true),
       });
     }) as typeof navToSearch,
-    navToClip: ((
-      playlist: PlaylistT,
-      clipSlug: string,
-      userProfile: UserProfileT | null
-    ) => {
+    navToClip: ((playlist: PlaylistT, clipSlug: string) => {
       navHandler.hiddenParams.clipSlug = clipSlug;
       const ufn = navHandler.routeUfns.clip(navHandler.history.push);
       const { route, changed } = ufn({
@@ -38,6 +38,7 @@ export const createMainNavEventLayer = () => {
         playlistSlug: playlist.slug,
         clipSlug,
       });
+      const userProfile = props.getUserProfile();
       if (changed && userProfile) {
         updateLastUrl({ url: route });
       }
@@ -60,15 +61,18 @@ export const DefaultProps = {
   ...dps.videoController,
   ...dps.clips,
   ...dps.clipsHighlight,
+  ...dps.userProfile,
 };
 
 export const UseMainPage = withDefaultProps(
   (props: PropsT & typeof DefaultProps) => {
     const routeMatch = useRouteMatch();
+    const getUserProfile = () => props.userProfile;
+
     useInstallNavLayer(
       'MainNavEventLayer',
       routeMatch.path,
-      createMainNavEventLayer()
+      createMainNavEventLayer({ getUserProfile })
     );
     return <>{props.children}</>;
   },

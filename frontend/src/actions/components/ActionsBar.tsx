@@ -19,7 +19,6 @@ const DefaultProps = {
   ...dps.actionsState,
   ...dps.playlist,
   ...dps.clip,
-  ...dps.userProfile,
 };
 
 export const ActionsBar = observer(
@@ -83,7 +82,7 @@ export const ActionsBar = observer(
           )}
           onClick={() => {
             if (props.clip) {
-              navToClip(props.playlist, props.clip.slug, props.userProfile);
+              navToClip(props.playlist, props.clip.slug);
             } else {
               navToPlaylist(props.playlist);
             }

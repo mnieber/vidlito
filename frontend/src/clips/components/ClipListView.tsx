@@ -28,7 +28,6 @@ const DefaultProps = {
   ...dps.clipsHighlight,
   ...dps.clipsSelection,
   ...dps.dashboardState,
-  ...dps.userProfile,
 };
 
 export const ClipListView = observer(
@@ -47,7 +46,7 @@ export const ClipListView = observer(
         if (!args.isShift && !args.isCtrl) {
           const clip = props.clips.find((x) => x.id === args.itemId);
           if (clip) {
-            navToClip(props.playlist, clip.slug, props.userProfile);
+            navToClip(props.playlist, clip.slug);
           }
         }
       },

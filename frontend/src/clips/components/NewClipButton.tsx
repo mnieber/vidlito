@@ -20,8 +20,8 @@ const DefaultProps = {
   ...dps.playlist,
   ...dps.clipsAddition,
   ...dps.clipsSelection,
-  ...dps.userProfile,
   ...dps.dashboardState,
+  ...dps.userProfile,
 };
 
 export const NewClipButton = observer(
@@ -39,7 +39,7 @@ export const NewClipButton = observer(
         )}
         onClick={() => {
           return onClickNewClipButton(props).then((localClip: ClipT) => {
-            navToClip(props.playlist, localClip.slug, props.userProfile);
+            navToClip(props.playlist, localClip.slug);
           });
         }}
       >

@@ -9,7 +9,6 @@ type PropsT = {};
 
 const DefaultProps = {
   ...dps.playlist,
-  ...dps.userProfile,
 };
 
 export const ForwardToClipEffect = observer(
@@ -22,7 +21,7 @@ export const ForwardToClipEffect = observer(
         props.playlist &&
         props.playlist.slug !== 'new-playlist'
       ) {
-        navToClip(props.playlist, '-', props.userProfile);
+        navToClip(props.playlist, '-');
       }
     });
 
