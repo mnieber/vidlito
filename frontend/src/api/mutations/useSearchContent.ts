@@ -27,6 +27,7 @@ export const searchContent = (args: ArgsT) => {
         errors
         success
         searchResults {
+          id
           playlistSlug
           clipSlug
           nrOfClips

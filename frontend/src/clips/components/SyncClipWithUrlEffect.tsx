@@ -64,7 +64,7 @@ export const SyncClipWithUrlEffect = observer(
         }
       } else {
         if (props.clip && params.clipSlug !== props.clip.slug) {
-          navToClip(props.playlist, props.clip.slug);
+          navToClip(props.playlist, props.clip.slug, props.userProfile);
         }
       }
     }, [params, props.clip, props.clips, props.clipsSelection]);

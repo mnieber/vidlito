@@ -39,9 +39,14 @@ export class RouteTable {
       result[routeSpec.name] = (updateRoute: Function) => (args?: ObjT) => {
         const routeArgs = routeSpec.getRouteArgs(args);
         const newRoute = this.routeFnByName[routeSpec.name](routeArgs);
-        if (pathname() !== newRoute) {
+        const changed = pathname() !== newRoute;
+        if (changed) {
           updateRoute(newRoute);
         }
+        return {
+          route: newRoute,
+          changed,
+        };
       };
     }
     return result;

@@ -13,6 +13,7 @@ from .saveplaylist import SavePlaylist
 from .saveplaylistordering import SavePlaylistOrdering
 from .searchcontent import SearchContent
 from .undoaction import UndoAction
+from .updatelasturl import UpdateLastUrl
 
 
 class GrapheneNonEmptyMutation(graphene.Mutation):
@@ -34,3 +35,4 @@ class Mutation(user_accounts.schema.Mutation, GrapheneNonEmptyMutation):
     save_playlist = SavePlaylist.Field()
     save_playlist_ordering = SavePlaylistOrdering.Field()
     undo_action = UndoAction.Field()
+    update_last_url = UpdateLastUrl.Field()
