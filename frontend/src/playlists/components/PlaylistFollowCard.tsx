@@ -25,10 +25,14 @@ export const PlaylistFollowCard = observer(
       (x: PlaylistT) => x.id === props.playlist.id
     );
     const [isChecked, setIsChecked] = React.useState(isFollowing);
+    React.useEffect(() => {
+      setIsChecked(isFollowing);
+    }, [isFollowing]);
 
     const followPlaylist = useFollowPlaylist();
 
     const onChange = (e: any) => {
+      e.preventDefault();
       const isFollowing = e.target.checked;
       setIsChecked(isFollowing);
       followPlaylist.mutate({
@@ -74,7 +78,7 @@ export const PlaylistFollowCard = observer(
             id="followPlaylist"
             className="peer sr-only"
             onChange={onChange}
-            defaultChecked={isChecked}
+            checked={isChecked}
           />
           <span className="PlaylistFollowCard__ToggleContainer"></span>
           <span className="PlaylistFollowCard__Toggle"></span>

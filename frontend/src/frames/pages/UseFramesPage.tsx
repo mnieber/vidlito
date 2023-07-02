@@ -9,7 +9,7 @@ import {
   navToSignUp,
 } from '/src/frames/FramesNavEvents';
 import { useInstallNavLayer } from '/src/navHandler';
-import { navHandler } from '/src/navHandler/NavHandler';
+import { history, navHandler } from '/src/navHandler/NavHandler';
 
 export const createFramesNavEventLayer = () => {
   return {
@@ -25,8 +25,12 @@ export const createFramesNavEventLayer = () => {
       const ufn = navHandler.routeUfns.signIn(navHandler.history.push);
       ufn();
     }) as typeof navToSignIn,
-    navToNextPageAfterSignIn: (() => {
-      navToHome();
+    navToNextPageAfterSignIn: ((lastUrl?: string) => {
+      if (lastUrl) {
+        history.push(lastUrl);
+      } else {
+        navToHome();
+      }
     }) as typeof navToNextPageAfterSignIn,
   };
 };

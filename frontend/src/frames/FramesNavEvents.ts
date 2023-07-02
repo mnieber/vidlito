@@ -6,5 +6,5 @@ export const navToSignUp = (): void => getNavFn('navToSignUp', navToSignUp)();
 
 export const navToSignIn = (): void => getNavFn('navToSignIn', navToSignIn)();
 
-export const navToNextPageAfterSignIn = (): void =>
-  getNavFn('navToNextPageAfterSignIn', navToNextPageAfterSignIn)();
+export const navToNextPageAfterSignIn = (lastUrl?: string): void =>
+  getNavFn('navToNextPageAfterSignIn', navToNextPageAfterSignIn)(lastUrl);
