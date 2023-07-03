@@ -1,4 +1,5 @@
-import { getRS, initRS, symbolRS } from './ResourceState';
+import { getRS, initRS } from './ResourceState';
+import { shareRS } from '/src/resourceStates/ResourceState';
 
 export const graftResourceStates = ({
   resources,
@@ -24,7 +25,7 @@ export const graftResourceStates = ({
         (r) => key === (getKey ? getKey(r) : r.id)
       );
       if (previousResource) {
-        resource[symbolRS] = previousResource[symbolRS];
+        shareRS(previousResource, resource);
       }
     }
   }

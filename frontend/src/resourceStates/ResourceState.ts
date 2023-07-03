@@ -89,3 +89,7 @@ export const initRS = (resource: any, state?: string) => {
   }
   return resource;
 };
+
+export const shareRS = (sourceResource: any, destResource: any) => {
+  destResource[symbolRS] = sourceResource[symbolRS];
+};

@@ -15,6 +15,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.dashboardState,
+  ...dps.userProfile,
 };
 
 export const MainButtonsPanel = observer(
@@ -30,9 +31,11 @@ export const MainButtonsPanel = observer(
         )}
       >
         <SearchButton className={cn('w-1/2', 'mb-6')} />
-        <TrashButton className={cn('w-1/2', 'mb-6')} />
-        <NewPlaylistButton className={cn('w-1/2', 'mb-6')} />
-        <NewClipButton className={cn('w-1/2', 'mb-6')} />
+        {props.userProfile && <TrashButton className={cn('w-1/2', 'mb-6')} />}
+        {props.userProfile && (
+          <NewPlaylistButton className={cn('w-1/2', 'mb-6')} />
+        )}
+        {props.userProfile && <NewClipButton className={cn('w-1/2', 'mb-6')} />}
       </div>
     );
   }, DefaultProps)
