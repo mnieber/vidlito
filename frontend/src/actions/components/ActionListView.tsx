@@ -4,8 +4,10 @@ import { ActionListKeyHandler } from '/src/actions/components';
 import { ActionListViewItem } from '/src/actions/components/ActionListViewItem';
 import { NoActionsMatchTheFilter } from '/src/actions/components/NoActionsMatchTheFilter';
 import { isLoading } from '/src/api/getState';
+import { ActionT } from '/src/api/types/ActionT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { L } from '/src/frames/layout';
+import { getPageItems } from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -19,6 +21,7 @@ const DefaultProps = {
   ...dps.actions,
   ...dps.actionsHighlight,
   ...dps.actionsState,
+  ...dps.actionsPagination,
 };
 
 export const ActionListView = observer(
@@ -40,7 +43,10 @@ export const ActionListView = observer(
         />
       );
 
-    const actionDivs: any[] = props.actions.map((action) => {
+    const actionDivs: any[] = getPageItems<ActionT>(
+      props.actionsPagination,
+      props.actions
+    ).map((action) => {
       return (
         <ActionListViewItem
           key={`item-${action.id}`}

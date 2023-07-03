@@ -9,6 +9,7 @@ import { useQueryData } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
+import { PaginationAdapter } from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
 import { graftResourceStates } from '/src/resourceStates/graftResourceStates';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { log } from '/src/utils/logging';
@@ -47,8 +48,8 @@ export const ActionsStateProvider = observer(
           resources: inputs.actions ?? [],
           prevResources: actionsState.actionsCtr.store.items,
         });
-        actionsState.actionsCtr.pagination.nrOfPages =
-          inputs.pagination?.nrOfPages ?? 0;
+        actionsState.actionsCtr.pagination.nrOfItems =
+          inputs.pagination?.nrOfItems ?? 0;
         actionsState.actionsCtr.pagination.pageSize =
           inputs.pagination?.pageSize ?? 0;
       },
@@ -69,6 +70,9 @@ export const ActionsStateProvider = observer(
         get action() {
           return actionsState.actionsCtr.highlight.item;
         },
+        get pagination() {
+          return new PaginationAdapter(actionsState.actionsCtr.pagination, 10);
+        },
       })
     );
 
@@ -84,7 +88,7 @@ export const ActionsStateProvider = observer(
         actions: () => cache.actions,
         action: () => cache.action,
         actionsHighlight: () => actionsState.actionsCtr.highlight,
-        actionsPagination: () => actionsState.actionsCtr.pagination,
+        actionsPagination: () => cache.pagination,
       };
 
       return result;

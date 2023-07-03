@@ -40,7 +40,7 @@ class GetActions:
         return GetActionsOutputs(
             action_set=actions[start_idx:end_idx],
             pagination=PaginationT(
-                nr_of_pages=math.ceil(actions.count() / page_size),
+                nr_of_items=actions.count(),
                 page=page,
                 page_size=page_size,
             ),

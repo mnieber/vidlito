@@ -30,7 +30,7 @@ export const getActions = (args: ArgsT) => {
           playlistId
         }
         pagination {
-          nrOfPages
+          nrOfItems
           pageSize
         }
       }
