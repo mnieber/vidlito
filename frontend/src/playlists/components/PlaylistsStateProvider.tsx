@@ -8,14 +8,13 @@ import { isLoading, isUpdating } from '/src/api/getState';
 import { useQueryData } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
-import { navHandler } from '/src/navHandler/NavHandler';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from '/src/playlists/utils';
 import { graftResourceStates } from '/src/resourceStates';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { log } from '/src/utils/logging';
-import { ObjT } from '/src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -28,7 +27,7 @@ export const PlaylistsStateProvider = observer(
     const { playlistsState } = usePlaylistsState({
       userProfile: props.userProfile,
     });
-    const params: ObjT = navHandler.getParams();
+    const params = useNavHandlerParams();
     const playlistSlug =
       playlistsState.playlistsCtr.highlight.item?.slug ?? params.playlistSlug;
 
