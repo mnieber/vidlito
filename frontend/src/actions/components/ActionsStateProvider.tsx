@@ -28,6 +28,10 @@ export const ActionsStateProvider = observer(
       playlists: props.playlists,
     });
 
+    const pagination = useBuilder(() => {
+      return new PaginationAdapter(actionsState.actionsCtr.pagination, 2);
+    });
+
     const getActions = useQueryData(
       useGetActions({
         playlistId: actionsState.settings.showAllActions
@@ -35,19 +39,40 @@ export const ActionsStateProvider = observer(
           : props.playlist?.id,
         page: actionsState.actionsCtr.pagination.page,
         pageSize: 10,
+      }),
+      {
+        processQueryData: (data, prevData) => {
+          graftResourceStates({
+            resources: data?.actionSet ?? [],
+            prevResources: prevData?.actionSet ?? [],
+          });
+          return data;
+        },
+      }
+    );
+
+    const cache = useBuilder(() =>
+      makeAutoObservable({
+        get actions() {
+          return updateSources(
+            { resource: getActions.data?.actionSet ?? [] },
+            ['loading', () => isQueryLoading(getActions), 'getActions'],
+            ['updating', () => isQueryUpdating(getActions), 'getActions']
+          );
+        },
+        get action() {
+          return actionsState.actionsCtr.highlight.item;
+        },
       })
     );
 
     useUpdateStateReaction({
       getInputs: () => ({
-        actions: getActions.data?.actionSet,
+        actions: cache.actions,
         pagination: getActions.data?.pagination,
       }),
       updateState: (inputs) => {
-        actionsState.actionsCtr.store.items = graftResourceStates({
-          resources: inputs.actions ?? [],
-          prevResources: actionsState.actionsCtr.store.items,
-        });
+        actionsState.actionsCtr.store.items = inputs.actions ?? [];
         actionsState.actionsCtr.pagination.nrOfItems =
           inputs.pagination?.nrOfItems ?? 0;
         actionsState.actionsCtr.pagination.pageSize =
@@ -57,24 +82,6 @@ export const ActionsStateProvider = observer(
         log('ActionsState updated', actionsState.getSummary());
       },
     });
-
-    const cache = useBuilder(() =>
-      makeAutoObservable({
-        get actions() {
-          return updateSources(
-            { resource: actionsState.actionsCtr.store.items },
-            ['loading', () => isQueryLoading(getActions), 'getActions'],
-            ['updating', () => isQueryUpdating(getActions), 'getActions']
-          );
-        },
-        get action() {
-          return actionsState.actionsCtr.highlight.item;
-        },
-        get pagination() {
-          return new PaginationAdapter(actionsState.actionsCtr.pagination, 10);
-        },
-      })
-    );
 
     const getDefaultPropsContext = () => {
       const result: any = {
@@ -88,7 +95,7 @@ export const ActionsStateProvider = observer(
         actions: () => cache.actions,
         action: () => cache.action,
         actionsHighlight: () => actionsState.actionsCtr.highlight,
-        actionsPagination: () => cache.pagination,
+        actionsPagination: () => pagination,
       };
 
       return result;
