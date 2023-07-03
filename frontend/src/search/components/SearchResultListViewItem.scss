@@ -9,12 +9,6 @@
   @apply bg-blue-50;
 }
 
-.SearchResultListViewItem__Title {
-  @apply font-bold;
-  @apply text-primaryTeal;
-}
-
-.SearchResultListViewItem__PlaylistName {
-  @apply font-bold;
-  @apply text-primaryBlue;
+.SearchResultListViewItem__Cell {
+  align-self: start;
 }

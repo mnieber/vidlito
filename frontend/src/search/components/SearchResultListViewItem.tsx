@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { SearchResultT } from '/src/api/types/SearchResultT';
 import { navToClip } from '/src/clips/ClipsNavEvents';
-import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -9,21 +8,12 @@ import './SearchResultListViewItem.scss';
 
 export type PropsT = {
   searchResult: SearchResultT;
-  className?: any;
 };
 
 export const SearchResultListViewItem = observer((props: PropsT) => {
   return (
     <div
-      className={cn(
-        'SearchResultListViewItem',
-        'cursor-pointer',
-        //
-        //
-        L.col.banner(),
-        'py-3 px-4',
-        props.className
-      )}
+      className={cn('SearchResultListViewItem', 'cursor-pointer', 'contents')}
       onClick={() =>
         navToClip(
           props.searchResult.ownerUsername,
@@ -32,24 +22,27 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
         )
       }
     >
-      <div
-        className={cn(
-          'SearchResultListViewItem__Header',
-          //
-          //
-          L.row.skewer()
-        )}
-      >
-        <div
-          className={cn(
-            'SearchResultListViewItem__Title',
-            //
-            //
-            'mr-2'
-          )}
-        >
-          {props.searchResult.playlistSlug}
-        </div>
+      <div className={cn('SearchResultListViewItem__Cell')}>
+        {props.searchResult.ownerUsername}
+      </div>
+      <div className={cn('SearchResultListViewItem__Cell', 'text-primaryBlue')}>
+        {props.searchResult.playlistSlug}
+      </div>
+      <div className={cn('SearchResultListViewItem__Cell')}>
+        {props.searchResult.nrOfClips}
+      </div>
+      <div className={cn('SearchResultListViewItem__Cell', 'text-primaryTeal')}>
+        {props.searchResult.clipSlug +
+          ' ' +
+          props.searchResult.clipSlug +
+          ' ' +
+          props.searchResult.clipSlug +
+          ' ' +
+          props.searchResult.clipSlug +
+          ' ' +
+          props.searchResult.clipSlug +
+          ' ' +
+          props.searchResult.clipSlug}
       </div>
     </div>
   );

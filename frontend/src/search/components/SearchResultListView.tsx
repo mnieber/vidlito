@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { isLoading } from '/src/api/getState';
+import { isLoading, isUpdating } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { L } from '/src/frames/layout';
 import { SearchResultListKeyHandler } from '/src/search/components';
 import { NoContentsMatchTheFilter } from '/src/search/components/NoContentsMatchTheFilter';
+import { SearchResultListViewHeader } from '/src/search/components/SearchResultListViewHeader';
 import { SearchResultListViewItem } from '/src/search/components/SearchResultListViewItem';
 import { cn } from '/src/utils/classnames';
 
@@ -22,7 +23,7 @@ const DefaultProps = {
 
 export const SearchResultListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (isLoading(props.searchResults)) {
+    if (isLoading(props.searchResults) || isUpdating(props.searchResults)) {
       return <SearchResultListViewLoader />;
     } else if (!props.searchResults?.length)
       return (
@@ -45,13 +46,14 @@ export const SearchResultListView = observer(
         <div
           className={cn(
             'SearchResultListView',
+            'grid gap-4',
             //
             //
-            L.col.banner(),
             props.className
           )}
           tabIndex={0}
         >
+          {searchResultDivs.length > 0 && <SearchResultListViewHeader />}
           {searchResultDivs.length > 0 && searchResultDivs}
         </div>
       </SearchResultListKeyHandler>

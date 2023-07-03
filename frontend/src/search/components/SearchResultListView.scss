@@ -3,4 +3,7 @@
 .SearchResultListView {
   @apply c-card-bg-color;
   @apply rounded-xl;
+  @apply text-gray-700;
+  @apply p-4;
+  grid-template-columns: repeat(4, minmax(min-content, max-content));
 }
