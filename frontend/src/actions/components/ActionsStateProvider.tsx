@@ -2,15 +2,17 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
+import { useGetActionsQueryData } from '/src/actions/ActionsState/queries/useGetActionsQueryData';
 import { useActionsState } from '/src/actions/hooks/useActionsState';
 import { isQueryLoading, isQueryUpdating } from '/src/api/QueryData';
-import { useGetActions } from '/src/api/endpoints';
-import { useQueryData } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
-import { PaginationAdapter } from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
-import { graftResourceStates } from '/src/resourceStates/graftResourceStates';
+import {
+  PaginationAdapter,
+  getDisplayPage,
+} from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
+import { shareRS } from '/src/resourceStates/ResourceState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { log } from '/src/utils/logging';
 
@@ -32,24 +34,12 @@ export const ActionsStateProvider = observer(
       return new PaginationAdapter(actionsState.actionsCtr.pagination, 2);
     });
 
-    const getActions = useQueryData(
-      useGetActions({
-        playlistId: actionsState.settings.showAllActions
-          ? undefined
-          : props.playlist?.id,
-        page: actionsState.actionsCtr.pagination.page,
-        pageSize: 10,
-      }),
-      {
-        processQueryData: (data, prevData) => {
-          graftResourceStates({
-            resources: data?.actionSet ?? [],
-            prevResources: prevData?.actionSet ?? [],
-          });
-          return data;
-        },
-      }
-    );
+    const getActions = useGetActionsQueryData({
+      playlistId: actionsState.settings.showAllActions
+        ? undefined
+        : props.playlist?.id,
+      page: actionsState.actionsCtr.pagination.page,
+    });
 
     const cache = useBuilder(() =>
       makeAutoObservable({
@@ -59,6 +49,15 @@ export const ActionsStateProvider = observer(
             ['loading', () => isQueryLoading(getActions), 'getActions'],
             ['updating', () => isQueryUpdating(getActions), 'getActions']
           );
+        },
+        get actionsPage() {
+          const items = getDisplayPage(
+            actionsState.actionsCtr.pagination,
+            pagination,
+            cache.actions
+          );
+          shareRS(cache.actions, items);
+          return items;
         },
         get action() {
           return actionsState.actionsCtr.highlight.item;
@@ -93,6 +92,7 @@ export const ActionsStateProvider = observer(
       result.defaultProps = {
         ...result.defaultProps,
         actions: () => cache.actions,
+        actionsPage: () => cache.actionsPage,
         action: () => cache.action,
         actionsHighlight: () => actionsState.actionsCtr.highlight,
         actionsPagination: () => pagination,

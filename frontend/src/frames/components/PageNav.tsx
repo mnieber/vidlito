@@ -2,14 +2,14 @@ import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
-import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
+import { IPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './PageNav.scss';
 
 export type PropsT = {
-  pagination: Pagination;
+  pagination: IPagination;
   className?: any;
 };
 

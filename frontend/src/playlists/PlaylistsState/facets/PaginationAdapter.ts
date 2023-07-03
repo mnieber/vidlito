@@ -25,11 +25,6 @@ export class PaginationAdapter implements IPagination {
     );
   }
 
-  @computed get startIdx(): number {
-    const start = (this.page - 1) * this.pageSize;
-    return start - this.pagination.startIdx;
-  }
-
   constructor(pagination: IPagination, pageSize: number) {
     this.pagination = pagination;
     this.pageSize = pageSize;
@@ -47,8 +42,14 @@ export class PaginationAdapter implements IPagination {
   }
 }
 
-export const getPageItems = <T = any>(pagination: IPagination, items: T[]) => {
-  const start = pagination.startIdx;
-  const end = Math.min(items.length, start + pagination.pageSize);
-  return items.slice(start, end);
-};
+export function getDisplayPage(
+  loadedPagination: IPagination,
+  displayPagination: IPagination,
+  loadedItems: any
+) {
+  const start =
+    (displayPagination.page - 1) * displayPagination.pageSize -
+    (loadedPagination.page - 1) * loadedPagination.pageSize;
+  const end = Math.min(loadedItems.length, start + displayPagination.pageSize);
+  return loadedItems.slice(start, end);
+}
