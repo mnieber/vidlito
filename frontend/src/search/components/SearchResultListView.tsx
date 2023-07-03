@@ -19,6 +19,7 @@ const DefaultProps = {
   ...dps.searchResults,
   ...dps.searchResultsHighlight,
   ...dps.searchState,
+  ...dps.searchForm,
 };
 
 export const SearchResultListView = observer(
@@ -26,11 +27,11 @@ export const SearchResultListView = observer(
     if (isLoading(props.searchResults) || isUpdating(props.searchResults)) {
       return <SearchResultListViewLoader />;
     } else if (!props.searchResults?.length)
-      return (
+      return !!props.searchForm ? (
         <NoContentsMatchTheFilter
           msg={'No contents match the search criteria'}
         />
-      );
+      ) : null;
 
     const searchResultDivs: any[] = props.searchResults.map((searchResult) => {
       return (
