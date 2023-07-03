@@ -9,7 +9,7 @@
 }
 
 .PageNav__Item--active {
-  @apply text-primaryBlue font-bold border-primaryBlue border-dotted;
+  @apply text-primaryBlue font-bold border-primaryBlue;
 }
 
 .PageNav__Item--passive {

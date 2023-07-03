@@ -69,14 +69,14 @@ export const ActionsStateProvider = observer(
     useUpdateStateReaction({
       getInputs: () => ({
         actions: cache.actions,
-        pagination: getActions.data?.pagination,
+        paginationResponse: getActions.data?.pagination,
       }),
       updateState: (inputs) => {
         actionsState.actionsCtr.store.items = inputs.actions ?? [];
         actionsState.actionsCtr.pagination.nrOfItems =
-          inputs.pagination?.nrOfItems ?? 0;
+          inputs.paginationResponse?.nrOfItems ?? 0;
         actionsState.actionsCtr.pagination.pageSize =
-          inputs.pagination?.pageSize ?? 0;
+          inputs.paginationResponse?.pageSize ?? 0;
       },
       logState: () => {
         log('ActionsState updated', actionsState.getSummary());
