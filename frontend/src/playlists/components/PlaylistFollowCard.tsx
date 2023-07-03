@@ -17,6 +17,7 @@ const DefaultProps = {
   ...dps.username,
   ...dps.dashboardState,
   ...dps.followSet,
+  ...dps.userProfile,
 };
 
 export const PlaylistFollowCard = observer(
@@ -30,6 +31,10 @@ export const PlaylistFollowCard = observer(
     }, [isFollowing]);
 
     const followPlaylist = useFollowPlaylist();
+
+    if (!props.userProfile) {
+      return null;
+    }
 
     const onChange = (e: any) => {
       e.preventDefault();
