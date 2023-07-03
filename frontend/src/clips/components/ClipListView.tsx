@@ -46,7 +46,11 @@ export const ClipListView = observer(
         if (!args.isShift && !args.isCtrl) {
           const clip = props.clips.find((x) => x.id === args.itemId);
           if (clip) {
-            navToClip(props.playlist, clip.slug);
+            navToClip(
+              props.playlist.owner.username,
+              props.playlist.slug,
+              clip.slug
+            );
           }
         }
       },

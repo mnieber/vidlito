@@ -1,7 +1,6 @@
 import { useRouteMatch } from 'react-router-dom';
 import { navToActions } from '/src/actions/ActionsNavEvents';
 import { updateLastUrl } from '/src/api/mutations/useUpdateLastUrl';
-import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
@@ -29,13 +28,17 @@ export const createMainNavEventLayer = (props: EventLayerPropsT) => {
         ...navHandler.getParams(true),
       });
     }) as typeof navToSearch,
-    navToClip: ((playlist: PlaylistT, clipSlug: string) => {
+    navToClip: ((
+      ownerUsername: string,
+      playlistSlug: string,
+      clipSlug: string
+    ) => {
       navHandler.hiddenParams.clipSlug = clipSlug;
       const ufn = navHandler.routeUfns.clip(navHandler.history.push);
       const { route, changed } = ufn({
         ...navHandler.getParams(),
-        ownerUsername: playlist.owner.username,
-        playlistSlug: playlist.slug,
+        ownerUsername: ownerUsername,
+        playlistSlug: playlistSlug,
         clipSlug,
       });
       const userProfile = props.getUserProfile();
@@ -43,13 +46,13 @@ export const createMainNavEventLayer = (props: EventLayerPropsT) => {
         updateLastUrl({ url: route });
       }
     }) as typeof navToClip,
-    navToPlaylist: ((playlist: PlaylistT) => {
-      navHandler.hiddenParams.playlistSlug = playlist.slug;
+    navToPlaylist: ((ownerUsername: string, playlistSlug: string) => {
+      navHandler.hiddenParams.playlistSlug = playlistSlug;
       const ufn = navHandler.routeUfns.playlist(navHandler.history.push);
       ufn({
         ...navHandler.getParams(true),
-        ownerUsername: playlist.owner.username,
-        playlistSlug: playlist.slug,
+        ownerUsername: ownerUsername,
+        playlistSlug: playlistSlug,
       });
     }) as typeof navToPlaylist,
   };

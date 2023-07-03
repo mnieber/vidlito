@@ -39,7 +39,11 @@ export const NewClipButton = observer(
         )}
         onClick={() => {
           return onClickNewClipButton(props).then((localClip: ClipT) => {
-            navToClip(props.playlist, localClip.slug);
+            navToClip(
+              props.playlist.owner.username,
+              props.playlist.slug,
+              localClip.slug
+            );
           });
         }}
       >

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { highlightUIHandlers, HighlightUIPropsT } from 'skandha-facets';
 import { SearchResultT } from '/src/api/types/SearchResultT';
+import { navToClip } from '/src/clips/ClipsNavEvents';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -9,7 +9,6 @@ import './SearchResultListViewItem.scss';
 
 export type PropsT = {
   searchResult: SearchResultT;
-  highlightUIProps: HighlightUIPropsT;
   className?: any;
 };
 
@@ -18,17 +17,20 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
     <div
       className={cn(
         'SearchResultListViewItem',
-        {
-          'SearchResultListViewItem--highlighted':
-            props.highlightUIProps.isHighlighted,
-        },
+        'cursor-pointer',
         //
         //
         L.col.banner(),
         'py-3 px-4',
         props.className
       )}
-      {...highlightUIHandlers(props.highlightUIProps)}
+      onClick={() =>
+        navToClip(
+          props.searchResult.ownerUsername,
+          props.searchResult.playlistSlug,
+          props.searchResult.clipSlug
+        )
+      }
     >
       <div
         className={cn(

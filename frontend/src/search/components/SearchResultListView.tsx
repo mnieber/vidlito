@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import { createHighlightUIConnector } from 'skandha-facets';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { L } from '/src/frames/layout';
@@ -23,10 +22,6 @@ const DefaultProps = {
 
 export const SearchResultListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const highlightUIConnector = createHighlightUIConnector(
-      props.searchResultsHighlight
-    );
-
     if (isLoading(props.searchResults)) {
       return <SearchResultListViewLoader />;
     } else if (!props.searchResults?.length)
@@ -41,7 +36,6 @@ export const SearchResultListView = observer(
         <SearchResultListViewItem
           key={`item-${searchResult.id}`}
           searchResult={searchResult}
-          highlightUIProps={highlightUIConnector.handle(searchResult.id)}
         />
       );
     });

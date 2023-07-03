@@ -1,4 +1,4 @@
-import { action } from 'mobx';
+import { runInAction } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { mapDataToProps } from 'skandha';
@@ -49,9 +49,11 @@ export class SearchState {
     cleanUpCtr(this);
   }
 
-  @action searchContent(args: SearchContentArgsT) {
+  searchContent(args: SearchContentArgsT) {
     return this.props.searchContent(args).then((results) => {
-      this.searchResultsCtr.store.items = results;
+      runInAction(() => {
+        this.searchResultsCtr.store.items = results;
+      });
       return results;
     });
   }

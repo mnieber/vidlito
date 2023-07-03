@@ -54,9 +54,9 @@ export const SyncClipWithUrlEffect = observer(
           refUrl.current = location.pathname;
           addNewClip();
         } else if (props.playlist && !isLoading(props.clips)) {
-          refUrl.current = location.pathname;
           const clipForCurrentUrl = getClipForCurrentUrl();
           if (clipForCurrentUrl) {
+            refUrl.current = location.pathname;
             if (props.clip?.id !== clipForCurrentUrl.id) {
               selectClip(clipForCurrentUrl);
             }
@@ -64,7 +64,11 @@ export const SyncClipWithUrlEffect = observer(
         }
       } else {
         if (props.clip && params.clipSlug !== props.clip.slug) {
-          navToClip(props.playlist, props.clip.slug);
+          navToClip(
+            props.playlist.owner.username,
+            props.playlist.slug,
+            props.clip.slug
+          );
         }
       }
     }, [params, props.clip, props.clips, props.clipsSelection]);

@@ -70,7 +70,7 @@ export const SyncPlaylistWithUrlEffect = observer(
       } else {
         // Check if we must update the current url based on the highlighted playlist.
         if (props.playlist && params.playlistSlug !== props.playlist.slug) {
-          navToPlaylist(props.playlist);
+          navToPlaylist(props.playlist.owner.username, props.playlist.slug);
         }
       }
     }, [

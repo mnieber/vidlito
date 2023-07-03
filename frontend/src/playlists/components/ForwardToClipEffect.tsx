@@ -21,7 +21,7 @@ export const ForwardToClipEffect = observer(
         props.playlist &&
         props.playlist.slug !== 'new-playlist'
       ) {
-        navToClip(props.playlist, '-');
+        navToClip(props.playlist.owner.username, props.playlist.slug, '-');
       }
     });
 
