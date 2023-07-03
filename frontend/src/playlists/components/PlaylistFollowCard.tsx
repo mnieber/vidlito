@@ -74,6 +74,7 @@ export const PlaylistFollowCard = observer(
           className="relative mt-1 h-6 w-10 cursor-pointer"
         >
           <input
+            key={isChecked ? 'checked' : 'unchecked'}
             type="checkbox"
             id="followPlaylist"
             className="peer sr-only"
