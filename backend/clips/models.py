@@ -18,9 +18,7 @@ class Clip(Entity):
     owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
     source_playlist = models.ForeignKey(
         "playlists.Playlist",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
+        on_delete=models.PROTECT,
         related_name="+",
     )
     slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
