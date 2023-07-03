@@ -2,13 +2,14 @@ import { runInAction } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { mapDataToProps } from 'skandha';
-import { Highlight, Store } from 'skandha-facets';
+import { Highlight } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
 import { Settings } from './Settings';
 import { initSearchResults } from './searchResults';
 import { SearchContentArgsT } from '/src/api/mutations';
 import { SearchResultT } from '/src/api/types/SearchResultT';
 import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
+import { SearchResultsStore } from '/src/search/SearchState/facets/SearchResultsStore';
 import { getIds } from '/src/utils/ids';
 
 export type PropsT = {
@@ -20,7 +21,7 @@ export class SearchState {
   settings = new Settings();
 
   searchResultsCtr = {
-    store: new Store<SearchResultT>(),
+    store: new SearchResultsStore(),
     highlight: new Highlight<SearchResultT>(),
     pagination: new Pagination(),
   };

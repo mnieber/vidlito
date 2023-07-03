@@ -10,6 +10,7 @@ import {
   Selection,
 } from 'skandha-facets';
 import { ActionsState } from '/src/actions/ActionsState';
+import { SearchContentArgsT } from '/src/api/mutations';
 import { ActionT } from '/src/api/types/ActionT';
 import { ClipT } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
@@ -73,6 +74,9 @@ const dpsSearchResults = {
   },
   searchResultsPagination: {
     searchResultsPagination: stub as Pagination,
+  },
+  searchForm: {
+    searchForm: stub as SearchContentArgsT,
   },
 };
 

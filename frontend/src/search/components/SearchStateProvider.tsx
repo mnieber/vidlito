@@ -45,6 +45,7 @@ export const SearchStateProvider = observer(
         searchResult: () => cache.searchResult,
         searchResultsHighlight: () => searchState.searchResultsCtr.highlight,
         searchResultsPagination: () => searchState.searchResultsCtr.pagination,
+        searchForm: () => searchState.searchResultsCtr.store.form,
       };
 
       return result;
