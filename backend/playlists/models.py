@@ -31,7 +31,7 @@ class Playlist(Entity):
     nr_of_clips = models.IntegerField(default=0)
 
     def update_nr_clips(self):
-        self.nr_of_clips = self.clip_set.count()
+        self.nr_of_clips = self.entry_set.count()
         self.save()
 
     def save(self, *args, **kwargs):
