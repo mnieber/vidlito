@@ -20,7 +20,7 @@ import { ClipsState } from '/src/clips/ClipsState';
 import { Move } from '/src/clips/ClipsState/facets/Move';
 import { DashboardState } from '/src/dashboard/DashboardState';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
-import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
+import { IPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { SearchState } from '/src/search/SearchState/SearchState';
 import { VideoController } from '/src/videos/VideoController';
 import { VideoPlayerState } from '/src/videos/VideoPlayerState';
@@ -58,7 +58,10 @@ const dpsActions = {
     actionsHighlight: stub as Highlight,
   },
   actionsPagination: {
-    actionsPagination: stub as Pagination,
+    actionsPagination: stub as IPagination,
+  },
+  actionsPage: {
+    actionsPage: stub as ActionT[],
   },
 };
 
@@ -73,7 +76,7 @@ const dpsSearchResults = {
     searchResultsHighlight: stub as Highlight,
   },
   searchResultsPagination: {
-    searchResultsPagination: stub as Pagination,
+    searchResultsPagination: stub as IPagination,
   },
   searchForm: {
     searchForm: stub as SearchContentArgsT,
