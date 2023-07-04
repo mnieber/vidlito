@@ -2,9 +2,9 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
-import { useGetActionsQueryData } from '/src/actions/ActionsState/queries/useGetActionsQueryData';
+import { useGetActionsObservableQuery } from '/src/actions/ActionsState/queries/useGetActionsObservableQuery';
 import { useActionsState } from '/src/actions/hooks/useActionsState';
-import { isQueryLoading, isQueryUpdating } from '/src/api/QueryData';
+import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
@@ -30,7 +30,7 @@ export const ActionsStateProvider = observer(
       playlists: props.playlists,
     });
 
-    const getActions = useGetActionsQueryData({
+    const getActions = useGetActionsObservableQuery({
       playlistId: actionsState.settings.showAllActions
         ? undefined
         : props.playlist?.id,

@@ -2,10 +2,10 @@ import { comparer, makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
-import { isQueryLoading, isQueryUpdating } from '/src/api/QueryData';
+import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import { useGetPlaylist } from '/src/api/endpoints';
 import { isLoading, isUpdating } from '/src/api/getState';
-import { useQueryData } from '/src/api/hooks';
+import { useObservableQuery } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
@@ -31,7 +31,7 @@ export const PlaylistsStateProvider = observer(
     const playlistSlug =
       playlistsState.playlistsCtr.highlight.item?.slug ?? params.playlistSlug;
 
-    const getPlaylist = useQueryData(
+    const getPlaylist = useObservableQuery(
       useGetPlaylist({
         playlistSlug:
           playlistSlug === 'new-playlist' ? undefined : playlistSlug,

@@ -1,1 +1,1 @@
-export { useQueryData } from './useQueryData';
+export { useObservableQuery } from './useObservableQuery';
