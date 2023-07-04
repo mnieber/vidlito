@@ -1,13 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
 import { invalidateActions } from '/src/api/mutations/useMoveClipsToTrash';
-import { PlaylistT } from '/src/api/types/PlaylistT';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   actionId: string;
-  playlist: PlaylistT;
+  playlistId: string;
+  playlistSlug: string;
 };
 
 export const undoAction = (args: ArgsT) => {
@@ -32,7 +32,7 @@ export const useUndoAction = () => {
     mutationKey: ['undoAction'],
     mutationFn: undoAction,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      return invalidateActions(args.playlist);
+      return invalidateActions(args.playlistId, args.playlistSlug);
     },
   });
 };

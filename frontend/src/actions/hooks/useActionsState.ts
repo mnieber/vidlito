@@ -1,6 +1,7 @@
 import { action } from 'mobx';
 import React from 'react';
 import { ActionsState } from '/src/actions/ActionsState';
+import { UndoActionArgsT } from '/src/api/mutations';
 import { useUndoAction } from '/src/api/mutations/useUndoAction';
 import { ActionT } from '/src/api/types/ActionT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
@@ -34,8 +35,9 @@ export const useActionsState = (props: PropsT) => {
           name: 'undoAction',
           promise: undoAction.mutateAsync({
             actionId,
-            playlist: playlist,
-          }),
+            playlistId: playlist.id,
+            playlistSlug: playlist.slug,
+          } as UndoActionArgsT),
           states: {
             updating: [action, undoAction],
           },

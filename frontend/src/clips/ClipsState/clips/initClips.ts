@@ -110,7 +110,12 @@ export const initClips = (state: ClipsState, props: PropsT) => {
         const clipIds = [...ctr.selection.ids];
 
         return props
-          .moveClipsToPlaylist(clips, this.args.playlistId, this.args.copy)
+          .moveClipsToPlaylist(
+            clips,
+            this.args.playlistId,
+            this.args.playlistSlug,
+            this.args.copy
+          )
           .then((response: ObjT) => {
             unselectIds(ctr.selection, clipIds);
             correctHighlight(ctr.highlight, allIds, R.without(clipIds, allIds));

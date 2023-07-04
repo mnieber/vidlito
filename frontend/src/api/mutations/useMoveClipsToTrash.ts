@@ -2,12 +2,12 @@ import { useMutation } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
 import { getActionsQueryKey, getPlaylistQueryKey } from '/src/api/queries';
 import { queryClient } from '/src/api/queryClient';
-import { PlaylistT } from '/src/api/types/PlaylistT';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
-  playlist: PlaylistT;
+  playlistId: string;
+  playlistSlug: string;
   clipIds: string[];
 };
 
@@ -26,7 +26,7 @@ export const moveClipsToTrash = (args: ArgsT) => {
       }
     }`,
     {
-      playlistId: args.playlist.id,
+      playlistId: args.playlistId,
       clipIds: args.clipIds,
     }
   ).then((response: ObjT) => {
@@ -39,18 +39,21 @@ export const useMoveClipsToTrash = () => {
     mutationKey: ['moveClipsToTrash'],
     mutationFn: moveClipsToTrash,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      return invalidateActions(args.playlist);
+      return invalidateActions(args.playlistId, args.playlistSlug);
     },
   });
 };
 
-export function invalidateActions(playlist: PlaylistT): unknown {
+export function invalidateActions(
+  playlistId: string,
+  playlistSlug: string
+): unknown {
   return Promise.all([
     queryClient.invalidateQueries({
-      queryKey: getPlaylistQueryKey({ playlistId: playlist.id }),
+      queryKey: getPlaylistQueryKey({ playlistSlug: playlistSlug }),
     }),
     queryClient.invalidateQueries({
-      queryKey: getActionsQueryKey({ playlistId: playlist.id }),
+      queryKey: getActionsQueryKey({ playlistId: playlistId }),
     }),
     queryClient.invalidateQueries({
       queryKey: getActionsQueryKey({ playlistId: undefined }),

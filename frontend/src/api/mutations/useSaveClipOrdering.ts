@@ -11,6 +11,7 @@ import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   playlistId: string;
+  playlistSlug: string;
   clipIds: string[];
 };
 
@@ -40,7 +41,7 @@ export const useSaveClipOrdering = () => {
     mutationFn: saveClipOrdering,
     onMutate: (args: ArgsT) => {
       queryClient.setQueriesData(
-        { queryKey: getPlaylistQueryKey({ playlistId: args.playlistId }) },
+        { queryKey: getPlaylistQueryKey({ playlistSlug: args.playlistSlug }) },
         (data: any) =>
           // Reorder clips in playlist.clipSet
           applyUpdate(['playlist'], data, (playlist: PlaylistT) => {

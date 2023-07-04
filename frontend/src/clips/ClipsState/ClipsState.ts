@@ -33,6 +33,7 @@ export type PropsT = {
   moveClipsToPlaylist: (
     clips: ClipT[],
     playlistId: string,
+    playlistSlug: string,
     copy: boolean
   ) => Promise<any>;
 };

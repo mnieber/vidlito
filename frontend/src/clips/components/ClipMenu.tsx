@@ -53,7 +53,11 @@ export const ClipMenu = observer(
               key={playlist.id}
               onClick={(e) => {
                 e.stopPropagation = true;
-                props.clipsMove.move({ playlistId: playlist.id, copy: false });
+                props.clipsMove.move({
+                  playlistId: playlist.id,
+                  playlistSlug: playlist.slug,
+                  copy: false,
+                });
               }}
             >
               {playlist.name}
@@ -68,7 +72,11 @@ export const ClipMenu = observer(
               key={playlist.id}
               onClick={(e) => {
                 e.stopPropagation = true;
-                props.clipsMove.move({ playlistId: playlist.id, copy: true });
+                props.clipsMove.move({
+                  playlistId: playlist.id,
+                  playlistSlug: playlist.slug,
+                  copy: true,
+                });
               }}
             >
               {playlist.name}

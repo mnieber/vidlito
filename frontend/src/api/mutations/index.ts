@@ -15,3 +15,4 @@ export type { ArgsT as SavePlaylistArgsT } from './useSavePlaylist';
 export { useSavePlaylistOrdering } from './useSavePlaylistOrdering';
 export type { ArgsT as SavePlaylistOrderingArgsT } from './useSavePlaylistOrdering';
 export type { ArgsT as SearchContentArgsT } from './useSearchContent';
+export type { ArgsT as UndoActionArgsT } from './useUndoAction';

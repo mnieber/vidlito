@@ -37,16 +37,14 @@ export const useSavePlaylist = () => {
     mutationKey: ['savePlaylist'],
     mutationFn: savePlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      const getPlaylistArgs = { playlistId: args.playlistForm.id };
+      const getPlaylistArgs = { playlistSlug: args.playlistForm.slug };
       const invalidateLoadUserId = response.created
         ? [queryClient.invalidateQueries({ queryKey: loadUserIdQueryKey({}) })]
         : [];
       return Promise.all([
         ...invalidateLoadUserId,
         queryClient.invalidateQueries({
-          queryKey: getPlaylistQueryKey({
-            playlistId: args.playlistForm.id,
-          }),
+          queryKey: getPlaylistQueryKey(getPlaylistArgs),
         }),
         getPlaylist(getPlaylistArgs).then((getPlaylistResponse: ObjT) => {
           // To avoid showing a loader, we populate the cache with the

@@ -40,7 +40,8 @@ export const useClipsState = (props: PropsT) => {
           name: 'moveClipsToTrash',
           //
           promise: moveClipsToTrash.mutateAsync({
-            playlist: propsRef.current?.playlist,
+            playlistId: propsRef.current?.playlist.id,
+            playlistSlug: propsRef.current?.playlist.slug,
             clipIds: ids,
           } as MoveClipsToTrashArgsT),
           //
@@ -87,6 +88,7 @@ export const useClipsState = (props: PropsT) => {
       moveClipsToPlaylist: (
         clips: ClipT[],
         playlistId: string,
+        playlistSlug: string,
         copy: boolean
       ) => {
         return trackPromise({
@@ -96,6 +98,7 @@ export const useClipsState = (props: PropsT) => {
             srcPlaylistId: propsRef.current?.playlist.id,
             srcPlaylistSlug: propsRef.current?.playlist.slug,
             destPlaylistId: playlistId,
+            destPlaylistSlug: playlistSlug,
             clipIds: getIds(clips),
             copy,
           } as MoveClipsToPlaylistArgsT),
