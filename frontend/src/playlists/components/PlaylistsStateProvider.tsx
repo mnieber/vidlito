@@ -51,14 +51,30 @@ export const PlaylistsStateProvider = observer(
       updatePlaylists(getFollowedPlaylistsData(), getPlaylistDataSafe());
 
     const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
+    useUpdateStateReaction({
+      getInputs: () => {
+        return {
+          playlists: getUpdatedPlaylistsData(),
+          followedPlaylists: getFollowedPlaylistsData(),
+        };
+      },
+      updateState: (inputs) => {
+        playlistsState.playlistsCtr.store.followedPlaylists =
+          inputs.followedPlaylists;
+        playlistsState.playlistsCtr.store.items = graftResourceStatesFromMemo({
+          resources: inputs.playlists,
+        });
+      },
+      logState: () => {
+        log('PlaylistsState updated', playlistsState.getSummary());
+      },
+    });
+
     const cache = useBuilder(() =>
       makeAutoObservable({
         get playlists() {
-          const playlists = graftResourceStatesFromMemo({
-            resources: getUpdatedPlaylistsData(),
-          });
           return updateSources(
-            { resource: playlists },
+            { resource: playlistsState.playlistsCtr.display.items },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
             ['updating', () => isUpdating(props.userProfile), 'userProfile']
           );
@@ -76,23 +92,6 @@ export const PlaylistsStateProvider = observer(
         },
       })
     );
-
-    useUpdateStateReaction({
-      getInputs: () => {
-        return {
-          playlists: cache.playlists,
-          followedPlaylists: getFollowedPlaylistsData(),
-        };
-      },
-      updateState: (inputs) => {
-        playlistsState.playlistsCtr.store.followedPlaylists =
-          inputs.followedPlaylists;
-        playlistsState.playlistsCtr.store.items = inputs.playlists;
-      },
-      logState: () => {
-        log('PlaylistsState updated', playlistsState.getSummary());
-      },
-    });
 
     const getDefaultPropsContext = () => {
       const result: any = {
