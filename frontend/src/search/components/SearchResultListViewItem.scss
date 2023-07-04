@@ -1,12 +1,6 @@
 .SearchResultListViewItem {
   @apply cursor-pointer;
   @apply [&:first-child]:rounded-t-xl [&:last-child]:rounded-b-xl;
-  background-color: transparent;
-}
-
-.SearchResultListViewItem--highlighted {
-  @apply font-bold;
-  @apply bg-blue-50;
 }
 
 .SearchResultListViewItem__Cell {

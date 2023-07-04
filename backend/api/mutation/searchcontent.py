@@ -30,6 +30,7 @@ class SearchContent(graphene.Mutation):
         search_results = []
         for clip in Clip.objects.all():
             playlist_slug = clip.source_playlist.slug if clip.source_playlist else None
+            playlist_name = clip.source_playlist.name if clip.source_playlist else None
             nr_of_clips = (
                 clip.source_playlist.nr_of_clips if clip.source_playlist else None
             )
@@ -38,7 +39,9 @@ class SearchContent(graphene.Mutation):
                 SearchResultT(
                     id=uuid.uuid4().hex,
                     playlist_slug=playlist_slug,
+                    playlist_name=playlist_name,
                     clip_slug=clip.slug,
+                    clip_name=clip.name,
                     nr_of_clips=nr_of_clips,
                     owner_username=clip.owner.username,
                 )

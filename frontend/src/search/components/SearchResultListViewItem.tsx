@@ -25,24 +25,26 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
       <div className={cn('SearchResultListViewItem__Cell')}>
         {props.searchResult.ownerUsername}
       </div>
-      <div className={cn('SearchResultListViewItem__Cell', 'text-primaryBlue')}>
-        {props.searchResult.playlistSlug}
+      <div
+        className={cn(
+          'SearchResultListViewItem__Cell',
+          'text-primaryBlue',
+          'hover:underline'
+        )}
+      >
+        {props.searchResult.playlistName}
       </div>
       <div className={cn('SearchResultListViewItem__Cell')}>
         {props.searchResult.nrOfClips}
       </div>
-      <div className={cn('SearchResultListViewItem__Cell', 'text-primaryTeal')}>
-        {props.searchResult.clipSlug +
-          ' ' +
-          props.searchResult.clipSlug +
-          ' ' +
-          props.searchResult.clipSlug +
-          ' ' +
-          props.searchResult.clipSlug +
-          ' ' +
-          props.searchResult.clipSlug +
-          ' ' +
-          props.searchResult.clipSlug}
+      <div
+        className={cn(
+          'SearchResultListViewItem__Cell',
+          'text-primaryTeal',
+          'hover:underline'
+        )}
+      >
+        {props.searchResult.clipName}
       </div>
     </div>
   );

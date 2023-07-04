@@ -29,7 +29,9 @@ export const searchContent = (args: ArgsT) => {
         searchResults {
           id
           playlistSlug
+          playlistName
           clipSlug
+          clipName
           nrOfClips
           ownerUsername
         }
