@@ -7,8 +7,8 @@ import { updateSources } from '/src/api/utils';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useClipsState } from '/src/clips/hooks/useClipsState';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
-import { graftResourceStates } from '/src/resourceStates';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
+import { useGraftResourceStates } from '/src/utils/hooks/useGraftResourceStates';
 import { log } from '/src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -23,27 +23,15 @@ export const ClipsStateProvider = observer(
       playlist: props.playlist,
     });
 
-    useUpdateStateReaction({
-      getInputs: () => ({
-        clips: props.playlist?.clipSet,
-      }),
-      updateState: (inputs) => {
-        clipsState.clipsCtr.store.items = graftResourceStates({
-          resources: inputs.clips ?? [],
-          prevResources: clipsState.clipsCtr.store.items,
-        });
-      },
-      logState: () => {
-        log('ClipsState updated', clipsState.getSummary());
-      },
-    });
+    const getClipsData = () => props.playlist?.clipSet ?? [];
+    useGraftResourceStates({ resources: getClipsData() });
 
     const cache = useBuilder(() =>
       makeAutoObservable({
         get clips() {
           return updateSources(
             {
-              resource: clipsState.clipsCtr.display.items,
+              resource: getClipsData(),
               resourceName: 'clips',
             },
             ['loading', () => isLoading(props.playlist), 'playlist'],
@@ -62,6 +50,18 @@ export const ClipsStateProvider = observer(
         },
       })
     );
+
+    useUpdateStateReaction({
+      getInputs: () => ({
+        clips: cache.clips,
+      }),
+      updateState: (inputs) => {
+        clipsState.clipsCtr.store.items = inputs.clips ?? [];
+      },
+      logState: () => {
+        log('ClipsState updated', clipsState.getSummary());
+      },
+    });
 
     const getDefaultPropsContext = () => {
       const result: any = {
