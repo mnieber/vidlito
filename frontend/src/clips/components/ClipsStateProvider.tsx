@@ -24,7 +24,9 @@ export const ClipsStateProvider = observer(
     });
     const getClipsData = () => props.playlist?.clipSet ?? [];
 
-    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
+    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({
+      saveMemory: true,
+    });
     useUpdateStateReaction({
       getInputs: () => ({
         clips: graftResourceStatesFromMemo({ resources: getClipsData() }),

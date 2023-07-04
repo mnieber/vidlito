@@ -1,33 +1,31 @@
 import { getRS, initRS } from './ResourceState';
 import { shareRS } from '/src/resourceStates/ResourceState';
 
-export const graftResourceStates = ({
-  resources,
-  prevResources,
-  getKey,
-  rsName,
-}: {
+export type ArgsT = {
   resources: any[];
   prevResources?: any[];
-  getKey?: Function;
+  keyProp?: string;
   rsName?: string;
-}) => {
-  for (const resource of resources) {
-    const key = getKey ? getKey(resource) : resource.id;
+};
 
+export const graftResourceStates = (args: ArgsT) => {
+  const keyProp = args.keyProp ?? 'id';
+
+  for (const resource of args.resources) {
+    const key = resource[keyProp];
     initRS(resource);
-    if (rsName) {
-      getRS(resource).name = `${rsName}_${key}`;
+    if (args.rsName) {
+      getRS(resource).name = `${args.rsName}_${key}`;
     }
 
-    if (prevResources) {
-      const previousResource = prevResources.find(
-        (r) => key === (getKey ? getKey(r) : r.id)
+    if (args.prevResources) {
+      const previousResource = args.prevResources.find(
+        (r) => key === r[keyProp]
       );
       if (previousResource) {
         shareRS(previousResource, resource);
       }
     }
   }
-  return resources;
+  return args.resources;
 };

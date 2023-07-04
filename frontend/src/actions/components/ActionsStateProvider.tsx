@@ -52,7 +52,9 @@ export const ActionsStateProvider = observer(
     const getPaginationData = () => getActions.data?.pagination;
 
     // Update the actions state based on the inputs
-    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
+    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({
+      saveMemory: true,
+    });
     useUpdateStateReaction({
       getInputs: () => ({
         actions: getActionsData(),

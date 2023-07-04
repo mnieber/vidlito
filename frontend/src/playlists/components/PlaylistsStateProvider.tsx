@@ -51,7 +51,9 @@ export const PlaylistsStateProvider = observer(
     const getUpdatedPlaylistsData = () =>
       updatePlaylists(getFollowedPlaylistsData(), getPlaylistDataSafe());
 
-    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
+    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({
+      saveMemory: true,
+    });
     useUpdateStateReaction({
       getInputs: () => {
         return {

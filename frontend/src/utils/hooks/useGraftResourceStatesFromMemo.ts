@@ -1,18 +1,38 @@
 import { runInAction } from 'mobx';
 import React from 'react';
-import { graftResourceStates } from '/src/resourceStates/graftResourceStates';
+import { shareRS } from '/src/resourceStates/ResourceState';
+import {
+  ArgsT as GraftResourceStatesArgsT,
+  graftResourceStates,
+} from '/src/resourceStates/graftResourceStates';
 
-export const useGraftResourceStatesFromMemo = () => {
-  const prevResourcesRef = React.useRef<any[]>();
+export const useGraftResourceStatesFromMemo = ({
+  saveMemory,
+}: {
+  saveMemory?: boolean;
+}) => {
+  const prevResourcesRef = React.useRef<any[] | null>(null);
 
-  return (args: { resources: any[] }): any[] => {
+  return (args: Omit<GraftResourceStatesArgsT, 'prevResources'>): any[] => {
     runInAction(() => {
       graftResourceStates({
+        ...args,
         resources: args.resources ?? [],
         prevResources: prevResourcesRef.current ?? [],
       });
     });
-    prevResourcesRef.current = args.resources;
+
+    // If saveMemory, then instead of keeping a reference to args.resources, we create
+    // a look-up table for the resource states.
+    const keyProp = args.keyProp ?? 'id';
+    prevResourcesRef.current = saveMemory
+      ? (args.resources ?? []).reduce((acc, resource) => {
+          const obj = { [keyProp]: resource[keyProp] };
+          shareRS(resource, obj);
+          acc.push(obj);
+          return acc;
+        }, [])
+      : args.resources;
     return args.resources;
   };
 };
