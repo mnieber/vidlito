@@ -30,15 +30,15 @@ export const ActionsStateProvider = observer(
       playlists: props.playlists,
     });
 
-    const pagination = useBuilder(() => {
-      return new PaginationAdapter(actionsState.actionsCtr.pagination, 2);
-    });
-
     const getActions = useGetActionsQueryData({
       playlistId: actionsState.settings.showAllActions
         ? undefined
         : props.playlist?.id,
       page: actionsState.actionsCtr.pagination.page,
+    });
+
+    const displayPagination = useBuilder(() => {
+      return new PaginationAdapter(actionsState.actionsCtr.pagination, 2);
     });
 
     const cache = useBuilder(() =>
@@ -53,7 +53,7 @@ export const ActionsStateProvider = observer(
         get actionsPage() {
           const items = getDisplayPage(
             actionsState.actionsCtr.pagination,
-            pagination,
+            displayPagination,
             cache.actions
           );
           shareRS(cache.actions, items);
@@ -95,7 +95,7 @@ export const ActionsStateProvider = observer(
         actionsPage: () => cache.actionsPage,
         action: () => cache.action,
         actionsHighlight: () => actionsState.actionsCtr.highlight,
-        actionsPagination: () => pagination,
+        actionsPagination: () => displayPagination,
       };
 
       return result;
