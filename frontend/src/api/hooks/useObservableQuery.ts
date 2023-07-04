@@ -1,10 +1,12 @@
 import { runInAction } from 'mobx';
 import React from 'react';
-import { IQuery, ObservableQuery, QueryDataT } from '/src/api/ObservableQuery';
+import { ObservableQuery, QueryDataT } from '/src/api/ObservableQuery';
 import { flags } from '/src/app/flags';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
-export interface TanstackQuery extends IQuery {
+export interface TanstackQuery {
+  data: QueryDataT;
+  status: string;
   isFetching: boolean;
 }
 

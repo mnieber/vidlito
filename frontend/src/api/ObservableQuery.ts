@@ -5,12 +5,8 @@ import { ObjT } from '/src/utils/types';
 
 export type QueryDataT = ObjT | undefined;
 
-export interface IQuery {
-  data: QueryDataT;
-  status: string;
-}
-
-export class ObservableQuery implements IQuery {
+// This class is used as a MobX-observable replacement for a TanstackQuery.
+export class ObservableQuery {
   data: QueryDataT = undefined;
   id: string = '';
   status: string = 'idle';
@@ -46,10 +42,10 @@ export class ObservableQuery implements IQuery {
   }
 }
 
-export const isQueryLoading = (query: IQuery) => {
+export const isQueryLoading = (query: ObservableQuery) => {
   return query.status === 'loading' && !query.data;
 };
 
-export const isQueryUpdating = (query: IQuery) => {
+export const isQueryUpdating = (query: ObservableQuery) => {
   return query.status === 'loading' && !!query.data;
 };
