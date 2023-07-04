@@ -2,8 +2,8 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
-import { isQueryLoading, isQueryUpdating } from '/src/api/QueryData';
-import { useQueryData } from '/src/api/hooks';
+import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
+import { useObservableQuery } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils';
 import { withDefaultProps } from '/src/app/defaultProps';
 import { useLoadUserId } from '/src/auth/endpoints';
@@ -20,7 +20,7 @@ export const DashboardStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { dashboardState } = useDashboardState({});
 
-    const loadUserId = useQueryData(useLoadUserId());
+    const loadUserId = useObservableQuery(useLoadUserId());
 
     useUpdateStateReaction({
       getInputs: () => ({

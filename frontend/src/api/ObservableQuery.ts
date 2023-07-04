@@ -3,15 +3,17 @@ import { createUUID } from '/src/utils/ids';
 import { log } from '/src/utils/logging';
 import { ObjT } from '/src/utils/types';
 
-export class QueryData {
-  query: ObjT = {};
-  data: ObjT | undefined = undefined;
+export type QueryDataT = ObjT | undefined;
+
+// This class is used as a MobX-observable replacement for a TanstackQuery.
+export class ObservableQuery {
+  data: QueryDataT = undefined;
   id: string = '';
   status: string = 'idle';
   debugLabel?: string = '';
 
   public toString = (): string => {
-    return `QueryData`;
+    return `ObservableQuery`;
   };
 
   log(label: string) {
@@ -40,10 +42,10 @@ export class QueryData {
   }
 }
 
-export const isQueryLoading = (query: QueryData) => {
+export const isQueryLoading = (query: ObservableQuery) => {
   return query.status === 'loading' && !query.data;
 };
 
-export const isQueryUpdating = (query: QueryData) => {
+export const isQueryUpdating = (query: ObservableQuery) => {
   return query.status === 'loading' && !!query.data;
 };
