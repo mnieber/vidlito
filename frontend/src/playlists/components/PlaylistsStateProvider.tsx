@@ -28,14 +28,15 @@ export const PlaylistsStateProvider = observer(
       userProfile: props.userProfile,
     });
     const params = useNavHandlerParams();
-    const playlistSlug =
+    const getPlaylistSlug = () =>
       playlistsState.playlistsCtr.highlight.item?.slug ?? params.playlistSlug;
+    const isGetplaylistEnabled = () => getPlaylistSlug() !== 'new-playlist';
 
     const getPlaylist = useObservableQuery(
-      useGetPlaylist({
-        playlistSlug:
-          playlistSlug === 'new-playlist' ? undefined : playlistSlug,
-      }),
+      useGetPlaylist(
+        { playlistSlug: getPlaylistSlug() },
+        { enabled: isGetplaylistEnabled() }
+      ),
       { fetchAsLoad: true, debugLabel: 'getPlaylist' }
     );
     const getFollowedPlaylistsData = () => props.userProfile?.followSet ?? [];
@@ -86,8 +87,16 @@ export const PlaylistsStateProvider = observer(
               resourceName: 'playlist',
             },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
-            ['loading', () => isQueryLoading(getPlaylist), 'getPlaylist'],
-            ['updating', () => isQueryUpdating(getPlaylist), 'getPlaylist']
+            [
+              'loading',
+              () => isGetplaylistEnabled() && isQueryLoading(getPlaylist),
+              'getPlaylist',
+            ],
+            [
+              'updating',
+              () => isGetplaylistEnabled() && isQueryUpdating(getPlaylist),
+              'getPlaylist',
+            ]
           );
         },
       })

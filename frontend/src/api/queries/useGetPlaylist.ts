@@ -56,15 +56,19 @@ export type QueryKeyT = {
   playlistSlug?: string;
 };
 
+export type OptionsT = {
+  enabled?: boolean;
+};
+
 export function queryKey(args: QueryKeyT) {
   return createQueryKey<QueryKeyT>('getPlaylist', args);
 }
 
-export const useGetPlaylist = (args: ArgsT) => {
+export const useGetPlaylist = (args: ArgsT, options?: OptionsT) => {
   return useQuery({
     queryKey: queryKey(args),
     queryFn: () => getPlaylist(args),
-    enabled: !!args.playlistSlug,
+    enabled: !!(options?.enabled ?? true),
     onSuccess: (response: ObjT) => {
       queryClient.setQueriesData(
         { queryKey: loadUserIdQueryKey({}) },

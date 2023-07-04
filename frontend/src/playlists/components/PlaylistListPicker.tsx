@@ -15,6 +15,7 @@ export type PropsT = {
 };
 
 const DefaultProps = {
+  ...dps.playlist,
   ...dps.playlists,
   ...dps.clips,
   ...dps.dashboardState,

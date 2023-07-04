@@ -34,15 +34,22 @@ export class DashboardState {
 
   @observable showPlaylistDescription: boolean = false;
   @observable isPlaylistListExpanded: boolean = false;
-  @observable navigationPoint?: string;
+  @observable navigationPoint?: {
+    url: string;
+    isPlaylistExpanded: boolean;
+  };
 
   @action storeNavigationPoint() {
-    this.navigationPoint = pathname();
+    this.navigationPoint = {
+      url: pathname(),
+      isPlaylistExpanded: this.isPlaylistListExpanded,
+    };
   }
 
   @action restoreNavigationPoint() {
     if (R.isNil(this.navigationPoint)) return false;
-    history.push(this.navigationPoint);
+    history.push(this.navigationPoint.url);
+    this.toggleIsPlaylistListExpanded(this.navigationPoint.isPlaylistExpanded);
     return true;
   }
 
