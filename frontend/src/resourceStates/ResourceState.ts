@@ -83,9 +83,9 @@ export const getRS = (resource: any): ResourceState => {
   return resource[symbolRS];
 };
 
-export const initRS = (resource: any, state?: string) => {
+export const initRS = (resource: any) => {
   if (resource && R.isNil(resource[symbolRS])) {
-    resource[symbolRS] = state ?? new ResourceState();
+    resource[symbolRS] = new ResourceState();
   }
   return resource;
 };
