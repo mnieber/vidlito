@@ -13,10 +13,6 @@ export interface TanstackQuery {
 export type OptionsT = {
   fetchAsLoad?: boolean;
   debugLabel?: string;
-  processQueryData?: (
-    queryData: QueryDataT,
-    prevQueryData?: QueryDataT
-  ) => QueryDataT;
 };
 
 export const useObservableQuery = (
@@ -25,28 +21,17 @@ export const useObservableQuery = (
 ) => {
   const fetchAsLoad = options?.fetchAsLoad;
   const debugLabel = options?.debugLabel;
-  const processQueryData = options?.processQueryData;
 
   const observableQuery = useBuilder(() => {
     const observableQuery = new ObservableQuery();
     observableQuery.debugLabel = debugLabel;
-    updateObservableQuery(
-      observableQuery,
-      query,
-      fetchAsLoad,
-      processQueryData
-    );
+    updateObservableQuery(observableQuery, query, fetchAsLoad);
     return observableQuery;
   });
 
   React.useEffect(() => {
     runInAction(() => {
-      updateObservableQuery(
-        observableQuery,
-        query,
-        fetchAsLoad,
-        processQueryData
-      );
+      updateObservableQuery(observableQuery, query, fetchAsLoad);
       if (debugLabel && flags.logQueries) {
         observableQuery.log(
           `ObservableQuery ${observableQuery.id} (${debugLabel}) updated to ${observableQuery.status}`
@@ -61,15 +46,9 @@ export const useObservableQuery = (
 function updateObservableQuery(
   observableQuery: ObservableQuery,
   tanstackQuery: TanstackQuery,
-  fetchAsLoad: boolean | undefined,
-  processQueryData?: (
-    queryData: QueryDataT,
-    prevQueryData?: QueryDataT
-  ) => QueryDataT
+  fetchAsLoad: boolean | undefined
 ) {
-  observableQuery.data = processQueryData
-    ? processQueryData(tanstackQuery.data, observableQuery.data)
-    : tanstackQuery.data;
+  observableQuery.data = tanstackQuery.data;
   observableQuery.status =
     fetchAsLoad && tanstackQuery.isFetching ? 'loading' : tanstackQuery.status;
 }

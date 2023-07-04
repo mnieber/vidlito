@@ -2,10 +2,9 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
+import { useGetActionsObservableQuery } from '/src/actions/ActionsState/queries/useGetActionsObservableQuery';
 import { useActionsState } from '/src/actions/hooks/useActionsState';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
-import { useGetActions } from '/src/api/endpoints';
-import { useObservableQuery } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
@@ -15,7 +14,6 @@ import {
 } from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
 import { shareRS } from '/src/resourceStates/ResourceState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
-import { useGraftResourceStates } from '/src/utils/hooks/useGraftResourceStates';
 import { log } from '/src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -38,26 +36,19 @@ export const ActionsStateProvider = observer(
       return new PaginationAdapter(actionsState.actionsCtr.pagination, 2);
     });
 
-    // Get actions
-    const getActions = useObservableQuery(
-      useGetActions({
-        playlistId: actionsState.settings.showAllActions
-          ? undefined
-          : props.playlist?.id,
-        page: actionsState.actionsCtr.pagination.page,
-        pageSize: 10,
-      })
-    );
-
-    // Graft the action resource states
-    useGraftResourceStates(getActions.data?.actionSet ?? []);
+    // Get query data
+    const { getActions, getActionsData, getPaginationData } =
+      useGetActionsObservableQuery({
+        actionsState: actionsState,
+        playlist: props.playlist,
+      });
 
     // Create a cache for data that has resource states
     const cache = useBuilder(() =>
       makeAutoObservable({
         get actions() {
           return updateSources(
-            { resource: getActions.data?.actionSet ?? [] },
+            { resource: getActionsData() },
             ['loading', () => isQueryLoading(getActions), 'getActions'],
             ['updating', () => isQueryUpdating(getActions), 'getActions']
           );
@@ -81,7 +72,7 @@ export const ActionsStateProvider = observer(
     useUpdateStateReaction({
       getInputs: () => ({
         actions: cache.actions,
-        paginationResponse: getActions.data?.pagination,
+        paginationResponse: getPaginationData(),
       }),
       updateState: (inputs) => {
         actionsState.actionsCtr.store.items = inputs.actions ?? [];
