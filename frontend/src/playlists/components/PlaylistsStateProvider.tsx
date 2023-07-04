@@ -1,15 +1,13 @@
-import { comparer, makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
-import { useGetPlaylist } from '/src/api/endpoints';
 import { isLoading, isUpdating } from '/src/api/getState';
-import { useObservableQuery } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
+import { useGetPlaylistObservableQuery } from '/src/playlists/PlaylistsState/queries/useGetPlaylistObservable';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from '/src/playlists/utils/updatePlaylists';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
@@ -27,29 +25,15 @@ export const PlaylistsStateProvider = observer(
     const { playlistsState } = usePlaylistsState({
       userProfile: props.userProfile,
     });
-    const params = useNavHandlerParams();
-    const getPlaylistSlug = () =>
-      playlistsState.playlistsCtr.highlight.item?.slug ?? params.playlistSlug;
-    const isGetplaylistEnabled = () => getPlaylistSlug() !== 'new-playlist';
 
-    const getPlaylist = useObservableQuery(
-      useGetPlaylist(
-        { playlistSlug: getPlaylistSlug() },
-        { enabled: isGetplaylistEnabled() }
-      ),
-      { fetchAsLoad: true, debugLabel: 'getPlaylist' }
-    );
+    // The getPlaylistData function returns the playlist data from the
+    // getPlaylist query
+    const { getPlaylistData, isGetplaylistEnabled, getPlaylist } =
+      useGetPlaylistObservableQuery(playlistsState);
+
     const getFollowedPlaylistsData = () => props.userProfile?.followSet ?? [];
-    const getPlaylistData = () => getPlaylist.data?.playlist;
-
-    // Here we have to do a deep compare to avoid infinite loops. If the playlist (that we get from
-    // getPlaylist) is equal to the currently highlighted playlist, then keep using the latter.
-    const getPlaylistDataSafe = () =>
-      comparer.structural(cache.playlist, getPlaylistData())
-        ? cache.playlist
-        : getPlaylistData();
     const getUpdatedPlaylistsData = () =>
-      updatePlaylists(getFollowedPlaylistsData(), getPlaylistDataSafe());
+      updatePlaylists(getFollowedPlaylistsData(), getPlaylistData());
 
     const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({
       saveMemory: true,
