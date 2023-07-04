@@ -8,7 +8,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useClipsState } from '/src/clips/hooks/useClipsState';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
-import { useGraftResourceStates } from '/src/utils/hooks/useGraftResourceStates';
+import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
 import { log } from '/src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -24,14 +24,17 @@ export const ClipsStateProvider = observer(
     });
 
     const getClipsData = () => props.playlist?.clipSet ?? [];
-    useGraftResourceStates({ resources: getClipsData() });
+    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
 
     const cache = useBuilder(() =>
       makeAutoObservable({
         get clips() {
+          const clips = graftResourceStatesFromMemo({
+            resources: getClipsData(),
+          });
           return updateSources(
             {
-              resource: getClipsData(),
+              resource: clips,
               resourceName: 'clips',
             },
             ['loading', () => isLoading(props.playlist), 'playlist'],

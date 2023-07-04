@@ -14,8 +14,8 @@ import {
   getDisplayPage,
 } from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
 import { shareRS } from '/src/resourceStates/ResourceState';
-import { graftResourceStates } from '/src/resourceStates/graftResourceStates';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
+import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
 import { log } from '/src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -49,12 +49,19 @@ export const ActionsStateProvider = observer(
       })
     );
 
+    const getActionsData = () => getActions.data?.actionSet ?? [];
+    const getPaginationData = () => getActions.data?.pagination;
+    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
+
     // Create a cache for data that has resource states
     const cache = useBuilder(() =>
       makeAutoObservable({
         get actions() {
+          const actions = graftResourceStatesFromMemo({
+            resources: getActionsData(),
+          });
           return updateSources(
-            { resource: actionsState.actionsCtr.store.items },
+            { resource: actions },
             ['loading', () => isQueryLoading(getActions), 'getActions'],
             ['updating', () => isQueryUpdating(getActions), 'getActions']
           );
@@ -77,14 +84,11 @@ export const ActionsStateProvider = observer(
     // Update the actions state based on the inputs
     useUpdateStateReaction({
       getInputs: () => ({
-        actions: getActions.data?.actionSet,
-        pagination: getActions.data?.pagination,
+        actions: cache.actions,
+        pagination: getPaginationData(),
       }),
       updateState: (inputs) => {
-        actionsState.actionsCtr.store.items = graftResourceStates({
-          resources: inputs.actions ?? [],
-          prevResources: actionsState.actionsCtr.store.items,
-        });
+        actionsState.actionsCtr.store.items = inputs.actions;
         actionsState.actionsCtr.pagination.nrOfItems =
           inputs.pagination?.nrOfItems ?? 0;
         actionsState.actionsCtr.pagination.pageSize =
