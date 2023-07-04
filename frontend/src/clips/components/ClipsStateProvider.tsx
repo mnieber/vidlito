@@ -22,10 +22,9 @@ export const ClipsStateProvider = observer(
     const { clipsState } = useClipsState({
       playlist: props.playlist,
     });
-
     const getClipsData = () => props.playlist?.clipSet ?? [];
-    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
 
+    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
     const cache = useBuilder(() =>
       makeAutoObservable({
         get clips() {

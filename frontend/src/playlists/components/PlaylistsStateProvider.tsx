@@ -11,9 +11,9 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
-import { updatePlaylists } from '/src/playlists/utils';
-import { graftResourceStates } from '/src/resourceStates';
+import { updatePlaylists } from '/src/playlists/utils/updatePlaylists';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
+import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
 import { log } from '/src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -38,40 +38,27 @@ export const PlaylistsStateProvider = observer(
       }),
       { fetchAsLoad: true, debugLabel: 'getPlaylist' }
     );
+    const getFollowedPlaylistsData = () => props.userProfile?.followSet ?? [];
+    const getPlaylistData = () => getPlaylist.data?.playlist;
 
-    useUpdateStateReaction({
-      getInputs: () => {
-        return {
-          playlists: props.userProfile?.followSet,
-          playlist: getPlaylist.data?.playlist,
-        };
-      },
-      updateState: (inputs) => {
-        // Here we have to do a deep compare to avoid infinite loops. If the playlist (that we get from
-        // getPlaylist) is equal to the currently highlighted playlist, then keep using the latter.
-        const playlist = comparer.structural(
-          playlistsState.playlistsCtr.highlight.item,
-          inputs.playlist
-        )
-          ? playlistsState.playlistsCtr.highlight.item
-          : inputs.playlist;
+    // Here we have to do a deep compare to avoid infinite loops. If the playlist (that we get from
+    // getPlaylist) is equal to the currently highlighted playlist, then keep using the latter.
+    const getPlaylistDataSafe = () =>
+      comparer.structural(cache.playlist, getPlaylistData())
+        ? cache.playlist
+        : getPlaylistData();
+    const getUpdatedPlaylistsData = () =>
+      updatePlaylists(getFollowedPlaylistsData(), getPlaylistDataSafe());
 
-        playlistsState.playlistsCtr.store.followedPlaylists = inputs.playlists;
-        playlistsState.playlistsCtr.store.items = graftResourceStates({
-          resources: updatePlaylists(inputs.playlists ?? [], playlist),
-          prevResources: playlistsState.playlistsCtr.store.items,
-        });
-      },
-      logState: () => {
-        log('PlaylistsState updated', playlistsState.getSummary());
-      },
-    });
-
+    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
     const cache = useBuilder(() =>
       makeAutoObservable({
         get playlists() {
+          const playlists = graftResourceStatesFromMemo({
+            resources: getUpdatedPlaylistsData(),
+          });
           return updateSources(
-            { resource: playlistsState.playlistsCtr.display.items },
+            { resource: playlists },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
             ['updating', () => isUpdating(props.userProfile), 'userProfile']
           );
@@ -89,6 +76,23 @@ export const PlaylistsStateProvider = observer(
         },
       })
     );
+
+    useUpdateStateReaction({
+      getInputs: () => {
+        return {
+          playlists: cache.playlists,
+          followedPlaylists: getFollowedPlaylistsData(),
+        };
+      },
+      updateState: (inputs) => {
+        playlistsState.playlistsCtr.store.followedPlaylists =
+          inputs.followedPlaylists;
+        playlistsState.playlistsCtr.store.items = inputs.playlists;
+      },
+      logState: () => {
+        log('PlaylistsState updated', playlistsState.getSummary());
+      },
+    });
 
     const getDefaultPropsContext = () => {
       const result: any = {

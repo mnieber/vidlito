@@ -48,12 +48,11 @@ export const ActionsStateProvider = observer(
         pageSize: 10,
       })
     );
-
     const getActionsData = () => getActions.data?.actionSet ?? [];
     const getPaginationData = () => getActions.data?.pagination;
-    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
 
     // Create a cache for data that has resource states
+    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
     const cache = useBuilder(() =>
       makeAutoObservable({
         get actions() {
