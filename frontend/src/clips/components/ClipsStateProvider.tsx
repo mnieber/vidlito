@@ -25,12 +25,22 @@ export const ClipsStateProvider = observer(
     const getClipsData = () => props.playlist?.clipSet ?? [];
 
     const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
+    useUpdateStateReaction({
+      getInputs: () => ({
+        clips: graftResourceStatesFromMemo({ resources: getClipsData() }),
+      }),
+      updateState: (inputs) => {
+        clipsState.clipsCtr.store.items = inputs.clips ?? [];
+      },
+      logState: () => {
+        log('ClipsState updated', clipsState.getSummary());
+      },
+    });
+
     const cache = useBuilder(() =>
       makeAutoObservable({
         get clips() {
-          const clips = graftResourceStatesFromMemo({
-            resources: getClipsData(),
-          });
+          const clips = clipsState.clipsCtr.display.items;
           return updateSources(
             {
               resource: clips,
@@ -52,18 +62,6 @@ export const ClipsStateProvider = observer(
         },
       })
     );
-
-    useUpdateStateReaction({
-      getInputs: () => ({
-        clips: cache.clips,
-      }),
-      updateState: (inputs) => {
-        clipsState.clipsCtr.store.items = inputs.clips ?? [];
-      },
-      logState: () => {
-        log('ClipsState updated', clipsState.getSummary());
-      },
-    });
 
     const getDefaultPropsContext = () => {
       const result: any = {
