@@ -34,7 +34,7 @@ export const DashboardSwitch = withDefaultProps(
             <MainView>
               <Route exact={false} path={routes.search()}>
                 <SelectPlaylistEffect />
-                <SearchView />
+                <SearchView className="ml-4 mt-4" />
               </Route>
               <Route exact={true} path={routes.actions()}>
                 <UseActionsPage>
@@ -56,7 +56,7 @@ export const DashboardSwitch = withDefaultProps(
                   })}
                 >
                   {/* 🔳 */}
-                  <PlaylistFormView />
+                  <PlaylistFormView className="ml-4 mt-4" />
                 </Route>
                 <Route exact={true} path={routes.clip()}>
                   <SyncClipWithUrlEffect />

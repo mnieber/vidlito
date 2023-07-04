@@ -47,7 +47,7 @@ export const SearchResultListView = observer(
         <div
           className={cn(
             'SearchResultListView',
-            'grid gap-4',
+            'grid',
             //
             //
             props.className

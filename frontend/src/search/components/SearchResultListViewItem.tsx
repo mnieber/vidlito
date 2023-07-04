@@ -13,7 +13,12 @@ export type PropsT = {
 export const SearchResultListViewItem = observer((props: PropsT) => {
   return (
     <div
-      className={cn('SearchResultListViewItem', 'cursor-pointer', 'contents')}
+      className={cn(
+        'SearchResultListViewItem',
+        'cursor-pointer',
+        'group',
+        'contents'
+      )}
       onClick={() =>
         navToClip(
           props.searchResult.ownerUsername,
@@ -28,8 +33,8 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
       <div
         className={cn(
           'SearchResultListViewItem__Cell',
-          'text-primaryBlue',
-          'hover:underline'
+          'hover:underline',
+          'text-primaryBlue'
         )}
       >
         {props.searchResult.playlistName}
@@ -40,8 +45,8 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
       <div
         className={cn(
           'SearchResultListViewItem__Cell',
-          'text-primaryTeal',
-          'hover:underline'
+          'hover:underline',
+          'text-primaryTeal'
         )}
       >
         {props.searchResult.clipName}
