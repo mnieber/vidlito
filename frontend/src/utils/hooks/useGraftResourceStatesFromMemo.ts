@@ -6,12 +6,13 @@ import {
   graftResourceStates,
 } from '/src/resourceStates/graftResourceStates';
 
-export const useGraftResourceStatesFromMemo = ({
-  saveMemory,
-}: {
-  saveMemory?: boolean;
-}) => {
+export type ArgsT = {
+  saveMemory?: boolean; // default to true
+};
+
+export const useGraftResourceStatesFromMemo = (args: ArgsT) => {
   const prevResourcesRef = React.useRef<any[] | null>(null);
+  const saveMemory = args.saveMemory ?? true;
 
   return (args: Omit<GraftResourceStatesArgsT, 'prevResources'>): any[] => {
     runInAction(() => {

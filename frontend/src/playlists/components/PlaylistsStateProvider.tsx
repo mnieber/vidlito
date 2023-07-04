@@ -22,6 +22,9 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
+    const getFollowedPlaylistsData = () => props.userProfile?.followSet ?? [];
+
     const { playlistsState } = usePlaylistsState({
       userProfile: props.userProfile,
     });
@@ -31,17 +34,13 @@ export const PlaylistsStateProvider = observer(
     const { getPlaylistData, isGetplaylistEnabled, getPlaylist } =
       useGetPlaylistObservableQuery(playlistsState);
 
-    const getFollowedPlaylistsData = () => props.userProfile?.followSet ?? [];
-    const getUpdatedPlaylistsData = () =>
-      updatePlaylists(getFollowedPlaylistsData(), getPlaylistData());
-
-    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({
-      saveMemory: true,
-    });
     useUpdateStateReaction({
       getInputs: () => {
         return {
-          playlists: getUpdatedPlaylistsData(),
+          playlists: updatePlaylists(
+            getFollowedPlaylistsData(),
+            getPlaylistData()
+          ),
           followedPlaylists: getFollowedPlaylistsData(),
         };
       },

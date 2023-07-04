@@ -28,6 +28,8 @@ const DefaultProps = {
 
 export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
+
     // Create actions state
     const { actionsState } = useActionsState({
       playlists: props.playlists,
@@ -48,17 +50,12 @@ export const ActionsStateProvider = observer(
         pageSize: 10,
       })
     );
-    const getActionsData = () => getActions.data?.actionSet ?? [];
-    const getPaginationData = () => getActions.data?.pagination;
 
     // Update the actions state based on the inputs
-    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({
-      saveMemory: true,
-    });
     useUpdateStateReaction({
       getInputs: () => ({
-        actions: getActionsData(),
-        pagination: getPaginationData(),
+        actions: getActions.data?.actionSet ?? [],
+        pagination: getActions.data?.pagination,
       }),
       updateState: (inputs) => {
         actionsState.actionsCtr.store.items = graftResourceStatesFromMemo({

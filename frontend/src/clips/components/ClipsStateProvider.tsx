@@ -19,14 +19,13 @@ const DefaultProps = {
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
+    const getClipsData = () => props.playlist?.clipSet ?? [];
+
     const { clipsState } = useClipsState({
       playlist: props.playlist,
     });
-    const getClipsData = () => props.playlist?.clipSet ?? [];
 
-    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({
-      saveMemory: true,
-    });
     useUpdateStateReaction({
       getInputs: () => ({
         clips: graftResourceStatesFromMemo({ resources: getClipsData() }),
