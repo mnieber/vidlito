@@ -51,14 +51,32 @@ export const ActionsStateProvider = observer(
     const getActionsData = () => getActions.data?.actionSet ?? [];
     const getPaginationData = () => getActions.data?.pagination;
 
-    // Create a cache for data that has resource states
+    // Update the actions state based on the inputs
     const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo();
+    useUpdateStateReaction({
+      getInputs: () => ({
+        actions: getActionsData(),
+        pagination: getPaginationData(),
+      }),
+      updateState: (inputs) => {
+        actionsState.actionsCtr.store.items = graftResourceStatesFromMemo({
+          resources: inputs.actions,
+        });
+        actionsState.actionsCtr.pagination.nrOfItems =
+          inputs.pagination?.nrOfItems ?? 0;
+        actionsState.actionsCtr.pagination.pageSize =
+          inputs.pagination?.pageSize ?? 0;
+      },
+      logState: () => {
+        log('ActionsState updated', actionsState.getSummary());
+      },
+    });
+
+    // Create a cache for data that has resource states
     const cache = useBuilder(() =>
       makeAutoObservable({
         get actions() {
-          const actions = graftResourceStatesFromMemo({
-            resources: getActionsData(),
-          });
+          const actions = actionsState.actionsCtr.store.items;
           return updateSources(
             { resource: actions },
             ['loading', () => isQueryLoading(getActions), 'getActions'],
@@ -79,24 +97,6 @@ export const ActionsStateProvider = observer(
         },
       })
     );
-
-    // Update the actions state based on the inputs
-    useUpdateStateReaction({
-      getInputs: () => ({
-        actions: cache.actions,
-        pagination: getPaginationData(),
-      }),
-      updateState: (inputs) => {
-        actionsState.actionsCtr.store.items = inputs.actions;
-        actionsState.actionsCtr.pagination.nrOfItems =
-          inputs.pagination?.nrOfItems ?? 0;
-        actionsState.actionsCtr.pagination.pageSize =
-          inputs.pagination?.pageSize ?? 0;
-      },
-      logState: () => {
-        log('ActionsState updated', actionsState.getSummary());
-      },
-    });
 
     const getDefaultPropsContext = () => {
       const result: any = {
