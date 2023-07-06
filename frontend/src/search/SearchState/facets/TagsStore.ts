@@ -1,0 +1,31 @@
+import { getTags } from '/src/api/queries/useGetTags';
+import { PickerValueT } from '/src/utils/components/ValuePicker';
+import { ObjT } from '/src/utils/types';
+
+export class TagsStore {
+  loadTags = (
+    inputValue: string,
+    callback: (options: PickerValueT[]) => void
+  ) => {
+    getTags({ tagPrefix: inputValue }).then((response: ObjT) => {
+      return callback(filterValues(response.tags, inputValue));
+    });
+  };
+}
+
+const labelFromValue = (x: any) => x;
+
+const toPickerValue = (pickableVal: any) => {
+  return pickableVal.__isNew__
+    ? pickableVal
+    : {
+        value: pickableVal,
+        label: labelFromValue(pickableVal),
+      };
+};
+
+const filterValues = (tags: string[], inputValue: string) => {
+  return (tags ?? [])
+    .map(toPickerValue)
+    .filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
+};

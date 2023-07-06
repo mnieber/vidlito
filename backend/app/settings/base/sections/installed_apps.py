@@ -29,6 +29,7 @@ LOCAL_APPS = [
     "app.apps.AppConfig",
     "clips.apps.ClipsConfig",
     "playlists.apps.PlaylistsConfig",
+    "tags.apps.TagsConfig",
     "user_accounts.apps.UserAccountsConfig",
     "user_profiles.apps.UserProfilesConfig",
     "users.apps.UsersConfig",
@@ -54,6 +55,7 @@ ADMIN_REORDER = (
         ),
     },
     "actions",
+    "tags",
     "auth",
     "sites",
 )

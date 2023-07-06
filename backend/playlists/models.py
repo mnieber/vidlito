@@ -5,6 +5,7 @@ from martor.models import MartorField
 from app.models import Entity
 from app.utils.slug_seq import update_slug
 from clips.models import Clip
+from tags.models import Tag
 from user_profiles.models import UserProfile
 
 
@@ -43,6 +44,7 @@ class Playlist(Entity):
         if not (existing_playlist and existing_playlist.slug == self.slug):
             self.slug = update_slug(self.slug, "playlist")
         super().save(*args, **kwargs)
+        Tag.add_tags(self.tags)
 
     def __str__(self):
         return "Playlist: " + str(self.name)

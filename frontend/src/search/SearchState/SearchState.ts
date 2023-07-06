@@ -4,12 +4,12 @@ import * as Skandha from 'skandha';
 import { mapDataToProps } from 'skandha';
 import { Highlight } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
-import { Settings } from './Settings';
 import { initSearchResults } from './searchResults';
 import { SearchContentArgsT } from '/src/api/mutations';
 import { SearchResultT } from '/src/api/types/SearchResultT';
 import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { SearchResultsStore } from '/src/search/SearchState/facets/SearchResultsStore';
+import { TagsStore } from '/src/search/SearchState/facets/TagsStore';
 import { getIds } from '/src/utils/ids';
 
 export type PropsT = {
@@ -18,12 +18,15 @@ export type PropsT = {
 
 export class SearchState {
   props: PropsT;
-  settings = new Settings();
 
   searchResultsCtr = {
     store: new SearchResultsStore(),
     highlight: new Highlight<SearchResultT>(),
     pagination: new Pagination(),
+  };
+
+  tagsCtr = {
+    store: new TagsStore(),
   };
 
   _searchResultsMapData(props: PropsT) {

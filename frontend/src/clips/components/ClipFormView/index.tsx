@@ -33,6 +33,7 @@ export const DefaultProps = {
   ...dps.clipsAddition,
   ...dps.videoPlayerState,
   ...dps.dashboardState,
+  ...dps.searchState,
 };
 
 export const ClipFormView = observer(
@@ -158,19 +159,9 @@ export const ClipFormView = observer(
               isCreatable={true}
               placeholder=""
               isMulti={true}
-              pickableValues={[
-                'one',
-                'two',
-                'three',
-                'four',
-                'five',
-                'six',
-                'seven',
-                'eight',
-                'nine',
-                'ten',
-              ]}
+              tabOnEnter={false}
               labelFromValue={(x: any) => x}
+              loadOptions={props.searchState.tagsCtr.store.loadTags}
             />
           </Field>
           {

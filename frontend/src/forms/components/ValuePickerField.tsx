@@ -53,6 +53,8 @@ export const ValuePickerField = observer(<ValueT,>(props: PropsT<ValueT>) => {
       }}
       name={fieldContext.fieldName}
       placeholder={props.placeholder ?? ''}
+      noOptionsMessage={() => '...'}
+      loadingMessage={() => 'loading...'}
       onChange={saveChanges}
       onKeyDown={(e: any) => {
         if (props.tabOnEnter ?? true) {

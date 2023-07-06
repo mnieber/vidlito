@@ -4,6 +4,7 @@ import user_accounts.schema
 
 from .getactions import GetActions
 from .getplaylist import GetPlaylist
+from .gettags import GetTags
 from .getuserprofile import GetUserProfile
 
 
@@ -17,6 +18,7 @@ class GrapheneNonEmptyQuery(graphene.ObjectType):
 class Query(
     user_accounts.schema.Query,
     GetActions,
+    GetTags,
     GetPlaylist,
     GetUserProfile,
     GrapheneNonEmptyQuery,
