@@ -4,6 +4,7 @@ from martor.models import MartorField
 
 from app.models import Entity
 from app.utils.slug_seq import update_slug
+from tags.models import Tag
 from user_profiles.models import UserProfile
 
 
@@ -33,6 +34,14 @@ class Clip(Entity):
         if not (existing_clip and existing_clip.slug == self.slug):
             self.slug = update_slug(self.slug, "clip")
         super().save(*args, **kwargs)
+        Tag.add_tags(self.tags)
 
     def __str__(self):
         return "Clip: " + str(self.name)
+
+
+class ClipPD(Entity):
+    clip = models.ForeignKey(Clip, on_delete=models.CASCADE, related_name="+")
+    description = MartorField(null=True, blank=True)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
+    tags = models.JSONField(default=create_empty_tags)

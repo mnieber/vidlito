@@ -7,7 +7,8 @@ import { isLoading, isUpdating } from '/src/api/getState';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
-import { useGetPlaylistObservableQuery } from '/src/playlists/PlaylistsState/queries/useGetPlaylistObservable';
+import { useGetPlaylistObservableQuery } from '/src/playlists/PlaylistsState/queries/useGetPlaylistObservableQuery';
+import { useGetPlaylistPDObservableQuery } from '/src/playlists/PlaylistsState/queries/useGetPlaylistPDObservableQuery';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
 import { updatePlaylists } from '/src/playlists/utils/updatePlaylists';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
@@ -33,6 +34,9 @@ export const PlaylistsStateProvider = observer(
     // getPlaylist query
     const { getPlaylistData, isGetplaylistEnabled, getPlaylist } =
       useGetPlaylistObservableQuery(playlistsState);
+
+    const { getPlaylistPDData, isGetPlaylistPDEnabled, getPlaylistPD } =
+      useGetPlaylistPDObservableQuery(playlistsState);
 
     useUpdateStateReaction({
       getInputs: () => {
@@ -81,6 +85,25 @@ export const PlaylistsStateProvider = observer(
               'updating',
               () => isGetplaylistEnabled() && isQueryUpdating(getPlaylist),
               'getPlaylist',
+            ]
+          );
+        },
+        get playlistPD() {
+          return updateSources(
+            {
+              resource: getPlaylistPDData(),
+              resourceName: 'playlistPD',
+            },
+            ['loading', () => isLoading(props.userProfile), 'userProfile'],
+            [
+              'loading',
+              () => isGetPlaylistPDEnabled() && isQueryLoading(getPlaylistPD),
+              'getPlaylistPD',
+            ],
+            [
+              'updating',
+              () => isGetPlaylistPDEnabled() && isQueryUpdating(getPlaylistPD),
+              'getPlaylistPD',
             ]
           );
         },

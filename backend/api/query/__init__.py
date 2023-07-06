@@ -2,6 +2,8 @@ import graphene
 
 import user_accounts.schema
 
+from .get_clip_p_d import GetClipPD
+from .get_playlist_p_d import GetPlaylistPD
 from .getactions import GetActions
 from .getplaylist import GetPlaylist
 from .gettags import GetTags
@@ -20,6 +22,8 @@ class Query(
     GetActions,
     GetTags,
     GetPlaylist,
+    GetClipPD,
+    GetPlaylistPD,
     GetUserProfile,
     GrapheneNonEmptyQuery,
 ):

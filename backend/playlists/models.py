@@ -91,3 +91,10 @@ class Follow(Entity):
 
     def __str__(self):
         return f"{self.user_profile.username} / {self.playlist.name}"
+
+
+class PlaylistPD(Entity):
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="+")
+    description = MartorField(null=True, blank=True)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
+    tags = models.JSONField(default=create_empty_tags)
