@@ -70,6 +70,8 @@ export const ValuePickerField = observer(<ValueT,>(props: PropsT<ValueT>) => {
 });
 
 const gray = 'hsl(209, 14%, 37%)';
+const gray50 = 'hsl(210, 20%, 25%)';
+const gray700 = 'hsl(210, 16%, 82%)';
 const whitish = 'hsl(214, 15%, 91%)';
 
 export function controlRemoveBorder(state: ObjT) {
@@ -100,17 +102,20 @@ const customStyles = {
   }),
   valueContainer: (provided: ObjT, state: ObjT) => ({
     ...provided,
-    caretColor: whitish,
+    caretColor: gray700,
   }),
   multiValueLabel: (provided: ObjT, state: ObjT) => ({
     ...provided,
-    color: whitish,
     paddingLeft: '0px',
+    color: gray700,
   }),
   option: (provided: ObjT, state: ObjT) => ({
     ...provided,
-    color: whitish,
-    backgroundColor: 'transparent',
+    color: gray50,
+  }),
+  input: (provided: ObjT, state: ObjT) => ({
+    ...provided,
+    color: gray700,
   }),
   menu: (provided: ObjT, state: ObjT) => ({
     ...provided,
