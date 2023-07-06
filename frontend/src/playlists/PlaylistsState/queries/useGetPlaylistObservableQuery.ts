@@ -1,4 +1,5 @@
 import { comparer } from 'mobx';
+import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import { useGetPlaylist } from '/src/api/endpoints';
 import { useObservableQuery } from '/src/api/hooks';
 import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
@@ -31,7 +32,10 @@ export function useGetPlaylistObservableQuery(playlistsState: PlaylistsState) {
 
   return {
     getPlaylistData: getPlaylistDataSafe,
-    isGetplaylistEnabled,
+    isGetplaylistLoading: () =>
+      isGetplaylistEnabled() && isQueryLoading(getPlaylist),
+    isGetplaylistUpdating: () =>
+      isGetplaylistEnabled() && isQueryUpdating(getPlaylist),
     getPlaylist,
   };
 }

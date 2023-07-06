@@ -2,7 +2,6 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
-import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import { isLoading, isUpdating } from '/src/api/getState';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -32,11 +31,14 @@ export const PlaylistsStateProvider = observer(
 
     // The getPlaylistData function returns the playlist data from the
     // getPlaylist query
-    const { getPlaylistData, isGetplaylistEnabled, getPlaylist } =
+    const { getPlaylistData, isGetplaylistLoading, isGetplaylistUpdating } =
       useGetPlaylistObservableQuery(playlistsState);
 
-    const { getPlaylistPDData, isGetPlaylistPDEnabled, getPlaylistPD } =
-      useGetPlaylistPDObservableQuery(playlistsState);
+    const {
+      getPlaylistPDData,
+      isGetPlaylistPDLoading,
+      isGetPlaylistPDUpdating,
+    } = useGetPlaylistPDObservableQuery(playlistsState);
 
     useUpdateStateReaction({
       getInputs: () => {
@@ -76,16 +78,8 @@ export const PlaylistsStateProvider = observer(
               resourceName: 'playlist',
             },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
-            [
-              'loading',
-              () => isGetplaylistEnabled() && isQueryLoading(getPlaylist),
-              'getPlaylist',
-            ],
-            [
-              'updating',
-              () => isGetplaylistEnabled() && isQueryUpdating(getPlaylist),
-              'getPlaylist',
-            ]
+            ['loading', () => isGetplaylistLoading(), 'getPlaylist'],
+            ['updating', () => isGetplaylistUpdating(), 'getPlaylist']
           );
         },
         get playlistPD() {
@@ -95,16 +89,8 @@ export const PlaylistsStateProvider = observer(
               resourceName: 'playlistPD',
             },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
-            [
-              'loading',
-              () => isGetPlaylistPDEnabled() && isQueryLoading(getPlaylistPD),
-              'getPlaylistPD',
-            ],
-            [
-              'updating',
-              () => isGetPlaylistPDEnabled() && isQueryUpdating(getPlaylistPD),
-              'getPlaylistPD',
-            ]
+            ['loading', () => isGetPlaylistPDLoading(), 'getPlaylistPD'],
+            ['updating', () => isGetPlaylistPDUpdating(), 'getPlaylistPD']
           );
         },
       })

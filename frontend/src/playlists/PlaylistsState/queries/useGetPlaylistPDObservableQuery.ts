@@ -1,3 +1,4 @@
+import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import { useGetPlaylistPD } from '/src/api/endpoints';
 import { useObservableQuery } from '/src/api/hooks';
 import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
@@ -22,7 +23,9 @@ export function useGetPlaylistPDObservableQuery(
 
   return {
     getPlaylistPDData: getPlaylistPDData,
-    isGetPlaylistPDEnabled,
-    getPlaylistPD,
+    isGetPlaylistPDLoading: () =>
+      isGetPlaylistPDEnabled() && isQueryLoading(getPlaylistPD),
+    isGetPlaylistPDUpdating: () =>
+      isGetPlaylistPDEnabled() && isQueryUpdating(getPlaylistPD),
   };
 }
