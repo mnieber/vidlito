@@ -22,6 +22,16 @@ const DefaultProps = {
 
 export const SyncPlaylistWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const {
+      playlistsAddition,
+      userProfile,
+      playlistsHighlight,
+      playlistsSelection,
+      dashboardState,
+      playlist,
+      playlists,
+    } = props;
+
     const location = useLocation();
     const params = useParams() as ObjT;
     const refUrl = React.useRef<string>('');
@@ -29,57 +39,48 @@ export const SyncPlaylistWithUrlEffect = observer(
     React.useEffect(() => {
       // If there is a new url
       if (refUrl.current !== location.pathname) {
-        const mustAddNewPlaylist =
+        const mustAddNewPlaylist = () =>
           params.playlistSlug === 'new-playlist' &&
-          !props.playlistsAddition.item &&
-          props.userProfile;
+          !playlistsAddition.item &&
+          userProfile;
 
         const addNewPlaylist = () => {
-          props.dashboardState.toggleIsPlaylistListExpanded(true);
-          props.playlistsAddition.add({
-            values: createPlaylist(props.userProfile, {}),
-          });
+          dashboardState.toggleIsPlaylistListExpanded(true);
+          playlistsAddition.add({ values: createPlaylist(userProfile, {}) });
         };
 
         const getPlaylistForCurrentUrl = () => {
           return (
             R.find((x: PlaylistT) => x.slug === params.playlistSlug)(
-              props.playlists
-            ) ??
-            (isLoading(props.playlist) ? undefined : R.head(props.playlists))
+              playlists
+            ) ?? (isLoading(playlist) ? undefined : R.head(playlists))
           );
         };
 
         const selectPlaylist = (playlist: PlaylistT) => {
-          props.playlistsSelection.selectItem({ itemId: playlist?.id });
-          props.playlistsHighlight.highlightItem({ id: playlist?.id });
+          playlistsSelection.selectItem({ itemId: playlist?.id });
+          playlistsHighlight.highlightItem({ id: playlist?.id });
         };
 
-        if (mustAddNewPlaylist) {
+        if (mustAddNewPlaylist()) {
           refUrl.current = location.pathname;
           addNewPlaylist();
         } else {
           const playlistForCurrentUrl = getPlaylistForCurrentUrl();
           if (playlistForCurrentUrl) {
             refUrl.current = location.pathname;
-            if (props.playlist?.id !== playlistForCurrentUrl.id) {
+            if (playlist?.id !== playlistForCurrentUrl.id) {
               selectPlaylist(playlistForCurrentUrl);
             }
           }
         }
       } else {
         // Check if we must update the current url based on the highlighted playlist.
-        if (props.playlist && params.playlistSlug !== props.playlist.slug) {
-          navToPlaylist(props.playlist.owner.username, props.playlist.slug);
+        if (playlist && params.playlistSlug !== playlist.slug) {
+          navToPlaylist(playlist.owner.username, playlist.slug);
         }
       }
-    }, [
-      params,
-      props.playlist,
-      props.playlists,
-      props.playlistsHighlight,
-      props.playlistsSelection,
-    ]);
+    }, [params, playlist, playlists, playlistsHighlight, playlistsSelection]);
 
     return null;
   }, DefaultProps)

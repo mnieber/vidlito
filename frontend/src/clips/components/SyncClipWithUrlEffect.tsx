@@ -21,6 +21,8 @@ const DefaultProps = {
 
 export const SyncClipWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const { userProfile, clipsAddition, clips, clipsSelection } = props;
+
     const location = useLocation();
     const params = useParams() as ObjT;
     const refUrl = React.useRef<string>('');
@@ -28,32 +30,28 @@ export const SyncClipWithUrlEffect = observer(
     React.useEffect(() => {
       // If there is a new url
       if (refUrl.current !== location.pathname) {
-        const mustAddNewClip =
-          params.clipSlug === 'new-clip' &&
-          !props.clipsAddition.item &&
-          props.userProfile;
+        const mustAddNewClip = () =>
+          params.clipSlug === 'new-clip' && !clipsAddition.item && userProfile;
 
         const addNewClip = () => {
-          props.clipsAddition.add({
-            values: createClip(props.userProfile, {}),
-          });
+          clipsAddition.add({ values: createClip(userProfile, {}) });
         };
 
         const getClipForCurrentUrl = () => {
           return (
-            R.find((x: ClipT) => x.slug === params.clipSlug)(props.clips) ??
-            R.head(props.clips)
+            R.find((x: ClipT) => x.slug === params.clipSlug)(clips) ??
+            R.head(clips)
           );
         };
 
         const selectClip = (clip: ClipT) => {
-          props.clipsSelection.selectItem({ itemId: clip?.id });
+          clipsSelection.selectItem({ itemId: clip?.id });
         };
 
-        if (mustAddNewClip) {
+        if (mustAddNewClip()) {
           refUrl.current = location.pathname;
           addNewClip();
-        } else if (props.playlist && !isLoading(props.clips)) {
+        } else if (props.playlist && !isLoading(clips)) {
           const clipForCurrentUrl = getClipForCurrentUrl();
           if (clipForCurrentUrl) {
             refUrl.current = location.pathname;
@@ -71,7 +69,7 @@ export const SyncClipWithUrlEffect = observer(
           );
         }
       }
-    }, [params, props.clip, props.clips, props.clipsSelection]);
+    }, [params, props.clip, clips, clipsSelection]);
 
     return null;
   }, DefaultProps)
