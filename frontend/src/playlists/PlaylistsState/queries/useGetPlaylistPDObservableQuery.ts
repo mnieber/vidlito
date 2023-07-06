@@ -19,10 +19,9 @@ export function useGetPlaylistPDObservableQuery(
     ),
     { fetchAsLoad: true, debugLabel: 'getPlaylistPD' }
   );
-  const getPlaylistPDData = () => getPlaylistPD.data?.playlist;
 
   return {
-    getPlaylistPDData: getPlaylistPDData,
+    getPlaylistPDData: () => getPlaylistPD.data?.playlistPd,
     isGetPlaylistPDLoading: () =>
       isGetPlaylistPDEnabled() && isQueryLoading(getPlaylistPD),
     isGetPlaylistPDUpdating: () =>

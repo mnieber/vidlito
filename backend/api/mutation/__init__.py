@@ -8,8 +8,10 @@ from .followplaylist import FollowPlaylist
 from .moveclipstoplaylist import MoveClipsToPlaylist
 from .moveclipstotrash import MoveClipsToTrash
 from .saveclip import SaveClip
+from .saveclip_p_d import SaveClipPD
 from .saveclipordering import SaveClipOrdering
 from .saveplaylist import SavePlaylist
+from .saveplaylist_p_d import SavePlaylistPD
 from .saveplaylistordering import SavePlaylistOrdering
 from .searchcontent import SearchContent
 from .undoaction import UndoAction
@@ -31,8 +33,10 @@ class Mutation(user_accounts.schema.Mutation, GrapheneNonEmptyMutation):
     move_clips_to_trash = MoveClipsToTrash.Field()
     move_clips_to_playlist = MoveClipsToPlaylist.Field()
     save_clip = SaveClip.Field()
+    save_clip_p_d = SaveClipPD.Field()
     save_clip_ordering = SaveClipOrdering.Field()
     save_playlist = SavePlaylist.Field()
+    save_playlist_p_d = SavePlaylistPD.Field()
     save_playlist_ordering = SavePlaylistOrdering.Field()
     undo_action = UndoAction.Field()
     update_last_url = UpdateLastUrl.Field()

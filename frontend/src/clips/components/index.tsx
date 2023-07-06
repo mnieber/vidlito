@@ -5,10 +5,10 @@ export { ClipListKeyHandler } from './ClipListKeyHandler';
 export { ClipListView } from './ClipListView';
 export { ClipListViewItem } from './ClipListViewItem';
 export { ClipMenu } from './ClipMenu';
+export { ClipPDView } from './ClipPDView';
 export { ClipTagsView } from './ClipTagsView';
 export { ClipsStateProvider } from './ClipsStateProvider';
 export { GoToTimeButton } from './GoToTimeButton';
 export { NewClipButton } from './NewClipButton';
 export { SyncClipWithUrlEffect } from './SyncClipWithUrlEffect';
 export { UpdateTimeButton } from './UpdateTimeButton';
-

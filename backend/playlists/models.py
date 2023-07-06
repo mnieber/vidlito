@@ -4,17 +4,10 @@ from martor.models import MartorField
 
 from app.models import Entity
 from app.utils.slug_seq import update_slug
+from app.utils.tags import create_empty_tags
 from clips.models import Clip
 from tags.models import Tag
 from user_profiles.models import UserProfile
-
-
-def create_empty_tags():
-    return dict(tags=[])
-
-
-def create_tags(tag_list):
-    return dict(tags=list(tag_list))
 
 
 class Playlist(Entity):

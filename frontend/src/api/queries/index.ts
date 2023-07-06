@@ -1,5 +1,6 @@
 export { queryKey as getActionsQueryKey, useGetActions } from './useGetActions';
 export type { ArgsT as GetActionsArgsT } from './useGetActions';
+export { queryKey as getClipPDQueryKey, useGetClipPD } from './useGetClipPD';
 export {
   queryKey as getPlaylistQueryKey,
   useGetPlaylist,

@@ -29,49 +29,35 @@ export const ClipEditButton = observer(
 
     return (
       //
-      // 🔳 Rhs: the edit button and author 🔳
+      // 🔳 EditButton 🔳
       //
-      <div
+      <button
         className={cn(
-          'text-gray-700',
+          'ClipEditButton',
+          {
+            'ClipEditButton--disabled': !isOwner,
+            'ClipEditButton--invisible': R.isNil(props.username),
+          },
           //
           //
-          L.col.banner(),
-          'justify-between',
-          'ml-8'
+          L.ToolButton.root()
         )}
+        disabled={!isOwner}
+        onClick={() => {
+          const edit = props.showPlaylist
+            ? props.playlistsEdit
+            : props.clipsEdit;
+          edit.enable();
+        }}
       >
-        {
-          // 🔳 EditButton 🔳
-        }
-        <button
-          className={cn(
-            'ClipEditButton',
-            {
-              'ClipEditButton--disabled': !isOwner,
-              'ClipEditButton--invisible': R.isNil(props.username),
-            },
-            //
-            //
-            L.ToolButton.root()
-          )}
-          disabled={!isOwner}
-          onClick={() => {
-            const edit = props.showPlaylist
-              ? props.playlistsEdit
-              : props.clipsEdit;
-            edit.enable();
-          }}
-        >
-          <Icon
-            className={cn('ClipEditButton__Icon', L.ToolButton.icon.small(), {
-              'ClipEditButton__Icon--disabled': !isOwner,
-            })}
-            name="pencil"
-          />
-          Edit
-        </button>
-      </div>
+        <Icon
+          className={cn('ClipEditButton__Icon', L.ToolButton.icon.small(), {
+            'ClipEditButton__Icon--disabled': !isOwner,
+          })}
+          name="pencil"
+        />
+        Edit
+      </button>
     );
   }, DefaultProps)
 );

@@ -21,7 +21,10 @@ import {
 import { registerCtr } from 'skandha-mobx';
 import { initClips } from './clips';
 import { isUpdating } from '/src/api/getState';
+import { ClipPDT } from '/src/api/types/ClipPDT';
 import { ClipT } from '/src/api/types/ClipT';
+import { initClipPD } from '/src/clips/ClipsState/clips/initClipPD';
+import { ClipPDStore } from '/src/clips/ClipsState/facets/ClipPDStore';
 import { Move } from '/src/clips/ClipsState/facets/Move';
 import { getIds } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
@@ -29,6 +32,7 @@ import { ObjT } from '/src/utils/types';
 export type PropsT = {
   moveClipsToTrash: (ids: string[]) => Promise<any>;
   saveClip: (values: ObjT) => Promise<ClipT>;
+  saveClipPD: (values: ObjT) => Promise<ClipPDT>;
   saveClipOrdering: (clips: ClipT[]) => Promise<any>;
   moveClipsToPlaylist: (
     clips: ClipT[],
@@ -53,6 +57,11 @@ export class ClipsState {
     move: new Move(),
     selection: new Selection<ClipT>(),
     store: new Store<ClipT>(),
+  };
+
+  clipPDCtr = {
+    edit: new Edit(),
+    store: new ClipPDStore(),
   };
 
   _clipsMapData(props: PropsT) {
@@ -90,6 +99,8 @@ export class ClipsState {
     });
   }
 
+  _clipPDMapData(props: PropsT) {}
+
   getSummary() {
     return {
       clips: Skandha.getCtrState(this.clipsCtr),
@@ -109,6 +120,15 @@ export class ClipsState {
       initCtr: () => {
         initClips(this, props);
         this._clipsMapData(props);
+      },
+    });
+
+    registerCtr({
+      ctr: this.clipPDCtr,
+      options: { name: 'ClipsState.ClipPD' },
+      initCtr: () => {
+        initClipPD(this, props);
+        this._clipPDMapData(props);
       },
     });
   }

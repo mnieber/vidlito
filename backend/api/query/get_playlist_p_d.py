@@ -15,7 +15,6 @@ class GetPlaylistPD:
     )
 
     def resolve_get_playlist_p_d(self, info, playlist_slug):
-        __import__("pudb").set_trace()  # zz
         playlist_p_d = PlaylistPD.objects.filter(
             owner__user_id=info.context.user.id, playlist__slug=playlist_slug
         ).first()

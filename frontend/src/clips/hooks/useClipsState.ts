@@ -8,7 +8,12 @@ import {
   useSaveClip,
   useSaveClipOrdering,
 } from '/src/api/endpoints';
-import { MoveClipsToPlaylistArgsT, SaveClipArgsT } from '/src/api/mutations';
+import {
+  MoveClipsToPlaylistArgsT,
+  SaveClipArgsT,
+  SaveClipPDArgsT,
+} from '/src/api/mutations';
+import { useSaveClipPD } from '/src/api/mutations/useSaveClipPD';
 import { ClipT } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { ClipsState } from '/src/clips/ClipsState';
@@ -27,6 +32,7 @@ export const useClipsState = (props: PropsT) => {
   const moveClipsToTrash = initRS(useMoveClipsToTrash());
   const moveClipsToPlaylist = initRS(useMoveClipsToPlaylist());
   const saveClip = initRS(useSaveClip());
+  const saveClipPD = initRS(useSaveClipPD());
   const saveClipOrdering = initRS(useSaveClipOrdering());
 
   const propsRef = usePropsRef(props);
@@ -67,6 +73,25 @@ export const useClipsState = (props: PropsT) => {
           //
           states: {
             updating: [saveClip],
+          },
+        }).result;
+      },
+      saveClipPD: (values: ObjT) => {
+        return trackPromise({
+          name: 'saveClipPD',
+          //
+          promise: saveClipPD
+            .mutateAsync({
+              clipId: clipsState.clipsCtr.highlight.item?.id,
+              clipSlug: clipsState.clipsCtr.highlight.item?.slug,
+              clipPDForm: values.clipPDForm,
+            } as SaveClipPDArgsT)
+            .then(() => {
+              return values.clipPDForm;
+            }),
+          //
+          states: {
+            updating: [saveClipPD],
           },
         }).result;
       },

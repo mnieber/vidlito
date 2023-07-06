@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { MarkdownView } from '/src/frames/components';
 import { cn } from '/src/utils/classnames';
@@ -16,7 +17,7 @@ const DefaultProps = {
 
 export const ClipDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (!props.clip?.description) return <ClipDescriptionLoader {...props} />;
+    if (isLoading(props.clip)) return <ClipDescriptionLoader {...props} />;
 
     return (
       <div
@@ -28,7 +29,7 @@ export const ClipDescription = observer(
           props.className
         )}
       >
-        <MarkdownView text={props.clip.description ?? ''} />
+        <MarkdownView text={props.clip?.description ?? ''} />
       </div>
     );
   }, DefaultProps)
@@ -40,8 +41,8 @@ const ClipDescriptionLoader = observer(
       <div
         className={cn(
           'ClipDescriptionLoader',
-          'h-[200px] my-4',
-          'rounded bg-gray-300',
+          'h-[200px]',
+          'rounded bg-gray-100',
           props.className
         )}
       ></div>

@@ -12,7 +12,9 @@ import {
 import { ActionsState } from '/src/actions/ActionsState';
 import { SearchContentArgsT } from '/src/api/mutations';
 import { ActionT } from '/src/api/types/ActionT';
+import { ClipPDT } from '/src/api/types/ClipPDT';
 import { ClipT } from '/src/api/types/ClipT';
+import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { SearchResultT } from '/src/api/types/SearchResultT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
@@ -119,6 +121,15 @@ const dpsClips = {
   },
 };
 
+const dpsClipPD = {
+  clipPD: {
+    clipPD: stub as ClipPDT,
+  },
+  clipPDEdit: {
+    clipPDEdit: stub as Edit,
+  },
+};
+
 const dpsDashboard = {
   followSet: {
     followSet: stub as PlaylistT[],
@@ -167,6 +178,15 @@ const dpsPlaylists = {
   },
 };
 
+const dpsPlaylistPD = {
+  playlistPD: {
+    playlistPD: stub as PlaylistPDT,
+  },
+  playlistPDEdit: {
+    playlistPDEdit: stub as Edit,
+  },
+};
+
 const dpsVideoPlayer = {
   videoPlayerState: {
     videoPlayerState: stub as VideoPlayerState,
@@ -179,8 +199,10 @@ const dpsVideoPlayer = {
 export const defaultProps = {
   ...dpsActions,
   ...dpsClips,
+  ...dpsClipPD,
   ...dpsDashboard,
   ...dpsPlaylists,
+  ...dpsPlaylistPD,
   ...dpsSearchResults,
   ...dpsStates,
   ...dpsVideoPlayer,

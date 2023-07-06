@@ -18,7 +18,9 @@ import {
 } from 'skandha-facets/policies';
 import { registerCtr } from 'skandha-mobx';
 import { initPlaylists } from './playlists';
+import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
+import { PlaylistPDStore } from '/src/playlists/PlaylistsState/facets/PlaylistPDStore';
 import { PlaylistStore } from '/src/playlists/PlaylistsState/facets/PlaylistsStore';
 import { getIds } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
@@ -26,6 +28,7 @@ import { ObjT } from '/src/utils/types';
 export type PropsT = {
   deletePlaylists: (ids: string[]) => Promise<any>;
   savePlaylist: (values: ObjT) => Promise<PlaylistT>;
+  savePlaylistPD: (values: ObjT) => Promise<PlaylistPDT>;
   savePlaylistOrdering: (playlists: PlaylistT[]) => Promise<any>;
 };
 
@@ -41,6 +44,11 @@ export class PlaylistsState {
     insertion: new Insertion<PlaylistT>(),
     selection: new Selection<PlaylistT>(),
     store: new PlaylistStore(),
+  };
+
+  playlistPDCtr = {
+    edit: new Edit(),
+    store: new PlaylistPDStore(),
   };
 
   _playlistsMapData(props: PropsT) {
@@ -89,6 +97,12 @@ export class PlaylistsState {
         initPlaylists(this, props);
         this._playlistsMapData(props);
       },
+    });
+
+    registerCtr({
+      ctr: this.playlistPDCtr,
+      options: { name: 'PlaylistsState.PlaylistPD' },
+      initCtr: () => {},
     });
   }
 }

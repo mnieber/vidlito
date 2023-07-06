@@ -26,6 +26,12 @@ export type PlaylistFormT = {
   tags: string[];
 };
 
+export type PlaylistPDFormT = {
+  id: string;
+  description?: string;
+  tags: string[];
+};
+
 export const createPlaylist = (me: UserProfileT, values: ObjT): PlaylistT => {
   return initRS({
     clipSet: [],

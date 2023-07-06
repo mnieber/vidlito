@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { isLoading, isUpdating } from '/src/api/getState';
+import { createPlaylistPD } from '/src/api/types/PlaylistPDT';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
@@ -48,6 +49,7 @@ export const PlaylistsStateProvider = observer(
             getPlaylistData()
           ),
           followedPlaylists: getFollowedPlaylistsData(),
+          playlistPD: getPlaylistPDData(),
         };
       },
       updateState: (inputs) => {
@@ -56,6 +58,8 @@ export const PlaylistsStateProvider = observer(
         playlistsState.playlistsCtr.store.items = graftResourceStatesFromMemo({
           resources: inputs.playlists,
         });
+        playlistsState.playlistPDCtr.store.playlistPD =
+          inputs.playlistPD ?? createPlaylistPD();
       },
       logState: () => {
         log('PlaylistsState updated', playlistsState.getSummary());
@@ -114,6 +118,12 @@ export const PlaylistsStateProvider = observer(
         playlistsHighlight: () => playlistsState.playlistsCtr.highlight,
         playlistsHovering: () => playlistsState.playlistsCtr.hovering,
         playlistsSelection: () => playlistsState.playlistsCtr.selection,
+      };
+
+      result.defaultProps = {
+        ...result.defaultProps,
+        playlistPD: () => cache.playlistPD,
+        playlistPDEdit: () => playlistsState.playlistPDCtr.edit,
       };
 
       return result;

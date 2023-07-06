@@ -6,6 +6,9 @@ import {
   useSavePlaylist,
   useSavePlaylistOrdering,
 } from '/src/api/endpoints';
+import { SavePlaylistPDArgsT } from '/src/api/mutations';
+import { useSavePlaylistPD } from '/src/api/mutations/useSavePlaylistPD';
+import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { initRS } from '/src/resourceStates';
@@ -19,6 +22,7 @@ export type PropsT = {};
 export const usePlaylistsState = (props: PropsT) => {
   const deletePlaylists = initRS(useDeletePlaylists());
   const savePlaylist = initRS(useSavePlaylist());
+  const savePlaylistPD = initRS(useSavePlaylistPD());
   const savePlaylistOrdering = initRS(useSavePlaylistOrdering());
 
   const playlistsState = useBuilder(() => {
@@ -40,17 +44,36 @@ export const usePlaylistsState = (props: PropsT) => {
         }).result;
       },
       savePlaylist: (values: ObjT) => {
-        return trackPromise({
+        return trackPromise<PlaylistT>({
           name: 'savePlaylist',
           //
           promise: savePlaylist
             .mutateAsync(values as SavePlaylistArgsT)
             .then(() => {
-              return values.playlistForm;
+              return values.playlistForm as PlaylistT;
             }),
           //
           states: {
             updating: [savePlaylist],
+          },
+        }).result;
+      },
+      savePlaylistPD: (values: ObjT) => {
+        return trackPromise<PlaylistPDT>({
+          name: 'savePlaylistPD',
+          //
+          promise: savePlaylistPD
+            .mutateAsync({
+              playlistId: playlistsState.playlistsCtr.highlight.item?.id,
+              playlistSlug: playlistsState.playlistsCtr.highlight.item?.slug,
+              playlistPDForm: values.playlistPDForm,
+            } as SavePlaylistPDArgsT)
+            .then(() => {
+              return values.playlistPDForm as PlaylistPDT;
+            }),
+          //
+          states: {
+            updating: [savePlaylistPD],
           },
         }).result;
       },
@@ -68,7 +91,7 @@ export const usePlaylistsState = (props: PropsT) => {
         }).result;
       },
     });
-  });
+  }) as PlaylistsState;
 
   React.useEffect(() => () => playlistsState.destroy(), [playlistsState]);
 

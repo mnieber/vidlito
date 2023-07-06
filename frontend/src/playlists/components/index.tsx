@@ -5,5 +5,6 @@ export { PlaylistFormView } from './PlaylistFormView';
 export { PlaylistListHeader } from './PlaylistListHeader';
 export { PlaylistListView } from './PlaylistListView';
 export { PlaylistListViewItem } from './PlaylistListViewItem';
+export { PlaylistPDView } from './PlaylistPDView';
 export { PlaylistsStateProvider } from './PlaylistsStateProvider';
 export { SyncPlaylistWithUrlEffect } from './SyncPlaylistWithUrlEffect';

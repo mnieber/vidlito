@@ -22,3 +22,8 @@ class EntryAdmin(admin.ModelAdmin):
 @admin.register(models.Follow)
 class FollowAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(models.PlaylistPD)
+class PlaylistPDAdmin(admin.ModelAdmin):
+    pass
