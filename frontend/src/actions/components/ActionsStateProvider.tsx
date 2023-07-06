@@ -61,10 +61,10 @@ export const ActionsStateProvider = observer(
         actionsState.actionsCtr.store.items = graftResourceStatesFromMemo({
           resources: inputs.actions,
         });
-        actionsState.actionsCtr.pagination.nrOfItems =
-          inputs.pagination?.nrOfItems ?? 0;
-        actionsState.actionsCtr.pagination.pageSize =
-          inputs.pagination?.pageSize ?? 0;
+        actionsState.actionsCtr.pagination.reset(
+          inputs.pagination?.nrOfItems ?? 0,
+          inputs.pagination?.pageSize ?? 0
+        );
       },
       logState: () => {
         log('ActionsState updated', actionsState.getSummary());

@@ -22,4 +22,13 @@ export class Pagination implements IPagination {
   @data get nrOfPages() {
     return Math.ceil(this.nrOfItems / this.pageSize);
   }
+
+  @operation reset(nrOfItems: number, pageSize: number) {
+    if (this.nrOfItems === nrOfItems && this.pageSize === pageSize) {
+      return;
+    }
+    this.nrOfItems = nrOfItems;
+    this.pageSize = pageSize;
+    this.page = 1;
+  }
 }
