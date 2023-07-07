@@ -3,15 +3,11 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { isLoading, isUpdating } from '/src/api/getState';
-import { createClipPD } from '/src/api/types/ClipPDT';
 import { updateSources } from '/src/api/utils';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { useGetClipPDObservableQuery } from '/src/clips/ClipsState/queries/useGetClipPDObservableQuery';
 import { useClipsState } from '/src/clips/hooks/useClipsState';
-import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
+import { useUpdateClipsState } from '/src/clips/hooks/useUpdateClipsState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
-import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
-import { log } from '/src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -21,28 +17,12 @@ const DefaultProps = {
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
-    const getClipsData = () => props.playlist?.clipSet ?? [];
-
     const { clipsState } = useClipsState({
       playlist: props.playlist,
     });
-
-    const { getClipPDData, isGetClipPDLoading, isGetClipPDUpdating } =
-      useGetClipPDObservableQuery(clipsState);
-
-    useUpdateStateReaction({
-      getInputs: () => ({
-        clips: graftResourceStatesFromMemo({ resources: getClipsData() }),
-        clipPD: getClipPDData(),
-      }),
-      updateState: (inputs) => {
-        clipsState.clipsCtr.store.items = inputs.clips ?? [];
-        clipsState.clipPDCtr.store.clipPD = inputs.clipPD ?? createClipPD();
-      },
-      logState: () => {
-        log('ClipsState updated', clipsState.getSummary());
-      },
+    const { isGetClipPDLoading, isGetClipPDUpdating } = useUpdateClipsState({
+      clipsState,
+      getPlaylist: () => props.playlist,
     });
 
     const cache = useBuilder(() =>

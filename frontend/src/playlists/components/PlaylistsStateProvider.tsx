@@ -3,17 +3,11 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { isLoading, isUpdating } from '/src/api/getState';
-import { createPlaylistPD } from '/src/api/types/PlaylistPDT';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
-import { useGetPlaylistObservableQuery } from '/src/playlists/PlaylistsState/queries/useGetPlaylistObservableQuery';
-import { useGetPlaylistPDObservableQuery } from '/src/playlists/PlaylistsState/queries/useGetPlaylistPDObservableQuery';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
-import { updatePlaylists } from '/src/playlists/utils/updatePlaylists';
+import { useUpdatePlaylistsState } from '/src/playlists/hooks/useUpdatePlaylistsState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
-import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
-import { log } from '/src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -23,47 +17,17 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
-    const getFollowedPlaylistsData = () => props.userProfile?.followSet ?? [];
-
     const { playlistsState } = usePlaylistsState({
       userProfile: props.userProfile,
     });
-
-    // The getPlaylistData function returns the playlist data from the
-    // getPlaylist query
-    const { getPlaylistData, isGetplaylistLoading, isGetplaylistUpdating } =
-      useGetPlaylistObservableQuery(playlistsState);
-
     const {
-      getPlaylistPDData,
+      isGetPlaylistLoading,
+      isGetPlaylistUpdating,
       isGetPlaylistPDLoading,
       isGetPlaylistPDUpdating,
-    } = useGetPlaylistPDObservableQuery(playlistsState);
-
-    useUpdateStateReaction({
-      getInputs: () => {
-        return {
-          playlists: updatePlaylists(
-            getFollowedPlaylistsData(),
-            getPlaylistData()
-          ),
-          followedPlaylists: getFollowedPlaylistsData(),
-          playlistPD: getPlaylistPDData(),
-        };
-      },
-      updateState: (inputs) => {
-        playlistsState.playlistsCtr.store.followedPlaylists =
-          inputs.followedPlaylists;
-        playlistsState.playlistsCtr.store.items = graftResourceStatesFromMemo({
-          resources: inputs.playlists,
-        });
-        playlistsState.playlistPDCtr.store.playlistPD =
-          inputs.playlistPD ?? createPlaylistPD();
-      },
-      logState: () => {
-        log('PlaylistsState updated', playlistsState.getSummary());
-      },
+    } = useUpdatePlaylistsState({
+      playlistsState,
+      getUserProfile: () => props.userProfile,
     });
 
     const cache = useBuilder(() =>
@@ -82,14 +46,14 @@ export const PlaylistsStateProvider = observer(
               resourceName: 'playlist',
             },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
-            ['loading', () => isGetplaylistLoading(), 'getPlaylist'],
-            ['updating', () => isGetplaylistUpdating(), 'getPlaylist']
+            ['loading', () => isGetPlaylistLoading(), 'getPlaylist'],
+            ['updating', () => isGetPlaylistUpdating(), 'getPlaylist']
           );
         },
         get playlistPD() {
           return updateSources(
             {
-              resource: getPlaylistPDData(),
+              resource: playlistsState.playlistPDCtr.store.playlistPD,
               resourceName: 'playlistPD',
             },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],

@@ -41,7 +41,7 @@ export const DashboardStateProvider = observer(
         get userProfile() {
           return updateSources(
             {
-              resource: loadUserId.data?.userProfile,
+              resource: dashboardState.account.userProfile,
               resourceName: 'userProfile',
             },
             ['loading', () => isQueryLoading(loadUserId), 'loadUserId'],
