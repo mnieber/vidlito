@@ -1,6 +1,5 @@
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
-import { mapDataToProps } from 'skandha';
 import {
   Addition,
   Deletion,
@@ -12,18 +11,12 @@ import {
   Insertion,
   Selection,
 } from 'skandha-facets';
-import {
-  DragSourceFromNewItem,
-  createInsertionPreview,
-} from 'skandha-facets/policies';
-import { registerCtr } from 'skandha-mobx';
-import { initPlaylists } from './playlists';
 import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { PlaylistPDStore } from '/src/playlists/PlaylistsState/facets/PlaylistPDStore';
 import { PlaylistStore } from '/src/playlists/PlaylistsState/facets/PlaylistsStore';
-import { initPlaylistPD } from '/src/playlists/PlaylistsState/playlistPD/initPlaylistPD';
-import { getIds } from '/src/utils/ids';
+import { registerPlaylistPDCtr } from '/src/playlists/PlaylistsState/registerPlaylistPDCtr';
+import { registerPlaylistsCtr } from '/src/playlists/PlaylistsState/registerPlaylistsCtr';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
@@ -52,39 +45,10 @@ export class PlaylistsState {
     store: new PlaylistPDStore(),
   };
 
-  _playlistsMapData(props: PropsT) {
-    const ctr = this.playlistsCtr;
-
-    const getPlaylistById = (x: string | undefined) =>
-      x ? ctr.display.itemById[x] : undefined;
-
-    mapDataToProps(ctr, {
-      selection: {
-        selectableIds: () => getIds(ctr.display.items),
-        items: () => ctr.selection.ids.map(getPlaylistById as any),
-      },
-      highlight: {
-        item: () => getPlaylistById(ctr.highlight.id),
-      },
-      insertion: {
-        inputItems: () => ctr.store.items ?? [],
-        preview: () =>
-          createInsertionPreview(
-            [DragSourceFromNewItem],
-            ctr
-          )(ctr.insertion.inputItems),
-      },
-      display: {
-        items: () => ctr.insertion.preview,
-      },
-    });
-  }
-
-  _playlistPDMapData(props: PropsT) {}
-
   getSummary() {
     return {
       playlistsCtr: Skandha.getCtrState(this.playlistsCtr),
+      playlistPDCtr: Skandha.getCtrState(this.playlistPDCtr),
     };
   }
 
@@ -93,22 +57,7 @@ export class PlaylistsState {
   }
 
   constructor(props: PropsT) {
-    registerCtr({
-      ctr: this.playlistsCtr,
-      options: { name: 'PlaylistsState.Playlists' },
-      initCtr: () => {
-        initPlaylists(this, props);
-        this._playlistsMapData(props);
-      },
-    });
-
-    registerCtr({
-      ctr: this.playlistPDCtr,
-      options: { name: 'PlaylistsState.PlaylistPD' },
-      initCtr: () => {
-        initPlaylistPD(this, props);
-        this._playlistPDMapData(props);
-      },
-    });
+    registerPlaylistsCtr(this, props);
+    registerPlaylistPDCtr(this, props);
   }
 }

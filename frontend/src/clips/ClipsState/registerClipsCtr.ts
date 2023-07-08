@@ -189,7 +189,7 @@ export const unselectIds = (selection: Selection, ids: string[]) => {
   }
 };
 
-export const initClipsCtr = (state: ClipsState, props: PropsT) => {
+export const registerClipsCtr = (state: ClipsState, props: PropsT) => {
   registerCtr({
     ctr: state.clipsCtr,
     options: { name: 'ClipsState.Clips' },

@@ -24,7 +24,7 @@ const setCallbacks = (state: ClipsState, props: PropsT) => {
   } as EditCbs);
 };
 
-export const initClipPDCtr = (state: ClipsState, props: PropsT) => {
+export const registerClipPDCtr = (state: ClipsState, props: PropsT) => {
   registerCtr({
     ctr: state.clipPDCtr,
     options: { name: 'ClipsState.ClipPD' },

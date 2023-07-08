@@ -3,6 +3,7 @@ import {
   addCleanUpFunctionToCtr,
   cleanUpCtr,
 } from 'react-default-props-context';
+import { mapDataToProps } from 'skandha';
 import {
   AdditionCbs,
   DeletionCbs,
@@ -15,11 +16,45 @@ import {
   topOfTheList,
 } from 'skandha-facets';
 import * as FacetPolicies from 'skandha-facets/policies';
+import {
+  DragSourceFromNewItem,
+  createInsertionPreview,
+} from 'skandha-facets/policies';
+import { registerCtr } from 'skandha-mobx';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { PlaylistsState, PropsT } from '/src/playlists/PlaylistsState';
-import { followedSelectedPlaylistsAreInsertedOnDrop } from '/src/playlists/PlaylistsState/playlists/followedSelectedPlaylistsAreInsertedOnDrop';
+import { followedSelectedPlaylistsAreInsertedOnDrop } from '/src/playlists/PlaylistsState/policies';
+import { getIds } from '/src/utils/ids';
 
-export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
+const mapData = (state: PlaylistsState, props: PropsT) => {
+  const ctr = state.playlistsCtr;
+
+  const getPlaylistById = (x: string | undefined) =>
+    x ? ctr.display.itemById[x] : undefined;
+
+  mapDataToProps(ctr, {
+    selection: {
+      selectableIds: () => getIds(ctr.display.items),
+      items: () => ctr.selection.ids.map(getPlaylistById as any),
+    },
+    highlight: {
+      item: () => getPlaylistById(ctr.highlight.id),
+    },
+    insertion: {
+      inputItems: () => ctr.store.items ?? [],
+      preview: () =>
+        createInsertionPreview(
+          [DragSourceFromNewItem],
+          ctr
+        )(ctr.insertion.inputItems),
+    },
+    display: {
+      items: () => ctr.insertion.preview,
+    },
+  });
+};
+
+const setCallbacks = (state: PlaylistsState, props: PropsT) => {
   const ctr = state.playlistsCtr;
   addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
@@ -118,4 +153,15 @@ export const initPlaylists = (state: PlaylistsState, props: PropsT) => {
       },
     },
   } as SelectionCbs);
+};
+
+export const registerPlaylistsCtr = (state: PlaylistsState, props: PropsT) => {
+  registerCtr({
+    ctr: state.playlistsCtr,
+    options: { name: 'PlaylistsState.Playlists' },
+    initCtr: () => {
+      setCallbacks(state, props);
+      mapData(state, props);
+    },
+  });
 };

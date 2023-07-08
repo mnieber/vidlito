@@ -16,8 +16,8 @@ import { ClipPDT } from '/src/api/types/ClipPDT';
 import { ClipT } from '/src/api/types/ClipT';
 import { ClipPDStore } from '/src/clips/ClipsState/facets/ClipPDStore';
 import { Move } from '/src/clips/ClipsState/facets/Move';
-import { initClipsCtr } from '/src/clips/ClipsState/initClipsCtr';
-import { initClipPDCtr } from '/src/clips/ClipsState/registerClipPDCtr';
+import { registerClipPDCtr } from '/src/clips/ClipsState/registerClipPDCtr';
+import { registerClipsCtr } from '/src/clips/ClipsState/registerClipsCtr';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
@@ -68,7 +68,7 @@ export class ClipsState {
 
   constructor(props: PropsT) {
     this.props = props;
-    initClipsCtr(this, props);
-    initClipPDCtr(this, props);
+    registerClipsCtr(this, props);
+    registerClipPDCtr(this, props);
   }
 }

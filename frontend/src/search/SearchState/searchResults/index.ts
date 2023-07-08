@@ -1,1 +1,0 @@
-export { initSearchResults } from './initSearchResults';
