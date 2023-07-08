@@ -15,7 +15,7 @@ const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
     'clipForm.description': props.clip.description ?? null,
     'clipForm.endTimeS': _toSeconds(props.clip.endTimeMs) ?? null,
-    'clipForm.id': props.clip.id ?? createUUID(),
+    'clipForm.id': props.clip.id ?? null,
     'clipForm.name': props.clip.name ?? null,
     'clipForm.slug': props.clip.slug ?? null,
     'clipForm.startTimeS': _toSeconds(props.clip.startTimeMs) ?? null,
@@ -48,6 +48,7 @@ const getHandleSubmit =
     return saveClip({
       values: unflatten({
         ...values,
+        'clipForm.id': values['clipForm.id'] ?? createUUID(),
         'clipForm.endTimeMs': Math.trunc(values['clipForm.endTimeS'] * 1000),
         'clipForm.startTimeMs': Math.trunc(
           values['clipForm.startTimeS'] * 1000

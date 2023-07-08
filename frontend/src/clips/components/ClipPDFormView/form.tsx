@@ -7,15 +7,13 @@ import {
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
 import { ClipPDT } from '/src/api/types/ClipPDT';
+import { createUUID } from '/src/utils/ids';
 
-const getInitialValues = (
-  props: PropsT & typeof DefaultProps,
-  newId: string
-) => {
+const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
     'clipPDForm.description': props.clipPD.description ?? null,
     'clipPDForm.tags': props.clipPD.tags ?? null,
-    'clipPDForm.id': props.clipPD.id ?? newId,
+    'clipPDForm.id': props.clipPD.id ?? null,
   };
 };
 
@@ -39,6 +37,7 @@ const getHandleSubmit =
     return saveClipPD({
       values: unflatten({
         ...values,
+        'clipPDForm.id': values['clipPDForm.id'] ?? createUUID(),
         'clipPDForm.tags': values['clipPDForm.tags'] ?? [],
       }),
     })

@@ -14,7 +14,7 @@ import { createUUID } from '/src/utils/ids';
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
     'playlistForm.description': props.playlist.description ?? null,
-    'playlistForm.id': props.playlist.id ?? createUUID(),
+    'playlistForm.id': props.playlist.id ?? null,
     'playlistForm.name': props.playlist.name ?? null,
     'playlistForm.slug': props.playlist.slug ?? null,
     'playlistForm.tags': props.playlist.tags ?? [],
@@ -46,7 +46,12 @@ const getHandleSubmit =
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
     return props.playlistsEdit
-      .save({ values: unflatten(values) })
+      .save({
+        values: unflatten({
+          ...values,
+          'playlistForm.id': values['playlistForm.id'] ?? createUUID(),
+        }),
+      })
       .then((localPlaylist: PlaylistT) => {
         formState.reset(initialValues, initialErrors);
       })

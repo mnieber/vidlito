@@ -14,8 +14,6 @@ import {
 } from '/src/forms/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
-import { useBuilder } from '/src/utils/hooks/useBuilder';
-import { createUUID } from '/src/utils/ids';
 
 // Import styles
 import './index.scss';
@@ -32,7 +30,6 @@ export const DefaultProps = {
 
 export const ClipPDFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const newId = useBuilder(() => createUUID());
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,
       className: 'font-normal',
@@ -43,7 +40,7 @@ export const ClipPDFormView = observer(
       return null;
     }
 
-    const initialValues = form.getInitialValues(props, newId);
+    const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
 
     const l = L.main.MainForm;

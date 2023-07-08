@@ -13,7 +13,7 @@ const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
     'playlistPDForm.description': props.playlistPD.description ?? null,
     'playlistPDForm.tags': props.playlistPD.tags ?? null,
-    'playlistPDForm.id': props.playlistPD.id ?? createUUID(),
+    'playlistPDForm.id': props.playlistPD.id ?? null,
   };
 };
 
@@ -37,6 +37,7 @@ const getHandleSubmit =
     return savePlaylistPD({
       values: unflatten({
         ...values,
+        'playlistPDForm.id': values['playlistPDForm.id'] ?? createUUID(),
         'playlistPDForm.tags': values['playlistPDForm.tags'] ?? [],
       }),
     })
