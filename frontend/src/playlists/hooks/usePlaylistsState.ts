@@ -27,41 +27,35 @@ export const usePlaylistsState = (props: PropsT) => {
 
   const playlistsState = useBuilder(() => {
     return new PlaylistsState({
+      //
       deletePlaylists: (ids: string[]) => {
         const playlists = lookUp(
           ids,
           playlistsState.playlistsCtr.display.itemById
         );
-
         return trackPromise({
           name: 'deletePlaylists',
-          //
+          states: { updating: [...playlists, deletePlaylists] },
           promise: deletePlaylists.mutateAsync(ids),
-          //
-          states: {
-            updating: [...playlists, deletePlaylists],
-          },
         }).result;
       },
+      //
       savePlaylist: (values: ObjT) => {
         return trackPromise<PlaylistT>({
           name: 'savePlaylist',
-          //
+          states: { updating: [savePlaylist] },
           promise: savePlaylist
             .mutateAsync(values as SavePlaylistArgsT)
             .then(() => {
               return values.playlistForm as PlaylistT;
             }),
-          //
-          states: {
-            updating: [savePlaylist],
-          },
         }).result;
       },
+      //
       savePlaylistPD: (values: ObjT) => {
         return trackPromise<PlaylistPDT>({
           name: 'savePlaylistPD',
-          //
+          states: { updating: [savePlaylistPD] },
           promise: savePlaylistPD
             .mutateAsync({
               playlistId: playlistsState.playlistsCtr.highlight.item?.id,
@@ -71,23 +65,16 @@ export const usePlaylistsState = (props: PropsT) => {
             .then(() => {
               return values.playlistPDForm as PlaylistPDT;
             }),
-          //
-          states: {
-            updating: [savePlaylistPD],
-          },
         }).result;
       },
+      //
       savePlaylistOrdering: (playlists: PlaylistT[]) => {
         return trackPromise({
           name: 'savePlaylistOrdering',
-          //
+          states: { updating: [savePlaylistOrdering] },
           promise: savePlaylistOrdering.mutateAsync({
             playlistIds: getIds(playlists),
           } as SavePlaylistOrderingArgsT),
-          //
-          states: {
-            updating: [savePlaylistOrdering],
-          },
         }).result;
       },
     });

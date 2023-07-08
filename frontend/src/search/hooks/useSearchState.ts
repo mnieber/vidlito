@@ -16,10 +16,8 @@ export const useSearchState = (props: PropsT) => {
       searchContent: (args: SearchContentArgsT) => {
         return trackPromise({
           name: 'searchContent',
+          states: { updating: [searchContent] },
           promise: searchContent.mutateAsync(args),
-          states: {
-            updating: [searchContent],
-          },
         }).result;
       },
     });

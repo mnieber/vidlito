@@ -33,14 +33,12 @@ export const useActionsState = (props: PropsT) => {
 
         return trackPromise({
           name: 'undoAction',
+          states: { updating: [action, undoAction] },
           promise: undoAction.mutateAsync({
             actionId,
             playlistId: playlist.id,
             playlistSlug: playlist.slug,
           } as UndoActionArgsT),
-          states: {
-            updating: [action, undoAction],
-          },
         }).result;
       }),
     });
