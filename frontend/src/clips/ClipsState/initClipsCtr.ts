@@ -4,6 +4,7 @@ import {
   addCleanUpFunctionToCtr,
   cleanUpCtr,
 } from 'react-default-props-context';
+import { mapDataToProps } from 'skandha';
 import {
   AdditionCbs,
   DeletionCbs,
@@ -16,13 +17,55 @@ import {
   topOfTheList,
 } from 'skandha-facets';
 import * as FacetPolicies from 'skandha-facets/policies';
-import { correctHighlight } from 'skandha-facets/policies';
+import {
+  DragSourceFromNewItem,
+  correctHighlight,
+  createInsertionPreview,
+} from 'skandha-facets/policies';
+import { registerCtr } from 'skandha-mobx';
+import { isUpdating } from '/src/api/getState';
 import { ClipT } from '/src/api/types/ClipT';
 import { ClipsState, PropsT } from '/src/clips/ClipsState';
 import { MoveCbs } from '/src/clips/ClipsState/facets/Move';
+import { getIds } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 
-export const initClips = (state: ClipsState, props: PropsT) => {
+const mapData = (state: ClipsState, props: PropsT) => {
+  const ctr = state.clipsCtr;
+
+  const getClipById = (x: string | undefined) =>
+    x ? ctr.display.itemById[x] : undefined;
+
+  mapDataToProps(ctr, {
+    selection: {
+      selectableIds: () => getIds(ctr.display.items),
+      items: () =>
+        ctr.selection.ids
+          .map(getClipById)
+          .filter((x?: ClipT) => !!x) as ClipT[],
+    },
+    highlight: {
+      highlightableIds: () => getIds(ctr.display.items),
+      item: () => getClipById(ctr.highlight.id),
+    },
+    insertion: {
+      inputItems: () => ctr.store.items ?? [],
+      preview: () =>
+        createInsertionPreview(
+          [DragSourceFromNewItem],
+          ctr
+        )(ctr.insertion.inputItems),
+    },
+    deletion: {
+      disabled: () => R.any((x: ClipT) => isUpdating(x), ctr.selection.items),
+    },
+    display: {
+      items: () => ctr.insertion.preview,
+    },
+  });
+};
+
+const setCallbacks = (state: ClipsState, props: PropsT) => {
   const ctr = state.clipsCtr;
   addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
@@ -144,4 +187,15 @@ export const unselectIds = (selection: Selection, ids: string[]) => {
       selection.selectItem({ itemId: id, isCtrl: true });
     }
   }
+};
+
+export const initClipsCtr = (state: ClipsState, props: PropsT) => {
+  registerCtr({
+    ctr: state.clipsCtr,
+    options: { name: 'ClipsState.Clips' },
+    initCtr: () => {
+      setCallbacks(state, props);
+      mapData(state, props);
+    },
+  });
 };

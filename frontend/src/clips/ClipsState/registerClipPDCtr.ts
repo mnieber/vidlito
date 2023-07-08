@@ -4,10 +4,11 @@ import {
   cleanUpCtr,
 } from 'react-default-props-context';
 import { EditCbs } from 'skandha-facets';
+import { registerCtr } from 'skandha-mobx';
 import { ClipPDT } from '/src/api/types/ClipPDT';
 import { ClipsState, PropsT } from '/src/clips/ClipsState';
 
-export const initClipPD = (state: ClipsState, props: PropsT) => {
+const setCallbacks = (state: ClipsState, props: PropsT) => {
   const ctr = state.clipPDCtr;
   addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
@@ -21,4 +22,14 @@ export const initClipPD = (state: ClipsState, props: PropsT) => {
     },
     cancel: {},
   } as EditCbs);
+};
+
+export const initClipPDCtr = (state: ClipsState, props: PropsT) => {
+  registerCtr({
+    ctr: state.clipPDCtr,
+    options: { name: 'ClipsState.ClipPD' },
+    initCtr: () => {
+      setCallbacks(state, props);
+    },
+  });
 };
