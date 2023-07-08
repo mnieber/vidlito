@@ -7,13 +7,15 @@ import {
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
 import { ClipPDT } from '/src/api/types/ClipPDT';
-import { createUUID } from '/src/utils/ids';
 
-const getInitialValues = (props: PropsT & typeof DefaultProps) => {
+const getInitialValues = (
+  props: PropsT & typeof DefaultProps,
+  newId: string
+) => {
   return {
     'clipPDForm.description': props.clipPD.description ?? null,
     'clipPDForm.tags': props.clipPD.tags ?? null,
-    'clipPDForm.id': props.clipPD.id ?? createUUID(),
+    'clipPDForm.id': props.clipPD.id ?? newId,
   };
 };
 
