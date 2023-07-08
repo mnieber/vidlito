@@ -41,7 +41,7 @@ const ClipDescriptionLoader = observer(
       <div
         className={cn(
           'ClipDescriptionLoader',
-          'h-[200px]',
+          'h-[36px]',
           'rounded bg-gray-100',
           props.className
         )}

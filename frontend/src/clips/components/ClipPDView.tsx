@@ -42,8 +42,8 @@ const ClipPDViewLoader = observer((props: PropsT & typeof DefaultProps) => {
     <div
       className={cn(
         'ClipPDViewLoader',
-        'h-[200px]',
-        'rounded bg-gray-300',
+        'h-[36px]',
+        'rounded bg-gray-100',
         props.className
       )}
     ></div>

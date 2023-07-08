@@ -42,7 +42,7 @@ const PlaylistDescriptionLoader = observer(
       <div
         className={cn(
           'PlaylistDescriptionLoader',
-          'h-[200px]',
+          'h-[36px]',
           'rounded bg-gray-100',
           props.className
         )}
