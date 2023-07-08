@@ -1,5 +1,6 @@
 .PlaylistDescription {
-    @apply bg-gray-300;
+  @apply bg-gray-100 text-gray-700;
+  @apply rounded-lg;
 }
 
 .PlaylistDescription__Title {

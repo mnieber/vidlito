@@ -22,6 +22,7 @@ import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { PlaylistPDStore } from '/src/playlists/PlaylistsState/facets/PlaylistPDStore';
 import { PlaylistStore } from '/src/playlists/PlaylistsState/facets/PlaylistsStore';
+import { initPlaylistPD } from '/src/playlists/PlaylistsState/playlistPD/initPlaylistPD';
 import { getIds } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 
@@ -79,6 +80,8 @@ export class PlaylistsState {
     });
   }
 
+  _playlistPDMapData(props: PropsT) {}
+
   getSummary() {
     return {
       playlistsCtr: Skandha.getCtrState(this.playlistsCtr),
@@ -102,7 +105,10 @@ export class PlaylistsState {
     registerCtr({
       ctr: this.playlistPDCtr,
       options: { name: 'PlaylistsState.PlaylistPD' },
-      initCtr: () => {},
+      initCtr: () => {
+        initPlaylistPD(this, props);
+        this._playlistPDMapData(props);
+      },
     });
   }
 }
