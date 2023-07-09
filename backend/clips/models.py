@@ -14,12 +14,12 @@ class Clip(Entity):
     end_time_ms = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=90)
     owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
+    slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
     source_playlist = models.ForeignKey(
         "playlists.Playlist",
         on_delete=models.PROTECT,
         related_name="+",
     )
-    slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
     start_time_ms = models.IntegerField(null=True, blank=True)
     tags = models.JSONField(default=create_empty_tags)
     url = models.CharField(max_length=255, null=True, blank=True)
@@ -42,3 +42,6 @@ class ClipPD(Entity):
     description = MartorField(null=True, blank=True)
     owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
     tags = models.JSONField(default=create_empty_tags)
+
+    def __str__(self):
+        return "ClipPD: " + str(self.id)

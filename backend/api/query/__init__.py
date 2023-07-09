@@ -2,10 +2,10 @@ import graphene
 
 import user_accounts.schema
 
-from .get_clip_p_d import GetClipPD
-from .get_playlist_p_d import GetPlaylistPD
 from .getactions import GetActions
+from .getclippd import GetClipPD
 from .getplaylist import GetPlaylist
+from .getplaylistpd import GetPlaylistPD
 from .gettags import GetTags
 from .getuserprofile import GetUserProfile
 
@@ -20,10 +20,10 @@ class GrapheneNonEmptyQuery(graphene.ObjectType):
 class Query(
     user_accounts.schema.Query,
     GetActions,
-    GetTags,
-    GetPlaylist,
     GetClipPD,
+    GetPlaylist,
     GetPlaylistPD,
+    GetTags,
     GetUserProfile,
     GrapheneNonEmptyQuery,
 ):

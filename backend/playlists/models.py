@@ -71,23 +71,41 @@ class Entry(Entity):
     def __str__(self):
         return f"{self.playlist.name} / {self.clip.name}"
 
-
-class Follow(Entity):
-    class Meta:
-        ordering = ["sort_pos"]
-
-    user_profile = models.ForeignKey(
-        UserProfile, on_delete=models.CASCADE, related_name="follow_set"
-    )
-    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="+")
-    sort_pos = models.IntegerField(default=0)
-
     def __str__(self):
         return f"{self.user_profile.username} / {self.playlist.name}"
 
 
 class PlaylistPD(Entity):
-    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="+")
     description = MartorField(null=True, blank=True)
     owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="+")
     tags = models.JSONField(default=create_empty_tags)
+
+
+class Folder(Entity):
+    class Meta:
+        ordering = ["sort_pos"]
+
+    name = models.CharField(max_length=90)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
+    parent_folder = models.ForeignKey(
+        "Folder", on_delete=models.CASCADE, related_name="+", null=True, blank=True
+    )
+    sort_pos = models.IntegerField(default=0)
+
+    def __str__(self):
+        return "Folder: " + str(self.name)
+
+
+class Follow(Entity):
+    class Meta:
+        ordering = ["sort_pos"]
+
+    folder = models.ForeignKey(
+        Folder, on_delete=models.CASCADE, null=True, blank=True, related_name="+"
+    )
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="+")
+    sort_pos = models.IntegerField(default=0)
+    user_profile = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name="follow_set"
+    )

@@ -11,14 +11,17 @@ import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   playlistIds: string[];
+  folderId?: string;
 };
 
 export const savePlaylistOrdering = (args: ArgsT) => {
   return doQuery(
     `mutation savePlaylistOrdering(
       $playlistIds: [UUID]!
+      $folderId: UUID
     ) {
       savePlaylistOrdering(
+        folderId: $folderId
         playlistIds: $playlistIds
       ) {
         errors

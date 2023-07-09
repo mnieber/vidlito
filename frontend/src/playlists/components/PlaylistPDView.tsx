@@ -41,8 +41,8 @@ const PlaylistPDViewLoader = observer((props: PropsT & typeof DefaultProps) => {
     <div
       className={cn(
         'PlaylistPDViewLoader',
-        'h-[36px] my-4',
-        'rounded bg-gray-300',
+        'h-[36px]',
+        'rounded bg-gray-100',
         props.className
       )}
     ></div>

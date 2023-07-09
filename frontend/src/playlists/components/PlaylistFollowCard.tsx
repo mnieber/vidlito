@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { useFollowPlaylist } from '/src/api/mutations/useFollowPlaylist';
+import { useFollowPlaylists } from '/src/api/mutations/useFollowPlaylists';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { L } from '/src/frames/layout';
@@ -30,7 +30,7 @@ export const PlaylistFollowCard = observer(
       setIsChecked(isFollowing);
     }, [isFollowing]);
 
-    const followPlaylist = useFollowPlaylist();
+    const followPlaylists = useFollowPlaylists();
 
     if (!props.userProfile) {
       return null;
@@ -40,8 +40,8 @@ export const PlaylistFollowCard = observer(
       e.preventDefault();
       const isFollowing = e.target.checked;
       setIsChecked(isFollowing);
-      followPlaylist.mutate({
-        playlistId: props.playlist.id,
+      followPlaylists.mutate({
+        playlistIds: [props.playlist.id],
         isFollowing: isFollowing,
       });
     };

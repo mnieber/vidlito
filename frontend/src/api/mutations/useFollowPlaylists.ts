@@ -6,19 +6,22 @@ import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
-  playlistId: string;
+  playlistIds: string[];
   isFollowing: boolean;
+  folderId?: string;
 };
 
-export const followPlaylist = (args: ArgsT) => {
+export const followPlaylists = (args: ArgsT) => {
   return doQuery(
     `mutation followPlaylist(
-      $playlistId: String!
+      $playlistIds: [UUID]!
       $isFollowing: Boolean!
+      $folderId: UUID
     ) {
       followPlaylist(
-        playlistId: $playlistId
+        folderId: $folderId
         isFollowing: $isFollowing
+        playlistIds: $playlistIds
       ) {
         errors
         success
@@ -30,10 +33,10 @@ export const followPlaylist = (args: ArgsT) => {
   });
 };
 
-export const useFollowPlaylist = () => {
+export const useFollowPlaylists = () => {
   return useMutation({
     mutationKey: ['followPlaylist'],
-    mutationFn: followPlaylist,
+    mutationFn: followPlaylists,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return Promise.all([
         queryClient.invalidateQueries({ queryKey: loadUserIdQueryKey({}) }),

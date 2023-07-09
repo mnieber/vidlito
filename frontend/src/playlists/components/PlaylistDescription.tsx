@@ -19,6 +19,7 @@ export const PlaylistDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     if (isLoading(props.playlist))
       return <PlaylistDescriptionLoader {...props} />;
+    else if (!props.playlist) return null;
 
     return (
       <div
