@@ -37,6 +37,9 @@ const mapData = (state: ClipsState, props: PropsT) => {
     x ? ctr.display.itemById[x] : undefined;
 
   mapDataToProps(ctr, {
+    store: {
+      items: () => props.getClips(),
+    },
     selection: {
       selectableIds: () => getIds(ctr.display.items),
       items: () =>

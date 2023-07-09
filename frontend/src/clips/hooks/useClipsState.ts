@@ -1,53 +1,87 @@
 import { action } from 'mobx';
 import React from 'react';
+import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import {
   MoveClipsToTrashArgsT,
   SaveClipOrderingArgsT,
+  useGetClipPD,
   useMoveClipsToPlaylist,
   useMoveClipsToTrash,
   useSaveClip,
   useSaveClipOrdering,
 } from '/src/api/endpoints';
+import { useObservableQuery } from '/src/api/hooks';
 import {
   MoveClipsToPlaylistArgsT,
   SaveClipArgsT,
   SaveClipPDArgsT,
 } from '/src/api/mutations';
 import { useSaveClipPD } from '/src/api/mutations/useSaveClipPD';
+import { createClipPD } from '/src/api/types/ClipPDT';
 import { ClipT } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { ClipsState } from '/src/clips/ClipsState';
+import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
 import { initRS } from '/src/resourceStates/ResourceState';
 import { trackPromise } from '/src/resourceStates/trackPromise';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
+import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
 import { usePropsRef } from '/src/utils/hooks/usePropsRef';
 import { getIds, lookUp } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
-  playlist: PlaylistT;
+  // We're using a get function here so that MobX can react to changes in the
+  // playlist. This works as as long as the get function returns a computed value.
+  getPlaylist: () => PlaylistT | undefined;
 };
 
 export const useClipsState = (props: PropsT) => {
+  let clipsState: ClipsState | null = null;
+  const propsRef = usePropsRef(props);
+  const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
+  const params = useNavHandlerParams();
+
+  // Mutations
   const moveClipsToTrash = initRS(useMoveClipsToTrash());
   const moveClipsToPlaylist = initRS(useMoveClipsToPlaylist());
   const saveClip = initRS(useSaveClip());
   const saveClipPD = initRS(useSaveClipPD());
   const saveClipOrdering = initRS(useSaveClipOrdering());
 
-  const propsRef = usePropsRef(props);
+  // Queries
+  const getClipSlug = () =>
+    clipsState?.clipsCtr.highlight.item?.slug ?? params.clipSlug;
+  const isGetClipPDEnabled = () =>
+    !!getClipSlug() && getClipSlug() !== 'new-clip';
+  const getClipPD = useObservableQuery(
+    useGetClipPD(
+      { clipSlug: getClipSlug() },
+      { enabled: isGetClipPDEnabled() }
+    ),
+    { fetchAsLoad: true, debugLabel: 'getClipPD' }
+  );
 
-  const clipsState = useBuilder<ClipsState>(() => {
+  clipsState = useBuilder<ClipsState>(() => {
     return new ClipsState({
       //
+      getClips: () => {
+        return graftResourceStatesFromMemo({
+          resources: props.getPlaylist()?.clipSet ?? [],
+        });
+      },
+      getClipPD: () => {
+        return getClipPD.data?.clipPD ?? createClipPD();
+      },
+      //
       moveClipsToTrash: action((ids: string[]) => {
-        const clips = lookUp(ids, clipsState.clipsCtr.store.itemById);
+        const clips = lookUp(ids, clipsState!.clipsCtr.store.itemById);
         return trackPromise({
           name: 'moveClipsToTrash',
           states: { updating: [...clips, moveClipsToTrash] },
           promise: moveClipsToTrash.mutateAsync({
-            playlistId: propsRef.current?.playlist.id,
-            playlistSlug: propsRef.current?.playlist.slug,
+            playlistId: propsRef.current?.getPlaylist()?.id,
+            playlistSlug: propsRef.current?.getPlaylist()?.slug,
             clipIds: ids,
           } as MoveClipsToTrashArgsT),
         }).result;
@@ -59,10 +93,10 @@ export const useClipsState = (props: PropsT) => {
           states: { updating: [saveClip] },
           promise: saveClip
             .mutateAsync({
-              playlistId: propsRef.current?.playlist.id,
-              playlistSlug: propsRef.current?.playlist.slug,
+              playlistId: propsRef.current?.getPlaylist()?.id,
+              playlistSlug: propsRef.current?.getPlaylist()?.slug,
               clipForm: values.clipForm,
-              parentClipId: clipsState.clipsCtr.addition.parentId,
+              parentClipId: clipsState!.clipsCtr.addition.parentId,
             } as SaveClipArgsT)
             .then(() => {
               return values.clipForm;
@@ -76,8 +110,8 @@ export const useClipsState = (props: PropsT) => {
           states: { updating: [saveClipPD] },
           promise: saveClipPD
             .mutateAsync({
-              clipId: clipsState.clipsCtr.highlight.item?.id,
-              clipSlug: clipsState.clipsCtr.highlight.item?.slug,
+              clipId: clipsState!.clipsCtr.highlight.item?.id,
+              clipSlug: clipsState!.clipsCtr.highlight.item?.slug,
               clipPDForm: values.clipPDForm,
             } as SaveClipPDArgsT)
             .then(() => {
@@ -91,8 +125,8 @@ export const useClipsState = (props: PropsT) => {
           name: 'saveClipOrdering',
           states: { updating: [saveClipOrdering] },
           promise: saveClipOrdering.mutateAsync({
-            playlistSlug: propsRef.current?.playlist.slug,
-            playlistId: propsRef.current?.playlist.id,
+            playlistSlug: propsRef.current?.getPlaylist()?.slug,
+            playlistId: propsRef.current?.getPlaylist()?.id,
             clipIds: getIds(clips),
           } as SaveClipOrderingArgsT),
         }).result;
@@ -108,8 +142,8 @@ export const useClipsState = (props: PropsT) => {
           name: 'moveClipsToPlaylist',
           states: { updating: [...clips, moveClipsToPlaylist] },
           promise: moveClipsToPlaylist.mutateAsync({
-            srcPlaylistId: propsRef.current?.playlist.id,
-            srcPlaylistSlug: propsRef.current?.playlist.slug,
+            srcPlaylistId: propsRef.current?.getPlaylist()?.id,
+            srcPlaylistSlug: propsRef.current?.getPlaylist()?.slug,
             destPlaylistId: playlistId,
             destPlaylistSlug: playlistSlug,
             clipIds: getIds(clips),
@@ -120,7 +154,7 @@ export const useClipsState = (props: PropsT) => {
     });
   }) as ClipsState;
 
-  React.useEffect(() => () => clipsState.destroy(), [clipsState]);
+  React.useEffect(() => () => clipsState!.destroy(), [clipsState]);
 
   return {
     clipsState,
@@ -128,5 +162,8 @@ export const useClipsState = (props: PropsT) => {
     moveClipsToPlaylist,
     saveClip,
     saveClipOrdering,
+    isGetClipPDLoading: () => isGetClipPDEnabled() && isQueryLoading(getClipPD),
+    isGetClipPDUpdating: () =>
+      isGetClipPDEnabled() && isQueryUpdating(getClipPD),
   };
 };

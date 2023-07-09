@@ -6,7 +6,6 @@ import { isLoading, isUpdating } from '/src/api/getState';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
-import { useUpdatePlaylistsState } from '/src/playlists/hooks/useUpdatePlaylistsState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -17,16 +16,13 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { playlistsState } = usePlaylistsState({
-      userProfile: props.userProfile,
-    });
     const {
+      playlistsState,
       isGetPlaylistLoading,
       isGetPlaylistUpdating,
       isGetPlaylistPDLoading,
       isGetPlaylistPDUpdating,
-    } = useUpdatePlaylistsState({
-      playlistsState,
+    } = usePlaylistsState({
       getUserProfile: () => props.userProfile,
     });
 

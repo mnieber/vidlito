@@ -33,6 +33,10 @@ const mapData = (state: PlaylistsState, props: PropsT) => {
     x ? ctr.display.itemById[x] : undefined;
 
   mapDataToProps(ctr, {
+    store: {
+      items: () => props.getPlaylists(),
+      followedPlaylists: () => props.getFollowedPlaylists(),
+    },
     selection: {
       selectableIds: () => getIds(ctr.display.items),
       items: () => ctr.selection.ids.map(getPlaylistById as any),

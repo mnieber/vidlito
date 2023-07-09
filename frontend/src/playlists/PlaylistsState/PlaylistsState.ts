@@ -20,6 +20,9 @@ import { registerPlaylistsCtr } from '/src/playlists/PlaylistsState/registerPlay
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
+  getPlaylists: () => PlaylistT[];
+  getFollowedPlaylists: () => PlaylistT[];
+  getPlaylistPD: () => PlaylistPDT | undefined;
   deletePlaylists: (ids: string[]) => Promise<any>;
   savePlaylist: (values: ObjT) => Promise<PlaylistT>;
   savePlaylistPD: (values: ObjT) => Promise<PlaylistPDT>;

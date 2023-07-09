@@ -6,7 +6,6 @@ import { isLoading, isUpdating } from '/src/api/getState';
 import { updateSources } from '/src/api/utils';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useClipsState } from '/src/clips/hooks/useClipsState';
-import { useUpdateClipsState } from '/src/clips/hooks/useUpdateClipsState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -17,13 +16,8 @@ const DefaultProps = {
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { clipsState } = useClipsState({
-      playlist: props.playlist,
-    });
-    const { isGetClipPDLoading, isGetClipPDUpdating } = useUpdateClipsState({
-      clipsState,
-      getPlaylist: () => props.playlist,
-    });
+    const { clipsState, isGetClipPDLoading, isGetClipPDUpdating } =
+      useClipsState({ getPlaylist: () => props.playlist });
 
     const cache = useBuilder(() =>
       makeAutoObservable({

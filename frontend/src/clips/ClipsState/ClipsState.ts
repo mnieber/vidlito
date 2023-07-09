@@ -21,6 +21,8 @@ import { registerClipsCtr } from '/src/clips/ClipsState/registerClipsCtr';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
+  getClips: () => ClipT[];
+  getClipPD: () => ClipPDT | undefined;
   moveClipsToTrash: (ids: string[]) => Promise<any>;
   saveClip: (values: ObjT) => Promise<ClipT>;
   saveClipPD: (values: ObjT) => Promise<ClipPDT>;
