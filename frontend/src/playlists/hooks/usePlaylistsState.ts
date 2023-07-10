@@ -1,9 +1,11 @@
 import React from 'react';
+import { Highlight } from 'skandha-facets';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import {
   SavePlaylistArgsT,
   SavePlaylistOrderingArgsT,
   useDeletePlaylists,
+  useGetPlaylist,
   useSavePlaylist,
   useSavePlaylistOrdering,
 } from '/src/api/endpoints';
@@ -16,7 +18,6 @@ import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
-import { useGetPlaylistObservableQuery } from '/src/playlists/hooks/useGetPlaylistObservableQuery';
 import { updatePlaylists } from '/src/playlists/utils/updatePlaylists';
 import { initRS } from '/src/resourceStates';
 import { trackPromise } from '/src/resourceStates/trackPromise';
@@ -30,9 +31,16 @@ export type PropsT = {
 };
 
 export const usePlaylistsState = (props: PropsT) => {
-  let playlistsState: PlaylistsState | undefined = undefined;
   const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
   const params = useNavHandlerParams();
+
+  // The value of playlistSlugRef is based on playlistsState.playlistsCtr.highlight.
+  // Since playlistsState is not defined yet, we use a ref that we later update.
+  // This is a bit hacky because we count on the fact that usePlaylistsState
+  // will be called more than once.
+  const playlistHighlightRef = React.useRef<Highlight | undefined>();
+  const getPlaylistSlug = () =>
+    playlistHighlightRef.current?.item?.slug ?? params.playlistSlug;
 
   // Mutations
   const deletePlaylists = initRS(useDeletePlaylists());
@@ -41,16 +49,14 @@ export const usePlaylistsState = (props: PropsT) => {
   const savePlaylistOrdering = initRS(useSavePlaylistOrdering());
 
   // Queries
-  const getPlaylistSlug = () =>
-    playlistsState?.playlistsCtr.highlight.item?.slug ?? params.playlistSlug;
   const isGetPlaylistEnabled = () => getPlaylistSlug() !== 'new-playlist';
-
-  const { getPlaylistData, getPlaylist } = useGetPlaylistObservableQuery({
-    playlistSlug: getPlaylistSlug(),
-    enabled: isGetPlaylistEnabled(),
-    playlistsState: playlistsState,
-  });
-
+  const getPlaylist = useObservableQuery(
+    useGetPlaylist(
+      { playlistSlug: getPlaylistSlug() },
+      { enabled: isGetPlaylistEnabled() }
+    ),
+    { fetchAsLoad: true, debugLabel: 'getPlaylist' }
+  );
   const getPlaylistPD = useObservableQuery(
     useGetPlaylistPD(
       { playlistSlug: getPlaylistSlug() },
@@ -59,12 +65,14 @@ export const usePlaylistsState = (props: PropsT) => {
     { fetchAsLoad: true, debugLabel: 'getPlaylistPD' }
   );
 
-  playlistsState = useBuilder(() => {
+  const playlistsState = useBuilder(() => {
     return new PlaylistsState({
       //
       getPlaylists: () => {
         const followSet = props.getUserProfile()?.followSet ?? [];
-        const playlists = updatePlaylists(followSet, getPlaylistData());
+        const playlists = false
+          ? updatePlaylists(followSet, getPlaylist.data?.playlist)
+          : followSet;
         return graftResourceStatesFromMemo({ resources: playlists });
       },
       //
@@ -79,7 +87,7 @@ export const usePlaylistsState = (props: PropsT) => {
       deletePlaylists: (ids: string[]) => {
         const playlists = lookUp(
           ids,
-          playlistsState!.playlistsCtr.display.itemById
+          playlistsState.playlistsCtr.display.itemById
         );
         return trackPromise({
           name: 'deletePlaylists',
@@ -106,8 +114,8 @@ export const usePlaylistsState = (props: PropsT) => {
           states: { updating: [savePlaylistPD] },
           promise: savePlaylistPD
             .mutateAsync({
-              playlistId: playlistsState!.playlistsCtr.highlight.item?.id,
-              playlistSlug: playlistsState!.playlistsCtr.highlight.item?.slug,
+              playlistId: playlistsState.playlistsCtr.highlight.item?.id,
+              playlistSlug: playlistsState.playlistsCtr.highlight.item?.slug,
               playlistPDForm: values.playlistPDForm,
             } as SavePlaylistPDArgsT)
             .then(() => {
@@ -127,8 +135,9 @@ export const usePlaylistsState = (props: PropsT) => {
       },
     });
   }) as PlaylistsState;
+  playlistHighlightRef.current = playlistsState.playlistsCtr.highlight;
 
-  React.useEffect(() => () => playlistsState!.destroy(), [playlistsState]);
+  React.useEffect(() => () => playlistsState.destroy(), [playlistsState]);
 
   return {
     playlistsState,

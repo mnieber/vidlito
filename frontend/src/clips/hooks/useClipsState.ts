@@ -1,5 +1,6 @@
 import { action } from 'mobx';
 import React from 'react';
+import { Highlight } from 'skandha-facets';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import {
   MoveClipsToTrashArgsT,
@@ -26,7 +27,6 @@ import { initRS } from '/src/resourceStates/ResourceState';
 import { trackPromise } from '/src/resourceStates/trackPromise';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
-import { usePropsRef } from '/src/utils/hooks/usePropsRef';
 import { getIds, lookUp } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 
@@ -37,10 +37,12 @@ export type PropsT = {
 };
 
 export const useClipsState = (props: PropsT) => {
-  let clipsState: ClipsState | null = null;
-  const propsRef = usePropsRef(props);
   const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
   const params = useNavHandlerParams();
+
+  const clipsHighlightRef = React.useRef<Highlight | undefined>();
+  const getClipSlug = () =>
+    clipsHighlightRef.current?.item?.slug ?? params.clipSlug;
 
   // Mutations
   const moveClipsToTrash = initRS(useMoveClipsToTrash());
@@ -50,8 +52,6 @@ export const useClipsState = (props: PropsT) => {
   const saveClipOrdering = initRS(useSaveClipOrdering());
 
   // Queries
-  const getClipSlug = () =>
-    clipsState?.clipsCtr.highlight.item?.slug ?? params.clipSlug;
   const isGetClipPDEnabled = () =>
     !!getClipSlug() && getClipSlug() !== 'new-clip';
   const getClipPD = useObservableQuery(
@@ -62,7 +62,7 @@ export const useClipsState = (props: PropsT) => {
     { fetchAsLoad: true, debugLabel: 'getClipPD' }
   );
 
-  clipsState = useBuilder<ClipsState>(() => {
+  const clipsState = useBuilder<ClipsState>(() => {
     return new ClipsState({
       //
       getClips: () => {
@@ -75,13 +75,13 @@ export const useClipsState = (props: PropsT) => {
       },
       //
       moveClipsToTrash: action((ids: string[]) => {
-        const clips = lookUp(ids, clipsState!.clipsCtr.store.itemById);
+        const clips = lookUp(ids, clipsState.clipsCtr.store.itemById);
         return trackPromise({
           name: 'moveClipsToTrash',
           states: { updating: [...clips, moveClipsToTrash] },
           promise: moveClipsToTrash.mutateAsync({
-            playlistId: propsRef.current?.getPlaylist()?.id,
-            playlistSlug: propsRef.current?.getPlaylist()?.slug,
+            playlistId: props.getPlaylist()?.id,
+            playlistSlug: props.getPlaylist()?.slug,
             clipIds: ids,
           } as MoveClipsToTrashArgsT),
         }).result;
@@ -93,10 +93,10 @@ export const useClipsState = (props: PropsT) => {
           states: { updating: [saveClip] },
           promise: saveClip
             .mutateAsync({
-              playlistId: propsRef.current?.getPlaylist()?.id,
-              playlistSlug: propsRef.current?.getPlaylist()?.slug,
+              playlistId: props.getPlaylist()?.id,
+              playlistSlug: props.getPlaylist()?.slug,
               clipForm: values.clipForm,
-              parentClipId: clipsState!.clipsCtr.addition.parentId,
+              parentClipId: clipsState.clipsCtr.addition.parentId,
             } as SaveClipArgsT)
             .then(() => {
               return values.clipForm;
@@ -110,8 +110,8 @@ export const useClipsState = (props: PropsT) => {
           states: { updating: [saveClipPD] },
           promise: saveClipPD
             .mutateAsync({
-              clipId: clipsState!.clipsCtr.highlight.item?.id,
-              clipSlug: clipsState!.clipsCtr.highlight.item?.slug,
+              clipId: clipsState.clipsCtr.highlight.item?.id,
+              clipSlug: clipsState.clipsCtr.highlight.item?.slug,
               clipPDForm: values.clipPDForm,
             } as SaveClipPDArgsT)
             .then(() => {
@@ -125,8 +125,8 @@ export const useClipsState = (props: PropsT) => {
           name: 'saveClipOrdering',
           states: { updating: [saveClipOrdering] },
           promise: saveClipOrdering.mutateAsync({
-            playlistSlug: propsRef.current?.getPlaylist()?.slug,
-            playlistId: propsRef.current?.getPlaylist()?.id,
+            playlistSlug: props.getPlaylist()?.slug,
+            playlistId: props.getPlaylist()?.id,
             clipIds: getIds(clips),
           } as SaveClipOrderingArgsT),
         }).result;
@@ -142,8 +142,8 @@ export const useClipsState = (props: PropsT) => {
           name: 'moveClipsToPlaylist',
           states: { updating: [...clips, moveClipsToPlaylist] },
           promise: moveClipsToPlaylist.mutateAsync({
-            srcPlaylistId: propsRef.current?.getPlaylist()?.id,
-            srcPlaylistSlug: propsRef.current?.getPlaylist()?.slug,
+            srcPlaylistId: props.getPlaylist()?.id,
+            srcPlaylistSlug: props.getPlaylist()?.slug,
             destPlaylistId: playlistId,
             destPlaylistSlug: playlistSlug,
             clipIds: getIds(clips),
@@ -153,8 +153,9 @@ export const useClipsState = (props: PropsT) => {
       },
     });
   }) as ClipsState;
+  clipsHighlightRef.current = clipsState.clipsCtr.highlight;
 
-  React.useEffect(() => () => clipsState!.destroy(), [clipsState]);
+  React.useEffect(() => () => clipsState.destroy(), [clipsState]);
 
   return {
     clipsState,
