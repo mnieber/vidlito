@@ -8,7 +8,7 @@ import {
 } from '/src/playlists/components';
 import { cn } from '/src/utils/classnames';
 
-const separator = ['my-2', 'border-t border-gray-700'];
+const separator = ['my-2', 'border-t border-textGray'];
 
 export type PropsT = {
   className?: any;

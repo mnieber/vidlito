@@ -7,8 +7,10 @@ export type ArgsT = {
 };
 
 export const getTags = (args: ArgsT) => {
-  return doQuery(
-    `query getTags(
+  return args.tagPrefix === ''
+    ? Promise.resolve({ getTags: [] })
+    : doQuery(
+        `query getTags(
       $tagPrefix: String
     ) {
       getTags(
@@ -17,8 +19,8 @@ export const getTags = (args: ArgsT) => {
         tags
       }
     }`,
-    args
-  ).then((response: ObjT) => {
-    return wait(import.meta.env.DEV ? 1000 : 0, response.getTags);
-  });
+        args
+      ).then((response: ObjT) => {
+        return wait(import.meta.env.DEV ? 1000 : 0, response.getTags);
+      });
 };

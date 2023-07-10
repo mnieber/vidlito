@@ -1,7 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { isNil } from 'ramda';
+import Select from 'react-select';
 import AsyncSelect from 'react-select/async';
 import AsyncCreatableSelect from 'react-select/async-creatable';
+import CreatableSelect from 'react-select/creatable';
 
 export interface PickerValueT {
   value: any;
@@ -12,11 +14,12 @@ export interface PickerValueT {
 export type PropsT<ValueT> = {
   isMulti: boolean;
   isCreatable: boolean;
-  loadOptions: (
+  isAsync?: boolean;
+  loadOptions?: (
     inputValue: string,
     callback: (options: any) => void
   ) => Promise<ValueT[]>;
-  pickableValue: ValueT | ValueT[];
+  pickableValue?: ValueT | ValueT[];
   labelFromValue: (value: any) => string;
   labelFromPickedValue?: (value: any) => string;
   placeholder?: string;
@@ -30,6 +33,7 @@ export const ValuePicker = observer(
   ): JSX.Element => {
     const {
       isMulti,
+      isAsync,
       isCreatable,
       pickableValue,
       loadOptions,
@@ -66,11 +70,18 @@ export const ValuePicker = observer(
       className: undefined,
     };
 
-    const picker = isCreatable ? (
-      <AsyncCreatableSelect {...pickerProps} />
-    ) : (
-      <AsyncSelect {...pickerProps} />
-    );
+    const picker =
+      isAsync ?? true ? (
+        isCreatable ? (
+          <AsyncCreatableSelect {...pickerProps} />
+        ) : (
+          <AsyncSelect {...pickerProps} />
+        )
+      ) : isCreatable ? (
+        <CreatableSelect {...pickerProps} />
+      ) : (
+        <Select {...pickerProps} />
+      );
 
     return (
       <div className={props.className} style={{ zIndex: others.zIndex }}>

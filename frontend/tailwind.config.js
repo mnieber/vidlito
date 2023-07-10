@@ -7,13 +7,14 @@ module.exports = {
       },
     },
     colors: {
-      transparent: 'transparent',
       black: '#000',
       bodyText: 'hsl(210, 20%, 25%)',
-      white: '#fff',
       errorRed: '#ff0000',
       primaryBlue: 'hsl(199, 84%, 55%)',
       primaryTeal: 'hsl(160, 51%, 49%)',
+      textGray: 'hsl(210, 16%, 82%)',
+      transparent: 'transparent',
+      white: '#fff',
       blue: {
         50: '#1F2933',
         100: 'hsl(203, 87%, 20%)',

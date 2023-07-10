@@ -9,6 +9,8 @@ export { FormFieldError } from './FormFieldError';
 export { FormFieldLabel } from './FormFieldLabel';
 export { FormSaveButton } from './FormSaveButton';
 export { GlobalError } from './GlobalError';
+export { HorizontalTagPicker } from './HorizontalTagPicker';
+export { KeywordsAndTagsField } from './KeywordsAndTagsField';
 export { MarkdownField } from './MarkdownField';
 export { MobXFormState } from './MobXFormState';
 export { NameField } from './NameField';

@@ -5,7 +5,7 @@ import { cn } from '/src/utils/classnames';
 // Import styles
 import './TextField.scss';
 
-type PropsT = Partial<FieldPropsT> & {
+export type PropsT = Partial<FieldPropsT> & {
   className?: any;
 };
 

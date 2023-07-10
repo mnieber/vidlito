@@ -54,7 +54,7 @@ export const L = {
       blue: () => 'text-primaryBlue',
     },
     text: () => '',
-    icon: () => cn('h-[30px]', 'w-[30px]', 'fill-gray-700'),
+    icon: () => cn('h-[30px]', 'w-[30px]', 'fill-textGray'),
   },
   FormField: {
     root: () => 'FormField flex flex-col',

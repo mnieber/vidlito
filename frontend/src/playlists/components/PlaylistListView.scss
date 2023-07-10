@@ -2,16 +2,16 @@
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
-    background: rgba(0,0,0,0.2);
+  width: 8px;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.5);
-    @apply rounded-xl;
+  background: rgba(0, 0, 0, 0.5);
+  @apply rounded-xl;
 }
 
 ::-webkit-resizer {
-    @apply bg-gray-700;
-    @apply rounded-xl;
+  @apply bg-textGray;
+  @apply rounded-xl;
 }

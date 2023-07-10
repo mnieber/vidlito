@@ -1,0 +1,7 @@
+.HorizontalTagPicker__Tag {
+  @apply text-textGray cursor-pointer;
+}
+
+.HorizontalTagPicker__Tag--selected {
+  @apply underline;
+}

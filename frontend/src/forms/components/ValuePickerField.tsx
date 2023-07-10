@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useFormStateContext } from 'react-form-state-context';
 import { useFormFieldContext } from '/src/forms/components';
-import { handleEnterAsTabToNext } from '/src/forms/utils';
+import { tabToNext } from '/src/forms/utils';
 import { cn } from '/src/utils/classnames';
 import {
   PickerValueT,
@@ -57,8 +57,9 @@ export const ValuePickerField = observer(<ValueT,>(props: PropsT<ValueT>) => {
       loadingMessage={() => 'loading...'}
       onChange={saveChanges}
       onKeyDown={(e: any) => {
-        if (props.tabOnEnter ?? true) {
-          handleEnterAsTabToNext(e);
+        if (e.keyCode === 13 && (props.tabOnEnter ?? true)) {
+          e.preventDefault();
+          tabToNext(e);
         }
         if (props.onKeyDown) {
           props.onKeyDown(e);

@@ -1,8 +1,8 @@
 .ToolButton {
-  @apply text-gray-700;
+  @apply text-textGray;
   @apply text-base font-bold tracking-wider;
 
   .Icon {
-    @apply bg-gray-700;
+    @apply bg-textGray;
   }
 }

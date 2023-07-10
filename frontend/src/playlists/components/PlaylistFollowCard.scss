@@ -15,11 +15,11 @@
 }
 
 .PlaylistFollowCard__ToggleContainer {
-  @apply border-2 absolute inset-0 rounded-full transition border-gray-700 peer-checked:border-primaryBlue;
+  @apply border-2 absolute inset-0 rounded-full transition border-textGray peer-checked:border-primaryBlue;
 }
 
 .PlaylistFollowCard__Toggle {
-  @apply absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-gray-700 peer-checked:bg-primaryBlue transition-all peer-checked:start-4;
+  @apply absolute inset-y-0 start-0 m-1 h-4 w-4 rounded-full bg-textGray peer-checked:bg-primaryBlue transition-all peer-checked:start-4;
 }
 
 .PlaylistFollowCard__LabelWrapper {

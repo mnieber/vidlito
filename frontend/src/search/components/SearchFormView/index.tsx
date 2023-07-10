@@ -7,10 +7,12 @@ import {
   Field,
   FormFieldLabel,
   GlobalError,
-  TextField,
+  HorizontalTagPicker,
 } from '/src/forms/components';
 import { FormSaveButton } from '/src/forms/components/FormSaveButton';
+import { KeywordsAndTagsField } from '/src/forms/components/KeywordsAndTagsField';
 import { L } from '/src/frames/layout';
+import { useTagsState } from '/src/search/hooks/useTagsState';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -27,6 +29,12 @@ export const DefaultProps = {
 export const SearchFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const formStateRef = React.useRef<FormState>(null);
+    const playlistTagsState = useTagsState({
+      loadOptions: props.searchState.tagsCtr.store.loadTags,
+    });
+    const clipTagsState = useTagsState({
+      loadOptions: props.searchState.tagsCtr.store.loadTags,
+    });
 
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
@@ -71,18 +79,28 @@ export const SearchFormView = observer(
             className={l.Field()}
           >
             <FormFieldLabel label="Playlist terms and #tags" />
-            <TextField tabIndex={1} controlled={true} autoSelect={true} />
+            <KeywordsAndTagsField
+              tabIndex={1}
+              controlled={true}
+              tagsState={playlistTagsState}
+            />
+            <HorizontalTagPicker tabIndex={2} tagsState={playlistTagsState} />
           </Field>
           <Field fieldName="searchForm.clipTerms" className={l.Field()}>
             <FormFieldLabel label="Clip terms and #tags" />
-            <TextField tabIndex={2} controlled={true} />
+            <KeywordsAndTagsField
+              tabIndex={3}
+              controlled={true}
+              tagsState={clipTagsState}
+            />
+            <HorizontalTagPicker tabIndex={4} tagsState={clipTagsState} />
           </Field>
           {
             // 🔳 Buttons 🔳
           }
           <div className={cn(l.Buttons())}>
             <FormSaveButton
-              tabIndex={10}
+              tabIndex={5}
               label="Search"
               className={cn(l.Button.root())}
             />

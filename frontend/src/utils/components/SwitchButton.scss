@@ -1,12 +1,12 @@
 .SwitchButton__Button {
-  @apply text-gray-700 text-start bg-transparent;
+  @apply text-textGray text-start bg-transparent;
   @apply border-2 border-blue-50;
   @apply font-bold;
   @apply bg-blue-50;
 }
 
 .SwitchButton__Button--active {
-  @apply border-gray-700;
+  @apply border-textGray;
 }
 
 .SwitchButton__RightButton {
