@@ -18,7 +18,7 @@ import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
-import { updatePlaylists } from '/src/playlists/utils/updatePlaylists';
+import { useSmartUpdatePlaylists } from '/src/playlists/hooks/useSmartUpdatePlaylists';
 import { initRS } from '/src/resourceStates';
 import { trackPromise } from '/src/resourceStates/trackPromise';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
@@ -32,12 +32,14 @@ export type PropsT = {
 
 export const usePlaylistsState = (props: PropsT) => {
   const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
+  const smartUpdatePlaylists = useSmartUpdatePlaylists();
   const params = useNavHandlerParams();
 
   // The value of playlistSlugRef is based on playlistsState.playlistsCtr.highlight.
   // Since playlistsState is not defined yet, we use a ref that we later update.
-  // This is a bit hacky because we count on the fact that usePlaylistsState
-  // will be called more than once.
+  // This means that the first time we call getPlaylistSlug, we will get the
+  // value from the URL. After that, we will get the value either from the
+  // playlistHighlightRef or from the URL.
   const playlistHighlightRef = React.useRef<Highlight | undefined>();
   const getPlaylistSlug = () =>
     playlistHighlightRef.current?.item?.slug ?? params.playlistSlug;
@@ -69,11 +71,12 @@ export const usePlaylistsState = (props: PropsT) => {
     return new PlaylistsState({
       //
       getPlaylists: () => {
-        const followSet = props.getUserProfile()?.followSet ?? [];
-        const playlists = false
-          ? updatePlaylists(followSet, getPlaylist.data?.playlist)
-          : followSet;
-        return graftResourceStatesFromMemo({ resources: playlists });
+        return graftResourceStatesFromMemo({
+          resources: smartUpdatePlaylists(
+            props.getUserProfile()?.followSet,
+            getPlaylist.data?.playlist
+          ),
+        });
       },
       //
       getFollowedPlaylists: () => {
