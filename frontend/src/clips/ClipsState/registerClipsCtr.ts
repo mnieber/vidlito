@@ -25,12 +25,12 @@ import {
 import { registerCtr } from 'skandha-mobx';
 import { isUpdating } from '/src/api/getState';
 import { ClipT } from '/src/api/types/ClipT';
-import { ClipsState, PropsT } from '/src/clips/ClipsState';
+import { ClipsState } from '/src/clips/ClipsState';
 import { MoveCbs } from '/src/clips/ClipsState/facets/Move';
 import { getIds } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 
-const mapData = (state: ClipsState, props: PropsT) => {
+const mapData = (state: ClipsState) => {
   const ctr = state.clipsCtr;
 
   const getClipById = (x: string | undefined) =>
@@ -38,7 +38,7 @@ const mapData = (state: ClipsState, props: PropsT) => {
 
   mapDataToProps(ctr, {
     store: {
-      items: () => props.getClips(),
+      items: () => state.props.getClips(),
     },
     selection: {
       selectableIds: () => getIds(ctr.display.items),
@@ -68,7 +68,7 @@ const mapData = (state: ClipsState, props: PropsT) => {
   });
 };
 
-const setCallbacks = (state: ClipsState, props: PropsT) => {
+const setCallbacks = (state: ClipsState) => {
   const ctr = state.clipsCtr;
   addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
@@ -102,11 +102,17 @@ const setCallbacks = (state: ClipsState, props: PropsT) => {
         if (this.args.moveToTrash) {
           const allIds = [...ctr.highlight.highlightableIds];
 
-          return props.moveClipsToTrash(clipIds).then((response: ObjT) => {
-            unselectIds(ctr.selection, clipIds);
-            correctHighlight(ctr.highlight, allIds, R.without(clipIds, allIds));
-            return response;
-          });
+          return state.props
+            .moveClipsToTrash(clipIds)
+            .then((response: ObjT) => {
+              unselectIds(ctr.selection, clipIds);
+              correctHighlight(
+                ctr.highlight,
+                allIds,
+                R.without(clipIds, allIds)
+              );
+              return response;
+            });
         }
         return Promise.resolve();
       },
@@ -116,10 +122,12 @@ const setCallbacks = (state: ClipsState, props: PropsT) => {
   setCallbackMap(ctr.edit, {
     save: {
       saveItem(this: EditCbs['save']) {
-        return props.saveClip(this.args.values).then((localClip: ClipT) => {
-          ctr.addition.confirm();
-          return localClip;
-        });
+        return state.props
+          .saveClip(this.args.values)
+          .then((localClip: ClipT) => {
+            ctr.addition.confirm();
+            return localClip;
+          });
       },
     },
     cancel: {
@@ -143,7 +151,7 @@ const setCallbacks = (state: ClipsState, props: PropsT) => {
   setCallbackMap(ctr.insertion, {
     insertItems: {
       insertItems(clips: ClipT[]) {
-        props.saveClipOrdering(clips);
+        state.props.saveClipOrdering(clips);
       },
     },
   } as InsertionCbs);
@@ -155,7 +163,7 @@ const setCallbacks = (state: ClipsState, props: PropsT) => {
         const clips = [...ctr.selection.items];
         const clipIds = [...ctr.selection.ids];
 
-        return props
+        return state.props
           .moveClipsToPlaylist(
             clips,
             this.args.playlistId,
@@ -192,13 +200,13 @@ export const unselectIds = (selection: Selection, ids: string[]) => {
   }
 };
 
-export const registerClipsCtr = (state: ClipsState, props: PropsT) => {
+export const registerClipsCtr = (state: ClipsState) => {
   registerCtr({
     ctr: state.clipsCtr,
     options: { name: 'ClipsState.Clips' },
     initCtr: () => {
-      setCallbacks(state, props);
-      mapData(state, props);
+      setCallbacks(state);
+      mapData(state);
     },
   });
 };

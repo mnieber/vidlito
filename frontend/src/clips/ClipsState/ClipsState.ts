@@ -70,7 +70,7 @@ export class ClipsState {
 
   constructor(props: PropsT) {
     this.props = props;
-    registerClipsCtr(this, props);
-    registerClipPDCtr(this, props);
+    registerClipsCtr(this);
+    registerClipPDCtr(this);
   }
 }

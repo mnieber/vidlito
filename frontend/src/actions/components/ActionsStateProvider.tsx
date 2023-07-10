@@ -4,19 +4,14 @@ import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { useActionsState } from '/src/actions/hooks/useActionsState';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
-import { useGetActions } from '/src/api/endpoints';
-import { useObservableQuery } from '/src/api/hooks';
 import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
 import {
   PaginationAdapter,
   getDisplayPage,
 } from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
 import { shareRS } from '/src/resourceStates/ResourceState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
-import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
-import { log } from '/src/utils/logging';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -28,11 +23,9 @@ const DefaultProps = {
 
 export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
-
-    // Create actions state
-    const { actionsState } = useActionsState({
-      playlists: props.playlists,
+    const { actionsState, getActions } = useActionsState({
+      getPlaylist: () => props.playlist,
+      getPlaylists: () => props.playlists,
     });
 
     // The display pagination adapts the actions pagination
@@ -40,38 +33,6 @@ export const ActionsStateProvider = observer(
       return new PaginationAdapter(actionsState.actionsCtr.pagination, 2);
     });
 
-    // Get query data
-    const getActions = useObservableQuery(
-      useGetActions({
-        playlistId: actionsState.settings.showAllActions
-          ? undefined
-          : props.playlist?.id,
-        page: actionsState.actionsCtr.pagination.page,
-        pageSize: 10,
-      })
-    );
-
-    // Update the actions state based on the inputs
-    useUpdateStateReaction({
-      getInputs: () => ({
-        actions: getActions.data?.actionSet ?? [],
-        pagination: getActions.data?.pagination,
-      }),
-      updateState: (inputs) => {
-        actionsState.actionsCtr.store.items = graftResourceStatesFromMemo({
-          resources: inputs.actions,
-        });
-        actionsState.actionsCtr.pagination.reset(
-          inputs.pagination?.nrOfItems ?? 0,
-          inputs.pagination?.pageSize ?? 0
-        );
-      },
-      logState: () => {
-        log('ActionsState updated', actionsState.getSummary());
-      },
-    });
-
-    // Create a cache for data that has resource states
     const cache = useBuilder(() =>
       makeAutoObservable({
         get actions() {

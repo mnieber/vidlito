@@ -1,16 +1,18 @@
 import { action } from 'mobx';
 import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
-import { mapDataToProps } from 'skandha';
 import { Highlight, Store } from 'skandha-facets';
-import { registerCtr } from 'skandha-mobx';
 import { Settings } from './Settings';
-import { initActions } from './actions';
+import { registerActionsCtr } from '/src/actions/ActionsState/registerActionsCtr';
 import { ActionT } from '/src/api/types/ActionT';
-import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
-import { getIds } from '/src/utils/ids';
+import {
+  IPagination,
+  Pagination,
+} from '/src/playlists/PlaylistsState/facets/Pagination';
 
 export type PropsT = {
+  getActions: () => ActionT[];
+  getActionsPagination: () => IPagination | undefined;
   undoAction: (actionId: string) => Promise<any>;
 };
 
@@ -23,20 +25,6 @@ export class ActionsState {
     highlight: new Highlight<ActionT>(),
     pagination: new Pagination(),
   };
-
-  _actionsMapData(props: PropsT) {
-    const ctr = this.actionsCtr;
-
-    const getActionById = (x: string | undefined) =>
-      x ? ctr.store.itemById[x] : undefined;
-
-    mapDataToProps(ctr, {
-      highlight: {
-        item: () => getActionById(ctr.highlight.id),
-        highlightableIds: () => getIds(ctr.store.items ?? []),
-      },
-    });
-  }
 
   getSummary() {
     return {
@@ -54,14 +42,6 @@ export class ActionsState {
 
   constructor(props: PropsT) {
     this.props = props;
-
-    registerCtr({
-      ctr: this.actionsCtr,
-      options: { name: 'ActionsState.Actions' },
-      initCtr: () => {
-        initActions(this, props);
-        this._actionsMapData(props);
-      },
-    });
+    registerActionsCtr(this);
   }
 }

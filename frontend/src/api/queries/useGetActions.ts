@@ -52,14 +52,22 @@ export const getActions = (args: ArgsT) => {
 // the query is invalidated when the user signs in or out.
 export type QueryKeyT = ArgsT & { username?: string };
 
+export type OptionsT = {
+  enabled?: boolean;
+};
+
 export function queryKey(args: QueryKeyT) {
   return createQueryKey<QueryKeyT>('getActions', args);
 }
 
-export const useGetActions = (args: ArgsT & { username?: string }) => {
+export const useGetActions = (
+  args: ArgsT & { username?: string },
+  options?: OptionsT
+) => {
   return useQuery({
     queryKey: queryKey(args),
     queryFn: () => getActions(args),
+    enabled: !!(options?.enabled ?? true),
   });
 };
 
