@@ -51,7 +51,8 @@ export const usePlaylistsState = (props: PropsT) => {
   const savePlaylistOrdering = initRS(useSavePlaylistOrdering());
 
   // Queries
-  const isGetPlaylistEnabled = () => getPlaylistSlug() !== 'new-playlist';
+  const isGetPlaylistEnabled = () =>
+    !!getPlaylistSlug() && getPlaylistSlug() !== 'new-playlist';
   const getPlaylist = useObservableQuery(
     useGetPlaylist(
       { playlistSlug: getPlaylistSlug() },
