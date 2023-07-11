@@ -1,5 +1,4 @@
 import { runInAction } from 'mobx';
-import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { Highlight } from 'skandha-facets';
 import { SearchContentArgsT } from '/src/api/mutations';
@@ -33,7 +32,7 @@ export class SearchState {
   }
 
   destroy() {
-    cleanUpCtr(this);
+    Skandha.cleanUpCtr(this);
   }
 
   searchContent(args: SearchContentArgsT) {

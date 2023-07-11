@@ -1,11 +1,7 @@
-import { mapDataToProps } from 'skandha';
 import { registerCtr } from 'skandha-mobx';
 import { getIds } from '/src/utils/ids';
 
-import {
-  addCleanUpFunctionToCtr,
-  cleanUpCtr,
-} from 'react-default-props-context';
+import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
 import { PropsT, SearchState } from '/src/search/SearchState';
 
 const setCallbacks = (state: SearchState, props: PropsT) => {

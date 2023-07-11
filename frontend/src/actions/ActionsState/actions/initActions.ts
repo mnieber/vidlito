@@ -1,7 +1,4 @@
-import {
-  addCleanUpFunctionToCtr,
-  cleanUpCtr,
-} from 'react-default-props-context';
+import { addCleanUpFunctionToCtr, cleanUpCtr } from 'skandha';
 import { ActionsState, PropsT } from '/src/actions/ActionsState';
 
 export const initActions = (state: ActionsState, props: PropsT) => {

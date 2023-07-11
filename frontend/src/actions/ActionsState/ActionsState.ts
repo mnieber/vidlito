@@ -1,5 +1,4 @@
 import { action } from 'mobx';
-import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import { Highlight, Store } from 'skandha-facets';
 import { Settings } from './Settings';
@@ -33,7 +32,7 @@ export class ActionsState {
   }
 
   destroy() {
-    cleanUpCtr(this);
+    Skandha.cleanUpCtr(this);
   }
 
   @action undoAction(action: ActionT) {

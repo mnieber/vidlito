@@ -1,4 +1,3 @@
-import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import {
   Addition,
@@ -56,7 +55,7 @@ export class PlaylistsState {
   }
 
   destroy() {
-    cleanUpCtr(this);
+    Skandha.cleanUpCtr(this);
   }
 
   constructor(props: PropsT) {

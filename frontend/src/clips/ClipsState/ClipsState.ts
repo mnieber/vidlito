@@ -1,4 +1,3 @@
-import { cleanUpCtr } from 'react-default-props-context';
 import * as Skandha from 'skandha';
 import {
   Addition,
@@ -65,7 +64,7 @@ export class ClipsState {
   }
 
   destroy() {
-    cleanUpCtr(this);
+    Skandha.cleanUpCtr(this);
   }
 
   constructor(props: PropsT) {

@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
-import { cleanUpCtr } from 'react-default-props-context';
+import * as Skandha from 'skandha';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { createContextMenu } from '/src/frames/utils/createContextMenu';
 import { history } from '/src/navHandler/NavHandler';
@@ -70,7 +70,7 @@ export class DashboardState {
   }
 
   destroy() {
-    cleanUpCtr(this);
+    Skandha.cleanUpCtr(this);
   }
 
   constructor(props: PropsT) {

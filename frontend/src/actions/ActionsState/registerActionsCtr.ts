@@ -1,6 +1,5 @@
 import { comparer, reaction } from 'mobx';
-import { addCleanUpFunctionToCtr } from 'react-default-props-context';
-import { mapDataToProps } from 'skandha';
+import { addCleanUpFunctionToCtr, mapDataToProps } from 'skandha';
 import { registerCtr } from 'skandha-mobx';
 import { ActionsState } from '/src/actions/ActionsState/ActionsState';
 import { getIds } from '/src/utils/ids';

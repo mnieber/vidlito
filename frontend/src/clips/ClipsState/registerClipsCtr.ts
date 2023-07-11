@@ -1,10 +1,6 @@
 import { setCallbackMap } from 'aspiration';
 import * as R from 'ramda';
-import {
-  addCleanUpFunctionToCtr,
-  cleanUpCtr,
-} from 'react-default-props-context';
-import { mapDataToProps } from 'skandha';
+import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
 import {
   AdditionCbs,
   DeletionCbs,
