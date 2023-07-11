@@ -27,7 +27,6 @@ export const ClipPDView = observer(
           'ClipPDView',
           //
           //
-          'py-[18px] px-4',
           props.className
         )}
       >

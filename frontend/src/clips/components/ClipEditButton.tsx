@@ -10,6 +10,7 @@ import './ClipEditButton.scss';
 
 export type PropsT = {
   showPlaylist: boolean;
+  className?: any;
 };
 
 const DefaultProps = {
@@ -40,7 +41,8 @@ export const ClipEditButton = observer(
           },
           //
           //
-          L.ToolButton.root()
+          L.ToolButton.root(),
+          props.className
         )}
         disabled={!isOwner}
         onClick={() => {

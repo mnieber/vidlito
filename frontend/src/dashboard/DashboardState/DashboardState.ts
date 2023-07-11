@@ -32,7 +32,7 @@ export class DashboardState {
     videoPlayerParentElm: undefined,
   };
 
-  @observable showPlaylistDescription: boolean = false;
+  @observable showPlaylistView: boolean = false;
   @observable isPlaylistListExpanded: boolean = false;
   @observable navigationPoint?: {
     url: string;
@@ -53,8 +53,8 @@ export class DashboardState {
     return true;
   }
 
-  @action toggleShowPlaylistDescription(flag?: boolean) {
-    this.showPlaylistDescription = flag ?? !this.showPlaylistDescription;
+  @action toggleShowPlaylistView(flag?: boolean) {
+    this.showPlaylistView = flag ?? !this.showPlaylistView;
   }
 
   @action toggleIsPlaylistListExpanded(flag?: boolean) {

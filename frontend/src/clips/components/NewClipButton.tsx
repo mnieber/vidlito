@@ -61,7 +61,7 @@ export function onClickNewClipButton(props: {
   clipsAddition: Addition;
 }) {
   props.dashboardState.storeNavigationPoint();
-  props.dashboardState.toggleShowPlaylistDescription(false);
+  props.dashboardState.toggleShowPlaylistView(false);
   return props.clipsAddition
     .add({ values: createClip(props.userProfile, {}) })
     .then((localClip: ClipT) => {

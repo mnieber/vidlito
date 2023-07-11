@@ -28,8 +28,7 @@ export const ClipHeaderView = observer(
       return <ClipHeaderViewLoader className={props.className} />;
     }
 
-    const showPlaylist =
-      noClips || props.dashboardState.showPlaylistDescription;
+    const showPlaylist = noClips || props.dashboardState.showPlaylistView;
 
     return (
       <div
@@ -46,17 +45,14 @@ export const ClipHeaderView = observer(
             'ClipHeaderView__Buttons',
             //
             //
-            L.row.banner(),
-            'mb-8'
+            L.row.banner()
           )}
         >
           <SwitchButton
             state={showPlaylist ? 'left' : 'right'}
             hasRight={!!props.clip}
             onToggle={(state: 'left' | 'right') =>
-              props.dashboardState.toggleShowPlaylistDescription(
-                state === 'left'
-              )
+              props.dashboardState.toggleShowPlaylistView(state === 'left')
             }
             textLeft={props.playlist.name}
             textRight={props.clip?.name}
