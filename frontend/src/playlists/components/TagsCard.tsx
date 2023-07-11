@@ -22,24 +22,12 @@ export const TagsCard = observer(
 
     for (const tag of props.clip?.tags ?? []) {
       tagDivs.push(
-        <div className={cn('TagsCard__ClipTag')} key={tag}>
+        <div className={cn('TagsCard__ClipTag', 'mr-2')} key={tag}>
           {tag}
         </div>
       );
     }
 
-    return (
-      <div
-        className={cn(
-          'TagsCard',
-          //
-          //
-          'flex flex-row flex-wrap',
-          props.className
-        )}
-      >
-        {tagDivs}
-      </div>
-    );
+    return <>{tagDivs}</>;
   }, DefaultProps)
 );

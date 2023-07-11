@@ -1,13 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { textTrunc } from '/src/utils/strings';
 
 // Import styles
 import './AuthorCard.scss';
 
-export type PropsT = { className?: any };
+export type PropsT = React.PropsWithChildren<{ className?: any }>;
 
 const DefaultProps = {
   ...dps.clip,
@@ -66,7 +65,7 @@ export const AuthorCard = observer(
           'AuthorCard',
           //
           //
-          L.row.flagPole(),
+          'flex flex-row flex-wrap',
           props.className
         )}
       >
@@ -80,6 +79,8 @@ export const AuthorCard = observer(
             {owner2}
           </div>
         )}
+        <div className={cn('AuthorCard__Spacer', 'w-4')}></div>
+        {props.children}
       </div>
     );
   }, DefaultProps)

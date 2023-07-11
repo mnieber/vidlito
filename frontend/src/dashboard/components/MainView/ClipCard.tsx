@@ -45,8 +45,9 @@ export const ClipCard = observer(
             )}
           >
             <ClipHeaderView className={cn('mb-8')} />
-            <AuthorCard className="" />
-            <TagsCard className="mt-2" />
+            <AuthorCard>
+              <TagsCard />
+            </AuthorCard>
             <ClipCardDescription showPlaylist={showPlaylist} />
             <ClipCardPD showPlaylist={showPlaylist} />
             {noClips && <CreateFirstClip className="mt-4" />}

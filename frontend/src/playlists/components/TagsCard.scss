@@ -1,7 +1,7 @@
 .TagsCard__PlaylistTag {
-  @apply text-primaryBlue border border-primaryBlue px-1 rounded-xl;
+  @apply text-primaryBlue border text-sm border-primaryBlue px-2 rounded-xl;
 }
 
 .TagsCard__ClipTag {
-  @apply text-primaryTeal border border-primaryTeal px-1 rounded-xl;
+  @apply text-primaryTeal border text-sm border-primaryTeal px-2 rounded-xl;
 }
