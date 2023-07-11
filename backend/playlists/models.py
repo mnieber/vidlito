@@ -87,7 +87,9 @@ class Folder(Entity):
         ordering = ["sort_pos"]
 
     name = models.CharField(max_length=90)
-    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
+    owner = models.ForeignKey(
+        UserProfile, on_delete=models.CASCADE, related_name="folder_set"
+    )
     parent_folder = models.ForeignKey(
         "Folder", on_delete=models.CASCADE, related_name="+", null=True, blank=True
     )
@@ -106,6 +108,6 @@ class Follow(Entity):
     )
     playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="+")
     sort_pos = models.IntegerField(default=0)
-    user_profile = models.ForeignKey(
+    owner = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE, related_name="follow_set"
     )

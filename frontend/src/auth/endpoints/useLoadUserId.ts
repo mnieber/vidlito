@@ -19,6 +19,10 @@ export function loadUserId(args: ArgsT): Promise<any> {
           userProfile {
             username
             lastUrl
+            folderSet {
+              id
+              name
+            }
             followSet {
               id
               name
