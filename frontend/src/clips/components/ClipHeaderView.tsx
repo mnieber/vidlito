@@ -1,9 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { ClipEditButton } from '/src/clips/components/ClipEditButton';
 import { L } from '/src/frames/layout';
-import { AuthorCard } from '/src/playlists/components/AuthorCard';
 import { PlaylistFollowCard } from '/src/playlists/components/PlaylistFollowCard';
 import { cn } from '/src/utils/classnames';
 import { SwitchButton } from '/src/utils/components/SwitchButton';
@@ -65,10 +63,6 @@ export const ClipHeaderView = observer(
           />
           <div className={cn('grow')} />
           <PlaylistFollowCard className={cn('ml-4')} />
-        </div>
-        <div className={cn(L.row.skewer(), 'grow', 'justify-between')}>
-          <AuthorCard className="self-end" />
-          <ClipEditButton showPlaylist={showPlaylist} />
         </div>
       </div>
     );

@@ -27,11 +27,19 @@ export const PlaylistDescription = observer(
           'PlaylistDescription',
           //
           //
-          'py-[18px] px-4',
           props.className
         )}
       >
-        <MarkdownView text={props.playlist.description ?? ''} />
+        <div
+          className={cn(
+            'PlaylistDescription__Body',
+            //
+            //
+            'py-[18px] px-4'
+          )}
+        >
+          <MarkdownView text={props.playlist.description ?? ''} />
+        </div>
       </div>
     );
   }, DefaultProps)

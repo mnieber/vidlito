@@ -3,10 +3,10 @@ import * as R from 'ramda';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipPDView } from '/src/clips/components';
-import { ClipDescription } from '/src/clips/components/ClipDescription';
 import { ClipFormView } from '/src/clips/components/ClipFormView';
 import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
 import { ClipPDFormView } from '/src/clips/components/ClipPDFormView';
+import { ClipView } from '/src/clips/components/ClipView';
 import { PDViewHeader } from '/src/clips/components/PDViewHeader';
 import { L } from '/src/frames/layout';
 import {
@@ -62,7 +62,7 @@ export const ClipCard = observer(
             {
               // 🔳 Switch: Clip
             }
-            {showClip && !editClip && <ClipDescription />}
+            {showClip && !editClip && <ClipView />}
             {showClip && editClip && <ClipFormView />}
             {showClip && (
               <PDViewHeader pdEdit={props.clipPDEdit} className="mt-8" />
