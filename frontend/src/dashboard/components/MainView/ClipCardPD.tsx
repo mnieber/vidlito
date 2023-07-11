@@ -1,51 +1,73 @@
+import { observer } from 'mobx-react-lite';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipPDView } from '/src/clips/components';
 import { ClipPDFormView } from '/src/clips/components/ClipPDFormView';
 import { Icon } from '/src/frames/components';
+import { L } from '/src/frames/layout';
 import { PlaylistPDView } from '/src/playlists/components';
 import { PlaylistPDFormView } from '/src/playlists/components/PlaylistPDFormView';
 import { cn } from '/src/utils/classnames';
 
-export const ClipCardPD = () => {
-  return (
-    <div
-      className={cn(
-        'ClipCard__PDFrame',
-        //
-        //
-        'py-[18px] px-4'
-      )}
-    >
+// Import styles
+import './ClipCardPD.scss';
+
+export type PropsT = {
+  showPlaylist: boolean;
+  className?: any;
+};
+
+const DefaultProps = {
+  ...dps.clips,
+  ...dps.clipPDEdit,
+  ...dps.playlistPDEdit,
+};
+
+export const ClipCardPD = observer(
+  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const editClipPD = props.clipPDEdit.isEditing;
+    const editPlaylistPD = props.playlistPDEdit.isEditing;
+
+    return (
       <div
         className={cn(
-          'ClipPDFrame__TopRow',
-          L.row.skewer(),
-          'grow',
-          'justify-between'
+          'ClipCard__PDFrame',
+          //
+          //
+          'py-[18px] px-4'
         )}
       >
-        <div>Private data</div>
-        <button
+        <div
           className={cn(
-            'PDEditButton',
-            //
-            //
-            L.ToolButton.root()
+            'ClipPDFrame__TopRow',
+            L.row.skewer(),
+            'grow',
+            'justify-between'
           )}
-          onClick={() => {
-            props.clipPDEdit.enable();
-          }}
         >
-          <Icon
-            className={cn('PDEditButton__Icon', L.ToolButton.icon.small())}
-            name="pencil"
-          />
-          Edit
-        </button>
+          <div className={cn('ClipCardPD__Title')}>Private data</div>
+          <button
+            className={cn(
+              'PDEditButton',
+              //
+              //
+              L.ToolButton.root()
+            )}
+            onClick={() => {
+              props.clipPDEdit.enable();
+            }}
+          >
+            <Icon
+              className={cn('PDEditButton__Icon', L.ToolButton.icon.small())}
+              name="pencil"
+            />
+            Edit
+          </button>
+        </div>
+        {!props.showPlaylist && !editClipPD && <ClipPDView className="" />}
+        {!props.showPlaylist && editClipPD && <ClipPDFormView />}
+        {props.showPlaylist && !editPlaylistPD && <PlaylistPDView />}
+        {props.showPlaylist && editPlaylistPD && <PlaylistPDFormView />}
       </div>
-      {showClip && !editClipPD && <ClipPDView className="" />}
-      {showClip && editClipPD && <ClipPDFormView />}
-      {showPlaylist && !editPlaylistPD && <PlaylistPDView />}
-      {showPlaylist && editPlaylistPD && <PlaylistPDFormView />}
-    </div>
-  );
-};
+    );
+  }, DefaultProps)
+);
