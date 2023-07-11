@@ -5,6 +5,11 @@ import { DefaultPropsProvider } from 'react-default-props-context';
 import { isUpdating } from '/src/api/getState';
 import { updateSources } from '/src/api/utils/updateSources';
 import { withDefaultProps } from '/src/app/defaultProps';
+import {
+  getDisplayPage,
+  PaginationAdapter,
+} from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
+import { shareRS } from '/src/resourceStates/ResourceState';
 import { useSearchState } from '/src/search/hooks/useSearchState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
@@ -15,6 +20,11 @@ const DefaultProps = {};
 export const SearchStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { searchContent, searchState } = useSearchState({});
+
+    // The display pagination adapts the default pagination
+    const displayPagination = useBuilder(() => {
+      return new PaginationAdapter(searchState.searchResultsCtr.pagination, 4);
+    });
 
     const cache = useBuilder(() =>
       makeAutoObservable({
@@ -29,6 +39,15 @@ export const SearchStateProvider = observer(
         get searchResult() {
           return searchState.searchResultsCtr.highlight.item;
         },
+        get searchResultsPage() {
+          const items = getDisplayPage(
+            searchState.searchResultsCtr.pagination,
+            displayPagination,
+            cache.searchResults
+          );
+          shareRS(cache.searchResults, items);
+          return items;
+        },
       })
     );
 
@@ -42,9 +61,10 @@ export const SearchStateProvider = observer(
       result.defaultProps = {
         ...result.defaultProps,
         searchResults: () => cache.searchResults,
+        searchResultsPage: () => cache.searchResultsPage,
         searchResult: () => cache.searchResult,
         searchResultsHighlight: () => searchState.searchResultsCtr.highlight,
-        searchResultsPagination: () => searchState.searchResultsCtr.pagination,
+        searchResultsPagination: () => displayPagination,
         searchForm: () => searchState.searchResultsCtr.store.form,
       };
 

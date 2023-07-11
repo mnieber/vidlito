@@ -12,8 +12,11 @@ class SearchContent(graphene.Mutation):
     success = graphene.Boolean()
     errors = GenericScalar()
     search_results = graphene.List(SearchResultT)
+    pagination = graphene.Field(PaginationT)
 
     class Arguments:
+        page = graphene.Int()
+        page_size = graphene.Int()
         playlist_terms = graphene.List(graphene.String)
         playlist_tags = graphene.List(graphene.String)
         clip_terms = graphene.List(graphene.String)
@@ -22,6 +25,8 @@ class SearchContent(graphene.Mutation):
     def mutate(
         self,
         info,
+        page,
+        page_size,
         playlist_terms=None,
         playlist_tags=None,
         clip_terms=None,
@@ -47,4 +52,18 @@ class SearchContent(graphene.Mutation):
                 )
             )
 
-        return SearchContent(success=True, errors={}, search_results=search_results)
+        page_idx = page - 1
+        start_idx = page_idx * page_size
+        end_idx = start_idx + page_size
+        page_results = search_results[start_idx:end_idx]
+
+        return SearchContent(
+            success=True,
+            errors={},
+            search_results=page_results,
+            pagination=PaginationT(
+                nr_of_items=len(search_results),
+                page=page,
+                page_size=page_size,
+            ),
+        )

@@ -1,5 +1,3 @@
-import math
-
 import graphene
 
 from actions.models import Action

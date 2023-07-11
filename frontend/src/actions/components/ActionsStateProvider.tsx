@@ -28,7 +28,7 @@ export const ActionsStateProvider = observer(
       getPlaylists: () => props.playlists,
     });
 
-    // The display pagination adapts the actions pagination
+    // The display pagination adapts the default pagination
     const displayPagination = useBuilder(() => {
       return new PaginationAdapter(actionsState.actionsCtr.pagination, 2);
     });

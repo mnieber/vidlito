@@ -29,6 +29,8 @@ export type PropsT = {
 };
 
 export class PlaylistsState {
+  props: PropsT;
+
   playlistsCtr = {
     addition: new Addition<PlaylistT>(),
     deletion: new Deletion(),
@@ -59,7 +61,8 @@ export class PlaylistsState {
   }
 
   constructor(props: PropsT) {
-    registerPlaylistsCtr(this, props);
-    registerPlaylistPDCtr(this, props);
+    this.props = props;
+    registerPlaylistsCtr(this);
+    registerPlaylistPDCtr(this);
   }
 }

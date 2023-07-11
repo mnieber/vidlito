@@ -32,3 +32,13 @@ export class Pagination implements IPagination {
     this.page = 1;
   }
 }
+
+export const resetPagination = (
+  pagination: Pagination,
+  sourcePagination?: IPagination
+) => {
+  pagination.reset(
+    sourcePagination?.nrOfItems ?? 0,
+    sourcePagination?.pageSize ?? 0
+  );
+};

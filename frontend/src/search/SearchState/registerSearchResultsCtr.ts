@@ -1,10 +1,10 @@
 import { registerCtr } from 'skandha-mobx';
 import { getIds } from '/src/utils/ids';
 
-import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
-import { PropsT, SearchState } from '/src/search/SearchState';
+import { mapDataToProps } from 'skandha';
+import { SearchState } from '/src/search/SearchState';
 
-const setCallbacks = (state: SearchState, props: PropsT) => {
+const setCallbacks = (state: SearchState) => {
   const ctr = state.searchResultsCtr;
 
   const getSearchResultById = (x: string | undefined) =>
@@ -18,18 +18,16 @@ const setCallbacks = (state: SearchState, props: PropsT) => {
   });
 };
 
-const mapData = (state: SearchState, props: PropsT) => {
-  const ctr = state.searchResultsCtr;
-  addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
-};
+const mapData = (state: SearchState) => {};
 
-export const registerSearchResultsCtr = (state: SearchState, props: PropsT) => {
+export const registerSearchResultsCtr = (state: SearchState) => {
   registerCtr({
     ctr: state.searchResultsCtr,
     options: { name: 'SearchState.SearchResults' },
     initCtr: () => {
-      setCallbacks(state, props);
-      mapData(state, props);
+      state.searchResultsCtr.pagination.reset(0, 60);
+      setCallbacks(state);
+      mapData(state);
     },
   });
 };

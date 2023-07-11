@@ -16,7 +16,7 @@ export type PropsT = {
 };
 
 const DefaultProps = {
-  ...dps.searchResults,
+  ...dps.searchResultsPage,
   ...dps.searchResultsHighlight,
   ...dps.searchState,
   ...dps.searchForm,
@@ -24,23 +24,28 @@ const DefaultProps = {
 
 export const SearchResultListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (isLoading(props.searchResults) || isUpdating(props.searchResults)) {
+    if (
+      isLoading(props.searchResultsPage) ||
+      isUpdating(props.searchResultsPage)
+    ) {
       return <SearchResultListViewLoader />;
-    } else if (!props.searchResults?.length)
+    } else if (!props.searchResultsPage?.length)
       return !!props.searchForm ? (
         <NoContentsMatchTheFilter
           msg={'No contents match the search criteria'}
         />
       ) : null;
 
-    const searchResultDivs: any[] = props.searchResults.map((searchResult) => {
-      return (
-        <SearchResultListViewItem
-          key={`item-${searchResult.id}`}
-          searchResult={searchResult}
-        />
-      );
-    });
+    const searchResultDivs: any[] = props.searchResultsPage.map(
+      (searchResult) => {
+        return (
+          <SearchResultListViewItem
+            key={`item-${searchResult.id}`}
+            searchResult={searchResult}
+          />
+        );
+      }
+    );
 
     return (
       <SearchResultListKeyHandler>

@@ -1,5 +1,5 @@
 import { setCallbackMap } from 'aspiration';
-import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
+import { mapDataToProps } from 'skandha';
 import {
   AdditionCbs,
   DeletionCbs,
@@ -18,11 +18,11 @@ import {
 } from 'skandha-facets/policies';
 import { registerCtr } from 'skandha-mobx';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { PlaylistsState, PropsT } from '/src/playlists/PlaylistsState';
+import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { followedSelectedPlaylistsAreInsertedOnDrop } from '/src/playlists/PlaylistsState/policies';
 import { getIds } from '/src/utils/ids';
 
-const mapData = (state: PlaylistsState, props: PropsT) => {
+const mapData = (state: PlaylistsState) => {
   const ctr = state.playlistsCtr;
 
   const getPlaylistById = (x: string | undefined) =>
@@ -30,8 +30,8 @@ const mapData = (state: PlaylistsState, props: PropsT) => {
 
   mapDataToProps(ctr, {
     store: {
-      items: () => props.getPlaylists(),
-      followedPlaylists: () => props.getFollowedPlaylists(),
+      items: () => state.props.getPlaylists(),
+      followedPlaylists: () => state.props.getFollowedPlaylists(),
     },
     selection: {
       selectableIds: () => getIds(ctr.display.items),
@@ -54,9 +54,8 @@ const mapData = (state: PlaylistsState, props: PropsT) => {
   });
 };
 
-const setCallbacks = (state: PlaylistsState, props: PropsT) => {
+const setCallbacks = (state: PlaylistsState) => {
   const ctr = state.playlistsCtr;
-  addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
   setCallbackMap(ctr.addition, {
     add: {
@@ -90,7 +89,7 @@ const setCallbacks = (state: PlaylistsState, props: PropsT) => {
   setCallbackMap(ctr.deletion, {
     delete: {
       deleteItems(this: DeletionCbs['delete']) {
-        return props.deletePlaylists(this.args.itemIds);
+        return state.props.deletePlaylists(this.args.itemIds);
       },
     },
   } as DeletionCbs);
@@ -110,7 +109,7 @@ const setCallbacks = (state: PlaylistsState, props: PropsT) => {
   setCallbackMap(ctr.edit, {
     save: {
       saveItem(this: EditCbs['save']) {
-        return props
+        return state.props
           .savePlaylist(this.args.values)
           .then((localPlaylist: PlaylistT) => {
             ctr.addition.confirm();
@@ -139,7 +138,7 @@ const setCallbacks = (state: PlaylistsState, props: PropsT) => {
   setCallbackMap(ctr.insertion, {
     insertItems: {
       insertItems(playlists: PlaylistT[]) {
-        props.savePlaylistOrdering(playlists);
+        state.props.savePlaylistOrdering(playlists);
       },
     },
   } as InsertionCbs);
@@ -155,13 +154,13 @@ const setCallbacks = (state: PlaylistsState, props: PropsT) => {
   } as SelectionCbs);
 };
 
-export const registerPlaylistsCtr = (state: PlaylistsState, props: PropsT) => {
+export const registerPlaylistsCtr = (state: PlaylistsState) => {
   registerCtr({
     ctr: state.playlistsCtr,
     options: { name: 'PlaylistsState.Playlists' },
     initCtr: () => {
-      setCallbacks(state, props);
-      mapData(state, props);
+      setCallbacks(state);
+      mapData(state);
     },
   });
 };

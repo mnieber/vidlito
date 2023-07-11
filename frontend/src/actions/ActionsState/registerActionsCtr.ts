@@ -2,6 +2,7 @@ import { comparer, reaction } from 'mobx';
 import { addCleanUpFunctionToCtr, mapDataToProps } from 'skandha';
 import { registerCtr } from 'skandha-mobx';
 import { ActionsState } from '/src/actions/ActionsState/ActionsState';
+import { resetPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { getIds } from '/src/utils/ids';
 
 const mapData = (state: ActionsState) => {
@@ -23,10 +24,7 @@ const mapData = (state: ActionsState) => {
   const cleanUp = reaction(
     () => ({ pagination: state.props.getActionsPagination() }),
     (inputs) => {
-      ctr.pagination.reset(
-        inputs.pagination?.nrOfItems ?? 0,
-        inputs.pagination?.pageSize ?? 0
-      );
+      resetPagination(ctr.pagination, inputs.pagination);
     },
     { fireImmediately: true, equals: comparer.structural }
   );

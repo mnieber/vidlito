@@ -4,6 +4,8 @@ import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
+  page: number;
+  pageSize: number;
   playlistTerms: string[];
   playlistTags: string[];
   clipTerms: string[];
@@ -13,12 +15,16 @@ export type ArgsT = {
 export const searchContent = (args: ArgsT) => {
   return doQuery(
     `mutation searchContent(
+      $page: Int
+      $pageSize: Int
       $playlistTerms: [String]
       $playlistTags: [String]
       $clipTerms: [String]
       $clipTags: [String]
     ) {
       searchContent(
+        page: $page
+        pageSize: $pageSize
         playlistTerms: $playlistTerms
         playlistTags: $playlistTags
         clipTerms: $clipTerms
@@ -35,14 +41,15 @@ export const searchContent = (args: ArgsT) => {
           nrOfClips
           ownerUsername
         }
+        pagination {
+          nrOfItems
+          pageSize
+        }
       }
     }`,
     args
   ).then((response: ObjT) => {
-    return wait(
-      import.meta.env.DEV ? 1000 : 0,
-      response.searchContent.searchResults
-    );
+    return wait(import.meta.env.DEV ? 1000 : 0, response.searchContent);
   });
 };
 
