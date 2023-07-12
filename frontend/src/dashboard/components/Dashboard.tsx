@@ -63,10 +63,10 @@ export const Dashboard = observer(
             <Logo />
             <MainButtonsPanel className={cn('')} />
             <div className={cn('Dashboard__Separator__', separator)} />
+            <PlaylistListPicker />
+            <div className={cn('Dashboard__Separator__', separator)} />
             {!playlistNotFound && (
               <>
-                <PlaylistListPicker />
-                <div className={cn('Dashboard__Separator__', separator)} />
                 <ClipListView className={cn('overflow-y-auto', 'mt-4')} />
               </>
             )}

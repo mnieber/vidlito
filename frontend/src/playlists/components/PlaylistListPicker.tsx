@@ -8,6 +8,9 @@ import {
 } from '/src/playlists/components';
 import { cn } from '/src/utils/classnames';
 
+// Import styles
+import './PlaylistListPicker.scss';
+
 export type PropsT = {
   className?: any;
 };
@@ -23,6 +26,14 @@ export const PlaylistListPicker = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     if (isLoading(props.playlists) || isLoading(props.clips)) {
       return <PlaylistListPickerLoader {...props} />;
+    }
+
+    if (!props.playlists.length) {
+      return (
+        <div className={cn('PlaylistListPicker__Empty')}>
+          You have no playlists yet
+        </div>
+      );
     }
 
     return (
