@@ -17,12 +17,16 @@ export const TagsCard = observer(
     const tagDivs = [];
 
     for (const tag of props.playlist?.tags ?? []) {
-      tagDivs.push(<div className={cn('TagsCard__PlaylistTag')}>{tag}</div>);
+      tagDivs.push(
+        <div className={cn('TagsCard__PlaylistTag')} key={'p_' + tag}>
+          {tag}
+        </div>
+      );
     }
 
     for (const tag of props.clip?.tags ?? []) {
       tagDivs.push(
-        <div className={cn('TagsCard__ClipTag', 'mr-2')} key={tag}>
+        <div className={cn('TagsCard__ClipTag', 'mr-2')} key={'c_' + tag}>
           {tag}
         </div>
       );
