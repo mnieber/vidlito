@@ -14,7 +14,7 @@ export function getBestRouteMatch(
 ): RouteMatchT | undefined {
   const bestMatch = {
     result: undefined as RouteMatchT | undefined,
-    nrParams: -1,
+    nrParams: 0,
   };
 
   for (const [name, route] of R.toPairs(routes)) {
