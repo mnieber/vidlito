@@ -11,6 +11,7 @@ import { AuthorCard } from '/src/playlists/components/AuthorCard';
 import { CreateFirstClip } from '/src/playlists/components/CreateFirstClip';
 import { TagsCard } from '/src/playlists/components/TagsCard';
 import { cn } from '/src/utils/classnames';
+import { useDelayedFlag } from '/src/utils/hooks/useDelayedFlag';
 import { VideoPlayerPanel } from '/src/videos/components';
 
 // Import styles
@@ -29,7 +30,7 @@ const DefaultProps = {
 
 export const ClipCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const notFound = !props.clip && !isLoading(props.clip);
+    const notFound = useDelayedFlag(!props.clip && !isLoading(props.clip), 500);
     if (notFound) {
       return <ClipNotFound />;
     }
