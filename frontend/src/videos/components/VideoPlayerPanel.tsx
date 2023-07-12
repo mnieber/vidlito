@@ -1,10 +1,10 @@
-import _debounce from 'lodash/debounce';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import ReactResizeDetector from 'react-resize-detector';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
+import { useResize } from '/src/frames/hooks/useResize';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { VideoPlayer } from '/src/videos/components/VideoPlayer';
@@ -22,7 +22,7 @@ const DefaultProps = {
 export const VideoPlayerPanel = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
-    const { panelWidth, isResizing, onResize } = useResize();
+    const { panelWidth, isResizing, onResize } = useResize({});
 
     const ready = props.videoPlayerState.ready;
     const nextPanelWidth = !!panelWidth
@@ -78,34 +78,6 @@ export const VideoPlayerPanel = observer(
     );
   }, DefaultProps)
 );
-
-export const useResize = () => {
-  const [isResizing, setIsResizing] = React.useState(false);
-  const [panelWidth, setPanelWidth] = React.useState<number | undefined>(
-    undefined
-  );
-
-  const handleResize = React.useMemo(
-    () =>
-      _debounce((width?: number) => {
-        if (!R.isNil(width)) {
-          setPanelWidth(width);
-          setIsResizing(false);
-        }
-      }, 200),
-    [setPanelWidth]
-  );
-
-  return {
-    isResizing,
-    panelWidth,
-    handleResize,
-    onResize: (width: number | undefined) => {
-      setIsResizing(true);
-      handleResize(width);
-    },
-  };
-};
 
 export const VideoPlayerPanelPlaceholder = (props: {
   hidden: boolean;

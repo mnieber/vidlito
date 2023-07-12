@@ -5,6 +5,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
 import { ClipCardDescription } from '/src/dashboard/components/MainView/ClipCardDescription';
 import { ClipCardPD } from '/src/dashboard/components/MainView/ClipCardPD';
+import { ClipNotFound } from '/src/dashboard/components/MainView/ClipNotFound';
 import { L } from '/src/frames/layout';
 import { AuthorCard } from '/src/playlists/components/AuthorCard';
 import { CreateFirstClip } from '/src/playlists/components/CreateFirstClip';
@@ -20,6 +21,7 @@ export type PropsT = {
 };
 
 const DefaultProps = {
+  ...dps.clip,
   ...dps.clips,
   ...dps.dashboardState,
   ...dps.videoPlayerState,
@@ -28,11 +30,13 @@ const DefaultProps = {
 export const ClipCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const noClips = !props.clips.length && !isLoading(props.clips);
+    const notFound = !props.clip && !isLoading(props.clip);
     const showPlaylist = props.dashboardState.showPlaylistView || noClips;
 
     return (
       <>
-        {!noClips && <VideoPlayerPanel className={cn('mb-3')} />}
+        {!noClips && !notFound && <VideoPlayerPanel className={cn('mb-3')} />}
+        {notFound && <ClipNotFound />}
         {!R.isNil(props.videoPlayerState.panelWidth) && (
           <div
             className={cn(

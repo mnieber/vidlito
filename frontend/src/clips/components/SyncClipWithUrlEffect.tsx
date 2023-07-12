@@ -37,12 +37,9 @@ export const SyncClipWithUrlEffect = observer(
           clipsAddition.add({ values: createClip(userProfile, {}) });
         };
 
-        const getClipForCurrentUrl = () => {
-          return (
-            R.find((x: ClipT) => x.slug === params.clipSlug)(clips) ??
-            R.head(clips)
-          );
-        };
+        const getClipForCurrentUrl = () =>
+          R.find((x: ClipT) => x.slug === params.clipSlug)(clips) ??
+          (params.clipSlug === '-' ? R.head(clips) : undefined);
 
         const selectClip = (clip: ClipT) => {
           clipsSelection.selectItem({ itemId: clip?.id });

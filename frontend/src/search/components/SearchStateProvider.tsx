@@ -31,7 +31,7 @@ export const SearchStateProvider = observer(
         get searchResults() {
           return updateSources(
             {
-              resource: searchState.searchResultsCtr.store.items,
+              resource: searchState.searchResultsCtr.store.items ?? [],
             },
             ['updating', () => isUpdating(searchContent), 'searchContent']
           );

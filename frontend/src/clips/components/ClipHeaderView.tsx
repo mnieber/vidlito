@@ -22,12 +22,11 @@ const DefaultProps = {
 
 export const ClipHeaderView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const noClips = !props.clips.length && !isLoading(props.clips);
-
-    if ((!props.clip && !noClips) || !props.playlist) {
+    if (isLoading(props.clips)) {
       return <ClipHeaderViewLoader className={props.className} />;
     }
 
+    const noClips = !props.clips.length && !isLoading(props.clips);
     const showPlaylist = noClips || props.dashboardState.showPlaylistView;
 
     return (
