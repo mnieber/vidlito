@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { isLoading } from '/src/api/getState';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipListView } from '/src/clips/components';
 import { ClipVideoKeyHandler } from '/src/clips/components/ClipVideoKeyHandler';
 import { MainButtonsPanel } from '/src/dashboard/components/MainButtonsPanel';
@@ -16,10 +17,15 @@ export type PropsT = React.PropsWithChildren<{
   className?: any;
 }>;
 
-const DefaultProps = {};
+const DefaultProps = {
+  ...dps.playlist,
+};
 
 export const Dashboard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const playlistNotFound = !isLoading(props.playlist) && !props.playlist;
+    const separator = ['my-2', 'border-t border-textGray'];
+
     return (
       //
       // 🔳 DashBoard 🔳
@@ -51,8 +57,14 @@ export const Dashboard = observer(
           >
             <Logo />
             <MainButtonsPanel className={cn('')} />
-            <PlaylistListPicker />
-            <ClipListView className={cn('overflow-y-auto', 'mt-4')} />
+            <div className={cn('Dashboard__Separator__', separator)} />
+            {!playlistNotFound && (
+              <>
+                <PlaylistListPicker />
+                <div className={cn('Dashboard__Separator__', separator)} />
+                <ClipListView className={cn('overflow-y-auto', 'mt-4')} />
+              </>
+            )}
           </div>
           {
             // 🔳 RightMain 🔳

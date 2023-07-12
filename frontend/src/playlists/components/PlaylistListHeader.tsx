@@ -25,7 +25,7 @@ export const PlaylistListHeader = observer(
     return (
       <div
         className={cn(
-          'PlaylistListHeader__',
+          'PlaylistListHeader',
           //
           //
           l.root(),

@@ -8,8 +8,6 @@ import {
 } from '/src/playlists/components';
 import { cn } from '/src/utils/classnames';
 
-const separator = ['my-2', 'border-t border-textGray'];
-
 export type PropsT = {
   className?: any;
 };
@@ -37,13 +35,11 @@ export const PlaylistListPicker = observer(
           props.className
         )}
       >
-        <div className={cn('Dashboard__Separator__', separator)} />
         <PlaylistListHeader />
         <PlaylistListView
           className={cn('overflow-y-auto')}
           isExpanded={props.dashboardState.isPlaylistListExpanded}
         />
-        <div className={cn('Dashboard__Separator__', separator)} />
       </div>
     );
   }, DefaultProps)
@@ -53,7 +49,6 @@ export const PlaylistListPickerLoader = observer(
   (props: PropsT & typeof DefaultProps) => {
     return (
       <div className={cn('ClipListViewLoader', props.className)}>
-        <div className={cn('Dashboard__Separator__', separator)} />
         <div
           className={cn(
             'ClipListViewLoader__Body',
@@ -61,7 +56,6 @@ export const PlaylistListPickerLoader = observer(
             'rounded bg-gray-300'
           )}
         ></div>
-        <div className={cn('Dashboard__Separator__', separator)} />
       </div>
     );
   }
