@@ -70,6 +70,7 @@ export const useClipsState = (props: PropsT) => {
           resources: props.getPlaylist()?.clipSet ?? [],
         });
       },
+      //
       getClipPD: () => {
         return getClipPD.data?.clipPD ?? createClipPD();
       },

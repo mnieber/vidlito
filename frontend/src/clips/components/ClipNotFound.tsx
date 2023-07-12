@@ -4,6 +4,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useResize } from '/src/frames/hooks/useResize';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
+import { log } from '/src/utils/logging';
 import { widthToHeight } from '/src/videos/utils/aspectRatio';
 
 // Import styles
@@ -22,6 +23,7 @@ export const ClipNotFound = observer(
     const { panelWidth, onResize } = useResize({});
     const width = (panelWidth ?? props.videoPlayerState.panelWidth ?? 100) - 1;
     const height = widthToHeight(width);
+    log('Clip not found');
 
     return (
       <div

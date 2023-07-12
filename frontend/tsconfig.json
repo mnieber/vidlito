@@ -24,7 +24,6 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "useDefineForClassFields": true
   },
   "include": [
     "src"
