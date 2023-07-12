@@ -42,7 +42,12 @@ export const Dashboard = observer(
             props.className
           )}
         >
-          <div className={cn('Dashboard__LeftSpacer', 'lg:w-[160px]')} />
+          <div
+            className={cn(
+              'Dashboard__LeftSpacer',
+              'lg:w-[160px] lg:min-w-[160px]'
+            )}
+          />
           {
             // 🔳 LeftSideBar 🔳
           }
@@ -52,7 +57,7 @@ export const Dashboard = observer(
               //
               //
               L.col.banner(),
-              'w-[290px] mx-2 lg:mx-4'
+              'w-[290px] min-w-[290px] mx-2 lg:mx-4'
             )}
           >
             <Logo />
