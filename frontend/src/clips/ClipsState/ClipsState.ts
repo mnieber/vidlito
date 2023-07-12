@@ -9,11 +9,11 @@ import {
   Hovering,
   Insertion,
   Selection,
-  Store,
 } from 'skandha-facets';
 import { ClipPDT } from '/src/api/types/ClipPDT';
 import { ClipT } from '/src/api/types/ClipT';
 import { ClipPDStore } from '/src/clips/ClipsState/facets/ClipPDStore';
+import { ClipsStore } from '/src/clips/ClipsState/facets/ClipsStore';
 import { Move } from '/src/clips/ClipsState/facets/Move';
 import { registerClipPDCtr } from '/src/clips/ClipsState/registerClipPDCtr';
 import { registerClipsCtr } from '/src/clips/ClipsState/registerClipsCtr';
@@ -48,7 +48,7 @@ export class ClipsState {
     insertion: new Insertion<ClipT>(),
     move: new Move(),
     selection: new Selection<ClipT>(),
-    store: new Store<ClipT>(),
+    store: new ClipsStore(),
   };
 
   clipPDCtr = {
