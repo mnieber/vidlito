@@ -29,14 +29,17 @@ const DefaultProps = {
 
 export const ClipCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const noClips = !props.clips.length && !isLoading(props.clips);
     const notFound = !props.clip && !isLoading(props.clip);
+    if (notFound) {
+      return <ClipNotFound />;
+    }
+
+    const noClips = !props.clips.length && !isLoading(props.clips);
     const showPlaylist = props.dashboardState.showPlaylistView || noClips;
 
     return (
       <>
-        {!noClips && !notFound && <VideoPlayerPanel className={cn('mb-3')} />}
-        {notFound && <ClipNotFound />}
+        {!noClips && <VideoPlayerPanel className={cn('mb-3')} />}
         {!R.isNil(props.videoPlayerState.panelWidth) && (
           <div
             className={cn(
