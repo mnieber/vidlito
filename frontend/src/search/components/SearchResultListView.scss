@@ -5,5 +5,5 @@
   @apply rounded-xl;
   @apply text-textGray;
   @apply p-4;
-  grid-template-columns: repeat(4, minmax(min-content, max-content));
+  grid-template-columns: repeat(3, minmax(min-content, max-content)) auto;
 }
