@@ -39,12 +39,7 @@ export const ClipPDView = observer(
 const ClipPDViewLoader = observer((props: PropsT & typeof DefaultProps) => {
   return (
     <div
-      className={cn(
-        'ClipPDViewLoader',
-        'h-[36px]',
-        'rounded bg-gray-100',
-        props.className
-      )}
+      className={cn('ClipPDViewLoader', 'rounded bg-gray-100', props.className)}
     ></div>
   );
 });

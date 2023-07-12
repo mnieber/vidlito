@@ -69,7 +69,7 @@ export const ClipHeaderViewLoader = observer((props: { className?: any }) => {
     <div
       className={cn(
         'ClipHeaderViewLoader',
-        'h-[50px] my-4',
+        'h-[50px]',
         'rounded bg-gray-300',
         props.className
       )}

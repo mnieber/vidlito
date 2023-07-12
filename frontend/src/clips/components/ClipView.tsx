@@ -42,12 +42,7 @@ export const ClipView = observer(
 const ClipViewLoader = observer((props: PropsT & typeof DefaultProps) => {
   return (
     <div
-      className={cn(
-        'ClipViewLoader',
-        'h-[36px]',
-        'rounded bg-gray-100',
-        props.className
-      )}
+      className={cn('ClipViewLoader', 'rounded bg-gray-100', props.className)}
     ></div>
   );
 });

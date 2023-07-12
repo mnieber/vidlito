@@ -23,6 +23,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clip,
+  ...dps.playlist,
   ...dps.clips,
   ...dps.dashboardState,
   ...dps.videoPlayerState,
@@ -30,9 +31,13 @@ const DefaultProps = {
 
 export const ClipCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const notFound = useDelayedFlag(!props.clip && !isLoading(props.clip), 500);
-    if (notFound) {
-      return <ClipNotFound />;
+    const clipNotFound = useDelayedFlag(
+      props.playlist && !props.clip && !isLoading(props.clip),
+      500
+    );
+
+    if (!props.playlist) {
+      return null;
     }
 
     const noClips = !props.clips.length && !isLoading(props.clips);
@@ -40,7 +45,8 @@ export const ClipCard = observer(
 
     return (
       <>
-        {!noClips && <VideoPlayerPanel className={cn('mb-3')} />}
+        {clipNotFound && <ClipNotFound />}
+        {!clipNotFound && !noClips && <VideoPlayerPanel className={cn('')} />}
         {!R.isNil(props.videoPlayerState.panelWidth) && (
           <div
             className={cn(
@@ -48,7 +54,7 @@ export const ClipCard = observer(
               //
               //
               L.col.banner(),
-              'ml-6 mt-5',
+              'ml-6 mt-8',
               'max-w-[776px]'
             )}
           >

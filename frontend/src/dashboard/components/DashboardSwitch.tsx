@@ -31,25 +31,35 @@ export const DashboardSwitch = withDefaultProps(
     return (
       <Switch>
         <UseMainPage>
-          {/* 🔳 */}
+          {
+            // 🔳 Dashboard 🔳
+          }
           <Dashboard>
             <MainView>
               <PageNotFound />
               <Route exact={false} path={routes.search()}>
                 <SelectPlaylistEffect />
+                {
+                  // 🔳 SearchView 🔳
+                }
                 <SearchView className="ml-4 mt-4" />
               </Route>
               <Route exact={true} path={routes.actions()}>
                 <UseActionsPage>
                   {/* 🔳 */}
                   <SelectPlaylistEffect />
+                  {
+                    // 🔳 ActionsView 🔳
+                  }
                   <ActionsView className={cn('ml-2 lg:ml-4 mt-4')} />
                 </UseActionsPage>
               </Route>
               <Route exact={false} path={routes.playlist()}>
                 <SyncPlaylistWithUrlEffect />
-                <Route exact={true} path={routes.playlist()}>
+                <Route path={routes.playlist()}>
                   <PlaylistNotFound />
+                </Route>
+                <Route exact={true} path={routes.playlist()}>
                   <ForwardToClipEffect />
                 </Route>
                 <Route
@@ -59,12 +69,17 @@ export const DashboardSwitch = withDefaultProps(
                     playlistSlug: 'new-playlist',
                   })}
                 >
-                  {/* 🔳 */}
+                  {
+                    // 🔳 PlaylistFormView 🔳
+                  }
                   <PlaylistFormView className="ml-4 mt-4" />
                 </Route>
                 <Route exact={true} path={routes.clip()}>
-                  <SyncClipWithUrlEffect />
                   {/* 🔳 */}
+                  <SyncClipWithUrlEffect />
+                  {
+                    // 🔳 ClipCard 🔳
+                  }
                   <ClipCard />
                 </Route>
               </Route>
