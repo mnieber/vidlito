@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
+import { Edit } from 'skandha-facets';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
@@ -10,13 +11,13 @@ import './ClipEditButton.scss';
 
 export type PropsT = {
   showPlaylist: boolean;
+  clipEdit: Edit;
+  playlistEdit: Edit;
   className?: any;
 };
 
 const DefaultProps = {
   ...dps.clip,
-  ...dps.clipsEdit,
-  ...dps.playlistsEdit,
   ...dps.playlist,
   ...dps.username,
   ...dps.dashboardState,
@@ -25,8 +26,9 @@ const DefaultProps = {
 export const ClipEditButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const isOwnerClip = props.clip?.owner.username === props.username;
-    const isOwnerPlaylist = props.playlist.owner.username === props.username;
+    const isOwnerPlaylist = props.playlist?.owner.username === props.username;
     const isOwner = props.showPlaylist ? isOwnerPlaylist : isOwnerClip;
+    const edit = props.showPlaylist ? props.playlistEdit : props.clipEdit;
 
     return (
       //
@@ -46,9 +48,6 @@ export const ClipEditButton = observer(
         )}
         disabled={!isOwner}
         onClick={() => {
-          const edit = props.showPlaylist
-            ? props.playlistsEdit
-            : props.clipsEdit;
           edit.enable();
         }}
       >

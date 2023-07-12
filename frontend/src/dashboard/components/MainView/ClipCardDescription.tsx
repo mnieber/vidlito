@@ -48,6 +48,8 @@ export const ClipCardDescription = observer(
           <ClipEditButton
             className="self-end"
             showPlaylist={props.showPlaylist}
+            clipEdit={props.clipsEdit}
+            playlistEdit={props.playlistsEdit}
           />
         </div>
         {!props.showPlaylist && !editClip && <ClipView className="" />}

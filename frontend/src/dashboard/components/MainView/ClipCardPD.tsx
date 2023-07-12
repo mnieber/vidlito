@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipPDView } from '/src/clips/components';
+import { ClipEditButton } from '/src/clips/components/ClipEditButton';
 import { ClipPDFormView } from '/src/clips/components/ClipPDFormView';
-import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
 import { PlaylistPDView } from '/src/playlists/components';
 import { PlaylistPDFormView } from '/src/playlists/components/PlaylistPDFormView';
@@ -45,23 +45,12 @@ export const ClipCardPD = observer(
           )}
         >
           <div className={cn('ClipCardPD__Title')}>Private data</div>
-          <button
-            className={cn(
-              'PDEditButton',
-              //
-              //
-              L.ToolButton.root()
-            )}
-            onClick={() => {
-              props.clipPDEdit.enable();
-            }}
-          >
-            <Icon
-              className={cn('PDEditButton__Icon', L.ToolButton.icon.small())}
-              name="pencil"
-            />
-            Edit
-          </button>
+          <ClipEditButton
+            className="self-end"
+            showPlaylist={props.showPlaylist}
+            clipEdit={props.clipPDEdit}
+            playlistEdit={props.playlistPDEdit}
+          />
         </div>
         {!props.showPlaylist && !editClipPD && <ClipPDView className="" />}
         {!props.showPlaylist && editClipPD && <ClipPDFormView />}
