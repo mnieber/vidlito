@@ -1,14 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
-import React from 'react';
-import ReactResizeDetector from 'react-resize-detector';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
-import { useResize } from '/src/frames/hooks/useResize';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { VideoPlayer } from '/src/videos/components/VideoPlayer';
-import { getVideoWidth, widthToHeight } from '/src/videos/utils/aspectRatio';
+import { widthToHeight } from '/src/videos/utils/aspectRatio';
 
 type PropsT = {
   className?: any;
@@ -21,24 +18,13 @@ const DefaultProps = {
 
 export const VideoPlayerPanel = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const ref = React.useRef<HTMLDivElement>(null);
-    const { panelWidth, isResizing, onResize } = useResize({});
-
     const ready = props.videoPlayerState.ready;
-    const nextPanelWidth = !!panelWidth
-      ? getVideoWidth(props.videoPlayerState.isFullVideoWidth, panelWidth)
-      : undefined;
-
-    React.useEffect(() => {
-      if (!R.isNil(nextPanelWidth)) {
-        props.videoPlayerState.setPanelWidth(nextPanelWidth);
-      }
-    }, [nextPanelWidth]);
-
     const width = props.videoPlayerState.panelWidth;
+
+    if (R.isNil(width)) return null;
+
     return (
       <div
-        ref={ref}
         className={cn(
           'VideoPlayerPanel',
           //
@@ -47,33 +33,22 @@ export const VideoPlayerPanel = observer(
           props.className
         )}
       >
-        <ReactResizeDetector handleWidth onResize={onResize} />
-        {!R.isNil(width) && (
-          <>
-            <VideoPlayerPanelPlaceholder width={width} hidden={ready} />
-            <div
-              className={cn('VideoPlayerPanel__Body', { hidden: !ready })}
-              style={{
-                height: widthToHeight(width),
-              }}
-            >
-              <VideoPlayer
-                key={props.videoPlayerState.url} // yes, we need this
-                videoPlayerParentElm={
-                  props.dashboardState.video.videoPlayerParentElm
-                }
-                videoPlayerState={props.videoPlayerState}
-                // The video image is slightly smaller than the container so
-                // that the ResizeDetector can detect the resize towards a smaller image.
-                width={width - 1}
-                // During a resize we make the video image absolute so that it doesn't
-                // affect the layout of the container. Without this trick, the container
-                // cannot be made smaller than the video image.
-                className={cn('', { absolute: isResizing })}
-              />
-            </div>
-          </>
-        )}
+        <VideoPlayerPanelPlaceholder width={width} hidden={ready} />
+        <div
+          className={cn('VideoPlayerPanel__Body', { hidden: !ready })}
+          style={{
+            height: widthToHeight(width),
+          }}
+        >
+          <VideoPlayer
+            key={props.videoPlayerState.url} // yes, we need this
+            videoPlayerParentElm={
+              props.dashboardState.video.videoPlayerParentElm
+            }
+            videoPlayerState={props.videoPlayerState}
+            width={width}
+          />
+        </div>
       </div>
     );
   }, DefaultProps)

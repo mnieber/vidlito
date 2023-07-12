@@ -13,6 +13,7 @@ import './AccountMenu.scss';
 
 export type PropsT = {
   className?: any;
+  style?: any;
 };
 
 const DefaultProps = {
@@ -30,7 +31,7 @@ export const AccountMenu = observer(
     };
 
     return props.dashboardState.accountMenu.menuProps ? (
-      <div className={cn('AccountMenu', props.className)}>
+      <div className={cn('AccountMenu', props.className)} style={props.style}>
         <Menu
           menuButton={
             <MenuButton

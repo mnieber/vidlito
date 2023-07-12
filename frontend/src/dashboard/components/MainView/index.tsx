@@ -1,9 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import ReactResizeDetector from 'react-resize-detector';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { AccountMenu } from '/src/frames/components';
+import { useResize } from '/src/frames/hooks/useResize';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
+import { getVideoWidth } from '/src/videos/utils/aspectRatio';
 
 // Import styles
 import './index.scss';
@@ -19,34 +22,40 @@ export type PropsT = React.PropsWithChildren<{
 
 const DefaultProps = {
   ...dps.dashboardState,
+  ...dps.videoPlayerState,
 };
 
 export const MainView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const parentElmRef = React.useRef<HTMLDivElement>(null);
-    const parentElm = parentElmRef.current;
+    const { panelWidth, onResize } = useResize({});
+    const maxVideoWidth = props.videoPlayerState.isFullVideoWidth ? 1200 : 800;
+    const nextPanelWidth = getVideoWidth(
+      maxVideoWidth,
+      (panelWidth ?? 200) - 150
+    );
 
     React.useEffect(() => {
-      props.dashboardState.setVideoPlayerParentElm(parentElm);
-    }, [props.dashboardState, parentElm]);
+      props.videoPlayerState.setPanelWidth(nextPanelWidth);
+    }, [props.videoPlayerState, nextPanelWidth]);
 
     return (
-      <div className={cn('MainView', L.row.banner(), 'h-full')}>
+      <div className={cn('MainView', L.row.banner(), '_relative', 'h-full')}>
+        <ReactResizeDetector handleWidth onResize={onResize} />
         <div
-          ref={parentElmRef}
           tabIndex={0}
           className={cn(
             'MainView__Body',
             //
             //
             L.col.banner(),
-            'grow max-w-[1200px]',
+            'grow',
             props.className
           )}
+          style={{ maxWidth: maxVideoWidth }}
         >
           {props.children}
         </div>
-        <AccountMenu className="mt-4 mx-8 self-start" />
+        <AccountMenu className={cn('mt-4 mx-8')} />
       </div>
     );
   }, DefaultProps)
