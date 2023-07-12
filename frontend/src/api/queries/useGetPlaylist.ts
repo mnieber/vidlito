@@ -68,6 +68,7 @@ export const useGetPlaylist = (args: ArgsT, options?: OptionsT) => {
   return useQuery({
     queryKey: queryKey(args),
     queryFn: () => getPlaylist(args),
+    retry: 0,
     enabled: !!(options?.enabled ?? true),
     onSuccess: (response: ObjT) => {
       queryClient.setQueriesData(

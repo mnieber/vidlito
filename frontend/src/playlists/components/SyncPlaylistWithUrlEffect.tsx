@@ -2,7 +2,6 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { isLoading } from '/src/api/getState';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
@@ -50,10 +49,8 @@ export const SyncPlaylistWithUrlEffect = observer(
         };
 
         const getPlaylistForCurrentUrl = () => {
-          return (
-            R.find((x: PlaylistT) => x.slug === params.playlistSlug)(
-              playlists
-            ) ?? (isLoading(playlist) ? undefined : R.head(playlists))
+          return R.find((x: PlaylistT) => x.slug === params.playlistSlug)(
+            playlists
           );
         };
 

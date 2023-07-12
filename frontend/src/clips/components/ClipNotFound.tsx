@@ -42,7 +42,7 @@ export const ClipNotFound = observer(
             'grow'
           )}
         >
-          {`Oops, it seems this clip doesn't exist`}
+          Oops, it seems this clip doesn't exist
         </div>
       </div>
     );

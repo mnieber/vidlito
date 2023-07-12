@@ -12,6 +12,7 @@ import {
   PlaylistFormView,
   SyncPlaylistWithUrlEffect,
 } from '/src/playlists/components';
+import { PlaylistNotFound } from '/src/playlists/components/PlaylistNotFound';
 import { SelectPlaylistEffect } from '/src/playlists/components/SelectPlaylistEffect';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
 import { SearchView } from '/src/search/components/SearchView';
@@ -46,6 +47,7 @@ export const DashboardSwitch = withDefaultProps(
               <Route exact={false} path={routes.playlist()}>
                 <SyncPlaylistWithUrlEffect />
                 <Route exact={true} path={routes.playlist()}>
+                  <PlaylistNotFound />
                   <ForwardToClipEffect />
                 </Route>
                 <Route
