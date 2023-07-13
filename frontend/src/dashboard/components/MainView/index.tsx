@@ -39,7 +39,7 @@ export const MainView = observer(
     }, [props.videoPlayerState, nextPanelWidth]);
 
     return (
-      <div className={cn('MainView', L.row.banner(), '_relative', 'h-full')}>
+      <div className={cn('MainView', L.row.banner(), 'h-full')}>
         <ReactResizeDetector handleWidth onResize={onResize} />
         <div
           tabIndex={0}
