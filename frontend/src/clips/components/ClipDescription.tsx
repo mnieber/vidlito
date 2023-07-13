@@ -5,7 +5,7 @@ import { MarkdownView } from '/src/frames/components';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './ClipView.scss';
+import './ClipDescription.scss';
 
 export type PropsT = {
   className?: any;
@@ -16,16 +16,16 @@ const DefaultProps = {
   ...dps.dashboardState,
 };
 
-export const ClipView = observer(
+export const ClipDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (isLoading(props.clip)) return <ClipViewLoader {...props} />;
+    if (isLoading(props.clip)) return <ClipDescriptionLoader {...props} />;
 
     const description = props.clip?.description ?? '';
 
     return (
       <div
         className={cn(
-          'ClipView',
+          'ClipDescription',
           //
           //
           props.className
@@ -39,10 +39,16 @@ export const ClipView = observer(
   }, DefaultProps)
 );
 
-const ClipViewLoader = observer((props: PropsT & typeof DefaultProps) => {
-  return (
-    <div
-      className={cn('ClipViewLoader', 'rounded bg-gray-100', props.className)}
-    ></div>
-  );
-});
+const ClipDescriptionLoader = observer(
+  (props: PropsT & typeof DefaultProps) => {
+    return (
+      <div
+        className={cn(
+          'ClipDescriptionLoader',
+          'rounded bg-gray-100',
+          props.className
+        )}
+      ></div>
+    );
+  }
+);

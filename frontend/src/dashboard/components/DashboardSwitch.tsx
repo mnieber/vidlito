@@ -2,9 +2,9 @@ import { Route, Switch } from 'react-router-dom';
 import { ActionsView } from '/src/actions/components';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { SyncClipWithUrlEffect } from '/src/clips/components';
+import { CopCard } from '/src/clips/components/CopCard';
 import { Dashboard } from '/src/dashboard/components/Dashboard';
 import { MainView } from '/src/dashboard/components/MainView';
-import { ClipCard } from '/src/dashboard/components/MainView/ClipCard';
 import { PageNotFound } from '/src/frames/components/PageNotFound';
 import { UseActionsPage } from '/src/frames/pages/UseActionsPage';
 import { UseMainPage } from '/src/frames/pages/UseMainPage';
@@ -78,9 +78,9 @@ export const DashboardSwitch = withDefaultProps(
                   {/* 🔳 */}
                   <SyncClipWithUrlEffect />
                   {
-                    // 🔳 ClipCard 🔳
+                    // 🔳 Clip or Playlist Card 🔳
                   }
-                  <ClipCard />
+                  <CopCard />
                 </Route>
               </Route>
             </MainView>

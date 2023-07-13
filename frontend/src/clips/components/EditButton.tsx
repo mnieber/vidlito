@@ -7,12 +7,11 @@ import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './ClipEditButton.scss';
+import './EditButton.scss';
 
 export type PropsT = {
-  showPlaylist: boolean;
-  clipEdit: Edit;
-  playlistEdit: Edit;
+  enabled: boolean;
+  edit: Edit;
   className?: any;
 };
 
@@ -23,37 +22,32 @@ const DefaultProps = {
   ...dps.isOwner,
 };
 
-export const ClipEditButton = observer(
+export const EditButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const isOwner = props.showPlaylist
-      ? props.isOwner(props.playlist)
-      : props.isOwner(props.clip);
-    const edit = props.showPlaylist ? props.playlistEdit : props.clipEdit;
-
     return (
       //
       // 🔳 EditButton 🔳
       //
       <button
         className={cn(
-          'ClipEditButton',
+          'EditButton',
           {
-            'ClipEditButton--disabled': !isOwner,
-            'ClipEditButton--invisible': R.isNil(props.username),
+            'EditButton--disabled': !props.enabled,
+            'EditButton--invisible': R.isNil(props.username),
           },
           //
           //
           L.ToolButton.root(),
           props.className
         )}
-        disabled={!isOwner}
+        disabled={!props.enabled}
         onClick={() => {
-          edit.enable();
+          props.edit.enable();
         }}
       >
         <Icon
-          className={cn('ClipEditButton__Icon', L.ToolButton.icon.small(), {
-            'ClipEditButton__Icon--disabled': !isOwner,
+          className={cn('EditButton__Icon', L.ToolButton.icon.small(), {
+            'EditButton__Icon--disabled': !props.enabled,
           })}
           name="pencil"
         />

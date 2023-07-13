@@ -1,14 +1,17 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { ClipEditButton } from '/src/clips/components/ClipEditButton';
+import { ClipDescription } from '/src/clips/components/ClipDescription';
 import { ClipFormView } from '/src/clips/components/ClipFormView';
-import { ClipView } from '/src/clips/components/ClipView';
+import { EditButton } from '/src/clips/components/EditButton';
 import { L } from '/src/frames/layout';
-import { PlaylistFormView, PlaylistView } from '/src/playlists/components';
+import {
+  PlaylistDescription,
+  PlaylistFormView,
+} from '/src/playlists/components';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './ClipCardDescription.scss';
+import './CopDescription.scss';
 
 export type PropsT = {
   showPlaylist: boolean;
@@ -25,7 +28,7 @@ const DefaultProps = {
   ...dps.playlistPDEdit,
 };
 
-export const ClipCardDescription = observer(
+export const CopDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const editClip = props.clipsEdit.isEditing;
     const editPlaylist = props.playlistsEdit.isEditing;
@@ -33,7 +36,7 @@ export const ClipCardDescription = observer(
     return (
       <div
         className={cn(
-          'ClipCard__Frame',
+          'CopDescription',
           //
           //
           'py-[18px] px-4',
@@ -42,25 +45,28 @@ export const ClipCardDescription = observer(
       >
         <div
           className={cn(
-            'ClipCard__FrameTopRow',
+            'CopDescription__TopRow',
             L.row.skewer(),
             'grow',
             'justify-between'
           )}
         >
-          <div className={cn('ClipCardDescription__Title')}>Description</div>
+          <div className={cn('CopDescription__Title')}>Description</div>
           {props.isOwner(props.showPlaylist ? props.playlist : props.clip) && (
-            <ClipEditButton
+            <EditButton
               className="self-end"
-              showPlaylist={props.showPlaylist}
-              clipEdit={props.clipsEdit}
-              playlistEdit={props.playlistsEdit}
+              edit={props.showPlaylist ? props.playlistsEdit : props.clipsEdit}
+              enabled={
+                props.showPlaylist
+                  ? props.isOwner(props.playlist)
+                  : props.isOwner(props.clip)
+              }
             />
           )}
         </div>
-        {!props.showPlaylist && !editClip && <ClipView className="" />}
+        {!props.showPlaylist && !editClip && <ClipDescription className="" />}
         {!props.showPlaylist && editClip && <ClipFormView />}
-        {props.showPlaylist && !editPlaylist && <PlaylistView />}
+        {props.showPlaylist && !editPlaylist && <PlaylistDescription />}
         {props.showPlaylist && editPlaylist && <PlaylistFormView />}
       </div>
     );

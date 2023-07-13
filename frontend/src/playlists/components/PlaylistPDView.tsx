@@ -26,7 +26,6 @@ export const PlaylistPDView = observer(
           'PlaylistPDView',
           //
           //
-          'py-[18px] px-4',
           props.className
         )}
       >

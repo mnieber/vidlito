@@ -1,15 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipPDView } from '/src/clips/components';
-import { ClipEditButton } from '/src/clips/components/ClipEditButton';
 import { ClipPDFormView } from '/src/clips/components/ClipPDFormView';
+import { EditButton } from '/src/clips/components/EditButton';
 import { L } from '/src/frames/layout';
 import { PlaylistPDView } from '/src/playlists/components';
 import { PlaylistPDFormView } from '/src/playlists/components/PlaylistPDFormView';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './ClipCardPD.scss';
+import './CopPD.scss';
 
 export type PropsT = {
   showPlaylist: boolean;
@@ -20,9 +20,10 @@ const DefaultProps = {
   ...dps.clips,
   ...dps.clipPDEdit,
   ...dps.playlistPDEdit,
+  ...dps.userProfile,
 };
 
-export const ClipCardPD = observer(
+export const CopPD = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const editClipPD = props.clipPDEdit.isEditing;
     const editPlaylistPD = props.playlistPDEdit.isEditing;
@@ -30,7 +31,7 @@ export const ClipCardPD = observer(
     return (
       <div
         className={cn(
-          'ClipCard__PDFrame',
+          'CopPD',
           //
           //
           'py-[18px] px-4'
@@ -38,18 +39,19 @@ export const ClipCardPD = observer(
       >
         <div
           className={cn(
-            'ClipPDFrame__TopRow',
+            'CopPD__TopRow',
             L.row.skewer(),
             'grow',
             'justify-between'
           )}
         >
-          <div className={cn('ClipCardPD__Title')}>Private data</div>
-          <ClipEditButton
+          <div className={cn('CopPD__Title')}>
+            {`${props.showPlaylist ? 'Playlist' : 'Clip'} private data`}
+          </div>
+          <EditButton
             className="self-end"
-            showPlaylist={props.showPlaylist}
-            clipEdit={props.clipPDEdit}
-            playlistEdit={props.playlistPDEdit}
+            edit={props.showPlaylist ? props.playlistPDEdit : props.clipPDEdit}
+            enabled={!!props.userProfile}
           />
         </div>
         {!props.showPlaylist && !editClipPD && <ClipPDView className="" />}

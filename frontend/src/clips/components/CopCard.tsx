@@ -2,10 +2,10 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { ClipCardDescription } from '/src/clips/components/ClipCardDescription';
-import { ClipCardPD } from '/src/clips/components/ClipCardPD';
 import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
 import { ClipNotFound } from '/src/clips/components/ClipNotFound';
+import { CopDescription } from '/src/clips/components/CopDescription';
+import { CopPD } from '/src/clips/components/CopPD';
 import { L } from '/src/frames/layout';
 import { AuthorCard } from '/src/playlists/components/AuthorCard';
 import { CreateFirstClip } from '/src/playlists/components/CreateFirstClip';
@@ -15,7 +15,7 @@ import { useDelayedFlag } from '/src/utils/hooks/useDelayedFlag';
 import { VideoPlayerPanel } from '/src/videos/components';
 
 // Import styles
-import './ClipCard.scss';
+import './CopCard.scss';
 
 export type PropsT = {
   className?: any;
@@ -30,7 +30,7 @@ const DefaultProps = {
   ...dps.isOwner,
 };
 
-export const ClipCard = observer(
+export const CopCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const clipNotFound = useDelayedFlag(
       props.playlist && !props.clip && !isLoading(props.clip),
@@ -51,7 +51,7 @@ export const ClipCard = observer(
         {!R.isNil(props.videoPlayerState.panelWidth) && (
           <div
             className={cn(
-              'ClipCard__Body',
+              'CopCard__Body',
               //
               //
               L.col.banner(),
@@ -63,8 +63,8 @@ export const ClipCard = observer(
             <AuthorCard>
               <TagsCard />
             </AuthorCard>
-            <ClipCardDescription showPlaylist={showPlaylist} />
-            <ClipCardPD showPlaylist={showPlaylist} />
+            <CopDescription showPlaylist={showPlaylist} />
+            <CopPD showPlaylist={showPlaylist} />
             {noClips && props.isOwner(props.clip) && (
               <CreateFirstClip className="mt-4" />
             )}
