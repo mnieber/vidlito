@@ -28,11 +28,17 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
+    const { terms: clipTerms, tags: clipTags } = get_terms_and_tags(
+      values['searchForm.clipTerms'] ?? ''
+    );
+    const { terms: playlistTerms, tags: playlistTags } = get_terms_and_tags(
+      values['searchForm.playlistTerms'] ?? ''
+    );
     return props.searchState.searchContent({
-      clipTerms: values['searchForm.clipTerms'],
-      clipTags: [],
-      playlistTerms: values['searchForm.playlistTerms'],
-      playlistTags: [],
+      clipTerms: clipTerms,
+      clipTags: clipTags,
+      playlistTerms: playlistTerms,
+      playlistTags: playlistTags,
     });
   };
 
@@ -46,4 +52,16 @@ export const form = {
   getHandleCancel,
   getInitialValues,
   getInitialErrors,
+};
+
+const get_terms_and_tags = (input: string) => {
+  const words = input
+    .split(' ')
+    .map((word) => word.trim())
+    .filter((word) => word.length > 0);
+  const tags = words
+    .filter((word) => word.startsWith('#'))
+    .map((word) => word.slice(1));
+  const terms = words.filter((word) => !word.startsWith('#'));
+  return { terms, tags };
 };

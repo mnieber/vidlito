@@ -1,11 +1,13 @@
 import uuid
 
 import graphene
+from django.db.models import Q
 from graphene.types.generic import GenericScalar
 
 from api.types import *
 from api.types.searchresult_t import SearchResultT
 from clips.models import Clip
+from playlists.models import Playlist
 
 
 class SearchContent(graphene.Mutation):
@@ -33,7 +35,14 @@ class SearchContent(graphene.Mutation):
         clip_tags=None,
     ):
         search_results = []
-        for clip in Clip.objects.all():
+
+        clip_clauses = []
+        for term in clip_terms or []:
+            clip_clauses.append(Q(name__icontains=term))
+        for tag in clip_tags or []:
+            clip_clauses.append(Q(tags__contains=[tag]))
+
+        for clip in Clip.objects.filter(*clip_clauses).all():
             playlist_slug = clip.source_playlist.slug if clip.source_playlist else None
             playlist_name = clip.source_playlist.name if clip.source_playlist else None
             nr_of_clips = (
@@ -49,6 +58,25 @@ class SearchContent(graphene.Mutation):
                     clip_name=clip.name,
                     nr_of_clips=nr_of_clips,
                     owner_username=clip.owner.username,
+                )
+            )
+
+        playlist_clauses = []
+        for term in playlist_terms or []:
+            playlist_clauses.append(Q(name__icontains=term))
+        for tag in playlist_tags or []:
+            playlist_clauses.append(Q(tags__contains=[tag]))
+
+        for playlist in Playlist.objects.filter(*playlist_clauses).all():
+            search_results.append(
+                SearchResultT(
+                    id=uuid.uuid4().hex,
+                    playlist_slug=playlist.slug,
+                    playlist_name=playlist.name,
+                    clip_slug=None,
+                    clip_name=None,
+                    nr_of_clips=playlist.nr_of_clips,
+                    owner_username=playlist.owner.username,
                 )
             )
 
