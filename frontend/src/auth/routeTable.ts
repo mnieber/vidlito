@@ -9,7 +9,7 @@ export const getRouteTable = () => {
     home: () => getHomeRoute(),
     signInByMagicLink: () => '/auth/sign-in/:magicLinkToken/',
     signUp: () => '/auth/sign-up/',
-    termsAndConditions: () => '/auth/terms-and-conditions/',
+    termsAndConditions: () => '/terms-and-conditions/',
     requestPasswordReset: () => '/auth/request-password-reset/',
     requestMagicLink: () => '/auth/request-magic-link/',
     resetPassword: () => '/auth/reset-password/:passwordResetToken/',
