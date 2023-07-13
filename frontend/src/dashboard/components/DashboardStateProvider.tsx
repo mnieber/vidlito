@@ -11,6 +11,7 @@ import { useDashboardState } from '/src/dashboard/hooks/useDashboardState';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { log } from '/src/utils/logging';
+import { ObjT } from '/src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -62,6 +63,10 @@ export const DashboardStateProvider = observer(
           username: () => dashboardState.account.username,
           userProfile: () => cache.userProfile,
           followSet: () => cache.followSet,
+          isOwner: () => (obj: ObjT) =>
+            !!obj &&
+            !!cache.userProfile &&
+            cache.userProfile.username === obj.owner?.username,
         },
       };
 

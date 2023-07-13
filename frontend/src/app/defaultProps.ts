@@ -24,6 +24,7 @@ import { DashboardState } from '/src/dashboard/DashboardState';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { IPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { SearchState } from '/src/search/SearchState/SearchState';
+import { ObjT } from '/src/utils/types';
 import { VideoController } from '/src/videos/VideoController';
 import { VideoPlayerState } from '/src/videos/VideoPlayerState';
 export { stub, withDefaultProps } from 'react-default-props-context';
@@ -139,6 +140,9 @@ const dpsDashboard = {
   },
   userProfile: {
     userProfile: stub as UserProfileT,
+  },
+  isOwner: {
+    isOwner: stub as (obj: ObjT) => boolean,
   },
   username: {
     username: stub as string,

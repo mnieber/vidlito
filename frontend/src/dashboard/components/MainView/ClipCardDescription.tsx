@@ -16,6 +16,9 @@ export type PropsT = {
 };
 
 const DefaultProps = {
+  ...dps.clip,
+  ...dps.playlist,
+  ...dps.isOwner,
   ...dps.clipsEdit,
   ...dps.clipPDEdit,
   ...dps.playlistsEdit,
@@ -26,6 +29,7 @@ export const ClipCardDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const editClip = props.clipsEdit.isEditing;
     const editPlaylist = props.playlistsEdit.isEditing;
+
     return (
       <div
         className={cn(
@@ -45,12 +49,14 @@ export const ClipCardDescription = observer(
           )}
         >
           <div className={cn('ClipCardDescription__Title')}>Description</div>
-          <ClipEditButton
-            className="self-end"
-            showPlaylist={props.showPlaylist}
-            clipEdit={props.clipsEdit}
-            playlistEdit={props.playlistsEdit}
-          />
+          {props.isOwner(props.showPlaylist ? props.playlist : props.clip) && (
+            <ClipEditButton
+              className="self-end"
+              showPlaylist={props.showPlaylist}
+              clipEdit={props.clipsEdit}
+              playlistEdit={props.playlistsEdit}
+            />
+          )}
         </div>
         {!props.showPlaylist && !editClip && <ClipView className="" />}
         {!props.showPlaylist && editClip && <ClipFormView />}

@@ -16,6 +16,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.videoPlayerState,
+  ...dps.clips,
 };
 
 export const ClipNotFound = observer(
@@ -23,6 +24,9 @@ export const ClipNotFound = observer(
     const { panelWidth, onResize } = useResize({});
     const width = (panelWidth ?? props.videoPlayerState.panelWidth ?? 100) - 1;
     const height = widthToHeight(width);
+    const msg = props.clips.length
+      ? "Oops, it seems this clip doesn't exist"
+      : 'There are no clips in this playlist yet';
     log('Clip not found');
 
     return (
@@ -44,7 +48,7 @@ export const ClipNotFound = observer(
             'grow'
           )}
         >
-          Oops, it seems this clip doesn't exist
+          {msg}
         </div>
       </div>
     );

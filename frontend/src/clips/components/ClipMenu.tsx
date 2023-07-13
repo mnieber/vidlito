@@ -19,27 +19,21 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clipsDeletion,
-  ...dps.clipsHighlight,
   ...dps.clipsMove,
   ...dps.clipsSelection,
-  ...dps.clipsState,
   ...dps.dashboardState,
   ...dps.playlist,
   ...dps.playlists,
-  ...dps.username,
+  ...dps.isOwner,
 };
 
 export const ClipMenu = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (
-      !props.playlists ||
-      !props.playlist ||
-      props.playlist.owner.username !== props.username
-    )
+    if (!props.playlists || !props.playlist || !props.isOwner(props.playlist))
       return null;
 
     const otherPlaylists = props.playlists.filter(
-      (x) => x.id !== props.playlist.id && x.owner.username === props.username
+      (x) => x.id !== props.playlist.id && props.isOwner(x)
     );
     const noPlaylistsDiv = (
       <MenuItem key="noPlaylists" disabled={true}>

@@ -27,6 +27,7 @@ const DefaultProps = {
   ...dps.clips,
   ...dps.dashboardState,
   ...dps.videoPlayerState,
+  ...dps.isOwner,
 };
 
 export const ClipCard = observer(
@@ -64,7 +65,9 @@ export const ClipCard = observer(
             </AuthorCard>
             <ClipCardDescription showPlaylist={showPlaylist} />
             <ClipCardPD showPlaylist={showPlaylist} />
-            {noClips && <CreateFirstClip className="mt-4" />}
+            {noClips && props.isOwner(props.clip) && (
+              <CreateFirstClip className="mt-4" />
+            )}
           </div>
         )}
       </>

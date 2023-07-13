@@ -20,14 +20,14 @@ const DefaultProps = {
   ...dps.clip,
   ...dps.playlist,
   ...dps.username,
-  ...dps.dashboardState,
+  ...dps.isOwner,
 };
 
 export const ClipEditButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const isOwnerClip = props.clip?.owner.username === props.username;
-    const isOwnerPlaylist = props.playlist?.owner.username === props.username;
-    const isOwner = props.showPlaylist ? isOwnerPlaylist : isOwnerClip;
+    const isOwner = props.showPlaylist
+      ? props.isOwner(props.playlist)
+      : props.isOwner(props.clip);
     const edit = props.showPlaylist ? props.playlistEdit : props.clipEdit;
 
     return (
