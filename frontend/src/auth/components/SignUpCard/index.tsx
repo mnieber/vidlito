@@ -26,29 +26,27 @@ export const SignUpCard = observer(() => {
     //
     <AuthCard id="SignUpCard">
       {
-        // 🔳 SignUpForm 🔳
-      }
-      <SignUpForm
-        className={cn(l.Form())}
-        signUp={(email: string, acceptsTerms: boolean) => {
-          return signUp({
-            userId: email,
-            acceptsTerms,
-            termsVersionAccepted: termsVersion,
-          });
-        }}
-        errors={authState.errors}
-      />
-      {
         // 🔳 Confirmation 🔳
       }
       {authState.state === States.SIGN_UP_SUCCEEDED && (
-        <div className={cn(l.CardFooter())}>
-          {messages.divYouHaveBeenSignedUp}
-        </div>
+        <div className={cn('')}>{messages.divYouHaveBeenSignedUp}</div>
       )}
       {authState.state !== States.SIGN_UP_SUCCEEDED && (
         <React.Fragment>
+          {
+            // 🔳 SignUpForm 🔳
+          }
+          <SignUpForm
+            className={cn(l.Form())}
+            signUp={(email: string, acceptsTerms: boolean) => {
+              return signUp({
+                userId: email,
+                acceptsTerms,
+                termsVersionAccepted: termsVersion,
+              });
+            }}
+            errors={authState.errors}
+          />
           <div className={cn(l.CardFooter())}>
             {messages.ifYouAlreadyHaveAnAccount}
           </div>

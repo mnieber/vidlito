@@ -43,11 +43,7 @@ export function ActivateAccountForm(props: PropsT) {
       >
         <GlobalError className={cn(l.GlobalError())} />
 
-        <div className={cn(l.Header())}>
-          {messages.divYouAreOneStepAway}
-          <br />
-          {messages.divToProceedPleaseChooseANewPassword}
-        </div>
+        <div className={cn(l.Header())}>{messages.divYouAreOneStepAway}</div>
 
         <Field
           fieldName={formFields.password}
