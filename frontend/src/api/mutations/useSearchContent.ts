@@ -6,10 +6,8 @@ import { wait } from '/src/utils/wait';
 export type ArgsT = {
   page: number;
   pageSize: number;
-  playlistTerms: string[];
-  playlistTags: string[];
-  clipTerms: string[];
-  clipTags: string[];
+  playlistTerms: string;
+  clipTerms: string;
 };
 
 export const searchContent = (args: ArgsT) => {
@@ -17,18 +15,14 @@ export const searchContent = (args: ArgsT) => {
     `mutation searchContent(
       $page: Int
       $pageSize: Int
-      $playlistTerms: [String]
-      $playlistTags: [String]
-      $clipTerms: [String]
-      $clipTags: [String]
+      $playlistTerms: String
+      $clipTerms: String
     ) {
       searchContent(
         page: $page
         pageSize: $pageSize
         playlistTerms: $playlistTerms
-        playlistTags: $playlistTags
         clipTerms: $clipTerms
-        clipTags: $clipTags
       ) {
         errors
         success

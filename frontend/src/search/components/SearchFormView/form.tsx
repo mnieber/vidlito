@@ -8,8 +8,8 @@ import { DefaultProps, PropsT } from './index';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
-    'searchForm.playlistTerms': null,
-    'searchForm.clipTerms': null,
+    'searchForm.playlistTerms': props.searchForm?.playlistTerms ?? null,
+    'searchForm.clipTerms': props.searchForm?.clipTerms ?? null,
   };
 };
 
@@ -28,17 +28,9 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
-    const { terms: clipTerms, tags: clipTags } = get_terms_and_tags(
-      values['searchForm.clipTerms'] ?? ''
-    );
-    const { terms: playlistTerms, tags: playlistTags } = get_terms_and_tags(
-      values['searchForm.playlistTerms'] ?? ''
-    );
     return props.searchState.searchContent({
-      clipTerms: clipTerms,
-      clipTags: clipTags,
-      playlistTerms: playlistTerms,
-      playlistTags: playlistTags,
+      clipTerms: values['searchForm.clipTerms'] ?? '',
+      playlistTerms: values['searchForm.playlistTerms'] ?? '',
     });
   };
 
@@ -52,16 +44,4 @@ export const form = {
   getHandleCancel,
   getInitialValues,
   getInitialErrors,
-};
-
-const get_terms_and_tags = (input: string) => {
-  const words = input
-    .split(' ')
-    .map((word) => word.trim())
-    .filter((word) => word.length > 0);
-  const tags = words
-    .filter((word) => word.startsWith('#'))
-    .map((word) => word.slice(1));
-  const terms = words.filter((word) => !word.startsWith('#'));
-  return { terms, tags };
 };

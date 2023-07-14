@@ -24,6 +24,7 @@ export type PropsT = {
 
 export const DefaultProps = {
   ...dps.searchState,
+  ...dps.searchForm,
 };
 
 export const SearchFormView = observer(

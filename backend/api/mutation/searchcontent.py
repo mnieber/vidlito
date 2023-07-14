@@ -19,10 +19,8 @@ class SearchContent(graphene.Mutation):
     class Arguments:
         page = graphene.Int()
         page_size = graphene.Int()
-        playlist_terms = graphene.List(graphene.String)
-        playlist_tags = graphene.List(graphene.String)
-        clip_terms = graphene.List(graphene.String)
-        clip_tags = graphene.List(graphene.String)
+        playlist_terms = graphene.String()
+        clip_terms = graphene.String()
 
     def mutate(
         self,
@@ -30,17 +28,18 @@ class SearchContent(graphene.Mutation):
         page,
         page_size,
         playlist_terms=None,
-        playlist_tags=None,
         clip_terms=None,
-        clip_tags=None,
     ):
         search_results = []
-        has_terms = playlist_terms or clip_terms
+        clip_query = get_terms_and_tags(clip_terms)
+        playlist_query = get_terms_and_tags(playlist_terms)
+
+        has_terms = playlist_query["terms"] or clip_query["terms"]
 
         playlist_clauses = []
-        for term in playlist_terms or []:
+        for term in playlist_query["terms"] or []:
             playlist_clauses.append(Q(name__icontains=term))
-        for tag in playlist_tags or []:
+        for tag in playlist_query["tags"] or []:
             playlist_clauses.append(Q(tags__contains=tag))
 
         for playlist in (
@@ -61,9 +60,9 @@ class SearchContent(graphene.Mutation):
             )
 
         clip_clauses = []
-        for term in clip_terms or []:
+        for term in clip_query["terms"] or []:
             clip_clauses.append(Q(name__icontains=term))
-        for tag in clip_tags or []:
+        for tag in clip_query["tags"] or []:
             clip_clauses.append(Q(tags__contains=tag))
 
         for clip in (
@@ -113,3 +112,10 @@ def join_clauses(clauses):
     for clause in clauses[1:]:
         result = result & clause
     return result
+
+
+def get_terms_and_tags(input_string):
+    words = [word.strip() for word in input_string.split(" ") if word.strip()]
+    tags = [word[1:] for word in words if word.startswith("#")]
+    terms = [word for word in words if not word.startswith("#")]
+    return {"terms": terms, "tags": tags}
