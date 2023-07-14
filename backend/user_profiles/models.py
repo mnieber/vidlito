@@ -13,4 +13,4 @@ class UserProfile(Entity):
 
     @staticmethod
     def get(info):
-        return UserProfile.get(info)
+        return UserProfile.objects.get(user_id=info.context.user.id)
