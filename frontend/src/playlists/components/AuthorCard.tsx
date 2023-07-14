@@ -22,8 +22,8 @@ export const AuthorCard = observer(
       return null;
     }
 
-    const clipOwnerUsername = props.clip?.owner.username;
-    const playlistOwnerUsername = props.playlist?.owner.username;
+    const clipOwnerUsername = props.clip?.ownerUsername;
+    const playlistOwnerUsername = props.playlist?.ownerUsername;
 
     let label1 = undefined;
     let owner1 = undefined;

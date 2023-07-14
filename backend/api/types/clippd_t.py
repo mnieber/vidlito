@@ -7,6 +7,7 @@ from clips.models import ClipPD
 class ClipPDT(DjangoObjectType):
     class Meta:
         model = ClipPD
+        exclude = ["owner"]
 
     tags = graphene.List(graphene.String)
 

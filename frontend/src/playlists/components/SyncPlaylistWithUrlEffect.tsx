@@ -74,7 +74,7 @@ export const SyncPlaylistWithUrlEffect = observer(
       } else {
         // Check if we must update the current url based on the highlighted playlist.
         if (playlist && params.playlistSlug !== playlist.slug) {
-          navToPlaylist(playlist.owner.username, playlist.slug);
+          navToPlaylist(playlist.ownerUsername, playlist.slug);
         }
       }
     }, [params, playlist, playlists, playlistsHighlight, playlistsSelection]);

@@ -8,7 +8,7 @@ export type ClipT = {
   endTimeMs?: number;
   id: string;
   name: string;
-  owner: UserProfileT;
+  ownerUsername: string;
   slug: string;
   startTimeMs?: number;
   tags: string[];
@@ -32,7 +32,7 @@ export const createClip = (me: UserProfileT, values: ObjT): ClipT => {
   return initRS({
     id: createUUID(),
     name: 'New clip',
-    owner: me,
+    ownerUsername: me.username,
     slug: 'new-clip',
   } as ClipT);
 };

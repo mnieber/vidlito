@@ -10,7 +10,7 @@ export type PlaylistT = {
   id: string;
   name: string;
   nrOfClips: number;
-  owner: UserProfileT;
+  ownerUsername: string;
   slug: string;
   tags: string[];
 };
@@ -38,7 +38,7 @@ export const createPlaylist = (me: UserProfileT, values: ObjT): PlaylistT => {
     id: createUUID(),
     name: 'New playlist',
     nrOfClips: 0,
-    owner: me,
+    ownerUsername: me.username,
     slug: 'new-playlist',
     tags: [],
   } as PlaylistT);

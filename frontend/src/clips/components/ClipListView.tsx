@@ -47,7 +47,7 @@ export const ClipListView = observer(
           const clip = props.clips.find((x) => x.id === args.itemId);
           if (clip) {
             navToClip(
-              props.playlist.owner.username,
+              props.playlist.ownerUsername,
               props.playlist.slug,
               clip.slug
             );

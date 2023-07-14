@@ -66,7 +66,7 @@ export const DashboardStateProvider = observer(
           isOwner: () => (obj: ObjT) =>
             !!obj &&
             !!cache.userProfile &&
-            cache.userProfile.username === obj.owner?.username,
+            cache.userProfile.username === obj.ownerUsername,
         },
       };
 

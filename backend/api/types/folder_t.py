@@ -8,4 +8,5 @@ class FolderT(DjangoObjectType):
         model = Folder
         exclude = [
             "sort_pos",
+            "owner",
         ]

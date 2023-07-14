@@ -60,7 +60,7 @@ export const SyncClipWithUrlEffect = observer(
       } else {
         if (props.clip && params.clipSlug !== props.clip.slug) {
           navToClip(
-            props.playlist.owner.username,
+            props.playlist.ownerUsername,
             props.playlist.slug,
             props.clip.slug
           );

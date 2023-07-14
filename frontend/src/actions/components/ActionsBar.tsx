@@ -83,12 +83,12 @@ export const ActionsBar = observer(
           onClick={() => {
             if (props.clip) {
               navToClip(
-                props.playlist.owner.username,
+                props.playlist.ownerUsername,
                 props.playlist.slug,
                 props.clip.slug
               );
             } else {
-              navToPlaylist(props.playlist.owner.username, props.playlist.slug);
+              navToPlaylist(props.playlist.ownerUsername, props.playlist.slug);
             }
           }}
         >
