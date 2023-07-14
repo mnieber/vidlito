@@ -44,6 +44,13 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
           'hover:underline',
           'text-primaryBlue'
         )}
+        onClick={(e: any) => {
+          e.stopPropagation();
+          navToPlaylist(
+            props.searchResult.ownerUsername,
+            props.searchResult.playlistSlug
+          );
+        }}
       >
         {props.searchResult.playlistName}
       </div>
