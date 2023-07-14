@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { cn } from '/src/utils/classnames';
+import { useDelayedFlag } from '/src/utils/hooks/useDelayedFlag';
 
 // Import styles
 import './PlaylistNotFound.scss';
@@ -16,7 +17,8 @@ const DefaultProps = {
 
 export const PlaylistNotFound = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (props.playlist || isLoading(props.playlist)) {
+    const noPlaylist = useDelayedFlag(!props.playlist, 1000);
+    if (!noPlaylist || props.playlist || isLoading(props.playlist)) {
       return null;
     }
 
