@@ -35,14 +35,11 @@ export const usePlaylistsState = (props: PropsT) => {
   const smartUpdatePlaylists = useSmartUpdatePlaylists();
   const params = useNavHandlerParams();
 
-  // The value of playlistSlugRef is based on playlistsState.playlistsCtr.highlight.
-  // Since playlistsState is not defined yet, we use a ref that we later update.
-  // This means that the first time we call getPlaylistSlug, we will get the
-  // value from the URL. After that, we will get the value either from the
-  // playlistHighlightRef or from the URL.
+  // The value of playlistSlugRef is based on the current url, but we use
+  // playlistsState.playlistsCtr.highlight.item?.slug as a fallback.
   const playlistHighlightRef = React.useRef<Highlight | undefined>();
   const getPlaylistSlug = () =>
-    playlistHighlightRef.current?.item?.slug ?? params.playlistSlug;
+    params.playlistSlug ?? playlistHighlightRef.current?.item?.slug;
 
   // Mutations
   const deletePlaylists = initRS(useDeletePlaylists());
