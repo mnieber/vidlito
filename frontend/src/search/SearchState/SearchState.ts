@@ -49,7 +49,7 @@ export class SearchState {
     return this.props.searchContent(form).then((results) => {
       runInAction(() => {
         this.searchResultsCtr.store.items = results.searchResults;
-        this.searchResultsCtr.store.setSearchContentForm(form);
+        this.searchResultsCtr.store.form = form;
         resetPagination(pagination, results.pagination);
       });
       return results;
