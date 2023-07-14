@@ -34,21 +34,16 @@ export const VideoPlayerPanel = observer(
         )}
       >
         <VideoPlayerPanelPlaceholder width={width} hidden={ready} />
-        <div
-          className={cn('VideoPlayerPanel__Body', { hidden: !ready })}
-          style={{
-            height: widthToHeight(width),
-          }}
-        >
-          <VideoPlayer
-            key={props.videoPlayerState.url} // yes, we need this
-            videoPlayerParentElm={
-              props.dashboardState.video.videoPlayerParentElm
-            }
-            videoPlayerState={props.videoPlayerState}
-            width={width}
-          />
-        </div>
+        <VideoPlayer
+          key={props.videoPlayerState.url} // yes, we need this
+          videoPlayerParentElm={props.dashboardState.video.videoPlayerParentElm}
+          videoPlayerState={props.videoPlayerState}
+          width={width}
+          className={cn('', {
+            absolute: true,
+            hidden: !ready,
+          })}
+        />
       </div>
     );
   }, DefaultProps)
@@ -65,13 +60,13 @@ export const VideoPlayerPanelPlaceholder = (props: {
     <div
       className={cn(
         'VideoPlayerPanelPlaceholder',
-        'bg-blue-300',
+        { 'bg-blue-300': !props.hidden },
         //
         //
         L.row.skewer()
       )}
       style={{
-        height: props.hidden ? 0 : height,
+        height: height,
         ...maxWidth,
       }}
     >
