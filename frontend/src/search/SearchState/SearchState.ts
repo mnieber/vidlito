@@ -40,20 +40,20 @@ export class SearchState {
 
   searchContent(args: Omit<SearchContentArgsT, 'page' | 'pageSize'>) {
     const pagination = this.searchResultsCtr.pagination;
+    const form = {
+      ...args,
+      page: pagination.page,
+      pageSize: pagination.pageSize,
+    };
 
-    return this.props
-      .searchContent({
-        ...args,
-        page: pagination.page,
-        pageSize: pagination.pageSize,
-      })
-      .then((results) => {
-        runInAction(() => {
-          this.searchResultsCtr.store.items = results.searchResults;
-          resetPagination(pagination, results.pagination);
-        });
-        return results;
+    return this.props.searchContent(form).then((results) => {
+      runInAction(() => {
+        this.searchResultsCtr.store.items = results.searchResults;
+        this.searchResultsCtr.store.setSearchContentForm(form);
+        resetPagination(pagination, results.pagination);
       });
+      return results;
+    });
   }
 
   constructor(props: PropsT) {

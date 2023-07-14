@@ -1,10 +1,15 @@
-import { data } from 'skandha';
+import { data, operation } from 'skandha';
 import { Store } from 'skandha-facets';
 import { SearchContentArgsT } from '/src/api/mutations';
 import { SearchResultT } from '/src/api/types/SearchResultT';
 
 export class SearchResultsStore extends Store<SearchResultT> {
   static className = () => 'SearchResultsStore';
+  static skandhaSymbol = Symbol('SearchResultsStore');
 
   @data form?: SearchContentArgsT;
+
+  @operation setSearchContentForm(form: SearchContentArgsT) {
+    this.form = form;
+  }
 }
