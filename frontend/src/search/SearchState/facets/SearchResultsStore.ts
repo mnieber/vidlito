@@ -5,7 +5,7 @@ import { SearchResultT } from '/src/api/types/SearchResultT';
 
 export class SearchResultsStore extends Store<SearchResultT> {
   static className = () => 'SearchResultsStore';
-  // static skandhaSymbol = Symbol('SearchResultsStore');
+  static skandhaSymbol = Symbol('SearchResultsStore');
 
   @data form?: SearchContentArgsT;
 
