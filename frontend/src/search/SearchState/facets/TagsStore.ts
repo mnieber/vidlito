@@ -9,9 +9,11 @@ export class TagsStore {
     inputValue: string,
     callback: (options: PickerValueT[]) => any
   ) => {
-    return getTags({ tagPrefix: inputValue }).then((response: ObjT) => {
-      return callback(filterValues(response.tags, inputValue));
-    });
+    return getTags({ tagPrefix: inputValue, maxNrOfTags: 10 }).then(
+      (response: ObjT) => {
+        return callback(filterValues(response.tags, inputValue));
+      }
+    );
   };
 }
 

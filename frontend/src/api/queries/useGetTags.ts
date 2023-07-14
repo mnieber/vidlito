@@ -4,6 +4,7 @@ import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   tagPrefix: string;
+  maxNrOfTags: number;
 };
 
 export const getTags = (args: ArgsT) => {
@@ -12,9 +13,11 @@ export const getTags = (args: ArgsT) => {
     : doQuery(
         `query getTags(
       $tagPrefix: String
+      $maxNrOfTags: Int
     ) {
       getTags(
         tagPrefix: $tagPrefix
+        maxNrOfTags: $maxNrOfTags
       ) {
         tags
       }
