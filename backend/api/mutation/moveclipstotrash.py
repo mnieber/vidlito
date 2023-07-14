@@ -6,8 +6,7 @@ from graphene.types.generic import GenericScalar
 
 from actions.models import Action
 from api.types import *
-from clips.models import Clip
-from playlists.models import Playlist
+from playlists.models import Entry, Playlist
 from user_profiles.models import UserProfile
 
 
@@ -20,9 +19,9 @@ class MoveClipsToTrash(graphene.Mutation):
         clip_ids = graphene.List(graphene.UUID, required=True)
 
     def mutate(self, info, playlist_id, clip_ids):
-        playlist = Playlist.objects.get(id=playlist_id)
         owner = UserProfile.get(info)
-        clips = Clip.objects.filter(id__in=clip_ids)
+        playlist = Playlist.get(info, id=playlist_id)
+        entries = playlist.entry_set.filter(clip_id__in=clip_ids).select_related("clip")
 
         current_datetime = datetime.now()
         current_datetime_str = current_datetime.isoformat()
@@ -33,8 +32,8 @@ class MoveClipsToTrash(graphene.Mutation):
                 playlist_id=playlist.id,
                 owner=owner,
                 data={
-                    "clip_ids": [str(x) for x in clip_ids],
-                    "clip_names": [x.name for x in clips],
+                    "entry_ids": [entry.id for entry in entries],
+                    "clip_names": [entry.clip.name for entry in entries],
                     "playlist_name": playlist.name,
                     "playlist_id": str(playlist.id),
                     "date": current_datetime_str,
@@ -42,7 +41,9 @@ class MoveClipsToTrash(graphene.Mutation):
             )
             action.save()
 
-            for entry in playlist.entry_set.filter(clip_id__in=clip_ids):
+            for entry in entries:
+                if entry.clip.source_playlist_id == playlist.id:
+                    reassign_source_movelist(info, entry.clip, playlist)
                 entry.is_deleted = True
                 entry.save()
 
@@ -52,3 +53,15 @@ class MoveClipsToTrash(graphene.Mutation):
             success=True,
             errors={},
         )
+
+
+def reassign_source_movelist(info, clip, playlist):
+    entry_that_also_references_clip = Entry.filter(
+        info, clip_id=clip.id, playlist_id__ne=playlist.id
+    ).first()
+    clip.source_playlist_id = (
+        entry_that_also_references_clip.playlist_id
+        if entry_that_also_references_clip
+        else None
+    )
+    clip.save()

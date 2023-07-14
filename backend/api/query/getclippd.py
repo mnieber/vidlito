@@ -15,9 +15,7 @@ class GetClipPD:
     )
 
     def resolve_get_clip_p_d(self, info, clip_slug):
-        clip_p_d = ClipPD.objects.filter(
-            owner__user_id=info.context.user.id, clip__slug=clip_slug
-        ).first()
+        clip_p_d = ClipPD.filter(info, clip__slug=clip_slug).first()
         return GetClipPDOutputs(
             clip_p_d=clip_p_d,
         )

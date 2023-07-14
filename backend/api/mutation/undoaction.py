@@ -14,7 +14,7 @@ class UndoAction(graphene.Mutation):
         action_id = graphene.UUID(required=True)
 
     def mutate(self, info, action_id):
-        action = Action.objects.get(id=action_id, owner__user_id=info.context.user.id)
+        action = Action.get(info, id=action_id)
         if action.type == "TrashEntries":
             playlist_id = action.data["playlist_id"]
             clip_ids = action.data["clip_ids"]

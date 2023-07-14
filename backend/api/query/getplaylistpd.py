@@ -15,9 +15,7 @@ class GetPlaylistPD:
     )
 
     def resolve_get_playlist_p_d(self, info, playlist_slug):
-        playlist_p_d = PlaylistPD.objects.filter(
-            owner__user_id=info.context.user.id, playlist__slug=playlist_slug
-        ).first()
+        playlist_p_d = PlaylistPD.filter(info, playlist__slug=playlist_slug).first()
         return GetPlaylistPDOutputs(
             playlist_p_d=playlist_p_d,
         )

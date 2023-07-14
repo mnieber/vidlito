@@ -16,11 +16,13 @@ class SaveClipPD(graphene.Mutation):
         clip_p_d_form = ClipPDFormT(required=True)
 
     def mutate(self, info, clip_id, clip_p_d_form):
-        user_profile = UserProfile.get(info)
         id = clip_p_d_form.pop("id")
         clip_p_d_form["tags"] = create_tags(clip_p_d_form.get("tags", []))
         ClipPD.objects.update_or_create(
-            defaults=clip_p_d_form, id=id, clip_id=clip_id, owner=user_profile
+            defaults=clip_p_d_form,
+            id=id,
+            clip_id=clip_id,
+            owner__user_id=info.context.user.id,
         )
 
         return SaveClipPD(

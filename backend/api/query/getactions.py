@@ -23,14 +23,12 @@ class GetActions:
             playlist = Playlist.objects.filter(id=playlist_id).first()
 
             actions = (
-                Action.objects.filter(
-                    playlist_id=playlist.id, owner__user_id=info.context.user.id
-                )
+                Action.filter(info, playlist_id=playlist.id)
                 if playlist
                 else Action.objects.none()
             )
         else:
-            actions = Action.objects.filter(owner__user_id=info.context.user.id)
+            actions = Action.filter(info)
 
         page_idx = page - 1
         start_idx = page_idx * page_size

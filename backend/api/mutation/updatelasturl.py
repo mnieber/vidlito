@@ -13,6 +13,6 @@ class UpdateLastUrl(graphene.Mutation):
         url = graphene.String()
 
     def mutate(self, info, url):
-        UserProfile.objects.filter(user_id=info.context.user.id).update(last_url=url)
+        UserProfile.filter(info).update(last_url=url)
 
         return UpdateLastUrl(success=True, errors={})
