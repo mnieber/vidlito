@@ -6,7 +6,7 @@ import { routeTable } from '/src/routes/components/RouteTableProvider';
 import { WrapUfn } from '/src/routes/utils/RouteTable';
 import { getBestRouteMatch } from '/src/routes/utils/getRouteMatches';
 import { ObjT } from '/src/utils/types';
-import { pathname } from '/src/utils/urls';
+import { patchHistory, pathname } from '/src/utils/urls';
 
 export type NavLayerT = {
   route: string;
@@ -100,7 +100,7 @@ export class NavHandler {
   }
 }
 
-export const history = createBrowserHistory();
+export const history = patchHistory(createBrowserHistory());
 
 export const navHandler = new NavHandler({
   history: history,
