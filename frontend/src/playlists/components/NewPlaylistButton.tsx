@@ -47,7 +47,7 @@ export const NewPlaylistButton = observer(
             });
         }}
       >
-        <Icon className={cn(l.icon.normal())} name="plus" />
+        <Icon className={cn(l.icon.root(), l.icon.size.normal())} name="plus" />
         Playlist
       </button>
     );

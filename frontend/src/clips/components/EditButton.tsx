@@ -24,6 +24,8 @@ const DefaultProps = {
 
 export const EditButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const l = L.ToolButton;
+
     return (
       //
       // 🔳 EditButton 🔳
@@ -32,12 +34,12 @@ export const EditButton = observer(
         className={cn(
           'EditButton',
           {
-            'EditButton--disabled': !props.enabled,
             'EditButton--invisible': R.isNil(props.username),
           },
           //
           //
-          L.ToolButton.root(),
+          l.root(),
+          !props.enabled && l.disabled(),
           props.className
         )}
         disabled={!props.enabled}
@@ -46,9 +48,11 @@ export const EditButton = observer(
         }}
       >
         <Icon
-          className={cn('EditButton__Icon', L.ToolButton.icon.small(), {
-            'EditButton__Icon--disabled': !props.enabled,
-          })}
+          className={cn(
+            l.icon.root(),
+            l.icon.size.small(),
+            !props.enabled && l.icon.disabled()
+          )}
           name="pencil"
         />
         Edit

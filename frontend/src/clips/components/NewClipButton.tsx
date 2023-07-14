@@ -22,11 +22,13 @@ const DefaultProps = {
   ...dps.clipsSelection,
   ...dps.dashboardState,
   ...dps.userProfile,
+  ...dps.isOwner,
 };
 
 export const NewClipButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const l = L.ToolButton;
+    const enabled = props.isOwner(props.playlist);
 
     return (
       <button
@@ -35,8 +37,10 @@ export const NewClipButton = observer(
           //
           //
           l.root(),
+          !enabled && l.disabled(),
           props.className
         )}
+        disabled={!enabled}
         onClick={() => {
           return onClickNewClipButton(props).then((localClip: ClipT) => {
             navToClip(
@@ -47,7 +51,14 @@ export const NewClipButton = observer(
           });
         }}
       >
-        <Icon className={cn(l.icon.normal())} name="plus" />
+        <Icon
+          className={cn(
+            l.icon.root(),
+            l.icon.size.normal(),
+            !enabled && l.icon.disabled()
+          )}
+          name="plus"
+        />
         Clip
       </button>
     );

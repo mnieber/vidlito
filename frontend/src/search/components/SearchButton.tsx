@@ -29,7 +29,10 @@ export const SearchButton = observer(
         )}
         onClick={() => navToSearch()}
       >
-        <Icon className={cn(l.icon.normal())} name="search" />
+        <Icon
+          className={cn(l.icon.root(), l.icon.size.normal())}
+          name="search"
+        />
         Search
       </button>
     );

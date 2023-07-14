@@ -29,7 +29,10 @@ export const TrashButton = observer(
         )}
         onClick={() => navToActions(props.userProfile.username)}
       >
-        <Icon className={cn(l.icon.normal())} name="trash" />
+        <Icon
+          className={cn(l.icon.root(), l.icon.size.normal())}
+          name="trash"
+        />
         Trash
       </button>
     );

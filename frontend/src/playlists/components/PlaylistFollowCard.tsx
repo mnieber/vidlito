@@ -67,6 +67,7 @@ export const PlaylistFollowCard = observer(
           >
             {isChecked ? 'Following' : 'Not following'}
           </label>
+          {/* The hidden label maintains the correct width */}
           <label
             className="PlaylistFollowCard__HiddenLabel"
             htmlFor="followPlaylist"
