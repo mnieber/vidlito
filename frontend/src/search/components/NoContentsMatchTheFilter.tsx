@@ -21,19 +21,16 @@ export const NoContentsMatchTheFilter = observer(
       <div
         className={cn(
           'NoContentsMatchTheFilter',
-          'flex flex-col justify-evenly',
-          'w-full',
           'grow',
+          L.row.skewer(),
           props.className
         )}
       >
         <div
           className={cn(
-            'NoContentsMatchTheFilter__Card',
-            'w-[280px]',
-            'self-center',
-            L.CtaButton.root(),
-            L.CtaButton.color.darkBlueOnSkyBlue()
+            'NoContentsMatchTheFilter__Message',
+            'grow',
+            'self-center'
           )}
         >
           {props.msg}

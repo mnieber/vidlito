@@ -3,3 +3,7 @@
 .NoContentsMatchTheFilter {
   @apply WallPaper;
 }
+
+.NoContentsMatchTheFilter__Message {
+  @apply text-3xl text-center text-textGray;
+}
