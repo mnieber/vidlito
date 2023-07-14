@@ -34,7 +34,8 @@ export const CopCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const clipNotFound = useDelayedFlag(
       props.playlist && !props.clip && !isLoading(props.clip),
-      500
+      500,
+      []
     );
 
     if (!props.playlist) {
