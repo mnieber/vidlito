@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { SearchResultT } from '/src/api/types/SearchResultT';
 import { navToClip } from '/src/clips/ClipsNavEvents';
+import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -19,13 +20,20 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
         'group',
         'contents'
       )}
-      onClick={() =>
-        navToClip(
-          props.searchResult.ownerUsername,
-          props.searchResult.playlistSlug,
-          props.searchResult.clipSlug
-        )
-      }
+      onClick={() => {
+        if (props.searchResult.clipSlug) {
+          navToClip(
+            props.searchResult.ownerUsername,
+            props.searchResult.playlistSlug,
+            props.searchResult.clipSlug
+          );
+        } else {
+          navToPlaylist(
+            props.searchResult.ownerUsername,
+            props.searchResult.playlistSlug
+          );
+        }
+      }}
     >
       <div className={cn('SearchResultListViewItem__Cell')}>
         {props.searchResult.ownerUsername}

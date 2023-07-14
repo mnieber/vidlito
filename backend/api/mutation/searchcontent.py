@@ -35,14 +35,42 @@ class SearchContent(graphene.Mutation):
         clip_tags=None,
     ):
         search_results = []
+        has_terms = playlist_terms or clip_terms
+
+        playlist_clauses = []
+        for term in playlist_terms or []:
+            playlist_clauses.append(Q(name__icontains=term))
+        for tag in playlist_tags or []:
+            playlist_clauses.append(Q(tags__contains=tag))
+
+        for playlist in (
+            Playlist.objects.filter(join_clauses(playlist_clauses)).all()
+            if playlist_clauses
+            else []
+        ):
+            search_results.append(
+                SearchResultT(
+                    id=uuid.uuid4().hex,
+                    playlist_slug=playlist.slug,
+                    playlist_name=playlist.name,
+                    clip_slug=None,
+                    clip_name=None,
+                    nr_of_clips=playlist.nr_of_clips,
+                    owner_username=playlist.owner.username,
+                )
+            )
 
         clip_clauses = []
         for term in clip_terms or []:
             clip_clauses.append(Q(name__icontains=term))
         for tag in clip_tags or []:
-            clip_clauses.append(Q(tags__contains=[tag]))
+            clip_clauses.append(Q(tags__contains=tag))
 
-        for clip in Clip.objects.filter(*clip_clauses).all():
+        for clip in (
+            Clip.objects.filter(join_clauses(clip_clauses)).all()
+            if not has_terms or clip_clauses
+            else []
+        ):
             playlist_slug = clip.source_playlist.slug if clip.source_playlist else None
             playlist_name = clip.source_playlist.name if clip.source_playlist else None
             nr_of_clips = (
@@ -61,25 +89,6 @@ class SearchContent(graphene.Mutation):
                 )
             )
 
-        playlist_clauses = []
-        for term in playlist_terms or []:
-            playlist_clauses.append(Q(name__icontains=term))
-        for tag in playlist_tags or []:
-            playlist_clauses.append(Q(tags__contains=[tag]))
-
-        for playlist in Playlist.objects.filter(*playlist_clauses).all():
-            search_results.append(
-                SearchResultT(
-                    id=uuid.uuid4().hex,
-                    playlist_slug=playlist.slug,
-                    playlist_name=playlist.name,
-                    clip_slug=None,
-                    clip_name=None,
-                    nr_of_clips=playlist.nr_of_clips,
-                    owner_username=playlist.owner.username,
-                )
-            )
-
         page_idx = page - 1
         start_idx = page_idx * page_size
         end_idx = start_idx + page_size
@@ -95,3 +104,12 @@ class SearchContent(graphene.Mutation):
                 page_size=page_size,
             ),
         )
+
+
+def join_clauses(clauses):
+    if len(clauses) == 0:
+        return Q()
+    result = clauses[0]
+    for clause in clauses[1:]:
+        result = result & clause
+    return result
