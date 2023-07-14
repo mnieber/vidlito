@@ -18,6 +18,7 @@ export type PropsT = {
 export const HorizontalTagPicker = observer((props: PropsT) => {
   const formState = useFormStateContext();
   const fieldContext = useFormFieldContext();
+
   const formValue = formState.values[fieldContext.fieldName] ?? '';
   const topOptions = R.pipe(
     R.filter(
@@ -32,6 +33,10 @@ export const HorizontalTagPicker = observer((props: PropsT) => {
       R.clamp(0, R.max(0, nrOfTopOptions - 1), props.tagsState.selectedTagIdx)
     );
   }, [nrOfTopOptions]);
+
+  if (!props.tagsState.options.length) {
+    return null;
+  }
 
   const select = (idx: number) => {
     const option = topOptions[idx];
