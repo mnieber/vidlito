@@ -16,14 +16,20 @@ class MoveClipsToPlaylist(graphene.Mutation):
         copy = graphene.Boolean(required=True)
 
     def mutate(self, info, src_playlist_id, dest_playlist_id, clip_ids, copy):
-        dest_clips_ids = (
-            [x.clip_id for x in Entry.objects.filter(playlist_id=dest_playlist_id)]
+        dest_clips_id_hexes = (
+            [x.clip_id.hex for x in Entry.objects.filter(playlist_id=dest_playlist_id)]
             if copy
             else []
         )
+
+        entries_to_delete = []
         for entry in Entry.objects.filter(playlist_id=src_playlist_id):
             if entry.clip_id in clip_ids:
-                if entry.clip_id.hex in dest_clips_ids:
+                if entry.clip_id.hex in dest_clips_id_hexes:
+                    # If the clip is already in the destination playlist, then
+                    # moving the clip to the destination playlist implies
+                    # deleting the entry from the source playlist.
+                    entries_to_delete.append(entry)
                     continue
 
                 if copy:
@@ -34,6 +40,9 @@ class MoveClipsToPlaylist(graphene.Mutation):
                 if not copy and entry.clip.source_playlist_id == src_playlist_id:
                     entry.clip.source_playlist_id = dest_playlist_id
                     entry.clip.save()
+
+        for entry in entries_to_delete:
+            entry.delete()
 
         Playlist.objects.get(id=src_playlist_id).update_nr_clips()
         Playlist.objects.get(id=dest_playlist_id).update_nr_clips()
