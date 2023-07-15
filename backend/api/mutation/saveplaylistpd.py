@@ -16,7 +16,7 @@ class SavePlaylistPd(graphene.Mutation):
         playlist_pd_form = PlaylistPdFormT(required=True)
 
     def mutate(self, info, playlist_id, playlist_pd_form):
-        user_profile = UserProfile.get(info)
+        user_profile = UserProfile.get_mine(info)
         id = playlist_pd_form.pop("id")
         playlist_pd_form["tags"] = create_tags(playlist_pd_form.get("tags", []))
         PlaylistPd.objects.update_or_create(

@@ -13,11 +13,11 @@ class Entity(models.Model):
     # version = models.BigIntegerField(default=0, editable=False)
 
     @classmethod
-    def get(cls, info, *args, **kwargs):
+    def get_mine(cls, info, *args, **kwargs):
         return cls.objects.get(*args, owner__user_id=info.context.user.id, **kwargs)
 
     @classmethod
-    def filter(cls, info, *args, **kwargs):
+    def filter_mine(cls, info, *args, **kwargs):
         return cls.objects.filter(*args, owner__user_id=info.context.user.id, **kwargs)
 
 

@@ -27,6 +27,6 @@ class GetPlaylist:
         if not playlist:
             raise Exception("Must provide either playlist_id or playlist_slug")
 
-        playlist_pd = PlaylistPd.filter(info, playlist__slug=playlist.slug).first()
+        playlist_pd = PlaylistPd.filter_mine(info, playlist__slug=playlist.slug).first()
 
         return GetPlaylistOutputs(playlist=playlist, playlist_pd=playlist_pd)

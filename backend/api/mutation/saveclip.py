@@ -19,7 +19,7 @@ class SaveClip(graphene.Mutation):
         parent_clip_id = graphene.UUID()
 
     def mutate(self, info, playlist_id, clip_form, parent_clip_id=None):
-        playlist = Playlist.get(info, id=playlist_id)
+        playlist = Playlist.get_mine(info, id=playlist_id)
         id = clip_form.pop("id")
         clip_form["tags"] = create_tags(clip_form.get("tags", []))
         clip, created = Clip.objects.update_or_create(

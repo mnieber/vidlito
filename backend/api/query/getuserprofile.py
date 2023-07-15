@@ -15,4 +15,4 @@ class GetUserProfile:
         if info.context.user.is_anonymous:
             return GetUserProfileOutputs(user_profile=None)
 
-        return GetUserProfileOutputs(user_profile=UserProfile.get(info))
+        return GetUserProfileOutputs(user_profile=UserProfile.get_mine(info))

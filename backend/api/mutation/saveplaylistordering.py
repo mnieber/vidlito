@@ -14,7 +14,7 @@ class SavePlaylistOrdering(graphene.Mutation):
         playlist_ids = graphene.List(graphene.UUID, required=True)
 
     def mutate(self, info, playlist_ids):
-        user_profile = UserProfile.get(info)
+        user_profile = UserProfile.get_mine(info)
         sort_items(user_profile.follow_set.all(), playlist_ids, lambda x: x.playlist_id)
 
         return SavePlaylistOrdering(

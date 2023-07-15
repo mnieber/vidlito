@@ -15,7 +15,7 @@ class GetClipPd:
     )
 
     def resolve_get_clip_pd(self, info, clip_slug):
-        clip_pd = ClipPd.filter(info, clip__slug=clip_slug).first()
+        clip_pd = ClipPd.filter_mine(info, clip__slug=clip_slug).first()
         return GetClipPdOutputs(
             clip_pd=clip_pd,
         )

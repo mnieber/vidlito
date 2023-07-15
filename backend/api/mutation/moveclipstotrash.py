@@ -19,8 +19,8 @@ class MoveClipsToTrash(graphene.Mutation):
         clip_ids = graphene.List(graphene.UUID, required=True)
 
     def mutate(self, info, playlist_id, clip_ids):
-        owner = UserProfile.get(info)
-        playlist = Playlist.get(info, id=playlist_id)
+        owner = UserProfile.get_mine(info)
+        playlist = Playlist.get_mine(info, id=playlist_id)
         entries = playlist.entry_set.filter(clip_id__in=clip_ids).select_related("clip")
 
         current_datetime = datetime.now()
@@ -62,7 +62,7 @@ class MoveClipsToTrash(graphene.Mutation):
 
 
 def reassign_source_movelist(info, clip, playlist):
-    entry_that_also_references_clip = Entry.filter(
+    entry_that_also_references_clip = Entry.filter_mine(
         info, clip_id=clip.id, playlist_id__ne=playlist.id
     ).first()
     clip.source_playlist_id = (

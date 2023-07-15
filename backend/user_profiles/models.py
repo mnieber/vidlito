@@ -12,5 +12,5 @@ class UserProfile(Entity):
         return "UserProfile: " + str(self.username)
 
     @staticmethod
-    def get(info):
+    def get_mine(info):
         return UserProfile.objects.get(user_id=info.context.user.id)

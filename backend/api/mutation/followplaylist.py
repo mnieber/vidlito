@@ -17,7 +17,7 @@ class FollowPlaylist(graphene.Mutation):
         folder_id = graphene.UUID()
 
     def mutate(self, info, playlist_ids, is_following, folder_id=None):
-        user_profile = UserProfile.get(info)
+        user_profile = UserProfile.get_mine(info)
         with transaction.atomic():
             if is_following:
                 for playlist_id in playlist_ids:
