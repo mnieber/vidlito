@@ -40,7 +40,7 @@ export const CopDescription = observer(
           //
           //
           'py-[18px] px-4',
-          'my-8'
+          props.className
         )}
       >
         <div
@@ -48,6 +48,7 @@ export const CopDescription = observer(
             'CopDescription__TopRow',
             L.row.skewer(),
             'grow',
+            'mb-2',
             'justify-between'
           )}
         >

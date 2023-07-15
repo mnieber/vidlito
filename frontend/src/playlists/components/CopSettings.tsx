@@ -9,7 +9,9 @@ import { cn } from '/src/utils/classnames';
 // Import styles
 import './CopSettings.scss';
 
-export type PropsT = {};
+export type PropsT = {
+  className?: any;
+};
 
 export const DefaultProps = {
   ...dps.playlistSettingsEdit,
@@ -25,7 +27,8 @@ export const CopSettings = observer(
           'CopSettings',
           //
           //
-          'py-[18px] px-4'
+          'py-[18px] px-4',
+          props.className
         )}
       >
         <div

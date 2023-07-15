@@ -34,7 +34,8 @@ export const CopPd = observer(
           'CopPd',
           //
           //
-          'py-[18px] px-4'
+          'py-[18px] px-4',
+          props.className
         )}
       >
         <div

@@ -29,7 +29,7 @@ export const PlaylistPdView = observer(
           props.className
         )}
       >
-        <MarkdownView text={props.playlist.playlistPd.description ?? ''} />
+        <MarkdownView text={props.playlist.playlistPd?.description ?? ''} />
       </div>
     );
   }, DefaultProps)

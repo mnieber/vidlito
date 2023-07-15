@@ -18,9 +18,7 @@ import { VideoPlayerPanel } from '/src/videos/components';
 // Import styles
 import './CopCard.scss';
 
-export type PropsT = {
-  className?: any;
-};
+export type PropsT = {};
 
 const DefaultProps = {
   ...dps.clip,
@@ -65,12 +63,14 @@ export const CopCard = observer(
             <AuthorCard>
               <TagsCard />
             </AuthorCard>
-            <CopDescription showPlaylist={showPlaylist} />
-            <CopPd showPlaylist={showPlaylist} />
+            <CopDescription showPlaylist={showPlaylist} className="mt-8" />
+            <CopPd showPlaylist={showPlaylist} className="mt-8" />
+            {showPlaylist && props.isOwner(props.playlist) && (
+              <CopSettings className="mt-8" />
+            )}
             {noClips && props.isOwner(props.clip) && (
               <CreateFirstClip className="mt-4" />
             )}
-            {showPlaylist && props.isOwner(props.playlist) && <CopSettings />}
           </div>
         )}
       </>
