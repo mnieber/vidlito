@@ -42,8 +42,14 @@ class MoveClipsToTrash(graphene.Mutation):
             action.save()
 
             for entry in entries:
+                # Update clip
+                if playlist.is_public:
+                    entry.clip.nr_of_public_playlists -= 1
                 if entry.clip.source_playlist_id == playlist.id:
                     reassign_source_movelist(info, entry.clip, playlist)
+                entry.clip.save()
+
+                # Update entry
                 entry.is_deleted = True
                 entry.save()
 

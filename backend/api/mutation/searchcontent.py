@@ -43,7 +43,11 @@ class SearchContent(graphene.Mutation):
             playlist_clauses.append(Q(tags__contains=tag))
 
         for playlist in (
-            Playlist.objects.filter(join_clauses(playlist_clauses)).all()
+            Playlist.objects.filter(
+                Q(is_public=True) | Q(owner__user_id=info.context.user.id)
+            )
+            .filter(join_clauses(playlist_clauses))
+            .all()
             if playlist_clauses
             else []
         ):
@@ -66,7 +70,11 @@ class SearchContent(graphene.Mutation):
             clip_clauses.append(Q(tags__contains=tag))
 
         for clip in (
-            Clip.objects.filter(join_clauses(clip_clauses)).all()
+            Clip.objects.filter(
+                Q(nr_of_public_playlists__gt=0) | Q(owner__user_id=info.context.user.id)
+            )
+            .filter(join_clauses(clip_clauses))
+            .all()
             if not has_terms or clip_clauses
             else []
         ):

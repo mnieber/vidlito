@@ -13,6 +13,7 @@ class Clip(Entity):
     description = MartorField(null=True, blank=True)
     end_time_ms = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=90)
+    nr_of_public_playlists = models.IntegerField(default=0)
     owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
     slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
     source_playlist = models.ForeignKey(
