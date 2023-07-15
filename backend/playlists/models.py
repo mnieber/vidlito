@@ -23,6 +23,7 @@ class Playlist(Entity):
     sort_pos = models.IntegerField(default=0)
     tags = models.JSONField(default=create_empty_tags)
     nr_of_clips = models.IntegerField(default=0)
+    is_public = models.BooleanField(default=False)
 
     def update_nr_clips(self):
         self.nr_of_clips = self.entry_set.count()
@@ -75,7 +76,7 @@ class Entry(Entity):
         return f"{self.user_profile.username} / {self.playlist.name}"
 
 
-class PlaylistPD(Entity):
+class PlaylistPd(Entity):
     description = MartorField(null=True, blank=True)
     owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
     playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="+")

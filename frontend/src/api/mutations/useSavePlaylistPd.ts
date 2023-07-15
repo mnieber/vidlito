@@ -2,25 +2,25 @@ import { useMutation } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
 import { getPlaylistQueryKey } from '/src/api/queries';
 import { queryClient } from '/src/api/queryClient';
-import { PlaylistPDFormT } from '/src/api/types/PlaylistPDT';
+import { PlaylistPdFormT } from '/src/api/types/PlaylistPdT';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   playlistId: string;
   playlistSlug: string;
-  playlistPDForm: PlaylistPDFormT;
+  playlistPdForm: PlaylistPdFormT;
 };
 
-export const savePlaylistPD = (args: ArgsT) => {
+export const savePlaylistPd = (args: ArgsT) => {
   return doQuery(
-    `mutation savePlaylistPD(
+    `mutation savePlaylistPd(
       $playlistId: UUID!
-      $playlistPDForm: PlaylistPDFormT!
+      $playlistPdForm: PlaylistPdFormT!
     ) {
-      savePlaylistPD(
+      savePlaylistPd(
         playlistId: $playlistId
-        playlistPDForm: $playlistPDForm
+        playlistPdForm: $playlistPdForm
       ) {
         errors
         success
@@ -28,14 +28,14 @@ export const savePlaylistPD = (args: ArgsT) => {
     }`,
     args
   ).then((response: ObjT) => {
-    return wait(import.meta.env.DEV ? 1000 : 0, response.savePlaylistPD);
+    return wait(import.meta.env.DEV ? 1000 : 0, response.savePlaylistPd);
   });
 };
 
-export const useSavePlaylistPD = () => {
+export const useSavePlaylistPd = () => {
   return useMutation({
-    mutationKey: ['savePlaylistPD'],
-    mutationFn: savePlaylistPD,
+    mutationKey: ['savePlaylistPd'],
+    mutationFn: savePlaylistPd,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return queryClient.invalidateQueries({
         queryKey: getPlaylistQueryKey({ playlistSlug: args.playlistSlug }),

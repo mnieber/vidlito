@@ -16,7 +16,7 @@ const DefaultProps = {
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { clipsState, isGetClipPDLoading, isGetClipPDUpdating } =
+    const { clipsState, isGetClipPdLoading, isGetClipPdUpdating } =
       useClipsState({ getPlaylist: () => props.playlist });
 
     const cache = useBuilder(() =>
@@ -42,15 +42,15 @@ export const ClipsStateProvider = observer(
             ['loading', () => isLoading(props.playlist), 'playlist']
           );
         },
-        get clipPD() {
+        get clipPd() {
           return updateSources(
             {
-              resource: clipsState.clipPDCtr.store.clipPD,
-              resourceName: 'clipPD',
+              resource: clipsState.clipPdCtr.store.clipPd,
+              resourceName: 'clipPd',
             },
             //
-            ['loading', () => isGetClipPDLoading(), 'getClipPD'],
-            ['updating', () => isGetClipPDUpdating(), 'getClipPD']
+            ['loading', () => isGetClipPdLoading(), 'getClipPd'],
+            ['updating', () => isGetClipPdUpdating(), 'getClipPd']
           );
         },
       })
@@ -79,8 +79,8 @@ export const ClipsStateProvider = observer(
 
       result.defaultProps = {
         ...result.defaultProps,
-        clipPD: () => cache.clipPD,
-        clipPDEdit: () => clipsState.clipPDCtr.edit,
+        clipPd: () => cache.clipPd,
+        clipPdEdit: () => clipsState.clipPdCtr.edit,
       };
 
       return result;

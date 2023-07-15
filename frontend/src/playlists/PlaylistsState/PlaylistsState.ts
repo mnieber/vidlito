@@ -10,11 +10,13 @@ import {
   Insertion,
   Selection,
 } from 'skandha-facets';
-import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
+import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
+import { PlaylistSettingsT } from '/src/api/types/PlaylistSettingsT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { PlaylistStore } from '/src/playlists/PlaylistsState/facets/PlaylistStore';
-import { registerPlaylistCtr } from '/src/playlists/PlaylistsState/registerPlaylistCtr';
+import { registerPdCtr } from '/src/playlists/PlaylistsState/registerPdCtr';
 import { registerPlaylistsCtr } from '/src/playlists/PlaylistsState/registerPlaylistsCtr';
+import { registerSettingsCtr } from '/src/playlists/PlaylistsState/registerSettingsCtr';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
@@ -22,7 +24,8 @@ export type PropsT = {
   getFollowedPlaylists: () => PlaylistT[];
   deletePlaylists: (ids: string[]) => Promise<any>;
   savePlaylist: (values: ObjT) => Promise<PlaylistT>;
-  savePlaylistPD: (values: ObjT) => Promise<PlaylistPDT>;
+  savePlaylistPd: (values: ObjT) => Promise<PlaylistPdT>;
+  savePlaylistSettings: (values: ObjT) => Promise<PlaylistSettingsT>;
   savePlaylistOrdering: (playlists: PlaylistT[]) => Promise<any>;
 };
 
@@ -42,15 +45,19 @@ export class PlaylistsState {
     store: new PlaylistStore(),
   };
 
-  playlistCtr = {
-    pdEdit: new Edit(),
-    settingsEdit: new Edit(),
+  pdCtr = {
+    edit: new Edit(),
+  };
+
+  settingsCtr = {
+    edit: new Edit(),
   };
 
   getSummary() {
     return {
       playlistsCtr: Skandha.getCtrState(this.playlistsCtr),
-      playlistCtr: Skandha.getCtrState(this.playlistCtr),
+      pdCtr: Skandha.getCtrState(this.pdCtr),
+      settingsCtr: Skandha.getCtrState(this.settingsCtr),
     };
   }
 
@@ -61,6 +68,7 @@ export class PlaylistsState {
   constructor(props: PropsT) {
     this.props = props;
     registerPlaylistsCtr(this);
-    registerPlaylistCtr(this);
+    registerPdCtr(this);
+    registerSettingsCtr(this);
   }
 }

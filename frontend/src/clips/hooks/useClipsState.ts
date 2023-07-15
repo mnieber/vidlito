@@ -5,7 +5,7 @@ import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import {
   MoveClipsToTrashArgsT,
   SaveClipOrderingArgsT,
-  useGetClipPD,
+  useGetClipPd,
   useMoveClipsToPlaylist,
   useMoveClipsToTrash,
   useSaveClip,
@@ -15,10 +15,10 @@ import { useObservableQuery } from '/src/api/hooks';
 import {
   MoveClipsToPlaylistArgsT,
   SaveClipArgsT,
-  SaveClipPDArgsT,
+  SaveClipPdArgsT,
 } from '/src/api/mutations';
-import { useSaveClipPD } from '/src/api/mutations/useSaveClipPD';
-import { createClipPD } from '/src/api/types/ClipPDT';
+import { useSaveClipPd } from '/src/api/mutations/useSaveClipPd';
+import { createClipPd } from '/src/api/types/ClipPdT';
 import { ClipT } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { ClipsState } from '/src/clips/ClipsState';
@@ -48,18 +48,18 @@ export const useClipsState = (props: PropsT) => {
   const moveClipsToTrash = initRS(useMoveClipsToTrash());
   const moveClipsToPlaylist = initRS(useMoveClipsToPlaylist());
   const saveClip = initRS(useSaveClip());
-  const saveClipPD = initRS(useSaveClipPD());
+  const saveClipPd = initRS(useSaveClipPd());
   const saveClipOrdering = initRS(useSaveClipOrdering());
 
   // Queries
-  const isGetClipPDEnabled = () =>
+  const isGetClipPdEnabled = () =>
     !!getClipSlug() && getClipSlug() !== 'new-clip';
-  const getClipPD = useObservableQuery(
-    useGetClipPD(
+  const getClipPd = useObservableQuery(
+    useGetClipPd(
       { clipSlug: getClipSlug() },
-      { enabled: isGetClipPDEnabled() }
+      { enabled: isGetClipPdEnabled() }
     ),
-    { fetchAsLoad: true, debugLabel: 'getClipPD' }
+    { fetchAsLoad: true, debugLabel: 'getClipPd' }
   );
 
   const clipsState = useBuilder<ClipsState>(() => {
@@ -71,8 +71,8 @@ export const useClipsState = (props: PropsT) => {
         });
       },
       //
-      getClipPD: () => {
-        return getClipPD.data?.clipPD ?? createClipPD();
+      getClipPd: () => {
+        return getClipPd.data?.clipPd ?? createClipPd();
       },
       //
       moveClipsToTrash: action((ids: string[]) => {
@@ -105,18 +105,18 @@ export const useClipsState = (props: PropsT) => {
         }).result;
       },
       //
-      saveClipPD: (values: ObjT) => {
+      saveClipPd: (values: ObjT) => {
         return trackPromise({
-          name: 'saveClipPD',
-          states: { updating: [saveClipPD] },
-          promise: saveClipPD
+          name: 'saveClipPd',
+          states: { updating: [saveClipPd] },
+          promise: saveClipPd
             .mutateAsync({
               clipId: clipsState.clipsCtr.highlight.item?.id,
               clipSlug: clipsState.clipsCtr.highlight.item?.slug,
-              clipPDForm: values.clipPDForm,
-            } as SaveClipPDArgsT)
+              clipPdForm: values.clipPdForm,
+            } as SaveClipPdArgsT)
             .then(() => {
-              return values.clipPDForm;
+              return values.clipPdForm;
             }),
         }).result;
       },
@@ -164,8 +164,8 @@ export const useClipsState = (props: PropsT) => {
     moveClipsToPlaylist,
     saveClip,
     saveClipOrdering,
-    isGetClipPDLoading: () => isGetClipPDEnabled() && isQueryLoading(getClipPD),
-    isGetClipPDUpdating: () =>
-      isGetClipPDEnabled() && isQueryUpdating(getClipPD),
+    isGetClipPdLoading: () => isGetClipPdEnabled() && isQueryLoading(getClipPd),
+    isGetClipPdUpdating: () =>
+      isGetClipPdEnabled() && isQueryUpdating(getClipPd),
   };
 };

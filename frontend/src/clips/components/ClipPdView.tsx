@@ -5,44 +5,41 @@ import { MarkdownView } from '/src/frames/components';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './PlaylistPDView.scss';
+import './ClipPdView.scss';
 
 export type PropsT = {
   className?: any;
 };
 
 const DefaultProps = {
-  ...dps.playlist,
+  ...dps.clipPd,
+  ...dps.clipPdEdit,
 };
 
-export const PlaylistPDView = observer(
+export const ClipPdView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (isLoading(props.playlist)) return <PlaylistPDViewLoader {...props} />;
-    if (!props.playlist) return null;
+    if (isLoading(props.clipPd)) return <ClipPdViewLoader {...props} />;
+    if (!props.clipPd) return null;
 
     return (
       <div
         className={cn(
-          'PlaylistPDView',
+          'ClipPdView',
           //
           //
           props.className
         )}
       >
-        <MarkdownView text={props.playlist.playlistPD.description ?? ''} />
+        <MarkdownView text={props.clipPd.description ?? ''} />
       </div>
     );
   }, DefaultProps)
 );
 
-const PlaylistPDViewLoader = observer((props: PropsT & typeof DefaultProps) => {
+const ClipPdViewLoader = observer((props: PropsT & typeof DefaultProps) => {
   return (
     <div
-      className={cn(
-        'PlaylistPDViewLoader',
-        'rounded bg-gray-100',
-        props.className
-      )}
+      className={cn('ClipPdViewLoader', 'rounded bg-gray-100', props.className)}
     ></div>
   );
 });

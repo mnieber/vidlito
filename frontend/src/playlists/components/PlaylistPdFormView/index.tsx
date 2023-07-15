@@ -24,11 +24,11 @@ export type PropsT = {
 
 export const DefaultProps = {
   ...dps.playlist,
-  ...dps.playlistPDEdit,
+  ...dps.playlistPdEdit,
   ...dps.searchState,
 };
 
-export const PlaylistPDFormView = observer(
+export const PlaylistPdFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,
@@ -47,11 +47,11 @@ export const PlaylistPDFormView = observer(
 
     return (
       //
-      // 🔳 PlaylistPDFormView 🔳
+      // 🔳 PlaylistPdFormView 🔳
       //
       <div
         className={cn(
-          'PlaylistPDFormView',
+          'PlaylistPdFormView',
           //
           //
           l.root(),
@@ -76,7 +76,7 @@ export const PlaylistPDFormView = observer(
           {
             // 🔳 TagsField 🔳
           }
-          <Field fieldName="playlistPDForm.tags" className={l.Field()}>
+          <Field fieldName="playlistPdForm.tags" className={l.Field()}>
             <FormFieldLabel label="TAGS" />
             <ValuePickerField
               tabIndex={9}
@@ -92,7 +92,7 @@ export const PlaylistPDFormView = observer(
             // 🔳 DescriptionField 🔳
           }
           <Field
-            fieldName="playlistPDForm.description"
+            fieldName="playlistPdForm.description"
             tabOnEnter={false}
             className={l.Field()}
           >

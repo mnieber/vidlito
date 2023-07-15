@@ -5,7 +5,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
 import { ClipNotFound } from '/src/clips/components/ClipNotFound';
 import { CopDescription } from '/src/clips/components/CopDescription';
-import { CopPD } from '/src/clips/components/CopPD';
+import { CopPd } from '/src/clips/components/CopPd';
 import { L } from '/src/frames/layout';
 import { AuthorCard } from '/src/playlists/components/AuthorCard';
 import { CopSettings } from '/src/playlists/components/CopSettings';
@@ -66,7 +66,7 @@ export const CopCard = observer(
               <TagsCard />
             </AuthorCard>
             <CopDescription showPlaylist={showPlaylist} />
-            <CopPD showPlaylist={showPlaylist} />
+            <CopPd showPlaylist={showPlaylist} />
             {noClips && props.isOwner(props.clip) && (
               <CreateFirstClip className="mt-4" />
             )}

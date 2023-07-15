@@ -1,21 +1,21 @@
 import graphene
 
 from api.types import *
-from clips.models import ClipPD
+from clips.models import ClipPd
 
 
-class GetClipPDOutputs(graphene.ObjectType):
-    clip_p_d = graphene.Field(ClipPDT)
+class GetClipPdOutputs(graphene.ObjectType):
+    clip_pd = graphene.Field(ClipPdT)
 
 
-class GetClipPD:
-    get_clip_p_d = graphene.Field(
-        GetClipPDOutputs,
+class GetClipPd:
+    get_clip_pd = graphene.Field(
+        GetClipPdOutputs,
         clip_slug=graphene.String(),
     )
 
-    def resolve_get_clip_p_d(self, info, clip_slug):
-        clip_p_d = ClipPD.filter(info, clip__slug=clip_slug).first()
-        return GetClipPDOutputs(
-            clip_p_d=clip_p_d,
+    def resolve_get_clip_pd(self, info, clip_slug):
+        clip_pd = ClipPd.filter(info, clip__slug=clip_slug).first()
+        return GetClipPdOutputs(
+            clip_pd=clip_pd,
         )

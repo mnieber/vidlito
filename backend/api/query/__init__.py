@@ -3,7 +3,7 @@ import graphene
 import user_accounts.schema
 
 from .getactions import GetActions
-from .getclippd import GetClipPD
+from .getclippd import GetClipPd
 from .getplaylist import GetPlaylist
 from .gettags import GetTags
 from .getuserprofile import GetUserProfile
@@ -19,7 +19,7 @@ class GrapheneNonEmptyQuery(graphene.ObjectType):
 class Query(
     user_accounts.schema.Query,
     GetActions,
-    GetClipPD,
+    GetClipPd,
     GetPlaylist,
     GetTags,
     GetUserProfile,

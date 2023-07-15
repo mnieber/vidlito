@@ -1,7 +1,7 @@
 import graphene
 
 
-class PlaylistPDFormT(graphene.InputObjectType):
+class PlaylistPdFormT(graphene.InputObjectType):
     id = graphene.UUID()
     description = graphene.String()
     tags = graphene.List(graphene.String, required=True)

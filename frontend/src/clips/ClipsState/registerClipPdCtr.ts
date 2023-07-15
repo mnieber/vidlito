@@ -2,28 +2,28 @@ import { setCallbackMap } from 'aspiration';
 import { mapDataToProps } from 'skandha';
 import { EditCbs } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
-import { ClipPDT } from '/src/api/types/ClipPDT';
+import { ClipPdT } from '/src/api/types/ClipPdT';
 import { ClipsState } from '/src/clips/ClipsState';
 
 const mapData = (state: ClipsState) => {
-  const ctr = state.clipPDCtr;
+  const ctr = state.clipPdCtr;
 
   mapDataToProps(ctr, {
     store: {
-      clipPD: () => state.props.getClipPD(),
+      clipPd: () => state.props.getClipPd(),
     },
   });
 };
 
 const setCallbacks = (state: ClipsState) => {
-  const ctr = state.clipPDCtr;
+  const ctr = state.clipPdCtr;
 
   setCallbackMap(ctr.edit, {
     save: {
       saveItem(this: EditCbs['save']) {
         return state.props
-          .saveClipPD(this.args.values)
-          .then((localClip: ClipPDT) => {
+          .saveClipPd(this.args.values)
+          .then((localClip: ClipPdT) => {
             return localClip;
           });
       },
@@ -32,10 +32,10 @@ const setCallbacks = (state: ClipsState) => {
   } as EditCbs);
 };
 
-export const registerClipPDCtr = (state: ClipsState) => {
+export const registerClipPdCtr = (state: ClipsState) => {
   registerCtr({
-    ctr: state.clipPDCtr,
-    options: { name: 'ClipsState.ClipPD' },
+    ctr: state.clipPdCtr,
+    options: { name: 'ClipsState.ClipPd' },
     initCtr: () => {
       setCallbacks(state);
       mapData(state);

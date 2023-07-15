@@ -8,15 +8,15 @@ export type ArgsT = {
   clipSlug?: string;
 };
 
-export const getClipPD = (args: ArgsT) => {
+export const getClipPd = (args: ArgsT) => {
   return doQuery(
-    `query getClipPD(
+    `query getClipPd(
       $clipSlug: String
     ) {
-      getClipPD(
+      getClipPd(
         clipSlug: $clipSlug
       ) {
-        clipPD {
+        clipPd {
           description
           tags
         }
@@ -25,7 +25,7 @@ export const getClipPD = (args: ArgsT) => {
     args
   )
     .then((response: ObjT) => {
-      return wait(import.meta.env.DEV ? 1000 : 0, response.getClipPD);
+      return wait(import.meta.env.DEV ? 1000 : 0, response.getClipPd);
     })
     .then((response: ObjT) => {
       return response;
@@ -39,13 +39,13 @@ export type OptionsT = {
 };
 
 export function queryKey(args: QueryKeyT) {
-  return createQueryKey<QueryKeyT>('getClipPD', args);
+  return createQueryKey<QueryKeyT>('getClipPd', args);
 }
 
-export const useGetClipPD = (args: ArgsT, options?: OptionsT) => {
+export const useGetClipPd = (args: ArgsT, options?: OptionsT) => {
   return useQuery({
     queryKey: queryKey(args),
     enabled: !!(options?.enabled ?? true),
-    queryFn: () => getClipPD(args),
+    queryFn: () => getClipPd(args),
   });
 };

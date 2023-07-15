@@ -1,7 +1,7 @@
 import graphene
 
 
-class ClipPDFormT(graphene.InputObjectType):
+class ClipPdFormT(graphene.InputObjectType):
     id = graphene.UUID()
     description = graphene.String()
     tags = graphene.List(graphene.String, required=True)

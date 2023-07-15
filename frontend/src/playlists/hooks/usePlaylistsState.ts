@@ -10,9 +10,14 @@ import {
   useSavePlaylistOrdering,
 } from '/src/api/endpoints';
 import { useObservableQuery } from '/src/api/hooks';
-import { SavePlaylistPDArgsT } from '/src/api/mutations';
-import { useSavePlaylistPD } from '/src/api/mutations/useSavePlaylistPD';
-import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
+import {
+  SavePlaylistPdArgsT,
+  SavePlaylistSettingsArgsT,
+} from '/src/api/mutations';
+import { useSavePlaylistPd } from '/src/api/mutations/useSavePlaylistPd';
+import { useSavePlaylistSettings } from '/src/api/mutations/useSavePlaylistSettings';
+import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
+import { PlaylistSettingsT } from '/src/api/types/PlaylistSettingsT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
@@ -43,7 +48,8 @@ export const usePlaylistsState = (props: PropsT) => {
   // Mutations
   const deletePlaylists = initRS(useDeletePlaylists());
   const savePlaylist = initRS(useSavePlaylist());
-  const savePlaylistPD = initRS(useSavePlaylistPD());
+  const savePlaylistPd = initRS(useSavePlaylistPd());
+  const savePlaylistSettings = initRS(useSavePlaylistSettings());
   const savePlaylistOrdering = initRS(useSavePlaylistOrdering());
 
   // Queries
@@ -67,7 +73,7 @@ export const usePlaylistsState = (props: PropsT) => {
             !!getPlaylist.data
               ? ({
                   ...getPlaylist.data.playlist,
-                  ...getPlaylist.data.playlistPD,
+                  ...getPlaylist.data.playlistPd,
                 } as PlaylistT)
               : undefined
           ),
@@ -102,18 +108,34 @@ export const usePlaylistsState = (props: PropsT) => {
         }).result;
       },
       //
-      savePlaylistPD: (values: ObjT) => {
-        return trackPromise<PlaylistPDT>({
-          name: 'savePlaylistPD',
-          states: { updating: [savePlaylistPD] },
-          promise: savePlaylistPD
+      savePlaylistPd: (values: ObjT) => {
+        return trackPromise<PlaylistPdT>({
+          name: 'savePlaylistPd',
+          states: { updating: [savePlaylistPd] },
+          promise: savePlaylistPd
             .mutateAsync({
               playlistId: playlistsState.playlistsCtr.highlight.item?.id,
               playlistSlug: playlistsState.playlistsCtr.highlight.item?.slug,
-              playlistPDForm: values.playlistPDForm,
-            } as SavePlaylistPDArgsT)
+              playlistPdForm: values.playlistPdForm,
+            } as SavePlaylistPdArgsT)
             .then(() => {
-              return values.playlistPDForm as PlaylistPDT;
+              return values.playlistPdForm as PlaylistPdT;
+            }),
+        }).result;
+      },
+      //
+      savePlaylistSettings: (values: ObjT) => {
+        return trackPromise<PlaylistSettingsT>({
+          name: 'savePlaylistSettings',
+          states: { updating: [savePlaylistSettings] },
+          promise: savePlaylistSettings
+            .mutateAsync({
+              playlistId: playlistsState.playlistsCtr.highlight.item?.id,
+              playlistSlug: playlistsState.playlistsCtr.highlight.item?.slug,
+              playlistSettingsForm: values.playlistSettingsForm,
+            } as SavePlaylistSettingsArgsT)
+            .then(() => {
+              return values.playlistSettingsForm as PlaylistSettingsT;
             }),
         }).result;
       },

@@ -5,7 +5,7 @@ export { ClipListKeyHandler } from './ClipListKeyHandler';
 export { ClipListView } from './ClipListView';
 export { ClipListViewItem } from './ClipListViewItem';
 export { ClipMenu } from './ClipMenu';
-export { ClipPDView } from './ClipPDView';
+export { ClipPdView } from './ClipPdView';
 export { ClipTagsView } from './ClipTagsView';
 export { ClipsStateProvider } from './ClipsStateProvider';
 export { GoToTimeButton } from './GoToTimeButton';

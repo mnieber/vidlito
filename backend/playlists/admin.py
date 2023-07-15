@@ -19,8 +19,8 @@ class EntryAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(models.PlaylistPD)
-class PlaylistPDAdmin(admin.ModelAdmin):
+@admin.register(models.PlaylistPd)
+class PlaylistPdAdmin(admin.ModelAdmin):
     pass
 
 

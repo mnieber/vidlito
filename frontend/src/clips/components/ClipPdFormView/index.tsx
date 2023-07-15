@@ -23,12 +23,12 @@ export type PropsT = {
 };
 
 export const DefaultProps = {
-  ...dps.clipPD,
-  ...dps.clipPDEdit,
+  ...dps.clipPd,
+  ...dps.clipPdEdit,
   ...dps.searchState,
 };
 
-export const ClipPDFormView = observer(
+export const ClipPdFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,
@@ -36,7 +36,7 @@ export const ClipPDFormView = observer(
     });
     const formStateRef = React.useRef<FormState>(null);
 
-    if (!props.clipPD) {
+    if (!props.clipPd) {
       return null;
     }
 
@@ -47,11 +47,11 @@ export const ClipPDFormView = observer(
 
     return (
       //
-      // 🔳 ClipPDFormView 🔳
+      // 🔳 ClipPdFormView 🔳
       //
       <div
         className={cn(
-          'ClipPDFormView',
+          'ClipPdFormView',
           //
           //
           l.root(),
@@ -76,7 +76,7 @@ export const ClipPDFormView = observer(
           {
             // 🔳 TagsField 🔳
           }
-          <Field fieldName="clipPDForm.tags" className={l.Field()}>
+          <Field fieldName="clipPdForm.tags" className={l.Field()}>
             <FormFieldLabel label="TAGS" />
             <ValuePickerField
               tabIndex={9}
@@ -92,7 +92,7 @@ export const ClipPDFormView = observer(
             // 🔳 DescriptionField 🔳
           }
           <Field
-            fieldName="clipPDForm.description"
+            fieldName="clipPdForm.description"
             tabOnEnter={false}
             className={l.Field()}
           >

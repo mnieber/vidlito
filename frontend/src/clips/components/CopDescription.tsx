@@ -23,9 +23,9 @@ const DefaultProps = {
   ...dps.playlist,
   ...dps.isOwner,
   ...dps.clipsEdit,
-  ...dps.clipPDEdit,
+  ...dps.clipPdEdit,
   ...dps.playlistsEdit,
-  ...dps.playlistPDEdit,
+  ...dps.playlistPdEdit,
 };
 
 export const CopDescription = observer(

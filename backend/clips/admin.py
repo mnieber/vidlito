@@ -8,6 +8,6 @@ class ClipAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(models.ClipPD)
-class ClipPDAdmin(admin.ModelAdmin):
+@admin.register(models.ClipPd)
+class ClipPdAdmin(admin.ModelAdmin):
     pass

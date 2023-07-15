@@ -6,14 +6,14 @@ import {
   unflatten,
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
-import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
+import { ClipPdT } from '/src/api/types/ClipPdT';
 import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
-    'playlistPDForm.description': props.playlist.playlistPD.description ?? null,
-    'playlistPDForm.tags': props.playlist.playlistPD.tags ?? null,
-    'playlistPDForm.id': props.playlist.playlistPD.id ?? null,
+    'clipPdForm.description': props.clipPd.description ?? null,
+    'clipPdForm.tags': props.clipPd.tags ?? null,
+    'clipPdForm.id': props.clipPd.id ?? null,
   };
 };
 
@@ -32,16 +32,16 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
-    const savePlaylistPD = props.playlistPDEdit.save.bind(props.playlistPDEdit);
+    const saveClipPd = props.clipPdEdit.save.bind(props.clipPdEdit);
 
-    return savePlaylistPD({
+    return saveClipPd({
       values: unflatten({
         ...values,
-        'playlistPDForm.id': values['playlistPDForm.id'] ?? createUUID(),
-        'playlistPDForm.tags': values['playlistPDForm.tags'] ?? [],
+        'clipPdForm.id': values['clipPdForm.id'] ?? createUUID(),
+        'clipPdForm.tags': values['clipPdForm.tags'] ?? [],
       }),
     })
-      .then((localPlaylistPD: PlaylistPDT) => {
+      .then((localClipPd: ClipPdT) => {
         formState.reset(initialValues, initialErrors);
       })
       .catch((error: any) => {
@@ -55,7 +55,7 @@ const getHandleSubmit =
 const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
-    props.playlistPDEdit.cancel();
+    props.clipPdEdit.cancel();
   };
 
 export const form = {

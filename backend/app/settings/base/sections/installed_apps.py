@@ -43,14 +43,14 @@ ADMIN_REORDER = (
         "app": "clips",
         "models": (
             "clips.Clip",
-            "clips.ClipPD",
+            "clips.ClipPd",
         ),
     },
     {
         "app": "playlists",
         "models": (
             "playlists.Playlist",
-            "playlists.PlaylistPD",
+            "playlists.PlaylistPd",
         ),
     },
     {"app": "app", "models": ("app.SlugSequence",)},

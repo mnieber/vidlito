@@ -3,29 +3,29 @@ from graphene.types.generic import GenericScalar
 
 from api.types import *
 from app.utils.tags import create_tags
-from clips.models import ClipPD
+from clips.models import ClipPd
 from user_profiles.models import UserProfile
 
 
-class SaveClipPD(graphene.Mutation):
+class SaveClipPd(graphene.Mutation):
     success = graphene.Boolean()
     errors = GenericScalar()
 
     class Arguments:
         clip_id = graphene.UUID(required=True)
-        clip_p_d_form = ClipPDFormT(required=True)
+        clip_pd_form = ClipPdFormT(required=True)
 
-    def mutate(self, info, clip_id, clip_p_d_form):
-        id = clip_p_d_form.pop("id")
-        clip_p_d_form["tags"] = create_tags(clip_p_d_form.get("tags", []))
-        ClipPD.objects.update_or_create(
-            defaults=clip_p_d_form,
+    def mutate(self, info, clip_id, clip_pd_form):
+        id = clip_pd_form.pop("id")
+        clip_pd_form["tags"] = create_tags(clip_pd_form.get("tags", []))
+        ClipPd.objects.update_or_create(
+            defaults=clip_pd_form,
             id=id,
             clip_id=clip_id,
             owner__user_id=info.context.user.id,
         )
 
-        return SaveClipPD(
+        return SaveClipPd(
             success=True,
             errors={},
         )

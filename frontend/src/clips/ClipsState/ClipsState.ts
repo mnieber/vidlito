@@ -10,21 +10,21 @@ import {
   Insertion,
   Selection,
 } from 'skandha-facets';
-import { ClipPDT } from '/src/api/types/ClipPDT';
+import { ClipPdT } from '/src/api/types/ClipPdT';
 import { ClipT } from '/src/api/types/ClipT';
-import { ClipPDStore } from '/src/clips/ClipsState/facets/ClipPDStore';
+import { ClipPdStore } from '/src/clips/ClipsState/facets/ClipPdStore';
 import { ClipsStore } from '/src/clips/ClipsState/facets/ClipsStore';
 import { Move } from '/src/clips/ClipsState/facets/Move';
-import { registerClipPDCtr } from '/src/clips/ClipsState/registerClipPDCtr';
+import { registerClipPdCtr } from '/src/clips/ClipsState/registerClipPdCtr';
 import { registerClipsCtr } from '/src/clips/ClipsState/registerClipsCtr';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
   getClips: () => ClipT[];
-  getClipPD: () => ClipPDT | undefined;
+  getClipPd: () => ClipPdT | undefined;
   moveClipsToTrash: (ids: string[]) => Promise<any>;
   saveClip: (values: ObjT) => Promise<ClipT>;
-  saveClipPD: (values: ObjT) => Promise<ClipPDT>;
+  saveClipPd: (values: ObjT) => Promise<ClipPdT>;
   saveClipOrdering: (clips: ClipT[]) => Promise<any>;
   moveClipsToPlaylist: (
     clips: ClipT[],
@@ -51,15 +51,15 @@ export class ClipsState {
     store: new ClipsStore(),
   };
 
-  clipPDCtr = {
+  clipPdCtr = {
     edit: new Edit(),
-    store: new ClipPDStore(),
+    store: new ClipPdStore(),
   };
 
   getSummary() {
     return {
       clips: Skandha.getCtrState(this.clipsCtr),
-      clipPD: Skandha.getCtrState(this.clipPDCtr),
+      clipPd: Skandha.getCtrState(this.clipPdCtr),
     };
   }
 
@@ -70,6 +70,6 @@ export class ClipsState {
   constructor(props: PropsT) {
     this.props = props;
     registerClipsCtr(this);
-    registerClipPDCtr(this);
+    registerClipPdCtr(this);
   }
 }

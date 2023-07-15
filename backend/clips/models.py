@@ -37,11 +37,11 @@ class Clip(Entity):
         return "Clip: " + str(self.name)
 
 
-class ClipPD(Entity):
+class ClipPd(Entity):
     clip = models.ForeignKey(Clip, on_delete=models.CASCADE, related_name="+")
     description = MartorField(null=True, blank=True)
     owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
     tags = models.JSONField(default=create_empty_tags)
 
     def __str__(self):
-        return "ClipPD: " + str(self.id)
+        return "ClipPd: " + str(self.id)

@@ -1,12 +1,12 @@
 import graphene
 from graphene_django.types import DjangoObjectType
 
-from playlists.models import PlaylistPD
+from playlists.models import PlaylistPd
 
 
-class PlaylistPDT(DjangoObjectType):
+class PlaylistPdT(DjangoObjectType):
     class Meta:
-        model = PlaylistPD
+        model = PlaylistPd
         exclude = ["owner"]
 
     tags = graphene.List(graphene.String)

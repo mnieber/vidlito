@@ -66,8 +66,12 @@ export const PlaylistsStateProvider = observer(
 
       result.defaultProps = {
         ...result.defaultProps,
-        playlistPDEdit: () => playlistsState.playlistCtr.pdEdit,
-        playlistSettingsEdit: () => playlistsState.playlistCtr.settingsEdit,
+        playlistPdEdit: () => playlistsState.pdCtr.edit,
+      };
+
+      result.defaultProps = {
+        ...result.defaultProps,
+        playlistSettingsEdit: () => playlistsState.settingsCtr.edit,
       };
 
       return result;

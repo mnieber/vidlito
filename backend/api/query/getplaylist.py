@@ -1,12 +1,12 @@
 import graphene
 
 from api.types import *
-from playlists.models import Playlist, PlaylistPD
+from playlists.models import Playlist, PlaylistPd
 
 
 class GetPlaylistOutputs(graphene.ObjectType):
     playlist = graphene.Field(PlaylistT)
-    playlist_p_d = graphene.Field(PlaylistPDT)
+    playlist_pd = graphene.Field(PlaylistPdT)
 
 
 class GetPlaylist:
@@ -27,6 +27,6 @@ class GetPlaylist:
         if not playlist:
             raise Exception("Must provide either playlist_id or playlist_slug")
 
-        playlist_p_d = PlaylistPD.filter(info, playlist__slug=playlist.slug).first()
+        playlist_pd = PlaylistPd.filter(info, playlist__slug=playlist.slug).first()
 
-        return GetPlaylistOutputs(playlist=playlist, playlist_p_d=playlist_p_d)
+        return GetPlaylistOutputs(playlist=playlist, playlist_pd=playlist_pd)

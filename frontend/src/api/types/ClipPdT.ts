@@ -1,22 +1,22 @@
 import { initRS } from '/src/resourceStates';
 import { createUUID } from '/src/utils/ids';
 
-export type PlaylistPDT = {
+export type ClipPdT = {
   id: string;
   description?: string;
   tags: string[];
 };
 
-export type PlaylistPDFormT = {
+export type ClipPdFormT = {
   id: string;
   description?: string;
   tags: string[];
 };
 
-export const createPlaylistPD = (): PlaylistPDT => {
+export const createClipPd = (): ClipPdT => {
   return initRS({
     id: createUUID(),
     description: '',
     tags: [],
-  } as PlaylistPDT);
+  } as ClipPdT);
 };

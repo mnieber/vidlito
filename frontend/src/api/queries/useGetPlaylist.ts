@@ -41,7 +41,7 @@ export const getPlaylist = (args: ArgsT) => {
           ownerUsername
           isPublic
         }
-        playlistPD {
+        playlistPd {
           description
           tags
         }

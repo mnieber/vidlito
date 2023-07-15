@@ -4,15 +4,14 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('user_profiles', '0003_userprofile_last_url'),
-        ('playlists', '0012_playlistprivatedata'),
+        ("user_profiles", "0003_userprofile_last_url"),
+        ("playlists", "0012_playlistprivatedata"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='PlaylistPrivateData',
-            new_name='PlaylistPD',
+            old_name="PlaylistPrivateData",
+            new_name="PlaylistPd",
         ),
     ]

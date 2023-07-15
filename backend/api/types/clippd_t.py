@@ -1,12 +1,12 @@
 import graphene
 from graphene_django.types import DjangoObjectType
 
-from clips.models import ClipPD
+from clips.models import ClipPd
 
 
-class ClipPDT(DjangoObjectType):
+class ClipPdT(DjangoObjectType):
     class Meta:
-        model = ClipPD
+        model = ClipPd
         exclude = ["owner"]
 
     tags = graphene.List(graphene.String)

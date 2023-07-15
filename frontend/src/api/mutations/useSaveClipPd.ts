@@ -1,26 +1,26 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
-import { getClipPDQueryKey } from '/src/api/queries';
+import { getClipPdQueryKey } from '/src/api/queries';
 import { queryClient } from '/src/api/queryClient';
-import { ClipPDFormT } from '/src/api/types/ClipPDT';
+import { ClipPdFormT } from '/src/api/types/ClipPdT';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   clipId: string;
   clipSlug: string;
-  clipPDForm: ClipPDFormT;
+  clipPdForm: ClipPdFormT;
 };
 
-export const saveClipPD = (args: ArgsT) => {
+export const saveClipPd = (args: ArgsT) => {
   return doQuery(
-    `mutation saveClipPD(
+    `mutation saveClipPd(
       $clipId: UUID!
-      $clipPDForm: ClipPDFormT!
+      $clipPdForm: ClipPdFormT!
     ) {
-      saveClipPD(
+      saveClipPd(
         clipId: $clipId
-        clipPDForm: $clipPDForm
+        clipPdForm: $clipPdForm
       ) {
         errors
         success
@@ -28,17 +28,17 @@ export const saveClipPD = (args: ArgsT) => {
     }`,
     args
   ).then((response: ObjT) => {
-    return wait(import.meta.env.DEV ? 1000 : 0, response.saveClipPD);
+    return wait(import.meta.env.DEV ? 1000 : 0, response.saveClipPd);
   });
 };
 
-export const useSaveClipPD = () => {
+export const useSaveClipPd = () => {
   return useMutation({
-    mutationKey: ['saveClipPD'],
-    mutationFn: saveClipPD,
+    mutationKey: ['saveClipPd'],
+    mutationFn: saveClipPd,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return queryClient.invalidateQueries({
-        queryKey: getClipPDQueryKey({ clipSlug: args.clipSlug }),
+        queryKey: getClipPdQueryKey({ clipSlug: args.clipSlug }),
       });
     },
   });

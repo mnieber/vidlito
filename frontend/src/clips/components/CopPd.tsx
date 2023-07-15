@@ -1,15 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { ClipPDView } from '/src/clips/components';
-import { ClipPDFormView } from '/src/clips/components/ClipPDFormView';
+import { ClipPdView } from '/src/clips/components';
+import { ClipPdFormView } from '/src/clips/components/ClipPdFormView';
 import { EditButton } from '/src/clips/components/EditButton';
 import { L } from '/src/frames/layout';
-import { PlaylistPDView } from '/src/playlists/components';
-import { PlaylistPDFormView } from '/src/playlists/components/PlaylistPDFormView';
+import { PlaylistPdView } from '/src/playlists/components';
+import { PlaylistPdFormView } from '/src/playlists/components/PlaylistPdFormView';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './CopPD.scss';
+import './CopPd.scss';
 
 export type PropsT = {
   showPlaylist: boolean;
@@ -18,20 +18,20 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clips,
-  ...dps.clipPDEdit,
-  ...dps.playlistPDEdit,
+  ...dps.clipPdEdit,
+  ...dps.playlistPdEdit,
   ...dps.userProfile,
 };
 
-export const CopPD = observer(
+export const CopPd = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const editClipPD = props.clipPDEdit.isEditing;
-    const editPlaylistPD = props.playlistPDEdit.isEditing;
+    const editClipPd = props.clipPdEdit.isEditing;
+    const editPlaylistPd = props.playlistPdEdit.isEditing;
 
     return (
       <div
         className={cn(
-          'CopPD',
+          'CopPd',
           //
           //
           'py-[18px] px-4'
@@ -39,25 +39,25 @@ export const CopPD = observer(
       >
         <div
           className={cn(
-            'CopPD__TopRow',
+            'CopPd__TopRow',
             L.row.skewer(),
             'grow',
             'justify-between'
           )}
         >
-          <div className={cn('CopPD__Title')}>
+          <div className={cn('CopPd__Title')}>
             {`${props.showPlaylist ? 'Playlist' : 'Clip'} private data`}
           </div>
           <EditButton
             className="self-end"
-            edit={props.showPlaylist ? props.playlistPDEdit : props.clipPDEdit}
+            edit={props.showPlaylist ? props.playlistPdEdit : props.clipPdEdit}
             enabled={!!props.userProfile}
           />
         </div>
-        {!props.showPlaylist && !editClipPD && <ClipPDView className="" />}
-        {!props.showPlaylist && editClipPD && <ClipPDFormView />}
-        {props.showPlaylist && !editPlaylistPD && <PlaylistPDView />}
-        {props.showPlaylist && editPlaylistPD && <PlaylistPDFormView />}
+        {!props.showPlaylist && !editClipPd && <ClipPdView className="" />}
+        {!props.showPlaylist && editClipPd && <ClipPdFormView />}
+        {props.showPlaylist && !editPlaylistPd && <PlaylistPdView />}
+        {props.showPlaylist && editPlaylistPd && <PlaylistPdFormView />}
       </div>
     );
   }, DefaultProps)
