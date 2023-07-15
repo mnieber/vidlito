@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
-import { getPlaylistPDQueryKey } from '/src/api/queries';
+import { getPlaylistQueryKey } from '/src/api/queries';
 import { queryClient } from '/src/api/queryClient';
-import { PlaylistPDFormT } from '/src/api/types/PlaylistT';
+import { PlaylistPDFormT } from '/src/api/types/PlaylistPDT';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
@@ -38,7 +38,7 @@ export const useSavePlaylistPD = () => {
     mutationFn: savePlaylistPD,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return queryClient.invalidateQueries({
-        queryKey: getPlaylistPDQueryKey({ playlistSlug: args.playlistSlug }),
+        queryKey: getPlaylistQueryKey({ playlistSlug: args.playlistSlug }),
       });
     },
   });

@@ -6,19 +6,15 @@ import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 
 const mapData = (state: PlaylistsState) => {
-  const ctr = state.playlistPDCtr;
+  const ctr = state.playlistCtr;
 
-  mapDataToProps(ctr, {
-    store: {
-      playlistPD: () => state.props.getPlaylistPD(),
-    },
-  });
+  mapDataToProps(ctr, {});
 };
 
 const setCallbacks = (state: PlaylistsState) => {
-  const ctr = state.playlistPDCtr;
+  const ctr = state.playlistCtr;
 
-  setCallbackMap(ctr.edit, {
+  setCallbackMap(ctr.pdEdit, {
     save: {
       saveItem(this: EditCbs['save']) {
         return state.props
@@ -32,10 +28,10 @@ const setCallbacks = (state: PlaylistsState) => {
   } as EditCbs);
 };
 
-export const registerPlaylistPDCtr = (state: PlaylistsState) => {
+export const registerPlaylistCtr = (state: PlaylistsState) => {
   registerCtr({
-    ctr: state.playlistPDCtr,
-    options: { name: 'PlaylistsState.PlaylistPD' },
+    ctr: state.playlistCtr,
+    options: { name: 'PlaylistsState.Playlist' },
     initCtr: () => {
       setCallbacks(state);
       mapData(state);

@@ -14,7 +14,6 @@ import { SearchContentArgsT } from '/src/api/mutations';
 import { ActionT } from '/src/api/types/ActionT';
 import { ClipPDT } from '/src/api/types/ClipPDT';
 import { ClipT } from '/src/api/types/ClipT';
-import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { SearchResultT } from '/src/api/types/SearchResultT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
@@ -185,12 +184,12 @@ const dpsPlaylists = {
   },
 };
 
-const dpsPlaylistPD = {
-  playlistPD: {
-    playlistPD: stub as PlaylistPDT,
-  },
+const dpsPlaylist = {
   playlistPDEdit: {
     playlistPDEdit: stub as Edit,
+  },
+  playlistSettingsEdit: {
+    playlistSettingsEdit: stub as Edit,
   },
 };
 
@@ -209,7 +208,7 @@ export const defaultProps = {
   ...dpsClipPD,
   ...dpsDashboard,
   ...dpsPlaylists,
-  ...dpsPlaylistPD,
+  ...dpsPlaylist,
   ...dpsSearchResults,
   ...dpsStates,
   ...dpsVideoPlayer,

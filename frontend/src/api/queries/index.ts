@@ -6,7 +6,3 @@ export {
   useGetPlaylist,
 } from './useGetPlaylist';
 export type { ArgsT as GetPlaylistArgsT } from './useGetPlaylist';
-export {
-  queryKey as getPlaylistPDQueryKey,
-  useGetPlaylistPD,
-} from './useGetPlaylistPD';

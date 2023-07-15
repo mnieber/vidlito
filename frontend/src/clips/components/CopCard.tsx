@@ -8,6 +8,7 @@ import { CopDescription } from '/src/clips/components/CopDescription';
 import { CopPD } from '/src/clips/components/CopPD';
 import { L } from '/src/frames/layout';
 import { AuthorCard } from '/src/playlists/components/AuthorCard';
+import { CopSettings } from '/src/playlists/components/CopSettings';
 import { CreateFirstClip } from '/src/playlists/components/CreateFirstClip';
 import { TagsCard } from '/src/playlists/components/TagsCard';
 import { cn } from '/src/utils/classnames';
@@ -69,6 +70,7 @@ export const CopCard = observer(
             {noClips && props.isOwner(props.clip) && (
               <CreateFirstClip className="mt-4" />
             )}
+            {showPlaylist && props.isOwner(props.playlist) && <CopSettings />}
           </div>
         )}
       </>

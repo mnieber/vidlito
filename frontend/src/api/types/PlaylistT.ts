@@ -1,4 +1,5 @@
 import { ClipT } from '/src/api/types/ClipT';
+import { createPlaylistPD, PlaylistPDT } from '/src/api/types/PlaylistPDT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { initRS } from '/src/resourceStates';
 import { createUUID } from '/src/utils/ids';
@@ -13,6 +14,8 @@ export type PlaylistT = {
   ownerUsername: string;
   slug: string;
   tags: string[];
+  playlistPD: PlaylistPDT;
+  isPublic: boolean;
 };
 
 export type PlaylistByIdT = { [id: string]: PlaylistT };
@@ -26,12 +29,6 @@ export type PlaylistFormT = {
   tags: string[];
 };
 
-export type PlaylistPDFormT = {
-  id: string;
-  description?: string;
-  tags: string[];
-};
-
 export const createPlaylist = (me: UserProfileT, values: ObjT): PlaylistT => {
   return initRS({
     clipSet: [],
@@ -39,8 +36,10 @@ export const createPlaylist = (me: UserProfileT, values: ObjT): PlaylistT => {
     name: 'New playlist',
     nrOfClips: 0,
     ownerUsername: me.username,
+    playlistPD: createPlaylistPD(),
     slug: 'new-playlist',
     tags: [],
+    isPublic: false,
   } as PlaylistT);
 };
 

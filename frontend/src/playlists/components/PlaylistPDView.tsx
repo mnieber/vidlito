@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { MarkdownView } from '/src/frames/components';
 import { cn } from '/src/utils/classnames';
@@ -11,14 +12,13 @@ export type PropsT = {
 };
 
 const DefaultProps = {
-  ...dps.playlistPD,
+  ...dps.playlist,
 };
 
 export const PlaylistPDView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (!props.playlistPD?.description)
-      return <PlaylistPDViewLoader {...props} />;
-    if (!props.playlistPD) return null;
+    if (isLoading(props.playlist)) return <PlaylistPDViewLoader {...props} />;
+    if (!props.playlist) return null;
 
     return (
       <div
@@ -29,7 +29,7 @@ export const PlaylistPDView = observer(
           props.className
         )}
       >
-        <MarkdownView text={props.playlistPD.description ?? ''} />
+        <MarkdownView text={props.playlist.playlistPD.description ?? ''} />
       </div>
     );
   }, DefaultProps)

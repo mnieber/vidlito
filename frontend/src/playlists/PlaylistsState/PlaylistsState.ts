@@ -12,16 +12,14 @@ import {
 } from 'skandha-facets';
 import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { PlaylistPDStore } from '/src/playlists/PlaylistsState/facets/PlaylistPDStore';
-import { PlaylistStore } from '/src/playlists/PlaylistsState/facets/PlaylistsStore';
-import { registerPlaylistPDCtr } from '/src/playlists/PlaylistsState/registerPlaylistPDCtr';
+import { PlaylistStore } from '/src/playlists/PlaylistsState/facets/PlaylistStore';
+import { registerPlaylistCtr } from '/src/playlists/PlaylistsState/registerPlaylistCtr';
 import { registerPlaylistsCtr } from '/src/playlists/PlaylistsState/registerPlaylistsCtr';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
   getPlaylists: () => PlaylistT[];
   getFollowedPlaylists: () => PlaylistT[];
-  getPlaylistPD: () => PlaylistPDT | undefined;
   deletePlaylists: (ids: string[]) => Promise<any>;
   savePlaylist: (values: ObjT) => Promise<PlaylistT>;
   savePlaylistPD: (values: ObjT) => Promise<PlaylistPDT>;
@@ -44,15 +42,15 @@ export class PlaylistsState {
     store: new PlaylistStore(),
   };
 
-  playlistPDCtr = {
-    edit: new Edit(),
-    store: new PlaylistPDStore(),
+  playlistCtr = {
+    pdEdit: new Edit(),
+    settingsEdit: new Edit(),
   };
 
   getSummary() {
     return {
       playlistsCtr: Skandha.getCtrState(this.playlistsCtr),
-      playlistPDCtr: Skandha.getCtrState(this.playlistPDCtr),
+      playlistCtr: Skandha.getCtrState(this.playlistCtr),
     };
   }
 
@@ -63,6 +61,6 @@ export class PlaylistsState {
   constructor(props: PropsT) {
     this.props = props;
     registerPlaylistsCtr(this);
-    registerPlaylistPDCtr(this);
+    registerPlaylistCtr(this);
   }
 }

@@ -11,9 +11,9 @@ import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
-    'playlistPDForm.description': props.playlistPD.description ?? null,
-    'playlistPDForm.tags': props.playlistPD.tags ?? null,
-    'playlistPDForm.id': props.playlistPD.id ?? null,
+    'playlistPDForm.description': props.playlist.playlistPD.description ?? null,
+    'playlistPDForm.tags': props.playlist.playlistPD.tags ?? null,
+    'playlistPDForm.id': props.playlist.playlistPD.id ?? null,
   };
 };
 

@@ -23,7 +23,7 @@ export type PropsT = {
 };
 
 export const DefaultProps = {
-  ...dps.playlistPD,
+  ...dps.playlist,
   ...dps.playlistPDEdit,
   ...dps.searchState,
 };
@@ -36,7 +36,7 @@ export const PlaylistPDFormView = observer(
     });
     const formStateRef = React.useRef<FormState>(null);
 
-    if (!props.playlistPD) {
+    if (!props.playlist) {
       return null;
     }
 

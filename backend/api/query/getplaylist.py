@@ -1,11 +1,12 @@
 import graphene
 
 from api.types import *
-from playlists.models import Playlist
+from playlists.models import Playlist, PlaylistPD
 
 
 class GetPlaylistOutputs(graphene.ObjectType):
     playlist = graphene.Field(PlaylistT)
+    playlist_p_d = graphene.Field(PlaylistPDT)
 
 
 class GetPlaylist:
@@ -16,10 +17,16 @@ class GetPlaylist:
     )
 
     def resolve_get_playlist(self, info, playlist_id=None, playlist_slug=None):
-        if playlist_id:
-            return GetPlaylistOutputs(playlist=Playlist.objects.get(id=playlist_id))
+        playlist = (
+            Playlist.objects.get(id=playlist_id)
+            if playlist_id
+            else Playlist.objects.get(slug=playlist_slug)
+            if playlist_slug
+            else None
+        )
+        if not playlist:
+            raise Exception("Must provide either playlist_id or playlist_slug")
 
-        if playlist_slug:
-            return GetPlaylistOutputs(playlist=Playlist.objects.get(slug=playlist_slug))
+        playlist_p_d = PlaylistPD.filter(info, playlist__slug=playlist.slug).first()
 
-        raise Exception("Must provide either playlist_id or playlist_slug")
+        return GetPlaylistOutputs(playlist=playlist, playlist_p_d=playlist_p_d)

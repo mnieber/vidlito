@@ -16,15 +16,10 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const {
-      playlistsState,
-      isGetPlaylistLoading,
-      isGetPlaylistUpdating,
-      isGetPlaylistPDLoading,
-      isGetPlaylistPDUpdating,
-    } = usePlaylistsState({
-      getUserProfile: () => props.userProfile,
-    });
+    const { playlistsState, isGetPlaylistLoading, isGetPlaylistUpdating } =
+      usePlaylistsState({
+        getUserProfile: () => props.userProfile,
+      });
 
     const cache = useBuilder(() =>
       makeAutoObservable({
@@ -44,17 +39,6 @@ export const PlaylistsStateProvider = observer(
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
             ['loading', () => isGetPlaylistLoading(), 'getPlaylist'],
             ['updating', () => isGetPlaylistUpdating(), 'getPlaylist']
-          );
-        },
-        get playlistPD() {
-          return updateSources(
-            {
-              resource: playlistsState.playlistPDCtr.store.playlistPD,
-              resourceName: 'playlistPD',
-            },
-            ['loading', () => isLoading(props.userProfile), 'userProfile'],
-            ['loading', () => isGetPlaylistPDLoading(), 'getPlaylistPD'],
-            ['updating', () => isGetPlaylistPDUpdating(), 'getPlaylistPD']
           );
         },
       })
@@ -82,8 +66,8 @@ export const PlaylistsStateProvider = observer(
 
       result.defaultProps = {
         ...result.defaultProps,
-        playlistPD: () => cache.playlistPD,
-        playlistPDEdit: () => playlistsState.playlistPDCtr.edit,
+        playlistPDEdit: () => playlistsState.playlistCtr.pdEdit,
+        playlistSettingsEdit: () => playlistsState.playlistCtr.settingsEdit,
       };
 
       return result;

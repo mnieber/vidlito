@@ -12,8 +12,7 @@ import {
 import { useObservableQuery } from '/src/api/hooks';
 import { SavePlaylistPDArgsT } from '/src/api/mutations';
 import { useSavePlaylistPD } from '/src/api/mutations/useSavePlaylistPD';
-import { useGetPlaylistPD } from '/src/api/queries';
-import { PlaylistPDT, createPlaylistPD } from '/src/api/types/PlaylistPDT';
+import { PlaylistPDT } from '/src/api/types/PlaylistPDT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
@@ -57,13 +56,6 @@ export const usePlaylistsState = (props: PropsT) => {
     ),
     { fetchAsLoad: true, debugLabel: 'getPlaylist' }
   );
-  const getPlaylistPD = useObservableQuery(
-    useGetPlaylistPD(
-      { playlistSlug: getPlaylistSlug() },
-      { enabled: isGetPlaylistEnabled() }
-    ),
-    { fetchAsLoad: true, debugLabel: 'getPlaylistPD' }
-  );
 
   const playlistsState = useBuilder(() => {
     return new PlaylistsState({
@@ -72,17 +64,18 @@ export const usePlaylistsState = (props: PropsT) => {
         return graftResourceStatesFromMemo({
           resources: smartUpdatePlaylists(
             props.getUserProfile()?.followSet,
-            getPlaylist.data?.playlist
+            !!getPlaylist.data
+              ? ({
+                  ...getPlaylist.data.playlist,
+                  ...getPlaylist.data.playlistPD,
+                } as PlaylistT)
+              : undefined
           ),
         });
       },
       //
       getFollowedPlaylists: () => {
         return props.getUserProfile()?.followSet ?? [];
-      },
-      //
-      getPlaylistPD: () => {
-        return getPlaylistPD.data?.playlistPD ?? createPlaylistPD();
       },
       //
       deletePlaylists: (ids: string[]) => {
@@ -149,9 +142,5 @@ export const usePlaylistsState = (props: PropsT) => {
       isGetPlaylistEnabled() && isQueryLoading(getPlaylist),
     isGetPlaylistUpdating: () =>
       isGetPlaylistEnabled() && isQueryUpdating(getPlaylist),
-    isGetPlaylistPDLoading: () =>
-      isGetPlaylistEnabled() && isQueryLoading(getPlaylistPD),
-    isGetPlaylistPDUpdating: () =>
-      isGetPlaylistEnabled() && isQueryUpdating(getPlaylistPD),
   };
 };
