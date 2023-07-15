@@ -17,6 +17,8 @@ class UndoAction(graphene.Mutation):
         action = Action.get_mine(info, id=action_id)
         if action.type == "TrashEntries":
             playlist_id = action.data["playlist_id"]
+            playlist = Playlist.get_mine(info, id=playlist_id)
+
             clip_ids = action.data["clip_ids"]
             for entry in Entry.objects.trash().filter(
                 playlist_id=playlist_id, clip_id__in=clip_ids
@@ -24,7 +26,7 @@ class UndoAction(graphene.Mutation):
                 entry.is_deleted = False
                 entry.save()
             action.delete()
-            Playlist.objects.get(id=playlist_id).update_nr_clips()
+            playlist.update_nr_clips()
 
         return UndoAction(
             success=True,

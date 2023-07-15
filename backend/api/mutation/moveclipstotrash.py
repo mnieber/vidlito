@@ -46,7 +46,7 @@ class MoveClipsToTrash(graphene.Mutation):
                 if playlist.is_public:
                     entry.clip.nr_of_public_playlists -= 1
                 if entry.clip.source_playlist_id == playlist.id:
-                    reassign_source_movelist(info, entry.clip, playlist)
+                    pick_new_source_movelist(info, entry.clip, None, save=False)
                 entry.clip.save()
 
                 # Update entry
@@ -61,13 +61,33 @@ class MoveClipsToTrash(graphene.Mutation):
         )
 
 
-def reassign_source_movelist(info, clip, playlist):
-    entry_that_also_references_clip = Entry.filter_mine(
-        info, clip_id=clip.id, playlist_id__ne=playlist.id
-    ).first()
-    clip.source_playlist_id = (
-        entry_that_also_references_clip.playlist_id
-        if entry_that_also_references_clip
+def pick_new_source_movelist(info, clip, candidate_playlist, save):
+    private_source_playlist_id = (
+        candidate_playlist
+        if (candidate_playlist and not candidate_playlist.is_public)
         else None
     )
-    clip.save()
+
+    public_source_playlist_id = (
+        candidate_playlist
+        if (candidate_playlist and candidate_playlist.is_public)
+        else None
+    )
+
+    for other_entry in Entry.filter_mine(
+        info, clip_id=clip.id, playlist_id__ne=clip.source_playlist_id
+    ).select_related("playlist"):
+        if other_entry.playlist.is_public:
+            if not public_source_playlist_id:
+                public_source_playlist_id = other_entry.playlist.id
+        else:
+            if not private_source_playlist_id:
+                private_source_playlist_id = other_entry.playlist.id
+
+    if public_source_playlist_id:
+        clip.source_playlist_id = public_source_playlist_id
+    elif private_source_playlist_id:
+        clip.source_playlist_id = private_source_playlist_id
+
+    if save:
+        clip.save()

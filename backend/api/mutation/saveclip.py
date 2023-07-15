@@ -28,6 +28,8 @@ class SaveClip(graphene.Mutation):
 
         if created:
             clip.source_playlist_id = playlist.id
+            if playlist.is_public:
+                clip.nr_of_public_playlists = 1
             clip.save()
 
             entry = Entry(clip=clip, playlist=playlist)
