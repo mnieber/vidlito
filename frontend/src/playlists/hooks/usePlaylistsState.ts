@@ -20,7 +20,7 @@ import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
 import { PlaylistSettingsT } from '/src/api/types/PlaylistSettingsT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
-import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
+import { navHandler } from '/src/navHandler/NavHandler';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { useSmartUpdatePlaylists } from '/src/playlists/hooks/useSmartUpdatePlaylists';
 import { initRS } from '/src/resourceStates';
@@ -37,13 +37,13 @@ export type PropsT = {
 export const usePlaylistsState = (props: PropsT) => {
   const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
   const smartUpdatePlaylists = useSmartUpdatePlaylists();
-  const params = useNavHandlerParams();
 
   // The value of playlistSlugRef is based on the current url, but we use
   // playlistsState.playlistsCtr.highlight.item?.slug as a fallback.
   const playlistHighlightRef = React.useRef<Highlight | undefined>();
   const getPlaylistSlug = () =>
-    params.playlistSlug ?? playlistHighlightRef.current?.item?.slug;
+    navHandler.getParams().playlistSlug ??
+    playlistHighlightRef.current?.item?.slug;
 
   // Mutations
   const deletePlaylists = initRS(useDeletePlaylists());
@@ -161,8 +161,8 @@ export const usePlaylistsState = (props: PropsT) => {
     savePlaylist,
     savePlaylistOrdering,
     isGetPlaylistLoading: () =>
-      isGetPlaylistEnabled() && isQueryLoading(getPlaylist),
+      isQueryLoading(getPlaylist) && isGetPlaylistEnabled(),
     isGetPlaylistUpdating: () =>
-      isGetPlaylistEnabled() && isQueryUpdating(getPlaylist),
+      isQueryUpdating(getPlaylist) && isGetPlaylistEnabled(),
   };
 };

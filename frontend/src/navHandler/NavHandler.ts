@@ -1,12 +1,13 @@
 import { createBrowserHistory } from 'history';
 import { action, makeObservable, observable } from 'mobx';
+import { createObservableHistory } from 'mobx-observable-history';
 import * as R from 'ramda';
 import { sortNavLayers } from '/src/navHandler/sortNavLayers';
 import { routeTable } from '/src/routes/components/RouteTableProvider';
 import { WrapUfn } from '/src/routes/utils/RouteTable';
 import { getBestRouteMatch } from '/src/routes/utils/getRouteMatches';
 import { ObjT } from '/src/utils/types';
-import { patchHistory, pathname } from '/src/utils/urls';
+import { patchHistory } from '/src/utils/urls';
 
 export type NavLayerT = {
   route: string;
@@ -45,7 +46,7 @@ export class NavHandler {
   }
 
   getRouteMatch() {
-    return getBestRouteMatch(this.routes, pathname());
+    return getBestRouteMatch(this.routes, navigation.location.pathname);
   }
 
   getParams(mergeLeftWithHiddenParams = false) {
@@ -76,7 +77,10 @@ export class NavHandler {
   }
 
   _getNavLayer(name: string): NavLayerT | undefined {
-    const sortedLayers = sortNavLayers(this.navLayers, pathname());
+    const sortedLayers = sortNavLayers(
+      this.navLayers,
+      navigation.location.pathname
+    );
     for (let i = 0; i < sortedLayers.length; i++) {
       const layer = sortedLayers[i];
       const handler = layer.fns[name];
@@ -101,6 +105,7 @@ export class NavHandler {
 }
 
 export const history = patchHistory(createBrowserHistory());
+export const navigation = createObservableHistory(history);
 
 export const navHandler = new NavHandler({
   history: history,

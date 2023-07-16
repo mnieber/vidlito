@@ -14,6 +14,7 @@
     "merge-props": "^6.0.0",
     "mobx": "^6.9.0",
     "mobx-log": "^2.1.1",
+    "mobx-observable-history": "^2.0.3",
     "mobx-react-lite": "^3.4.3",
     "postcss": "^8.4.23",
     "ramda": "^0.29.0",
