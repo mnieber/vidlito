@@ -24,7 +24,7 @@ class UndoAction(graphene.Mutation):
             if not playlist:
                 playlist = Playlist.objects.create(
                     owner_id=info.context.user.id,
-                    name=action.data["playlist_name"],
+                    name=action.data["playlist_name"] + " (recreated)",
                     slug=update_slug(slugify(action.data["playlist_name"]), "playlist"),
                 )
                 Follow.objects.create(playlist=playlist, owner_id=info.context.user.id)
