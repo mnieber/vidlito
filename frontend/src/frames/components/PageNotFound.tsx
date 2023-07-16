@@ -29,7 +29,7 @@ export const PageNotFound = observer(
           props.className
         )}
       >
-        <div className={cn('PageNotFound__Message')}>
+        <div className={cn('PageNotFound__Message', L.WallPaperCard.message())}>
           Oops, it seems this page doesn't exist
         </div>
       </div>

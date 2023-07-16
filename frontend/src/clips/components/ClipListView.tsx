@@ -32,6 +32,10 @@ const DefaultProps = {
 
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    if (isLoading(props.clips)) {
+      return <ClipListViewLoader {...props} />;
+    }
+
     const dragAndDropUIConnector = createDragAndDropUIConnector(
       props.clipsDragAndDrop,
       props.clipsHovering
@@ -55,10 +59,6 @@ export const ClipListView = observer(
         }
       },
     });
-
-    if (isLoading(props.clips)) {
-      return <ClipListViewLoader {...props} />;
-    }
 
     const noItems = (
       <h2 className="text-primaryTeal">There are no clips yet</h2>
