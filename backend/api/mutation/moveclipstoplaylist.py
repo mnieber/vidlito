@@ -44,7 +44,6 @@ class MoveClipsToPlaylist(graphene.Mutation):
                     pick_new_source_movelist(
                         info, entry.clip, dest_playlist, save=False
                     )
-                    entry.clip.source_playlist_id = dest_playlist_id
                     save_clip = True
 
                 if copy and dest_playlist.is_public:
