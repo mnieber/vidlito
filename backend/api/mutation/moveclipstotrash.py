@@ -63,13 +63,13 @@ class MoveClipsToTrash(graphene.Mutation):
 
 def pick_new_source_movelist(info, clip, candidate_playlist, save):
     private_source_playlist_id = (
-        candidate_playlist
+        candidate_playlist.id
         if (candidate_playlist and not candidate_playlist.is_public)
         else None
     )
 
     public_source_playlist_id = (
-        candidate_playlist
+        candidate_playlist.id
         if (candidate_playlist and candidate_playlist.is_public)
         else None
     )
