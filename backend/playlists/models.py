@@ -62,10 +62,12 @@ class Entry(Entity):
 
     objects = EntryManager()
 
-    clip = models.ForeignKey(Clip, on_delete=models.CASCADE, related_name="+")
+    clip = models.ForeignKey(
+        Clip, on_delete=models.CASCADE, related_name="+", db_index=True
+    )
     is_deleted = models.BooleanField(default=False)
     playlist = models.ForeignKey(
-        Playlist, on_delete=models.CASCADE, related_name="entry_set"
+        Playlist, on_delete=models.CASCADE, related_name="entry_set", db_index=True
     )
     sort_pos = models.IntegerField(default=0)
 

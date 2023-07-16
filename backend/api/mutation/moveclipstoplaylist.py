@@ -1,9 +1,12 @@
 import graphene
+from django.db import transaction
 from graphene.types.generic import GenericScalar
 
 from api.mutation.moveclipstotrash import pick_new_source_movelist
 from api.types import *
-from playlists.models import Entry, dest_playlist,
+from playlists.models import Entry, Playlist
+
+
 class MoveClipsToPlaylist(graphene.Mutation):
     success = graphene.Boolean()
     errors = GenericScalar()
@@ -24,11 +27,13 @@ class MoveClipsToPlaylist(graphene.Mutation):
             else []
         )
 
-        entries_to_delete = []
-        for entry in Entry.objects.filter(playlist_id=src_playlist_id):
-            save_clip = False
-            if entry.clip_id in clip_ids:
-                if entry.clip_id.hex in dest_clips_id_hexes:
+        with transaction.atomic():
+            entries_to_delete = []
+            for entry in Entry.objects.filter(
+                playlist_id=src_playlist_id, clip_id__in=clip_ids
+            ):
+                save_clip = False
+                if not copy and entry.clip_id.hex in dest_clips_id_hexes:
                     # If the clip is already in the destination playlist, then
                     # moving the clip to the destination playlist implies
                     # deleting the entry from the source playlist.
@@ -40,10 +45,9 @@ class MoveClipsToPlaylist(graphene.Mutation):
                 entry.playlist_id = dest_playlist_id
                 entry.save()
 
-                if not copy and entry.clip.source_playlist_id == src_playlist_id:
-                    pick_new_source_movelist(
-                        info, entry.clip, dest_playlist, save=False
-                    )
+                if _update_source_movelist(
+                    info, copy, entry.clip, src_playlist, dest_playlist
+                ):
                     save_clip = True
 
                 if copy and dest_playlist.is_public:
@@ -54,16 +58,31 @@ class MoveClipsToPlaylist(graphene.Mutation):
                     entry.clip.nr_of_public_playlists -= 1
                     save_clip = True
 
-            if save_clip:
-                entry.clip.save()
+                if save_clip:
+                    entry.clip.save()
 
-        for entry in entries_to_delete:
-            entry.delete()
+            Entry.filter(id__in=[entry.id for entry in entries_to_delete]).delete()
 
-        src_playlist.update_nr_clips()
-        dest_playlist.update_nr_clips()
+            src_playlist.update_nr_clips()
+            dest_playlist.update_nr_clips()
 
         return MoveClipsToPlaylist(
             success=True,
             errors={},
         )
+
+
+def _update_source_movelist(info, copy, clip, src_playlist, dest_playlist):
+    def is_moving_away_from_source_playlist():
+        return not copy and clip.source_playlist_id == src_playlist.id
+
+    def is_copying_towards_new_source_playlist():
+        return copy and dest_playlist.is_public and clip.nr_of_public_playlists == 0
+
+    if (
+        is_moving_away_from_source_playlist()
+        or is_copying_towards_new_source_playlist()
+    ):
+        pick_new_source_movelist(info, clip, dest_playlist, save=False)
+        return True
+    return False

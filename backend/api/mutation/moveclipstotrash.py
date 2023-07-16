@@ -34,8 +34,8 @@ class MoveClipsToTrash(graphene.Mutation):
                 data={
                     "entry_ids": [entry.id for entry in entries],
                     "clip_names": [entry.clip.name for entry in entries],
+                    "playlist_id": playlist.id,
                     "playlist_name": playlist.name,
-                    "playlist_id": str(playlist.id),
                     "date": current_datetime_str,
                 },
             )
@@ -61,33 +61,38 @@ class MoveClipsToTrash(graphene.Mutation):
         )
 
 
+# This function sets a new value for clip.source_playlist_id.
+# If possible, it picks a public playlist.
+# It favours the candidate_playlist above other playlists.
 def pick_new_source_movelist(info, clip, candidate_playlist, save):
-    private_source_playlist_id = (
-        candidate_playlist.id
+    private_source_playlist = (
+        candidate_playlist
         if (candidate_playlist and not candidate_playlist.is_public)
         else None
     )
 
-    public_source_playlist_id = (
-        candidate_playlist.id
+    public_source_playlist = (
+        candidate_playlist
         if (candidate_playlist and candidate_playlist.is_public)
         else None
     )
 
-    for other_entry in Entry.filter_mine(
-        info, clip_id=clip.id, playlist_id__ne=clip.source_playlist_id
-    ).select_related("playlist"):
-        if other_entry.playlist.is_public:
-            if not public_source_playlist_id:
-                public_source_playlist_id = other_entry.playlist.id
-        else:
-            if not private_source_playlist_id:
-                private_source_playlist_id = other_entry.playlist.id
+    if not public_source_playlist:
+        other_entries = Entry.objects.filter(
+            clip_id=clip.id,
+            playlist_id__exclude=clip.source_playlist_id,
+            playlist__owner_id=info.context.user.id,
+        )
 
-    if public_source_playlist_id:
-        clip.source_playlist_id = public_source_playlist_id
-    elif private_source_playlist_id:
-        clip.source_playlist_id = private_source_playlist_id
+        public_source_playlist = other_entries(playlist__is_public=True).first()
+        if not public_source_playlist:
+            if not private_source_playlist:
+                private_source_playlist = other_entries.first()
+
+    if public_source_playlist:
+        clip.source_playlist_id = public_source_playlist.id
+    elif private_source_playlist:
+        clip.source_playlist_id = private_source_playlist.id
 
     if save:
         clip.save()
