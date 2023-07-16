@@ -15,6 +15,7 @@ import {
 } from '/src/forms/components';
 import { NameField } from '/src/forms/components/NameField';
 import { L } from '/src/frames/layout';
+import { IsPublicPlaylistField } from '/src/playlists/components/IsPublicPlaylistField';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -39,6 +40,8 @@ export const PlaylistFormView = observer(
     });
 
     if (!props.playlist) return null;
+
+    const isNewPlaylist = props.playlist.slug === 'new-playlist';
 
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
@@ -100,6 +103,15 @@ export const PlaylistFormView = observer(
             <FormFieldLabel label="Slug" />
             <SlugField relatedFieldName="playlistForm.name" />
           </Field>
+          {
+            // 🔳 IsPublicField 🔳
+          }
+          {isNewPlaylist && (
+            <Field fieldName="playlistForm.isPublic" className={l.Field()}>
+              <FormFieldLabel label="Settings" />
+              <IsPublicPlaylistField />
+            </Field>
+          )}
           {
             // 🔳 TagsField 🔳
           }

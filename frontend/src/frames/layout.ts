@@ -99,7 +99,10 @@ export const L = {
     },
     icon: {
       root: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
-      color: { skyBlue: () => 'fill-primaryBlue' },
+      color: {
+        skyBlue: () => 'fill-primaryBlue',
+        gray: () => 'fill-textGray',
+      },
     },
   },
   CtaButton: {
