@@ -15,6 +15,7 @@ from .savefolder import SaveFolder
 from .saveplaylist import SavePlaylist
 from .saveplaylistordering import SavePlaylistOrdering
 from .saveplaylistpd import SavePlaylistPd
+from .saveplaylistsettings import SavePlaylistSettings
 from .searchcontent import SearchContent
 from .undoaction import UndoAction
 from .updatelasturl import UpdateLastUrl
@@ -39,8 +40,9 @@ class Mutation(user_accounts.schema.Mutation, GrapheneNonEmptyMutation):
     save_clip_ordering = SaveClipOrdering.Field()
     save_folder = SaveFolder.Field()
     save_playlist = SavePlaylist.Field()
-    save_playlist_pd = SavePlaylistPd.Field()
+    save_playlist_settings = SavePlaylistSettings.Field()
     save_playlist_ordering = SavePlaylistOrdering.Field()
+    save_playlist_pd = SavePlaylistPd.Field()
     search_content = SearchContent.Field()
     undo_action = UndoAction.Field()
     update_last_url = UpdateLastUrl.Field()

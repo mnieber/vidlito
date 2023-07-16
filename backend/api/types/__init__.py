@@ -1,13 +1,14 @@
 from api.types.action_t import ActionT  # noqa
-from api.types.clip_form_t import ClipFormT  # noqa
 from api.types.clip_t import ClipT  # noqa
+from api.types.clipform_t import ClipFormT  # noqa
 from api.types.clippd_t import ClipPdT  # noqa
 from api.types.clippdform_t import ClipPdFormT  # noqa
 from api.types.entry_t import EntryT  # noqa
 from api.types.pagination_t import PaginationT  # noqa
-from api.types.playlist_form_t import PlaylistFormT  # noqa
 from api.types.playlist_t import PlaylistT  # noqa
+from api.types.playlistform_t import PlaylistFormT  # noqa
 from api.types.playlistpd_t import PlaylistPdT  # noqa
 from api.types.playlistpdform_t import PlaylistPdFormT  # noqa
+from api.types.playlistsettingsform_t import PlaylistSettingsFormT  # noqa
 from api.types.searchresult_t import SearchResultT  # noqa
 from api.types.userprofile_t import UserProfileT  # noqa

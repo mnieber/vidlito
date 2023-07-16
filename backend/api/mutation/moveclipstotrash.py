@@ -33,7 +33,8 @@ class MoveClipsToTrash(graphene.Mutation):
                 owner=owner,
                 data={
                     "entry_ids": [entry.id for entry in entries],
-                    "clip_names": [entry.clip.name for entry in entries],
+                    "clip_names": [entry.clip.name for entry in entries][:3]
+                    + (["..."] if len(entries) > 3 else []),
                     "playlist_id": playlist.id,
                     "playlist_name": playlist.name,
                     "date": current_datetime_str,
@@ -93,6 +94,8 @@ def pick_new_source_movelist(info, clip, candidate_playlist, save):
         clip.source_playlist_id = public_source_playlist.id
     elif private_source_playlist:
         clip.source_playlist_id = private_source_playlist.id
+    else:
+        clip.source_playlist_id = None
 
     if save:
         clip.save()
