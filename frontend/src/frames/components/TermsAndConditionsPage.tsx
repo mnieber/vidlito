@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
+import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -15,9 +16,9 @@ export const TermsAndConditionsPage = observer(
       <div
         className={cn(
           'TermsAndConditionsPage',
-          'flex flex-col justify-evenly',
-          'w-full',
-          'grow'
+          L.WallPaperCard.root()
+          //
+          //
         )}
       >
         Hello

@@ -1,9 +1,0 @@
-@import '/src/frames/components/WallPaper';
-
-.PlaylistNotFound {
-  @apply WallPaper;
-}
-
-.PlaylistNotFound__Message {
-  @apply text-3xl text-center text-textGray;
-}

@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
+import { L } from '/src/frames/layout';
 import { navHandler } from '/src/navHandler/NavHandler';
 import { cn } from '/src/utils/classnames';
 
@@ -22,9 +23,9 @@ export const PageNotFound = observer(
       <div
         className={cn(
           'PageNotFound',
-          'flex flex-col justify-evenly',
-          'w-full',
-          'grow',
+          L.WallPaperCard.root(),
+          //
+          //
           props.className
         )}
       >

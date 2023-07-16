@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
+import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { useDelayedFlag } from '/src/utils/hooks/useDelayedFlag';
 import { log } from '/src/utils/logging';
@@ -34,13 +35,15 @@ export const PlaylistNotFound = observer(
       <div
         className={cn(
           'PlaylistNotFound',
-          'flex flex-col justify-evenly',
-          'w-full',
-          'grow',
+          L.WallPaperCard.root(),
+          //
+          //
           props.className
         )}
       >
-        <div className={cn('PlaylistNotFound__Message')}>
+        <div
+          className={cn('PlaylistNotFound__Message', L.WallPaperCard.message())}
+        >
           Oops, it seems this playlist doesn't exist
         </div>
       </div>

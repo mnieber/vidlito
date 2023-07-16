@@ -21,19 +21,16 @@ export const NoActionsMatchTheFilter = observer(
       <div
         className={cn(
           'NoActionsMatchTheFilter',
-          'flex flex-col justify-evenly',
-          'w-full',
-          'grow',
+          L.WallPaperCard.root(),
+          //
+          //
           props.className
         )}
       >
         <div
           className={cn(
-            'NoActionsMatchTheFilter__Card',
-            'w-[280px]',
-            'self-center',
-            L.CtaButton.root(),
-            L.CtaButton.color.darkBlueOnSkyBlue()
+            'NoActionsMatchTheFilter__Message',
+            L.WallPaperCard.message()
           )}
         >
           {props.msg}

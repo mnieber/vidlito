@@ -1,0 +1,9 @@
+@import '/src/frames/components/WallPaper';
+
+.WallPaperCard {
+  @apply WallPaper;
+}
+
+.WallPaperCard__Message {
+  @apply text-3xl text-center text-textGray p-4;
+}

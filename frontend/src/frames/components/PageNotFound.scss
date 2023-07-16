@@ -1,9 +1,0 @@
-@import '/src/frames/components/WallPaper';
-
-.PageNotFound {
-  @apply WallPaper;
-}
-
-.PageNotFound__Message {
-  @apply text-3xl text-center text-textGray;
-}

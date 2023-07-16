@@ -31,9 +31,9 @@ export const CreateFirstClip = observer(
       <div
         className={cn(
           'CreateFirstClip',
-          'flex flex-col justify-evenly',
-          'w-full',
-          'grow',
+          L.WallPaperCard.root(),
+          //
+          //
           props.className
         )}
       >
