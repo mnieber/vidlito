@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
+import { CloseButton } from '/src/frames/components/CloseButton';
 import { Icon } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
@@ -69,17 +70,7 @@ export const ActionsBar = observer(
         {
           // 🔳 Close Button 🔳
         }
-        <button
-          className={cn(
-            'ActionsBar__CloseActionButton',
-            //
-            //
-            L.DialogButton.root(),
-            L.DialogButton.color.skyBlueTextAndBorder(),
-            {
-              invisible: !props.playlist,
-            }
-          )}
+        <CloseButton
           onClick={() => {
             if (props.clip) {
               navToClip(
@@ -91,16 +82,10 @@ export const ActionsBar = observer(
               navToPlaylist(props.playlist.ownerUsername, props.playlist.slug);
             }
           }}
-        >
-          <Icon
-            className={cn(
-              L.DialogButton.icon.root(),
-              L.DialogButton.icon.color.skyBlue()
-            )}
-            name="close"
-          />
-          Close
-        </button>
+          className={{
+            invisible: !props.playlist,
+          }}
+        />
       </div>
     );
   }, DefaultProps)
