@@ -7,7 +7,6 @@ import {
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
@@ -35,8 +34,6 @@ const getHandleSubmit =
       .save({
         values: unflatten({
           ...values,
-          'playlistSettingsForm.id':
-            values['playlistSettingsForm.id'] ?? createUUID(),
         }),
       })
       .then((localPlaylist: PlaylistT) => {

@@ -7,7 +7,7 @@ export type PlaylistSettingsT = {
 };
 
 export type PlaylistSettingsFormT = {
-  id: string;
+  playlistId: string;
   isPublic: boolean;
 };
 

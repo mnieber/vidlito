@@ -7,7 +7,6 @@ import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
-  playlistId: string;
   playlistSlug: string;
   playlistSettingsForm: PlaylistSettingsFormT;
 };
@@ -15,11 +14,9 @@ export type ArgsT = {
 export const savePlaylistSettings = (args: ArgsT) => {
   return doQuery(
     `mutation savePlaylistSettings(
-      $playlistId: UUID!
       $playlistSettingsForm: PlaylistSettingsFormT!
     ) {
       savePlaylistSettings(
-        playlistId: $playlistId
         playlistSettingsForm: $playlistSettingsForm
       ) {
         errors

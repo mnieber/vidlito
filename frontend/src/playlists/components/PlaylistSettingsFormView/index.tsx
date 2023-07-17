@@ -2,7 +2,13 @@ import { observer } from 'mobx-react-lite';
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { Field, FormFieldLabel, GlobalError } from '/src/forms/components';
+import {
+  Field,
+  FormCancelButton,
+  FormFieldLabel,
+  FormSaveButton,
+  GlobalError,
+} from '/src/forms/components';
 import { L } from '/src/frames/layout';
 import { IsPublicPlaylistField } from '/src/playlists/components/IsPublicPlaylistField';
 import { cn } from '/src/utils/classnames';
@@ -10,7 +16,9 @@ import { cn } from '/src/utils/classnames';
 // Import styles
 import './index.scss';
 
-export type PropsT = {};
+export type PropsT = {
+  className?: any;
+};
 
 export const DefaultProps = {
   ...dps.playlist,
@@ -25,7 +33,15 @@ export const PlaylistSettingsFormView = observer(
     const l = L.main.MainForm;
 
     return (
-      <div className={cn('PlaylistSettingsFormView')}>
+      <div
+        className={cn(
+          'PlaylistSettingsFormView',
+          //
+          //
+          l.root(),
+          props.className
+        )}
+      >
         {
           // 🔳 FormStateProvider 🔳
         }
@@ -44,10 +60,28 @@ export const PlaylistSettingsFormView = observer(
           {
             // 🔳 IsPublicField 🔳
           }
-          <Field fieldName="playlistForm.isPublic" className={l.Field()}>
+          <Field
+            fieldName="playlistSettingsForm.isPublic"
+            className={l.Field()}
+          >
             <FormFieldLabel label="SETTINGS" />
             <IsPublicPlaylistField />
           </Field>
+          {
+            // 🔳 Buttons 🔳
+          }
+          <div className={cn(l.Buttons())}>
+            <FormCancelButton
+              className={cn(l.Button.root(), l.Button.gap())}
+              label="Cancel"
+              tabIndex={6}
+            />
+            <FormSaveButton
+              label="Save"
+              tabIndex={6}
+              className={cn(l.Button.root())}
+            />
+          </div>
         </FormStateProvider>
       </div>
     );

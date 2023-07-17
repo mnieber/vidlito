@@ -11,10 +11,10 @@ class SavePlaylistSettings(graphene.Mutation):
     errors = GenericScalar()
 
     class Arguments:
-        playlist_id = graphene.UUID(required=True)
         playlist_settings_form = PlaylistSettingsFormT(required=True)
 
-    def mutate(self, info, playlist_id, playlist_settings_form):
+    def mutate(self, info, playlist_settings_form):
+        playlist_id = playlist_settings_form.pop("playlist_id")
         playlist = Playlist.get_mine(info, id=playlist_id)
         if playlist.is_public != playlist_settings_form.is_public:
             playlist.is_public = playlist_settings_form.is_public

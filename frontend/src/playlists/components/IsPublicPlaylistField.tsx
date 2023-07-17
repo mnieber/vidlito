@@ -42,8 +42,8 @@ export const IsPublicPlaylistField = observer(
             )}
             name={isPublic ? 'radioButtonOn' : 'radioButtonOff'}
           />
-          This playlist is public. When clips are created in this playlist or
-          moved to this playlist, they will be visible to everyone.
+          This playlist is public: your clips in this playlist will be visible
+          to everyone.
         </div>
         <div
           className={cn(
@@ -60,9 +60,8 @@ export const IsPublicPlaylistField = observer(
             )}
             name={!isPublic ? 'radioButtonOn' : 'radioButtonOff'}
           />
-          This playlist is private. Clips in this playlist are not publicly
-          visible, UNLESS these clips are also in a public playlist owned by
-          you.
+          This playlist is private: your clips are invisible to other people,
+          UNLESS one of your public playlists also contains them.
         </div>
       </div>
     );
