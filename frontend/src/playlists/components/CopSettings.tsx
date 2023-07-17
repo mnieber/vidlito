@@ -38,8 +38,7 @@ export const CopSettings = observer(
             //
             L.row.skewer(),
             'grow',
-            'justify-between',
-            'mb-4'
+            'justify-between'
           )}
         >
           <div className={cn('CopSettings__Title')}>Playlist settings</div>
@@ -49,8 +48,8 @@ export const CopSettings = observer(
             enabled={true}
           />
         </div>
-        {!editSettings && <PlaylistSettingsView />}
-        {editSettings && <PlaylistSettingsFormView />}
+        {!editSettings && <PlaylistSettingsView className="mt-4" />}
+        {editSettings && <PlaylistSettingsFormView className="mt-4" />}
       </div>
     );
   }, DefaultProps)

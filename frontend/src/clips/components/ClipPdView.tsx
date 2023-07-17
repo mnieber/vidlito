@@ -21,6 +21,9 @@ export const ClipPdView = observer(
     if (isLoading(props.clipPd)) return <ClipPdViewLoader {...props} />;
     if (!props.clipPd) return null;
 
+    const description = props.clipPd.description ?? '';
+    if (!description.length) return null;
+
     return (
       <div
         className={cn(
@@ -30,7 +33,7 @@ export const ClipPdView = observer(
           props.className
         )}
       >
-        <MarkdownView text={props.clipPd.description ?? ''} />
+        <MarkdownView text={description} />
       </div>
     );
   }, DefaultProps)

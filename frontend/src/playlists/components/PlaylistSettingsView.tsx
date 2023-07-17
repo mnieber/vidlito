@@ -5,12 +5,16 @@ import { cn } from '/src/utils/classnames';
 // Import styles
 import './PlaylistSettingsView.scss';
 
-export type PropsT = {};
+export type PropsT = {
+  className?: any;
+};
 
 export const DefaultProps = {};
 
 export const PlaylistSettingsView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    return <div className={cn('PlaylistSettingsView')}></div>;
+    if (true) return null;
+
+    return <div className={cn('PlaylistSettingsView', props.className)}></div>;
   }, DefaultProps)
 );

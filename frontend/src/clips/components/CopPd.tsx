@@ -55,10 +55,16 @@ export const CopPd = observer(
             enabled={!!props.userProfile}
           />
         </div>
-        {!props.showPlaylist && !editClipPd && <ClipPdView className="" />}
-        {!props.showPlaylist && editClipPd && <ClipPdFormView />}
-        {props.showPlaylist && !editPlaylistPd && <PlaylistPdView />}
-        {props.showPlaylist && editPlaylistPd && <PlaylistPdFormView />}
+        {!props.showPlaylist && !editClipPd && <ClipPdView className="mt-4" />}
+        {!props.showPlaylist && editClipPd && (
+          <ClipPdFormView className="mt-4" />
+        )}
+        {props.showPlaylist && !editPlaylistPd && (
+          <PlaylistPdView className="mt-4" />
+        )}
+        {props.showPlaylist && editPlaylistPd && (
+          <PlaylistPdFormView className="mt-4" />
+        )}
       </div>
     );
   }, DefaultProps)

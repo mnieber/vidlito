@@ -21,6 +21,7 @@ export const ClipDescription = observer(
     if (isLoading(props.clip)) return <ClipDescriptionLoader {...props} />;
 
     const description = props.clip?.description ?? '';
+    if (!description.length) return null;
 
     return (
       <div

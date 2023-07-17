@@ -48,7 +48,6 @@ export const CopDescription = observer(
             'CopDescription__TopRow',
             L.row.skewer(),
             'grow',
-            'mb-4',
             'justify-between'
           )}
         >
@@ -65,10 +64,16 @@ export const CopDescription = observer(
             />
           )}
         </div>
-        {!props.showPlaylist && !editClip && <ClipDescription className="" />}
-        {!props.showPlaylist && editClip && <ClipFormView />}
-        {props.showPlaylist && !editPlaylist && <PlaylistDescription />}
-        {props.showPlaylist && editPlaylist && <PlaylistFormView />}
+        {!props.showPlaylist && !editClip && (
+          <ClipDescription className="mt-4" />
+        )}
+        {!props.showPlaylist && editClip && <ClipFormView className="mt-4" />}
+        {props.showPlaylist && !editPlaylist && (
+          <PlaylistDescription className="mt-4" />
+        )}
+        {props.showPlaylist && editPlaylist && (
+          <PlaylistFormView className="mt-4" />
+        )}
       </div>
     );
   }, DefaultProps)

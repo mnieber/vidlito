@@ -20,6 +20,9 @@ export const PlaylistPdView = observer(
     if (isLoading(props.playlist)) return <PlaylistPdViewLoader {...props} />;
     if (!props.playlist) return null;
 
+    const description = props.playlist.playlistPd?.description ?? '';
+    if (!description.length) return null;
+
     return (
       <div
         className={cn(
@@ -29,7 +32,7 @@ export const PlaylistPdView = observer(
           props.className
         )}
       >
-        <MarkdownView text={props.playlist.playlistPd?.description ?? ''} />
+        <MarkdownView text={description} />
       </div>
     );
   }, DefaultProps)
