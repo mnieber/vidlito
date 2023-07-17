@@ -40,7 +40,6 @@ export const VideoPlayerPanel = observer(
           videoPlayerState={props.videoPlayerState}
           width={width}
           className={cn('', {
-            absolute: true,
             hidden: !ready,
           })}
         />
@@ -66,7 +65,7 @@ export const VideoPlayerPanelPlaceholder = (props: {
         L.row.skewer()
       )}
       style={{
-        height: height,
+        height: props.hidden ? 0 : height,
         ...maxWidth,
       }}
     >

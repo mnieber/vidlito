@@ -1,12 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import ReactResizeDetector from 'react-resize-detector';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { AccountMenu } from '/src/frames/components';
-import { useResize } from '/src/frames/hooks/useResize';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
-import { getVideoWidth } from '/src/videos/utils/aspectRatio';
 
 // Import styles
 import './index.scss';
@@ -27,20 +24,10 @@ const DefaultProps = {
 
 export const MainView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { panelWidth, onResize } = useResize({});
     const maxVideoWidth = props.videoPlayerState.isFullVideoWidth ? 1200 : 800;
-    const nextPanelWidth = getVideoWidth(
-      maxVideoWidth,
-      (panelWidth ?? 200) - 150
-    );
-
-    React.useEffect(() => {
-      props.videoPlayerState.setPanelWidth(nextPanelWidth);
-    }, [props.videoPlayerState, nextPanelWidth]);
 
     return (
       <div className={cn('MainView', L.row.banner(), 'h-full')}>
-        <ReactResizeDetector handleWidth onResize={onResize} />
         <div
           tabIndex={0}
           className={cn(
