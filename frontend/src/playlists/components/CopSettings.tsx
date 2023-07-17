@@ -34,9 +34,12 @@ export const CopSettings = observer(
         <div
           className={cn(
             'CopSettings__TopRow',
+            //
+            //
             L.row.skewer(),
             'grow',
-            'justify-between'
+            'justify-between',
+            'mb-4'
           )}
         >
           <div className={cn('CopSettings__Title')}>Playlist settings</div>

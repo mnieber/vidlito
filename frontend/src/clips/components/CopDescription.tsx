@@ -48,7 +48,7 @@ export const CopDescription = observer(
             'CopDescription__TopRow',
             L.row.skewer(),
             'grow',
-            'mb-2',
+            'mb-4',
             'justify-between'
           )}
         >

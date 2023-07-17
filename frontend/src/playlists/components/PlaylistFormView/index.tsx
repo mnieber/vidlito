@@ -84,7 +84,7 @@ export const PlaylistFormView = observer(
             autoFocus={true}
             className={l.Field()}
           >
-            <FormFieldLabel label="Name" />
+            <FormFieldLabel label="NAME" />
             <NameField
               tabIndex={1}
               controlled={true}
@@ -100,7 +100,7 @@ export const PlaylistFormView = observer(
             // 🔳 SlugField 🔳
           }
           <Field fieldName="playlistForm.slug" className={l.Field()}>
-            <FormFieldLabel label="Slug" />
+            <FormFieldLabel label="SLUG" />
             <SlugField relatedFieldName="playlistForm.name" />
           </Field>
           {
@@ -108,7 +108,7 @@ export const PlaylistFormView = observer(
           }
           {isNewPlaylist && (
             <Field fieldName="playlistForm.isPublic" className={l.Field()}>
-              <FormFieldLabel label="Settings" />
+              <FormFieldLabel label="SETTINGS" />
               <IsPublicPlaylistField />
             </Field>
           )}
@@ -116,7 +116,7 @@ export const PlaylistFormView = observer(
             // 🔳 TagsField 🔳
           }
           <Field fieldName="playlistForm.tags" className={l.Field()}>
-            <FormFieldLabel label="Tags" />
+            <FormFieldLabel label="TAGS" />
             <ValuePickerField
               tabIndex={5}
               isCreatable={true}
@@ -133,7 +133,7 @@ export const PlaylistFormView = observer(
             tabOnEnter={false}
             className={l.Field()}
           >
-            <FormFieldLabel label="Description" buttons={[showPreviewButton]} />
+            <FormFieldLabel label="DESCRIPTION" buttons={[showPreviewButton]} />
             <MarkdownField
               controlled={true}
               tabIndex={3}
