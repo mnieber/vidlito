@@ -46,6 +46,10 @@ export class DashboardState {
     };
   }
 
+  get hasNavigationPoint() {
+    return !R.isNil(this.navigationPoint);
+  }
+
   @action restoreNavigationPoint() {
     if (R.isNil(this.navigationPoint)) return false;
     history.push(this.navigationPoint.url);

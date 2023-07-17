@@ -135,6 +135,7 @@ export const L = {
     skewer: () => 'flex flex-row items-center',
     banner: () => 'flex flex-row items-stretch',
     flagPole: () => 'flex flex-row items-start',
+    revFlagPole: () => 'flex flex-row items-end',
   },
   col: {
     skewer: () => 'flex flex-col items-center',

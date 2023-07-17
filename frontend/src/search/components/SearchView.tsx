@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { CloseButton } from '/src/frames/components/CloseButton';
 import { PageNav } from '/src/frames/components/PageNav';
 import { L } from '/src/frames/layout';
 import { SearchFormView } from '/src/search/components/SearchFormView';
@@ -15,6 +16,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.searchResultsPagination,
+  ...dps.dashboardState,
 };
 
 export const SearchView = observer(
@@ -30,8 +32,40 @@ export const SearchView = observer(
           props.className
         )}
       >
+        <div
+          className={cn(
+            'SearchView__TopRow',
+            //
+            //
+            L.row.revFlagPole(),
+            'mb-4'
+          )}
+        >
+          <div className={cn('SearchView__Title')}>Search</div>
+          <div className="flex-grow" />
+          {
+            // 🔳 Close Button 🔳
+          }
+          {props.dashboardState.hasNavigationPoint && (
+            <CloseButton
+              className=""
+              onClick={() => {
+                props.dashboardState.restoreNavigationPoint();
+              }}
+            />
+          )}
+        </div>
+        {
+          // 🔳 Search Form 🔳
+        }
         <SearchFormView className="mb-4" />
+        {
+          // 🔳 Search Results 🔳
+        }
         <SearchResultListView />
+        {
+          // 🔳 Page Nav 🔳
+        }
         {props.searchResultsPagination.nrOfPages > 1 && (
           <PageNav
             pagination={props.searchResultsPagination}
