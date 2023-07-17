@@ -34,26 +34,18 @@ export class NavHandler {
   history: any;
   routes: ObjT;
   routeUfns: ObjT;
-  hiddenParams: ObjT = {};
   navLayers: Array<NavLayerT> = [];
 
   getRouteUfns<T>() {
     return this.routeUfns as WrapUfn<T>;
   }
 
-  updateHiddenParams() {
-    this.hiddenParams = R.mergeLeft(this.hiddenParams, this.getParams());
-  }
-
   getRouteMatch() {
     return getBestRouteMatch(this.routes, navigation.location.pathname);
   }
 
-  getParams(mergeLeftWithHiddenParams = false) {
-    const params = this.getRouteMatch()?.params ?? {};
-    return mergeLeftWithHiddenParams
-      ? R.mergeLeft(params, this.hiddenParams)
-      : params;
+  getParams() {
+    return this.getRouteMatch()?.params ?? {};
   }
 
   installNavLayer(navLayer: NavLayerT) {

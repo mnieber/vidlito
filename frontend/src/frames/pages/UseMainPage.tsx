@@ -18,14 +18,14 @@ export const createMainNavEventLayer = (props: EventLayerPropsT) => {
     navToActions: ((username: string) => {
       const ufn = navHandler.routeUfns.actions(navHandler.history.push);
       ufn({
-        ...navHandler.getParams(true),
+        ...navHandler.getParams(),
         ownerUsername: username,
       });
     }) as typeof navToActions,
     navToSearch: (() => {
       const ufn = navHandler.routeUfns.search(navHandler.history.push);
       ufn({
-        ...navHandler.getParams(true),
+        ...navHandler.getParams(),
       });
     }) as typeof navToSearch,
     navToClip: ((
@@ -33,7 +33,6 @@ export const createMainNavEventLayer = (props: EventLayerPropsT) => {
       playlistSlug: string,
       clipSlug: string
     ) => {
-      navHandler.hiddenParams.clipSlug = clipSlug;
       const ufn = navHandler.routeUfns.clip(navHandler.history.push);
       const { route, changed } = ufn({
         ...navHandler.getParams(),
@@ -47,10 +46,9 @@ export const createMainNavEventLayer = (props: EventLayerPropsT) => {
       }
     }) as typeof navToClip,
     navToPlaylist: ((ownerUsername: string, playlistSlug: string) => {
-      navHandler.hiddenParams.playlistSlug = playlistSlug;
       const ufn = navHandler.routeUfns.playlist(navHandler.history.push);
       ufn({
-        ...navHandler.getParams(true),
+        ...navHandler.getParams(),
         ownerUsername: ownerUsername,
         playlistSlug: playlistSlug,
       });
