@@ -23,12 +23,12 @@ class FollowPlaylist(graphene.Mutation):
                 for playlist_id in playlist_ids:
                     Follow.objects.update_or_create(
                         defaults=dict(),
-                        user_profile_id=user_profile.id,
+                        owner_id=user_profile.id,
                         playlist_id=playlist_id,
                     )
             else:
                 Follow.objects.filter(
-                    user_profile_id=user_profile.id, playlist_id__in=playlist_ids
+                    owner_id=user_profile.id, playlist_id__in=playlist_ids
                 ).delete()
 
         return FollowPlaylist(success=True, errors={})

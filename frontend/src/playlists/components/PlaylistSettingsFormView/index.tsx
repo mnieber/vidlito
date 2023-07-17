@@ -68,6 +68,15 @@ export const PlaylistSettingsFormView = observer(
             <IsPublicPlaylistField />
           </Field>
           {
+            // 🔳 Delete Playlist 🔳
+          }
+          <Field
+            fieldName="playlistSettingsForm.isDeletionEnabled"
+            className={l.Field()}
+          >
+            <FormFieldLabel label="DELETE PLAYLIST" />
+          </Field>
+          {
             // 🔳 Buttons 🔳
           }
           <div className={cn(l.Buttons())}>

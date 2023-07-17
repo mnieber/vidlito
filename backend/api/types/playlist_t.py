@@ -11,6 +11,7 @@ class PlaylistT(DjangoObjectType):
         exclude = [
             "sort_pos",
             "owner",
+            "entry_set",
         ]
 
     clip_set = graphene.List(ClipT)
@@ -18,7 +19,9 @@ class PlaylistT(DjangoObjectType):
     tags = graphene.List(graphene.String)
 
     def resolve_clip_set(self, info):
-        return [x.clip for x in self.entry_set.all()]
+        return [
+            x.clip for x in self.entry_set.filter(clip__nr_of_public_playlists__gt=0)
+        ]
 
     def resolve_owner_username(self, info):
         return self.owner.username
