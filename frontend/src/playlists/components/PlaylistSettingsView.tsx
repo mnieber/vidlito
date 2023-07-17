@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -9,12 +9,16 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {};
+export const DefaultProps = {
+  ...dps.playlist,
+};
 
 export const PlaylistSettingsView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (true) return null;
-
-    return <div className={cn('PlaylistSettingsView', props.className)}></div>;
+    return (
+      <div className={cn('PlaylistSettingsView', props.className)}>
+        {`This playlist is ${props.playlist.isPublic ? 'public' : 'private'}.`}
+      </div>
+    );
   }, DefaultProps)
 );
