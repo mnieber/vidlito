@@ -3,7 +3,14 @@
 
 .MainView .FormSaveButton {
   @apply c-dialog-button;
+}
+
+.MainView .FormSaveButton--default {
   @apply c-dark-blue-on-sky-blue-btn-color;
+}
+
+.MainView .FormSaveButton--danger {
+  @apply c-dark-red-on-light-red-btn-color;
 }
 
 .MainView .FormSaveButton--disabled {

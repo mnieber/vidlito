@@ -7,6 +7,7 @@ import { cn } from '/src/utils/classnames';
 export type PropsT = {
   label: string;
   disabled?: boolean;
+  danger?: boolean;
   tabIndex?: number;
   dataCy?: string;
   className?: any;
@@ -21,6 +22,8 @@ export const FormSaveButton = (props: PropsT) => {
       className={cn(
         'FormSaveButton',
         { 'FormSaveButton--disabled': disabled },
+        { 'FormSaveButton--default': !props.danger },
+        { 'FormSaveButton--danger': props.danger },
         props.className
       )}
       data-cy={props.dataCy}

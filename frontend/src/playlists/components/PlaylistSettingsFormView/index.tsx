@@ -105,7 +105,8 @@ export const PlaylistSettingsFormView = observer(
               tabIndex={6}
             />
             <FormSaveButton
-              label="Save"
+              label={isDeleteEnabled ? 'Delete' : 'Save'}
+              danger={isDeleteEnabled}
               tabIndex={6}
               className={cn(l.Button.root())}
             />
