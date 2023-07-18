@@ -9,6 +9,7 @@ import { isUpdating } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
+import { LviL } from '/src/frames/components/Lvi';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -33,8 +34,6 @@ export const PlaylistListViewItem = observer(
       return null;
     }
 
-    const l = L.Lvi;
-
     return (
       //
       // 🔳 PlaylistListViewItem 🔳
@@ -49,7 +48,7 @@ export const PlaylistListViewItem = observer(
           `PlaylistListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
           //
           //
-          l.root(),
+          LviL.root(),
           props.className
         )}
         {...selectionUIHandlers(props.selectionUIProps)}
@@ -63,7 +62,7 @@ export const PlaylistListViewItem = observer(
             'IconContainer',
             //
             //
-            l.icon.root(),
+            LviL.icon.root(),
             L.row.skewer()
           )}
           onClick={() => {
@@ -83,7 +82,7 @@ export const PlaylistListViewItem = observer(
             'PlaylistListViewItem__Title',
             //
             //
-            l.title()
+            LviL.title()
           )}
         >
           <div>{props.playlist.name}</div>

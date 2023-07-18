@@ -1,6 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
+import { AuthFormL } from '/src/auth/components/AuthCard/AuthForm';
 import {
   ControlledCheckbox,
   EmailField,
@@ -24,7 +25,6 @@ export type PropsT = {
 
 export function SignUpForm(props: PropsT) {
   const { messages } = useMessages();
-  const l = L.auth.AuthForm;
 
   return (
     <FormStateProvider
@@ -48,7 +48,7 @@ export function SignUpForm(props: PropsT) {
         {
           // 🔳 Global error 🔳
         }
-        <GlobalError className={l.GlobalError()} />
+        <GlobalError className={AuthFormL.GlobalError()} />
 
         {
           // 🔳 EmailField 🔳
@@ -56,7 +56,7 @@ export function SignUpForm(props: PropsT) {
         <Field
           fieldName={formFields.email}
           autoFocus={true}
-          className={l.Field()}
+          className={AuthFormL.Field()}
         >
           <EmailField placeholder="Email" />
         </Field>
@@ -64,7 +64,10 @@ export function SignUpForm(props: PropsT) {
         {
           // 🔳 TermsField 🔳
         }
-        <Field fieldName={formFields.acceptsTerms} className={l.Field()}>
+        <Field
+          fieldName={formFields.acceptsTerms}
+          className={AuthFormL.Field()}
+        >
           <div
             className={cn(
               'SignUpForm__Terms__',
@@ -84,7 +87,7 @@ export function SignUpForm(props: PropsT) {
         <FormSaveButton
           dataCy="signUpBtn"
           label="Sign Up"
-          className={l.Button()}
+          className={AuthFormL.Button()}
         />
       </div>
     </FormStateProvider>

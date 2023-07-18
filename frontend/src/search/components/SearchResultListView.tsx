@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading, isUpdating } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { LviL } from '/src/frames/components/Lvi';
 import { L } from '/src/frames/layout';
 import { SearchResultListKeyHandler } from '/src/search/components';
 import { NoContentsMatchTheFilter } from '/src/search/components/NoContentsMatchTheFilter';
@@ -68,14 +69,13 @@ export const SearchResultListView = observer(
 );
 
 export const SearchResultListViewLoader = (props: { className?: any }) => {
-  const l = L.Lvi;
   const divs = ['1', '2', '3'].map((id: string) => {
     return (
       <div
         key={id}
         className={cn(
           'SearchResultListViewLoader__Item',
-          l.root(),
+          LviL.root(),
           'h-4 my-4',
           'rounded bg-gray-300'
         )}

@@ -1,10 +1,6 @@
-.c-cta-button {
+.CtaButton {
   @apply px-8 py-4;
   @apply rounded-xl;
   @apply font-bold text-xl;
   @apply min-w-[max-content]; // auto-scale
-}
-
-.CtaButton {
-  @apply c-cta-button;
 }

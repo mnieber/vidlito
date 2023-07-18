@@ -1,6 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
+import { AuthFormL } from '/src/auth/components/AuthCard/AuthForm';
 import {
   EmailField,
   Field,
@@ -22,7 +23,6 @@ export type PropsT = {
 
 export function RequestPasswordResetForm(props: PropsT) {
   const { messages } = useMessages();
-  const l = L.auth.AuthForm;
 
   return (
     <FormStateProvider
@@ -44,12 +44,12 @@ export function RequestPasswordResetForm(props: PropsT) {
         {
           // 🔳 Global error 🔳
         }
-        <GlobalError className={l.GlobalError()} />
+        <GlobalError className={AuthFormL.GlobalError()} />
 
         {
           // 🔳 Message 🔳
         }
-        <div className={l.Header()}>
+        <div className={AuthFormL.Header()}>
           {messages.divEnterYourEmailToResetYourPassword}
         </div>
 
@@ -59,7 +59,7 @@ export function RequestPasswordResetForm(props: PropsT) {
         <Field
           fieldName={formFields.email}
           submitOnEnter={true}
-          className={l.Field()}
+          className={AuthFormL.Field()}
         >
           <EmailField placeholder="Email" />
         </Field>
@@ -70,7 +70,7 @@ export function RequestPasswordResetForm(props: PropsT) {
         <FormSaveButton
           dataCy="passwordResetBtn"
           label="Request password reset"
-          className={l.Button()}
+          className={AuthFormL.Button()}
         />
       </div>
     </FormStateProvider>

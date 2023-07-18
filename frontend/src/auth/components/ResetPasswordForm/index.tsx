@@ -2,6 +2,7 @@ import React from 'react';
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
+import { AuthFormL } from '/src/auth/components/AuthCard/AuthForm';
 import {
   Field,
   FormSaveButton,
@@ -24,7 +25,6 @@ export type PropsT = {
 
 export function ResetPasswordForm(props: PropsT) {
   const { messages } = useMessages();
-  const l = L.auth.AuthForm;
   const externalErrors = form.getExternalErrors(messages, props.errors);
 
   return (
@@ -47,20 +47,22 @@ export function ResetPasswordForm(props: PropsT) {
         {
           // 🔳 Global error 🔳
         }
-        <GlobalError className={l.GlobalError()} />
+        <GlobalError className={AuthFormL.GlobalError()} />
 
         {!getErrorKeys(externalErrors).includes('global') && (
           <React.Fragment>
             {
               // 🔳 Enter your password message 🔳
             }
-            <div className={l.Header()}>{messages.divEnterYourNewPassword}</div>
+            <div className={AuthFormL.Header()}>
+              {messages.divEnterYourNewPassword}
+            </div>
 
             {
               // 🔳 Password field 🔳
             }
             <Field
-              className={l.Field()}
+              className={AuthFormL.Field()}
               fieldName={formFields.password}
               submitOnEnter={true}
             >
@@ -73,7 +75,7 @@ export function ResetPasswordForm(props: PropsT) {
             <FormSaveButton
               dataCy="passwordChangeBtn"
               label="Change password"
-              className={l.Button()}
+              className={AuthFormL.Button()}
             />
           </React.Fragment>
         )}

@@ -3,6 +3,7 @@ import React from 'react';
 import { FormState, FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { MainFormL } from '/src/dashboard/components/MainView/MainForm';
 import {
   Field,
   FormFieldLabel,
@@ -11,7 +12,6 @@ import {
 } from '/src/forms/components';
 import { FormSaveButton } from '/src/forms/components/FormSaveButton';
 import { KeywordsAndTagsField } from '/src/forms/components/KeywordsAndTagsField';
-import { L } from '/src/frames/layout';
 import { useTagsState } from '/src/search/hooks/useTagsState';
 import { cn } from '/src/utils/classnames';
 
@@ -40,8 +40,6 @@ export const SearchFormView = observer(
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
 
-    const l = L.main.MainForm;
-
     return (
       //
       // 🔳 SearchFormView 🔳
@@ -51,7 +49,7 @@ export const SearchFormView = observer(
           'SearchFormView',
           //
           //
-          l.root(),
+          MainFormL.root(),
           props.className
         )}
       >
@@ -73,11 +71,11 @@ export const SearchFormView = observer(
           {
             // 🔳 UrlField 🔳
           }
-          <GlobalError className={l.GlobalError()} />
+          <GlobalError className={MainFormL.GlobalError()} />
           <Field
             fieldName="searchForm.playlistTerms"
             autoFocus={true}
-            className={l.Field()}
+            className={MainFormL.Field()}
           >
             <FormFieldLabel label="Playlist terms and #tags" />
             <KeywordsAndTagsField
@@ -87,7 +85,7 @@ export const SearchFormView = observer(
             />
             <HorizontalTagPicker tabIndex={2} tagsState={playlistTagsState} />
           </Field>
-          <Field fieldName="searchForm.clipTerms" className={l.Field()}>
+          <Field fieldName="searchForm.clipTerms" className={MainFormL.Field()}>
             <FormFieldLabel label="Clip terms and #tags" />
             <KeywordsAndTagsField
               tabIndex={3}
@@ -99,11 +97,11 @@ export const SearchFormView = observer(
           {
             // 🔳 Buttons 🔳
           }
-          <div className={cn(l.Buttons())}>
+          <div className={cn(MainFormL.Buttons())}>
             <FormSaveButton
               tabIndex={5}
               label="Search"
-              className={cn(l.Button.root())}
+              className={cn(MainFormL.Button.root())}
             />
           </div>
         </FormStateProvider>

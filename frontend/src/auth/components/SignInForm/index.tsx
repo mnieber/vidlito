@@ -1,6 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
+import { AuthFormL } from '/src/auth/components/AuthCard/AuthForm';
 import {
   EmailField,
   Field,
@@ -24,7 +25,6 @@ export type PropsT = {
 
 export function SignInForm(props: PropsT) {
   const { messages } = useMessages();
-  const l = L.auth.AuthForm;
 
   return (
     //
@@ -40,13 +40,13 @@ export function SignInForm(props: PropsT) {
         // 🔳 SignInForm 🔳
       }
       <div className={cn('SignInForm', [], [L.col.banner(), props.className])}>
-        <GlobalError className={l.GlobalError()} />
+        <GlobalError className={AuthFormL.GlobalError()} />
 
         {
           // 🔳 EmailField 🔳
         }
         <Field
-          className={l.Field()}
+          className={AuthFormL.Field()}
           fieldName={formFields.email}
           tabOnEnter={true}
           autoFocus={true}
@@ -57,7 +57,11 @@ export function SignInForm(props: PropsT) {
         {
           // 🔳 PasswordField 🔳
         }
-        <Field className={l.Field()} fieldName="password" submitOnEnter={true}>
+        <Field
+          className={AuthFormL.Field()}
+          fieldName="password"
+          submitOnEnter={true}
+        >
           <PasswordField placeholder="Password" />
         </Field>
 
@@ -67,7 +71,7 @@ export function SignInForm(props: PropsT) {
         <FormSaveButton
           dataCy={'signInBtn'}
           label={messages.labelSignIn}
-          className={l.Button()}
+          className={AuthFormL.Button()}
         />
       </div>
     </FormStateProvider>

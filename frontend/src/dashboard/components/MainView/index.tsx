@@ -11,7 +11,6 @@ import '/src/dashboard/components/MainView/FormCancelButton.scss';
 import '/src/dashboard/components/MainView/FormField.scss';
 import '/src/dashboard/components/MainView/FormFieldLabel.scss';
 import '/src/dashboard/components/MainView/FormSaveButton.scss';
-import '/src/dashboard/components/MainView/MainForm.scss';
 
 export type PropsT = React.PropsWithChildren<{
   className?: any;

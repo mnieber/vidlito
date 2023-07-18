@@ -4,6 +4,7 @@ import { FormState, FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { usePreviewButton } from '/src/clips/hooks/usePreviewButton';
+import { MainFormL } from '/src/dashboard/components/MainView/MainForm';
 import {
   Field,
   FormCancelButton,
@@ -12,7 +13,6 @@ import {
   MarkdownField,
   ValuePickerField,
 } from '/src/forms/components';
-import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -43,8 +43,6 @@ export const ClipPdFormView = observer(
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
 
-    const l = L.main.MainForm;
-
     return (
       //
       // 🔳 ClipPdFormView 🔳
@@ -54,7 +52,7 @@ export const ClipPdFormView = observer(
           'ClipPdFormView',
           //
           //
-          l.root(),
+          MainFormL.root(),
           props.className
         )}
       >
@@ -76,7 +74,7 @@ export const ClipPdFormView = observer(
           {
             // 🔳 TagsField 🔳
           }
-          <Field fieldName="clipPdForm.tags" className={l.Field()}>
+          <Field fieldName="clipPdForm.tags" className={MainFormL.Field()}>
             <FormFieldLabel label="TAGS" />
             <ValuePickerField
               tabIndex={9}
@@ -94,7 +92,7 @@ export const ClipPdFormView = observer(
           <Field
             fieldName="clipPdForm.description"
             tabOnEnter={false}
-            className={l.Field()}
+            className={MainFormL.Field()}
           >
             <FormFieldLabel label="DESCRIPTION" buttons={[showPreviewButton]} />
             <MarkdownField
@@ -106,16 +104,16 @@ export const ClipPdFormView = observer(
           {
             // 🔳 Buttons 🔳
           }
-          <div className={cn(l.Buttons())}>
+          <div className={cn(MainFormL.Buttons())}>
             <FormCancelButton
-              className={cn(l.Button.root(), l.Button.gap())}
+              className={cn(MainFormL.Button.root(), MainFormL.Button.gap())}
               tabIndex={10}
               label="Cancel"
             />
             <FormSaveButton
               tabIndex={10}
               label="Save"
-              className={cn(l.Button.root())}
+              className={cn(MainFormL.Button.root())}
             />
           </div>
         </FormStateProvider>

@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { onClickNewClipButton } from '/src/clips/components/NewClipButton';
+import { CtaButtonL } from '/src/frames/components/CtaButton';
 import { Icon } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -42,14 +43,14 @@ export const CreateFirstClip = observer(
             'CreateFirstClip__Button',
             'w-[280px]',
             'self-center',
-            L.CtaButton.root(),
-            L.CtaButton.color.darkBlueOnSkyBlue()
+            CtaButtonL.root(),
+            CtaButtonL.color.darkBlueOnSkyBlue()
           )}
           onClick={() => {
             onClickNewClipButton(props);
           }}
         >
-          <Icon className={cn(L.CtaButton.icon())} name="plus" />
+          <Icon className={cn(CtaButtonL.icon())} name="plus" />
           Create first clip
         </button>
       </div>

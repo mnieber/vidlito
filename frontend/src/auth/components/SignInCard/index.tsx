@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useMessages } from './useMessages';
-import { AuthCard } from '/src/auth/components/AuthCard';
+import { AuthCard, AuthCardL } from '/src/auth/components/AuthCard';
 import { SignInForm } from '/src/auth/components/SignInForm';
 import { useSignIn } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
@@ -20,8 +20,6 @@ export const SignInCard = observer(() => {
   const authState = useAuthStateContext(true);
   const signIn = useSignIn(authState).mutateAsync;
 
-  const l = L.auth.AuthCard;
-
   return (
     //
     // 🔳 SignInCard 🔳
@@ -34,7 +32,7 @@ export const SignInCard = observer(() => {
         // 🔳 Form 🔳
       }
       <SignInForm
-        className={cn(l.Form())}
+        className={cn(AuthCardL.Form())}
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
             if (response.success) {
@@ -52,7 +50,7 @@ export const SignInCard = observer(() => {
         className={cn(
           'SignInCard__ForgotPassword',
           [],
-          [l.FormCaption(), L.col.banner()]
+          [AuthCardL.FormCaption(), L.col.banner()]
         )}
       >
         {messages.divForgotYourPassword}
@@ -62,7 +60,11 @@ export const SignInCard = observer(() => {
         // 🔳 Create account button 🔳
       }
       <button
-        className={cn('SignInCard__CreateAccountButton', [], [l.CardFooter()])}
+        className={cn(
+          'SignInCard__CreateAccountButton',
+          [],
+          [AuthCardL.CardFooter()]
+        )}
         onClick={() => navToSignUp()}
       >
         {messages.createAccount}

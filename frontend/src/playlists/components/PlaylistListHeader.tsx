@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
-import { L } from '/src/frames/layout';
+import { DropdownButtonL } from '/src/frames/components/DropdownButton';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -23,23 +23,23 @@ export const PlaylistListHeader = observer(
     if (!props.playlists.length) return null;
 
     const playlist = props.playlist ?? R.head(props.playlists);
-    const l = L.DropdownButton;
 
     return (
       <div
         className={cn(
           'PlaylistListHeader',
-          //
-          //
-          l.root(),
-          l.color.blue(),
-          props.className
+          [],
+          [
+            DropdownButtonL.root(),
+            DropdownButtonL.color.blue(),
+            props.className,
+          ]
         )}
         onClick={() => props.dashboardState.toggleIsPlaylistListExpanded()}
       >
-        <div className={cn(l.text())}>{playlist.name}</div>
+        <div className={cn(DropdownButtonL.text())}>{playlist.name}</div>
         <Icon
-          className={cn(l.icon())}
+          className={cn(DropdownButtonL.icon())}
           name={
             props.dashboardState.isPlaylistListExpanded
               ? 'cheveronDown'

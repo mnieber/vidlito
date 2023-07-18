@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
+import { LviL } from '/src/frames/components/Lvi';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { VideoPlayer } from '/src/videos/components/VideoPlayer';
@@ -71,7 +72,7 @@ export const VideoPlayerPanelPlaceholder = (props: {
     >
       {!props.hidden && (
         <div className={cn('mx-auto')}>
-          <Icon className={cn(L.Lvi.icon.root())} name="play" />
+          <Icon className={cn(LviL.icon.root())} name="play" />
         </div>
       )}
     </div>

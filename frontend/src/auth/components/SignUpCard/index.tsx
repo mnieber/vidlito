@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useMessages } from './useMessages';
-import { AuthCard } from '/src/auth/components/AuthCard';
+import { AuthCard, AuthCardL } from '/src/auth/components/AuthCard';
 import { SignUpForm } from '/src/auth/components/SignUpForm';
 import { useSignUp } from '/src/auth/endpoints';
 import { States } from '/src/auth/endpoints/states';
 import { useAuthStateContext } from '/src/auth/hooks';
-import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 export const termsVersion: string =
@@ -17,8 +16,6 @@ export const SignUpCard = observer(() => {
 
   const authState = useAuthStateContext(true);
   const signUp = useSignUp(authState).mutateAsync;
-
-  const l = L.auth.AuthCard;
 
   return (
     //
@@ -38,7 +35,7 @@ export const SignUpCard = observer(() => {
       {authState.state !== States.SIGN_UP_SUCCEEDED && (
         <React.Fragment>
           <SignUpForm
-            className={cn(l.Form())}
+            className={cn(AuthCardL.Form())}
             signUp={(email: string, acceptsTerms: boolean) => {
               return signUp({
                 userId: email,
@@ -48,7 +45,7 @@ export const SignUpCard = observer(() => {
             }}
             errors={authState.errors}
           />
-          <div className={cn(l.CardFooter())}>
+          <div className={cn(AuthCardL.CardFooter())}>
             {messages.ifYouAlreadyHaveAnAccount}
           </div>
         </React.Fragment>

@@ -10,7 +10,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
 import { ClipListKeyHandler } from '/src/clips/components/ClipListKeyHandler';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
-import { L } from '/src/frames/layout';
+import { LviL } from '/src/frames/components/Lvi';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -97,14 +97,13 @@ export const ClipListView = observer(
 
 export const ClipListViewLoader = observer(
   (props: PropsT & typeof DefaultProps) => {
-    const l = L.Lvi;
     const clipDivs = [1, 2, 3, 4, 5].map((idx) => {
       return (
         <div
           key={`item-${idx}`}
           className={cn(
             'ClipListViewLoader__Item',
-            l.root(),
+            LviL.root(),
             'h-2 my-4',
             'rounded bg-gray-300'
           )}

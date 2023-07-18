@@ -1,6 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
+import { AuthFormL } from '/src/auth/components/AuthCard/AuthForm';
 import {
   EmailField,
   Field,
@@ -22,7 +23,6 @@ export type PropsT = {
 
 export function RequestMagicLinkForm(props: PropsT) {
   const { messages } = useMessages();
-  const l = L.auth.AuthForm;
 
   return (
     <FormStateProvider
@@ -46,12 +46,12 @@ export function RequestMagicLinkForm(props: PropsT) {
         {
           // 🔳 Global error 🔳
         }
-        <GlobalError className={l.GlobalError()} />
+        <GlobalError className={AuthFormL.GlobalError()} />
 
         {
           // 🔳 Reset password message 🔳
         }
-        <div className={cn(l.Header())}>
+        <div className={cn(AuthFormL.Header())}>
           {messages.divEnterYourEmailToResetYourPassword}
         </div>
 
@@ -61,7 +61,7 @@ export function RequestMagicLinkForm(props: PropsT) {
         <Field
           fieldName={formFields.email}
           submitOnEnter={true}
-          className={l.Field()}
+          className={AuthFormL.Field()}
         >
           <EmailField placeholder="Email" />
         </Field>
@@ -72,7 +72,7 @@ export function RequestMagicLinkForm(props: PropsT) {
         <FormSaveButton
           dataCy="magicLinkBtn"
           label="Request Magic Link"
-          className={l.Button()}
+          className={AuthFormL.Button()}
         />
       </div>
     </FormStateProvider>

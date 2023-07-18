@@ -3,6 +3,7 @@ import React from 'react';
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { MainFormL } from '/src/dashboard/components/MainView/MainForm';
 import {
   Field,
   FormCancelButton,
@@ -33,15 +34,13 @@ export const PlaylistSettingsFormView = observer(
     const initialErrors = form.getInitialErrors(props);
     const [isDeleteEnabled, setIsDeleteEnabled] = React.useState(false);
 
-    const l = L.main.MainForm;
-
     return (
       <div
         className={cn(
           'PlaylistSettingsFormView',
           //
           //
-          l.root(),
+          MainFormL.root(),
           props.className
         )}
       >
@@ -59,13 +58,13 @@ export const PlaylistSettingsFormView = observer(
           )}
           handleCancel={form.getHandleCancel(props)}
         >
-          <GlobalError className={l.GlobalError()} />
+          <GlobalError className={MainFormL.GlobalError()} />
           {
             // 🔳 IsPublicField 🔳
           }
           <Field
             fieldName="playlistSettingsForm.isPublic"
-            className={l.Field()}
+            className={MainFormL.Field()}
           >
             <FormFieldLabel label="SETTINGS" />
             <IsPublicPlaylistField />
@@ -75,7 +74,7 @@ export const PlaylistSettingsFormView = observer(
           }
           <Field
             fieldName="playlistSettingsForm.isDeletionEnabled"
-            className={l.Field()}
+            className={MainFormL.Field()}
           >
             <FormFieldLabel label="DELETE PLAYLIST" />
             <div
@@ -98,9 +97,9 @@ export const PlaylistSettingsFormView = observer(
           {
             // 🔳 Buttons 🔳
           }
-          <div className={cn(l.Buttons())}>
+          <div className={cn(MainFormL.Buttons())}>
             <FormCancelButton
-              className={cn(l.Button.root(), l.Button.gap())}
+              className={cn(MainFormL.Button.root(), MainFormL.Button.gap())}
               label="Cancel"
               tabIndex={6}
             />
@@ -108,7 +107,7 @@ export const PlaylistSettingsFormView = observer(
               label={isDeleteEnabled ? 'Delete' : 'Save'}
               danger={isDeleteEnabled}
               tabIndex={6}
-              className={cn(l.Button.root())}
+              className={cn(MainFormL.Button.root())}
             />
           </div>
         </FormStateProvider>
