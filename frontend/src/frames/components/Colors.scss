@@ -6,22 +6,22 @@
   @apply bg-blue-400 text-white hover:bg-blue-300;
 }
 
-.c-dark-blue-on-sky-blue-btn-color {
-  @apply bg-blue-400 text-blue-50 hover:bg-blue-600;
+.c-blue-darkest-on-sky-blue-btn-color {
+  @apply bg-blue-400 text-blue-darkest hover:bg-blue-600;
 
   .Icon {
     svg {
-      @apply fill-blue-50;
+      @apply fill-blue-darkest;
     }
   }
 }
 
 .c-dark-red-on-light-red-btn-color {
-  @apply bg-red-400 text-blue-50 hover:bg-red-600;
+  @apply bg-red-400 text-blue-darkest hover:bg-red-600;
 
   .Icon {
     svg {
-      @apply fill-blue-50;
+      @apply fill-blue-darkest;
     }
   }
 }
@@ -30,10 +30,6 @@
   @apply text-blue-400 hover:text-blue-600;
 }
 
-.c-dark-blue-on-teal-btn-color {
-  @apply bg-teal-400 text-blue-50 hover:bg-teal-600;
-}
-
-.c-card-bg-color {
-  @apply bg-gray-50;
+.c-blue-darkest-on-teal-btn-color {
+  @apply bg-teal-400 text-blue-darkest hover:bg-teal-600;
 }

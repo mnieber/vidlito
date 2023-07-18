@@ -8,22 +8,22 @@ export const SearchResultListViewHeader = observer(() => {
   return (
     <div className={cn('SearchResultListViewHeader', 'contents')}>
       <div
-        className={cn('SearchResultListViewHeader__Cell', 'text-primaryBlue')}
+        className={cn('SearchResultListViewHeader__Cell', 'text-blue-primary')}
       >
         Owner
       </div>
       <div
-        className={cn('SearchResultListViewHeader__Cell', 'text-primaryBlue')}
+        className={cn('SearchResultListViewHeader__Cell', 'text-blue-primary')}
       >
         Playlist
       </div>
       <div
-        className={cn('SearchResultListViewHeader__Cell', 'text-primaryBlue')}
+        className={cn('SearchResultListViewHeader__Cell', 'text-blue-primary')}
       >
         #
       </div>
       <div
-        className={cn('SearchResultListViewHeader__Cell', 'text-primaryBlue')}
+        className={cn('SearchResultListViewHeader__Cell', 'text-blue-primary')}
       >
         Clip
       </div>

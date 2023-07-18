@@ -5,6 +5,7 @@ import { ActionListViewItem } from '/src/actions/components/ActionListViewItem';
 import { NoActionsMatchTheFilter } from '/src/actions/components/NoActionsMatchTheFilter';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -28,6 +29,9 @@ export const ActionListView = observer(
       props.actionsHighlight
     );
 
+    //
+    // 🔳 ActionListViewLoader 🔳
+    //
     if (isLoading(props.actions)) {
       return <ActionListViewLoader />;
     } else if (!props.actions?.length)
@@ -41,6 +45,9 @@ export const ActionListView = observer(
         />
       );
 
+    //
+    // 🔳 ActionListViewItem 🔳
+    //
     const actionDivs: any[] = props.actionsPage.map((action) => {
       return (
         <ActionListViewItem
@@ -51,6 +58,9 @@ export const ActionListView = observer(
       );
     });
 
+    //
+    // 🔳 ActionListView 🔳
+    //
     return (
       <ActionListKeyHandler>
         <div
@@ -71,21 +81,16 @@ export const ActionListView = observer(
 );
 
 export const ActionListViewLoader = (props: { className?: any }) => {
-  const l = L.Lvi;
+  //
+  // 🔳 ActionListViewLoader__Item 🔳
+  //
   const divs = ['1', '2', '3'].map((id: string) => {
-    return (
-      <div
-        key={id}
-        className={cn(
-          'ActionListViewLoader__Item',
-          l.root(),
-          'h-4 my-4',
-          'rounded bg-gray-300'
-        )}
-      />
-    );
+    return <LoaderBar key={id} className={cn('', 'h-6 my-4')} />;
   });
 
+  //
+  // 🔳 ActionListViewLoader 🔳
+  //
   return (
     <div
       className={cn(

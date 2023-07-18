@@ -27,7 +27,9 @@ export const AccountMenu = observer(
     const signOut = useSignOut(authState).mutateAsync;
 
     const StyledMenuItem = (props: any) => {
-      return <MenuItem {...props} className="bg-transparent text-blue-50" />;
+      return (
+        <MenuItem {...props} className="bg-transparent text-blue-darkest" />
+      );
     };
 
     return props.dashboardState.accountMenu.menuProps ? (

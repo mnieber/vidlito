@@ -6,17 +6,17 @@
 
 .ActionListViewItem--highlighted {
   @apply font-bold;
-  @apply bg-blue-50;
+  @apply bg-blue-darkest;
 }
 
 .ActionListViewItem__Title {
   @apply font-bold;
-  @apply text-primaryTeal;
+  @apply text-teal-primary;
 }
 
 .ActionListViewItem__PlaylistName {
   @apply font-bold;
-  @apply text-primaryBlue;
+  @apply text-blue-primary;
 }
 
 .ActionListViewItem__ClipNames {

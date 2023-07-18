@@ -3,7 +3,7 @@
 }
 
 .PlaylistFollowCard__Label {
-  @apply text-sm peer-checked:text-primaryBlue text-end whitespace-nowrap;
+  @apply text-sm peer-checked:text-blue-primary text-end whitespace-nowrap;
   grid-column: 1;
   grid-row: 1;
 }

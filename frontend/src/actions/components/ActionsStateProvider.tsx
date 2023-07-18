@@ -30,7 +30,7 @@ export const ActionsStateProvider = observer(
 
     // The display pagination adapts the default pagination
     const displayPagination = useBuilder(() => {
-      return new PaginationAdapter(actionsState.actionsCtr.pagination, 2);
+      return new PaginationAdapter(actionsState.actionsCtr.pagination, 5);
     });
 
     const cache = useBuilder(() =>

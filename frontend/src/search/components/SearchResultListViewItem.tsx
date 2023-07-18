@@ -42,7 +42,7 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
         className={cn(
           'SearchResultListViewItem__Cell',
           'hover:underline',
-          'text-primaryBlue'
+          'text-blue-primary'
         )}
         onClick={(e: any) => {
           e.stopPropagation();
@@ -61,7 +61,7 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
         className={cn(
           'SearchResultListViewItem__Cell',
           'hover:underline',
-          'text-primaryTeal'
+          'text-teal-primary'
         )}
       >
         {props.searchResult.clipName}

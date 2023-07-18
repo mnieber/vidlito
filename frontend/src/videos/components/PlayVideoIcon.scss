@@ -1,11 +1,11 @@
 .PlayVideoIcon {
-    .Icon {
-        @apply fill-primaryTeal;
-    }
+  .Icon {
+    @apply fill-teal-primary;
+  }
 }
 
 .PlayVideoIcon--loading {
-    .Icon {
-        @apply fill-gray-300;
-    }
+  .Icon {
+    @apply fill-gray-300;
+  }
 }

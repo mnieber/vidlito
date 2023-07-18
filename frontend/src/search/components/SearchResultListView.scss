@@ -1,7 +1,5 @@
-@import '/src/frames/components/Colors';
-
 .SearchResultListView {
-  @apply c-card-bg-color;
+  @apply bg-gray-medium;
   @apply rounded-xl;
   @apply text-textGray;
   @apply p-4;

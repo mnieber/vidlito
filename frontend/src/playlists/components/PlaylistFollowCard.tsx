@@ -63,7 +63,7 @@ export const PlaylistFollowCard = observer(
           <label
             htmlFor="followPlaylist"
             className={cn('PlaylistFollowCard__Label', {
-              'text-primaryBlue': isChecked,
+              'text-blue-primary': isChecked,
             })}
           >
             {isChecked ? 'Following' : 'Not following'}

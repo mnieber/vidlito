@@ -4,11 +4,11 @@
 
 .ClipListViewItem--selected {
   @apply bg-teal-25;
-  @apply text-primaryTeal;
+  @apply text-teal-primary;
 }
 
 .ClipListViewItem--highlighted {
-  @apply text-primaryTeal;
+  @apply text-teal-primary;
 }
 
 .ClipListViewItem--drag-before {
@@ -18,4 +18,3 @@
 .ClipListViewItem--drag-after {
   border-bottom: solid;
 }
-

@@ -1,5 +1,5 @@
 .PageNav {
-  @apply text-blue-50;
+  @apply text-blue-darkest;
 }
 
 .PageNav__Item {
@@ -9,12 +9,12 @@
 }
 
 .PageNav__Item--active {
-  @apply text-primaryBlue font-bold border-primaryBlue;
+  @apply text-blue-primary font-bold border-blue-primary;
 }
 
 .PageNav__Item--passive {
 }
 
 .PageNav__Icon {
-  @apply h-9 w-9 fill-blue-50 cursor-pointer;
+  @apply h-9 w-9 fill-blue-darkest cursor-pointer;
 }

@@ -7,7 +7,7 @@
   .IconContainer {
     &:hover {
       svg {
-        @apply fill-primaryBlue;
+        @apply fill-blue-primary;
         transform: scale(1.2);
       }
     }

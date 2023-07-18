@@ -24,7 +24,7 @@ export const SignInLogo = (props: PropsT) => {
         <div
           className={cn(
             'SignInLogo__TitlePrefix__',
-            `text-primaryBlue`
+            `text-blue-primary`
             //
             //
           )}
@@ -34,7 +34,7 @@ export const SignInLogo = (props: PropsT) => {
         <div
           className={cn(
             'SignInLogo__TitleSuffix__',
-            `text-primaryTeal`
+            `text-teal-primary`
             //
             //
           )}

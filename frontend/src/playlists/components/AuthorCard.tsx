@@ -39,22 +39,22 @@ export const AuthorCard = observer(
     ) {
       label1 = 'Clip and playlist by';
       owner1 = clipOwnerUsername;
-      color1 = 'text-primaryBlue';
+      color1 = 'text-blue-primary';
     } else {
       if (props.clip) {
         label1 = 'Clip by';
         owner1 = textTrunc(clipOwnerUsername, 24);
-        color1 = 'text-primaryBlue';
+        color1 = 'text-blue-primary';
       }
       if (props.playlist) {
         if (props.clip) {
           label2 = 'Playlist by';
           owner2 = textTrunc(playlistOwnerUsername, 24);
-          color2 = 'text-primaryBlue';
+          color2 = 'text-blue-primary';
         } else {
           label1 = 'Playlist by';
           owner1 = textTrunc(playlistOwnerUsername, 24);
-          color1 = 'text-primaryBlue';
+          color1 = 'text-blue-primary';
         }
       }
     }

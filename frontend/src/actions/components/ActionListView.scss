@@ -1,6 +1,4 @@
-@import '/src/frames/components/Colors';
-
 .ActionListView {
-  @apply c-card-bg-color;
+  @apply bg-gray-medium;
   @apply rounded-xl;
 }

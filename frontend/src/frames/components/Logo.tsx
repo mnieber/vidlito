@@ -32,7 +32,7 @@ export const Logo = observer(
         <div
           className={cn(
             'Logo__TitlePrefix__',
-            `text-primaryBlue`
+            `text-blue-primary`
             //
             //
           )}
@@ -42,7 +42,7 @@ export const Logo = observer(
         <div
           className={cn(
             'Logo__TitleSuffix__',
-            `text-primaryTeal`
+            `text-teal-primary`
             //
             //
           )}

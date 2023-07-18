@@ -52,7 +52,7 @@ export const L = {
   DropdownButton: {
     root: () => cn('DropdownButton', L.row.skewer(), 'justify-between'),
     color: {
-      blue: () => 'text-primaryBlue',
+      blue: () => 'text-blue-primary',
     },
     text: () => '',
     icon: () => cn('h-[30px]', 'w-[30px]', 'fill-textGray'),
@@ -93,14 +93,15 @@ export const L = {
     root: () => cn('DialogButton', L.row.skewer()),
     // Clients should pick one color from the list below.
     color: {
-      darkBlueOnSkyBlue: () => 'c-dark-blue-on-sky-blue-btn-color',
-      darkBlueOnTeal: () => 'c-dark-blue-on-teal-btn-color',
-      skyBlueTextAndBorder: () => 'c-sky-blue-text border-2 border-primaryBlue',
+      darkBlueOnSkyBlue: () => 'c-blue-darkest-on-sky-blue-btn-color',
+      darkBlueOnTeal: () => 'c-blue-darkest-on-teal-btn-color',
+      skyBlueTextAndBorder: () =>
+        'c-sky-blue-text border-2 border-blue-primary',
     },
     icon: {
       root: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
       color: {
-        skyBlue: () => 'fill-primaryBlue',
+        skyBlue: () => 'fill-blue-primary',
         gray: () => 'fill-textGray',
       },
     },
@@ -109,8 +110,8 @@ export const L = {
     root: () => cn('CtaButton', L.row.skewer()),
     // Clients should pick one color from the list below.
     color: {
-      darkBlueOnSkyBlue: () => 'c-dark-blue-on-sky-blue-btn-color',
-      darkBlueOnTeal: () => 'c-dark-blue-on-teal-btn-color',
+      darkBlueOnSkyBlue: () => 'c-blue-darkest-on-sky-blue-btn-color',
+      darkBlueOnTeal: () => 'c-blue-darkest-on-teal-btn-color',
     },
     icon: () => cn('mr-4', 'h-[30px]', 'w-[30px]', 'min-w-[30px]'),
   },
