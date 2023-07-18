@@ -3,7 +3,37 @@
 @tailwind utilities;
 
 @layer components {
-  .btn-blue {
+  .btnBlueWithDarkText {
     @apply bg-blue-400 text-blue-darkest hover:bg-blue-600;
+  }
+  .btnTealWithWhiteText {
+    @apply bg-teal-400 text-white hover:bg-teal-300;
+  }
+  .btnSkyBlueWithWhiteText {
+    @apply bg-blue-400 text-white hover:bg-blue-300;
+  }
+  .btnWithSkyBlueText {
+    @apply text-blue-400 hover:text-blue-600;
+  }
+  .btnTealWithDarkText {
+    @apply bg-teal-400 text-blue-darkest hover:bg-teal-600;
+  }
+  .btnSkyBlueWithDarkText {
+    @apply bg-blue-400 text-blue-darkest hover:bg-blue-600;
+
+    .Icon {
+      svg {
+        @apply fill-blue-darkest;
+      }
+    }
+  }
+  .btnRedWithWhiteText {
+    @apply bg-red-400 text-blue-darkest hover:bg-red-600;
+
+    .Icon {
+      svg {
+        @apply fill-blue-darkest;
+      }
+    }
   }
 }

@@ -1,14 +1,10 @@
-.c-dialog-button {
+.DialogButton {
   @apply px-4 py-2;
   @apply rounded-xl;
   @apply font-bold;
   @apply min-w-[max-content]; // auto-scale
 }
 
-.DialogButton {
-  @apply c-dialog-button;
-}
-
 .DialogButton--default-blue {
-  @apply btn-blue;
+  @apply btnBlueWithDarkText;
 }

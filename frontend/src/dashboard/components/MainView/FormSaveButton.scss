@@ -1,16 +1,15 @@
 @import '/src/frames/components/DialogButton';
-@import '/src/frames/components/Colors';
 
 .MainView .FormSaveButton {
   @apply DialogButton;
 }
 
 .MainView .FormSaveButton--default {
-  @apply btn-blue;
+  @apply btnBlueWithDarkText;
 }
 
 .MainView .FormSaveButton--danger {
-  @apply c-dark-red-on-light-red-btn-color;
+  @apply btnRedWithWhiteText;
 }
 
 .MainView .FormSaveButton--disabled {

@@ -46,7 +46,7 @@ export const ClipListViewItem = observer(
           'font-bold',
           {
             'ClipListViewItem--selected': showAsSelected,
-            'text-textGray': !(showAsSelected || props.isHighlighted),
+            'text-gray-text': !(showAsSelected || props.isHighlighted),
             'ClipListViewItem--highlighted': props.isHighlighted,
           },
           `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,

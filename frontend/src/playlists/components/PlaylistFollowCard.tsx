@@ -51,7 +51,7 @@ export const PlaylistFollowCard = observer(
       <div
         className={cn(
           'PlaylistFollowCard',
-          'text-textGray',
+          'text-gray-text',
           'grow',
           //
           //

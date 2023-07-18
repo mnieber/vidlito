@@ -70,7 +70,7 @@ export const PlaylistListViewItem = observer(
           }}
         >
           <Icon
-            className={cn('w-[15px] h-[15px]', 'fill-textGray')}
+            className={cn('w-[15px] h-[15px]', 'fill-gray-text')}
             name="arrowRight"
           />
         </div>

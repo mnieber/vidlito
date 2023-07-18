@@ -7,8 +7,8 @@ export const CtaButtonL = {
   root: () => cn('CtaButton', L.row.skewer()),
   // Clients should pick one color from the list below.
   color: {
-    darkBlueOnSkyBlue: () => 'c-blue-darkest-on-sky-blue-btn-color',
-    darkBlueOnTeal: () => 'c-blue-darkest-on-teal-btn-color',
+    darkBlueOnSkyBlue: () => 'btnSkyBlueWithDarkText',
+    darkBlueOnTeal: () => 'btnTealWithDarkText',
   },
   icon: () => cn('mr-4', 'h-[30px]', 'w-[30px]', 'min-w-[30px]'),
 };

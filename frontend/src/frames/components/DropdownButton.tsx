@@ -9,5 +9,5 @@ export const DropdownButtonL = {
     blue: () => 'text-blue-primary',
   },
   text: () => '',
-  icon: () => cn('h-[30px]', 'w-[30px]', 'fill-textGray'),
+  icon: () => cn('h-[30px]', 'w-[30px]', 'fill-gray-text'),
 };

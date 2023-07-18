@@ -29,7 +29,7 @@ export const Dashboard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const refLeftSidebar = React.useRef<HTMLDivElement>(null);
     const playlistNotFound = !isLoading(props.playlist) && !props.playlist;
-    const separator = ['my-2', 'border-t border-textGray'];
+    const separator = ['my-2', 'border-t border-gray-text'];
 
     const { onResize } = useOnResizeDashboard({
       leftSidebarWidth: refLeftSidebar.current?.clientWidth ?? 0,

@@ -1,12 +1,11 @@
 @import '/src/frames/components/DialogButton';
-@import '/src/frames/components/Colors';
 
 .AuthCard .FormSaveButton {
   @apply DialogButton;
 }
 
 .AuthCard .FormSaveButton--default {
-  @apply c-white-on-sky-blue-btn-color;
+  @apply btnSkyBlueWithWhiteText;
 }
 
 .AuthCard .FormSaveButton--disabled {

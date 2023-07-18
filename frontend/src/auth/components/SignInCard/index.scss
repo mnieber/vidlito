@@ -1,7 +1,6 @@
 @import '/src/frames/components/DialogButton';
-@import '/src/frames/components/Colors';
 
 .SignInCard__CreateAccountButton {
-  @apply c-dialog-button;
-  @apply c-white-on-teal-btn-color;
+  @apply DialogButton;
+  @apply btnTealWithWhiteText;
 }

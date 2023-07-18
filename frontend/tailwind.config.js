@@ -8,9 +8,7 @@ module.exports = {
     },
     colors: {
       black: '#000',
-      bodyText: 'hsl(210, 20%, 25%)',
       errorRed: '#ff0000',
-      textGray: 'hsl(210, 16%, 82%)',
       transparent: 'transparent',
       white: '#fff',
       blue: {
@@ -37,7 +35,7 @@ module.exports = {
         400: 'hsl(211, 12%, 43%)',
         500: 'hsl(211, 10%, 53%)',
         600: 'hsl(211, 13%, 65%)',
-        // Default text color
+        text: 'hsl(210, 16%, 82%)',
         700: 'hsl(210, 16%, 82%)',
         800: 'hsl(214, 15%, 91%)',
         900: 'hsl(216, 33%, 94%)',
