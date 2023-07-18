@@ -5,3 +5,21 @@ export const cn = (label: string, ...args: any[]) => {
     ? classnames(...args)
     : classnames(label, ...args);
 };
+
+type ArgsT = {
+  label?: string;
+  component?: any;
+  adhoc?: any;
+};
+
+export const foo = (args: ArgsT) => {
+  if (args.label && !import.meta.env.PROD) {
+    return classnames(
+      args.label,
+      ...(args.component ?? {}),
+      ...(args.adhoc ?? [])
+    );
+  }
+
+  return classnames(...(args.component ?? {}), ...(args.adhoc ?? []));
+};

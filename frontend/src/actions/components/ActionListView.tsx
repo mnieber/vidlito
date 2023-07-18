@@ -7,7 +7,7 @@ import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
-import { cn } from '/src/utils/classnames';
+import { cn, foo } from '/src/utils/classnames';
 
 // Import styles
 import './ActionListView.scss';
@@ -29,9 +29,11 @@ export const ActionListView = observer(
       props.actionsHighlight
     );
 
+    // 🔳
     //
-    // 🔳 ActionListViewLoader 🔳
+    // Handle loading state
     //
+    // 🔳
     if (isLoading(props.actions)) {
       return <ActionListViewLoader />;
     } else if (!props.actions?.length)
@@ -45,9 +47,11 @@ export const ActionListView = observer(
         />
       );
 
+    // 🔳
     //
-    // 🔳 ActionListViewItem 🔳
+    // actionDivs
     //
+    // 🔳
     const actionDivs: any[] = props.actionsPage.map((action) => {
       return (
         <ActionListViewItem
@@ -58,19 +62,19 @@ export const ActionListView = observer(
       );
     });
 
-    //
-    // 🔳 ActionListView 🔳
-    //
     return (
       <ActionListKeyHandler>
         <div
-          className={cn(
-            'ActionListView',
-            //
-            //
-            L.col.banner(),
-            props.className
-          )}
+          className={foo({
+            component: [
+              // 🔳
+              //
+              'ActionListView',
+              //
+              // 🔳
+            ],
+            adhoc: [L.col.banner(), props.className],
+          })}
           tabIndex={0}
         >
           {actionDivs.length > 0 && actionDivs}
@@ -81,27 +85,29 @@ export const ActionListView = observer(
 );
 
 export const ActionListViewLoader = (props: { className?: any }) => {
+  // 🔳
   //
-  // 🔳 ActionListViewLoader__Item 🔳
+  // loaderBars
   //
-  const divs = ['1', '2', '3'].map((id: string) => {
-    return <LoaderBar key={id} className={cn('', 'h-6 my-4')} />;
+  // 🔳
+  const loaderBars = ['1', '2', '3'].map((id: string) => {
+    return <LoaderBar key={id} className={cn('h-6 my-4')} />;
   });
 
-  //
-  // 🔳 ActionListViewLoader 🔳
-  //
   return (
     <div
-      className={cn(
-        'ActionListViewLoader',
-        //
-        //
-        L.col.banner(),
-        props.className
-      )}
+      className={foo({
+        component: [
+          // 🔳
+          //
+          'ActionListViewLoader',
+          //
+          // 🔳
+        ],
+        adhoc: [L.col.banner(), props.className],
+      })}
     >
-      {divs}
+      {loaderBars}
     </div>
   );
 };

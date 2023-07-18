@@ -5,7 +5,7 @@ import { CloseButton } from '/src/frames/components/CloseButton';
 import { Icon } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
-import { cn } from '/src/utils/classnames';
+import { cn, foo } from '/src/utils/classnames';
 import { SwitchButton } from '/src/utils/components/SwitchButton';
 
 // Import styles
@@ -29,13 +29,16 @@ export const ActionsBar = observer(
       // 🔳 ActionsBar 🔳
       //
       <div
-        className={cn(
-          'ActionsBar',
-          //
-          //
-          L.row.flagPole(),
-          props.className
-        )}
+        className={foo({
+          component: [
+            // 🔳
+            //
+            'ActionsBar',
+            //
+            // 🔳
+          ],
+          adhoc: [L.row.flagPole(), props.className],
+        })}
       >
         <SwitchButton
           className="mb-4"
