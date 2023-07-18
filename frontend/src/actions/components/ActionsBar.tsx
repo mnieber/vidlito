@@ -2,10 +2,10 @@ import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
 import { CloseButton } from '/src/frames/components/CloseButton';
-import { Icon } from '/src/frames/components/Icon';
+import { DialogButton } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
-import { cn, foo } from '/src/utils/classnames';
+import { foo } from '/src/utils/classnames';
 import { SwitchButton } from '/src/utils/components/SwitchButton';
 
 // Import styles
@@ -25,21 +25,18 @@ const DefaultProps = {
 export const ActionsBar = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
-      //
-      // 🔳 ActionsBar 🔳
-      //
+      /*
+      🔳 ActionsBar 🔳
+      */
       <div
         className={foo({
-          component: [
-            // 🔳
-            //
-            'ActionsBar',
-            //
-            // 🔳
-          ],
+          component: ['ActionsBar'],
           adhoc: [L.row.flagPole(), props.className],
         })}
       >
+        {/*
+         🔳 Switch button 🔳
+         */}
         <SwitchButton
           className="mb-4"
           state={props.actionsState.settings.showAllActions ? 'left' : 'right'}
@@ -49,30 +46,37 @@ export const ActionsBar = observer(
           textLeft={'All actions'}
           textRight={'Playlist actions'}
         />
+
+        {/*
+         🔳 Spacer 🔳
+         */}
         <div className="flex-grow" />
-        {
-          // 🔳 Undo Button 🔳
-        }
-        <button
-          className={cn(
-            'ActionsBar__UndoActionButton',
-            //
-            //
-            'mx-4',
-            L.DialogButton.root(),
-            L.DialogButton.color.darkBlueOnSkyBlue(),
-            {
-              invisible: !props.action,
-            }
-          )}
+
+        {/*
+         🔳 Undo action Button 🔳
+         */}
+        <DialogButton
+          classNames={{
+            base: 'ActionsBar__UndoActionButton',
+          }}
+          className={foo({
+            component: [],
+            adhoc: [
+              'mx-4',
+              {
+                invisible: !props.action,
+              },
+            ],
+          })}
+          iconName="reply"
+          label="Undo"
+          color="blue"
           onClick={() => props.actionsState.undoAction(props.action)}
-        >
-          <Icon className={cn(L.DialogButton.icon.root())} name="reply" />
-          Undo
-        </button>
-        {
-          // 🔳 Close Button 🔳
-        }
+        />
+
+        {/*
+         🔳 Close Button 🔳
+         */}
         <CloseButton
           onClick={() => {
             if (props.clip) {

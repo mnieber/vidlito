@@ -8,3 +8,7 @@
 .DialogButton {
   @apply c-dialog-button;
 }
+
+.DialogButton--default-blue {
+  @apply btn-blue;
+}

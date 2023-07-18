@@ -17,14 +17,13 @@ export type PropsT = {
 
 export const ActionListViewItem = observer((props: PropsT) => {
   return (
+    /*
+    🔳 ActionListViewItem 🔳
+    */
     <div
       className={foo({
         component: [
-          // 🔳
-          //
           'ActionListViewItem',
-          //
-          // 🔳
           {
             'ActionListViewItem--highlighted':
               props.highlightUIProps.isHighlighted,
@@ -35,56 +34,46 @@ export const ActionListViewItem = observer((props: PropsT) => {
       })}
       {...highlightUIHandlers(props.highlightUIProps)}
     >
+      {/*
+      🔳 Header 🔳
+      */}
       <div
         className={foo({
-          component: [
-            // 🔳
-            //
-            'ActionListViewItem__Header',
-            //
-            // 🔳
-          ],
+          component: ['ActionListViewItem__Header'],
           adhoc: [L.row.skewer()],
         })}
       >
+        {/*
+        🔳 Title 🔳
+        */}
         <div
           className={foo({
-            component: [
-              // 🔳
-              //
-              'ActionListViewItem__Title',
-              //
-              // 🔳
-            ],
+            component: ['ActionListViewItem__Title'],
             adhoc: ['mr-2'],
           })}
         >
           {getTitle(props.action)}
         </div>
+
+        {/*
+        🔳 Playlist name 🔳
+        */}
         <div
           className={foo({
-            component: [
-              // 🔳
-              //
-              'ActionListViewItem__PlaylistName',
-              //
-              // 🔳
-            ],
+            component: ['ActionListViewItem__PlaylistName'],
             adhoc: [],
           })}
         >
           {props.action.data['playlist_name']}
         </div>
       </div>
+
+      {/*
+      🔳 Clip names 🔳
+      */}
       <div
         className={foo({
-          component: [
-            // 🔳
-            //
-            'ActionListViewItem__ClipNames',
-            //
-            // 🔳
-          ],
+          component: ['ActionListViewItem__ClipNames'],
           adhoc: ['flex flex-row flex-wrap'],
         })}
       >

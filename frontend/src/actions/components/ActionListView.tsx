@@ -29,11 +29,9 @@ export const ActionListView = observer(
       props.actionsHighlight
     );
 
-    // 🔳
     //
-    // Handle loading state
+    // 🔳  Handle loading state 🔳
     //
-    // 🔳
     if (isLoading(props.actions)) {
       return <ActionListViewLoader />;
     } else if (!props.actions?.length)
@@ -47,11 +45,9 @@ export const ActionListView = observer(
         />
       );
 
-    // 🔳
     //
-    // actionDivs
+    // 🔳 actionDivs 🔳
     //
-    // 🔳
     const actionDivs: any[] = props.actionsPage.map((action) => {
       return (
         <ActionListViewItem
@@ -64,15 +60,12 @@ export const ActionListView = observer(
 
     return (
       <ActionListKeyHandler>
+        {/*
+        🔳 ActionListView 🔳
+        */}
         <div
           className={foo({
-            component: [
-              // 🔳
-              //
-              'ActionListView',
-              //
-              // 🔳
-            ],
+            component: ['ActionListView'],
             adhoc: [L.col.banner(), props.className],
           })}
           tabIndex={0}
@@ -85,25 +78,20 @@ export const ActionListView = observer(
 );
 
 export const ActionListViewLoader = (props: { className?: any }) => {
-  // 🔳
   //
-  // loaderBars
+  // 🔳 loaderBars 🔳
   //
-  // 🔳
   const loaderBars = ['1', '2', '3'].map((id: string) => {
     return <LoaderBar key={id} className={cn('h-6 my-4')} />;
   });
 
   return (
+    /*
+    🔳 ActionListViewLoader 🔳
+    */
     <div
       className={foo({
-        component: [
-          // 🔳
-          //
-          'ActionListViewLoader',
-          //
-          // 🔳
-        ],
+        component: ['ActionListViewLoader'],
         adhoc: [L.col.banner(), props.className],
       })}
     >

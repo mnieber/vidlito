@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { L } from '/src/frames/layout';
-import { cn } from '/src/utils/classnames';
+import { cn, foo } from '/src/utils/classnames';
 
 // Import styles
 import './NoActionsMatchTheFilter.scss';
@@ -18,15 +18,18 @@ const DefaultProps = {
 export const NoActionsMatchTheFilter = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
+      /*
+      🔳 NoActionsMatchTheFilter 🔳
+      */
       <div
-        className={cn(
-          'NoActionsMatchTheFilter',
-          L.WallPaperCard.root(),
-          //
-          //
-          props.className
-        )}
+        className={foo({
+          component: ['NoActionsMatchTheFilter', L.WallPaperCard.root()],
+          adhoc: [L.col.banner(), props.className],
+        })}
       >
+        {/*
+        🔳 Message 🔳
+        */}
         <div
           className={cn(
             'NoActionsMatchTheFilter__Message',

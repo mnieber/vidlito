@@ -1,4 +1,5 @@
 // Import styles. This needs to be done before importing any components.
+import '/src/frames/styles/index.css';
 import '/src/frames/styles/index.scss';
 
 import { toJS } from 'mobx';
