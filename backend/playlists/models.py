@@ -75,7 +75,7 @@ class Entry(Entity):
         return f"{self.playlist.name} / {self.clip.name}"
 
     def __str__(self):
-        return f"{self.user_profile.username} / {self.playlist.name}"
+        return f"{self.playlist.owner.username} / {self.playlist.name}"
 
 
 class PlaylistPd(Entity):
