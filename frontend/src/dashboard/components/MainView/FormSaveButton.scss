@@ -2,7 +2,7 @@
 @import '/src/frames/components/Colors';
 
 .MainView .FormSaveButton {
-  @apply c-dialog-button;
+  @apply DialogButton;
 }
 
 .MainView .FormSaveButton--default {
@@ -14,5 +14,5 @@
 }
 
 .MainView .FormSaveButton--disabled {
-  @apply bg-gray-500 #{!important};
+  @apply bg-gray-500;
 }

@@ -2,10 +2,13 @@
 @import '/src/frames/components/Colors';
 
 .AuthCard .FormSaveButton {
-  @apply c-dialog-button;
+  @apply DialogButton;
+}
+
+.AuthCard .FormSaveButton--default {
   @apply c-white-on-sky-blue-btn-color;
 }
 
 .AuthCard .FormSaveButton--disabled {
-  @apply bg-gray-500 #{!important};
+  @apply bg-gray-500;
 }
