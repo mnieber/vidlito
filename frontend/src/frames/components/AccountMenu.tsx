@@ -5,7 +5,7 @@ import { useSignOut } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
 import { navToSignIn } from '/src/frames/FramesNavEvents';
 import { Icon } from '/src/frames/components';
-import { L } from '/src/frames/layout';
+import { DialogButtonL } from '/src/frames/components/DialogButton';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -38,8 +38,8 @@ export const AccountMenu = observer(
           menuButton={
             <MenuButton
               className={cn(
-                L.DialogButton.root(),
-                L.DialogButton.color.darkBlueOnTeal(),
+                DialogButtonL.root(),
+                DialogButtonL.color.darkBlueOnTeal(),
                 'mb-4'
               )}
             >
@@ -52,7 +52,7 @@ export const AccountMenu = observer(
         >
           {!props.isAuthenticated && (
             <StyledMenuItem onClick={() => navToSignIn()}>
-              <Icon className={cn(L.DialogButton.icon.root())} name="signIn" />
+              <Icon className={cn(DialogButtonL.icon.root())} name="signIn" />
               Sign In
             </StyledMenuItem>
           )}
@@ -64,7 +64,7 @@ export const AccountMenu = observer(
                 });
               }}
             >
-              <Icon className={cn(L.DialogButton.icon.root())} name="signOut" />
+              <Icon className={cn(DialogButtonL.icon.root())} name="signOut" />
               Sign Out
             </StyledMenuItem>
           )}

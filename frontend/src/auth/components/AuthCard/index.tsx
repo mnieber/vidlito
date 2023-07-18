@@ -6,8 +6,6 @@ import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './index.scss';
-import '/src/auth/components/AuthCard/FormField.scss';
-import '/src/auth/components/AuthCard/FormSaveButton.scss';
 
 type PropsT = React.PropsWithChildren<{
   id: string;

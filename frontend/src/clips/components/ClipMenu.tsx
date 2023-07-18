@@ -7,7 +7,7 @@ import {
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
-import { L } from '/src/frames/layout';
+import { DialogButtonL } from '/src/frames/components/DialogButton';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -95,7 +95,7 @@ export const ClipMenu = observer(
             })
           }
         >
-          <Icon className={cn(L.DialogButton.icon.root())} name="trash" />
+          <Icon className={cn(DialogButtonL.icon.root())} name="trash" />
           Move to Trash
         </MenuItem>
         <MenuDivider />

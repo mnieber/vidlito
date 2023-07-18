@@ -1,7 +1,7 @@
 import React from 'react';
+import { DialogButtonL } from '/src/frames/components/DialogButton';
 import { Icon } from '/src/frames/components/Icon';
 import { ToolButtonL } from '/src/frames/components/ToolButton';
-import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 export type PropsT = {
@@ -19,7 +19,7 @@ export const usePreviewButton = (props: PropsT) => {
       onClick={() => setDescriptionPreview(!descriptionPreview)}
     >
       {descriptionPreview && (
-        <Icon className={cn(L.DialogButton.icon.root())} name="check" />
+        <Icon className={cn(DialogButtonL.icon.root())} name="check" />
       )}
       Preview
     </button>

@@ -81,3 +81,20 @@ export const DialogButton = (
     </button>
   );
 };
+
+export const DialogButtonL = {
+  root: () => cn('DialogButton', L.row.skewer()),
+  // Clients should pick one color from the list below.
+  color: {
+    darkBlueOnSkyBlue: () => 'c-blue-darkest-on-sky-blue-btn-color',
+    darkBlueOnTeal: () => 'c-blue-darkest-on-teal-btn-color',
+    skyBlueTextAndBorder: () => 'c-sky-blue-text border-2 border-blue-primary',
+  },
+  icon: {
+    root: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
+    color: {
+      skyBlue: () => 'fill-blue-primary',
+      gray: () => 'fill-textGray',
+    },
+  },
+};

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
+import { DialogButtonL } from '/src/frames/components/DialogButton';
 import { Icon } from '/src/frames/components/Icon';
-import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -22,16 +22,16 @@ export const CloseButton = observer(
           'CloseButton',
           //
           //
-          L.DialogButton.root(),
-          L.DialogButton.color.skyBlueTextAndBorder(),
+          DialogButtonL.root(),
+          DialogButtonL.color.skyBlueTextAndBorder(),
           props.className
         )}
         onClick={props.onClick}
       >
         <Icon
           className={cn(
-            L.DialogButton.icon.root(),
-            L.DialogButton.icon.color.skyBlue()
+            DialogButtonL.icon.root(),
+            DialogButtonL.icon.color.skyBlue()
           )}
           name="close"
         />
