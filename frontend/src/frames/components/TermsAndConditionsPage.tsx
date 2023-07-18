@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
-import { L } from '/src/frames/layout';
+import { WallPaperCardL } from '/src/frames/components/WallPaperCard';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -16,7 +16,7 @@ export const TermsAndConditionsPage = observer(
       <div
         className={cn(
           'TermsAndConditionsPage',
-          L.WallPaperCard.root()
+          WallPaperCardL.root()
           //
           //
         )}

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { L } from '/src/frames/layout';
+import { WallPaperCardL } from '/src/frames/components/WallPaperCard';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -25,7 +25,7 @@ export const NoActionsMatchTheFilter = observer(
         className={cn(
           'NoActionsMatchTheFilter',
           [],
-          [L.WallPaperCard.root(), props.className]
+          [WallPaperCardL.root(), props.className]
         )}
       >
         {
@@ -35,7 +35,7 @@ export const NoActionsMatchTheFilter = observer(
           className={cn(
             'NoActionsMatchTheFilter__Message',
             [],
-            [L.WallPaperCard.message()]
+            [WallPaperCardL.message()]
           )}
         >
           {props.msg}

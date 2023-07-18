@@ -5,7 +5,6 @@ import '/src/forms/components/FormField.scss';
 import '/src/forms/components/FormFieldButton.scss';
 import '/src/frames/components/DialogButton.scss';
 import '/src/frames/components/ToolButton.scss';
-import '/src/frames/components/WallPaperCard.scss';
 
 export const breakpoints = {
   xs: '320px',
@@ -52,11 +51,6 @@ export const L = {
       },
       disabled: () => 'ToolButton__Icon--disabled',
     },
-  },
-  WallPaperCard: {
-    root: () =>
-      cn('WallPaperCard', 'flex flex-col justify-evenly', 'w-full', 'grow'),
-    message: () => cn('WallPaperCard__Message'),
   },
   row: {
     skewer: () => 'flex flex-row items-center',

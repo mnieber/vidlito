@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
-import { L } from '/src/frames/layout';
+import { WallPaperCardL } from '/src/frames/components/WallPaperCard';
 import { navHandler } from '/src/navHandler/NavHandler';
 import { cn } from '/src/utils/classnames';
 
@@ -23,13 +23,13 @@ export const PageNotFound = observer(
       <div
         className={cn(
           'PageNotFound',
-          L.WallPaperCard.root(),
+          WallPaperCardL.root(),
           //
           //
           props.className
         )}
       >
-        <div className={cn('PageNotFound__Message', L.WallPaperCard.message())}>
+        <div className={cn('PageNotFound__Message', WallPaperCardL.message())}>
           Oops, it seems this page doesn't exist
         </div>
       </div>
