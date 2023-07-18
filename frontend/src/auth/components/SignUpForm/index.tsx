@@ -45,6 +45,9 @@ export function SignUpForm(props: PropsT) {
           props.className
         )}
       >
+        {
+          // 🔳 Global error 🔳
+        }
         <GlobalError className={l.GlobalError()} />
 
         {

@@ -7,7 +7,7 @@ import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
-import { cn, foo } from '/src/utils/classnames';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './ActionListView.scss';
@@ -60,14 +60,15 @@ export const ActionListView = observer(
 
     return (
       <ActionListKeyHandler>
-        {/*
-        🔳 ActionListView 🔳
-        */}
+        {
+          // 🔳 ActionListView 🔳
+        }
         <div
-          className={foo({
-            component: ['ActionListView'],
-            adhoc: [L.col.banner(), props.className],
-          })}
+          className={cn(
+            'ActionListView',
+            [],
+            [L.col.banner(), props.className]
+          )}
           tabIndex={0}
         >
           {actionDivs.length > 0 && actionDivs}
@@ -82,7 +83,7 @@ export const ActionListViewLoader = (props: { className?: any }) => {
   // 🔳 loaderBars 🔳
   //
   const loaderBars = ['1', '2', '3'].map((id: string) => {
-    return <LoaderBar key={id} className={cn('h-6 my-4')} />;
+    return <LoaderBar key={id} className={cn('', [], 'h-6 my-4')} />;
   });
 
   return (
@@ -90,10 +91,11 @@ export const ActionListViewLoader = (props: { className?: any }) => {
     🔳 ActionListViewLoader 🔳
     */
     <div
-      className={foo({
-        component: ['ActionListViewLoader'],
-        adhoc: [L.col.banner(), props.className],
-      })}
+      className={cn(
+        'ActionListViewLoader',
+        [],
+        [L.col.banner(), props.className]
+      )}
     >
       {loaderBars}
     </div>

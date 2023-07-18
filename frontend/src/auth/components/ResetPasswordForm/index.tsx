@@ -34,23 +34,31 @@ export function ResetPasswordForm(props: PropsT) {
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >
+      {
+        // 🔳 Form 🔳
+      }
       <div
         className={cn(
           'ResetPasswordForm',
-          //
-          //
-          L.col.banner(),
-          props.className
+          [],
+          [L.col.banner(), props.className]
         )}
       >
-        <GlobalError className={cn(l.GlobalError())} />
+        {
+          // 🔳 Global error 🔳
+        }
+        <GlobalError className={l.GlobalError()} />
 
         {!getErrorKeys(externalErrors).includes('global') && (
           <React.Fragment>
-            <div className={cn(l.Header())}>
-              {messages.divEnterYourNewPassword}
-            </div>
+            {
+              // 🔳 Enter your password message 🔳
+            }
+            <div className={l.Header()}>{messages.divEnterYourNewPassword}</div>
 
+            {
+              // 🔳 Password field 🔳
+            }
             <Field
               className={l.Field()}
               fieldName={formFields.password}
@@ -58,6 +66,10 @@ export function ResetPasswordForm(props: PropsT) {
             >
               <PasswordField placeholder="Password" />
             </Field>
+
+            {
+              // 🔳 Save button 🔳
+            }
             <FormSaveButton
               dataCy="passwordChangeBtn"
               label="Change password"

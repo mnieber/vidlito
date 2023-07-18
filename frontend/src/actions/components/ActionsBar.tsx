@@ -5,7 +5,7 @@ import { CloseButton } from '/src/frames/components/CloseButton';
 import { DialogButton } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
-import { foo } from '/src/utils/classnames';
+import { cn } from '/src/utils/classnames';
 import { SwitchButton } from '/src/utils/components/SwitchButton';
 
 // Import styles
@@ -29,14 +29,11 @@ export const ActionsBar = observer(
       🔳 ActionsBar 🔳
       */
       <div
-        className={foo({
-          component: ['ActionsBar'],
-          adhoc: [L.row.flagPole(), props.className],
-        })}
+        className={cn('ActionsBar', [], [L.row.flagPole(), props.className])}
       >
-        {/*
-         🔳 Switch button 🔳
-         */}
+        {
+          // 🔳 Switch button 🔳
+        }
         <SwitchButton
           className="mb-4"
           state={props.actionsState.settings.showAllActions ? 'left' : 'right'}
@@ -47,36 +44,33 @@ export const ActionsBar = observer(
           textRight={'Playlist actions'}
         />
 
-        {/*
-         🔳 Spacer 🔳
-         */}
+        {
+          // 🔳 Spacer 🔳
+        }
         <div className="flex-grow" />
 
-        {/*
-         🔳 Undo action Button 🔳
-         */}
+        {
+          // 🔳 Undo action Button 🔳
+        }
         <DialogButton
           classNames={{
             base: 'ActionsBar__UndoActionButton',
           }}
-          className={foo({
-            component: [],
-            adhoc: [
-              'mx-4',
-              {
-                invisible: !props.action,
-              },
-            ],
-          })}
+          className={cn([
+            'mx-4',
+            {
+              invisible: !props.action,
+            },
+          ])}
           iconName="reply"
           label="Undo"
           color="blue"
           onClick={() => props.actionsState.undoAction(props.action)}
         />
 
-        {/*
-         🔳 Close Button 🔳
-         */}
+        {
+          // 🔳 Close Button 🔳
+        }
         <CloseButton
           onClick={() => {
             if (props.clip) {
@@ -89,9 +83,9 @@ export const ActionsBar = observer(
               navToPlaylist(props.playlist.ownerUsername, props.playlist.slug);
             }
           }}
-          className={{
+          className={cn('', {
             invisible: !props.playlist,
-          }}
+          })}
         />
       </div>
     );

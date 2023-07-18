@@ -28,7 +28,7 @@ export const ActionListKeyHandler = observer(
       <KeyboardEventHandler
         handleKeys={handledKeys}
         onKeyEvent={onKeyDown}
-        className={cn('ActionListKeyHandler', props.className)}
+        className={cn('ActionListKeyHandler', [], props.className)}
       >
         {props.children}
       </KeyboardEventHandler>

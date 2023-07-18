@@ -1,6 +1,6 @@
 import { Icon } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
-import { cn, foo } from '/src/utils/classnames';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './DialogButton.scss';
@@ -57,18 +57,17 @@ export const DialogButton = (
     🔳 DialogButton 🔳
     */
     <button
-      className={foo({
-        component: [
-          classNames?.base ?? 'DialogButton',
-          // 'DialogButton--default-blue',
+      className={cn(
+        classNames?.base ?? 'DialogButton',
+        [
           {
             [classNames?.default ?? defaultClass]: !danger,
             [classNames?.disabled ?? 'DialogButton--disabled']: disabled,
             [classNames?.danger ?? 'DialogButton--danger']: danger,
           },
         ],
-        adhoc: [L.row.skewer(), className],
-      })}
+        [L.row.skewer(), className]
+      )}
       data-cy={dataCy}
       {...rest}
     >

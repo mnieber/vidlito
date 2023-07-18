@@ -25,14 +25,7 @@ export const PlaylistDescription = observer(
     if (!description.length) return null;
 
     return (
-      <div
-        className={cn(
-          'PlaylistDescription',
-          //
-          //
-          props.className
-        )}
-      >
+      <div className={cn('PlaylistDescription', [], [props.className])}>
         <MarkdownView text={description} />
       </div>
     );

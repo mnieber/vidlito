@@ -31,11 +31,12 @@ export const SignUpCard = observer(() => {
       {authState.state === States.SIGN_UP_SUCCEEDED && (
         <div className={cn('')}>{messages.divYouHaveBeenSignedUp}</div>
       )}
+
+      {
+        // 🔳 SignUpForm 🔳
+      }
       {authState.state !== States.SIGN_UP_SUCCEEDED && (
         <React.Fragment>
-          {
-            // 🔳 SignUpForm 🔳
-          }
           <SignUpForm
             className={cn(l.Form())}
             signUp={(email: string, acceptsTerms: boolean) => {

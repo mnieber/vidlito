@@ -16,9 +16,16 @@ export const RequestMagicLinkCard = observer(() => {
 
   return (
     <AuthCard id="RequestMagicLinkCard">
+      {
+        // 🔳 Your password has been reset message 🔳
+      }
       {authState.state === States.REQUEST_MAGIC_LINK_SUCCEEDED && (
         <div>{messages.divYourPasswordHasBeenReset}</div>
       )}
+
+      {
+        // 🔳 Form 🔳
+      }
       {authState.state !== States.REQUEST_MAGIC_LINK_SUCCEEDED && (
         <RequestMagicLinkForm
           className={l.Form()}
@@ -28,6 +35,10 @@ export const RequestMagicLinkCard = observer(() => {
           errors={authState.errors}
         />
       )}
+
+      {
+        // 🔳 Have you found your password message 🔳
+      }
       <div className={l.CardFooter()}>{messages.haveYouFoundYourPassword}</div>
     </AuthCard>
   );

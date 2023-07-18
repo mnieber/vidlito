@@ -8,7 +8,7 @@ import {
   PasswordField,
 } from '/src/forms/components';
 import { L } from '/src/frames/layout';
-import { cn, foo } from '/src/utils/classnames';
+import { cn } from '/src/utils/classnames';
 
 export const formFields = {
   password: 'password',
@@ -32,28 +32,29 @@ export function ActivateAccountForm(props: PropsT) {
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >
-      {/*
-      🔳 ActivateAccountForm 🔳
-      */}
+      {
+        // 🔳 ActivateAccountForm 🔳
+      }
       <div
-        className={foo({
-          component: ['ActivateAccountForm'],
-          adhoc: [L.col.banner(), props.className],
-        })}
+        className={cn(
+          'ActivateAccountForm',
+          [],
+          [L.col.banner(), props.className]
+        )}
       >
-        {/*
-        🔳 GlobalError 🔳
-        */}
+        {
+          // 🔳 GlobalError 🔳
+        }
         <GlobalError className={cn(l.GlobalError())} />
 
-        {/*
-        🔳 Header 🔳
-        */}
+        {
+          // 🔳 Header 🔳
+        }
         <div className={cn(l.Header())}>{messages.divYouAreOneStepAway}</div>
 
-        {/*
-        🔳 Password 🔳
-        */}
+        {
+          // 🔳 Password 🔳
+        }
         <Field
           fieldName={formFields.password}
           submitOnEnter={true}
@@ -62,9 +63,9 @@ export function ActivateAccountForm(props: PropsT) {
           <PasswordField placeholder="Password" />
         </Field>
 
-        {/*
-        🔳 Save button 🔳
-        */}
+        {
+          // 🔳 Save button 🔳
+        }
         <FormSaveButton
           dataCy="activateAccountBtn"
           label="Activate account"

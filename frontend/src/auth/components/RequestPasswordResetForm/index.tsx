@@ -31,21 +31,31 @@ export function RequestPasswordResetForm(props: PropsT) {
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >
+      {
+        // 🔳 Form 🔳
+      }
       <div
         className={cn(
           'RequestPasswordResetForm',
-          //
-          //
-          L.col.banner(),
-          props.className
+          [],
+          [L.col.banner(), props.className]
         )}
       >
+        {
+          // 🔳 Global error 🔳
+        }
         <GlobalError className={l.GlobalError()} />
 
-        <div className={cn(l.Header())}>
+        {
+          // 🔳 Message 🔳
+        }
+        <div className={l.Header()}>
           {messages.divEnterYourEmailToResetYourPassword}
         </div>
 
+        {
+          // 🔳 Email field 🔳
+        }
         <Field
           fieldName={formFields.email}
           submitOnEnter={true}
@@ -54,6 +64,9 @@ export function RequestPasswordResetForm(props: PropsT) {
           <EmailField placeholder="Email" />
         </Field>
 
+        {
+          // 🔳 Save button 🔳
+        }
         <FormSaveButton
           dataCy="passwordResetBtn"
           label="Request password reset"

@@ -30,6 +30,9 @@ export const SignInCard = observer(() => {
       {
         // 🔳 SignInForm 🔳
       }
+      {
+        // 🔳 Form 🔳
+      }
       <SignInForm
         className={cn(l.Form())}
         signIn={(email, password) => {
@@ -41,30 +44,25 @@ export const SignInCard = observer(() => {
         }}
         errors={authState.errors}
       />
+
       {
-        // 🔳 ForgotPassword 🔳
+        // 🔳 Forgot password message 🔳
       }
       <div
         className={cn(
-          'SignInCard__ForgotPassword__',
-          //
-          //
-          l.FormCaption(),
-          L.col.banner()
+          'SignInCard__ForgotPassword',
+          [],
+          [l.FormCaption(), L.col.banner()]
         )}
       >
         {messages.divForgotYourPassword}
       </div>
+
       {
-        // 🔳 CreateAccountButton 🔳
+        // 🔳 Create account button 🔳
       }
       <button
-        className={cn(
-          'SignInCard__CreateAccountButton',
-          //
-          //
-          l.CardFooter()
-        )}
+        className={cn('SignInCard__CreateAccountButton', [], [l.CardFooter()])}
         onClick={() => navToSignUp()}
       >
         {messages.createAccount}

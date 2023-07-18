@@ -11,24 +11,25 @@ import { PlaylistsStateProvider } from '/src/playlists/components/PlaylistsState
 import { UrlRouter } from '/src/routes/components';
 import { RouteTableProvider } from '/src/routes/components/RouteTableProvider';
 import { SearchStateProvider } from '/src/search/components/SearchStateProvider';
-import { foo } from '/src/utils/classnames';
+import { cn } from '/src/utils/classnames';
 import { VideoPlayerStateProvider } from '/src/videos/components';
 
 export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Router history={history}>
-        {/*
-        🔳 App 🔳
-        */}
+        {
+          // 🔳 App 🔳
+        }
         <div
-          className={foo({
-            component: ['App'],
-            adhoc: [
+          className={cn(
+            'App',
+            [],
+            [
               L.col.banner(),
               `min-width-[${breakpoints.xs}] h-[100vh] overflow-x-hidden`,
-            ],
-          })}
+            ]
+          )}
         >
           <RouteTableProvider>
             <AuthStateProvider>

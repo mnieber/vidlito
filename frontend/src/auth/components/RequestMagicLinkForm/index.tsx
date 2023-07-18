@@ -31,6 +31,9 @@ export function RequestMagicLinkForm(props: PropsT) {
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >
+      {
+        // 🔳 Form 🔳
+      }
       <div
         className={cn(
           'RequestMagicLinkForm',
@@ -40,12 +43,21 @@ export function RequestMagicLinkForm(props: PropsT) {
           props.className
         )}
       >
+        {
+          // 🔳 Global error 🔳
+        }
         <GlobalError className={l.GlobalError()} />
 
+        {
+          // 🔳 Reset password message 🔳
+        }
         <div className={cn(l.Header())}>
           {messages.divEnterYourEmailToResetYourPassword}
         </div>
 
+        {
+          // 🔳 Email field 🔳
+        }
         <Field
           fieldName={formFields.email}
           submitOnEnter={true}
@@ -54,6 +66,9 @@ export function RequestMagicLinkForm(props: PropsT) {
           <EmailField placeholder="Email" />
         </Field>
 
+        {
+          // 🔳 Save button 🔳
+        }
         <FormSaveButton
           dataCy="magicLinkBtn"
           label="Request Magic Link"

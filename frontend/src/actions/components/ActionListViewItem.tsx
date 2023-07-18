@@ -4,7 +4,7 @@ import { highlightUIHandlers, HighlightUIPropsT } from 'skandha-facets';
 import { isUpdating } from '/src/api/getState';
 import { ActionT } from '/src/api/types/ActionT';
 import { L } from '/src/frames/layout';
-import { foo } from '/src/utils/classnames';
+import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './ActionListViewItem.scss';
@@ -21,61 +21,45 @@ export const ActionListViewItem = observer((props: PropsT) => {
     🔳 ActionListViewItem 🔳
     */
     <div
-      className={foo({
-        component: [
-          'ActionListViewItem',
-          {
-            'ActionListViewItem--highlighted':
-              props.highlightUIProps.isHighlighted,
-            'animate-delete': isUpdating(props.action),
-          },
-        ],
-        adhoc: [L.col.banner(), 'py-3 px-4', props.className],
-      })}
+      className={cn(
+        'ActionListViewItem',
+        {
+          'ActionListViewItem--highlighted':
+            props.highlightUIProps.isHighlighted,
+          'animate-delete': isUpdating(props.action),
+        },
+        [L.col.banner(), 'py-3 px-4', props.className]
+      )}
       {...highlightUIHandlers(props.highlightUIProps)}
     >
-      {/*
-      🔳 Header 🔳
-      */}
-      <div
-        className={foo({
-          component: ['ActionListViewItem__Header'],
-          adhoc: [L.row.skewer()],
-        })}
-      >
-        {/*
-        🔳 Title 🔳
-        */}
-        <div
-          className={foo({
-            component: ['ActionListViewItem__Title'],
-            adhoc: ['mr-2'],
-          })}
-        >
+      {
+        // 🔳 Header 🔳
+      }
+      <div className={cn('ActionListViewItem__Header', [], [L.row.skewer()])}>
+        {
+          // 🔳 Title 🔳
+        }
+        <div className={cn('ActionListViewItem__Title', [], ['mr-2'])}>
           {getTitle(props.action)}
         </div>
 
-        {/*
-        🔳 Playlist name 🔳
-        */}
-        <div
-          className={foo({
-            component: ['ActionListViewItem__PlaylistName'],
-            adhoc: [],
-          })}
-        >
+        {
+          // 🔳 Playlist name 🔳
+        }
+        <div className={cn('ActionListViewItem__PlaylistName', [], [])}>
           {props.action.data['playlist_name']}
         </div>
       </div>
 
-      {/*
-      🔳 Clip names 🔳
-      */}
+      {
+        // 🔳 Clip names 🔳
+      }
       <div
-        className={foo({
-          component: ['ActionListViewItem__ClipNames'],
-          adhoc: ['flex flex-row flex-wrap'],
-        })}
+        className={cn(
+          'ActionListViewItem__ClipNames',
+          [],
+          ['flex flex-row flex-wrap']
+        )}
       >
         {getClipNames(props.action, true)}
       </div>
