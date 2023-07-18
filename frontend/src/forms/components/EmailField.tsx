@@ -1,5 +1,5 @@
+import { FormFieldL } from '/src/forms/components/FormField';
 import { useFieldProps } from '/src/forms/hooks';
-import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 type PropsT = {
@@ -9,7 +9,6 @@ type PropsT = {
 
 export const EmailField = (props: PropsT) => {
   const fieldProps = useFieldProps({ fieldType: 'text' });
-  const l = L.FormField;
 
   return (
     <div
@@ -17,14 +16,14 @@ export const EmailField = (props: PropsT) => {
         'EmailField',
         //
         //
-        l.root(),
+        FormFieldL.root(),
         props.className
       )}
     >
       <input
         placeholder={props.placeholder}
         {...fieldProps}
-        className={l.input()}
+        className={FormFieldL.input()}
       />
     </div>
   );

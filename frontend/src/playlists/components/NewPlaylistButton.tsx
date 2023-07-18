@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
-import { L } from '/src/frames/layout';
+import { ToolButtonL } from '/src/frames/components/ToolButton';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { cn } from '/src/utils/classnames';
 
@@ -24,15 +24,13 @@ const DefaultProps = {
 
 export const NewPlaylistButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const l = L.ToolButton;
-
     return (
       <button
         className={cn(
           'NewPlaylistButton',
           //
           //
-          l.root(),
+          ToolButtonL.root(),
           props.className
         )}
         onClick={() => {
@@ -47,7 +45,13 @@ export const NewPlaylistButton = observer(
             });
         }}
       >
-        <Icon className={cn(l.icon.root(), l.icon.size.normal())} name="plus" />
+        <Icon
+          className={cn(
+            ToolButtonL.icon.root(),
+            ToolButtonL.icon.size.normal()
+          )}
+          name="plus"
+        />
         Playlist
       </button>
     );

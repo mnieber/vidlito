@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
-import { L } from '/src/frames/layout';
+import { ToolButtonL } from '/src/frames/components/ToolButton';
 import { navToSearch } from '/src/search/SearchNavEvents';
 import { cn } from '/src/utils/classnames';
 
@@ -18,16 +18,12 @@ const DefaultProps = {
 
 export const SearchButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const l = L.ToolButton;
-
     return (
       <button
         className={cn(
           'SearchButton',
-          //
-          //
-          l.root(),
-          props.className
+          [],
+          [ToolButtonL.root(), props.className]
         )}
         onClick={() => {
           props.dashboardState.storeNavigationPoint();
@@ -35,7 +31,10 @@ export const SearchButton = observer(
         }}
       >
         <Icon
-          className={cn(l.icon.root(), l.icon.size.normal())}
+          className={cn(
+            ToolButtonL.icon.root(),
+            ToolButtonL.icon.size.normal()
+          )}
           name="search"
         />
         Search

@@ -1,4 +1,5 @@
 import { GoToTimeButton, UpdateTimeButton } from '/src/clips/components';
+import { FormFieldL } from '/src/forms/components/FormField';
 import { FieldPropsT, useFieldProps } from '/src/forms/hooks';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -18,31 +19,32 @@ export const TimeField = (props: PropsT) => {
     ...props,
     fieldType: props.fieldType ?? 'text',
   });
-  const l = L.FormField;
-
   return (
     <div
       className={cn(
         'TimeField',
         //
         //
-        l.root(),
+        FormFieldL.root(),
         props.className
       )}
     >
       <div className={cn(L.row.banner())}>
-        <input {...fieldProps} className={cn(l.input(), 'max-w-[128px]')} />
+        <input
+          {...fieldProps}
+          className={cn(FormFieldL.input(), 'max-w-[128px]')}
+        />
         <UpdateTimeButton
           key="1"
           tabIndex={props.tabIndex}
-          className={cn(l.FormFieldButton.root(), l.FormFieldButton.gap())}
+          className={cn(FormFieldL.button.root(), FormFieldL.button.gap())}
           videoController={props.videoPlayerState.videoController}
           fieldName={fieldProps.name}
         />
         <GoToTimeButton
           key="2"
           tabIndex={props.tabIndex}
-          className={cn(l.FormFieldButton.root())}
+          className={cn(FormFieldL.button.root())}
           videoController={props.videoPlayerState.videoController}
           fieldName={fieldProps.name}
         />

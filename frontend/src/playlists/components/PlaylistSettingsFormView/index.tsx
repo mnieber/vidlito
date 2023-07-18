@@ -11,8 +11,8 @@ import {
   FormSaveButton,
   GlobalError,
 } from '/src/forms/components';
+import { FormFieldL } from '/src/forms/components/FormField';
 import { Toggle } from '/src/frames/components/Toggle';
-import { L } from '/src/frames/layout';
 import { IsPublicPlaylistField } from '/src/playlists/components/IsPublicPlaylistField';
 import { cn } from '/src/utils/classnames';
 
@@ -80,8 +80,8 @@ export const PlaylistSettingsFormView = observer(
             <div
               className={cn(
                 'PlaylistSettingsForm__EnableDeleteFormField',
-                L.FormField.root(),
-                L.FormField.input()
+                FormFieldL.root(),
+                FormFieldL.input()
               )}
             >
               <Toggle

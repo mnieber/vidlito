@@ -6,7 +6,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
 import { DashboardState } from '/src/dashboard/DashboardState/DashboardState';
 import { Icon } from '/src/frames/components';
-import { L } from '/src/frames/layout';
+import { ToolButtonL } from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -27,7 +27,6 @@ const DefaultProps = {
 
 export const NewClipButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const l = L.ToolButton;
     const enabled = props.isOwner(props.playlist);
 
     return (
@@ -36,8 +35,8 @@ export const NewClipButton = observer(
           'NewClipButton',
           //
           //
-          l.root(),
-          !enabled && l.disabled(),
+          ToolButtonL.root(),
+          !enabled && ToolButtonL.disabled(),
           props.className
         )}
         disabled={!enabled}
@@ -53,9 +52,9 @@ export const NewClipButton = observer(
       >
         <Icon
           className={cn(
-            l.icon.root(),
-            l.icon.size.normal(),
-            !enabled && l.icon.disabled()
+            ToolButtonL.icon.root(),
+            ToolButtonL.icon.size.normal(),
+            !enabled && ToolButtonL.icon.disabled()
           )}
           name="plus"
         />

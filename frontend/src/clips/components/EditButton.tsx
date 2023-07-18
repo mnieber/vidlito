@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { Edit } from 'skandha-facets';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
-import { L } from '/src/frames/layout';
+import { ToolButtonL } from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -24,8 +24,6 @@ const DefaultProps = {
 
 export const EditButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const l = L.ToolButton;
-
     return (
       //
       // 🔳 EditButton 🔳
@@ -38,8 +36,8 @@ export const EditButton = observer(
           },
           //
           //
-          l.root(),
-          !props.enabled && l.disabled(),
+          ToolButtonL.root(),
+          !props.enabled && ToolButtonL.disabled(),
           props.className
         )}
         disabled={!props.enabled}
@@ -49,9 +47,9 @@ export const EditButton = observer(
       >
         <Icon
           className={cn(
-            l.icon.root(),
-            l.icon.size.small(),
-            !props.enabled && l.icon.disabled()
+            ToolButtonL.icon.root(),
+            ToolButtonL.icon.size.small(),
+            !props.enabled && ToolButtonL.icon.disabled()
           )}
           name="pencil"
         />

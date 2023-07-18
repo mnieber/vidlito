@@ -1,5 +1,5 @@
+import { FormFieldL } from '/src/forms/components/FormField';
 import { useFieldProps } from '/src/forms/hooks';
-import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 type PropsT = { placeholder?: string; className?: any };
@@ -9,22 +9,20 @@ export const PasswordField = (props: PropsT) => {
     fieldType: 'password',
     autoSelect: true,
   });
-  const l = L.FormField;
-
   return (
     <div
       className={cn(
         'PasswordField',
         //
         //
-        l.root(),
+        FormFieldL.root(),
         props.className
       )}
     >
       <input
         placeholder={props.placeholder}
         {...fieldProps}
-        className={l.input()}
+        className={FormFieldL.input()}
       />
     </div>
   );

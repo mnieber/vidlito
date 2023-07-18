@@ -8,7 +8,6 @@ import { cn } from '/src/utils/classnames';
 // Import styles
 import './index.scss';
 import '/src/dashboard/components/MainView/FormCancelButton.scss';
-import '/src/dashboard/components/MainView/FormField.scss';
 import '/src/dashboard/components/MainView/FormFieldLabel.scss';
 import '/src/dashboard/components/MainView/FormSaveButton.scss';
 
@@ -31,11 +30,8 @@ export const MainView = observer(
           tabIndex={0}
           className={cn(
             'MainView__Body',
-            //
-            //
-            L.col.banner(),
-            'grow',
-            props.className
+            [],
+            [L.col.banner(), 'grow', props.className]
           )}
           style={{ maxWidth: maxVideoWidth }}
         >

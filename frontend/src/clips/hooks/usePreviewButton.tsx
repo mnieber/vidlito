@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon } from '/src/frames/components/Icon';
+import { ToolButtonL } from '/src/frames/components/ToolButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -12,7 +13,7 @@ export const usePreviewButton = (props: PropsT) => {
   const [descriptionPreview, setDescriptionPreview] = React.useState(false);
   const showPreviewButton = (
     <button
-      className={cn(L.ToolButton.root(), props.className)}
+      className={cn(ToolButtonL.root(), props.className)}
       tabIndex={props.tabIndex ?? 0}
       key="descriptionPreview"
       onClick={() => setDescriptionPreview(!descriptionPreview)}
