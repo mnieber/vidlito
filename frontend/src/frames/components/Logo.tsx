@@ -19,34 +19,16 @@ export const Logo = observer(
       <div
         className={cn(
           'Logo',
-          'text-3xl font-bold',
-          //
-          //
-          L.row.skewer(),
-          'mt-4 mb-6',
-          'self-center',
-          props.className
+          ['text-3xl font-bold'],
+
+          [L.row.skewer(), 'mt-4 mb-6', 'self-center', props.className]
         )}
         onClick={() => navToHome()}
       >
-        <div
-          className={cn(
-            'Logo__TitlePrefix__',
-            `text-blue-primary`
-            //
-            //
-          )}
-        >
+        <div className={cn('Logo__TitlePrefix', [`text-blue-primary`], [])}>
           vid
         </div>
-        <div
-          className={cn(
-            'Logo__TitleSuffix__',
-            `text-teal-primary`
-            //
-            //
-          )}
-        >
+        <div className={cn('Logo__TitleSuffix', [`text-teal-primary`], [])}>
           lito
         </div>
       </div>

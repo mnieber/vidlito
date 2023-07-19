@@ -33,11 +33,12 @@ export const NewClipButton = observer(
       <button
         className={cn(
           'NewClipButton',
-          //
-          //
-          ToolButtonL.root(),
-          !enabled && ToolButtonL.disabled(),
-          props.className
+          [],
+          [
+            ToolButtonL.root(),
+            !enabled && ToolButtonL.disabled(),
+            props.className,
+          ]
         )}
         disabled={!enabled}
         onClick={() => {

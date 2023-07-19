@@ -11,13 +11,7 @@ export const PasswordField = (props: PropsT) => {
   });
   return (
     <div
-      className={cn(
-        'PasswordField',
-        //
-        //
-        FormFieldL.root(),
-        props.className
-      )}
+      className={cn('PasswordField', [], [FormFieldL.root(), props.className])}
     >
       <input
         placeholder={props.placeholder}

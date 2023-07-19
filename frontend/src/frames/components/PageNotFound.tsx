@@ -23,10 +23,8 @@ export const PageNotFound = observer(
       <div
         className={cn(
           'PageNotFound',
-          WallPaperCardL.root(),
-          //
-          //
-          props.className
+          [],
+          [WallPaperCardL.root(), props.className]
         )}
       >
         <div className={cn('PageNotFound__Message', WallPaperCardL.message())}>

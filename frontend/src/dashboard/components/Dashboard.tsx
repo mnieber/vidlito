@@ -44,12 +44,8 @@ export const Dashboard = observer(
         <div
           className={cn(
             'Dashboard',
-            'grow',
-            'h-full',
-            //
-            //
-            L.col.banner(),
-            props.className
+            [],
+            ['grow', 'h-full', L.col.banner(), props.className]
           )}
         >
           <ReactResizeDetector handleWidth onResize={onResize} />
@@ -70,10 +66,8 @@ export const Dashboard = observer(
               <div
                 className={cn(
                   'Dashboard__LeftSidebar__',
-                  //
-                  //
-                  L.col.banner(),
-                  'w-[290px] min-w-[290px] mx-2 lg:mx-4'
+                  [],
+                  [L.col.banner(), 'w-[290px] min-w-[290px] mx-2 lg:mx-4']
                 )}
               >
                 <Logo />

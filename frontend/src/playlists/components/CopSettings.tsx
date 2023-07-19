@@ -23,22 +23,13 @@ export const CopSettings = observer(
 
     return (
       <div
-        className={cn(
-          'CopSettings',
-          //
-          //
-          'py-[18px] px-4',
-          props.className
-        )}
+        className={cn('CopSettings', [], ['py-[18px] px-4', props.className])}
       >
         <div
           className={cn(
             'CopSettings__TopRow',
-            //
-            //
-            L.row.skewer(),
-            'grow',
-            'justify-between'
+            [],
+            [L.row.skewer(), 'grow', 'justify-between']
           )}
         >
           <div className={cn('CopSettings__Title')}>Playlist settings</div>

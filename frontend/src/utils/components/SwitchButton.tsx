@@ -15,15 +15,7 @@ export type PropsT = {
 
 export const SwitchButton = (props: PropsT) => {
   return (
-    <div
-      className={cn(
-        'SwitchButton',
-        //
-        //
-        L.row.banner(),
-        props.className
-      )}
-    >
+    <div className={cn('SwitchButton', [], [L.row.banner(), props.className])}>
       {
         // 🔳 Left button 🔳
       }
@@ -34,10 +26,7 @@ export const SwitchButton = (props: PropsT) => {
             'SwitchButton__LeftButton--active': props.state === 'left',
             'rounded-r-[32px] pr-7': !(props.hasRight ?? true),
           },
-          //
-          //
-          L.row.skewer(),
-          'pt-2.5 pb-3 pr-4 pl-7'
+          [L.row.skewer(), 'pt-2.5 pb-3 pr-4 pl-7']
         )}
         onClick={() => {
           props.onToggle('left');
@@ -55,10 +44,7 @@ export const SwitchButton = (props: PropsT) => {
             {
               'SwitchButton__RightButton--active': props.state === 'right',
             },
-            //
-            //
-            L.row.skewer(),
-            'ml-[4px] pt-2.5 pb-3 pl-4 pr-7'
+            [L.row.skewer(), 'ml-[4px] pt-2.5 pb-3 pl-4 pr-7']
           )}
           onClick={() => {
             props.onToggle('right');

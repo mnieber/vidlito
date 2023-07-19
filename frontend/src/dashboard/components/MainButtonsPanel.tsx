@@ -24,10 +24,8 @@ export const MainButtonsPanel = observer(
       <div
         className={cn(
           'MainButtonsPanel',
-          //
-          //
-          'flex flex-wrap',
-          props.className
+          [],
+          ['flex flex-wrap', props.className]
         )}
       >
         <SearchButton className={cn('w-1/2', 'mb-6')} />

@@ -37,10 +37,8 @@ export const CopDescription = observer(
       <div
         className={cn(
           'CopDescription',
-          //
-          //
-          'py-[18px] px-4',
-          props.className
+          [],
+          ['py-[18px] px-4', props.className]
         )}
       >
         <div

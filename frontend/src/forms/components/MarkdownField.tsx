@@ -24,11 +24,8 @@ export const MarkdownField = (props: PropsT) => {
     <div
       className={cn(
         'MarkdownField',
-        //
-        //
-        FormFieldL.root(),
-        FormFieldL.input(),
-        props.className
+        [],
+        [FormFieldL.root(), FormFieldL.input(), props.className]
       )}
     >
       {!props.preview && (

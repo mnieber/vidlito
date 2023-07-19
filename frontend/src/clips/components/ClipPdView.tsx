@@ -25,14 +25,7 @@ export const ClipPdView = observer(
     if (!description.length) return null;
 
     return (
-      <div
-        className={cn(
-          'ClipPdView',
-          //
-          //
-          props.className
-        )}
-      >
+      <div className={cn('ClipPdView', [], [props.className])}>
         <MarkdownView text={description} />
       </div>
     );

@@ -12,14 +12,7 @@ export const FormFieldLabel = (props: PropsT) => {
   const fieldContext = useFormFieldContext();
 
   return (
-    <div
-      className={cn(
-        'FormFieldLabel',
-        //
-        //
-        L.row.skewer()
-      )}
-    >
+    <div className={cn('FormFieldLabel', [], [L.row.skewer()])}>
       {props.label && (
         <label
           className={cn('FormFieldLabel', props.className)}
@@ -33,10 +26,8 @@ export const FormFieldLabel = (props: PropsT) => {
         <div
           className={cn(
             'FormFieldLabel__Buttons',
-            //
-            //
-            'flex flex-row',
-            'ml-2'
+            [],
+            ['flex flex-row', 'ml-2']
           )}
         >
           {props.buttons}

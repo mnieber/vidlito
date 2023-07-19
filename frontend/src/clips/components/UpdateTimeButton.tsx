@@ -19,13 +19,7 @@ export const UpdateTimeButton = (props: PropsT) => {
   return (
     <button
       tabIndex={props.tabIndex}
-      className={cn(
-        'UpdateTimeButton',
-        //
-        //
-        L.row.skewer(),
-        props.className
-      )}
+      className={cn('UpdateTimeButton', [], [L.row.skewer(), props.className])}
       onClick={() => {
         const currentTime = player?.getCurrentTime();
         const timeStamp = Math.round(1000 * (currentTime ?? 0)) / 1000;

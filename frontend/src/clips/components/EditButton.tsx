@@ -34,11 +34,12 @@ export const EditButton = observer(
           {
             'EditButton--invisible': R.isNil(props.username),
           },
-          //
-          //
-          ToolButtonL.root(),
-          !props.enabled && ToolButtonL.disabled(),
-          props.className
+          [],
+          [
+            ToolButtonL.root(),
+            !props.enabled && ToolButtonL.disabled(),
+            props.className,
+          ]
         )}
         disabled={!props.enabled}
         onClick={() => {

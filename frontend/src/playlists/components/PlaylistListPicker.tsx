@@ -40,10 +40,8 @@ export const PlaylistListPicker = observer(
       <div
         className={cn(
           'PlaylistListPicker',
-          //
-          //
-          L.col.banner(),
-          props.className
+          [],
+          [L.col.banner(), props.className]
         )}
       >
         <PlaylistListHeader />

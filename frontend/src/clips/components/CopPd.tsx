@@ -29,15 +29,7 @@ export const CopPd = observer(
     const editPlaylistPd = props.playlistPdEdit.isEditing;
 
     return (
-      <div
-        className={cn(
-          'CopPd',
-          //
-          //
-          'py-[18px] px-4',
-          props.className
-        )}
-      >
+      <div className={cn('CopPd', [], ['py-[18px] px-4', props.className])}>
         <div
           className={cn(
             'CopPd__TopRow',

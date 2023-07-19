@@ -33,10 +33,8 @@ export const CreateFirstClip = observer(
       <div
         className={cn(
           'CreateFirstClip',
-          WallPaperCardL.root(),
-          //
-          //
-          props.className
+          [],
+          [WallPaperCardL.root(), props.className]
         )}
       >
         <button

@@ -51,12 +51,8 @@ export const PlaylistFollowCard = observer(
       <div
         className={cn(
           'PlaylistFollowCard',
-          'text-gray-text',
-          'grow',
-          //
-          //
-          L.col.flagPoleRev(),
-          props.className
+          ['text-gray-text'],
+          ['grow', L.col.flagPoleRev(), props.className]
         )}
       >
         <div className="PlaylistFollowCard__LabelWrapper">

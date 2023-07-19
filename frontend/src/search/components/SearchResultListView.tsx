@@ -51,13 +51,7 @@ export const SearchResultListView = observer(
     return (
       <SearchResultListKeyHandler>
         <div
-          className={cn(
-            'SearchResultListView',
-            'grid',
-            //
-            //
-            props.className
-          )}
+          className={cn('SearchResultListView', [], ['grid', props.className])}
           tabIndex={0}
         >
           {searchResultDivs.length > 0 && <SearchResultListViewHeader />}
@@ -87,10 +81,8 @@ export const SearchResultListViewLoader = (props: { className?: any }) => {
     <div
       className={cn(
         'SearchResultListViewLoader',
-        //
-        //
-        L.col.banner(),
-        props.className
+        [],
+        [L.col.banner(), props.className]
       )}
     >
       {divs}

@@ -20,11 +20,12 @@ export const CloseButton = observer(
       <button
         className={cn(
           'CloseButton',
-          //
-          //
-          DialogButtonL.root(),
-          DialogButtonL.color.skyBlueTextAndBorder(),
-          props.className
+          [],
+          [
+            DialogButtonL.root(),
+            DialogButtonL.color.skyBlueTextAndBorder(),
+            props.className,
+          ]
         )}
         onClick={props.onClick}
       >

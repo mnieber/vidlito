@@ -15,29 +15,17 @@ export const SignInLogo = (props: PropsT) => {
       <div
         className={cn(
           'SignInLogo__Title__',
-          'text-6xl font-bold',
-          //
-          //
-          L.row.banner()
+          ['text-6xl font-bold'],
+          [L.row.banner()]
         )}
       >
         <div
-          className={cn(
-            'SignInLogo__TitlePrefix__',
-            `text-blue-primary`
-            //
-            //
-          )}
+          className={cn('SignInLogo__TitlePrefix__', [`text-blue-primary`], [])}
         >
           vid
         </div>
         <div
-          className={cn(
-            'SignInLogo__TitleSuffix__',
-            `text-teal-primary`
-            //
-            //
-          )}
+          className={cn('SignInLogo__TitleSuffix__', [`text-teal-primary`], [])}
         >
           lito
         </div>
@@ -49,13 +37,7 @@ export const SignInLogo = (props: PropsT) => {
       }
       <div
         className={cn(
-          cn(
-            'SignInLogo__SubTitle__',
-            'text-white tracking-wide',
-            //
-            //
-            'mb-8'
-          )
+          cn('SignInLogo__SubTitle', ['text-white tracking-wide'], ['mb-8'])
         )}
       >
         Manage your lists of videos

@@ -28,25 +28,10 @@ export const ClipNotFound = observer(
 
     return (
       <div
-        className={cn(
-          'ClipNotFound',
-          'p-4',
-          //
-          //
-          L.row.skewer()
-        )}
+        className={cn('ClipNotFound', ['p-4', L.row.skewer()])}
         style={{ height: height }}
       >
-        <div
-          className={cn(
-            'ClipNotFound__Message',
-            //
-            //
-            'grow'
-          )}
-        >
-          {msg}
-        </div>
+        <div className={cn('ClipNotFound__Message', [], ['grow'])}>{msg}</div>
       </div>
     );
   }, DefaultProps)

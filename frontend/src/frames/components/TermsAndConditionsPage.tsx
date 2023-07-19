@@ -14,12 +14,7 @@ export const TermsAndConditionsPage = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <div
-        className={cn(
-          'TermsAndConditionsPage',
-          WallPaperCardL.root()
-          //
-          //
-        )}
+        className={cn('TermsAndConditionsPage', [], [WallPaperCardL.root()])}
       >
         Hello
       </div>

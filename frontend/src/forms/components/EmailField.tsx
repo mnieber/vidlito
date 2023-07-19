@@ -11,15 +11,7 @@ export const EmailField = (props: PropsT) => {
   const fieldProps = useFieldProps({ fieldType: 'text' });
 
   return (
-    <div
-      className={cn(
-        'EmailField',
-        //
-        //
-        FormFieldL.root(),
-        props.className
-      )}
-    >
+    <div className={cn('EmailField', [], [FormFieldL.root(), props.className])}>
       <input
         placeholder={props.placeholder}
         {...fieldProps}

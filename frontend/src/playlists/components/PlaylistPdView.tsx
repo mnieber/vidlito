@@ -24,14 +24,7 @@ export const PlaylistPdView = observer(
     if (!description.length) return null;
 
     return (
-      <div
-        className={cn(
-          'PlaylistPdView',
-          //
-          //
-          props.className
-        )}
-      >
+      <div className={cn('PlaylistPdView', [], [props.className])}>
         <MarkdownView text={description} />
       </div>
     );

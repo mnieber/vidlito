@@ -18,13 +18,7 @@ export const TrashButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <button
-        className={cn(
-          'TrashButton',
-          //
-          //
-          ToolButtonL.root(),
-          props.className
-        )}
+        className={cn('TrashButton', [], [ToolButtonL.root(), props.className])}
         onClick={() => navToActions(props.userProfile.username)}
       >
         <Icon

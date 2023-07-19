@@ -46,15 +46,14 @@ export const PageNav = observer(
           }}
           className={cn(
             'PageNav__Item',
-            //
-            //
-            L.col.skewer(),
-            'justify-center',
-            {
-              'PageNav__Item--active': isActive,
-              'PageNav__Item--passive': !isActive,
-              'ml-1': idx > 0,
-            }
+            [
+              'justify-center',
+              {
+                'PageNav__Item--active': isActive,
+                'PageNav__Item--passive': !isActive,
+              },
+            ],
+            [L.col.skewer(), { 'ml-1': idx > 0 }]
           )}
         >
           {page}
@@ -66,11 +65,8 @@ export const PageNav = observer(
       <div
         className={cn(
           'PageNav',
-          //
-          //
-          L.row.skewer(),
-          'justify-center gap-1 text-xs font-medium',
-          props.className
+          ['justify-center gap-1 text-xs font-medium'],
+          [L.row.skewer(), props.className]
         )}
       >
         <div>

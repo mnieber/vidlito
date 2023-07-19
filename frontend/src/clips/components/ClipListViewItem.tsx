@@ -43,18 +43,17 @@ export const ClipListViewItem = observer(
       <div
         className={cn(
           'ClipListViewItem',
-          'font-bold',
-          {
-            'ClipListViewItem--selected': showAsSelected,
-            'text-gray-text': !(showAsSelected || props.isHighlighted),
-            'ClipListViewItem--highlighted': props.isHighlighted,
-          },
-          `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
-          { 'animate-delete': isUpdating(props.clip) },
-          //
-          //
-          LviL.root(),
-          props.className
+          [
+            'font-bold',
+            {
+              'ClipListViewItem--selected': showAsSelected,
+              'text-gray-text': !(showAsSelected || props.isHighlighted),
+              'ClipListViewItem--highlighted': props.isHighlighted,
+            },
+            `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
+            { 'animate-delete': isUpdating(props.clip) },
+          ],
+          [LviL.root(), props.className]
         )}
         {...selectionUIHandlers(props.selectionUIProps)}
         {...dragAndDropUIHandlers(props.dragAndDropUIProps)}

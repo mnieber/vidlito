@@ -8,8 +8,4 @@ export class SearchResultsStore extends Store<SearchResultT> {
   static skandhaSymbol = Symbol('SearchResultsStore');
 
   @data form?: SearchContentArgsT;
-
-  // @operation setSearchContentForm(form: SearchContentArgsT) {
-  //   this.form = form;
-  // }
 }

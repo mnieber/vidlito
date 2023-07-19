@@ -25,20 +25,15 @@ export const SearchView = observer(
       <div
         className={cn(
           'SearchView',
-          //
-          //
-          L.col.banner(),
-          'grow',
-          props.className
+          [],
+          [L.col.banner(), 'grow', props.className]
         )}
       >
         <div
           className={cn(
             'SearchView__TopRow',
-            //
-            //
-            L.row.revFlagPole(),
-            'mb-4'
+            [],
+            [L.row.revFlagPole(), 'mb-4']
           )}
         >
           <div className={cn('SearchView__Title')}>Search</div>

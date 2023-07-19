@@ -36,15 +36,7 @@ export function SignUpForm(props: PropsT) {
       {
         // 🔳 SignUpForm 🔳
       }
-      <div
-        className={cn(
-          'SignInForm',
-          //
-          //
-          L.col.banner(),
-          props.className
-        )}
-      >
+      <div className={cn('SignInForm', [], [L.col.banner(), props.className])}>
         {
           // 🔳 Global error 🔳
         }
@@ -68,14 +60,7 @@ export function SignUpForm(props: PropsT) {
           fieldName={formFields.acceptsTerms}
           className={AuthFormL.Field()}
         >
-          <div
-            className={cn(
-              'SignUpForm__Terms__',
-              //
-              //
-              L.row.skewer()
-            )}
-          >
+          <div className={cn('SignUpForm__Terms__', [], [L.row.skewer()])}>
             <ControlledCheckbox />
             <div className={cn('ml-2')}>{messages.divIAgreeToTheTerms}</div>
           </div>

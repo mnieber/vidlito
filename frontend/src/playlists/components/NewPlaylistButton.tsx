@@ -28,10 +28,8 @@ export const NewPlaylistButton = observer(
       <button
         className={cn(
           'NewPlaylistButton',
-          //
-          //
-          ToolButtonL.root(),
-          props.className
+          [],
+          [ToolButtonL.root(), props.className]
         )}
         onClick={() => {
           props.dashboardState.storeNavigationPoint();
