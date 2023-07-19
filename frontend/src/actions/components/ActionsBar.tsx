@@ -53,10 +53,8 @@ export const ActionsBar = observer(
           // 🔳 Undo action Button 🔳
         }
         <DialogButton
-          classNames={{
-            base: 'ActionsBar__UndoActionButton',
-          }}
           className={cn([
+            'ActionsBar__UndoActionButton',
             'mx-4',
             {
               invisible: !props.action,

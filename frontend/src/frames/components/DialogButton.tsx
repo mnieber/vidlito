@@ -19,27 +19,27 @@ export type PropsT = {
   label: string;
 } & ButtonPropsT;
 
-export type DialogButtonPropsT = PropsT;
+export type DialogButtonPropsT = Omit<PropsT, 'color'>;
 
 export const DialogButton = (
   props: PropsT & {
-    // HACK: force to be blue or teal
-    color: string;
+    color: 'blue' | 'teal';
     classNames?: {
-      base?: string;
-      danger?: string;
-      disabled?: string;
-      default?: string;
+      base: string;
+      danger: string;
+      disabled: string;
+      default: string;
     };
   }
 ) => {
   const {
-    color,
+    className,
     classNames,
+    color,
     danger,
     dataCy,
     disabled,
-    className,
+    iconName,
     label,
     ...rest
   } = props;
@@ -71,10 +71,10 @@ export const DialogButton = (
       data-cy={dataCy}
       {...rest}
     >
-      {props.iconName && (
+      {iconName && (
         <Icon
           className={cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]')}
-          name={props.iconName}
+          name={iconName}
         />
       )}
       {label}

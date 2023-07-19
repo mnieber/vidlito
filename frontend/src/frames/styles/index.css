@@ -32,11 +32,5 @@
   }
   .btnRedWithWhiteText {
     @apply bg-red-400 text-white hover:bg-red-600;
-
-    .Icon {
-      svg {
-        @apply fill-blue-darkest;
-      }
-    }
   }
 }
