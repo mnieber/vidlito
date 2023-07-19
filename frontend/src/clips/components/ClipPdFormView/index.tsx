@@ -50,10 +50,7 @@ export const ClipPdFormView = observer(
       <div
         className={cn(
           'ClipPdFormView',
-          //
-          //
-          MainFormL.root(),
-          props.className
+          [][(MainFormL.root(), MainFormL.padding(), props.className)]
         )}
       >
         {

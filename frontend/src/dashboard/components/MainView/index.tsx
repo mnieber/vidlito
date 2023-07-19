@@ -17,12 +17,11 @@ export type PropsT = React.PropsWithChildren<{
 
 const DefaultProps = {
   ...dps.dashboardState,
-  ...dps.videoPlayerState,
 };
 
 export const MainView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const maxVideoWidth = props.videoPlayerState.isFullVideoWidth ? 1200 : 800;
+    const maxVideoWidth = props.dashboardState.isFullVideoWidth ? 1200 : 800;
 
     return (
       <div className={cn('MainView', L.row.banner(), 'h-full')}>

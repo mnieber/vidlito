@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
 import * as Skandha from 'skandha';
 import { UserProfileT } from '/src/api/types/UserProfileT';
@@ -21,6 +21,9 @@ export type PropsT = {};
 export class DashboardState {
   clipListContextMenu = createContextMenu();
   accountMenu = createContextMenu();
+  @observable panelWidth: number | undefined = undefined;
+  @observable isFullVideoWidth: boolean = false;
+  @observable isClipNotFound: boolean = false;
 
   @observable account: AccountT = {
     userProfile: undefined,
@@ -32,18 +35,34 @@ export class DashboardState {
     videoPlayerParentElm: undefined,
   };
 
-  @observable showPlaylistView: boolean = false;
+  @observable _showPlaylistView: boolean = false;
   @observable isPlaylistListExpanded: boolean = false;
   @observable navigationPoint?: {
     url: string;
     isPlaylistExpanded: boolean;
   };
 
+  @action setPanelWidth(x: number | undefined) {
+    this.panelWidth = x;
+  }
+
+  @action setIsFullVideoWidth(x: boolean) {
+    this.isFullVideoWidth = x;
+  }
+
+  @action setIsClipNotFound(x: boolean) {
+    this.isClipNotFound = x;
+  }
+
   @action storeNavigationPoint() {
     this.navigationPoint = {
       url: pathname(),
       isPlaylistExpanded: this.isPlaylistListExpanded,
     };
+  }
+
+  @computed get showPlaylistView() {
+    return this._showPlaylistView || this.isClipNotFound;
   }
 
   get hasNavigationPoint() {
@@ -58,7 +77,7 @@ export class DashboardState {
   }
 
   @action toggleShowPlaylistView(flag?: boolean) {
-    this.showPlaylistView = flag ?? !this.showPlaylistView;
+    this._showPlaylistView = flag ?? !this._showPlaylistView;
   }
 
   @action toggleIsPlaylistListExpanded(flag?: boolean) {

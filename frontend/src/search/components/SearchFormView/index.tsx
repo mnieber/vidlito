@@ -47,10 +47,8 @@ export const SearchFormView = observer(
       <div
         className={cn(
           'SearchFormView',
-          //
-          //
-          MainFormL.root(),
-          props.className
+          [],
+          [MainFormL.root(), MainFormL.padding(), props.className]
         )}
       >
         {

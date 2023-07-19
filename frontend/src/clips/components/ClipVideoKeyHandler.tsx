@@ -12,14 +12,15 @@ export type PropsT = React.PropsWithChildren<{ className?: any }>;
 const DefaultProps = {
   ...dps.clip,
   ...dps.videoPlayerState,
+  ...dps.dashboardState,
 };
 
 export const ClipVideoKeyHandler = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const keyHandlers = {
       'ctrl+shift+space': () => {
-        props.videoPlayerState.setIsFullVideoWidth(
-          !props.videoPlayerState.isFullVideoWidth
+        props.dashboardState.setIsFullVideoWidth(
+          !props.dashboardState.isFullVideoWidth
         );
       },
       ...createVideoKeyHandlers(

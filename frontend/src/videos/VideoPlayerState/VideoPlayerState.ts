@@ -11,13 +11,7 @@ export class VideoPlayerState {
   @observable url: string = '';
   @observable startTimeMs: number = 0;
   @observable videoIFrame?: VideoIFrame;
-  @observable panelWidth: number | undefined = undefined;
-  @observable isFullVideoWidth: boolean = false;
   @observable videoController = new VideoController();
-
-  @action setPanelWidth(x: number | undefined) {
-    this.panelWidth = x;
-  }
 
   @action setUrl(url: string, startTimeMs: number) {
     if (this.url && this.url !== url) {
@@ -28,10 +22,6 @@ export class VideoPlayerState {
       this.videoController.reset();
     }
     this.startTimeMs = startTimeMs;
-  }
-
-  @action setIsFullVideoWidth(x: boolean) {
-    this.isFullVideoWidth = x;
   }
 
   @computed get ready() {

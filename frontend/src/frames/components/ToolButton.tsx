@@ -1,6 +1,9 @@
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
+// Import styles
+import './ToolButton.scss';
+
 export const ToolButtonL = {
   root: () => cn('', ['ToolButton', L.row.skewer()]),
   disabled: () => 'ToolButton--disabled',

@@ -12,6 +12,7 @@ import './MainForm.scss';
 // - one or more Button components. E.g. a 'Save Clip' button.
 export const MainFormL = {
   root: () => cn('MainForm', L.col.banner()),
+  padding: () => 'py-[18px] px-4',
   GlobalError: () => 'mb-2',
   Field: () => 'mb-6',
   Buttons: () => cn('', [L.row.skewer(), 'self-end']),

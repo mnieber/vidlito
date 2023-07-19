@@ -38,10 +38,8 @@ export const PlaylistSettingsFormView = observer(
       <div
         className={cn(
           'PlaylistSettingsFormView',
-          //
-          //
-          MainFormL.root(),
-          props.className
+          [],
+          [MainFormL.root(), props.className]
         )}
       >
         {

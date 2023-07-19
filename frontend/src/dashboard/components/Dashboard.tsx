@@ -22,7 +22,7 @@ export type PropsT = React.PropsWithChildren<{
 
 const DefaultProps = {
   ...dps.playlist,
-  ...dps.videoPlayerState,
+  ...dps.dashboardState,
 };
 
 export const Dashboard = observer(
@@ -33,7 +33,7 @@ export const Dashboard = observer(
 
     const { onResize } = useOnResizeDashboard({
       leftSidebarWidth: refLeftSidebar.current?.clientWidth ?? 0,
-      videoPlayerState: props.videoPlayerState,
+      dashboardState: props.dashboardState,
     });
 
     return (

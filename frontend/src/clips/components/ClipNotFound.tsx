@@ -13,13 +13,13 @@ export type PropsT = {
 };
 
 const DefaultProps = {
-  ...dps.videoPlayerState,
+  ...dps.dashboardState,
   ...dps.clips,
 };
 
 export const ClipNotFound = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const width = (props.videoPlayerState.panelWidth ?? 100) - 1;
+    const width = (props.dashboardState.panelWidth ?? 100) - 1;
     const height = widthToHeight(width);
     const msg = props.clips.length
       ? "Oops, it seems this clip doesn't exist"

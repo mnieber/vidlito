@@ -12,7 +12,6 @@ import { CopSettings } from '/src/playlists/components/CopSettings';
 import { CreateFirstClip } from '/src/playlists/components/CreateFirstClip';
 import { TagsCard } from '/src/playlists/components/TagsCard';
 import { cn } from '/src/utils/classnames';
-import { useDelayedFlag } from '/src/utils/hooks/useDelayedFlag';
 import { VideoPlayerPanel } from '/src/videos/components';
 
 // Import styles
@@ -25,18 +24,11 @@ const DefaultProps = {
   ...dps.playlist,
   ...dps.clips,
   ...dps.dashboardState,
-  ...dps.videoPlayerState,
   ...dps.isOwner,
 };
 
 export const CopCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const clipNotFound = useDelayedFlag(
-      props.playlist && !props.clip && !isLoading(props.clip),
-      500,
-      []
-    );
-
     if (!props.playlist) {
       return null;
     }
@@ -46,17 +38,16 @@ export const CopCard = observer(
 
     return (
       <>
-        {clipNotFound && <ClipNotFound />}
-        {!clipNotFound && !noClips && <VideoPlayerPanel className={cn('')} />}
-        {!R.isNil(props.videoPlayerState.panelWidth) && (
+        {props.dashboardState.isClipNotFound && <ClipNotFound />}
+        {!props.dashboardState.isClipNotFound && !noClips && (
+          <VideoPlayerPanel className={cn('')} />
+        )}
+        {!R.isNil(props.dashboardState.panelWidth) && (
           <div
             className={cn(
               'CopCard__Body',
-              //
-              //
-              L.col.banner(),
-              'ml-6 mt-8',
-              'max-w-[776px]'
+              [],
+              [L.col.banner(), 'ml-6 mt-8', 'max-w-[776px]']
             )}
           >
             <ClipHeaderView className={cn('mb-8')} />
