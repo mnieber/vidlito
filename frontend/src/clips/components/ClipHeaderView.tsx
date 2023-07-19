@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import { isLoading, isNotFound } from '/src/api/getState';
+import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { useIsClipNotFound } from '/src/clips/hooks/useIsClipNotFound';
 import { L } from '/src/frames/layout';
 import { PlaylistFollowCard } from '/src/playlists/components/PlaylistFollowCard';
 import { cn } from '/src/utils/classnames';
@@ -15,7 +16,6 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clip,
-  ...dps.clipRsStub,
   ...dps.clips,
   ...dps.playlist,
   ...dps.dashboardState,
@@ -23,6 +23,8 @@ const DefaultProps = {
 
 export const ClipHeaderView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const { isClipNotFound } = useIsClipNotFound();
+
     if (isLoading(props.clips)) {
       return <ClipHeaderViewLoader className={props.className} />;
     }
@@ -31,7 +33,7 @@ export const ClipHeaderView = observer(
     const showPlaylist =
       noClips ||
       props.dashboardState.showPlaylistView ||
-      isNotFound(props.clipRsStub);
+      isClipNotFound(props.playlist, props.clip);
 
     return (
       <div

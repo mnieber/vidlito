@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
-import { isLoading, isNotFound } from '/src/api/getState';
+import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
 import { ClipNotFound } from '/src/clips/components/ClipNotFound';
 import { CopDescription } from '/src/clips/components/CopDescription';
 import { CopPd } from '/src/clips/components/CopPd';
+import { useIsClipNotFound } from '/src/clips/hooks/useIsClipNotFound';
 import { L } from '/src/frames/layout';
 import { AuthorCard } from '/src/playlists/components/AuthorCard';
 import { CopSettings } from '/src/playlists/components/CopSettings';
@@ -21,7 +22,6 @@ export type PropsT = {};
 
 const DefaultProps = {
   ...dps.clip,
-  ...dps.clipRsStub,
   ...dps.playlist,
   ...dps.clips,
   ...dps.dashboardState,
@@ -30,13 +30,15 @@ const DefaultProps = {
 
 export const CopCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const { isClipNotFound } = useIsClipNotFound();
+
     if (!props.playlist) {
       return null;
     }
 
     const noClips = !props.clips.length && !isLoading(props.clips);
     const showPlaylist = props.dashboardState.showPlaylistView || noClips;
-    const clipNotFound = isNotFound(props.clipRsStub);
+    const clipNotFound = isClipNotFound(props.playlist, props.clip);
 
     return (
       <>

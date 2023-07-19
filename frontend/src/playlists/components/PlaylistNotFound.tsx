@@ -1,10 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { WallPaperCardL } from '/src/frames/components/WallPaperCard';
-import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
+import { useIsPlaylistNotFound } from '/src/playlists/hooks/useIsPlaylistNotFound';
 import { cn } from '/src/utils/classnames';
-import { useDelayedFlag } from '/src/utils/hooks/useDelayedFlag';
 import { log } from '/src/utils/logging';
 
 // Import styles
@@ -20,13 +18,8 @@ const DefaultProps = {
 
 export const PlaylistNotFound = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const params = useNavHandlerParams();
-    const noPlaylist = useDelayedFlag(
-      !props.playlist && !isLoading(props.playlist),
-      1000,
-      [params.playlistSlug]
-    );
-    if (!noPlaylist) {
+    const { isPlaylistNotFound } = useIsPlaylistNotFound();
+    if (!isPlaylistNotFound(props.playlist)) {
       return null;
     }
     log('PlaylistNotFound');

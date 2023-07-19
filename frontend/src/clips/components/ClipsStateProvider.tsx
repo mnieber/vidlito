@@ -6,7 +6,6 @@ import { isLoading, isUpdating } from '/src/api/getState';
 import { updateSources } from '/src/api/utils';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useClipsState } from '/src/clips/hooks/useClipsState';
-import { useIsClipNotFound } from '/src/clips/hooks/useIsClipNotFound';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -19,8 +18,6 @@ export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { clipsState, isGetClipPdLoading, isGetClipPdUpdating } =
       useClipsState({ getPlaylist: () => props.playlist });
-
-    const { isClipNotFound } = useIsClipNotFound();
 
     const cache = useBuilder(() =>
       makeAutoObservable({
@@ -45,20 +42,6 @@ export const ClipsStateProvider = observer(
             },
             //
             ['loading', () => isLoading(props.playlist), 'playlist']
-          );
-        },
-        get clipRsStub() {
-          return updateSources(
-            {
-              resource: {},
-              resourceName: 'clipRsStub',
-            },
-            //
-            [
-              'notFound',
-              () => isClipNotFound(props.playlist, cache.clip),
-              'various',
-            ]
           );
         },
         get clipPd() {
@@ -86,7 +69,6 @@ export const ClipsStateProvider = observer(
         ...result.defaultProps,
         clips: () => cache.clips,
         clip: () => cache.clip,
-        clipRsStub: () => cache.clipRsStub,
         clipsAddition: () => clipsState.clipsCtr.addition,
         clipsDeletion: () => clipsState.clipsCtr.deletion,
         clipsDragAndDrop: () => clipsState.clipsCtr.dragAndDrop,
