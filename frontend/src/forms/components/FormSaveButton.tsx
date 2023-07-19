@@ -16,12 +16,7 @@ export const FormSaveButton = (props: PropsT) => {
 
   return (
     <DialogButton
-      classNames={{
-        base: 'FormSaveButton',
-        danger: 'FormSaveButton--danger',
-        default: 'FormSaveButton--default',
-        disabled: 'FormSaveButton--disabled',
-      }}
+      themeClassName="FormSaveButton"
       onClick={(e: any) => {
         e.preventDefault();
         formState.submit();

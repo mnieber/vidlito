@@ -1,15 +1,12 @@
-.MainView .FormSaveButton {
+.MainView .FormSaveButton.DialogButton {
   @apply DialogButtonComponent;
-}
-
-.MainView .FormSaveButton--default {
   @apply btnBlueWithDarkText;
 }
 
-.MainView .FormSaveButton--danger {
+.MainView .FormSaveButton.DialogButton--danger {
   @apply btnRedWithWhiteText;
 }
 
-.MainView .FormSaveButton--disabled {
+.MainView .FormSaveButton.DialogButton--disabled {
   @apply bg-gray-500;
 }

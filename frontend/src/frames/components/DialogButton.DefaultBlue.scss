@@ -1,8 +1,5 @@
-.DialogButton {
+.DefaultBlue.DialogButton {
   @apply DialogButtonComponent;
-}
-
-.DialogButton--default-blue {
   @apply btnBlueWithDarkText;
 
   .Icon {

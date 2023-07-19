@@ -1,11 +1,11 @@
-.AuthCard .FormSaveButton {
+.AuthCard .FormSaveButton.DialogButton {
   @apply DialogButtonComponent;
 }
 
-.AuthCard .FormSaveButton--default {
+.AuthCard .FormSaveButton.DialogButton--default {
   @apply btnSkyBlueWithWhiteText;
 }
 
-.AuthCard .FormSaveButton--disabled {
+.AuthCard .FormSaveButton.DialogButton--disabled {
   @apply bg-gray-500;
 }

@@ -15,12 +15,7 @@ export const FormCancelButton = (props: PropsT) => {
 
   return (
     <DialogButton
-      classNames={{
-        base: 'FormCancelButton',
-        danger: 'FormCancelButton--danger',
-        default: 'FormCancelButton--default',
-        disabled: 'FormCancelButton--disabled',
-      }}
+      themeClassName="FormCancelButton"
       onClick={(e: any) => {
         e.preventDefault();
         formState.cancel();

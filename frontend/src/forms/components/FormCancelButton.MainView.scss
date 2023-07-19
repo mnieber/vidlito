@@ -1,12 +1,12 @@
-.MainView .FormCancelButton {
+.MainView .FormCancelButton.DialogButton {
   @apply DialogButtonComponent;
   @apply btnWithSkyBlueText;
 }
 
-.MainView .FormCancelButton--disabled {
+.MainView .FormCancelButton.DialogButton--disabled {
   @apply text-gray-500;
 }
 
-.MainView .FormCancelButton--danger {
+.MainView .FormCancelButton.DialogButton--danger {
   @apply btnWithWhiteText;
 }

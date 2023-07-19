@@ -3,7 +3,7 @@ import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './DialogButton.scss';
+import './DialogButton.DefaultBlue.scss';
 
 type ButtonPropsT = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -19,23 +19,16 @@ export type PropsT = {
   label: string;
 } & ButtonPropsT;
 
-export type DialogButtonPropsT = Omit<PropsT, 'color'>;
+export type DialogButtonPropsT = PropsT;
 
 export const DialogButton = (
   props: PropsT & {
-    color: 'blue' | 'teal';
-    classNames?: {
-      base: string;
-      danger: string;
-      disabled: string;
-      default: string;
-    };
+    themeClassName: string;
   }
 ) => {
   const {
     className,
-    classNames,
-    color,
+    themeClassName,
     danger,
     dataCy,
     disabled,
@@ -44,28 +37,17 @@ export const DialogButton = (
     ...rest
   } = props;
 
-  const isBlue = color === 'blue';
-  const isTeal = color === 'teal';
-  const defaultClass = isBlue
-    ? 'DialogButton--default-blue'
-    : isTeal
-    ? 'DialogButton--default-teal'
-    : '';
-
   return (
     /*
     🔳 DialogButton 🔳
     */
     <button
       className={cn(
-        classNames?.base ?? 'DialogButton',
-        [
-          {
-            [classNames?.default ?? defaultClass]: !danger,
-            [classNames?.disabled ?? 'DialogButton--disabled']: disabled,
-            [classNames?.danger ?? 'DialogButton--danger']: danger,
-          },
-        ],
+        ['DialogButton', themeClassName],
+        {
+          'DialogButton--disabled': disabled,
+          'DialogButton--danger': danger,
+        },
         [L.row.skewer(), className]
       )}
       data-cy={dataCy}
