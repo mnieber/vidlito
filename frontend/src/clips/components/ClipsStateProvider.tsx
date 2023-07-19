@@ -44,8 +44,21 @@ export const ClipsStateProvider = observer(
               resourceName: 'clip',
             },
             //
-            ['loading', () => isLoading(props.playlist), 'playlist'],
-            ['notFound', () => isClipNotFound(props.playlist, clip), 'various']
+            ['loading', () => isLoading(props.playlist), 'playlist']
+          );
+        },
+        get clipRsStub() {
+          return updateSources(
+            {
+              resource: {},
+              resourceName: 'clipRsStub',
+            },
+            //
+            [
+              'notFound',
+              () => isClipNotFound(props.playlist, cache.clip),
+              'various',
+            ]
           );
         },
         get clipPd() {
@@ -73,6 +86,7 @@ export const ClipsStateProvider = observer(
         ...result.defaultProps,
         clips: () => cache.clips,
         clip: () => cache.clip,
+        clipRsStub: () => cache.clipRsStub,
         clipsAddition: () => clipsState.clipsCtr.addition,
         clipsDeletion: () => clipsState.clipsCtr.deletion,
         clipsDragAndDrop: () => clipsState.clipsCtr.dragAndDrop,

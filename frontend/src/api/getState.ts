@@ -1,8 +1,4 @@
-import {
-  loadingResource,
-  notFoundResource,
-  symbolRS,
-} from '/src/resourceStates/ResourceState';
+import { loadingResource, symbolRS } from '/src/resourceStates/ResourceState';
 
 export const getState = <StateT = string>(resource: any): StateT[] => {
   if (!!resource && !resource[symbolRS]) {
@@ -13,11 +9,7 @@ export const getState = <StateT = string>(resource: any): StateT[] => {
     return [];
   }
 
-  return resource === loadingResource
-    ? ['loading']
-    : resource === notFoundResource
-    ? ['notFound']
-    : resource[symbolRS].value;
+  return resource === loadingResource ? ['loading'] : resource[symbolRS].value;
 };
 
 export const isUpdating = (resource: any) =>

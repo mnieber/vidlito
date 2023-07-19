@@ -15,6 +15,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clip,
+  ...dps.clipRsStub,
   ...dps.clips,
   ...dps.playlist,
   ...dps.dashboardState,
@@ -30,7 +31,7 @@ export const ClipHeaderView = observer(
     const showPlaylist =
       noClips ||
       props.dashboardState.showPlaylistView ||
-      isNotFound(props.clip);
+      isNotFound(props.clipRsStub);
 
     return (
       <div

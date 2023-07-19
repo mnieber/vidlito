@@ -21,6 +21,7 @@ export type PropsT = {};
 
 const DefaultProps = {
   ...dps.clip,
+  ...dps.clipRsStub,
   ...dps.playlist,
   ...dps.clips,
   ...dps.dashboardState,
@@ -35,7 +36,7 @@ export const CopCard = observer(
 
     const noClips = !props.clips.length && !isLoading(props.clips);
     const showPlaylist = props.dashboardState.showPlaylistView || noClips;
-    const clipNotFound = isNotFound(props.clip);
+    const clipNotFound = isNotFound(props.clipRsStub);
 
     return (
       <>

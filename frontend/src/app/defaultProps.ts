@@ -95,6 +95,9 @@ const dpsClips = {
   clip: {
     clip: stub as ClipT,
   },
+  clipRsStub: {
+    clipRsStub: stub as ObjT,
+  },
   clipsAddition: {
     clipsAddition: stub as Addition,
   },

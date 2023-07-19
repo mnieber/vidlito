@@ -10,9 +10,6 @@ export const symbolRS = Symbol('ResourceState');
 // being loaded from the server.
 export const loadingResource = null;
 
-// The notFoundResource is used when we know that a resource doesn't exist.
-export const notFoundResource = 0;
-
 export type ConditionT = () => boolean | undefined;
 
 export type SourceT = {
