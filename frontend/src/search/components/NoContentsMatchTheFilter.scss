@@ -1,9 +1,3 @@
-@import '/src/frames/components/WallPaper';
-
-.NoContentsMatchTheFilter {
-  @apply WallPaper;
-}
-
 .NoContentsMatchTheFilter__Message {
   @apply text-3xl text-center text-gray-text;
 }

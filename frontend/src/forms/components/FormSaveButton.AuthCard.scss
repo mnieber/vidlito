@@ -1,7 +1,5 @@
-@import '/src/frames/components/DialogButton';
-
 .AuthCard .FormSaveButton {
-  @apply DialogButton;
+  @apply DialogButtonComponent;
 }
 
 .AuthCard .FormSaveButton--default {

@@ -23,14 +23,14 @@
   }
   .btnSkyBlueWithDarkText {
     @apply bg-blue-400 text-blue-darkest hover:bg-blue-600;
-
-    .Icon {
-      svg {
-        @apply fill-blue-darkest;
-      }
-    }
   }
   .btnRedWithWhiteText {
     @apply bg-red-400 text-white hover:bg-red-600;
+  }
+  .DialogButtonComponent {
+    @apply px-4 py-2;
+    @apply rounded-xl;
+    @apply font-bold;
+    @apply min-w-[max-content];
   }
 }

@@ -1,10 +1,13 @@
 .DialogButton {
-  @apply px-4 py-2;
-  @apply rounded-xl;
-  @apply font-bold;
-  @apply min-w-[max-content]; // auto-scale
+  @apply DialogButtonComponent;
 }
 
 .DialogButton--default-blue {
   @apply btnBlueWithDarkText;
+
+  .Icon {
+    svg {
+      @apply fill-blue-darkest;
+    }
+  }
 }

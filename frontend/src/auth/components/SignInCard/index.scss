@@ -1,6 +1,4 @@
-@import '/src/frames/components/DialogButton';
-
 .SignInCard__CreateAccountButton {
-  @apply DialogButton;
+  @apply DialogButtonComponent;
   @apply btnTealWithWhiteText;
 }

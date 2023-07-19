@@ -10,6 +10,7 @@ import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './CreateFirstClip.scss';
+import '/src/frames/components/WallPaper.scss';
 
 export type PropsT = {
   className?: any;
@@ -33,7 +34,7 @@ export const CreateFirstClip = observer(
       <div
         className={cn(
           'CreateFirstClip',
-          [],
+          ['WallPaper'],
           [WallPaperCardL.root(), props.className]
         )}
       >

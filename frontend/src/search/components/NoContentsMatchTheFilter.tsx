@@ -5,6 +5,7 @@ import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './NoContentsMatchTheFilter.scss';
+import '/src/frames/components/WallPaper.scss';
 
 export type PropsT = {
   msg: string;
@@ -21,9 +22,8 @@ export const NoContentsMatchTheFilter = observer(
       <div
         className={cn(
           'NoContentsMatchTheFilter',
-          'grow',
-          L.row.skewer(),
-          props.className
+          ['WallPaper'],
+          ['grow', L.row.skewer(), props.className]
         )}
       >
         <div

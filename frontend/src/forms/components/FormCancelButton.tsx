@@ -9,14 +9,6 @@ import './FormCancelButton.MainView.scss';
 
 export type PropsT = DialogButtonPropsT & {};
 
-// export type PropsT = {
-//   label: string;
-//   disabled?: boolean;
-//   className?: any;
-//   tabIndex?: number;
-//   useDefaultClassName?: boolean;
-// };
-
 export const FormCancelButton = (props: PropsT) => {
   const formState = useFormStateContext();
   const disabled = props.disabled || formState.getFlag('submitting');

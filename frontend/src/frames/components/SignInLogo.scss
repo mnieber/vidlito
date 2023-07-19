@@ -1,7 +1,5 @@
-@import '/src/frames/components/DialogButton';
-
 .SignInLogo__ExploreAsGuestButton {
-  @apply DialogButton;
+  @apply DialogButtonComponent;
 
   @apply bg-blue-200 text-blue-800;
   @apply border border-blue-primary;
