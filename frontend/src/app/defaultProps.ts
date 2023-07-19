@@ -21,6 +21,7 @@ import { ClipsState } from '/src/clips/ClipsState';
 import { Move } from '/src/clips/ClipsState/facets/Move';
 import { DashboardState } from '/src/dashboard/DashboardState';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
+import { Following } from '/src/playlists/PlaylistsState/facets/Following';
 import { IPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { SearchState } from '/src/search/SearchState/SearchState';
 import { ObjT } from '/src/utils/types';
@@ -190,6 +191,9 @@ const dpsPlaylist = {
   },
   playlistSettingsEdit: {
     playlistSettingsEdit: stub as Edit,
+  },
+  playlistFollowing: {
+    playlistFollowing: stub as Following,
   },
 };
 

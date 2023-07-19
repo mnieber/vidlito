@@ -14,6 +14,7 @@ import {
   SavePlaylistPdArgsT,
   SavePlaylistSettingsArgsT,
 } from '/src/api/mutations';
+import { useFollowPlaylists } from '/src/api/mutations/useFollowPlaylists';
 import { useSavePlaylistPd } from '/src/api/mutations/useSavePlaylistPd';
 import { useSavePlaylistSettings } from '/src/api/mutations/useSavePlaylistSettings';
 import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
@@ -51,6 +52,7 @@ export const usePlaylistsState = (props: PropsT) => {
   const savePlaylistPd = initRS(useSavePlaylistPd());
   const savePlaylistSettings = initRS(useSavePlaylistSettings());
   const savePlaylistOrdering = initRS(useSavePlaylistOrdering());
+  const followPlaylists = useFollowPlaylists();
 
   // Queries
   const isGetPlaylistEnabled = () =>
@@ -93,6 +95,18 @@ export const usePlaylistsState = (props: PropsT) => {
           name: 'deletePlaylists',
           states: { updating: [...playlists, deletePlaylists] },
           promise: deletePlaylists.mutateAsync(ids),
+        }).result;
+      },
+      //
+      followPlaylist: (playlist: PlaylistT, flag: boolean) => {
+        followPlaylists.mutateAsync;
+        return trackPromise({
+          name: 'followPlaylist',
+          states: { updating: [followPlaylists] },
+          promise: followPlaylists.mutateAsync({
+            playlistIds: [playlist.id],
+            isFollowing: flag,
+          }),
         }).result;
       },
       //

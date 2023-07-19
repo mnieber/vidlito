@@ -31,7 +31,6 @@ const mapData = (state: PlaylistsState) => {
   mapDataToProps(ctr, {
     store: {
       items: () => state.props.getPlaylists(),
-      followedPlaylists: () => state.props.getFollowedPlaylists(),
     },
     selection: {
       selectableIds: () => getIds(ctr.display.items),
@@ -100,7 +99,7 @@ const setCallbacks = (state: PlaylistsState) => {
         followedSelectedPlaylistsAreInsertedOnDrop(
           ctr.dragAndDrop,
           this.args.hoverPosition,
-          ctr.store.followedPlaylists
+          state.props.getFollowedPlaylists()
         );
       },
     },

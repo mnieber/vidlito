@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { useFollowPlaylists } from '/src/api/mutations/useFollowPlaylists';
-import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Toggle } from '/src/frames/components/Toggle';
 import { L } from '/src/frames/layout';
@@ -15,23 +13,20 @@ export type PropsT = { className?: any };
 const DefaultProps = {
   ...dps.playlistsEdit,
   ...dps.playlist,
+  ...dps.playlistFollowing,
   ...dps.username,
   ...dps.dashboardState,
-  ...dps.followSet,
   ...dps.userProfile,
 };
 
 export const PlaylistFollowCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const isFollowing = !!props.followSet.find(
-      (x: PlaylistT) => x.id === props.playlist.id
+    const [isChecked, setIsChecked] = React.useState(
+      props.playlistFollowing.isFollowing
     );
-    const [isChecked, setIsChecked] = React.useState(isFollowing);
     React.useEffect(() => {
-      setIsChecked(isFollowing);
-    }, [isFollowing]);
-
-    const followPlaylists = useFollowPlaylists();
+      setIsChecked(props.playlistFollowing.isFollowing);
+    }, [props.playlistFollowing.isFollowing]);
 
     if (!props.userProfile) {
       return null;
@@ -41,10 +36,7 @@ export const PlaylistFollowCard = observer(
       e.preventDefault();
       const isFollowing = e.target.checked;
       setIsChecked(isFollowing);
-      followPlaylists.mutate({
-        playlistIds: [props.playlist.id],
-        isFollowing: isFollowing,
-      });
+      props.playlistFollowing.followPlaylist({ flag: isFollowing });
     };
 
     return (
