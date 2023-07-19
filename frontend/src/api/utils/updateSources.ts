@@ -1,4 +1,10 @@
-import { ConditionT, getRS, initRS, nullResource } from '/src/resourceStates';
+import {
+  ConditionT,
+  getRS,
+  initRS,
+  loadingResource,
+} from '/src/resourceStates';
+import { notFoundResource } from '/src/resourceStates/ResourceState';
 
 export type OptionsT = {
   resource: any;
@@ -26,7 +32,11 @@ export const updateSources = (
   }
 
   if (!options.resource) {
-    return rs.value.includes('loading') ? nullResource : undefined;
+    return rs.value.includes('loading')
+      ? loadingResource
+      : rs.value.includes('notFound')
+      ? notFoundResource
+      : undefined;
   }
 
   return options.resource;

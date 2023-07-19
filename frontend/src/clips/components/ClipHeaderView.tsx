@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { isLoading } from '/src/api/getState';
+import { isLoading, isNotFound } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { L } from '/src/frames/layout';
 import { PlaylistFollowCard } from '/src/playlists/components/PlaylistFollowCard';
@@ -27,7 +27,10 @@ export const ClipHeaderView = observer(
     }
 
     const noClips = !props.clips.length && !isLoading(props.clips);
-    const showPlaylist = noClips || props.dashboardState.showPlaylistView;
+    const showPlaylist =
+      noClips ||
+      props.dashboardState.showPlaylistView ||
+      isNotFound(props.clip);
 
     return (
       <div

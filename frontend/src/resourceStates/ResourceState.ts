@@ -5,10 +5,13 @@ import { log } from '/src/utils/logging';
 
 export const symbolRS = Symbol('ResourceState');
 
-// The nullResource is used when we know that a resource exists (e.g. on the server)
+// The loadingResource is used when we know that a resource exists (e.g. on the server)
 // but we don't have a reference to it yet. Typically, it is used for any resource that is
 // being loaded from the server.
-export const nullResource = null;
+export const loadingResource = null;
+
+// The notFoundResource is used when we know that a resource doesn't exist.
+export const notFoundResource = 0;
 
 export type ConditionT = () => boolean | undefined;
 

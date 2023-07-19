@@ -1,4 +1,8 @@
-import { nullResource, symbolRS } from '/src/resourceStates/ResourceState';
+import {
+  loadingResource,
+  notFoundResource,
+  symbolRS,
+} from '/src/resourceStates/ResourceState';
 
 export const getState = <StateT = string>(resource: any): StateT[] => {
   if (!!resource && !resource[symbolRS]) {
@@ -9,16 +13,27 @@ export const getState = <StateT = string>(resource: any): StateT[] => {
     return [];
   }
 
-  return resource === nullResource ? ['loading'] : resource[symbolRS].value;
+  return resource === loadingResource
+    ? ['loading']
+    : resource === notFoundResource
+    ? ['notFound']
+    : resource[symbolRS].value;
 };
 
 export const isUpdating = (resource: any) =>
   getState(resource).includes('updating');
+export const isNotFound = (resource: any) =>
+  getState(resource).includes('notFound');
 export const isLoading = (resource: any) =>
   getState(resource).includes('loading');
 export const isReady = (resource: any) => {
   const state = getState(resource);
-  return resource && !state.includes('loading') && !state.includes('updating');
+  return (
+    resource &&
+    !state.includes('loading') &&
+    !state.includes('updating') &&
+    !state.includes('notFound')
+  );
 };
 export const isUndefined = (resource: any) =>
   resource === undefined || getState(resource).length === 0;

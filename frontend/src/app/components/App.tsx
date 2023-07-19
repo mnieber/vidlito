@@ -4,7 +4,6 @@ import { ActionsStateProvider } from '/src/actions/components';
 import { queryClient } from '/src/api/queryClient';
 import { AuthStateProvider } from '/src/auth/components/AuthStateProvider';
 import { ClipsStateProvider } from '/src/clips/components';
-import { TrackClipNotFound } from '/src/clips/components/TrackClipNotFound';
 import { DashboardStateProvider } from '/src/dashboard/components';
 import { L, breakpoints } from '/src/frames/layout';
 import { history } from '/src/navHandler/NavHandler';
@@ -38,7 +37,6 @@ export const App = () => {
                 <SearchStateProvider>
                   <PlaylistsStateProvider>
                     <ClipsStateProvider>
-                      <TrackClipNotFound />
                       <ActionsStateProvider>
                         <VideoPlayerStateProvider>
                           <UrlRouter />

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
-import { isLoading } from '/src/api/getState';
+import { isLoading, isNotFound } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
 import { ClipNotFound } from '/src/clips/components/ClipNotFound';
@@ -35,13 +35,12 @@ export const CopCard = observer(
 
     const noClips = !props.clips.length && !isLoading(props.clips);
     const showPlaylist = props.dashboardState.showPlaylistView || noClips;
+    const clipNotFound = isNotFound(props.clip);
 
     return (
       <>
-        {props.dashboardState.isClipNotFound && <ClipNotFound />}
-        {!props.dashboardState.isClipNotFound && !noClips && (
-          <VideoPlayerPanel className={cn('')} />
-        )}
+        {clipNotFound && <ClipNotFound />}
+        {!clipNotFound && !noClips && <VideoPlayerPanel className={cn('')} />}
         {!R.isNil(props.dashboardState.panelWidth) && (
           <div
             className={cn(
