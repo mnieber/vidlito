@@ -6,6 +6,7 @@ import { useAuthStateContext } from '/src/auth/hooks';
 import { navToSignIn } from '/src/frames/FramesNavEvents';
 import { Icon } from '/src/frames/components';
 import { DialogButtonL } from '/src/frames/components/DialogButton';
+import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -38,8 +39,9 @@ export const AccountMenu = observer(
           menuButton={
             <MenuButton
               className={cn(
-                DialogButtonL.root(),
-                DialogButtonL.color.darkBlueOnTeal(),
+                'DialogButtonComponent',
+                'btnTealWithDarkText',
+                L.row.skewer(),
                 'mb-4'
               )}
             >

@@ -3,7 +3,8 @@ import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './DialogButton.DefaultBlue.scss';
+import './DialogButton.Blue.scss';
+import './DialogButton.SkyBlueWithBorder.scss';
 
 type ButtonPropsT = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -48,16 +49,13 @@ export const DialogButton = (
           'DialogButton--disabled': disabled,
           'DialogButton--danger': danger,
         },
-        [L.row.skewer(), className]
+        [iconName ? L.row.skewer() : '', className]
       )}
       data-cy={dataCy}
       {...rest}
     >
       {iconName && (
-        <Icon
-          className={cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]')}
-          name={iconName}
-        />
+        <Icon className={DialogButtonL.icon.root()} name={iconName} />
       )}
       {label}
     </button>
@@ -65,19 +63,7 @@ export const DialogButton = (
 };
 
 export const DialogButtonL = {
-  root: () => cn('DialogButton', L.row.skewer()),
-  // Clients should pick one color from the list below.
-  color: {
-    darkBlueOnSkyBlue: () => 'btnSkyBlueWithDarkText',
-    darkBlueOnTeal: () => 'btnTealWithDarkText',
-    skyBlueTextAndBorder: () =>
-      'btnWithSkyBlueText border-2 border-blue-primary',
-  },
   icon: {
     root: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
-    color: {
-      skyBlue: () => 'fill-blue-primary',
-      gray: () => 'fill-gray-text',
-    },
   },
 };

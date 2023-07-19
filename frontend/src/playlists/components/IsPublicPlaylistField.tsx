@@ -4,7 +4,7 @@ import { withDefaultProps } from '/src/app/defaultProps';
 import { FormFieldL } from '/src/forms/components/FormField';
 import { useFormFieldContext } from '/src/forms/components/FormFieldContext';
 import { DialogButtonL } from '/src/frames/components/DialogButton';
-import { Icon } from '/src/frames/components/Icon';
+import { Icon, IconL } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -38,10 +38,7 @@ export const IsPublicPlaylistField = observer(
           onClick={() => formState.setValue(fieldContext.fieldName, true)}
         >
           <Icon
-            className={cn(
-              DialogButtonL.icon.root(),
-              DialogButtonL.icon.color.gray()
-            )}
+            className={cn(DialogButtonL.icon.root(), IconL.color.gray())}
             name={isPublic ? 'radioButtonOn' : 'radioButtonOff'}
           />
           This playlist is public: your clips in this playlist will be visible
@@ -56,10 +53,7 @@ export const IsPublicPlaylistField = observer(
           onClick={() => formState.setValue(fieldContext.fieldName, false)}
         >
           <Icon
-            className={cn(
-              DialogButtonL.icon.root(),
-              DialogButtonL.icon.color.gray()
-            )}
+            className={cn(DialogButtonL.icon.root(), IconL.color.gray())}
             name={!isPublic ? 'radioButtonOn' : 'radioButtonOff'}
           />
           This playlist is private: your clips are not visible to other people

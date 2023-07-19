@@ -146,3 +146,9 @@ export const Icon = (props: PropsT) => {
     </div>
   );
 };
+
+export const IconL = {
+  color: {
+    gray: () => 'fill-gray-text',
+  },
+};
