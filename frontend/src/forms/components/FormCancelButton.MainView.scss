@@ -8,3 +8,7 @@
 .MainView .FormCancelButton--disabled {
   @apply text-gray-500;
 }
+
+.MainView .FormCancelButton--danger {
+  @apply btnWithWhiteText;
+}

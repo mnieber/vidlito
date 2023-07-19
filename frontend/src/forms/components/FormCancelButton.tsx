@@ -1,33 +1,41 @@
 import { useFormStateContext } from 'react-form-state-context';
-import { cn } from '/src/utils/classnames';
+import {
+  DialogButton,
+  DialogButtonPropsT,
+} from '/src/frames/components/DialogButton';
 
-export type PropsT = {
-  label: string;
-  disabled?: boolean;
-  className?: any;
-  tabIndex?: number;
-  useDefaultClassName?: boolean;
-};
+// Import styles
+import './FormCancelButton.MainView.scss';
+
+export type PropsT = DialogButtonPropsT & {};
+
+// export type PropsT = {
+//   label: string;
+//   disabled?: boolean;
+//   className?: any;
+//   tabIndex?: number;
+//   useDefaultClassName?: boolean;
+// };
 
 export const FormCancelButton = (props: PropsT) => {
   const formState = useFormStateContext();
   const disabled = props.disabled || formState.getFlag('submitting');
 
   return (
-    <button
-      className={cn(
-        'FormCancelButton',
-        { 'FormCancelButton--disabled': disabled },
-        props.className
-      )}
-      onClick={(e) => {
+    <DialogButton
+      classNames={{
+        base: 'FormCancelButton',
+        danger: 'FormCancelButton--danger',
+        default: 'FormCancelButton--default',
+        disabled: 'FormCancelButton--disabled',
+      }}
+      onClick={(e: any) => {
         e.preventDefault();
         formState.cancel();
       }}
-      tabIndex={props.tabIndex}
       disabled={disabled}
-    >
-      {props.label}
-    </button>
+      color="blue"
+      {...props}
+    />
   );
 };

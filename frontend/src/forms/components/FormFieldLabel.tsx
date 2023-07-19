@@ -2,6 +2,9 @@ import { useFormFieldContext } from '/src/forms/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
+// Import styles
+import './FormFieldLabel.MainView.scss';
+
 type PropsT = {
   className?: any;
   label: string;
@@ -15,7 +18,7 @@ export const FormFieldLabel = (props: PropsT) => {
     <div className={cn('FormFieldLabel', [], [L.row.skewer()])}>
       {props.label && (
         <label
-          className={cn('FormFieldLabel', props.className)}
+          className={cn('FormFieldLabel__Label', props.className)}
           htmlFor={fieldContext.fieldName}
         >
           {props.label}

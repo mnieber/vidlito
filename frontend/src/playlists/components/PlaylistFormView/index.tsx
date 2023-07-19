@@ -54,7 +54,7 @@ export const PlaylistFormView = observer(
         className={cn(
           'PlaylistFormView',
           [],
-          [MainFormL.root(), MainFormL.padding(), props.className]
+          [MainFormL.root(), props.className]
         )}
       >
         {

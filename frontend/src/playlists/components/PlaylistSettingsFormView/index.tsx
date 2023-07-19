@@ -98,6 +98,7 @@ export const PlaylistSettingsFormView = observer(
           <div className={cn(MainFormL.Buttons())}>
             <FormCancelButton
               className={cn(MainFormL.Button.root(), MainFormL.Button.gap())}
+              danger={isDeleteEnabled}
               label="Cancel"
               tabIndex={6}
             />

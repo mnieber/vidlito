@@ -49,7 +49,7 @@ export const CopCard = observer(
             className={cn(
               'CopCard__Body',
               [],
-              [L.col.banner(), 'ml-6 mt-8', 'max-w-[776px]']
+              [L.col.banner(), 'ml-6 my-8', 'max-w-[776px]']
             )}
           >
             <ClipHeaderView className={cn('mb-8')} />

@@ -4,6 +4,10 @@ import {
   DialogButtonPropsT,
 } from '/src/frames/components/DialogButton';
 
+// Import styles
+import './FormSaveButton.AuthCard.scss';
+import './FormSaveButton.MainView.scss';
+
 export type PropsT = DialogButtonPropsT & {};
 
 export const FormSaveButton = (props: PropsT) => {

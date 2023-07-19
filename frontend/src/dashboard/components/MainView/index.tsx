@@ -7,9 +7,6 @@ import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './index.scss';
-import '/src/dashboard/components/MainView/FormCancelButton.scss';
-import '/src/dashboard/components/MainView/FormFieldLabel.scss';
-import '/src/dashboard/components/MainView/FormSaveButton.scss';
 
 export type PropsT = React.PropsWithChildren<{
   className?: any;

@@ -59,12 +59,13 @@ export const SyncPlaylistWithUrlEffect = observer(
           playlistsHighlight.highlightItem({ id: playlist?.id });
         };
 
-        refUrl.current = location.pathname;
         if (mustAddNewPlaylist()) {
+          refUrl.current = location.pathname;
           addNewPlaylist();
         } else {
           const playlistForCurrentUrl = getPlaylistForCurrentUrl();
           if (playlistForCurrentUrl) {
+            refUrl.current = location.pathname;
             if (playlist?.id !== playlistForCurrentUrl.id) {
               selectPlaylist(playlistForCurrentUrl);
             }

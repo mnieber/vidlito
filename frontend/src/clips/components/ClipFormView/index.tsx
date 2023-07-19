@@ -57,11 +57,7 @@ export const ClipFormView = observer(
       // 🔳 ClipFormView 🔳
       //
       <div
-        className={cn(
-          'ClipFormView',
-          [],
-          [MainFormL.root(), MainFormL.padding(), props.className]
-        )}
+        className={cn('ClipFormView', [], [MainFormL.root(), props.className])}
       >
         {
           // 🔳 FormStateProvider 🔳
