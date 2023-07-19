@@ -8,6 +8,7 @@ import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { PlaylistListKeyHandler } from '/src/playlists/components/PlaylistListKeyHandler';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
+import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -38,14 +39,8 @@ export const PlaylistListView = observer(
     const selectionUIConnector = new SelectionUIConnector({
       selection: props.playlistsSelection,
     });
-
     const goToPlaylist = (playlist: PlaylistT) => {
-      props.playlistsHighlight.highlightItem({ id: playlist.id });
-      props.playlistsSelection.selectItem({ itemId: playlist.id });
-      props.dashboardState.toggleIsPlaylistListExpanded(false);
-      props.clipsSelection.selectItem({
-        itemId: props.clipsSelection.selectableIds[0],
-      });
+      navToPlaylist(playlist.ownerUsername, playlist.slug);
     };
 
     if (isLoading(props.playlists)) {
