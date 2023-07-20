@@ -1,7 +1,5 @@
 import React from 'react';
-import { DialogButtonL } from '/src/frames/components/DialogButton';
-import { Icon } from '/src/frames/components/Icon';
-import { ToolButtonL } from '/src/frames/components/ToolButton';
+import { ToolButton } from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';
 
 export type PropsT = {
@@ -12,17 +10,16 @@ export type PropsT = {
 export const usePreviewButton = (props: PropsT) => {
   const [descriptionPreview, setDescriptionPreview] = React.useState(false);
   const showPreviewButton = (
-    <button
-      className={cn(ToolButtonL.root(), props.className)}
+    <ToolButton
+      label="Preview"
+      themeClassName="Modest"
+      className={cn('PreviewButton', props.className)}
       tabIndex={props.tabIndex ?? 0}
       key="descriptionPreview"
+      iconName={descriptionPreview ? 'checkFilled' : 'checkEmpty'}
+      iconMargin="none"
       onClick={() => setDescriptionPreview(!descriptionPreview)}
-    >
-      {descriptionPreview && (
-        <Icon className={cn(DialogButtonL.icon.root())} name="check" />
-      )}
-      Preview
-    </button>
+    />
   );
 
   return {

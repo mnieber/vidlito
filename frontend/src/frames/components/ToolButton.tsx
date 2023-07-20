@@ -4,13 +4,16 @@ import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './ToolButton.scss';
+import './ToolButton.Default.scss';
+import './ToolButton.Modest.scss';
 
 export type PropsT = {
   className?: any;
+  themeClassName?: string;
   disabled?: boolean;
   iconName: string;
   iconSize?: 'normal' | 'small';
+  iconMargin?: 'normal' | 'none';
   label: string;
 } & ButtonPropsT;
 
@@ -18,10 +21,10 @@ export const ToolButton = (props: PropsT) => {
   return (
     <button
       className={cn(
-        'ToolButton',
+        ['ToolButton', props.themeClassName ?? 'Default'],
         [],
         [
-          ToolButtonL.root(),
+          L.row.skewer(),
           props.disabled && 'ToolButton--disabled',
           props.className,
         ]
@@ -30,9 +33,10 @@ export const ToolButton = (props: PropsT) => {
     >
       <Icon
         className={cn(
-          ToolButtonL.icon.root(),
+          'ToolButton__Icon',
           props.disabled && 'ToolButton__Icon--disabled',
-          ToolButtonL.icon.size[props.iconSize ?? 'normal']()
+          ToolButtonL.icon.size[props.iconSize ?? 'normal'](),
+          ToolButtonL.icon.margin[props.iconMargin ?? 'normal']()
         )}
         name={props.iconName}
       />
@@ -42,14 +46,14 @@ export const ToolButton = (props: PropsT) => {
 };
 
 export const ToolButtonL = {
-  root: () => cn('', ['ToolButton', L.row.skewer()]),
-  disabled: () => 'ToolButton--disabled',
   icon: {
-    root: () => cn('', ['ToolButton__Icon']),
     size: {
-      normal: () => cn('', ['h-[32px] w-[32px]', 'mr-2', 'p-2']),
-      small: () => cn('', ['h-[24px] w-[24px]', 'mr-2', 'p-1']),
+      normal: () => cn(['h-[32px] w-[32px]', 'p-2']),
+      small: () => cn(['h-[24px] w-[24px]', 'p-1']),
     },
-    disabled: () => 'ToolButton__Icon--disabled',
+    margin: {
+      normal: () => cn('mr-2'),
+      none: () => cn(),
+    },
   },
 };
