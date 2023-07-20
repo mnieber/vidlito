@@ -5,6 +5,7 @@ import { cn } from '/src/utils/classnames';
 // Import styles
 import './DialogButton.Blue.scss';
 import './DialogButton.SkyBlueWithBorder.scss';
+import './DialogButton.TealWithWhiteText.scss';
 
 type ButtonPropsT = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,

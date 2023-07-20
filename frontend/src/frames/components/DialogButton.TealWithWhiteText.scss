@@ -1,0 +1,10 @@
+.TealWithWhiteText.DialogButton {
+  @apply DialogButtonComponent;
+  @apply btnTealWithWhiteText;
+
+  .Icon {
+    svg {
+      @apply fill-white;
+    }
+  }
+}

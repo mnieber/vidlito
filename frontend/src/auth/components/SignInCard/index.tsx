@@ -8,6 +8,7 @@ import {
   navToNextPageAfterSignIn,
   navToSignUp,
 } from '/src/frames/FramesNavEvents';
+import { DialogButton } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { ObjT } from '/src/utils/types';
@@ -59,16 +60,12 @@ export const SignInCard = observer(() => {
       {
         // 🔳 Create account button 🔳
       }
-      <button
-        className={cn(
-          'SignInCard__CreateAccountButton',
-          [],
-          [AuthCardL.CardFooter()]
-        )}
+      <DialogButton
+        themeClassName="TealWithWhiteText"
+        className={cn(AuthCardL.CardFooter())}
         onClick={() => navToSignUp()}
-      >
-        {messages.createAccount}
-      </button>
+        label={messages.createAccount}
+      />
     </AuthCard>
   );
 });
