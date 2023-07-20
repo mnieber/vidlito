@@ -1,16 +1,18 @@
-.Modest.ToolButton {
-  @apply text-gray-text;
-  @apply text-base font-bold tracking-wider;
+.Modest {
+  &.ToolButton {
+    @apply text-gray-text;
+    @apply text-base font-bold tracking-wider;
 
-  .Icon {
-    @apply fill-gray-text;
+    .Icon {
+      @apply fill-gray-text;
+    }
   }
-}
 
-.Modest.ToolButton--disabled {
-  @apply text-gray-300;
-}
+  &.ToolButton--disabled {
+    @apply text-gray-300;
+  }
 
-.Modest.ToolButton__Icon--disabled {
-  @apply fill-gray-300;
+  .ToolButton__Icon--disabled {
+    @apply fill-gray-300;
+  }
 }

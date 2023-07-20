@@ -45,7 +45,7 @@ export const CopPd = observer(
           <EditButton
             className="self-end"
             edit={props.showPlaylist ? props.playlistPdEdit : props.clipPdEdit}
-            enabled={!!props.userProfile}
+            disabled={!props.userProfile}
           />
         </div>
         {!props.showPlaylist && !editClipPd && <ClipPdView className="mt-4" />}

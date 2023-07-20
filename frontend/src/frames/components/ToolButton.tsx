@@ -29,6 +29,7 @@ export const ToolButton = (props: PropsT) => {
           props.className,
         ]
       )}
+      disabled={props.disabled}
       onClick={props.onClick}
     >
       <Icon

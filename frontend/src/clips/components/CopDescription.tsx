@@ -27,12 +27,14 @@ const DefaultProps = {
   ...dps.clipPdEdit,
   ...dps.playlistsEdit,
   ...dps.playlistPdEdit,
+  ...dps.userProfile,
 };
 
 export const CopDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const editClip = props.clipsEdit.isEditing;
     const editPlaylist = props.playlistsEdit.isEditing;
+    const cop = props.showPlaylist ? props.playlist : props.clip;
 
     return (
       <div
@@ -51,15 +53,11 @@ export const CopDescription = observer(
           )}
         >
           <div className={cn('CopDescription__Title')}>Description</div>
-          {props.isOwner(props.showPlaylist ? props.playlist : props.clip) && (
+          {props.userProfile && (
             <EditButton
               className="self-end"
               edit={props.showPlaylist ? props.playlistsEdit : props.clipsEdit}
-              enabled={
-                props.showPlaylist
-                  ? props.isOwner(props.playlist)
-                  : props.isOwner(props.clip)
-              }
+              disabled={cop && !props.isOwner(cop)}
             />
           )}
         </div>

@@ -1,12 +1,14 @@
 @import '/src/frames/components/DialogButtonBase.scss';
 
-.TealWithWhiteText.DialogButton {
-  @apply DialogButtonBase;
-  @apply btnTealWithWhiteText;
+.TealWithWhiteText {
+  &.DialogButton {
+    @apply DialogButtonBase;
+    @apply btnTealWithWhiteText;
 
-  .Icon {
-    svg {
-      @apply fill-white;
+    .Icon {
+      svg {
+        @apply fill-white;
+      }
     }
   }
 }

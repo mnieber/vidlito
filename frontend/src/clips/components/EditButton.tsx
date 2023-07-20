@@ -9,7 +9,7 @@ import { cn } from '/src/utils/classnames';
 import './EditButton.scss';
 
 export type PropsT = {
-  enabled: boolean;
+  disabled: boolean;
   edit: Edit;
   className?: any;
 };
@@ -35,7 +35,7 @@ export const EditButton = observer(
           },
           props.className
         )}
-        disabled={!props.enabled}
+        disabled={props.disabled}
         iconName="pencil"
         iconSize="small"
         label="Edit"

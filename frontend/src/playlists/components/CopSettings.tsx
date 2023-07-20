@@ -41,7 +41,7 @@ export const CopSettings = observer(
           <EditButton
             className="self-end"
             edit={props.playlistSettingsEdit}
-            enabled={true}
+            disabled={false}
           />
         </div>
         {!editSettings && <PlaylistSettingsView className="mt-4" />}
