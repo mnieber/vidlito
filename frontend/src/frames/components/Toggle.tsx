@@ -7,6 +7,7 @@ import './Toggle.scss';
 
 export type PropsT = {
   isChecked: boolean;
+  themeClassName?: 'Blue' | 'Red';
   id: string;
   onChange?: (e: any) => void;
   className?: any;
@@ -16,10 +17,15 @@ export const DefaultProps = {};
 
 export const Toggle = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const themeClassName = props.themeClassName ?? 'Blue';
     return (
       <label
         htmlFor={props.id}
-        className={cn('Toggle', 'relative cursor-pointer', props.className)}
+        className={cn(
+          ['Toggle', themeClassName],
+          'relative cursor-pointer',
+          props.className
+        )}
       >
         <input
           key={props.isChecked ? 'checked' : 'unchecked'}
@@ -29,8 +35,8 @@ export const Toggle = observer(
           onChange={props.onChange}
           checked={props.isChecked}
         />
-        <span className="Toggle__ToggleContainer"></span>
-        <span className="Toggle__Toggle"></span>
+        <span className={cn(themeClassName, 'Toggle__ToggleContainer')}></span>
+        <span className={cn(themeClassName, 'Toggle__Toggle')}></span>
       </label>
     );
   }, DefaultProps)

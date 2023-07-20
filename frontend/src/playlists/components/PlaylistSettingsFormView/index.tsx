@@ -14,6 +14,7 @@ import {
 import { FormFieldL } from '/src/forms/components/FormField';
 import { CardL } from '/src/frames/components/Card';
 import { Toggle } from '/src/frames/components/Toggle';
+import { L } from '/src/frames/layout';
 import { IsPublicPlaylistField } from '/src/playlists/components/IsPublicPlaylistField';
 import { cn } from '/src/utils/classnames';
 
@@ -83,14 +84,27 @@ export const PlaylistSettingsFormView = observer(
                 FormFieldL.input()
               )}
             >
-              <Toggle
-                className="mt-1 h-6 w-10"
-                id="enableDeletePlaylist"
-                onChange={(e: any) => {
-                  setIsDeleteEnabled(e.target.checked);
-                }}
-                isChecked={isDeleteEnabled}
-              />
+              <div className={cn(L.row.skewer(), 'justify-between')}>
+                <div className={cn('text-sm font-bold text-gray-600')}>
+                  Enable delete
+                </div>
+                <Toggle
+                  className="mt-1 h-6 w-10"
+                  themeClassName="Red"
+                  id="enableDeletePlaylist"
+                  onChange={(e: any) => {
+                    setIsDeleteEnabled(e.target.checked);
+                  }}
+                  isChecked={isDeleteEnabled}
+                />
+              </div>
+              {isDeleteEnabled && (
+                <div className={cn('font-bold text-white mt-2')}>
+                  When you delete a playlist, then all clips that are not
+                  contained in one of your public playlists will be deleted as
+                  well.
+                </div>
+              )}
             </div>
           </Field>
           {
