@@ -4,7 +4,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { onClickNewClipButton } from '/src/clips/components/NewClipButton';
 import { CtaButtonL } from '/src/frames/components/CtaButton';
 import { Icon } from '/src/frames/components/Icon';
-import { WallPaperCardL } from '/src/frames/components/WallPaperCard';
+import { MessageCardL } from '/src/frames/components/MessageCard';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -35,7 +35,7 @@ export const CreateFirstClip = observer(
         className={cn(
           'CreateFirstClip',
           ['WallPaper'],
-          [WallPaperCardL.root(), props.className]
+          [MessageCardL.root(), MessageCardL.wallpaper(), props.className]
         )}
       >
         <button
