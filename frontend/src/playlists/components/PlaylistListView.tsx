@@ -68,7 +68,7 @@ export const PlaylistListView = observer(
           selectionUIProps={selectionUIConnector.handle(playlist.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(playlist.id)}
           goToPlaylist={goToPlaylist}
-          className={cn('', { underline: !isFollowing })}
+          className={cn({ underline: !isFollowing })}
         />
       );
     });

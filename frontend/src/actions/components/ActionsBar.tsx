@@ -81,7 +81,7 @@ export const ActionsBar = observer(
               navToPlaylist(props.playlist.ownerUsername, props.playlist.slug);
             }
           }}
-          className={cn('', {
+          className={cn({
             invisible: !props.playlist,
           })}
         />

@@ -49,7 +49,12 @@ export const SearchFormView = observer(
         className={cn(
           'SearchFormView',
           [],
-          [MainFormL.root(), CardL.size.medium(), props.className]
+          [
+            CardL.root(),
+            CardL.color.gray(),
+            CardL.size.medium(),
+            props.className,
+          ]
         )}
       >
         {

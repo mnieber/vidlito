@@ -38,7 +38,7 @@ export const VideoPlayerPanel = observer(
           videoPlayerParentElm={props.dashboardState.video.videoPlayerParentElm}
           videoPlayerState={props.videoPlayerState}
           width={width}
-          className={cn('', {
+          className={cn({
             hidden: !ready,
           })}
         />

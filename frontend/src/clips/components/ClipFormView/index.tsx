@@ -18,6 +18,7 @@ import {
   ValuePickerField,
 } from '/src/forms/components';
 import { TimeField } from '/src/forms/components/TimeField';
+import { CardL } from '/src/frames/components/Card';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -57,7 +58,11 @@ export const ClipFormView = observer(
       // 🔳 ClipFormView 🔳
       //
       <div
-        className={cn('ClipFormView', [], [MainFormL.root(), props.className])}
+        className={cn(
+          'ClipFormView',
+          [],
+          [CardL.root(), CardL.color.gray(), props.className]
+        )}
       >
         {
           // 🔳 FormStateProvider 🔳

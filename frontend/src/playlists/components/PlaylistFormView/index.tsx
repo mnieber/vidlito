@@ -15,6 +15,7 @@ import {
   ValuePickerField,
 } from '/src/forms/components';
 import { NameField } from '/src/forms/components/NameField';
+import { CardL } from '/src/frames/components/Card';
 import { IsPublicPlaylistField } from '/src/playlists/components/IsPublicPlaylistField';
 import { cn } from '/src/utils/classnames';
 
@@ -54,7 +55,7 @@ export const PlaylistFormView = observer(
         className={cn(
           'PlaylistFormView',
           [],
-          [MainFormL.root(), props.className]
+          [CardL.root(), CardL.color.gray(), props.className]
         )}
       >
         {

@@ -12,6 +12,7 @@ import {
   GlobalError,
 } from '/src/forms/components';
 import { FormFieldL } from '/src/forms/components/FormField';
+import { CardL } from '/src/frames/components/Card';
 import { Toggle } from '/src/frames/components/Toggle';
 import { IsPublicPlaylistField } from '/src/playlists/components/IsPublicPlaylistField';
 import { cn } from '/src/utils/classnames';
@@ -39,7 +40,7 @@ export const PlaylistSettingsFormView = observer(
         className={cn(
           'PlaylistSettingsFormView',
           [],
-          [MainFormL.root(), props.className]
+          [CardL.root(), CardL.color.gray(), props.className]
         )}
       >
         {

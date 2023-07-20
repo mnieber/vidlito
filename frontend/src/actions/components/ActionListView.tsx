@@ -83,7 +83,7 @@ export const ActionListViewLoader = (props: { className?: any }) => {
   // 🔳 loaderBars 🔳
   //
   const loaderBars = ['1', '2', '3'].map((id: string) => {
-    return <LoaderBar key={id} className={cn('', [], 'h-6 my-4')} />;
+    return <LoaderBar key={id} className={cn('h-6 my-4')} />;
   });
 
   return (

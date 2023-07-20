@@ -13,6 +13,7 @@ import {
   MarkdownField,
   ValuePickerField,
 } from '/src/forms/components';
+import { CardL } from '/src/frames/components/Card';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -51,7 +52,7 @@ export const ClipPdFormView = observer(
         className={cn(
           'ClipPdFormView',
           [],
-          [MainFormL.root(), props.className]
+          [CardL.root(), CardL.color.gray(), props.className]
         )}
       >
         {
