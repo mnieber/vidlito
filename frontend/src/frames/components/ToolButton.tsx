@@ -12,8 +12,8 @@ export type PropsT = {
   themeClassName?: string;
   disabled?: boolean;
   iconName: string;
-  iconSize?: 'normal' | 'small';
-  iconMargin?: 'normal' | 'none';
+  iconSize?: 'medium' | 'small';
+  iconMargin?: 'medium' | 'none';
   label: string;
 } & ButtonPropsT;
 
@@ -35,8 +35,8 @@ export const ToolButton = (props: PropsT) => {
         className={cn(
           'ToolButton__Icon',
           props.disabled && 'ToolButton__Icon--disabled',
-          ToolButtonL.icon.size[props.iconSize ?? 'normal'](),
-          ToolButtonL.icon.margin[props.iconMargin ?? 'normal']()
+          ToolButtonL.icon.size[props.iconSize ?? 'medium'](),
+          ToolButtonL.icon.margin[props.iconMargin ?? 'medium']()
         )}
         name={props.iconName}
       />
@@ -48,11 +48,11 @@ export const ToolButton = (props: PropsT) => {
 export const ToolButtonL = {
   icon: {
     size: {
-      normal: () => cn(['h-[32px] w-[32px]', 'p-2']),
+      medium: () => cn(['h-[32px] w-[32px]', 'p-2']),
       small: () => cn(['h-[24px] w-[24px]', 'p-1']),
     },
     margin: {
-      normal: () => cn('mr-2'),
+      medium: () => cn('mr-2'),
       none: () => cn(),
     },
   },

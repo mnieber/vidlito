@@ -12,6 +12,7 @@ import {
 } from '/src/forms/components';
 import { FormSaveButton } from '/src/forms/components/FormSaveButton';
 import { KeywordsAndTagsField } from '/src/forms/components/KeywordsAndTagsField';
+import { CardL } from '/src/frames/components/Card';
 import { useTagsState } from '/src/search/hooks/useTagsState';
 import { cn } from '/src/utils/classnames';
 
@@ -48,7 +49,7 @@ export const SearchFormView = observer(
         className={cn(
           'SearchFormView',
           [],
-          [MainFormL.root(), MainFormL.padding(), props.className]
+          [MainFormL.root(), CardL.size.medium(), props.className]
         )}
       >
         {

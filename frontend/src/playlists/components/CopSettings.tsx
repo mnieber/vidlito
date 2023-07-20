@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { EditButton } from '/src/clips/components/EditButton';
+import { CardL } from '/src/frames/components/Card';
 import { L } from '/src/frames/layout';
 import { PlaylistSettingsFormView } from '/src/playlists/components/PlaylistSettingsFormView';
 import { PlaylistSettingsView } from '/src/playlists/components/PlaylistSettingsView';
@@ -23,7 +24,11 @@ export const CopSettings = observer(
 
     return (
       <div
-        className={cn('CopSettings', [], ['py-[18px] px-4', props.className])}
+        className={cn(
+          'CopSettings',
+          [],
+          [CardL.size.medium(), props.className]
+        )}
       >
         <div
           className={cn(
