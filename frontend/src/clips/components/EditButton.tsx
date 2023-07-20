@@ -2,8 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import { Edit } from 'skandha-facets';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { Icon } from '/src/frames/components';
-import { ToolButtonL } from '/src/frames/components/ToolButton';
+import { ToolButton } from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -28,34 +27,22 @@ export const EditButton = observer(
       //
       // 🔳 EditButton 🔳
       //
-      <button
+      <ToolButton
         className={cn(
           'EditButton',
           {
             'EditButton--invisible': R.isNil(props.username),
           },
-          [],
-          [
-            ToolButtonL.root(),
-            !props.enabled && ToolButtonL.disabled(),
-            props.className,
-          ]
+          props.className
         )}
         disabled={!props.enabled}
+        iconName="pencil"
+        iconSize="small"
+        label="Edit"
         onClick={() => {
           props.edit.enable();
         }}
-      >
-        <Icon
-          className={cn(
-            ToolButtonL.icon.root(),
-            ToolButtonL.icon.size.small(),
-            !props.enabled && ToolButtonL.icon.disabled()
-          )}
-          name="pencil"
-        />
-        Edit
-      </button>
+      />
     );
   }, DefaultProps)
 );

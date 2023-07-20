@@ -1,3 +1,4 @@
+import { ButtonPropsT } from '/src/frames/components/ButtonPropsT';
 import { Icon } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -6,11 +7,6 @@ import { cn } from '/src/utils/classnames';
 import './DialogButton.Blue.scss';
 import './DialogButton.SkyBlueWithBorder.scss';
 import './DialogButton.TealWithWhiteText.scss';
-
-type ButtonPropsT = React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
->;
 
 export type PropsT = {
   className?: any;

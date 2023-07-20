@@ -5,8 +5,7 @@ import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
 import { DashboardState } from '/src/dashboard/DashboardState/DashboardState';
-import { Icon } from '/src/frames/components';
-import { ToolButtonL } from '/src/frames/components/ToolButton';
+import { ToolButton } from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -30,17 +29,11 @@ export const NewClipButton = observer(
     const enabled = props.isOwner(props.playlist);
 
     return (
-      <button
-        className={cn(
-          'NewClipButton',
-          [],
-          [
-            ToolButtonL.root(),
-            !enabled && ToolButtonL.disabled(),
-            props.className,
-          ]
-        )}
+      <ToolButton
+        className={cn('NewClipButton', props.className)}
         disabled={!enabled}
+        iconName="plus"
+        label="Clip"
         onClick={() => {
           return onClickNewClipButton(props).then((localClip: ClipT) => {
             navToClip(
@@ -50,17 +43,7 @@ export const NewClipButton = observer(
             );
           });
         }}
-      >
-        <Icon
-          className={cn(
-            ToolButtonL.icon.root(),
-            ToolButtonL.icon.size.normal(),
-            !enabled && ToolButtonL.icon.disabled()
-          )}
-          name="plus"
-        />
-        Clip
-      </button>
+      />
     );
   }, DefaultProps)
 );
