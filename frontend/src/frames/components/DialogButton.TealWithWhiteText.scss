@@ -1,5 +1,7 @@
+@import '/src/frames/components/DialogButtonBase.scss';
+
 .TealWithWhiteText.DialogButton {
-  @apply DialogButtonComponent;
+  @apply DialogButtonBase;
   @apply btnTealWithWhiteText;
 
   .Icon {

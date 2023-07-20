@@ -1,5 +1,7 @@
+@import '/src/frames/components/DialogButtonBase.scss';
+
 .SkyBlueWithBorder.DialogButton {
-  @apply DialogButtonComponent;
+  @apply DialogButtonBase;
   @apply btnWithSkyBlueText border-2 border-blue-primary;
 
   .Icon {

@@ -1,5 +1,7 @@
+@import '/src/frames/components/DialogButtonBase.scss';
+
 .Blue.DialogButton {
-  @apply DialogButtonComponent;
+  @apply DialogButtonBase;
   @apply btnBlueWithDarkText;
 
   .Icon {

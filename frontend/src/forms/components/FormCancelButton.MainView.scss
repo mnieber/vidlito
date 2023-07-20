@@ -1,5 +1,7 @@
+@import '/src/frames/components/DialogButtonBase.scss';
+
 .MainView .FormCancelButton.DialogButton {
-  @apply DialogButtonComponent;
+  @apply DialogButtonBase;
   @apply btnWithSkyBlueText;
 }
 

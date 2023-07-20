@@ -1,5 +1,7 @@
+@import '/src/frames/components/DialogButtonBase.scss';
+
 .AuthCard .FormSaveButton.DialogButton {
-  @apply DialogButtonComponent;
+  @apply DialogButtonBase;
   @apply btnSkyBlueWithWhiteText;
 }
 

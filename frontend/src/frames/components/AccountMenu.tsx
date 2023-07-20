@@ -11,6 +11,7 @@ import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './AccountMenu.scss';
+import '/src/frames/components/DialogButtonBase.scss';
 
 export type PropsT = {
   className?: any;
@@ -39,7 +40,7 @@ export const AccountMenu = observer(
           menuButton={
             <MenuButton
               className={cn(
-                'DialogButtonComponent',
+                'DialogButtonBase',
                 'btnTealWithDarkText',
                 L.row.skewer(),
                 'mb-4'
