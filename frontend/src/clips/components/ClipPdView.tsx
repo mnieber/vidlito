@@ -33,9 +33,5 @@ export const ClipPdView = observer(
 );
 
 const ClipPdViewLoader = observer((props: PropsT & typeof DefaultProps) => {
-  return (
-    <div
-      className={cn('ClipPdViewLoader', 'rounded bg-gray-100', props.className)}
-    ></div>
-  );
+  return <div className={cn('ClipPdViewLoader', props.className)}></div>;
 });

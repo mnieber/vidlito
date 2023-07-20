@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useIsClipNotFound } from '/src/clips/hooks/useIsClipNotFound';
+import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
 import { PlaylistFollowCard } from '/src/playlists/components/PlaylistFollowCard';
 import { cn } from '/src/utils/classnames';
@@ -59,13 +60,8 @@ export const ClipHeaderView = observer(
 
 export const ClipHeaderViewLoader = observer((props: { className?: any }) => {
   return (
-    <div
-      className={cn(
-        'ClipHeaderViewLoader',
-        'h-[50px]',
-        'rounded bg-gray-300',
-        props.className
-      )}
-    ></div>
+    <LoaderBar
+      className={cn('ClipHeaderViewLoader', 'h-[50px]', props.className)}
+    />
   );
 });

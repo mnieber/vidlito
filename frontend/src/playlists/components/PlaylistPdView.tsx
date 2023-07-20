@@ -32,13 +32,5 @@ export const PlaylistPdView = observer(
 );
 
 const PlaylistPdViewLoader = observer((props: PropsT & typeof DefaultProps) => {
-  return (
-    <div
-      className={cn(
-        'PlaylistPdViewLoader',
-        'rounded bg-gray-100',
-        props.className
-      )}
-    ></div>
-  );
+  return <div className={cn('PlaylistPdViewLoader', props.className)}></div>;
 });

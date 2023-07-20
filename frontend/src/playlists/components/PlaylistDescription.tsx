@@ -35,13 +35,7 @@ export const PlaylistDescription = observer(
 const PlaylistDescriptionLoader = observer(
   (props: PropsT & typeof DefaultProps) => {
     return (
-      <div
-        className={cn(
-          'PlaylistDescriptionLoader',
-          'rounded bg-gray-100',
-          props.className
-        )}
-      ></div>
+      <div className={cn('PlaylistDescriptionLoader', props.className)}></div>
     );
   }
 );

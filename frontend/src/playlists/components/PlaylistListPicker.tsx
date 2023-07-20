@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
 import {
   PlaylistListHeader,
@@ -57,15 +58,9 @@ export const PlaylistListPicker = observer(
 export const PlaylistListPickerLoader = observer(
   (props: PropsT & typeof DefaultProps) => {
     return (
-      <div className={cn('ClipListViewLoader', props.className)}>
-        <div
-          className={cn(
-            'ClipListViewLoader__Body',
-            'h-3 my-4',
-            'rounded bg-gray-300'
-          )}
-        ></div>
-      </div>
+      <LoaderBar
+        className={cn('PlaylistListPickerLoader', 'h-3 my-4', props.className)}
+      />
     );
   }
 );

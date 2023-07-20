@@ -35,14 +35,6 @@ export const ClipDescription = observer(
 
 const ClipDescriptionLoader = observer(
   (props: PropsT & typeof DefaultProps) => {
-    return (
-      <div
-        className={cn(
-          'ClipDescriptionLoader',
-          ['rounded bg-gray-100'],
-          [props.className]
-        )}
-      ></div>
-    );
+    return <div className={cn('ClipDescriptionLoader', props.className)}></div>;
   }
 );

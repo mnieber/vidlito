@@ -5,7 +5,6 @@ import { onClickNewClipButton } from '/src/clips/components/NewClipButton';
 import { CtaButtonL } from '/src/frames/components/CtaButton';
 import { Icon } from '/src/frames/components/Icon';
 import { MessageCardL } from '/src/frames/components/MessageCard';
-import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -58,5 +57,5 @@ export const CreateFirstClip = observer(
 );
 
 export const CreateFirstClipLoader = (props: PropsT) => {
-  return <div className={cn(L.col.banner())}></div>;
+  return null;
 };
