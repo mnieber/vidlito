@@ -32,6 +32,7 @@ export const getPlaylist = (args: ArgsT) => {
             endTimeMs
             id
             name
+            nrOfPublicPlaylists
             slug
             startTimeMs
             tags

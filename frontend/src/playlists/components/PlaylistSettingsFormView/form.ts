@@ -12,6 +12,7 @@ const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
     'playlistSettingsForm.playlistId': props.playlist.id ?? null,
     'playlistSettingsForm.isPublic': props.playlist.isPublic ?? null,
+    'playlistSettingsForm.isDeletionEnabled': false,
   };
 };
 
@@ -30,10 +31,18 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
+    if (values['playlistSettingsForm.isDeletionEnabled']) {
+      return props.playlistsDeletion.delete({
+        itemIds: [props.playlist.id],
+        moveToTrash: false,
+      });
+    }
+
     return props.playlistSettingsEdit
       .save({
         values: unflatten({
           ...values,
+          'playlistSettingsForm.isDeletionEnabled': undefined,
         }),
       })
       .then((localPlaylist: PlaylistT) => {

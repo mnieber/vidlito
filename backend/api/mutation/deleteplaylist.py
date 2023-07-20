@@ -35,7 +35,7 @@ class DeletePlaylist(graphene.Mutation):
             if save_clip:
                 clip.save()
 
-        Playlist.objects.filter(id=playlist_id).delete()
+        playlist.delete()
 
         return DeletePlaylist(
             success=True,

@@ -36,6 +36,8 @@ export const ClipListViewItem = observer(
     const showAsSelected =
       props.selectionUIProps.isSelected && props.showSelectionBg;
 
+    const clipNamePostfix = props.clip.nrOfPublicPlaylists ? '' : ' •';
+
     return (
       //
       // 🔳 ClipListViewItem 🔳
@@ -74,7 +76,7 @@ export const ClipListViewItem = observer(
           // 🔳 Title 🔳
         }
         <div className={cn('ClipListViewItem__Title', LviL.title())}>
-          {props.clip.name}
+          {props.clip.name + clipNamePostfix}
         </div>
       </div>
     );
