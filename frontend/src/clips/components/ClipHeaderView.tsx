@@ -34,7 +34,7 @@ export const ClipHeaderView = observer(
     const showPlaylist =
       noClips ||
       props.dashboardState.showPlaylistView ||
-      isClipNotFound(props.playlist, props.clip);
+      isClipNotFound(props.clip);
 
     return (
       <div

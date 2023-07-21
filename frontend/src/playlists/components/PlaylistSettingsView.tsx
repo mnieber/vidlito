@@ -15,10 +15,6 @@ export const DefaultProps = {
 
 export const PlaylistSettingsView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    return (
-      <div className={cn('PlaylistSettingsView', props.className)}>
-        {`This playlist is ${props.playlist.isPublic ? 'public' : 'private'}.`}
-      </div>
-    );
+    return <div className={cn('PlaylistSettingsView', props.className)}></div>;
   }, DefaultProps)
 );

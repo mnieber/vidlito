@@ -6,7 +6,6 @@ export { ClipListView } from './ClipListView';
 export { ClipListViewItem } from './ClipListViewItem';
 export { ClipMenu } from './ClipMenu';
 export { ClipPdView } from './ClipPdView';
-export { ClipTagsView } from './ClipTagsView';
 export { ClipsStateProvider } from './ClipsStateProvider';
 export { GoToTimeButton } from './GoToTimeButton';
 export { NewClipButton } from './NewClipButton';

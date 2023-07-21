@@ -38,12 +38,12 @@ export const CopCard = observer(
 
     const noClips = !props.clips.length && !isLoading(props.clips);
     const showPlaylist = props.dashboardState.showPlaylistView || noClips;
-    const clipNotFound = isClipNotFound(props.playlist, props.clip);
+    const clipNotFound = isClipNotFound(props.clip);
 
     return (
       <>
         {clipNotFound && <ClipNotFound />}
-        {!clipNotFound && !noClips && <VideoPlayerPanel className={cn('')} />}
+        {!clipNotFound && <VideoPlayerPanel className={cn('')} />}
         {!R.isNil(props.dashboardState.panelWidth) && (
           <div
             className={cn(
@@ -54,7 +54,10 @@ export const CopCard = observer(
           >
             <ClipHeaderView className={cn('mb-8')} />
             <AuthorCard>
-              <TagsCard />
+              <TagsCard
+                clipTags={props.clip?.tags ?? []}
+                playlistTags={props.playlist?.tags ?? []}
+              />
             </AuthorCard>
             <CopDescription showPlaylist={showPlaylist} className="mt-8" />
             <CopPd showPlaylist={showPlaylist} className="mt-8" />

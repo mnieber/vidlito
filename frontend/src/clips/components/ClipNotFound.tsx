@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { useNavHandlerParams } from '/src/frames/hooks/useNavHandlerParams';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { log } from '/src/utils/logging';
@@ -14,16 +15,17 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.dashboardState,
-  ...dps.clips,
 };
 
 export const ClipNotFound = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const clipSlug = useNavHandlerParams().clipSlug;
     const width = (props.dashboardState.panelWidth ?? 100) - 1;
     const height = widthToHeight(width);
-    const msg = props.clips.length
-      ? "Oops, it seems this clip doesn't exist"
-      : 'There are no clips in this playlist yet';
+    const msg =
+      clipSlug === '-'
+        ? 'There are no clips in this playlist yet'
+        : "Oops, it seems this clip doesn't exist";
     log('Clip not found');
 
     return (
