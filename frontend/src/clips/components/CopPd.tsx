@@ -26,8 +26,9 @@ const DefaultProps = {
 
 export const CopPd = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const editClipPd = props.clipPdEdit.isEditing;
-    const editPlaylistPd = props.playlistPdEdit.isEditing;
+    const View = props.showPlaylist ? PlaylistPdView : ClipPdView;
+    const FormView = props.showPlaylist ? PlaylistPdFormView : ClipPdFormView;
+    const edit = props.showPlaylist ? props.playlistPdEdit : props.clipPdEdit;
 
     return (
       <div className={cn('CopPd', [], [CardL.size.medium(), props.className])}>
@@ -44,20 +45,12 @@ export const CopPd = observer(
           </div>
           <EditButton
             className="self-end"
-            edit={props.showPlaylist ? props.playlistPdEdit : props.clipPdEdit}
+            edit={edit}
             disabled={!props.userProfile}
           />
         </div>
-        {!props.showPlaylist && !editClipPd && <ClipPdView className="mt-4" />}
-        {!props.showPlaylist && editClipPd && (
-          <ClipPdFormView className="mt-4" />
-        )}
-        {props.showPlaylist && !editPlaylistPd && (
-          <PlaylistPdView className="mt-4" />
-        )}
-        {props.showPlaylist && editPlaylistPd && (
-          <PlaylistPdFormView className="mt-4" />
-        )}
+        {!edit.isEditing && <View className="mt-4" />}
+        {edit.isEditing && <FormView className="mt-4" />}
       </div>
     );
   }, DefaultProps)

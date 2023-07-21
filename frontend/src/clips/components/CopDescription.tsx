@@ -32,9 +32,10 @@ const DefaultProps = {
 
 export const CopDescription = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const editClip = props.clipsEdit.isEditing;
-    const editPlaylist = props.playlistsEdit.isEditing;
     const cop = props.showPlaylist ? props.playlist : props.clip;
+    const edit = props.showPlaylist ? props.playlistsEdit : props.clipsEdit;
+    const View = props.showPlaylist ? PlaylistDescription : ClipDescription;
+    const FormView = props.showPlaylist ? PlaylistFormView : ClipFormView;
 
     return (
       <div
@@ -56,21 +57,13 @@ export const CopDescription = observer(
           {props.userProfile && (
             <EditButton
               className="self-end"
-              edit={props.showPlaylist ? props.playlistsEdit : props.clipsEdit}
+              edit={edit}
               disabled={cop && !props.isOwner(cop)}
             />
           )}
         </div>
-        {!props.showPlaylist && !editClip && (
-          <ClipDescription className="mt-4" />
-        )}
-        {!props.showPlaylist && editClip && <ClipFormView className="mt-4" />}
-        {props.showPlaylist && !editPlaylist && (
-          <PlaylistDescription className="mt-4" />
-        )}
-        {props.showPlaylist && editPlaylist && (
-          <PlaylistFormView className="mt-4" />
-        )}
+        {!edit.isEditing && <View className="mt-4" />}
+        {edit.isEditing && <FormView className="mt-4" />}
       </div>
     );
   }, DefaultProps)

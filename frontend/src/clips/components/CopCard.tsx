@@ -39,6 +39,7 @@ export const CopCard = observer(
     const noClips = !props.clips.length && !isLoading(props.clips);
     const showPlaylist = props.dashboardState.showPlaylistView || noClips;
     const clipNotFound = isClipNotFound(props.clip);
+    const cop = showPlaylist ? props.playlist : props.clip;
 
     return (
       <>
@@ -61,8 +62,8 @@ export const CopCard = observer(
             </AuthorCard>
             <CopDescription showPlaylist={showPlaylist} className="mt-8" />
             <CopPd showPlaylist={showPlaylist} className="mt-8" />
-            {showPlaylist && props.isOwner(props.playlist) && (
-              <CopSettings className="mt-8" />
+            {props.isOwner(cop) && (
+              <CopSettings className="mt-8" showPlaylist={showPlaylist} />
             )}
             {noClips && props.isOwner(props.clip) && (
               <CreateFirstClip className="mt-4" />

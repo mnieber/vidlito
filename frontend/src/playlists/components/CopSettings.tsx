@@ -12,18 +12,38 @@ import { cn } from '/src/utils/classnames';
 import './CopSettings.scss';
 
 export type PropsT = {
+  showPlaylist: boolean;
   className?: any;
 };
 
 export const DefaultProps = {
+  ...dps.clip,
   ...dps.playlist,
   ...dps.playlistSettingsEdit,
 };
 
 export const CopSettings = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const editSettings = props.playlistSettingsEdit.isEditing;
-    const status = props.playlist?.isPublic ? 'Public' : 'Private';
+    const Stub = (...args: any[]) => null;
+    const ClipSettingsView = Stub;
+    const ClipSettingsFormView = Stub;
+    const isPublic = props.showPlaylist
+      ? props.playlist?.isPublic
+      : props.clip?.nrOfPublicPlaylists;
+
+    const status = isPublic ? 'Public' : 'Private';
+    const title = props.showPlaylist ? 'Playlist settings' : 'Clip settings';
+    // HACK: always use playlistSettingsEdit
+    const edit = props.showPlaylist
+      ? props.playlistSettingsEdit
+      : props.playlistSettingsEdit;
+    const editSettings = edit.isEditing;
+    const SettingsView = props.showPlaylist
+      ? PlaylistSettingsView
+      : ClipSettingsView;
+    const SettingsFormView = props.showPlaylist
+      ? PlaylistSettingsFormView
+      : ClipSettingsFormView;
 
     return (
       <div
@@ -41,18 +61,17 @@ export const CopSettings = observer(
           )}
         >
           <div className={cn('CopSettings__Title', L.row.skewer())}>
-            Playlist settings
+            {title}
             <div className="ml-4" />
-            <TagsCard clipTags={[]} playlistTags={[status]} />
+            <TagsCard
+              clipTags={props.showPlaylist ? [] : [status]}
+              playlistTags={props.showPlaylist ? [status] : []}
+            />
           </div>
-          <EditButton
-            className="self-end"
-            edit={props.playlistSettingsEdit}
-            disabled={false}
-          />
+          <EditButton className="self-end" edit={edit} disabled={false} />
         </div>
-        {!editSettings && <PlaylistSettingsView className="" />}
-        {editSettings && <PlaylistSettingsFormView className="mt-4" />}
+        {!editSettings && <SettingsView className="" />}
+        {editSettings && <SettingsFormView className="mt-4" />}
       </div>
     );
   }, DefaultProps)
