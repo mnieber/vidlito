@@ -16,6 +16,7 @@ import { ClipPdStore } from '/src/clips/ClipsState/facets/ClipPdStore';
 import { ClipsStore } from '/src/clips/ClipsState/facets/ClipsStore';
 import { Move } from '/src/clips/ClipsState/facets/Move';
 import { registerClipPdCtr } from '/src/clips/ClipsState/registerClipPdCtr';
+import { registerClipSettingsCtr } from '/src/clips/ClipsState/registerClipSettingsCtr';
 import { registerClipsCtr } from '/src/clips/ClipsState/registerClipsCtr';
 import { ObjT } from '/src/utils/types';
 
@@ -56,6 +57,10 @@ export class ClipsState {
     store: new ClipPdStore(),
   };
 
+  settingsCtr = {
+    edit: new Edit(),
+  };
+
   getSummary() {
     return {
       clips: Skandha.getCtrState(this.clipsCtr),
@@ -71,5 +76,6 @@ export class ClipsState {
     this.props = props;
     registerClipsCtr(this);
     registerClipPdCtr(this);
+    registerClipSettingsCtr(this);
   }
 }

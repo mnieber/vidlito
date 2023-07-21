@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { ClipSettingsFormView } from '/src/clips/components/ClipSettingsFormView';
 import { EditButton } from '/src/clips/components/EditButton';
 import { CardL } from '/src/frames/components/Card';
 import { L } from '/src/frames/layout';
@@ -20,23 +21,22 @@ export const DefaultProps = {
   ...dps.clip,
   ...dps.playlist,
   ...dps.playlistSettingsEdit,
+  ...dps.clipSettingsEdit,
 };
 
 export const CopSettings = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const Stub = (...args: any[]) => null;
     const ClipSettingsView = Stub;
-    const ClipSettingsFormView = Stub;
     const isPublic = props.showPlaylist
       ? props.playlist?.isPublic
       : props.clip?.nrOfPublicPlaylists;
 
     const status = isPublic ? 'Public' : 'Private';
     const title = props.showPlaylist ? 'Playlist settings' : 'Clip settings';
-    // HACK: always use playlistSettingsEdit
     const edit = props.showPlaylist
       ? props.playlistSettingsEdit
-      : props.playlistSettingsEdit;
+      : props.clipSettingsEdit;
     const editSettings = edit.isEditing;
     const SettingsView = props.showPlaylist
       ? PlaylistSettingsView

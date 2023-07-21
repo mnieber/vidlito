@@ -49,7 +49,7 @@ const setCallbacks = (state: PlaylistsState) => {
   } as FollowingCbs);
 };
 
-export const registerSettingsCtr = (state: PlaylistsState) => {
+export const registerPlaylistSettingsCtr = (state: PlaylistsState) => {
   registerCtr({
     ctr: state.settingsCtr,
     options: { name: 'PlaylistsState.PlaylistSettings' },

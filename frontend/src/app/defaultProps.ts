@@ -125,12 +125,15 @@ const dpsClips = {
   },
 };
 
-const dpsClipPd = {
+const dpsClip = {
   clipPd: {
     clipPd: stub as ClipPdT,
   },
   clipPdEdit: {
     clipPdEdit: stub as Edit,
+  },
+  clipSettingsEdit: {
+    clipSettingsEdit: stub as Edit,
   },
 };
 
@@ -209,7 +212,7 @@ const dpsVideoPlayer = {
 export const defaultProps = {
   ...dpsActions,
   ...dpsClips,
-  ...dpsClipPd,
+  ...dpsClip,
   ...dpsDashboard,
   ...dpsPlaylists,
   ...dpsPlaylist,

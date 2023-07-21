@@ -12,14 +12,14 @@ export type PropsT = {
   className?: any;
 };
 
-export const EnableDeletePlaylistField = observer((props: PropsT) => {
+export const EnableDeleteField = observer((props: PropsT) => {
   const formState = useFormStateContext();
   const formField = useFormFieldContext();
 
   return (
     <div
       className={cn(
-        'EnableDeletePlaylistField',
+        'EnableDeleteField',
         FormFieldL.root(),
         FormFieldL.input(),
         props.className
@@ -32,7 +32,7 @@ export const EnableDeletePlaylistField = observer((props: PropsT) => {
         <Toggle
           className="mt-1 h-6 w-10"
           themeClassName="Red"
-          id="enableDeletePlaylist"
+          id="enableDelete"
           onChange={(e: any) => {
             props.setIsDeleteEnabled(e.target.checked);
             formState.setValue(formField.fieldName, e.target.checked);

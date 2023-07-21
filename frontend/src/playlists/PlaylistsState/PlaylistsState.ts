@@ -16,8 +16,8 @@ import { PlaylistT } from '/src/api/types/PlaylistT';
 import { Following } from '/src/playlists/PlaylistsState/facets/Following';
 import { PlaylistStore } from '/src/playlists/PlaylistsState/facets/PlaylistStore';
 import { registerPdCtr } from '/src/playlists/PlaylistsState/registerPdCtr';
+import { registerPlaylistSettingsCtr } from '/src/playlists/PlaylistsState/registerPlaylistSettingsCtr';
 import { registerPlaylistsCtr } from '/src/playlists/PlaylistsState/registerPlaylistsCtr';
-import { registerSettingsCtr } from '/src/playlists/PlaylistsState/registerSettingsCtr';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
@@ -72,6 +72,6 @@ export class PlaylistsState {
     this.props = props;
     registerPlaylistsCtr(this);
     registerPdCtr(this);
-    registerSettingsCtr(this);
+    registerPlaylistSettingsCtr(this);
   }
 }

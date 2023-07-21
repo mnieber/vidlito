@@ -11,9 +11,9 @@ import {
   FormSaveButton,
   GlobalError,
 } from '/src/forms/components';
+import { EnableDeleteField } from '/src/forms/components/EnableDeleteField';
 import { CardL } from '/src/frames/components/Card';
 import { IsPublicPlaylistField } from '/src/playlists/components/IsPublicPlaylistField';
-import { EnableDeletePlaylistField } from '/src/playlists/components/PlaylistSettingsFormView/EnableDeletePlaylistField';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -76,7 +76,7 @@ export const PlaylistSettingsFormView = observer(
             className={MainFormL.Field()}
           >
             <FormFieldLabel label="DELETE PLAYLIST" />
-            <EnableDeletePlaylistField
+            <EnableDeleteField
               isDeleteEnabled={isDeleteEnabled}
               setIsDeleteEnabled={setIsDeleteEnabled}
             />
