@@ -26,6 +26,7 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.clip,
   ...dps.videoPlayerState,
+  ...dps.playlistsDeletion,
 };
 
 export const ClipListViewItem = observer(
@@ -36,7 +37,12 @@ export const ClipListViewItem = observer(
     const showAsSelected =
       props.selectionUIProps.isSelected && props.showSelectionBg;
 
-    const clipNamePostfix = props.clip.nrOfPublicPlaylists ? '' : ' •';
+    const nrOfPlaylists =
+      props.clip.nrOfPublicPlaylists + props.clip.nrOfPrivatePlaylists;
+    const clipNamePostfix =
+      props.playlistsDeletion.isDeleteEnabled && nrOfPlaylists === 1
+        ? ' •'
+        : '';
 
     return (
       //

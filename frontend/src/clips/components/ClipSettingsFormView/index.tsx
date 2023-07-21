@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { IsPublicClipField } from '/src/clips/components/ClipSettingsFormView/IsPublicClipField';
 import { MainFormL } from '/src/dashboard/components/MainView/MainForm';
 import {
   Field,
@@ -56,6 +57,16 @@ export const ClipSettingsFormView = observer(
         >
           <GlobalError className={MainFormL.GlobalError()} />
           {
+            // 🔳 IsPublicField 🔳
+          }
+          <Field
+            fieldName="playlistSettingsForm.isPublic"
+            className={MainFormL.Field()}
+          >
+            <FormFieldLabel label="SETTINGS" />
+            <IsPublicClipField clip={props.clip} />
+          </Field>
+          {
             // 🔳 Delete Clip 🔳
           }
           <Field
@@ -65,7 +76,11 @@ export const ClipSettingsFormView = observer(
             <FormFieldLabel label="DELETE CLIP" />
             <EnableDeleteField
               deletionWithFlag={props.clipsDeletion}
-              msg={deleteClipMsg}
+              msg={
+                props.clip.nrOfPublicPlaylists
+                  ? deletePublicClipMsg
+                  : deletePrivateClipMsg
+              }
             />
           </Field>
           {
@@ -91,7 +106,9 @@ export const ClipSettingsFormView = observer(
   }, DefaultProps)
 );
 
-const deleteClipMsg = `This is a destructive action that cannot be undone. It will delete
-the clip from all your playlists. Moreover, other people that may be sharing this clip will
-no longer be able to see it. To preserve the clip you can use the
-"Move to trash" option of the context menu in the clip list in the left sidebar.`;
+const deletePublicClipMsg = `This is a destructive action that deletes
+the clip (from all your playlists) for you and other users.
+To preserve the clip you can use the "Move to trash" option of the context menu in the clip list in the left sidebar.`;
+
+const deletePrivateClipMsg = `This is a destructive action that deletes the clip from all your playlists.
+To preserve the clip you can use the "Move to trash" option of the context menu in the clip list in the left sidebar.`;

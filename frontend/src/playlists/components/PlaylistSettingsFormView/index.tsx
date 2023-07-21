@@ -32,6 +32,9 @@ export const PlaylistSettingsFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
+    const nrOfClipsThatWillBeDeleted = props.playlist.clipSet.filter(
+      (clip) => clip.nrOfPublicPlaylists + clip.nrOfPrivatePlaylists === 1
+    ).length;
 
     return (
       <div
@@ -76,7 +79,13 @@ export const PlaylistSettingsFormView = observer(
             <FormFieldLabel label="DELETE PLAYLIST" />
             <EnableDeleteField
               deletionWithFlag={props.playlistsDeletion}
-              msg={deletePlaylistMsg}
+              msg={
+                props.playlist.nrOfClips === 0
+                  ? deleteEmptyPlaylistMsg
+                  : nrOfClipsThatWillBeDeleted === 0
+                  ? deletePlaylistMsg
+                  : deletePlaylistAndClipsMsg
+              }
             />
           </Field>
           {
@@ -104,8 +113,12 @@ export const PlaylistSettingsFormView = observer(
   }, DefaultProps)
 );
 
-const deletePlaylistMsg = `When you delete a playlist, then all clips that are not contained in
-one of your other playlists will be deleted as well. Note that these
-clips (that will be deleted along with this playlist) can be
-identified by a dot behind their name in the clip list in the left
-sidebar.`;
+const deletePlaylistAndClipsMsg = `When you delete this playlist, then all clips that are not contained in
+one of your other playlists will be deleted as well. The affected clips are shown with a dot behind
+their name in the clip list in the left sidebar.`;
+
+const deletePlaylistMsg = `The clips on this playlist also exist on your other playlists. Therefore,
+when you delete this playlist, no clips will be deleted along with it.`;
+
+const deleteEmptyPlaylistMsg = `This playlist has no clips. Therefore, when you delete this playlist,
+no clips will be deleted along with it.`;
