@@ -2,6 +2,7 @@ from datetime import datetime
 
 import graphene
 from django.db import transaction
+from django.db.models import Q
 from graphene.types.generic import GenericScalar
 
 from actions.models import Action
@@ -32,10 +33,10 @@ class MoveClipsToTrash(graphene.Mutation):
                 playlist_id=playlist.id,
                 owner=owner,
                 data={
-                    "entry_ids": [entry.id for entry in entries],
+                    "entry_ids": [entry.id.hex for entry in entries],
                     "clip_names": [entry.clip.name for entry in entries][:3]
                     + (["..."] if len(entries) > 3 else []),
-                    "playlist_id": playlist.id,
+                    "playlist_id": playlist.id.hex,
                     "playlist_name": playlist.name,
                     "date": current_datetime_str,
                 },
@@ -79,13 +80,14 @@ def pick_new_source_movelist(info, clip, candidate_playlist, save):
     )
 
     if not public_source_playlist:
-        other_entries = Entry.objects.filter(
+        other_entries = Entry.objects.exclude(
+            playlist_id=clip.source_playlist_id
+        ).filter(
             clip_id=clip.id,
-            playlist_id__exclude=clip.source_playlist_id,
             playlist__owner_id=info.context.user.id,
         )
 
-        public_source_playlist = other_entries(playlist__is_public=True).first()
+        public_source_playlist = other_entries.filter(playlist__is_public=True).first()
         if not public_source_playlist:
             if not private_source_playlist:
                 private_source_playlist = other_entries.first()

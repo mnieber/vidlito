@@ -18,7 +18,9 @@ class Clip(Entity):
     slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
     source_playlist = models.ForeignKey(
         "playlists.Playlist",
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
         related_name="+",
     )
     start_time_ms = models.IntegerField(null=True, blank=True)
