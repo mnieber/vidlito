@@ -41,8 +41,12 @@ export const IsPublicPlaylistField = observer(
             className={cn(DialogButtonL.icon.root(), IconL.color.gray())}
             name={isPublic ? 'radioButtonOn' : 'radioButtonOff'}
           />
-          This playlist is public: your clips in this playlist will be visible
-          to everyone.
+          <div>
+            <div className={cn('IsPublicPlaylistField__Label', 'mr-1')}>
+              Public
+            </div>
+            <div>Your clips in this playlist will be visible to everyone.</div>
+          </div>
         </div>
         <div
           className={cn(
@@ -56,8 +60,15 @@ export const IsPublicPlaylistField = observer(
             className={cn(DialogButtonL.icon.root(), IconL.color.gray())}
             name={!isPublic ? 'radioButtonOn' : 'radioButtonOff'}
           />
-          This playlist is private: your clips are not visible to other people
-          (unless one of your public playlists also contains them).
+          <div>
+            <div className={cn('IsPublicPlaylistField__Label', 'mr-1')}>
+              Private
+            </div>
+            <div>
+              Your clips are not visible to other people (unless one of your
+              public playlists also contains them).
+            </div>
+          </div>
         </div>
       </div>
     );
