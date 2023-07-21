@@ -1,7 +1,6 @@
 import * as Skandha from 'skandha';
 import {
   Addition,
-  Deletion,
   Display,
   DragAndDrop,
   Edit,
@@ -13,6 +12,7 @@ import {
 import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
 import { PlaylistSettingsT } from '/src/api/types/PlaylistSettingsT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
+import { DeletionWithFlag } from '/src/clips/ClipsState/facets/DeletionWithFlag';
 import { Following } from '/src/playlists/PlaylistsState/facets/Following';
 import { PlaylistStore } from '/src/playlists/PlaylistsState/facets/PlaylistStore';
 import { registerPdCtr } from '/src/playlists/PlaylistsState/registerPdCtr';
@@ -36,7 +36,7 @@ export class PlaylistsState {
 
   playlistsCtr = {
     addition: new Addition<PlaylistT>(),
-    deletion: new Deletion(),
+    deletion: new DeletionWithFlag(),
     display: new Display<PlaylistT>(),
     dragAndDrop: new DragAndDrop(),
     edit: new Edit(),

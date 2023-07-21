@@ -9,6 +9,7 @@ export type ClipT = {
   id: string;
   name: string;
   nrOfPublicPlaylists: number;
+  nrOfPrivatePlaylists: number;
   ownerUsername: string;
   slug: string;
   startTimeMs?: number;

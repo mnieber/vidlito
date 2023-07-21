@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -32,7 +31,6 @@ export const ClipSettingsFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
-    const [isDeleteEnabled, setIsDeleteEnabled] = React.useState(false);
 
     return (
       <div
@@ -66,8 +64,8 @@ export const ClipSettingsFormView = observer(
           >
             <FormFieldLabel label="DELETE CLIP" />
             <EnableDeleteField
-              isDeleteEnabled={isDeleteEnabled}
-              setIsDeleteEnabled={setIsDeleteEnabled}
+              deletionWithFlag={props.clipsDeletion}
+              msg={deleteClipMsg}
             />
           </Field>
           {
@@ -76,13 +74,13 @@ export const ClipSettingsFormView = observer(
           <div className={cn(MainFormL.Buttons())}>
             <FormCancelButton
               className={cn(MainFormL.Button.root(), MainFormL.Button.gap())}
-              danger={isDeleteEnabled}
+              danger={props.clipsDeletion.isDeleteEnabled}
               label="Cancel"
               tabIndex={6}
             />
             <FormSaveButton
-              label={isDeleteEnabled ? 'Delete' : 'Save'}
-              danger={isDeleteEnabled}
+              label={props.clipsDeletion.isDeleteEnabled ? 'Delete' : 'Save'}
+              danger={props.clipsDeletion.isDeleteEnabled}
               tabIndex={6}
               className={cn(MainFormL.Button.root())}
             />
@@ -92,3 +90,8 @@ export const ClipSettingsFormView = observer(
     );
   }, DefaultProps)
 );
+
+const deleteClipMsg = `This is a destructive action that cannot be undone. It will delete
+the clip from all your playlists. Moreover, other people that may be sharing this clip will
+no longer be able to see it. To preserve the clip you can use the
+"Move to trash" option of the context menu in the clip list in the left sidebar.`;

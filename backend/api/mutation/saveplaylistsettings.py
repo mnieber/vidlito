@@ -22,7 +22,12 @@ class SavePlaylistSettings(graphene.Mutation):
 
             for entry in playlist.entry_set.all():
                 clip = entry.clip
-                clip.nr_of_public_playlists += 1 if playlist.is_public else -1
+                if playlist_settings_form.is_public:
+                    clip.nr_of_public_playlists += 1
+                    clip.nr_of_private_playlists += -1
+                else:
+                    clip.nr_of_public_playlists += -1
+                    clip.nr_of_private_playlists += 1
 
                 if (
                     not playlist_settings_form.is_public

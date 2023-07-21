@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -33,7 +32,6 @@ export const PlaylistSettingsFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
-    const [isDeleteEnabled, setIsDeleteEnabled] = React.useState(false);
 
     return (
       <div
@@ -77,8 +75,8 @@ export const PlaylistSettingsFormView = observer(
           >
             <FormFieldLabel label="DELETE PLAYLIST" />
             <EnableDeleteField
-              isDeleteEnabled={isDeleteEnabled}
-              setIsDeleteEnabled={setIsDeleteEnabled}
+              deletionWithFlag={props.playlistsDeletion}
+              msg={deletePlaylistMsg}
             />
           </Field>
           {
@@ -87,13 +85,15 @@ export const PlaylistSettingsFormView = observer(
           <div className={cn(MainFormL.Buttons())}>
             <FormCancelButton
               className={cn(MainFormL.Button.root(), MainFormL.Button.gap())}
-              danger={isDeleteEnabled}
+              danger={props.playlistsDeletion.isDeleteEnabled}
               label="Cancel"
               tabIndex={6}
             />
             <FormSaveButton
-              label={isDeleteEnabled ? 'Delete' : 'Save'}
-              danger={isDeleteEnabled}
+              label={
+                props.playlistsDeletion.isDeleteEnabled ? 'Delete' : 'Save'
+              }
+              danger={props.playlistsDeletion.isDeleteEnabled}
               tabIndex={6}
               className={cn(MainFormL.Button.root())}
             />
@@ -103,3 +103,9 @@ export const PlaylistSettingsFormView = observer(
     );
   }, DefaultProps)
 );
+
+const deletePlaylistMsg = `When you delete a playlist, then all clips that are not contained in
+one of your other playlists will be deleted as well. Note that these
+clips (that will be deleted along with this playlist) can be
+identified by a dot behind their name in the clip list in the left
+sidebar.`;

@@ -1,7 +1,6 @@
 import { stub, withDefaultProps } from 'react-default-props-context';
 import {
   Addition,
-  Deletion,
   DragAndDrop,
   Edit,
   Highlight,
@@ -18,6 +17,7 @@ import { PlaylistT } from '/src/api/types/PlaylistT';
 import { SearchResultT } from '/src/api/types/SearchResultT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { ClipsState } from '/src/clips/ClipsState';
+import { DeletionWithFlag } from '/src/clips/ClipsState/facets/DeletionWithFlag';
 import { Move } from '/src/clips/ClipsState/facets/Move';
 import { DashboardState } from '/src/dashboard/DashboardState';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
@@ -100,7 +100,7 @@ const dpsClips = {
     clipsAddition: stub as Addition,
   },
   clipsDeletion: {
-    clipsDeletion: stub as Deletion,
+    clipsDeletion: stub as DeletionWithFlag,
   },
   clipsDragAndDrop: {
     clipsDragAndDrop: stub as DragAndDrop,
@@ -166,7 +166,7 @@ const dpsPlaylists = {
     playlistsAddition: stub as Addition,
   },
   playlistsDeletion: {
-    playlistsDeletion: stub as Deletion,
+    playlistsDeletion: stub as DeletionWithFlag,
   },
   playlistsDragAndDrop: {
     playlistsDragAndDrop: stub as DragAndDrop,

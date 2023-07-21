@@ -1,4 +1,5 @@
 import graphene
+from django.db.models import Q
 from graphene_django.types import DjangoObjectType
 
 from api.types.clip_t import ClipT
@@ -20,7 +21,11 @@ class PlaylistT(DjangoObjectType):
 
     def resolve_clip_set(self, info):
         return [
-            x.clip for x in self.entry_set.filter(clip__nr_of_public_playlists__gt=0)
+            x.clip
+            for x in self.entry_set.filter(
+                Q(clip__nr_of_public_playlists__gt=0)
+                | Q(clip__owner__user_id=info.context.user.id)
+            ).select_related("clip")
         ]
 
     def resolve_owner_username(self, info):

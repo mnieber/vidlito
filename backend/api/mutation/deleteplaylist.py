@@ -15,25 +15,22 @@ class DeletePlaylist(graphene.Mutation):
 
     def mutate(self, info, playlist_id):
         playlist = Playlist.get_mine(info, id=playlist_id)
-        my_entries = Entry.objects.filter(playlist__owner__user_id=info.context.user.id)
         for entry in playlist.entry_set.all():
             clip = entry.clip
-            save_clip = False
-
-            if my_entries.filter(clip=clip).count() == 1:
-                clip.delete()
-                continue
 
             if playlist.is_public:
                 clip.nr_of_public_playlists -= 1
-                save_clip = True
+            else:
+                clip.nr_of_private_playlists -= 1
+
+            if clip.nr_of_public_playlists == 0 and clip.nr_of_private_playlists == 0:
+                clip.delete()
+                continue
 
             if clip.source_playlist_id == playlist.id:
                 pick_new_source_movelist(info, clip, None, save=False)
-                save_clip = True
 
-            if save_clip:
-                clip.save()
+            clip.save()
 
         playlist.delete()
 

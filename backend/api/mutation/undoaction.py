@@ -42,7 +42,6 @@ class UndoAction(graphene.Mutation):
                 entry.save()
 
                 clip = entry.clip
-                save_clip = False
 
                 if not clip.source_playlist_id or (
                     playlist.is_public and clip.nr_of_public_playlists == 0
@@ -52,10 +51,10 @@ class UndoAction(graphene.Mutation):
 
                 if playlist.is_public:
                     clip.nr_of_public_playlists += 1
-                    save_clip = True
+                else:
+                    clip.nr_of_private_playlists += 1
 
-                if save_clip:
-                    clip.save()
+                clip.save()
 
             Entry.filter(id__in=[entry.id for entry in entries_to_delete]).delete()
 
