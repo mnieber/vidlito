@@ -26,22 +26,23 @@ export const SyncClipWithUrlEffect = observer(
     const location = useLocation();
     const params = useParams() as ObjT;
     const refUrl = React.useRef<string>('');
+    const { clipSlug } = params;
 
     React.useEffect(() => {
       // If there is a new url
       if (refUrl.current !== location.pathname) {
         const mustAddNewClip = () =>
-          params.clipSlug === 'new-clip' && !clipsAddition.item && userProfile;
+          clipSlug === 'new-clip' && !clipsAddition.item && userProfile;
 
         const addNewClip = () => {
           clipsAddition.add({ values: createClip(userProfile, {}) });
         };
 
         const getClipForCurrentUrl = () =>
-          R.find((x: ClipT) => x.slug === params.clipSlug)(clips) ??
-          (params.clipSlug === '-' ? R.head(clips) : undefined);
+          R.find((x: ClipT) => x.slug === clipSlug)(clips) ??
+          (clipSlug === '-' ? R.head(clips) : undefined);
 
-        const selectClip = (clip: ClipT) => {
+        const selectClip = (clip?: ClipT) => {
           clipsSelection.selectItem({ itemId: clip?.id });
         };
 
@@ -58,7 +59,7 @@ export const SyncClipWithUrlEffect = observer(
           }
         }
       } else {
-        if (props.clip && params.clipSlug !== props.clip.slug) {
+        if (props.clip && clipSlug !== props.clip.slug) {
           navToClip(
             props.playlist.ownerUsername,
             props.playlist.slug,
@@ -66,7 +67,7 @@ export const SyncClipWithUrlEffect = observer(
           );
         }
       }
-    }, [params, props.clip, clips, clipsSelection]);
+    }, [clipSlug, props.clip, clips, clipsSelection]);
 
     return null;
   }, DefaultProps)
