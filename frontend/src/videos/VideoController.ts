@@ -9,6 +9,7 @@ export type PlayerT = {
   getPlayerState: () => number;
   setPlaybackRate: (r: number) => void;
   getCurrentTime: () => number;
+  getMediaReferenceTime: () => number;
 };
 
 export class VideoController {
