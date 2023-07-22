@@ -7,6 +7,7 @@ import { ClipNotFound } from '/src/clips/components/ClipNotFound';
 import { CopDescription } from '/src/clips/components/CopDescription';
 import { CopPd } from '/src/clips/components/CopPd';
 import { useIsClipNotFound } from '/src/clips/hooks/useIsClipNotFound';
+import { CardL } from '/src/frames/components/Card';
 import { L } from '/src/frames/layout';
 import { AuthorCard } from '/src/playlists/components/AuthorCard';
 import { CopSettings } from '/src/playlists/components/CopSettings';
@@ -43,6 +44,7 @@ export const CopCard = observer(
     const showPlaylist = props.dashboardState.showPlaylistView || noClips;
     const clipNotFound = isClipNotFound(props.clip);
     const cop = showPlaylist ? props.playlist : props.clip;
+    const separator = ['my-4', 'border-t border-gray-300'];
 
     return (
       <>
@@ -63,13 +65,21 @@ export const CopCard = observer(
                 playlistTags={props.playlist?.tags ?? []}
               />
             </AuthorCard>
-            <CopDescription showPlaylist={showPlaylist} className="mt-8" />
-            {!cop?.isTransient && (
-              <CopPd showPlaylist={showPlaylist} className="mt-8" />
-            )}
-            {props.isOwner(cop) && !cop?.isTransient && (
-              <CopSettings className="mt-8" showPlaylist={showPlaylist} />
-            )}
+            <div className={cn('CopCard__Forms', 'mt-8', CardL.size.medium())}>
+              <CopDescription showPlaylist={showPlaylist} className="" />
+              {!cop?.isTransient && (
+                <>
+                  <div className={cn(separator)} />
+                  <CopPd showPlaylist={showPlaylist} className="" />
+                </>
+              )}
+              {props.isOwner(cop) && !cop?.isTransient && (
+                <>
+                  <div className={cn(separator)} />
+                  <CopSettings className="" showPlaylist={showPlaylist} />
+                </>
+              )}
+            </div>
             {noClips &&
               props.isOwner(props.playlist) &&
               !props.playlistsEdit.isEditing &&

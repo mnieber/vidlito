@@ -3,7 +3,6 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipDescription } from '/src/clips/components/ClipDescription';
 import { ClipFormView } from '/src/clips/components/ClipFormView';
 import { EditButton } from '/src/clips/components/EditButton';
-import { CardL } from '/src/frames/components/Card';
 import { L } from '/src/frames/layout';
 import {
   PlaylistDescription,
@@ -38,13 +37,7 @@ export const CopDescription = observer(
     const FormView = props.showPlaylist ? PlaylistFormView : ClipFormView;
 
     return (
-      <div
-        className={cn(
-          'CopDescription',
-          [],
-          [CardL.size.medium(), props.className]
-        )}
-      >
+      <div className={cn('CopDescription', [], [props.className])}>
         <div
           className={cn(
             'CopDescription__TopRow',

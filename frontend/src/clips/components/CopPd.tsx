@@ -3,7 +3,6 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipPdView } from '/src/clips/components';
 import { ClipPdFormView } from '/src/clips/components/ClipPdFormView';
 import { EditButton } from '/src/clips/components/EditButton';
-import { CardL } from '/src/frames/components/Card';
 import { L } from '/src/frames/layout';
 import { PlaylistPdView } from '/src/playlists/components';
 import { PlaylistPdFormView } from '/src/playlists/components/PlaylistPdFormView';
@@ -31,7 +30,7 @@ export const CopPd = observer(
     const edit = props.showPlaylist ? props.playlistPdEdit : props.clipPdEdit;
 
     return (
-      <div className={cn('CopPd', [], [CardL.size.medium(), props.className])}>
+      <div className={cn('CopPd', [], [props.className])}>
         <div
           className={cn(
             'CopPd__TopRow',
