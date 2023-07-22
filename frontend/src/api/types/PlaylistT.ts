@@ -16,6 +16,8 @@ export type PlaylistT = {
   tags: string[];
   playlistPd?: PlaylistPdT;
   isPublic: boolean;
+} & {
+  isTransient?: boolean;
 };
 
 export type PlaylistByIdT = { [id: string]: PlaylistT };
@@ -39,6 +41,7 @@ export const createPlaylist = (me: UserProfileT, values: ObjT): PlaylistT => {
     slug: 'new-playlist',
     tags: [],
     isPublic: false,
+    isTransient: true,
   } as PlaylistT);
 };
 

@@ -15,6 +15,8 @@ export type ClipT = {
   startTimeMs?: number;
   tags: string[];
   url?: string;
+} & {
+  isTransient?: boolean;
 };
 
 export type ClipByIdT = { [id: string]: ClipT };
@@ -36,5 +38,6 @@ export const createClip = (me: UserProfileT, values: ObjT): ClipT => {
     name: 'New clip',
     ownerUsername: me.username,
     slug: 'new-clip',
+    isTransient: true,
   } as ClipT);
 };

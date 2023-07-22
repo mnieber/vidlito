@@ -50,7 +50,7 @@ export const CopCard = observer(
             className={cn(
               'CopCard__Body',
               [],
-              [L.col.banner(), 'ml-6 my-8', 'max-w-[776px]']
+              [L.col.banner(), 'grow', 'ml-6 my-8', 'max-w-[776px]']
             )}
           >
             <ClipHeaderView className={cn('mb-8')} />
@@ -61,11 +61,13 @@ export const CopCard = observer(
               />
             </AuthorCard>
             <CopDescription showPlaylist={showPlaylist} className="mt-8" />
-            <CopPd showPlaylist={showPlaylist} className="mt-8" />
-            {props.isOwner(cop) && (
+            {!cop?.isTransient && (
+              <CopPd showPlaylist={showPlaylist} className="mt-8" />
+            )}
+            {props.isOwner(cop) && !cop?.isTransient && (
               <CopSettings className="mt-8" showPlaylist={showPlaylist} />
             )}
-            {noClips && props.isOwner(props.clip) && (
+            {noClips && props.isOwner(props.playlist) && (
               <CreateFirstClip className="mt-4" />
             )}
           </div>
