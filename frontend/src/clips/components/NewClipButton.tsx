@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { Addition, Selection } from 'skandha-facets';
 import { ClipT, createClip } from '/src/api/types/ClipT';
+import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
@@ -35,13 +36,7 @@ export const NewClipButton = observer(
         iconName="plus"
         label="Clip"
         onClick={() => {
-          return onClickNewClipButton(props).then((localClip: ClipT) => {
-            navToClip(
-              props.playlist.ownerUsername,
-              props.playlist.slug,
-              localClip.slug
-            );
-          });
+          return onClickNewClipButton(props);
         }}
       />
     );
@@ -50,6 +45,7 @@ export const NewClipButton = observer(
 
 export function onClickNewClipButton(props: {
   dashboardState: DashboardState;
+  playlist: PlaylistT;
   userProfile: UserProfileT;
   clipsSelection: Selection;
   clipsAddition: Addition;
@@ -61,5 +57,12 @@ export function onClickNewClipButton(props: {
     .then((localClip: ClipT) => {
       props.clipsSelection.selectItem({ itemId: localClip.id });
       return localClip;
+    })
+    .then((localClip: ClipT) => {
+      navToClip(
+        props.playlist.ownerUsername,
+        props.playlist.slug,
+        localClip.slug
+      );
     });
 }
