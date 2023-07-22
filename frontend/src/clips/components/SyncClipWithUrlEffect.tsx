@@ -25,8 +25,8 @@ export const SyncClipWithUrlEffect = observer(
 
     const location = useLocation();
     const params = useParams() as ObjT;
-    const refUrl = React.useRef<string>('');
     const { clipSlug } = params;
+    const refUrl = React.useRef<string>('');
 
     React.useEffect(() => {
       // If there is a new url
@@ -46,6 +46,7 @@ export const SyncClipWithUrlEffect = observer(
           clipsSelection.selectItem({ itemId: clip?.id });
         };
 
+        // refUrl.current = '';
         if (mustAddNewClip()) {
           refUrl.current = location.pathname;
           addNewClip();
@@ -56,6 +57,8 @@ export const SyncClipWithUrlEffect = observer(
             if (props.clip?.id !== clipForCurrentUrl.id) {
               selectClip(clipForCurrentUrl);
             }
+          } else if (clipSlug === '-') {
+            selectClip(undefined);
           }
         }
       } else {
