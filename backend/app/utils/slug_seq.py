@@ -23,9 +23,14 @@ def get_slug_postfix(slug):
     return match.group(0) if match else ""
 
 
+# The sentinel "-" is used to enforce the rule that
+# all slugs are unique and end either in -, or in -1, -2, -3, etc.
+# Note that according to this rule, foo-2 is guaranteed to be a variation on foo-.
+
+
 def update_slug(slug, slug_type):
     slug_postfix = get_slug_postfix(slug)
-    slug_prefix = slug[: -len(slug_postfix)]
+    slug_prefix = slug[: -len(slug_postfix)] if slug_postfix else slug
     slug_id = slug_type + "/" + slug_prefix
     slug_seq = get_next_slug_seq(slug_id)
     return slug_prefix + "-" + ("" if slug_seq == 1 else str(slug_seq))

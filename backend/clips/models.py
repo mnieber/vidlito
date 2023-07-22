@@ -30,10 +30,7 @@ class Clip(Entity):
 
     def save(self, *args, **kwargs):
         if self.slug is None:
-            self.slug = slugify(self.name)
-        existing_clip = Clip.objects.filter(id=self.id).first() if self.id else None
-        if not (existing_clip and existing_clip.slug == self.slug):
-            self.slug = update_slug(self.slug, "clip")
+            self.slug = update_slug(slugify(self.name))
         super().save(*args, **kwargs)
         Tag.add_tags(self.tags)
 

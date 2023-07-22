@@ -31,12 +31,7 @@ class Playlist(Entity):
 
     def save(self, *args, **kwargs):
         if self.slug is None:
-            self.slug = slugify(self.name)
-        existing_playlist = (
-            Playlist.objects.filter(id=self.id).first() if self.id else None
-        )
-        if not (existing_playlist and existing_playlist.slug == self.slug):
-            self.slug = update_slug(self.slug, "playlist")
+            self.slug = update_slug(slugify(self.name), "playlist")
         super().save(*args, **kwargs)
         Tag.add_tags(self.tags)
 
@@ -114,3 +109,6 @@ class Follow(Entity):
     owner = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE, related_name="follow_set"
     )
+
+    def __str__(self):
+        return f"Follow {self.owner.username} -> {self.playlist.name}"
