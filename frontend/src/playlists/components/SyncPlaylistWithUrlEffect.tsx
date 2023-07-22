@@ -33,13 +33,14 @@ export const SyncPlaylistWithUrlEffect = observer(
 
     const location = useLocation();
     const params = useParams() as ObjT;
+    const { playlistSlug } = params;
     const refUrl = React.useRef<string>('');
 
     React.useEffect(() => {
       // If there is a new url
       if (refUrl.current !== location.pathname) {
         const mustAddNewPlaylist = () =>
-          params.playlistSlug === 'new-playlist' &&
+          playlistSlug === 'new-playlist' &&
           !playlistsAddition.item &&
           userProfile;
 
@@ -49,12 +50,10 @@ export const SyncPlaylistWithUrlEffect = observer(
         };
 
         const getPlaylistForCurrentUrl = () => {
-          return R.find((x: PlaylistT) => x.slug === params.playlistSlug)(
-            playlists
-          );
+          return R.find((x: PlaylistT) => x.slug === playlistSlug)(playlists);
         };
 
-        const selectPlaylist = (playlist: PlaylistT) => {
+        const selectPlaylist = (playlist?: PlaylistT) => {
           playlistsSelection.selectItem({ itemId: playlist?.id });
           playlistsHighlight.highlightItem({ id: playlist?.id });
         };
@@ -69,15 +68,23 @@ export const SyncPlaylistWithUrlEffect = observer(
             if (playlist?.id !== playlistForCurrentUrl.id) {
               selectPlaylist(playlistForCurrentUrl);
             }
+          } else if (playlistSlug === '-') {
+            selectPlaylist(undefined);
           }
         }
       } else {
         // Check if we must update the current url based on the highlighted playlist.
-        if (playlist && params.playlistSlug !== playlist.slug) {
+        if (playlist && playlistSlug !== playlist.slug) {
           navToPlaylist(playlist.ownerUsername, playlist.slug);
         }
       }
-    }, [params, playlist, playlists, playlistsHighlight, playlistsSelection]);
+    }, [
+      playlistSlug,
+      playlist,
+      playlists,
+      playlistsHighlight,
+      playlistsSelection,
+    ]);
 
     return null;
   }, DefaultProps)
