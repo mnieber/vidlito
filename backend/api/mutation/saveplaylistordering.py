@@ -12,9 +12,9 @@ class SavePlaylistOrdering(graphene.Mutation):
 
     class Arguments:
         playlist_ids = graphene.List(graphene.UUID, required=True)
-        folder_id = graphene.UUID()
+        folder_id = graphene.UUID(required=False)
 
-    def mutate(self, info, playlist_ids, folder_id):
+    def mutate(self, info, playlist_ids, folder_id=None):
         user_profile = UserProfile.get_mine(info)
         sort_items(user_profile.follow_set.all(), playlist_ids, lambda x: x.playlist_id)
 
