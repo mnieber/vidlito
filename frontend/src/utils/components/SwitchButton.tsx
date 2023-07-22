@@ -44,6 +44,7 @@ export const SwitchButton = (props: PropsT) => {
           className={cn(
             'SwitchButton__RightButton',
             {
+              'text-xl': props.fontSize === 'big',
               'SwitchButton__RightButton--active': props.state === 'right',
             },
             [L.row.skewer(), 'ml-[4px] pt-2.5 pb-3 pl-4 pr-7']
