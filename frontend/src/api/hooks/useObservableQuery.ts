@@ -34,7 +34,8 @@ export const useObservableQuery = (
       updateObservableQuery(observableQuery, query, fetchAsLoad);
       if (debugLabel && flags.logQueries) {
         observableQuery.log(
-          `ObservableQuery ${observableQuery.id} (${debugLabel}) updated to ${observableQuery.status}`
+          `ObservableQuery ${observableQuery.id} (${debugLabel}) ` +
+            `updated to ${observableQuery.status}`
         );
       }
     });

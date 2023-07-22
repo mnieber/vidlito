@@ -1,6 +1,6 @@
 import { action } from 'mobx';
 import React from 'react';
-import { Highlight } from 'skandha-facets';
+import { Highlight, topOfTheList } from 'skandha-facets';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import {
   MoveClipsToTrashArgsT,
@@ -89,6 +89,7 @@ export const useClipsState = (props: PropsT) => {
       }),
       //
       saveClip: (values: ObjT) => {
+        const parentClipId = clipsState.clipsCtr.addition.parentId;
         return trackPromise({
           name: 'saveClip',
           states: { updating: [saveClip] },
@@ -97,7 +98,8 @@ export const useClipsState = (props: PropsT) => {
               playlistId: props.getPlaylist()?.id,
               playlistSlug: props.getPlaylist()?.slug,
               clipForm: values.clipForm,
-              parentClipId: clipsState.clipsCtr.addition.parentId,
+              parentClipId:
+                parentClipId === topOfTheList ? undefined : parentClipId,
             } as SaveClipArgsT)
             .then(() => {
               return values.clipForm;
