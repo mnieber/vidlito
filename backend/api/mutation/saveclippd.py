@@ -22,7 +22,7 @@ class SaveClipPd(graphene.Mutation):
             defaults=clip_pd_form,
             id=id,
             clip_id=clip_id,
-            owner__user_id=info.context.user.id,
+            owner_id=UserProfile.get_id(info),
         )
 
         return SaveClipPd(

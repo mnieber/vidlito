@@ -4,6 +4,7 @@ from graphene_django.types import DjangoObjectType
 
 from api.types.clip_t import ClipT
 from playlists.models import Playlist
+from user_profiles.models import UserProfile
 
 
 class PlaylistT(DjangoObjectType):
@@ -24,7 +25,7 @@ class PlaylistT(DjangoObjectType):
             x.clip
             for x in self.entry_set.filter(
                 Q(clip__nr_of_public_playlists__gt=0)
-                | Q(clip__owner__user_id=info.context.user.id)
+                | Q(clip__owner_id=UserProfile.get_id(info))
             ).select_related("clip")
         ]
 

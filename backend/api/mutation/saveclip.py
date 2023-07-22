@@ -1,4 +1,5 @@
 import graphene
+from django.db import transaction
 from graphene.types.generic import GenericScalar
 
 from api.types import *
@@ -21,28 +22,39 @@ class SaveClip(graphene.Mutation):
     def mutate(self, info, playlist_id, clip_form, parent_clip_id=None):
         playlist = Playlist.get_mine(info, id=playlist_id)
         id = clip_form.pop("id")
+        clip = Clip.filter_mine(info, id=id).first()
         clip_form["tags"] = create_tags(clip_form.get("tags", []))
-        clip, created = Clip.objects.update_or_create(
-            defaults=clip_form, id=id, owner__user_id=info.context.user.id
-        )
 
-        if created:
-            clip.source_playlist_id = playlist.id
-            if playlist.is_public:
-                clip.nr_of_public_playlists = 1
-            else:
-                clip.nr_of_private_playlists = 1
-            clip.save()
+        with transaction.atomic():
+            if clip and clip_form.slug != clip.slug:
+                # Setting the slug to None will trigger a new slug to be generated
+                # based on the new clip name.
+                clip.slug = None
+                clip.save()
 
-            entry = Entry(clip=clip, playlist=playlist)
-            entry.save()
+            clip, created = Clip.objects.update_or_create(
+                defaults=clip_form, id=id, owner_id=UserProfile.get_id(info)
+            )
 
-            if parent_clip_id:
-                entries = playlist.entry_set.all()
-                ids = insert_id([x.clip_id for x in entries], parent_clip_id, clip.id)
-                sort_items(entries, ids, lambda x: x.clip_id)
+            if created:
+                clip.source_playlist_id = playlist.id
+                if playlist.is_public:
+                    clip.nr_of_public_playlists = 1
+                else:
+                    clip.nr_of_private_playlists = 1
+                clip.save()
 
-            playlist.update_nr_clips()
+                entry = Entry(clip=clip, playlist=playlist)
+                entry.save()
+
+                if parent_clip_id:
+                    entries = playlist.entry_set.all()
+                    ids = insert_id(
+                        [x.clip_id for x in entries], parent_clip_id, clip.id
+                    )
+                    sort_items(entries, ids, lambda x: x.clip_id)
+
+                playlist.update_nr_clips()
 
         return SaveClip(
             success=True,

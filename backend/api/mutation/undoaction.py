@@ -7,6 +7,7 @@ from api.mutation.moveclipstotrash import pick_new_source_movelist
 from api.types import *
 from app.utils.slug_seq import update_slug
 from playlists.models import Entry, Follow, Playlist
+from user_profiles.models import UserProfile
 
 
 class UndoAction(graphene.Mutation):
@@ -17,17 +18,22 @@ class UndoAction(graphene.Mutation):
         action_id = graphene.UUID(required=True)
 
     def mutate(self, info, action_id):
+        owner_id = UserProfile.get_id(info)
         action = Action.get_mine(info, id=action_id)
+
         if action.type == "TrashEntries":
             playlist_id = action.data["playlist_id"]
             playlist = Playlist.filter_mine(info, id=playlist_id).first()
             if not playlist:
                 playlist = Playlist.objects.create(
-                    owner_id=info.context.user.id,
+                    owner_id=owner_id,
                     name=action.data["playlist_name"] + " (recreated)",
-                    slug=update_slug(slugify(action.data["playlist_name"]), "playlist"),
+                    slug=update_slug(
+                        slugify(action.data["playlist_name"]),
+                        "playlist",
+                    ),
                 )
-                Follow.objects.create(playlist=playlist, owner_id=info.context.user.id)
+                Follow.objects.create(playlist=playlist, owner_id=owner_id)
 
             entries_to_delete = []
             entry_ids = action.data["entry_ids"]

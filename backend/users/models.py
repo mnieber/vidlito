@@ -31,7 +31,9 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save()
 
-        user_profile = UserProfile.objects.create(user_id=user.id)
+        # Note that we use the user id as the id for the user profile. This can speed up
+        # the handling of graphql queries, since the user id is in the context.
+        user_profile = UserProfile.objects.create(id=user.id, user_id=user.id)
         user_profile.save()
 
         return user

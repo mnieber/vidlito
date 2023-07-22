@@ -14,11 +14,11 @@ class Entity(models.Model):
 
     @classmethod
     def get_mine(cls, info, *args, **kwargs):
-        return cls.objects.get(*args, owner__user_id=info.context.user.id, **kwargs)
+        return cls.objects.get(*args, owner_id=info.context.user.id, **kwargs)
 
     @classmethod
     def filter_mine(cls, info, *args, **kwargs):
-        return cls.objects.filter(*args, owner__user_id=info.context.user.id, **kwargs)
+        return cls.objects.filter(*args, owner_id=info.context.user.id, **kwargs)
 
 
 class SlugSequence(models.Model):

@@ -8,6 +8,7 @@ from api.types import *
 from api.types.searchresult_t import SearchResultT
 from clips.models import Clip
 from playlists.models import Playlist
+from user_profiles.models import UserProfile
 
 
 class SearchContent(graphene.Mutation):
@@ -44,7 +45,7 @@ class SearchContent(graphene.Mutation):
 
         for playlist in (
             Playlist.objects.filter(
-                Q(is_public=True) | Q(owner__user_id=info.context.user.id)
+                Q(is_public=True) | Q(owner_id=UserProfile.get_id(info))
             )
             .filter(join_clauses(playlist_clauses))
             .all()
@@ -71,7 +72,7 @@ class SearchContent(graphene.Mutation):
 
         for clip in (
             Clip.objects.filter(
-                Q(nr_of_public_playlists__gt=0) | Q(owner__user_id=info.context.user.id)
+                Q(nr_of_public_playlists__gt=0) | Q(owner_id=UserProfile.get_id(info))
             )
             .filter(join_clauses(clip_clauses))
             .all()

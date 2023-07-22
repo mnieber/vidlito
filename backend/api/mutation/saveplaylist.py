@@ -1,4 +1,5 @@
 import graphene
+from django.db import transaction
 from graphene.types.generic import GenericScalar
 
 from api.types import *
@@ -18,14 +19,23 @@ class SavePlaylist(graphene.Mutation):
 
     def mutate(self, info, playlist_form):
         id = playlist_form.pop("id")
-        user_profile = UserProfile.get_mine(info)
+        playlist = Playlist.filter_mine(info, id=id).first()
+        owner_id = UserProfile.get_id(info)
         playlist_form["tags"] = create_tags(playlist_form["tags"])
-        playlist, created = Playlist.objects.update_or_create(
-            defaults=playlist_form, id=id, owner_id=user_profile.id
-        )
-        if created:
-            follow = Follow.objects.create(user_profile=user_profile, playlist=playlist)
-            follow.save()
+
+        with transaction.atomic():
+            if playlist and playlist_form.slug != playlist.slug:
+                # Setting the slug to None will trigger a new slug to be generated
+                # based on the new playlist name.
+                playlist.slug = None
+                playlist.save()
+
+            playlist, created = Playlist.objects.update_or_create(
+                defaults=playlist_form, id=id, owner_id=owner_id
+            )
+            if created:
+                follow = Follow.objects.create(owner_id=owner_id, playlist=playlist)
+                follow.save()
 
         return SavePlaylist(
             success=True, errors={}, created=created, playlist_slug=playlist.slug
