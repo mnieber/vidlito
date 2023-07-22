@@ -40,6 +40,7 @@ export const PlaylistListView = observer(
       selection: props.playlistsSelection,
     });
     const goToPlaylist = (playlist: PlaylistT) => {
+      props.dashboardState.toggleIsPlaylistListExpanded(false);
       navToPlaylist(playlist.ownerUsername, playlist.slug);
     };
 

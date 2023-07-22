@@ -26,7 +26,7 @@ export const ClipNotFound = observer(
       clipSlug === '-'
         ? 'There are no clips in this playlist yet'
         : "Oops, it seems this clip doesn't exist";
-    log('Clip not found');
+    clipSlug !== '-' && log('Clip not found');
 
     return (
       <div

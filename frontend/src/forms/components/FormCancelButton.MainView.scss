@@ -6,7 +6,7 @@
 }
 
 .MainView .FormCancelButton.DialogButton--disabled {
-  @apply text-gray-500;
+  @apply btnWithGrayText;
 }
 
 .MainView .FormCancelButton.DialogButton--danger {

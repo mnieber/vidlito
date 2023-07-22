@@ -27,4 +27,10 @@
   .btnRedWithWhiteText {
     @apply bg-red-400 text-white hover:bg-red-600;
   }
+  .btnGray {
+    @apply bg-gray-500 hover:bg-gray-500;
+  }
+  .btnWithGrayText {
+    @apply text-gray-500 hover:text-gray-500;
+  }
 }

@@ -43,6 +43,7 @@ export const ClipHeaderView = observer(
         <div className={cn('ClipHeaderView__Buttons', [], [L.row.banner()])}>
           <SwitchButton
             state={showPlaylist ? 'left' : 'right'}
+            fontSize="big"
             hasRight={!!props.clip}
             onToggle={(state: 'left' | 'right') =>
               props.dashboardState.toggleShowPlaylistView(state === 'left')

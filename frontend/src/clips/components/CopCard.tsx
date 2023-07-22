@@ -24,6 +24,9 @@ const DefaultProps = {
   ...dps.clip,
   ...dps.playlist,
   ...dps.clips,
+  ...dps.playlistsEdit,
+  ...dps.playlistPdEdit,
+  ...dps.playlistSettingsEdit,
   ...dps.dashboardState,
   ...dps.isOwner,
 };
@@ -67,9 +70,13 @@ export const CopCard = observer(
             {props.isOwner(cop) && !cop?.isTransient && (
               <CopSettings className="mt-8" showPlaylist={showPlaylist} />
             )}
-            {noClips && props.isOwner(props.playlist) && (
-              <CreateFirstClip className="mt-4" />
-            )}
+            {noClips &&
+              props.isOwner(props.playlist) &&
+              !props.playlistsEdit.isEditing &&
+              !props.playlistPdEdit.isEditing &&
+              !props.playlistSettingsEdit.isEditing && (
+                <CreateFirstClip className="mt-4 min-h-[200px]" />
+              )}
           </div>
         )}
       </>

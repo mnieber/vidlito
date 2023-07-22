@@ -21,7 +21,6 @@ export const FormCancelButton = (props: PropsT) => {
         formState.cancel();
       }}
       disabled={disabled}
-      color="blue"
       {...props}
     />
   );

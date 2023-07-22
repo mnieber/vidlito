@@ -22,7 +22,6 @@ export const FormSaveButton = (props: PropsT) => {
         formState.submit();
       }}
       disabled={disabled}
-      color="blue"
       {...props}
     />
   );

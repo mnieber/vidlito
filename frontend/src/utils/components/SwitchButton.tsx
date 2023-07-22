@@ -7,6 +7,7 @@ import './SwitchButton.scss';
 export type PropsT = {
   state: 'left' | 'right';
   hasRight?: boolean;
+  fontSize?: 'medium' | 'big';
   onToggle: (state: 'left' | 'right') => void;
   textLeft: string;
   textRight: string;
@@ -23,6 +24,7 @@ export const SwitchButton = (props: PropsT) => {
         className={cn(
           'SwitchButton__LeftButton',
           {
+            'text-xl': props.fontSize === 'big',
             'SwitchButton__LeftButton--active': props.state === 'left',
             'rounded-r-[32px] pr-7': !(props.hasRight ?? true),
           },
