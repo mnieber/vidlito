@@ -6,7 +6,6 @@ import {
   unflatten,
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
-import { PlaylistT } from '/src/api/types/PlaylistT';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
@@ -45,7 +44,7 @@ const getHandleSubmit =
           'playlistSettingsForm.isDeletionEnabled': undefined,
         }),
       })
-      .then((localPlaylist: PlaylistT) => {
+      .then(() => {
         formState.reset(initialValues, initialErrors);
       })
       .catch((error: any) => {

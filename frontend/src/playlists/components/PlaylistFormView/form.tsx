@@ -7,7 +7,6 @@ import {
   unflatten,
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
-import { PlaylistT } from '/src/api/types/PlaylistT';
 import { navToHome } from '/src/frames/FramesNavEvents';
 import { createUUID } from '/src/utils/ids';
 
@@ -53,7 +52,7 @@ const getHandleSubmit =
           'playlistForm.id': values['playlistForm.id'] ?? createUUID(),
         }),
       })
-      .then((localPlaylist: PlaylistT) => {
+      .then(() => {
         formState.reset(initialValues, initialErrors);
       })
       .catch((error: any) => {

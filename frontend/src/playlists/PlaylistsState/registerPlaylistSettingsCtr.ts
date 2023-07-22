@@ -29,8 +29,8 @@ const setCallbacks = (state: PlaylistsState) => {
       saveItem(this: EditCbs['save']) {
         return state.props
           .savePlaylistSettings(this.args.values)
-          .then((localPlaylist: PlaylistSettingsT) => {
-            return localPlaylist;
+          .then((localPlaylistSettings: PlaylistSettingsT) => {
+            return localPlaylistSettings;
           });
       },
     },
