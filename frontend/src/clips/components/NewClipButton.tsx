@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { Addition, Selection } from 'skandha-facets';
-import { ClipT, createClip } from '/src/api/types/ClipT';
+import { createClip } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -52,17 +52,9 @@ export function onClickNewClipButton(props: {
 }) {
   props.dashboardState.storeNavigationPoint();
   props.dashboardState.toggleShowPlaylistView(false);
-  return props.clipsAddition
-    .add({ values: createClip(props.userProfile, {}) })
-    .then((localClip: ClipT) => {
-      props.clipsSelection.selectItem({ itemId: localClip.id });
-      return localClip;
-    })
-    .then((localClip: ClipT) => {
-      navToClip(
-        props.playlist.ownerUsername,
-        props.playlist.slug,
-        localClip.slug
-      );
-    });
+  const localClip = props.clipsAddition.add({
+    values: createClip(props.userProfile, {}),
+  });
+  props.clipsSelection.selectItem({ itemId: localClip.id });
+  navToClip(props.playlist.ownerUsername, props.playlist.slug, localClip.slug);
 }

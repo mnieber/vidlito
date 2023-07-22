@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
+import { createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ToolButton } from '/src/frames/components/ToolButton';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
@@ -31,13 +31,12 @@ export const NewPlaylistButton = observer(
         onClick={() => {
           props.dashboardState.storeNavigationPoint();
           props.dashboardState.toggleIsPlaylistListExpanded(true);
-          props.playlistsAddition
-            .add({ values: createPlaylist(props.userProfile, {}) })
-            .then((localPlaylist: PlaylistT) => {
-              props.playlistsSelection.selectItem({ itemId: localPlaylist.id });
-              props.playlistsHighlight.highlightItem({ id: localPlaylist.id });
-              navToPlaylist(localPlaylist.ownerUsername, localPlaylist.slug);
-            });
+          const localPlaylist = props.playlistsAddition.add({
+            values: createPlaylist(props.userProfile, {}),
+          });
+          props.playlistsSelection.selectItem({ itemId: localPlaylist.id });
+          props.playlistsHighlight.highlightItem({ id: localPlaylist.id });
+          navToPlaylist(localPlaylist.ownerUsername, localPlaylist.slug);
         }}
       />
     );
