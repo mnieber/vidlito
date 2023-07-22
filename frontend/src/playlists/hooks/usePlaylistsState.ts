@@ -73,10 +73,7 @@ export const usePlaylistsState = (props: PropsT) => {
           resources: smartUpdatePlaylists(
             props.getUserProfile()?.followSet,
             !!getPlaylist.data
-              ? ({
-                  ...getPlaylist.data.playlist,
-                  ...getPlaylist.data.playlistPd,
-                } as PlaylistT)
+              ? (getPlaylist.data!.playlist as PlaylistT)
               : undefined
           ),
         });
