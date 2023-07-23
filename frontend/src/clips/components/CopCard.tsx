@@ -8,6 +8,7 @@ import { CopDescription } from '/src/clips/components/CopDescription';
 import { CopPd } from '/src/clips/components/CopPd';
 import { useIsClipNotFound } from '/src/clips/hooks/useIsClipNotFound';
 import { CardL } from '/src/frames/components/Card';
+import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
 import { AuthorCard } from '/src/playlists/components/AuthorCard';
 import { CopSettings } from '/src/playlists/components/CopSettings';
@@ -40,6 +41,8 @@ export const CopCard = observer(
       return null;
     }
 
+    const showLoader = isLoading(props.playlist) || isLoading(props.clips);
+
     const noClips = !props.clips.length && !isLoading(props.clips);
     const showPlaylist = props.dashboardState.showPlaylistView || noClips;
     const clipNotFound = isClipNotFound(props.clip);
@@ -50,7 +53,8 @@ export const CopCard = observer(
       <>
         {clipNotFound && <ClipNotFound />}
         {!clipNotFound && <VideoPlayerPanel className={cn('')} />}
-        {!R.isNil(props.dashboardState.panelWidth) && (
+        {showLoader && <CopCardBodyLoader />}
+        {!showLoader && !R.isNil(props.dashboardState.panelWidth) && (
           <div
             className={cn(
               'CopCard__Body',
@@ -93,3 +97,13 @@ export const CopCard = observer(
     );
   }, DefaultProps)
 );
+
+export const CopCardBodyLoader = observer(() => {
+  return (
+    <div className={cn('CopCardLoader', 'ml-6')}>
+      <LoaderBar className={cn('h-12 mt-8 mb-10')} />
+      <LoaderBar className={cn('h-4 mb-10')} />
+      <LoaderBar className={cn('h-[170px]')} />
+    </div>
+  );
+});
