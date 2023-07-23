@@ -94,22 +94,16 @@ const setCallbacks = (state: ClipsState) => {
     delete: {
       deleteItems(this: DeletionCbs['delete']) {
         const clipIds = this.args.itemIds;
-        if (this.args.moveToTrash) {
-          const allIds = [...ctr.highlight.highlightableIds];
+        const allIds = [...ctr.highlight.highlightableIds];
+        const promise = this.args.moveToTrash
+          ? state.props.moveClipsToTrash(clipIds)
+          : state.props.deleteClips(clipIds);
 
-          return state.props
-            .moveClipsToTrash(clipIds)
-            .then((response: ObjT) => {
-              unselectIds(ctr.selection, clipIds);
-              correctHighlight(
-                ctr.highlight,
-                allIds,
-                R.without(clipIds, allIds)
-              );
-              return response;
-            });
-        }
-        return Promise.resolve();
+        return promise.then((response: ObjT) => {
+          unselectIds(ctr.selection, clipIds);
+          correctHighlight(ctr.highlight, allIds, R.without(clipIds, allIds));
+          return response;
+        });
       },
     },
   } as DeletionCbs);

@@ -24,6 +24,7 @@ export type PropsT = {
   getClips: () => ClipT[];
   getClipPd: () => ClipPdT | undefined;
   moveClipsToTrash: (ids: string[]) => Promise<any>;
+  deleteClips: (ids: string[]) => Promise<any>;
   saveClip: (values: ObjT) => Promise<ClipT>;
   saveClipPd: (values: ObjT) => Promise<ClipPdT>;
   saveClipOrdering: (clips: ClipT[]) => Promise<any>;

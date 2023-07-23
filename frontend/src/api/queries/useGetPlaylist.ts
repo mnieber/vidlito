@@ -61,7 +61,7 @@ export type OptionsT = {
   enabled?: boolean;
 };
 
-export function queryKey(args: QueryKeyT) {
+export function queryKey(args?: QueryKeyT) {
   return createQueryKey<QueryKeyT>('getPlaylist', args);
 }
 

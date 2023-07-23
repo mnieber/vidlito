@@ -13,9 +13,11 @@ import {
 } from '/src/api/endpoints';
 import { useObservableQuery } from '/src/api/hooks';
 import {
+  DeleteClipsArgsT,
   MoveClipsToPlaylistArgsT,
   SaveClipArgsT,
   SaveClipPdArgsT,
+  useDeleteClips,
 } from '/src/api/mutations';
 import { useSaveClipPd } from '/src/api/mutations/useSaveClipPd';
 import { createClipPd } from '/src/api/types/ClipPdT';
@@ -45,6 +47,7 @@ export const useClipsState = (props: PropsT) => {
     clipsHighlightRef.current?.item?.slug ?? params.clipSlug;
 
   // Mutations
+  const deleteClips = initRS(useDeleteClips());
   const moveClipsToTrash = initRS(useMoveClipsToTrash());
   const moveClipsToPlaylist = initRS(useMoveClipsToPlaylist());
   const saveClip = initRS(useSaveClip());
@@ -74,6 +77,17 @@ export const useClipsState = (props: PropsT) => {
       getClipPd: () => {
         return getClipPd.data?.clipPd ?? createClipPd();
       },
+      //
+      deleteClips: action((ids: string[]) => {
+        const clips = lookUp(ids, clipsState.clipsCtr.store.itemById);
+        return trackPromise({
+          name: 'deleteClips',
+          states: { updating: [...clips, deleteClips] },
+          promise: deleteClips.mutateAsync({
+            clipIds: ids,
+          } as DeleteClipsArgsT),
+        }).result;
+      }),
       //
       moveClipsToTrash: action((ids: string[]) => {
         const clips = lookUp(ids, clipsState.clipsCtr.store.itemById);
