@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { ClipT } from '/src/api/types/ClipT';
+import { PlaylistT } from '/src/api/types/PlaylistT';
 import { FormFieldL } from '/src/forms/components/FormField';
 import { cn } from '/src/utils/classnames';
 
@@ -8,10 +9,13 @@ import './IsPublicClipField.scss';
 
 export type PropsT = {
   clip: ClipT;
+  playlist: PlaylistT;
 };
 
 export const IsPublicClipField = observer((props: PropsT) => {
-  const msg = props.clip.nrOfPublicPlaylists ? msgPublicClip : msgPrivateClip;
+  const msg = props.clip.nrOfPublicPlaylists
+    ? msgPublicClip()
+    : msgPrivateClip(props.playlist.name);
 
   return (
     <div
@@ -22,10 +26,12 @@ export const IsPublicClipField = observer((props: PropsT) => {
   );
 });
 
-const msgPublicClip = `Since this clip is in one of your public playlists,
-it will be visible to everyone. To make the clip private, you must remove
-it from all your public playlists, or make these playlists private.`;
+const msgPublicClip = () => `Since this clip is in one of your public playlists,
+it will be visible to everyone. To make it private you must remove
+it from all your public playlists.`;
 
-const msgPrivateClip = `Since this clip exists only in your private playlist(s),
-it is private. To make the clip public, you must add it to one of your public
-playlists, or make this playlist public.`;
+const msgPrivateClip = (
+  playlistName: string
+) => `Since this clip exists only in your private playlists,
+it is private. To make it public you must add it to one of your public
+playlists, or make this playlist ("${playlistName}") public.`;

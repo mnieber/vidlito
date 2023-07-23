@@ -59,7 +59,7 @@ export const ClipMenu = observer(
           );
         })
       : [noPlaylistsDiv];
-    const copyToPlaylistDivs = otherPlaylists.length
+    const addToPlaylistDivs = otherPlaylists.length
       ? otherPlaylists.map((playlist) => {
           return (
             <MenuItem
@@ -100,7 +100,7 @@ export const ClipMenu = observer(
         </MenuItem>
         <MenuDivider />
         <SubMenu label="Move to">{moveToPlaylistDivs}</SubMenu>
-        <SubMenu label="Copy to">{copyToPlaylistDivs}</SubMenu>
+        <SubMenu label="Add to">{addToPlaylistDivs}</SubMenu>
       </ControlledMenu>
     ) : null;
   }, DefaultProps)

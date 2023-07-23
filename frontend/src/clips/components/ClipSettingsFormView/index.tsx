@@ -24,6 +24,7 @@ export type PropsT = {
 
 export const DefaultProps = {
   ...dps.clip,
+  ...dps.playlist,
   ...dps.clipsDeletion,
   ...dps.clipSettingsEdit,
 };
@@ -64,7 +65,7 @@ export const ClipSettingsFormView = observer(
             className={MainFormL.Field()}
           >
             <FormFieldLabel label="SETTINGS" />
-            <IsPublicClipField clip={props.clip} />
+            <IsPublicClipField clip={props.clip} playlist={props.playlist} />
           </Field>
           {
             // 🔳 Delete Clip 🔳
