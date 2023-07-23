@@ -40,13 +40,14 @@ export const SyncClipWithUrlEffect = observer(
 
         const getClipForCurrentUrl = () =>
           R.find((x: ClipT) => x.slug === clipSlug)(clips) ??
-          (clipSlug === '-' ? R.head(clips) : undefined);
+          (clipSlug === '-'
+            ? R.find((x: ClipT) => x.slug !== 'new-clip')(clips)
+            : undefined);
 
         const selectClip = (clip?: ClipT) => {
           clipsSelection.selectItem({ itemId: clip?.id });
         };
 
-        // refUrl.current = '';
         if (mustAddNewClip()) {
           refUrl.current = location.pathname;
           addNewClip();
@@ -58,6 +59,7 @@ export const SyncClipWithUrlEffect = observer(
               selectClip(clipForCurrentUrl);
             }
           } else if (clipSlug === '-') {
+            clipsAddition.cancel();
             selectClip(undefined);
           }
         }
