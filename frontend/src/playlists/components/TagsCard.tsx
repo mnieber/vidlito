@@ -8,7 +8,6 @@ import './TagsCard.scss';
 export type PropsT = {
   clipTags: string[];
   playlistTags: string[];
-  className?: any;
 };
 
 const DefaultProps = {};

@@ -6,6 +6,7 @@ import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
 import { ClipNotFound } from '/src/clips/components/ClipNotFound';
 import { CopDescription } from '/src/clips/components/CopDescription';
 import { CopPd } from '/src/clips/components/CopPd';
+import { PlayerControls } from '/src/clips/components/PlayerControls';
 import { useIsClipNotFound } from '/src/clips/hooks/useIsClipNotFound';
 import { CardL } from '/src/frames/components/Card';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
@@ -65,12 +66,16 @@ export const CopCard = observer(
               )}
             >
               <ClipHeaderView className={cn('mb-8')} />
-              <AuthorCard>
+              <div
+                className={cn('CopCard__SubHeader', 'flex flex-row flex-wrap')}
+              >
+                <AuthorCard className="mr-4" />
+                <PlayerControls className="mr-4" />
                 <TagsCard
                   clipTags={props.clip?.tags ?? []}
                   playlistTags={props.playlist?.tags ?? []}
                 />
-              </AuthorCard>
+              </div>
               <div
                 className={cn('CopCard__Forms', 'mt-8', CardL.size.medium())}
               >

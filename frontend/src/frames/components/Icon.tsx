@@ -98,6 +98,11 @@ export const icons: ObjT = {
       <path d="M0 0h48v48H0z" fill="none" />
     </svg>
   ),
+  repeat: (
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 6h-5v2h4v9H4V8h5v3l5-4-5-4v3H3a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1z"></path>
+    </svg>
+  ),
   reply: (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
       <path d="M15 17v-2.99A4 4 0 0 0 11 10H8v5L2 9l6-6v5h3a6 6 0 0 1 6 6v3h-2z" />

@@ -77,7 +77,6 @@ export const AuthorCard = observer(
             {owner2}
           </div>
         )}
-        <div className={cn('AuthorCard__Spacer', 'w-4')}></div>
         {props.children}
       </div>
     );
