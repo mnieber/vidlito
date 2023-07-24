@@ -55,45 +55,48 @@ export const CopCard = observer(
         {clipNotFound && <ClipNotFound />}
         {!clipNotFound && <VideoPlayerPanel className={cn('')} />}
         {showLoader && <CopCardBodyLoader />}
-        {!showLoader && !R.isNil(props.dashboardState.panelWidth) && (
-          <div
-            className={cn(
-              'CopCard__Body',
-              [],
-              [L.col.banner(), 'grow', 'ml-6 my-8', 'max-w-[776px]']
-            )}
-          >
-            <ClipHeaderView className={cn('mb-8')} />
-            <AuthorCard>
-              <TagsCard
-                clipTags={props.clip?.tags ?? []}
-                playlistTags={props.playlist?.tags ?? []}
-              />
-            </AuthorCard>
-            <div className={cn('CopCard__Forms', 'mt-8', CardL.size.medium())}>
-              <CopDescription showPlaylist={showPlaylist} className="" />
-              {!cop?.isTransient && (
-                <>
-                  <div className={cn(separator)} />
-                  <CopPd showPlaylist={showPlaylist} className="" />
-                </>
+        {!showLoader &&
+          !R.isNil(props.dashboardState.panelState.panelWidth) && (
+            <div
+              className={cn(
+                'CopCard__Body',
+                [],
+                [L.col.banner(), 'grow', 'ml-6 my-8', 'max-w-[776px]']
               )}
-              {props.isOwner(cop) && !cop?.isTransient && (
-                <>
-                  <div className={cn(separator)} />
-                  <CopSettings className="" showPlaylist={showPlaylist} />
-                </>
-              )}
+            >
+              <ClipHeaderView className={cn('mb-8')} />
+              <AuthorCard>
+                <TagsCard
+                  clipTags={props.clip?.tags ?? []}
+                  playlistTags={props.playlist?.tags ?? []}
+                />
+              </AuthorCard>
+              <div
+                className={cn('CopCard__Forms', 'mt-8', CardL.size.medium())}
+              >
+                <CopDescription showPlaylist={showPlaylist} className="" />
+                {!cop?.isTransient && (
+                  <>
+                    <div className={cn(separator)} />
+                    <CopPd showPlaylist={showPlaylist} className="" />
+                  </>
+                )}
+                {props.isOwner(cop) && !cop?.isTransient && (
+                  <>
+                    <div className={cn(separator)} />
+                    <CopSettings className="" showPlaylist={showPlaylist} />
+                  </>
+                )}
+              </div>
+              {noClips &&
+                props.isOwner(props.playlist) &&
+                !props.playlistsEdit.isEditing &&
+                !props.playlistPdEdit.isEditing &&
+                !props.playlistSettingsEdit.isEditing && (
+                  <CreateFirstClip className="mt-4 min-h-[200px]" />
+                )}
             </div>
-            {noClips &&
-              props.isOwner(props.playlist) &&
-              !props.playlistsEdit.isEditing &&
-              !props.playlistPdEdit.isEditing &&
-              !props.playlistSettingsEdit.isEditing && (
-                <CreateFirstClip className="mt-4 min-h-[200px]" />
-              )}
-          </div>
-        )}
+          )}
       </>
     );
   }, DefaultProps)
