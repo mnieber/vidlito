@@ -1,3 +1,4 @@
+import { navToHome } from '/src/frames/FramesNavEvents';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -47,7 +48,10 @@ export const SignInLogo = (props: PropsT) => {
         // 🔳🔳 SignInLogo__ExploreAsGuestButton
         //
       }
-      <button className={cn('SignInLogo__ExploreAsGuestButton')}>
+      <button
+        className={cn('SignInLogo__ExploreAsGuestButton')}
+        onClick={() => navToHome()}
+      >
         Explore as Guest
       </button>
     </div>

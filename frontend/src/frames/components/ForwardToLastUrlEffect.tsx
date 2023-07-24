@@ -6,7 +6,7 @@ export type PropsT = {};
 
 export const ForwardToLastUrlEffect = (props: PropsT) => {
   React.useEffect(() => {
-    const lastUrl = cookiesState.lastUrl;
+    const lastUrl = cookiesState.lastUrl ?? '/playlist/vidlito/help-/welcome-';
     if (!!lastUrl) {
       history.push(lastUrl);
     }
