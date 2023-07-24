@@ -32,14 +32,14 @@ export const PlaylistListHeader = observer(
           [L.row.skewer(), 'justify-between', props.className]
         )}
         onClick={() =>
-          props.dashboardState.playlistState.toggleIsPlaylistListExpanded()
+          props.dashboardState.panelState.toggleIsPlaylistListExpanded()
         }
       >
         <div className={cn()}>{playlist.name}</div>
         <Icon
           className={cn('h-[30px]', 'w-[30px]', 'fill-gray-text')}
           name={
-            props.dashboardState.playlistState.isPlaylistListExpanded
+            props.dashboardState.panelState.isPlaylistListExpanded
               ? 'cheveronDown'
               : 'cheveronRight'
           }

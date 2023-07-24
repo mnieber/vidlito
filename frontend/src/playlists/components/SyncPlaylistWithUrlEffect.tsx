@@ -45,7 +45,7 @@ export const SyncPlaylistWithUrlEffect = observer(
           userProfile;
 
         const addNewPlaylist = () => {
-          dashboardState.playlistState.toggleIsPlaylistListExpanded(true);
+          dashboardState.panelState.toggleIsPlaylistListExpanded(true);
           playlistsAddition.add({ values: createPlaylist(userProfile, {}) });
         };
 

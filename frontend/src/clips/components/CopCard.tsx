@@ -45,7 +45,7 @@ export const CopCard = observer(
 
     const noClips = !props.clips.length && !isLoading(props.clips);
     const showPlaylist =
-      props.dashboardState.playlistState.showPlaylistView || noClips;
+      props.dashboardState.panelState.showPlaylistView || noClips;
     const clipNotFound = isClipNotFound(props.clip);
     const cop = showPlaylist ? props.playlist : props.clip;
     const separator = ['my-4', 'border-t border-gray-300'];

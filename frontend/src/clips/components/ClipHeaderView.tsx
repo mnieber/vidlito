@@ -33,7 +33,7 @@ export const ClipHeaderView = observer(
     const noClips = !props.clips.length && !isLoading(props.clips);
     const showPlaylist =
       noClips ||
-      props.dashboardState.playlistState.showPlaylistView ||
+      props.dashboardState.panelState.showPlaylistView ||
       isClipNotFound(props.clip);
 
     return (
@@ -46,7 +46,7 @@ export const ClipHeaderView = observer(
             fontSize="big"
             hasRight={!!props.clip}
             onToggle={(state: 'left' | 'right') =>
-              props.dashboardState.playlistState.toggleShowPlaylistView(
+              props.dashboardState.panelState.toggleShowPlaylistView(
                 state === 'left'
               )
             }

@@ -4,7 +4,6 @@ import { UserProfileT } from '/src/api/types/UserProfileT';
 import { cookiesState } from '/src/dashboard/DashboardState/CookiesState';
 import { NavigationState } from '/src/dashboard/DashboardState/NavigationState';
 import { PanelState } from '/src/dashboard/DashboardState/PanelState';
-import { PlaylistState } from '/src/dashboard/DashboardState/PlaylistState';
 import { createContextMenu } from '/src/frames/utils/createContextMenu';
 
 type AccountT = {
@@ -19,9 +18,8 @@ export class DashboardState {
   accountMenu = createContextMenu();
   clipListContextMenu = createContextMenu();
   cookiesState = cookiesState;
-  playlistState = new PlaylistState();
-  navigationState = new NavigationState(this.playlistState);
   panelState = new PanelState();
+  navigationState = new NavigationState(this.panelState);
 
   @observable account: AccountT = {
     userProfile: undefined,

@@ -1,11 +1,11 @@
 import { action, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
-import { PlaylistState } from '/src/dashboard/DashboardState/PlaylistState';
+import { PanelState } from '/src/dashboard/DashboardState/PanelState';
 import { history } from '/src/navHandler/NavHandler';
 import { pathname } from '/src/utils/urls';
 
 export class NavigationState {
-  playlistState: PlaylistState;
+  panelState: PanelState;
 
   @observable navigationPoint?: {
     url: string;
@@ -15,14 +15,14 @@ export class NavigationState {
   @action storeNavigationPoint() {
     this.navigationPoint = {
       url: pathname(),
-      isPlaylistExpanded: this.playlistState.isPlaylistListExpanded,
+      isPlaylistExpanded: this.panelState.isPlaylistListExpanded,
     };
   }
 
   @action restoreNavigationPoint() {
     if (R.isNil(this.navigationPoint)) return false;
     history.push(this.navigationPoint.url);
-    this.playlistState.toggleIsPlaylistListExpanded(
+    this.panelState.toggleIsPlaylistListExpanded(
       this.navigationPoint.isPlaylistExpanded
     );
     return true;
@@ -32,8 +32,8 @@ export class NavigationState {
     return !R.isNil(this.navigationPoint);
   }
 
-  constructor(playlistState: PlaylistState) {
-    this.playlistState = playlistState;
+  constructor(panelState: PanelState) {
+    this.panelState = panelState;
     makeObservable(this);
   }
 }

@@ -48,7 +48,7 @@ export const PlaylistListPicker = observer(
         <PlaylistListHeader />
         <PlaylistListView
           className={cn('overflow-y-auto')}
-          isExpanded={props.dashboardState.playlistState.isPlaylistListExpanded}
+          isExpanded={props.dashboardState.panelState.isPlaylistListExpanded}
         />
       </div>
     );
