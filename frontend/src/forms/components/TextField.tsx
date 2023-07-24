@@ -6,6 +6,7 @@ import { cn } from '/src/utils/classnames';
 import './TextField.scss';
 
 export type PropsT = Partial<FieldPropsT> & {
+  placeholder?: string;
   className?: any;
 };
 
@@ -16,7 +17,11 @@ export const TextField = (props: PropsT) => {
   });
   return (
     <div className={cn('TextField', [], [FormFieldL.root(), props.className])}>
-      <input {...fieldProps} className={FormFieldL.input()} />
+      <input
+        placeholder={props.placeholder}
+        {...fieldProps}
+        className={FormFieldL.input()}
+      />
     </div>
   );
 };
