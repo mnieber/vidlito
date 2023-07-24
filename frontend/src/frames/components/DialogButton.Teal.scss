@@ -1,0 +1,14 @@
+@import '/src/frames/components/DialogButtonBase.scss';
+
+.Teal {
+  &.DialogButton {
+    @apply DialogButtonBase;
+    @apply btnTealWithDarkText;
+
+    .Icon {
+      svg {
+        @apply fill-teal-dark;
+      }
+    }
+  }
+}

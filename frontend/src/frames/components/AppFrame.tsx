@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipMenu } from '/src/clips/components';
+import { CookieNotice } from '/src/frames/components/CookieNotice';
 
 // Import styles
 import './AppFrame.scss';
@@ -29,6 +30,9 @@ export const AppFrame = observer(
       <React.Fragment>
         <ClipMenu />
         {props.children}
+        {!props.dashboardState.cookiesState.hasSetCookiePreferences && (
+          <CookieNotice />
+        )}
       </React.Fragment>
     );
   }, DefaultProps)

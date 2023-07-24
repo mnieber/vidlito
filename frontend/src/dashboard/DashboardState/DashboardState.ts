@@ -1,6 +1,7 @@
 import { makeObservable, observable } from 'mobx';
 import * as Skandha from 'skandha';
 import { UserProfileT } from '/src/api/types/UserProfileT';
+import { CookiesState } from '/src/dashboard/DashboardState/CookiesState';
 import { NavigationState } from '/src/dashboard/DashboardState/NavigationState';
 import { PanelState } from '/src/dashboard/DashboardState/PanelState';
 import { PlaylistState } from '/src/dashboard/DashboardState/PlaylistState';
@@ -15,11 +16,12 @@ type AccountT = {
 export type PropsT = {};
 
 export class DashboardState {
-  clipListContextMenu = createContextMenu();
   accountMenu = createContextMenu();
-  panelState = new PanelState();
+  clipListContextMenu = createContextMenu();
+  cookiesState = new CookiesState();
   playlistState = new PlaylistState();
   navigationState = new NavigationState(this.playlistState);
+  panelState = new PanelState();
 
   @observable account: AccountT = {
     userProfile: undefined,

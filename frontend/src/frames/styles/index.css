@@ -6,6 +6,9 @@
   .btnBlueWithDarkText {
     @apply bg-blue-400 text-blue-darkest hover:bg-blue-600;
   }
+  .btnTealWithDarkText {
+    @apply bg-teal-400 text-teal-dark hover:bg-teal-600;
+  }
   .btnTealWithWhiteText {
     @apply bg-teal-400 text-white hover:bg-teal-300;
   }

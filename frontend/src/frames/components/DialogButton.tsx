@@ -6,6 +6,7 @@ import { cn } from '/src/utils/classnames';
 // Import styles
 import './DialogButton.Blue.scss';
 import './DialogButton.SkyBlueWithBorder.scss';
+import './DialogButton.Teal.scss';
 import './DialogButton.TealWithWhiteText.scss';
 
 export type PropsT = {
@@ -13,6 +14,7 @@ export type PropsT = {
   danger?: boolean;
   dataCy?: string;
   disabled?: boolean;
+  fontSize?: 'medium' | 'big';
   iconName?: string;
   label: string;
 } & ButtonPropsT;
@@ -45,6 +47,7 @@ export const DialogButton = (
         {
           'DialogButton--disabled': disabled,
           'DialogButton--danger': danger,
+          'text-lg': props.fontSize === 'big',
         },
         [iconName ? L.row.skewer() : '', className]
       )}
@@ -62,5 +65,9 @@ export const DialogButton = (
 export const DialogButtonL = {
   icon: {
     root: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
+  },
+  fontSize: {
+    medium: () => 'text-base',
+    big: () => 'text-lg',
   },
 };
