@@ -100,37 +100,13 @@ export const ClipFormView = observer(
               }}
             />
           </Field>
-          <div className={cn(L.row.skewer(), MainFormL.Field())}>
-            {
-              // 🔳 StartTimeField 🔳
-            }
-            <Field className={cn('mr-2')} fieldName="clipForm.startTimeS">
-              <FormFieldLabel label="START TIME" />
-              <TimeField
-                videoPlayerState={props.videoPlayerState}
-                controlled={true}
-                tabIndex={2}
-              />
-            </Field>
-            {
-              // 🔳 EndTimeField 🔳
-            }
-            <Field fieldName="clipForm.endTimeS">
-              <FormFieldLabel label="END TIME" />
-              <TimeField
-                videoPlayerState={props.videoPlayerState}
-                controlled={true}
-                tabIndex={4}
-              />
-            </Field>
-          </div>
           {
             // 🔳 NameField 🔳
           }
           <Field fieldName="clipForm.name" className={MainFormL.Field()}>
             <FormFieldLabel label="NAME" />
             <NameField
-              tabIndex={6}
+              tabIndex={2}
               controlled={true}
               autoSelect={true}
               slugFieldName={
@@ -147,13 +123,37 @@ export const ClipFormView = observer(
             <FormFieldLabel label="SLUG" />
             <SlugField relatedFieldName="clipForm.name" />
           </Field>
+          <div className={cn(L.row.skewer(), MainFormL.Field())}>
+            {
+              // 🔳 StartTimeField 🔳
+            }
+            <Field className={cn('mr-2')} fieldName="clipForm.startTimeS">
+              <FormFieldLabel label="START TIME" />
+              <TimeField
+                videoPlayerState={props.videoPlayerState}
+                controlled={true}
+                tabIndex={3}
+              />
+            </Field>
+            {
+              // 🔳 EndTimeField 🔳
+            }
+            <Field fieldName="clipForm.endTimeS">
+              <FormFieldLabel label="END TIME" />
+              <TimeField
+                videoPlayerState={props.videoPlayerState}
+                controlled={true}
+                tabIndex={4}
+              />
+            </Field>
+          </div>
           {
             // 🔳 TagsField 🔳
           }
           <Field fieldName="clipForm.tags" className={MainFormL.Field()}>
             <FormFieldLabel label="TAGS" />
             <ValuePickerField
-              tabIndex={9}
+              tabIndex={5}
               isCreatable={true}
               placeholder=""
               isMulti={true}
@@ -172,7 +172,7 @@ export const ClipFormView = observer(
           >
             <FormFieldLabel label="DESCRIPTION" buttons={[showPreviewButton]} />
             <MarkdownField
-              tabIndex={8}
+              tabIndex={6}
               controlled={true}
               preview={descriptionPreview}
             />
