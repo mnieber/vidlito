@@ -26,7 +26,7 @@ export const ValuePickerField = observer(<ValueT,>(props: PropsT<ValueT>) => {
 
   const saveChanges = (value: any, { action }: any) => {
     const toPickableValue = (value: PickerValueT) => {
-      return value.__isNew__ ? value : value.value;
+      return value.value;
     };
 
     const pickableValue = props.isMulti
