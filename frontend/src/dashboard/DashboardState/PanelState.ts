@@ -12,7 +12,6 @@ export class PanelState {
 
   @action toggleIsPlaylistListExpanded(flag?: boolean) {
     this.isPlaylistListExpanded = flag ?? !this.isPlaylistListExpanded;
-    console.log('toggleIsPlaylistListExpanded', this.isPlaylistListExpanded);
   }
 
   @action setPanelWidth(x: number | undefined) {

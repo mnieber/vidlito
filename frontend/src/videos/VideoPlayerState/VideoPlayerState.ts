@@ -39,6 +39,7 @@ export class VideoPlayerState {
   }
 
   destroy() {
+    this.videoController.dispose();
     Skandha.cleanUpCtr(this);
   }
 
