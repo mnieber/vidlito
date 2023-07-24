@@ -8,7 +8,6 @@ import { widthToHeight } from '/src/videos/utils/aspectRatio';
 
 type PropsT = {
   videoPlayerState: VideoPlayerState;
-  videoPlayerParentElm: any;
   width: number;
 };
 
@@ -43,7 +42,7 @@ export const YoutubePlayer = observer((props: PropsT) => {
     const player = event.target;
     runInAction(() => {
       setTimeout(() => {
-        props.videoPlayerState.setPlayer(player, props.videoPlayerParentElm);
+        props.videoPlayerState.setPlayer(player);
         videoController.pauseAt(startTime || 0);
       }, 100);
     });

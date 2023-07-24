@@ -5,7 +5,6 @@ import { YoutubePlayer } from '/src/videos/components/YoutubePlayer';
 
 type PropsT = {
   videoPlayerState: VideoPlayerState;
-  videoPlayerParentElm: any;
   width: number;
   className?: any;
 };
@@ -16,7 +15,6 @@ export function VideoPlayer(props: PropsT) {
       <div className={props.className}>
         <YoutubePlayer
           videoPlayerState={props.videoPlayerState}
-          videoPlayerParentElm={props.videoPlayerParentElm}
           width={props.width}
         />
       </div>

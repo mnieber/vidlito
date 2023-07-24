@@ -3,14 +3,12 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import * as Skandha from 'skandha';
 import { VideoUrlPropsT } from '/src/api/types/VideoUrlPropsT';
 import { VideoController } from '/src/videos/VideoController';
-import { VideoIFrame } from '/src/videos/VideoIFrame';
 
 export type PropsT = {};
 
 export class VideoPlayerState {
   @observable url: string = '';
   @observable startTimeMs: number = 0;
-  @observable videoIFrame?: VideoIFrame;
   @observable videoController = new VideoController();
 
   @action setUrl(url: string, startTimeMs: number) {
@@ -32,14 +30,8 @@ export class VideoPlayerState {
     return urlParser.parse(this.url!) as VideoUrlPropsT;
   }
 
-  @action setPlayer(player: any, parentElm: any) {
+  @action setPlayer(player: any) {
     this.videoController.setPlayer(player);
-    if (player) {
-      if (this.videoIFrame) {
-        this.videoIFrame.unregister();
-      }
-      this.videoIFrame = new VideoIFrame(parentElm, player.getIframe());
-    }
   }
 
   getSummary() {
@@ -47,7 +39,6 @@ export class VideoPlayerState {
   }
 
   destroy() {
-    this.videoIFrame?.unregister();
     Skandha.cleanUpCtr(this);
   }
 

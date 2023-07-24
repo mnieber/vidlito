@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
 import * as Skandha from 'skandha';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { NavigationState } from '/src/dashboard/DashboardState/NavigationState';
@@ -10,10 +10,6 @@ type AccountT = {
   userProfile?: UserProfileT;
   username?: string;
   isAuthenticated: boolean;
-};
-
-type VideoT = {
-  videoPlayerParentElm?: any;
 };
 
 export type PropsT = {};
@@ -30,14 +26,6 @@ export class DashboardState {
     username: undefined,
     isAuthenticated: false,
   };
-
-  @observable video: VideoT = {
-    videoPlayerParentElm: undefined,
-  };
-
-  @action setVideoPlayerParentElm(videoPlayerParentElm: any) {
-    this.video.videoPlayerParentElm = videoPlayerParentElm;
-  }
 
   getSummary() {
     return {};

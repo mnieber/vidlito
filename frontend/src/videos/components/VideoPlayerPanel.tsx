@@ -34,7 +34,6 @@ export const VideoPlayerPanel = observer(
         <VideoPlayerPanelPlaceholder width={width} hidden={ready} />
         <VideoPlayer
           key={props.videoPlayerState.url} // yes, we need this
-          videoPlayerParentElm={props.dashboardState.video.videoPlayerParentElm}
           videoPlayerState={props.videoPlayerState}
           width={width}
           className={cn({
