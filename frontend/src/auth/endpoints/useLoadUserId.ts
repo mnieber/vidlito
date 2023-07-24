@@ -18,7 +18,6 @@ export function loadUserId(args: ArgsT): Promise<any> {
         getUserProfile {
           userProfile {
             username
-            lastUrl
             folderSet {
               id
               name

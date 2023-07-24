@@ -1,9 +1,9 @@
 import { useRouteMatch } from 'react-router-dom';
 import { navToActions } from '/src/actions/ActionsNavEvents';
-import { updateLastUrl } from '/src/api/mutations/useUpdateLastUrl';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
+import { cookiesState } from '/src/dashboard/DashboardState/CookiesState';
 import { useInstallNavLayer } from '/src/navHandler';
 import { navHandler } from '/src/navHandler/NavHandler';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
@@ -42,7 +42,7 @@ export const createMainNavEventLayer = (props: EventLayerPropsT) => {
       });
       const userProfile = props.getUserProfile();
       if (changed && userProfile) {
-        updateLastUrl({ url: route });
+        cookiesState.setLastUrl(route);
       }
     }) as typeof navToClip,
     navToPlaylist: ((ownerUsername: string, playlistSlug: string) => {

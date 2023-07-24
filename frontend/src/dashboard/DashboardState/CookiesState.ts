@@ -26,15 +26,36 @@ export class CookiesState {
     return this.cookiePreferences.functionalCookies !== undefined;
   }
 
+  get lastUrl(): string | undefined {
+    const result = Cookies.get('lastUrl');
+    return result === '' ? undefined : result;
+  }
+
+  setLastUrl(lastUrl: string | undefined) {
+    if (acceptsFunctionalCookies()) {
+      Cookies.set('lastUrl', lastUrl ?? '');
+    }
+  }
+
   constructor() {
     makeObservable(this);
     runInAction(() => {
-      if (Cookies.get('acceptFunctionalCookies') === '1') {
+      if (acceptsFunctionalCookies()) {
         this.cookiePreferences.functionalCookies = true;
       }
-      if (Cookies.get('acceptFunctionalCookies') === '0') {
+      if (rejectsFunctionalCookies()) {
         this.cookiePreferences.functionalCookies = false;
       }
     });
   }
+}
+
+export const cookiesState = new CookiesState();
+
+export function rejectsFunctionalCookies() {
+  return Cookies.get('acceptFunctionalCookies') === '0';
+}
+
+export function acceptsFunctionalCookies() {
+  return Cookies.get('acceptFunctionalCookies') === '1';
 }

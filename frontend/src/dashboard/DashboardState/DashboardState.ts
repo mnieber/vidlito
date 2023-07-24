@@ -1,7 +1,7 @@
 import { makeObservable, observable } from 'mobx';
 import * as Skandha from 'skandha';
 import { UserProfileT } from '/src/api/types/UserProfileT';
-import { CookiesState } from '/src/dashboard/DashboardState/CookiesState';
+import { cookiesState } from '/src/dashboard/DashboardState/CookiesState';
 import { NavigationState } from '/src/dashboard/DashboardState/NavigationState';
 import { PanelState } from '/src/dashboard/DashboardState/PanelState';
 import { PlaylistState } from '/src/dashboard/DashboardState/PlaylistState';
@@ -18,7 +18,7 @@ export type PropsT = {};
 export class DashboardState {
   accountMenu = createContextMenu();
   clipListContextMenu = createContextMenu();
-  cookiesState = new CookiesState();
+  cookiesState = cookiesState;
   playlistState = new PlaylistState();
   navigationState = new NavigationState(this.playlistState);
   panelState = new PanelState();

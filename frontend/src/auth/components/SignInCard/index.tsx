@@ -37,7 +37,7 @@ export const SignInCard = observer(() => {
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
             if (response.success) {
-              navToNextPageAfterSignIn(response.lastUrl);
+              navToNextPageAfterSignIn('/');
             }
           });
         }}

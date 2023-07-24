@@ -18,7 +18,6 @@ from .saveplaylistpd import SavePlaylistPd
 from .saveplaylistsettings import SavePlaylistSettings
 from .searchcontent import SearchContent
 from .undoaction import UndoAction
-from .updatelasturl import UpdateLastUrl
 
 
 class GrapheneNonEmptyMutation(graphene.Mutation):
@@ -45,4 +44,3 @@ class Mutation(user_accounts.schema.Mutation, GrapheneNonEmptyMutation):
     save_playlist_pd = SavePlaylistPd.Field()
     search_content = SearchContent.Field()
     undo_action = UndoAction.Field()
-    update_last_url = UpdateLastUrl.Field()

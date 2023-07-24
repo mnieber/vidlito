@@ -4,7 +4,6 @@ import { queryClient } from '/src/api/queryClient';
 import { AuthState } from '/src/auth/AuthState';
 import { loadUserIdQueryKey } from '/src/auth/endpoints';
 import { States } from '/src/auth/endpoints/states';
-import { getLastUrl } from '/src/auth/endpoints/useGetLastUrl';
 import { hasErrorCode, isError } from '/src/auth/endpoints/utils';
 import { ObjT } from '/src/utils/types';
 
@@ -30,42 +29,34 @@ export function signIn(args: ArgsT) {
       email: args.userId,
       password: args.password,
     }
-  )
-    .then((response: ObjT) => {
-      if (
-        hasErrorCode(
-          ['tokenAuth', 'errors', 'nonFieldErrors'],
-          'INVALID_CREDENTIALS'
-        )(response)
-      )
-        return {
-          success: false,
-          errors: [States.INVALID_CREDENTIALS],
-        };
-
-      if (isError(['tokenAuth', 'errors'])(response))
-        return {
-          success: false,
-          errors: [States.SIGN_IN_FAILED],
-        };
-
-      const token = response.tokenAuth.token;
-      const refreshToken = response.tokenAuth.refreshToken;
-      setToken(token, refreshToken);
-
+  ).then((response: ObjT) => {
+    if (
+      hasErrorCode(
+        ['tokenAuth', 'errors', 'nonFieldErrors'],
+        'INVALID_CREDENTIALS'
+      )(response)
+    )
       return {
-        success: true,
-        token,
-        userId: args.userId,
+        success: false,
+        errors: [States.INVALID_CREDENTIALS],
       };
-    })
-    .then(async (response: ObjT) => {
-      const { lastUrl } = await getLastUrl({});
+
+    if (isError(['tokenAuth', 'errors'])(response))
       return {
-        ...response,
-        lastUrl: lastUrl,
+        success: false,
+        errors: [States.SIGN_IN_FAILED],
       };
-    });
+
+    const token = response.tokenAuth.token;
+    const refreshToken = response.tokenAuth.refreshToken;
+    setToken(token, refreshToken);
+
+    return {
+      success: true,
+      token,
+      userId: args.userId,
+    };
+  });
 }
 
 export const useSignIn = (authState?: AuthState) => {
