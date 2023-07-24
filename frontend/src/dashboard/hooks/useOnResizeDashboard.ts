@@ -10,14 +10,16 @@ export type PropsT = {
 
 export const useOnResizeDashboard = (props: PropsT) => {
   const { panelWidth, onResize } = useResize({});
-  const maxVideoWidth = props.dashboardState.isFullVideoWidth ? 1200 : 800;
+  const maxVideoWidth = props.dashboardState.panelState.isFullVideoWidth
+    ? 1200
+    : 800;
   const nextPanelWidth = getVideoWidth(
     maxVideoWidth,
     (panelWidth ?? window.innerWidth) - 150 - props.leftSidebarWidth
   );
 
   React.useEffect(() => {
-    props.dashboardState.setPanelWidth(nextPanelWidth);
+    props.dashboardState.panelState.setPanelWidth(nextPanelWidth);
   }, [props.dashboardState, nextPanelWidth]);
 
   return {

@@ -29,8 +29,8 @@ export const NewPlaylistButton = observer(
         iconName="plus"
         label="Playlist"
         onClick={() => {
-          props.dashboardState.storeNavigationPoint();
-          props.dashboardState.toggleIsPlaylistListExpanded(true);
+          props.dashboardState.navigationState.storeNavigationPoint();
+          props.dashboardState.playlistState.toggleIsPlaylistListExpanded(true);
           const localPlaylist = props.playlistsAddition.add({
             values: createPlaylist(props.userProfile, {}),
           });

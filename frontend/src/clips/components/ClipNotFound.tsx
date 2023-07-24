@@ -20,7 +20,7 @@ const DefaultProps = {
 export const ClipNotFound = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const clipSlug = navHandler.getParams().clipSlug;
-    const width = (props.dashboardState.panelWidth ?? 100) - 1;
+    const width = (props.dashboardState.panelState.panelWidth ?? 100) - 1;
     const height = widthToHeight(width);
     const msg =
       clipSlug === '-'

@@ -41,11 +41,11 @@ export const SearchView = observer(
           {
             // 🔳 Close Button 🔳
           }
-          {props.dashboardState.hasNavigationPoint && (
+          {props.dashboardState.navigationState.hasNavigationPoint && (
             <CloseButton
               className=""
               onClick={() => {
-                props.dashboardState.restoreNavigationPoint();
+                props.dashboardState.navigationState.restoreNavigationPoint();
               }}
             />
           )}

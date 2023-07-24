@@ -19,7 +19,7 @@ const DefaultProps = {
 export const VideoPlayerPanel = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const ready = props.videoPlayerState.ready;
-    const width = props.dashboardState.panelWidth;
+    const width = props.dashboardState.panelState.panelWidth;
 
     if (R.isNil(width)) return null;
 

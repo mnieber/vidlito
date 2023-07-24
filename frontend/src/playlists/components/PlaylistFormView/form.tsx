@@ -69,7 +69,7 @@ const getHandleCancel =
     const mustRestore = !!props.playlistsAddition.item;
     props.playlistsEdit.cancel();
     if (mustRestore) {
-      if (!props.dashboardState.restoreNavigationPoint()) {
+      if (!props.dashboardState.navigationState.restoreNavigationPoint()) {
         navToHome();
       }
     }

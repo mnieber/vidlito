@@ -23,7 +23,7 @@ export const SearchButton = observer(
         iconName="search"
         label="Search"
         onClick={() => {
-          props.dashboardState.storeNavigationPoint();
+          props.dashboardState.navigationState.storeNavigationPoint();
           navToSearch();
         }}
       />

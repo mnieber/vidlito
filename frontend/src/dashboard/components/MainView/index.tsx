@@ -18,7 +18,9 @@ const DefaultProps = {
 
 export const MainView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const maxVideoWidth = props.dashboardState.isFullVideoWidth ? 1200 : 800;
+    const maxVideoWidth = props.dashboardState.panelState.isFullVideoWidth
+      ? 1200
+      : 800;
 
     return (
       <div className={cn('MainView', L.row.banner(), 'h-full')}>

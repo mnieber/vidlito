@@ -19,8 +19,8 @@ export const ClipVideoKeyHandler = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const keyHandlers = {
       'ctrl+shift+space': () => {
-        props.dashboardState.setIsFullVideoWidth(
-          !props.dashboardState.isFullVideoWidth
+        props.dashboardState.panelState.setIsFullVideoWidth(
+          !props.dashboardState.panelState.isFullVideoWidth
         );
       },
       ...createVideoKeyHandlers(

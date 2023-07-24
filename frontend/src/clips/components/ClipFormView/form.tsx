@@ -75,7 +75,7 @@ const getHandleCancel =
     const mustRestore = !!props.clipsAddition.item;
     props.clipsEdit.cancel();
     if (mustRestore) {
-      if (!props.dashboardState.restoreNavigationPoint()) {
+      if (!props.dashboardState.navigationState.restoreNavigationPoint()) {
         navToHome();
       }
     }
