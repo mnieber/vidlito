@@ -6,6 +6,7 @@ import { CopCard } from '/src/clips/components/CopCard';
 import { Dashboard } from '/src/dashboard/components/Dashboard';
 import { MainView } from '/src/dashboard/components/MainView';
 import { CardL } from '/src/frames/components/Card';
+import { ForwardToLastUrlEffect } from '/src/frames/components/ForwardToLastUrlEffect';
 import { PageNotFound } from '/src/frames/components/PageNotFound';
 import { UseActionsPage } from '/src/frames/pages/UseActionsPage';
 import { UseMainPage } from '/src/frames/pages/UseMainPage';
@@ -35,9 +36,12 @@ export const DashboardSwitch = withDefaultProps(
           {
             // 🔳 Dashboard 🔳
           }
-          <Dashboard>
+          <Dashboard className="🔳">
             <MainView>
               <PageNotFound />
+              <Route exact={true} path={routes.home()}>
+                <ForwardToLastUrlEffect />
+              </Route>
               <Route exact={false} path={routes.search()}>
                 <SelectPlaylistEffect />
                 {
@@ -47,9 +51,6 @@ export const DashboardSwitch = withDefaultProps(
               </Route>
               <Route exact={true} path={routes.actions()}>
                 <UseActionsPage>
-                  {
-                    // 🔳
-                  }
                   <SelectPlaylistEffect />
                   {
                     // 🔳 ActionsView 🔳
@@ -80,9 +81,6 @@ export const DashboardSwitch = withDefaultProps(
                   />
                 </Route>
                 <Route exact={true} path={routes.clip()}>
-                  {
-                    // 🔳
-                  }
                   <SyncClipWithUrlEffect />
                   {
                     // 🔳 Clip or Playlist Card 🔳

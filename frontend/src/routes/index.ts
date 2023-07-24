@@ -1,1 +1,0 @@
-export { getHomeRoute } from './getHomeRoute';
