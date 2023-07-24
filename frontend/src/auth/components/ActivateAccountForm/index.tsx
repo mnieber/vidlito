@@ -8,10 +8,12 @@ import {
   GlobalError,
   PasswordField,
 } from '/src/forms/components';
+import { TextField } from '/src/forms/components/TextField';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 export const formFields = {
+  username: 'username',
   password: 'password',
 };
 
@@ -52,6 +54,17 @@ export function ActivateAccountForm(props: PropsT) {
         <div className={cn(AuthFormL.Header())}>
           {messages.divYouAreOneStepAway}
         </div>
+
+        {
+          // 🔳 UsernameField 🔳
+        }
+        <Field
+          fieldName={formFields.username}
+          autoFocus={true}
+          className={AuthFormL.Field()}
+        >
+          <TextField placeholder="Username" />
+        </Field>
 
         {
           // 🔳 Password 🔳

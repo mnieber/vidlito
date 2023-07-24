@@ -7,6 +7,7 @@ import { ObjT } from '/src/utils/types';
 
 export type ArgsT = {
   activationToken: string;
+  username: string;
   password: string;
 };
 
@@ -14,10 +15,12 @@ export function activateAccount(args: ArgsT) {
   return doQuery(
     `mutation (
       $activationToken: String!,
+      $username: String!,
       $password: String!,
     ) {
       activateAccount(
         activationToken: $activationToken,
+        username: $username,
         password: $password,
       ) {
         success,
@@ -26,6 +29,7 @@ export function activateAccount(args: ArgsT) {
     }`,
     {
       activationToken: args.activationToken,
+      username: args.username,
       password: args.password,
     }
   ).then((response: ObjT) => {

@@ -20,7 +20,10 @@ const getExternalErrors = (messages: ObjT, errors: Array<string>) => {
 };
 
 const getInitialValues = () => {
-  return { password: null };
+  return {
+    [ff.password]: null,
+    [ff.username]: null,
+  };
 };
 
 const getHandleValidate =
@@ -34,6 +37,8 @@ const getHandleValidate =
   }) => {
     if (!values.password) {
       setError(ff.password, messages.pleaseProvideANewPassword);
+    } else if (values.username) {
+      setError(ff.username, messages.pleaseProvideANewUsername);
     } else if (values.password.length < 8) {
       setError(ff.password, messages.sorryThatPasswordIsTooShort);
     }
