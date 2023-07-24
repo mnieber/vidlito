@@ -7,34 +7,54 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-from django.db import models
-
-from user_profiles.models import UserProfile
+from django.db import models, transaction
 
 
 class UserManager(BaseUserManager):
     def create_user(
         self,
         email: str,
+        username: str,
         password: str = None,
         accepts_terms: bool = False,
         terms_version_accepted: str = None,
         **kwargs
     ):
+        from playlists.models import Follow
+        from playlists.utils.get_or_create_help_playlist import (
+            get_or_create_help_playlist,
+        )
+        from user_profiles.models import UserProfile
+
         if not email:
             raise ValueError("Users must have an email address.")
         if not accepts_terms:
             raise ValueError("Users must accept the terms.")
-        user = self.model(email=self.normalize_email(email))
-        user.accepts_terms = accepts_terms
-        user.terms_version_accepted = terms_version_accepted or settings.TERMS_VERSION
-        user.set_password(password)
-        user.save()
 
-        # Note that we use the user id as the id for the user profile. This can speed up
-        # the handling of graphql queries, since the user id is in the context.
-        user_profile = UserProfile.objects.create(id=user.id, user_id=user.id)
-        user_profile.save()
+        # The following check ensures that outside users cannot create an account
+        # with username "vidlito"
+        if username == "vidlito" or email == settings.VIDLITO_EMAIL:
+            if password != settings.VIDLITO_PASSWORD:
+                raise ValueError("Vidlito user password is incorrect.")
+
+        with transaction.atomic():
+            user = self.model(email=self.normalize_email(email))
+            user.accepts_terms = accepts_terms
+            user.terms_version_accepted = (
+                terms_version_accepted or settings.TERMS_VERSION
+            )
+            user.set_password(password)
+            user.save()
+
+            # Note that we use the user id as the id for the user profile. This can speed up
+            # the handling of graphql queries, since the user id is in the context.
+            user_profile = UserProfile.objects.create(
+                id=user.id, user_id=user.id, username=username
+            )
+            user_profile.save()
+
+            help_playlist = get_or_create_help_playlist()
+            Follow.objects.create(owner_id=user.id, playlist=help_playlist)
 
         return user
 

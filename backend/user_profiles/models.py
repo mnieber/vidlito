@@ -4,7 +4,7 @@ from app.models import Entity
 
 
 class UserProfile(Entity):
-    username = models.CharField(max_length=90)
+    username = models.CharField(max_length=90, unique=True)
     user_id = models.UUIDField()
 
     def __str__(self):

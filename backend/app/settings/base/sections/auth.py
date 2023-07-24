@@ -1,5 +1,7 @@
 import datetime
 
+from app.utils.env import env
+
 AUTHENTICATION_BACKENDS = [
     "graphql_jwt.backends.JSONWebTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
@@ -43,3 +45,6 @@ GRAPHQL_JWT = {
 AUTH_USER_MODEL = "users.User"
 
 TERMS_VERSION = "15-08-2021"
+
+VIDLITO_PASSWORD = env("DJANGO_VIDLITO_PASSWORD")
+VIDLITO_EMAIL = env("DJANGO_VIDLITO_EMAIL")

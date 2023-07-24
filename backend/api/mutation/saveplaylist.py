@@ -18,6 +18,9 @@ class SavePlaylist(graphene.Mutation):
         playlist_form = PlaylistFormT(required=True)
 
     def mutate(self, info, playlist_form):
+        if playlist_form.slug == "help-":
+            raise Exception("You cannot create a playlist with this slug.")
+
         id = playlist_form.pop("id")
         playlist = Playlist.filter_mine(info, id=id).first()
         owner_id = UserProfile.get_id(info)
