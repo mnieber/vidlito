@@ -16,8 +16,12 @@ export const ActivateAccountCard = observer(() => {
 
   const activateAccountForm = (
     <ActivateAccountForm
-      activateAccount={(password: string) =>
-        activateAccount({ password, activationToken: params.activationToken })
+      activateAccount={(username: string, password: string) =>
+        activateAccount({
+          username,
+          password,
+          activationToken: params.activationToken,
+        })
       }
       errors={authState.errors}
     />

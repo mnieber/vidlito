@@ -2,13 +2,14 @@ from django.conf import settings
 
 
 def get_or_create_vidlito_user():
-    from users.models import User
+    from django.contrib.auth import get_user_model
 
-    try:
-        return User.objects.get(username="vidlito")
-    except User.DoesNotExist:
-        return User.objects.create_user(
+    user = get_user_model().objects.filter(email=settings.VIDLITO_EMAIL).first()
+    if not user:
+        user = get_user_model().objects.create_user(
             email=settings.VIDLITO_EMAIL,
+            username="vidlito",
             password=settings.VIDLITO_PASSWORD,
             accepts_terms=True,
         )
+    return user

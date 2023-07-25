@@ -46,6 +46,17 @@ export function activateAccount(args: ArgsT) {
 
     if (
       hasErrorCode(
+        ['activateAccount', 'errors', 'username'],
+        'ALREADY_TAKEN'
+      )(response)
+    )
+      return {
+        success: false,
+        errors: [States.USERNAME_ALREADY_TAKEN],
+      };
+
+    if (
+      hasErrorCode(
         ['activateAccount', 'errors', 'activationToken'],
         'NOT_FOUND'
       )(response)

@@ -21,6 +21,9 @@ DJANGO_RTK = {
         "project_name": "vidlito",
     },
     "EMAIL_FROM": "noreply@vidlito.org",
+    "REQUIRE_USERNAME": True,
+    "REQUIRE_USERNAME_TO_BE_UNIQUE": True,
+    "USERNAME_ALREADY_TAKEN_FN": "user_profiles.utils.username_already_taken",
 }
 
 GRAPHQL_JWT = {

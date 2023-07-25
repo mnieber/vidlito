@@ -18,7 +18,7 @@ export const formFields = {
 };
 
 export type PropsT = {
-  activateAccount: (password: string) => any;
+  activateAccount: (username: string, password: string) => any;
   errors: Array<string>;
   className?: any;
 };
