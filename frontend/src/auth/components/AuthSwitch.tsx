@@ -5,7 +5,6 @@ import { RequestPasswordResetPage } from '/src/auth/components/RequestPasswordRe
 import { ResetPasswordPage } from '/src/auth/components/ResetPasswordPage';
 import { SignInPage } from '/src/auth/components/SignInPage';
 import { SignUpPage } from '/src/auth/components/SignUpPage';
-import { TermsAndConditionsPage } from '/src/frames/components/TermsAndConditionsPage';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
 
 export const AuthSwitch = () => {
@@ -33,9 +32,6 @@ export const AuthSwitch = () => {
       </Route>
       <Route exact path={routes.resetPassword()}>
         <ResetPasswordPage />
-      </Route>
-      <Route exact path={routes.termsAndConditions()}>
-        <TermsAndConditionsPage />
       </Route>
     </Switch>
   );

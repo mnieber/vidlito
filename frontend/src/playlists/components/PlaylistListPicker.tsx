@@ -7,6 +7,8 @@ import {
   PlaylistListHeader,
   PlaylistListView,
 } from '/src/playlists/components';
+import { RouterLink } from '/src/routes/components';
+import { useRoutes } from '/src/routes/hooks/useRoutes';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -25,6 +27,8 @@ const DefaultProps = {
 
 export const PlaylistListPicker = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const routes = useRoutes();
+
     if (isLoading(props.playlists) || isLoading(props.clips)) {
       return <PlaylistListPickerLoader {...props} />;
     }
@@ -32,7 +36,9 @@ export const PlaylistListPicker = observer(
     if (!props.playlists.length) {
       return (
         <div className={cn('PlaylistListPicker__Empty')}>
-          You have no playlists yet
+          You have no playlists yet.{' '}
+          <RouterLink to={routes.signUp()}>Create an account</RouterLink> to add
+          one.
         </div>
       );
     }

@@ -8,6 +8,7 @@ import { MainView } from '/src/dashboard/components/MainView';
 import { CardL } from '/src/frames/components/Card';
 import { ForwardToLastUrlEffect } from '/src/frames/components/ForwardToLastUrlEffect';
 import { PageNotFound } from '/src/frames/components/PageNotFound';
+import { TermsAndConditionsPage } from '/src/frames/components/TermsAndConditionsPage';
 import { UseActionsPage } from '/src/frames/pages/UseActionsPage';
 import { UseMainPage } from '/src/frames/pages/UseMainPage';
 import {
@@ -31,13 +32,16 @@ export const DashboardSwitch = withDefaultProps(
   (props: PropsT & typeof DefaultProps) => {
     const routes = useRoutes();
     return (
-      <Switch>
-        <UseMainPage>
-          {
-            // 🔳 Dashboard 🔳
-          }
-          <Dashboard className="🔳">
+      <UseMainPage>
+        {
+          // 🔳 Dashboard 🔳
+        }
+        <Dashboard className="🔳">
+          <Switch>
             <MainView>
+              <Route exact path={routes.termsAndConditions()}>
+                <TermsAndConditionsPage />
+              </Route>
               <PageNotFound />
               <Route exact={true} path={routes.home()}>
                 <ForwardToLastUrlEffect />
@@ -89,9 +93,9 @@ export const DashboardSwitch = withDefaultProps(
                 </Route>
               </Route>
             </MainView>
-          </Dashboard>
-        </UseMainPage>
-      </Switch>
+          </Switch>
+        </Dashboard>
+      </UseMainPage>
     );
   },
   DefaultProps

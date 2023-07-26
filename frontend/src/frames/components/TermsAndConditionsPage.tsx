@@ -1,5 +1,7 @@
 import { observer } from 'mobx-react-lite';
+import { terms } from './terms';
 import { withDefaultProps } from '/src/app/defaultProps';
+import { MarkdownView } from '/src/frames/components';
 import { MessageCardL } from '/src/frames/components/MessageCard';
 import { cn } from '/src/utils/classnames';
 
@@ -20,7 +22,16 @@ export const TermsAndConditionsPage = observer(
           [MessageCardL.root(), MessageCardL.wallpaper()]
         )}
       >
-        Hello
+        <div
+          className={cn(
+            'TermsAndConditionsPage__Body',
+            'p-8',
+            'mx-auto',
+            'max-w-[800px]'
+          )}
+        >
+          <MarkdownView text={terms} />
+        </div>
       </div>
     );
   }, DefaultProps)

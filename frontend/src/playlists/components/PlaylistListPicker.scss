@@ -1,3 +1,7 @@
 .PlaylistListPicker__Empty {
   @apply text-gray-text;
+
+  a {
+    @apply underline;
+  }
 }
