@@ -3,6 +3,7 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import {
+  navToHelp,
   navToHome,
   navToNextPageAfterSignIn,
   navToSignIn,
@@ -17,6 +18,10 @@ export const createFramesNavEventLayer = () => {
       const ufn = navHandler.routeUfns.home(navHandler.history.push);
       ufn();
     }) as typeof navToHome,
+    navToHelp: (() => {
+      const ufn = navHandler.routeUfns.help(navHandler.history.push);
+      ufn();
+    }) as typeof navToHelp,
     navToSignUp: (() => {
       const ufn = navHandler.routeUfns.signUp(navHandler.history.push);
       ufn();

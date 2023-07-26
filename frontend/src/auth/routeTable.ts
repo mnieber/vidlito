@@ -6,6 +6,7 @@ export const getRouteTable = () => {
   routeTable.addRoutes({
     signIn: () => '/auth/sign-in/',
     home: () => '/',
+    help: () => '/playlist/vidlito/help-/-',
     signInByMagicLink: () => '/auth/sign-in/:magicLinkToken/',
     signUp: () => '/auth/sign-up/',
     termsAndConditions: () => '/terms-and-conditions/',

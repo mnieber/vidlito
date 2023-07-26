@@ -1,9 +1,9 @@
-import { Menu, MenuButton, MenuItem } from '@szhsin/react-menu';
+import { Menu, MenuButton, MenuDivider, MenuItem } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useSignOut } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
-import { navToSignIn } from '/src/frames/FramesNavEvents';
+import { navToHelp, navToSignIn } from '/src/frames/FramesNavEvents';
 import { Icon } from '/src/frames/components';
 import { DialogButtonL } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
@@ -71,6 +71,11 @@ export const AccountMenu = observer(
               Sign Out
             </StyledMenuItem>
           )}
+          <MenuDivider />
+          <StyledMenuItem onClick={() => navToHelp()}>
+            <Icon className={cn(DialogButtonL.icon.root())} name="help" />
+            Help
+          </StyledMenuItem>
         </Menu>
       </div>
     ) : null;
