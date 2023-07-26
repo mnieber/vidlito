@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import * as R from 'ramda';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
@@ -56,52 +55,54 @@ export const CopCard = observer(
         {clipNotFound && <ClipNotFound />}
         {!clipNotFound && <VideoPlayerPanel className={cn('')} />}
         {showLoader && <CopCardBodyLoader />}
-        {!showLoader &&
-          !R.isNil(props.dashboardState.panelState.panelWidth) && (
+        {!showLoader && (
+          <div
+            className={cn(
+              'CopCard__Body',
+              [],
+              [
+                L.col.banner(),
+                'grow',
+                'mx-2 lg:ml-6 lg:mr-2 my-8',
+                'max-w-[776px]',
+              ]
+            )}
+          >
+            <ClipHeaderView className={cn('mb-8')} />
             <div
-              className={cn(
-                'CopCard__Body',
-                [],
-                [L.col.banner(), 'grow', 'ml-6 my-8', 'max-w-[776px]']
-              )}
+              className={cn('CopCard__SubHeader', 'flex flex-row flex-wrap')}
             >
-              <ClipHeaderView className={cn('mb-8')} />
-              <div
-                className={cn('CopCard__SubHeader', 'flex flex-row flex-wrap')}
-              >
-                <AuthorCard className="mr-4" />
-                <PlayerControls className="mr-4" />
-                <TagsCard
-                  clipTags={props.clip?.tags ?? []}
-                  playlistTags={props.playlist?.tags ?? []}
-                />
-              </div>
-              <div
-                className={cn('CopCard__Forms', 'mt-8', CardL.size.medium())}
-              >
-                <CopDescription showPlaylist={showPlaylist} className="" />
-                {!cop?.isTransient && (
-                  <>
-                    <div className={cn(separator)} />
-                    <CopPd showPlaylist={showPlaylist} className="" />
-                  </>
-                )}
-                {props.isOwner(cop) && !cop?.isTransient && (
-                  <>
-                    <div className={cn(separator)} />
-                    <CopSettings className="" showPlaylist={showPlaylist} />
-                  </>
-                )}
-              </div>
-              {noClips &&
-                props.isOwner(props.playlist) &&
-                !props.playlistsEdit.isEditing &&
-                !props.playlistPdEdit.isEditing &&
-                !props.playlistSettingsEdit.isEditing && (
-                  <CreateFirstClip className="mt-4 min-h-[200px]" />
-                )}
+              <AuthorCard className="mr-4" />
+              <PlayerControls className="mr-4" />
+              <TagsCard
+                clipTags={props.clip?.tags ?? []}
+                playlistTags={props.playlist?.tags ?? []}
+              />
             </div>
-          )}
+            <div className={cn('CopCard__Forms', 'mt-8', CardL.size.medium())}>
+              <CopDescription showPlaylist={showPlaylist} className="" />
+              {!cop?.isTransient && (
+                <>
+                  <div className={cn(separator)} />
+                  <CopPd showPlaylist={showPlaylist} className="" />
+                </>
+              )}
+              {props.isOwner(cop) && !cop?.isTransient && (
+                <>
+                  <div className={cn(separator)} />
+                  <CopSettings className="" showPlaylist={showPlaylist} />
+                </>
+              )}
+            </div>
+            {noClips &&
+              props.isOwner(props.playlist) &&
+              !props.playlistsEdit.isEditing &&
+              !props.playlistPdEdit.isEditing &&
+              !props.playlistSettingsEdit.isEditing && (
+                <CreateFirstClip className="mt-4 min-h-[200px]" />
+              )}
+          </div>
+        )}
       </>
     );
   }, DefaultProps)
@@ -109,7 +110,7 @@ export const CopCard = observer(
 
 export const CopCardBodyLoader = observer(() => {
   return (
-    <div className={cn('CopCardLoader', 'ml-6')}>
+    <div className={cn('CopCardLoader', 'mx-2 lg:ml-6 lg:mr-2')}>
       <LoaderBar className={cn('h-12 mt-8 mb-10')} />
       <LoaderBar className={cn('h-4 mb-10')} />
       <LoaderBar className={cn('h-[170px]')} />

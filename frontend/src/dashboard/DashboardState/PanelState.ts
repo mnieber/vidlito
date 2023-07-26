@@ -3,6 +3,7 @@ import { action, makeObservable, observable } from 'mobx';
 export class PanelState {
   @observable panelWidth: number | undefined = undefined;
   @observable isFullVideoWidth: boolean = false;
+  @observable isResizing: boolean = false;
   @observable showPlaylistView: boolean = false;
   @observable isPlaylistListExpanded: boolean = false;
 
@@ -14,8 +15,11 @@ export class PanelState {
     this.isPlaylistListExpanded = flag ?? !this.isPlaylistListExpanded;
   }
 
-  @action setPanelWidth(x: number | undefined) {
-    this.panelWidth = x;
+  @action setPanelWidth(x: number | undefined, isResizing: boolean) {
+    if (x !== undefined) {
+      this.panelWidth = x;
+    }
+    this.isResizing = isResizing;
   }
 
   @action setIsFullVideoWidth(x: boolean) {

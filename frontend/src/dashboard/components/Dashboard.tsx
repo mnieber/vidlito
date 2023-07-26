@@ -1,12 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import ReactResizeDetector from 'react-resize-detector';
 import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipListView } from '/src/clips/components';
 import { ClipVideoKeyHandler } from '/src/clips/components/ClipVideoKeyHandler';
 import { MainButtonsPanel } from '/src/dashboard/components/MainButtonsPanel';
-import { useOnResizeDashboard } from '/src/dashboard/hooks/useOnResizeDashboard';
 import { Logo } from '/src/frames/components';
 import { Footer } from '/src/frames/components/Footer';
 import { L } from '/src/frames/layout';
@@ -31,10 +29,23 @@ export const Dashboard = observer(
     const playlistNotFound = !isLoading(props.playlist) && !props.playlist;
     const separator = ['my-2', 'border-t border-gray-text'];
 
-    const { onResize } = useOnResizeDashboard({
-      leftSidebarWidth: refLeftSidebar.current?.clientWidth ?? 0,
-      dashboardState: props.dashboardState,
-    });
+    const [w] = React.useState(800);
+
+    return (
+      <div className="flex h-screen">
+        <div
+          className="bg-green-500"
+          style={{ flexBasis: '100px', flexShrink: 1000 }}
+        ></div>
+        <div ref={refLeftSidebar} className="shrink-0 bg-blue-500 w-64"></div>
+        <div
+          className={cn('', {})}
+          style={{ flexBasis: w + 'px', flexShrink: 1 }}
+        >
+          {props.children}
+        </div>
+      </div>
+    );
 
     return (
       //
@@ -48,39 +59,35 @@ export const Dashboard = observer(
             ['grow', 'h-full', L.col.banner(), props.className]
           )}
         >
-          <ReactResizeDetector handleWidth onResize={onResize} />
           <div className={cn('Dashboard__Top', L.row.banner(), 'grow')}>
             <div
+              className={cn('Dashboard__LeftSpacer')}
+              style={{
+                flexBasis: w + 'px',
+                flexShrink: 1000,
+              }}
+            />
+            {
+              // 🔳 LeftSideBar 🔳
+            }
+            <div
               ref={refLeftSidebar}
-              className={cn('Dashboard__LeftSidebarWrapper', L.row.banner())}
+              className={cn(
+                'Dashboard__LeftSidebar',
+                [],
+                [L.col.banner(), 'w-[290px] min-w-[290px] mx-2 lg:mx-4']
+              )}
             >
-              <div
-                className={cn(
-                  'Dashboard__LeftSpacer',
-                  'lg:w-[160px] lg:min-w-[160px]'
-                )}
-              />
-              {
-                // 🔳 LeftSideBar 🔳
-              }
-              <div
-                className={cn(
-                  'Dashboard__LeftSidebar__',
-                  [],
-                  [L.col.banner(), 'w-[290px] min-w-[290px] mx-2 lg:mx-4']
-                )}
-              >
-                <Logo />
-                <MainButtonsPanel className={cn('')} />
-                <div className={cn('Dashboard__Separator__', separator)} />
-                <PlaylistListPicker />
-                <div className={cn('Dashboard__Separator__', separator)} />
-                {!playlistNotFound && (
-                  <>
-                    <ClipListView className={cn('overflow-y-auto', 'mt-4')} />
-                  </>
-                )}
-              </div>
+              <Logo />
+              <MainButtonsPanel className={cn('')} />
+              <div className={cn('Dashboard__Separator__', separator)} />
+              <PlaylistListPicker />
+              <div className={cn('Dashboard__Separator__', separator)} />
+              {!playlistNotFound && (
+                <>
+                  <ClipListView className={cn('overflow-y-auto', 'mt-4')} />
+                </>
+              )}
             </div>
             {
               // 🔳 RightMain 🔳
@@ -93,6 +100,7 @@ export const Dashboard = observer(
                 //
                 'grow'
               )}
+              style={{ flexShrink: 1 }}
             >
               {props.children}
             </div>

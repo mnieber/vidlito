@@ -20,6 +20,7 @@ export const VideoPlayerPanel = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const ready = props.videoPlayerState.ready;
     const width = props.dashboardState.panelState.panelWidth;
+    const isResizing = props.dashboardState.panelState.isResizing;
 
     if (R.isNil(width)) return null;
 
@@ -31,13 +32,16 @@ export const VideoPlayerPanel = observer(
           [L.col.banner(), props.className]
         )}
       >
-        <VideoPlayerPanelPlaceholder width={width} hidden={ready} />
+        <VideoPlayerPanelPlaceholder
+          width={width}
+          hidden={!isResizing && ready}
+        />
         <VideoPlayer
           key={props.videoPlayerState.url} // yes, we need this
           videoPlayerState={props.videoPlayerState}
           width={width}
           className={cn({
-            hidden: !ready,
+            hidden: isResizing || !ready,
           })}
         />
       </div>
