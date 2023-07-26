@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
+import { AccountMenu } from '/src/frames/components/AccountMenu';
 import { L } from '/src/frames/layout';
 import { RouterLink } from '/src/routes/components/RouterLink';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
@@ -24,6 +25,8 @@ export const Footer = observer(
           <RouterLink to={routes.termsAndConditions()}>
             Terms and Conditions
           </RouterLink>
+          <div className={cn('grow')} />
+          <AccountMenu />
         </div>
       </div>
     );

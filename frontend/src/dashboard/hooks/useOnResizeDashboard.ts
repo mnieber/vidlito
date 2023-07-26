@@ -15,7 +15,7 @@ export const useOnResizeDashboard = (props: PropsT) => {
     : 800;
   const nextPanelWidth = getVideoWidth(
     maxVideoWidth,
-    (panelWidth ?? window.innerWidth) - 150 - props.leftSidebarWidth
+    (panelWidth ?? window.innerWidth) - props.leftSidebarWidth
   );
 
   React.useEffect(() => {

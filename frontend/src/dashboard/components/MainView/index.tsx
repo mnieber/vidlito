@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { AccountMenu } from '/src/frames/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -35,7 +34,6 @@ export const MainView = observer(
         >
           {props.children}
         </div>
-        <AccountMenu className={cn('mt-4 mx-8')} />
       </div>
     );
   }, DefaultProps)
