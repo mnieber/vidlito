@@ -41,7 +41,7 @@ export const createMainNavEventLayer = (props: EventLayerPropsT) => {
         clipSlug,
       });
       const userProfile = props.getUserProfile();
-      if (changed && userProfile) {
+      if (changed && userProfile && clipSlug !== 'new-clip') {
         cookiesState.setLastUrl(route);
       }
     }) as typeof navToClip,

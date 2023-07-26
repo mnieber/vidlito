@@ -14,8 +14,24 @@ export const useMessages = () => {
     </div>
   );
 
+  const ifYouAlreadyHaveAnAccount = (
+    <div>
+      If you already have an account then you can{' '}
+      <RouterLink
+        key="_signIn"
+        dataCy={'navToSignInLink'}
+        className=""
+        to={routes.signIn()}
+      >
+        sign in
+      </RouterLink>
+      .
+    </div>
+  );
+
   return {
     messages: {
+      ifYouAlreadyHaveAnAccount,
       yourAccountWasActivated,
     },
   };

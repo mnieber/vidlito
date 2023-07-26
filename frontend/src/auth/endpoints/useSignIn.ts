@@ -15,7 +15,7 @@ export type ArgsT = {
 export function signIn(args: ArgsT) {
   return doQuery(
     `mutation ($email: String!, $password: String!) {
-      tokenAuth(
+      signIn(
         email: $email,
         password: $password
       ) {
@@ -32,7 +32,7 @@ export function signIn(args: ArgsT) {
   ).then((response: ObjT) => {
     if (
       hasErrorCode(
-        ['tokenAuth', 'errors', 'nonFieldErrors'],
+        ['signIn', 'errors', 'nonFieldErrors'],
         'INVALID_CREDENTIALS'
       )(response)
     )
@@ -41,14 +41,14 @@ export function signIn(args: ArgsT) {
         errors: [States.INVALID_CREDENTIALS],
       };
 
-    if (isError(['tokenAuth', 'errors'])(response))
+    if (isError(['signIn', 'errors'])(response))
       return {
         success: false,
         errors: [States.SIGN_IN_FAILED],
       };
 
-    const token = response.tokenAuth.token;
-    const refreshToken = response.tokenAuth.refreshToken;
+    const token = response.signIn.token;
+    const refreshToken = response.signIn.refreshToken;
     setToken(token, refreshToken);
 
     return {

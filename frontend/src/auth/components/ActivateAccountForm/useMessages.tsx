@@ -18,6 +18,7 @@ export const useMessages = () => {
   return {
     messages: {
       divSorryThatPasswordIsTooShort: 'Sorry, that password is too short',
+      divUsernameAlreadyTaken: 'Sorry, that username is already taken',
       divTheActivationFailed,
       divSorryTechnicalError:
         'Sorry, there seems to be a technical problem. ' +

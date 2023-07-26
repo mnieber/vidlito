@@ -7,6 +7,9 @@ import { ObjT } from '/src/utils/types';
 const getExternalErrors = (messages: ObjT, errors: Array<string>) => {
   const fieldErrors = createFormErrorsObject();
 
+  if (errors?.includes(States.USERNAME_ALREADY_TAKEN)) {
+    fieldErrors[ff.username] = messages.divUsernameAlreadyTaken;
+  }
   if (errors?.includes(States.PASSWORD_TOO_SHORT)) {
     fieldErrors[ff.password] = messages.divSorryThatPasswordIsTooShort;
   }
