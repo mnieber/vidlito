@@ -53,7 +53,7 @@ export const CopCard = observer(
     return (
       <>
         {clipNotFound && <ClipNotFound />}
-        {!clipNotFound && <VideoPlayerPanel className={cn('')} />}
+        {!clipNotFound && <VideoPlayerPanel />}
         {showLoader && <CopCardBodyLoader />}
         {!showLoader && (
           <div
