@@ -27,19 +27,17 @@ export const MainView = observer(
       : 800;
 
     return (
-      <div className={cn('MainView', L.row.banner(), 'h-full')}>
-        <div
-          tabIndex={0}
-          className={cn(
-            'MainView__Body',
-            [],
-            [L.col.banner(), 'grow', props.className]
-          )}
-          style={{ maxWidth: maxVideoWidth }}
-        >
-          <ReactResizeDetector onResize={onResizeMainView} />
-          {props.children}
-        </div>
+      <div
+        tabIndex={0}
+        className={cn(
+          'MainView',
+          [],
+          [L.col.banner(), 'h-full', 'grow', props.className]
+        )}
+        style={{ maxWidth: maxVideoWidth }}
+      >
+        <ReactResizeDetector onResize={onResizeMainView} />
+        {props.children}
       </div>
     );
   }, DefaultProps)

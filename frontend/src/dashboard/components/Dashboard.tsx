@@ -25,27 +25,9 @@ const DefaultProps = {
 
 export const Dashboard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const refLeftSidebar = React.useRef<HTMLDivElement>(null);
     const playlistNotFound = !isLoading(props.playlist) && !props.playlist;
     const separator = ['my-2', 'border-t border-gray-text'];
-
-    const [w] = React.useState(800);
-
-    return (
-      <div className="flex h-screen">
-        <div
-          className="bg-green-500"
-          style={{ flexBasis: '100px', flexShrink: 1000 }}
-        ></div>
-        <div ref={refLeftSidebar} className="shrink-0 bg-blue-500 w-64"></div>
-        <div
-          className={cn('', {})}
-          style={{ flexBasis: w + 'px', flexShrink: 1 }}
-        >
-          {props.children}
-        </div>
-      </div>
-    );
+    const w = props.dashboardState.panelState.isFullVideoWidth ? 1200 : 800;
 
     return (
       //
@@ -63,7 +45,7 @@ export const Dashboard = observer(
             <div
               className={cn('Dashboard__LeftSpacer')}
               style={{
-                flexBasis: w + 'px',
+                flexBasis: '160px',
                 flexShrink: 1000,
               }}
             />
@@ -71,7 +53,6 @@ export const Dashboard = observer(
               // 🔳 LeftSideBar 🔳
             }
             <div
-              ref={refLeftSidebar}
               className={cn(
                 'Dashboard__LeftSidebar',
                 [],
@@ -93,14 +74,8 @@ export const Dashboard = observer(
               // 🔳 RightMain 🔳
             }
             <div
-              className={cn(
-                'Dashboard__RightMain',
-                'bg-gray-200',
-                //
-                //
-                'grow'
-              )}
-              style={{ flexShrink: 1 }}
+              className={cn('Dashboard__RightMain', ['bg-gray-200'], ['grow'])}
+              style={{ flexBasis: w + 'px', flexShrink: 1 }}
             >
               {props.children}
             </div>

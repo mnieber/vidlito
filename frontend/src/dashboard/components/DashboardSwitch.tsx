@@ -2,7 +2,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ActionsView } from '/src/actions/components';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { SyncClipWithUrlEffect } from '/src/clips/components';
-import { CopCard } from '/src/clips/components/CopCard';
+import { VideoAndCopView } from '/src/clips/components/VideoAndCopView';
 import { Dashboard } from '/src/dashboard/components/Dashboard';
 import { MainView } from '/src/dashboard/components/MainView';
 import { CardL } from '/src/frames/components/Card';
@@ -89,7 +89,7 @@ export const DashboardSwitch = withDefaultProps(
                   {
                     // 🔳 Clip or Playlist Card 🔳
                   }
-                  <CopCard />
+                  <VideoAndCopView />
                 </Route>
               </Route>
             </MainView>
