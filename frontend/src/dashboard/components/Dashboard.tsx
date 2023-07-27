@@ -33,56 +33,56 @@ export const Dashboard = observer(
       //
       // 🔳 DashBoard 🔳
       //
-      <ClipVideoKeyHandler className="h-full">
+      <ClipVideoKeyHandler className={cn('h-full', L.col.banner())}>
         <div
           className={cn(
             'Dashboard',
             [],
-            ['grow', 'h-full', L.col.banner(), props.className]
+            ['h-full', L.row.banner(), props.className]
           )}
         >
-          <div className={cn('Dashboard__Top', L.row.banner(), 'grow')}>
-            <div
-              className={cn('Dashboard__LeftSpacer')}
-              style={{
-                flexBasis: '160px',
-                flexShrink: Infinity,
-              }}
-            />
-            {
-              // 🔳 LeftSideBar 🔳
-            }
-            <div
-              className={cn(
-                'Dashboard__LeftSidebar',
-                [],
-                [L.col.banner(), 'w-[290px] min-w-[290px] mx-2 lg:mx-4']
-              )}
-            >
-              <Logo />
-              <MainButtonsPanel className={cn('')} />
-              <div className={cn('Dashboard__Separator__', separator)} />
-              <PlaylistListPicker />
-              <div className={cn('Dashboard__Separator__', separator)} />
-              {!playlistNotFound && (
-                <>
-                  <ClipListView className={cn('overflow-y-auto', 'mt-4')} />
-                </>
-              )}
-            </div>
-            {
-              // 🔳 RightMain 🔳
-            }
-            <div
-              className={cn('Dashboard__RightMain', ['bg-gray-200'], ['grow'])}
-              style={{ flexBasis: w + 'px', flexShrink: 1 }}
-            >
-              {props.children}
-            </div>
+          <div
+            className={cn('Dashboard__LeftSpacer')}
+            style={{
+              flexBasis: '160px',
+              flexShrink: 1000,
+            }}
+          />
+          {
+            // 🔳 LeftSideBar 🔳
+          }
+          <div
+            className={cn(
+              'Dashboard__LeftSidebar',
+              [],
+              [L.col.banner(), 'w-[290px] min-w-[290px] mx-2 lg:mx-4']
+            )}
+          >
+            <Logo />
+            <MainButtonsPanel className={cn('')} />
+            <div className={cn('Dashboard__Separator__', separator)} />
+            <PlaylistListPicker />
+            <div className={cn('Dashboard__Separator__', separator)} />
+            {!playlistNotFound && (
+              <>
+                <ClipListView
+                  className={cn('overflow-y-auto flex-grow', 'mt-4')}
+                />
+              </>
+            )}
           </div>
-          <div className={cn('MainView__Spacer', '')} />
-          <Footer />
+          {
+            // 🔳 RightMain 🔳
+          }
+          <div
+            className={cn('Dashboard__RightMain', ['bg-gray-200'], ['grow'])}
+            style={{ flexBasis: w + 'px', flexShrink: 1 }}
+          >
+            {props.children}
+          </div>
         </div>
+        {<div className={cn('MainView__Spacer', '')} />}
+        {<Footer />}
       </ClipVideoKeyHandler>
     );
   }, DefaultProps)

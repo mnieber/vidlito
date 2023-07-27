@@ -34,10 +34,14 @@ export const MainView = observer(
           [],
           [L.col.banner(), 'h-full', 'grow', props.className]
         )}
-        style={{ maxWidth: maxVideoWidth }}
       >
-        <ReactResizeDetector onResize={onResizeMainView} />
-        {props.children}
+        <div
+          className={cn('MainView__Body')}
+          style={{ maxWidth: maxVideoWidth }}
+        >
+          <ReactResizeDetector onResize={onResizeMainView} />
+          {props.children}
+        </div>
       </div>
     );
   }, DefaultProps)
