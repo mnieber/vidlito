@@ -3,7 +3,7 @@ import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { usePreviewButton } from '/src/clips/hooks/usePreviewButton';
-import { MainFormL } from '/src/dashboard/components/MainView/MainForm';
+import { MainFormL } from '/src/dashboard/components/MainForm';
 import {
   Field,
   FormCancelButton,
