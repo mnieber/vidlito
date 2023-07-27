@@ -15,8 +15,11 @@ export class PanelState {
     this.isPlaylistListExpanded = flag ?? !this.isPlaylistListExpanded;
   }
 
-  @action setPanelWidth(x: number, isResizing: boolean) {
+  @action setPanelWidth(x: number) {
     this.panelWidth = x;
+  }
+
+  @action setIsResizing(isResizing: boolean) {
     this.isResizing = isResizing;
   }
 

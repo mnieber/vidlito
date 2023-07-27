@@ -64,10 +64,23 @@ export const ClipListView = observer(
       <h2 className="text-teal-primary">There are no clips yet</h2>
     );
 
-    const clipDivs = props.clips.map((clip, idx) => {
+    const clipDivs = [
+      ...props.clips,
+      ...props.clips,
+      ...props.clips,
+      ...props.clips,
+      ...props.clips,
+      ...props.clips,
+      ...props.clips,
+      ...props.clips,
+      ...props.clips,
+      ...props.clips,
+      ...props.clips,
+      ...props.clips,
+    ].map((clip, idx) => {
       return (
         <ClipListViewItem
-          key={`item-${clip.id}`}
+          key={`item-${clip.id}-${idx}`}
           clip={clip}
           showSelectionBg={props.clipsSelection.ids.length > 1}
           isHighlighted={clip && props.clipsHighlight.id === clip.id}

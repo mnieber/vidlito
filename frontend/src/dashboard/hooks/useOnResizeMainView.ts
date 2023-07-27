@@ -10,13 +10,21 @@ export const useOnResizeMainView = (props: PropsT) => {
 
   const onResizeMainView = (width?: number) => {
     if (width !== undefined) {
-      props.dashboardState.panelState.setPanelWidth(width - 8, true);
-      if (timeoutRef.current !== undefined) {
-        clearTimeout(timeoutRef.current);
+      const newWidth = width - 8;
+      const isChanged =
+        Math.round(newWidth) !=
+        Math.round(props.dashboardState.panelState.panelWidth ?? 0);
+
+      if (isChanged) {
+        props.dashboardState.panelState.setPanelWidth(newWidth);
+        props.dashboardState.panelState.setIsResizing(true);
+        if (timeoutRef.current !== undefined) {
+          clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = setTimeout(() => {
+          props.dashboardState.panelState.setIsResizing(false);
+        }, 400);
       }
-      timeoutRef.current = setTimeout(() => {
-        props.dashboardState.panelState.setPanelWidth(width - 8, false);
-      }, 400);
     }
   };
 

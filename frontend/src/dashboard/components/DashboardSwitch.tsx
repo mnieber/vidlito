@@ -36,7 +36,7 @@ export const DashboardSwitch = withDefaultProps(
         {
           // 🔳 Dashboard 🔳
         }
-        <Dashboard className="🔳">
+        <Dashboard>
           <Switch>
             <MainView>
               <Route exact path={routes.termsAndConditions()}>
@@ -87,7 +87,7 @@ export const DashboardSwitch = withDefaultProps(
                 <Route exact={true} path={routes.clip()}>
                   <SyncClipWithUrlEffect />
                   {
-                    // 🔳 Clip or Playlist Card 🔳
+                    // 🔳 VideoAndCopView 🔳
                   }
                   <VideoAndCopView />
                 </Route>

@@ -9,7 +9,9 @@ import { VideoPlayerPanel } from '/src/videos/components';
 // Import styles
 import './VideoAndCopView.scss';
 
-export type PropsT = {};
+export type PropsT = {
+  className?: any;
+};
 
 const DefaultProps = {
   ...dps.clip,
@@ -27,12 +29,10 @@ export const VideoAndCopView = observer(
     const clipNotFound = isClipNotFound(props.clip);
 
     return (
-      <div className="VideoAndCopView">
+      <div className={cn('VideoAndCopView', props.className)}>
         {clipNotFound && <ClipNotFound />}
         {!clipNotFound && <VideoPlayerPanel />}
-        <CopCard
-          className={cn('max-w-[776px]', 'grow', 'my-8 mx-2 lg:ml-6 lg:mr-2')}
-        />
+        <CopCard className={cn('max-w-[776px]', 'my-8 mx-2 lg:ml-6 lg:mr-2')} />
       </div>
     );
   }, DefaultProps)

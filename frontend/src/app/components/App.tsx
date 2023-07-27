@@ -27,7 +27,7 @@ export const App = () => {
             [],
             [
               L.col.banner(),
-              `min-width-[${breakpoints.xs}] h-[100vh] overflow-x-hidden`,
+              `min-width-[${breakpoints.xs}] h-screen overflow-x-hidden overflow-y-scroll`,
             ]
           )}
         >

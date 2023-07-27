@@ -46,7 +46,7 @@ export const Dashboard = observer(
               className={cn('Dashboard__LeftSpacer')}
               style={{
                 flexBasis: '160px',
-                flexShrink: 1000,
+                flexShrink: Infinity,
               }}
             />
             {
