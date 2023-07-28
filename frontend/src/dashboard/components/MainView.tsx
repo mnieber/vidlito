@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import ReactResizeDetector from 'react-resize-detector';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { TermsCard } from '/src/dashboard/components/TermsCard';
 import { useOnResizeMainView } from '/src/dashboard/hooks/useOnResizeMainView';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -35,12 +36,15 @@ export const MainView = observer(
           [L.col.banner(), 'h-full', 'grow', props.className]
         )}
       >
-        <div
-          className={cn('MainView__Body')}
-          style={{ maxWidth: maxVideoWidth }}
-        >
-          <ReactResizeDetector onResize={onResizeMainView} />
-          {props.children}
+        <div className={cn('MainView__BodyAndTermsCard', L.row.banner())}>
+          <div
+            className={cn('MainView__Body', 'grow', L.row.banner())}
+            style={{ maxWidth: maxVideoWidth }}
+          >
+            <ReactResizeDetector onResize={onResizeMainView} />
+            {props.children}
+          </div>
+          <TermsCard />
         </div>
       </div>
     );
