@@ -25,7 +25,7 @@ export const NameField = (props: PropsT) => {
         if (!R.isNil(props.slugFieldName)) {
           formState.setValue(
             props.slugFieldName,
-            slugify(formState.getValue(fieldContext.fieldName))
+            slugify(formState.getValue(fieldContext.fieldName)) + '-'
           );
         }
       }}

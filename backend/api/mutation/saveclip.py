@@ -4,6 +4,7 @@ from graphene.types.generic import GenericScalar
 
 from api.types import *
 from app.utils.ids import insert_id, sort_items
+from app.utils.slug_seq import update_slug
 from app.utils.tags import create_tags
 from clips.models import Clip
 from playlists.models import Entry, Playlist
@@ -26,11 +27,8 @@ class SaveClip(graphene.Mutation):
         clip_form["tags"] = create_tags(clip_form.get("tags", []))
 
         with transaction.atomic():
-            if clip and clip_form.slug != clip.slug:
-                # Setting the slug to None will trigger a new slug to be generated
-                # based on the new clip name.
-                clip.slug = None
-                clip.save()
+            if not clip or clip_form.slug != clip.slug:
+                clip_form["slug"] = update_slug(clip_form["slug"], "clip")
 
             clip, created = Clip.objects.update_or_create(
                 defaults=clip_form, id=id, owner_id=UserProfile.get_id(info)

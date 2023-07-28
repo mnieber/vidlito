@@ -29,8 +29,8 @@ class Clip(Entity):
     url = models.CharField(max_length=255, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        if self.slug is None:
-            self.slug = update_slug(slugify(self.name))
+        if not self.slug:
+            self.slug = update_slug(slugify(self.name), "clip")
         super().save(*args, **kwargs)
         Tag.add_tags(self.tags)
 

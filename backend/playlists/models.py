@@ -30,7 +30,7 @@ class Playlist(Entity):
         self.save()
 
     def save(self, *args, **kwargs):
-        if self.slug is None:
+        if not self.slug:
             self.slug = update_slug(slugify(self.name), "playlist")
         super().save(*args, **kwargs)
         Tag.add_tags(self.tags)
