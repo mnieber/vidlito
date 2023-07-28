@@ -7,7 +7,7 @@ import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './index.scss';
+import './MainView.scss';
 
 export type PropsT = React.PropsWithChildren<{
   className?: any;
