@@ -36,7 +36,9 @@ export const MainView = observer(
           [L.col.banner(), 'h-full', 'grow', props.className]
         )}
       >
-        <div className={cn('MainView__BodyAndTermsCard', L.row.banner())}>
+        <div
+          className={cn('MainView__BodyAndTermsCard', 'grow', L.row.banner())}
+        >
           <div
             className={cn('MainView__Body', 'grow', L.row.banner())}
             style={{ maxWidth: maxVideoWidth }}

@@ -23,6 +23,7 @@ const DefaultProps = {
   ...dps.playlists,
   ...dps.clips,
   ...dps.dashboardState,
+  ...dps.userProfile,
 };
 
 export const PlaylistListPicker = observer(
@@ -36,9 +37,14 @@ export const PlaylistListPicker = observer(
     if (!props.playlists.length) {
       return (
         <div className={cn('PlaylistListPicker__Empty')}>
-          You have no playlists yet.{' '}
-          <RouterLink to={routes.signUp()}>Create an account</RouterLink> to add
-          one.
+          You have no playlists yet.
+          {!props.userProfile && (
+            <>
+              {' '}
+              <RouterLink to={routes.signUp()}>Create an account</RouterLink> to
+              add one.
+            </>
+          )}
         </div>
       );
     }

@@ -24,6 +24,9 @@
   .btnTealWithDarkText {
     @apply bg-teal-400 text-blue-darkest hover:bg-teal-600;
   }
+  .btnWithTealText {
+    @apply text-teal-400 hover:text-teal-600;
+  }
   .btnSkyBlueWithDarkText {
     @apply bg-blue-400 text-blue-darkest hover:bg-blue-600;
   }

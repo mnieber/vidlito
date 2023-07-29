@@ -41,7 +41,7 @@ export const AccountMenu = observer(
             <MenuButton
               className={cn(
                 'DialogButtonBase',
-                'btnTealWithDarkText',
+                'btnWithTealText',
                 L.row.skewer()
               )}
             >
