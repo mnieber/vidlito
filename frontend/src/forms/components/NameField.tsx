@@ -18,13 +18,15 @@ export const NameField = (props: PropsT) => {
   const formState = useFormStateContext();
   const fieldContext = useFormFieldContext();
 
+  const { slugFieldName, ...otherProps } = props;
+
   return (
     <TextField
-      {...props}
+      {...otherProps}
       onBlur={() => {
-        if (!R.isNil(props.slugFieldName)) {
+        if (!R.isNil(slugFieldName)) {
           formState.setValue(
-            props.slugFieldName,
+            slugFieldName,
             slugify(formState.getValue(fieldContext.fieldName)) + '-'
           );
         }

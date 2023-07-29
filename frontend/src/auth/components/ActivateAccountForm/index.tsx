@@ -58,12 +58,8 @@ export function ActivateAccountForm(props: PropsT) {
         {
           // 🔳 UsernameField 🔳
         }
-        <Field
-          fieldName={formFields.username}
-          autoFocus={true}
-          className={AuthFormL.Field()}
-        >
-          <TextField placeholder="Username" />
+        <Field fieldName={formFields.username} className={AuthFormL.Field()}>
+          <TextField autoFocus={true} placeholder="Username" />
         </Field>
 
         {

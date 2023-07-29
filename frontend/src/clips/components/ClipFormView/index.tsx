@@ -83,15 +83,12 @@ export const ClipFormView = observer(
             // 🔳 UrlField 🔳
           }
           <GlobalError className={MainFormL.GlobalError()} />
-          <Field
-            fieldName="clipForm.url"
-            autoFocus={true}
-            className={MainFormL.Field()}
-          >
+          <Field fieldName="clipForm.url" className={MainFormL.Field()}>
             <FormFieldLabel label="URL" />
             <TextField
               tabIndex={1}
               controlled={true}
+              autoFocus={true}
               autoSelect={true}
               onChange={() => {
                 const url =

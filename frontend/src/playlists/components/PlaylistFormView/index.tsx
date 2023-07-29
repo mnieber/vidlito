@@ -31,6 +31,7 @@ export const DefaultProps = {
   ...dps.playlistsEdit,
   ...dps.playlistsAddition,
   ...dps.dashboardState,
+  ...dps.userProfile,
 };
 
 export const PlaylistFormView = observer(
@@ -76,15 +77,12 @@ export const PlaylistFormView = observer(
           {
             // 🔳 NameField 🔳
           }
-          <Field
-            fieldName="playlistForm.name"
-            autoFocus={true}
-            className={MainFormL.Field()}
-          >
+          <Field fieldName="playlistForm.name" className={MainFormL.Field()}>
             <FormFieldLabel label="NAME" />
             <NameField
               tabIndex={1}
               controlled={true}
+              autoFocus={true}
               autoSelect={true}
               slugFieldName={
                 initialValues['playlistForm.slug'] === 'new-playlist'

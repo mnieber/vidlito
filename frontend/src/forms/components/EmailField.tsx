@@ -1,8 +1,9 @@
 import { FormFieldL } from '/src/forms/components/FormField';
 import { useFieldProps } from '/src/forms/hooks';
+import { FieldPropsT } from '/src/forms/hooks/useFieldProps';
 import { cn } from '/src/utils/classnames';
 
-type PropsT = {
+type PropsT = Partial<FieldPropsT> & {
   className?: any;
   placeholder?: string;
 };

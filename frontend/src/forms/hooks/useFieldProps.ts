@@ -20,6 +20,7 @@ export type FieldPropsT = {
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  autoFocus?: boolean;
   autoSelect?: boolean;
   tabIndex?: number;
   inputRef?: any;
@@ -29,32 +30,41 @@ export const useFieldProps = (props: FieldPropsT) => {
   const formState = useFormStateContext();
   const fieldContext = useFormFieldContext();
 
+  const { fieldName } = fieldContext;
+
   const formFieldProps = React.useMemo(
     () =>
       createFormFieldProps({
         formState,
-        fieldName: fieldContext.fieldName,
+        fieldName: fieldName,
         fieldType: props.fieldType,
         onChange: props.onChange,
         controlled: props.controlled,
       }),
-    [formState, fieldContext, props.fieldType, props.onChange, props.controlled]
+    [formState, fieldName, props.fieldType, props.onChange, props.controlled]
   );
+
+  const {
+    onFocus,
+    onKeyDown,
+    autoSelect,
+    inputRef,
+    fieldType,
+    controlled,
+    ...rest
+  } = props;
 
   return {
     ...formFieldProps,
     onFocus: (e: React.FocusEvent<HTMLInputElement>) => {
-      if (props.autoSelect) {
+      if (autoSelect) {
         e.target.select();
       }
-      props.onFocus && props.onFocus(e);
+      onFocus && onFocus(e);
     },
-    ref: props.inputRef,
-    onBlur: props.onBlur,
-    onKeyDown: handleKeyDown(fieldContext, formState, props.onKeyDown),
-    autoFocus: fieldContext.autoFocus,
-    disabled: props.disabled,
-    tabIndex: props.tabIndex,
+    ref: inputRef,
+    onKeyDown: handleKeyDown(fieldContext, formState, onKeyDown),
+    ...rest,
   };
 };
 

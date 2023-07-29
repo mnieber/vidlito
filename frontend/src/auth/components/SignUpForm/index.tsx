@@ -45,12 +45,8 @@ export function SignUpForm(props: PropsT) {
         {
           // 🔳 EmailField 🔳
         }
-        <Field
-          fieldName={formFields.email}
-          autoFocus={true}
-          className={AuthFormL.Field()}
-        >
-          <EmailField placeholder="Email" />
+        <Field fieldName={formFields.email} className={AuthFormL.Field()}>
+          <EmailField autoFocus={true} placeholder="Email" />
         </Field>
 
         {

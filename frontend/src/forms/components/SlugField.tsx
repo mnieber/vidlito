@@ -10,8 +10,9 @@ type PropsT = Partial<FieldPropsT> & {
 };
 
 export const SlugField = (props: PropsT) => {
+  const { relatedFieldName, ...otherProps } = props;
   const fieldProps = useFieldProps({
-    ...props,
+    ...otherProps,
     fieldType: props.fieldType ?? 'text',
     disabled: true,
     controlled: true,
@@ -24,7 +25,7 @@ export const SlugField = (props: PropsT) => {
           className={FormFieldL.button.root()}
           tabIndex={props.tabIndex}
           key="1"
-          relatedFieldName={props.relatedFieldName}
+          relatedFieldName={relatedFieldName}
         />
       </div>
     </div>

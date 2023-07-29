@@ -49,9 +49,8 @@ export function SignInForm(props: PropsT) {
           className={AuthFormL.Field()}
           fieldName={formFields.email}
           tabOnEnter={true}
-          autoFocus={true}
         >
-          <EmailField placeholder="Email" />
+          <EmailField autoFocus={true} placeholder="Email" />
         </Field>
 
         {

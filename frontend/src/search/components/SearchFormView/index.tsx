@@ -78,13 +78,13 @@ export const SearchFormView = observer(
           <GlobalError className={MainFormL.GlobalError()} />
           <Field
             fieldName="searchForm.playlistTerms"
-            autoFocus={true}
             className={MainFormL.Field()}
           >
             <FormFieldLabel label="Playlist terms and #tags" />
             <KeywordsAndTagsField
               tabIndex={1}
               controlled={true}
+              autoFocus={true}
               tagsState={playlistTagsState}
             />
             <HorizontalTagPicker tabIndex={2} tagsState={playlistTagsState} />
