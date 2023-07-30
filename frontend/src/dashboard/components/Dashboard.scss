@@ -6,9 +6,33 @@
   @apply text-center font-bold;
 }
 
-.Dashboard__LeftSidebar,
 .Dashboard__LeftSpacer {
   @media screen and (max-width: 1000px) {
     @apply hidden;
   }
+}
+
+.Dashboard__LeftSidebar {
+  @media screen and (max-width: 1000px) {
+    position: absolute;
+    left: -310px;
+    transition: left 0.5s;
+  }
+}
+
+.Dashboard__LeftSidebar--open {
+  @media screen and (max-width: 1000px) {
+    left: 0px !important;
+  }
+}
+
+.Dashboard__RightMain {
+  @media screen and (max-width: 1000px) {
+    transition: margin-left 0.5s;
+    min-width: 100% !important;
+  }
+}
+
+.Dashboard__RightMain--open {
+  margin-left: 310px;
 }

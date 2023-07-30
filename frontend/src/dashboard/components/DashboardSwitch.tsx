@@ -81,7 +81,7 @@ export const DashboardSwitch = withDefaultProps(
                     // 🔳 PlaylistFormView 🔳
                   }
                   <PlaylistFormView
-                    className={cn(CardL.size.medium(), 'ml-4 mt-4')}
+                    className={cn(CardL.size.medium(), 'mx-4 mt-4')}
                   />
                 </Route>
                 <Route exact={true} path={routes.clip()}>

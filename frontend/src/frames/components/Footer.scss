@@ -8,4 +8,26 @@
 
 .Footer__Copyright {
   @apply text-sm text-gray-500;
+
+  @apply font-bold;
+
+  @media screen and (max-width: 1000px) {
+    @apply font-normal;
+  }
+}
+
+.Footer__MenuButton {
+  @apply hidden;
+
+  @media screen and (max-width: 1000px) {
+    @apply block;
+  }
+}
+
+.Footer__MenuButtonSpacer {
+  @apply hidden;
+
+  @media screen and (max-width: 1000px) {
+    @apply block;
+  }
 }

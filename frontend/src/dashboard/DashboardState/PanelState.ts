@@ -2,16 +2,15 @@ import { action, computed, makeObservable, observable } from 'mobx';
 
 export class PanelState {
   @observable panelWidth: number | undefined = undefined;
-  @observable screenWidth: number | undefined = undefined;
+  @observable screenWidth: number = window.innerWidth;
   @observable isFullVideoWidth: boolean = false;
   @observable isResizing: boolean = false;
   @observable showPlaylistView: boolean = false;
   @observable isPlaylistListExpanded: boolean = false;
+  @observable _isSidebarOpen: boolean = false;
 
   @computed get maxVideoWidth() {
-    return (this.screenWidth ?? 100) < 1000 || this.isFullVideoWidth
-      ? 1200
-      : 800;
+    return this.screenWidth < 1000 || this.isFullVideoWidth ? 1200 : 800;
   }
 
   @action toggleShowPlaylistView(flag?: boolean) {
@@ -23,14 +22,23 @@ export class PanelState {
   }
 
   @action setPanelWidth(screenWidth: number, panelWidth: number) {
-    console.log(screenWidth);
-
     this.screenWidth = screenWidth;
     this.panelWidth = panelWidth;
+    if (screenWidth > 1000) {
+      this.setIsSidebarOpen(false);
+    }
   }
 
   @action setIsResizing(isResizing: boolean) {
     this.isResizing = isResizing;
+  }
+
+  @action setIsSidebarOpen(isSidebarOpen: boolean) {
+    this._isSidebarOpen = isSidebarOpen;
+  }
+
+  @computed get isSidebarOpen() {
+    return this._isSidebarOpen; //  && this.screenWidth < 1000
   }
 
   @action setIsFullVideoWidth(x: boolean) {

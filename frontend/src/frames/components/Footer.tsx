@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { AccountMenu } from '/src/frames/components/AccountMenu';
+import { DialogButton } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { RouterLink } from '/src/routes/components/RouterLink';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
@@ -11,7 +12,9 @@ import './Footer.scss';
 
 export type PropsT = {};
 
-export const DefaultProps = {};
+export const DefaultProps = {
+  ...dps.dashboardState,
+};
 
 export const Footer = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
@@ -20,6 +23,17 @@ export const Footer = observer(
     return (
       <div className={cn('Footer', 'p-4')}>
         <div className={cn(L.row.skewer())}>
+          <DialogButton
+            className={cn('Footer__MenuButton')}
+            label={props.dashboardState.panelState.isSidebarOpen ? '<' : '>'}
+            themeClassName="Blue"
+            onClick={() => {
+              props.dashboardState.panelState.setIsSidebarOpen(
+                !props.dashboardState.panelState.isSidebarOpen
+              );
+            }}
+          />
+          <div className={cn('Footer__MenuButtonSpacer', 'grow')} />
           <div className={cn('Footer__Copyright')}>(C) 2024 Maarten Nieber</div>
           <div className={cn('mx-4')}>-</div>
           <RouterLink to={routes.termsAndConditions()}>

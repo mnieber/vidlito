@@ -53,6 +53,10 @@ export const Dashboard = observer(
           <div
             className={cn(
               'Dashboard__LeftSidebar',
+              {
+                'Dashboard__LeftSidebar--open':
+                  props.dashboardState.panelState.isSidebarOpen,
+              },
               [],
               [L.col.banner(), 'w-[290px] min-w-[290px] mx-2 lg:mx-4']
             )}
@@ -74,7 +78,15 @@ export const Dashboard = observer(
             // 🔳 RightMain 🔳
           }
           <div
-            className={cn('Dashboard__RightMain', ['bg-gray-200'], ['grow'])}
+            className={cn(
+              'Dashboard__RightMain',
+              {
+                'Dashboard__RightMain--open':
+                  props.dashboardState.panelState.isSidebarOpen,
+              },
+              ['bg-gray-200'],
+              ['grow']
+            )}
             style={{
               flexBasis: props.dashboardState.panelState.maxVideoWidth + 'px',
               flexShrink: 1,

@@ -8,6 +8,7 @@ import './DialogButton.Blue.scss';
 import './DialogButton.SkyBlueWithBorder.scss';
 import './DialogButton.Teal.scss';
 import './DialogButton.TealWithWhiteText.scss';
+import './DialogButton.scss';
 
 export type PropsT = {
   className?: any;
