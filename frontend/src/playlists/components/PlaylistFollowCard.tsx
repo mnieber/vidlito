@@ -21,6 +21,10 @@ const DefaultProps = {
 
 export const PlaylistFollowCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    if (props.playlist.slug === 'new-playlist') {
+      return null;
+    }
+
     const [isChecked, setIsChecked] = React.useState(
       props.playlistFollowing.isFollowing
     );

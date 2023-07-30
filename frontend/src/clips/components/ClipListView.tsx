@@ -11,6 +11,7 @@ import { navToClip } from '/src/clips/ClipsNavEvents';
 import { ClipListKeyHandler } from '/src/clips/components/ClipListKeyHandler';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
+import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -61,7 +62,14 @@ export const ClipListView = observer(
     });
 
     const noItems = (
-      <h2 className="text-teal-primary">There are no clips yet</h2>
+      <h2
+        className="text-teal-primary cursor-pointer"
+        onClick={() => {
+          navToPlaylist(props.playlist.ownerUsername, props.playlist.slug);
+        }}
+      >
+        There are no clips yet
+      </h2>
     );
 
     const clipDivs = props.clips.map((clip, idx) => {

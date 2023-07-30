@@ -23,7 +23,8 @@ const DefaultProps = {
 
 export const NewClipButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const enabled = props.isOwner(props.playlist);
+    const enabled =
+      props.isOwner(props.playlist) && props.playlist?.slug !== 'new-playlist';
 
     return (
       <ToolButton
