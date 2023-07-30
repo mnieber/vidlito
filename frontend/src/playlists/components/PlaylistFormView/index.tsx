@@ -55,7 +55,7 @@ export const PlaylistFormView = observer(
       <div
         className={cn(
           'PlaylistFormView',
-          [],
+          ['self-start'],
           [CardL.root(), CardL.color.gray(), props.className]
         )}
       >

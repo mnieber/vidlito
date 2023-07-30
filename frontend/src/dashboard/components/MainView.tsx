@@ -59,7 +59,7 @@ export const MainView = observer(
           className={cn('MainView__BodyAndTermsCard', 'grow', L.row.banner())}
         >
           <div
-            className={cn('MainView__Body', 'grow', L.row.flagPole())}
+            className={cn('MainView__Body', 'grow', L.row.banner())}
             style={{ maxWidth: props.dashboardState.panelState.maxVideoWidth }}
           >
             <ReactResizeDetector onResize={onResizeMainView} />
