@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { useSwipeable } from 'react-swipeable';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipNotFound } from '/src/clips/components/ClipNotFound';
 import { CopCard } from '/src/clips/components/CopCard';
@@ -21,6 +22,19 @@ const DefaultProps = {
 
 export const VideoAndCopView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const swipeHandlers = useSwipeable({
+      onSwiped: (eventData) => console.log('User Swiped!', eventData),
+      ...{
+        delta: 10, // min distance(px) before a swipe starts. *See Notes*
+        preventScrollOnSwipe: false, // prevents scroll during swipe (*See Details*)
+        trackTouch: true, // track touch input
+        trackMouse: true, // track mouse input
+        rotationAngle: 0, // set a rotation angle
+        swipeDuration: Infinity, // allowable duration of a swipe (ms). *See Notes*
+        touchEventOptions: { passive: true }, // options for touch listeners (*See Details*)
+      },
+    });
+
     const { isClipNotFound } = useIsClipNotFound();
 
     if (!props.playlist) {
@@ -36,6 +50,7 @@ export const VideoAndCopView = observer(
           'grow',
           props.className,
         ])}
+        {...swipeHandlers}
       >
         {clipNotFound && <ClipNotFound />}
         {!clipNotFound && <VideoPlayerPanel />}
