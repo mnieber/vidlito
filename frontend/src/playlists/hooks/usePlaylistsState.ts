@@ -60,7 +60,13 @@ export const usePlaylistsState = (props: PropsT) => {
   const getPlaylist = useObservableQuery(
     useGetPlaylist(
       { playlistSlug: getPlaylistSlug() },
-      { enabled: isGetPlaylistEnabled() }
+      {
+        enabled: isGetPlaylistEnabled(),
+        onError: () =>
+          playlistsState.playlistsCtr.highlight.highlightItem({
+            id: undefined,
+          }),
+      }
     ),
     { fetchAsLoad: true, debugLabel: 'getPlaylist' }
   );

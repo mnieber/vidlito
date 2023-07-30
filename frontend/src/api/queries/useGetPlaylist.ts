@@ -59,6 +59,7 @@ export type QueryKeyT = {
 
 export type OptionsT = {
   enabled?: boolean;
+  onError?: (error: unknown) => void;
 };
 
 export function queryKey(args?: QueryKeyT) {
@@ -71,5 +72,6 @@ export const useGetPlaylist = (args: ArgsT, options?: OptionsT) => {
     queryFn: () => getPlaylist(args),
     retry: 0,
     enabled: !!(options?.enabled ?? true),
+    onError: options?.onError,
   });
 };
