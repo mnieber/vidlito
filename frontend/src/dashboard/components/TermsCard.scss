@@ -1,5 +1,10 @@
 .TermsCard {
+  @apply text-gray-text p-4;
   @media screen and (max-width: 1500px) {
     @apply hidden;
   }
+}
+
+.TermsCard__Copyright {
+  @apply text-sm text-gray-500;
 }

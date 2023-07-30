@@ -20,11 +20,13 @@ export const TermsCard = observer(
 
     return (
       <div className={cn('TermsCard', props.className)}>
-        <div className={cn('Footer__Copyright')}>(c) 2024 Maarten Nieber</div>
-        <RouterLink to={routes.termsAndConditions()}>
+        <div className={cn('TermsCard__Copyright', 'mb-2')}>
+          (C) 2024 Maarten Nieber
+        </div>
+        <RouterLink className="" to={routes.termsAndConditions()}>
           Terms and Conditions
         </RouterLink>
-        <AccountMenu />
+        <AccountMenu className="mt-4" isFullButton={true} />
       </div>
     );
   }, DefaultProps)

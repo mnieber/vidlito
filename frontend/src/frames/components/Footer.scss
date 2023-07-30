@@ -1,3 +1,11 @@
 .Footer {
+  @apply hidden;
   @apply bg-gray-100 text-gray-text;
+  @media screen and (max-width: 1500px) {
+    @apply block;
+  }
+}
+
+.Footer__Copyright {
+  @apply text-sm text-gray-500;
 }

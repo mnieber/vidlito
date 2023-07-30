@@ -27,7 +27,6 @@ export const Dashboard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const playlistNotFound = !isLoading(props.playlist) && !props.playlist;
     const separator = ['my-2', 'border-t border-gray-text'];
-    const w = props.dashboardState.panelState.isFullVideoWidth ? 1200 : 800;
 
     return (
       //
@@ -60,9 +59,9 @@ export const Dashboard = observer(
           >
             <Logo />
             <MainButtonsPanel className={cn('')} />
-            <div className={cn('Dashboard__Separator__', separator)} />
+            <div className={cn('Dashboard__Separator', separator)} />
             <PlaylistListPicker />
-            <div className={cn('Dashboard__Separator__', separator)} />
+            <div className={cn('Dashboard__Separator', separator)} />
             {!playlistNotFound && (
               <>
                 <ClipListView
@@ -76,7 +75,10 @@ export const Dashboard = observer(
           }
           <div
             className={cn('Dashboard__RightMain', ['bg-gray-200'], ['grow'])}
-            style={{ flexBasis: w + 'px', flexShrink: 1 }}
+            style={{
+              flexBasis: props.dashboardState.panelState.maxVideoWidth + 'px',
+              flexShrink: 1,
+            }}
           >
             {props.children}
           </div>

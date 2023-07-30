@@ -7,7 +7,7 @@ export const heightToWidth = (height: number) => {
 };
 
 export function getVideoWidth(maxWidth: number, panelWidth: number) {
-  const maxWidthDictatedByScreen = heightToWidth(window.screen.height * 16) / 9;
+  const maxWidthDictatedByScreen = heightToWidth(window.innerHeight * 16) / 9;
   const videoPanelWidth = panelWidth ?? 100;
 
   const videoWidth = Math.min(

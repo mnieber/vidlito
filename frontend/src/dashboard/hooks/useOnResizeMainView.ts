@@ -16,7 +16,10 @@ export const useOnResizeMainView = (props: PropsT) => {
         Math.round(props.dashboardState.panelState.panelWidth ?? 0);
 
       if (isChanged) {
-        props.dashboardState.panelState.setPanelWidth(newWidth);
+        props.dashboardState.panelState.setPanelWidth(
+          window.innerWidth,
+          newWidth
+        );
         props.dashboardState.panelState.setIsResizing(true);
         if (timeoutRef.current !== undefined) {
           clearTimeout(timeoutRef.current);

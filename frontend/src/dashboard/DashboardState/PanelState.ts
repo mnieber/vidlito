@@ -1,11 +1,18 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 
 export class PanelState {
   @observable panelWidth: number | undefined = undefined;
+  @observable screenWidth: number | undefined = undefined;
   @observable isFullVideoWidth: boolean = false;
   @observable isResizing: boolean = false;
   @observable showPlaylistView: boolean = false;
   @observable isPlaylistListExpanded: boolean = false;
+
+  @computed get maxVideoWidth() {
+    return (this.screenWidth ?? 100) < 1000 || this.isFullVideoWidth
+      ? 1200
+      : 800;
+  }
 
   @action toggleShowPlaylistView(flag?: boolean) {
     this.showPlaylistView = flag ?? !this.showPlaylistView;
@@ -15,8 +22,11 @@ export class PanelState {
     this.isPlaylistListExpanded = flag ?? !this.isPlaylistListExpanded;
   }
 
-  @action setPanelWidth(x: number) {
-    this.panelWidth = x;
+  @action setPanelWidth(screenWidth: number, panelWidth: number) {
+    console.log(screenWidth);
+
+    this.screenWidth = screenWidth;
+    this.panelWidth = panelWidth;
   }
 
   @action setIsResizing(isResizing: boolean) {

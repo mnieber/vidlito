@@ -40,7 +40,7 @@ export const CopCard = observer(
           'CopCard',
           //
           [],
-          [L.col.banner(), props.className]
+          [L.col.banner(), 'grow', props.className]
         )}
       >
         <ClipHeaderView className={cn('mb-8')} />

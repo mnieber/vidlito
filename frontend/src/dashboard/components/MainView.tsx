@@ -23,9 +23,6 @@ export const MainView = observer(
     const { onResizeMainView } = useOnResizeMainView({
       dashboardState: props.dashboardState,
     });
-    const maxVideoWidth = props.dashboardState.panelState.isFullVideoWidth
-      ? 1200
-      : 800;
 
     return (
       <div
@@ -41,7 +38,7 @@ export const MainView = observer(
         >
           <div
             className={cn('MainView__Body', 'grow', L.row.banner())}
-            style={{ maxWidth: maxVideoWidth }}
+            style={{ maxWidth: props.dashboardState.panelState.maxVideoWidth }}
           >
             <ReactResizeDetector onResize={onResizeMainView} />
             {props.children}

@@ -16,6 +16,7 @@ import '/src/frames/components/DialogButtonBase.scss';
 export type PropsT = {
   className?: any;
   style?: any;
+  isFullButton?: any;
 };
 
 const DefaultProps = {
@@ -41,7 +42,7 @@ export const AccountMenu = observer(
             <MenuButton
               className={cn(
                 'DialogButtonBase',
-                'btnWithTealText',
+                props.isFullButton ? 'btnTealWithDarkText' : 'btnWithTealText',
                 L.row.skewer()
               )}
             >

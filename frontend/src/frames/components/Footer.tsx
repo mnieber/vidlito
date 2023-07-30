@@ -20,7 +20,7 @@ export const Footer = observer(
     return (
       <div className={cn('Footer', 'p-4')}>
         <div className={cn(L.row.skewer())}>
-          <div className={cn('Footer__Copyright')}>(c) 2024 Maarten Nieber</div>
+          <div className={cn('Footer__Copyright')}>(C) 2024 Maarten Nieber</div>
           <div className={cn('mx-4')}>-</div>
           <RouterLink to={routes.termsAndConditions()}>
             Terms and Conditions
