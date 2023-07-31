@@ -52,10 +52,7 @@ export const ActionsBar = observer(
         }
         <DialogButton
           className={cn(
-            'ActionsBar__UndoActionButton',
-            {
-              invisible: !props.action,
-            },
+            ['ActionsBar__UndoActionButton', { invisible: !props.action }],
             ['mx-4']
           )}
           componentClassName="Blue-DialogButton"

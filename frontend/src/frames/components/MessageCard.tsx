@@ -1,12 +1,27 @@
+import React from 'react';
 import { cn } from '/src/utils/classnames';
-
 // Import styles
 import './MessageCard.scss';
 import '/src/frames/components/WallPaper.scss';
 
-export const MessageCardL = {
-  root: () =>
-    cn('MessageCard', 'flex flex-col justify-evenly', 'w-full', 'grow'),
-  message: () => cn('MessageCard__Message'),
-  wallpaper: () => cn('WallPaper'),
+export type PropsT = React.PropsWithChildren<{
+  wallPaper?: boolean;
+  className?: any;
+}>;
+
+export const MessageCard = (props: PropsT) => {
+  return (
+    <div
+      className={cn(
+        ['MessageCard', props.wallPaper && 'WallPaper'],
+        ['flex flex-col justify-evenly', 'w-full', 'grow', props.className]
+      )}
+    >
+      {props.children}
+    </div>
+  );
+};
+
+export const MessageCardS = {
+  message: () => cn(['text-3xl text-center text-gray-text'], ['p-4']),
 };

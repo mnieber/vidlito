@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { MessageCardL } from '/src/frames/components/MessageCard';
+import { MessageCard, MessageCardS } from '/src/frames/components/MessageCard';
 import { useIsPlaylistNotFound } from '/src/playlists/hooks/useIsPlaylistNotFound';
 import { cn } from '/src/utils/classnames';
 import { log } from '/src/utils/logging';
@@ -25,19 +25,16 @@ export const PlaylistNotFound = observer(
     log('PlaylistNotFound');
 
     return (
-      <div
-        className={cn('PlaylistNotFound', [
-          MessageCardL.root(),
-          MessageCardL.wallpaper(),
-          props.className,
-        ])}
+      <MessageCard
+        className={cn('PlaylistNotFound', [props.className])}
+        wallPaper={true}
       >
         <div
-          className={cn('PlaylistNotFound__Message', MessageCardL.message())}
+          className={cn(MessageCardS.message(), 'PlaylistNotFound__Message')}
         >
           Oops, it seems this playlist doesn't exist
         </div>
-      </div>
+      </MessageCard>
     );
   }, DefaultProps)
 );

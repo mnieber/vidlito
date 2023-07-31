@@ -22,12 +22,14 @@ export const ActionListViewItem = observer((props: PropsT) => {
     */
     <div
       className={cn(
-        'ActionListViewItem',
-        {
-          'ActionListViewItem--highlighted':
-            props.highlightUIProps.isHighlighted,
-          'animate-delete': isUpdating(props.action),
-        },
+        [
+          'ActionListViewItem',
+          {
+            'ActionListViewItem--highlighted':
+              props.highlightUIProps.isHighlighted,
+            'animate-delete': isUpdating(props.action),
+          },
+        ],
         [L.col.banner(), 'py-3 px-4', props.className]
       )}
       {...highlightUIHandlers(props.highlightUIProps)}

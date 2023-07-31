@@ -4,7 +4,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { onClickNewClipButton } from '/src/clips/components/NewClipButton';
 import { CtaButtonL } from '/src/frames/components/CtaButton';
 import { Icon } from '/src/frames/components/Icon';
-import { MessageCardL } from '/src/frames/components/MessageCard';
+import { MessageCard } from '/src/frames/components/MessageCard';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -30,12 +30,9 @@ export const CreateFirstClip = observer(
     }
 
     return (
-      <div
-        className={cn(
-          'CreateFirstClip',
-          [MessageCardL.wallpaper()],
-          [MessageCardL.root(), props.className]
-        )}
+      <MessageCard
+        className={cn('CreateFirstClip', [props.className])}
+        wallPaper={true}
       >
         <button
           className={cn('CreateFirstClip__Button', [
@@ -51,7 +48,7 @@ export const CreateFirstClip = observer(
           <Icon className={cn(CtaButtonL.icon())} name="plus" />
           Create first clip
         </button>
-      </div>
+      </MessageCard>
     );
   }, DefaultProps)
 );
