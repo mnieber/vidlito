@@ -1,14 +1,14 @@
 @import '/src/frames/components/DialogButtonBase.scss';
 
-.MainView .FormCancelButton.DialogButton {
+.MainView .FormCancelButton-DialogButton {
   @apply DialogButtonBase;
   @apply btnWithSkyBlueText;
 }
 
-.MainView .FormCancelButton.DialogButton--disabled {
+.MainView .FormCancelButton-DialogButton--disabled {
   @apply btnWithGrayText;
 }
 
-.MainView .FormCancelButton.DialogButton--danger {
+.MainView .FormCancelButton-DialogButton--danger {
   @apply btnWithWhiteText;
 }

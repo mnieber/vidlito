@@ -43,7 +43,7 @@ export const CookieNotice = observer(
             <div>
               <DialogButton
                 className=""
-                themeClassName="Blue"
+                componentClassName="Blue-DialogButton"
                 fontSize="big"
                 onClick={() =>
                   props.dashboardState.cookiesState.setCookiePreferences({
@@ -56,7 +56,7 @@ export const CookieNotice = observer(
             <div>
               <DialogButton
                 className=""
-                themeClassName="Teal"
+                componentClassName="Teal-DialogButton"
                 fontSize="big"
                 onClick={() =>
                   props.dashboardState.cookiesState.setCookiePreferences({

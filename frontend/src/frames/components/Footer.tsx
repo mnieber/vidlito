@@ -26,7 +26,7 @@ export const Footer = observer(
           <DialogButton
             className={cn('Footer__MenuButton')}
             label={props.dashboardState.panelState.isSidebarOpen ? '<' : '>'}
-            themeClassName="Blue"
+            componentClassName="Blue-DialogButton"
             onClick={() => {
               props.dashboardState.panelState.setIsSidebarOpen(
                 !props.dashboardState.panelState.isSidebarOpen

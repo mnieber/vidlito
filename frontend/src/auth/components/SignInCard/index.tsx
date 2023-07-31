@@ -61,7 +61,7 @@ export const SignInCard = observer(() => {
         // 🔳 Create account button 🔳
       }
       <DialogButton
-        themeClassName="TealWithWhiteText"
+        componentClassName="TealWithWhiteText-DialogButton"
         className={cn(AuthCardL.CardFooter())}
         onClick={() => navToSignUp()}
         label={messages.createAccount}

@@ -60,7 +60,7 @@ export const ActionsBar = observer(
               invisible: !props.action,
             },
           ])}
-          themeClassName="Blue"
+          componentClassName="Blue-DialogButton"
           iconName="reply"
           label="Undo"
           onClick={() => props.actionsState.undoAction(props.action)}

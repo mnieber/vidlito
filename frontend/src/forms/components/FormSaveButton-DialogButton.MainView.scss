@@ -1,14 +1,14 @@
 @import '/src/frames/components/DialogButtonBase.scss';
 
-.MainView .FormSaveButton.DialogButton {
+.MainView .FormSaveButton-DialogButton {
   @apply DialogButtonBase;
   @apply btnBlueWithDarkText;
 }
 
-.MainView .FormSaveButton.DialogButton--danger {
+.MainView .FormSaveButton-DialogButton--danger {
   @apply btnRedWithWhiteText;
 }
 
-.MainView .FormSaveButton.DialogButton--disabled {
+.MainView .FormSaveButton-DialogButton--disabled {
   @apply btnGray;
 }

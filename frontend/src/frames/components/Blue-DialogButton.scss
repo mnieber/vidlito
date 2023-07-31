@@ -1,0 +1,12 @@
+@import '/src/frames/components/DialogButtonBase.scss';
+
+.Blue-DialogButton {
+  @apply DialogButtonBase;
+  @apply btnBlueWithDarkText;
+
+  .Icon {
+    svg {
+      @apply fill-blue-darkest;
+    }
+  }
+}

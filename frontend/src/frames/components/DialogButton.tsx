@@ -4,11 +4,10 @@ import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './DialogButton.Blue.scss';
-import './DialogButton.SkyBlueWithBorder.scss';
-import './DialogButton.Teal.scss';
-import './DialogButton.TealWithWhiteText.scss';
-import './DialogButton.scss';
+import './Blue-DialogButton.scss';
+import './SkyBlueWithBorder-DialogButton.scss';
+import './Teal-DialogButton.scss';
+import './TealWithWhiteText-DialogButton.scss';
 
 export type PropsT = {
   className?: any;
@@ -24,12 +23,12 @@ export type DialogButtonPropsT = PropsT;
 
 export const DialogButton = (
   props: PropsT & {
-    themeClassName: string;
+    componentClassName?: string;
   }
 ) => {
   const {
     className,
-    themeClassName,
+    componentClassName,
     danger,
     dataCy,
     disabled,
@@ -38,18 +37,23 @@ export const DialogButton = (
     ...rest
   } = props;
 
+  const name = componentClassName ?? 'DialogButton';
+
   return (
     /*
     🔳 DialogButton 🔳
     */
     <button
       className={cn(
-        ['DialogButton', themeClassName],
-        {
-          'DialogButton--disabled': disabled,
-          'DialogButton--danger': danger,
-          'text-lg': props.fontSize === 'big',
-        },
+        name,
+        [
+          'select-none',
+          {
+            [name + '--disabled']: disabled,
+            [name + '--danger']: danger,
+            'text-lg': props.fontSize === 'big',
+          },
+        ],
         [iconName ? L.row.skewer() : '', className]
       )}
       data-cy={dataCy}

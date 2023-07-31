@@ -16,7 +16,7 @@ export const CloseButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <DialogButton
-        themeClassName="SkyBlueWithBorder"
+        componentClassName="SkyBlueWithBorder-DialogButton"
         label="Close"
         onClick={props.onClick}
         iconName="close"
