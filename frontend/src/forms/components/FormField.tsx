@@ -20,9 +20,9 @@ export const FormField = observer((props: PropsT) => {
   );
 });
 
-export const FormFieldL = {
-  input: () => 'FormField__Input grow',
-  button: {
+export const FormFieldS = {
+  Input: () => 'FormField__Input grow',
+  Button: {
     root: () => 'FormField__Button',
     gap: () => 'mr-0.5',
   },

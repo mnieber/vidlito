@@ -32,7 +32,7 @@ export const CopCardForms = observer(
 
     return (
       <div
-        className={cn('CopCardForms', [CardS.size.medium(), props.className])}
+        className={cn(CardS.size.medium(), 'CopCardForms', [props.className])}
       >
         <CopDescription showPlaylist={showPlaylist} className="" />
         {!cop?.isTransient && (

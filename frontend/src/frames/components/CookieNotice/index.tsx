@@ -20,9 +20,8 @@ export const CookieNotice = observer(
     return (
       <div className={cn('CookieNotice')}>
         <div
-          className={cn('CookieNotice__Body', [
+          className={cn(CardS.size.medium(), 'CookieNotice__Body', [
             'max-w-[800px] mx-auto',
-            CardS.size.medium(),
           ])}
         >
           <div className="font-bold mb-8">

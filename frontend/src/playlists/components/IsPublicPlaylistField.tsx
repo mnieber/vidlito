@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useFormStateContext } from 'react-form-state-context';
 import { withDefaultProps } from '/src/app/defaultProps';
-import { FormField, FormFieldL } from '/src/forms/components/FormField';
+import { FormField, FormFieldS } from '/src/forms/components/FormField';
 import { useFormFieldContext } from '/src/forms/components/FormFieldContext';
 import { DialogButtonS } from '/src/frames/components/DialogButton';
 import { Icon, IconS } from '/src/frames/components/Icon';
@@ -22,7 +22,7 @@ export const IsPublicPlaylistField = observer(
     const isPublic = formState.getValue(fieldContext.fieldName);
 
     return (
-      <FormField className={cn('IsPublicPlaylistField', FormFieldL.input())}>
+      <FormField className={cn(FormFieldS.Input(), 'IsPublicPlaylistField')}>
         <div
           className={cn('IsPublicPlaylistField__Option', [
             'my-2',

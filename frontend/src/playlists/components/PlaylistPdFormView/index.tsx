@@ -49,8 +49,7 @@ export const PlaylistPdFormView = observer(
       // 🔳 PlaylistPdFormView 🔳
       //
       <div
-        className={cn(CardS.root(), 'PlaylistPdFormView', [
-          CardS.color.gray(),
+        className={cn(CardS.root(), CardS.color.gray(), 'PlaylistPdFormView', [
           props.className,
         ])}
       >

@@ -119,7 +119,7 @@ export const ClipFormView = observer(
             <FormFieldLabel label="SLUG" />
             <SlugField relatedFieldName="clipForm.name" />
           </Field>
-          <div className={cn(L.row.skewer(), MainFormS.Field())}>
+          <div className={cn(MainFormS.Field(), L.row.skewer())}>
             {
               // 🔳 StartTimeField 🔳
             }

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useFormStateContext } from 'react-form-state-context';
 import { DeletionWithFlag } from '/src/clips/ClipsState/facets/DeletionWithFlag';
-import { FormField, FormFieldL } from '/src/forms/components/FormField';
+import { FormField, FormFieldS } from '/src/forms/components/FormField';
 import { useFormFieldContext } from '/src/forms/components/FormFieldContext';
 import { Toggle } from '/src/frames/components/Toggle';
 import { L } from '/src/frames/layout';
@@ -19,7 +19,7 @@ export const EnableDeleteField = observer((props: PropsT) => {
 
   return (
     <FormField
-      className={cn('EnableDeleteField', FormFieldL.input(), props.className)}
+      className={cn(FormFieldS.Input(), 'EnableDeleteField', props.className)}
     >
       <div className={cn(L.row.skewer(), 'justify-between')}>
         <div className={cn('text-sm font-bold text-gray-600')}>

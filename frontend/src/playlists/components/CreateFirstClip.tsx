@@ -35,12 +35,12 @@ export const CreateFirstClip = observer(
         wallPaper={true}
       >
         <button
-          className={cn('CreateFirstClip__Button', [
-            'w-[280px]',
-            'self-center',
+          className={cn(
             CtaButtonS.root(),
             CtaButtonS.color.darkBlueOnSkyBlue(),
-          ])}
+            'CreateFirstClip__Button',
+            ['w-[280px]', 'self-center']
+          )}
           onClick={() => {
             onClickNewClipButton(props);
           }}
