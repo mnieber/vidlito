@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { MainFormL } from '/src/dashboard/components/MainForm';
+import { MainFormS } from '/src/dashboard/components/MainForm';
 import {
   Field,
   FormCancelButton,
@@ -11,7 +11,7 @@ import {
   GlobalError,
 } from '/src/forms/components';
 import { EnableDeleteField } from '/src/forms/components/EnableDeleteField';
-import { CardL } from '/src/frames/components/Card';
+import { CardS } from '/src/frames/components/Card';
 import { IsPublicPlaylistField } from '/src/playlists/components/IsPublicPlaylistField';
 import { cn } from '/src/utils/classnames';
 
@@ -38,9 +38,8 @@ export const PlaylistSettingsFormView = observer(
 
     return (
       <div
-        className={cn('PlaylistSettingsFormView', [
-          CardL.root(),
-          CardL.color.gray(),
+        className={cn(CardS.root(), 'PlaylistSettingsFormView', [
+          CardS.color.gray(),
           props.className,
         ])}
       >
@@ -58,13 +57,13 @@ export const PlaylistSettingsFormView = observer(
           )}
           handleCancel={form.getHandleCancel(props)}
         >
-          <GlobalError className={MainFormL.GlobalError()} />
+          <GlobalError className={MainFormS.GlobalError()} />
           {
             // 🔳 IsPublicField 🔳
           }
           <Field
             fieldName="playlistSettingsForm.isPublic"
-            className={MainFormL.Field()}
+            className={MainFormS.Field()}
           >
             <FormFieldLabel label="SETTINGS" />
             <IsPublicPlaylistField />
@@ -74,7 +73,7 @@ export const PlaylistSettingsFormView = observer(
           }
           <Field
             fieldName="playlistSettingsForm.isDeletionEnabled"
-            className={MainFormL.Field()}
+            className={MainFormS.Field()}
           >
             <FormFieldLabel label="DELETE PLAYLIST" />
             <EnableDeleteField
@@ -91,9 +90,9 @@ export const PlaylistSettingsFormView = observer(
           {
             // 🔳 Buttons 🔳
           }
-          <div className={cn(MainFormL.Buttons())}>
+          <div className={cn(MainFormS.Buttons())}>
             <FormCancelButton
-              className={cn(MainFormL.Button.root(), MainFormL.Button.gap())}
+              className={cn(MainFormS.Button.root(), MainFormS.Button.gap())}
               danger={props.playlistsDeletion.isDeleteEnabled}
               label="Cancel"
               tabIndex={6}
@@ -104,7 +103,7 @@ export const PlaylistSettingsFormView = observer(
               }
               danger={props.playlistsDeletion.isDeleteEnabled}
               tabIndex={6}
-              className={cn(MainFormL.Button.root())}
+              className={cn(MainFormS.Button.root())}
             />
           </div>
         </FormStateProvider>

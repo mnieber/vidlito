@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from 'react-default-props-context';
 import { dps } from '/src/app/defaultProps';
-import { CardL } from '/src/frames/components/Card';
+import { CardS } from '/src/frames/components/Card';
 import { DialogButton } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -22,7 +22,7 @@ export const CookieNotice = observer(
         <div
           className={cn('CookieNotice__Body', [
             'max-w-[800px] mx-auto',
-            CardL.size.medium(),
+            CardS.size.medium(),
           ])}
         >
           <div className="font-bold mb-8">

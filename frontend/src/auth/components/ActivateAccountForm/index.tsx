@@ -1,7 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
-import { AuthFormL } from '/src/auth/components/AuthCard/AuthForm';
+import { AuthFormS } from '/src/auth/components/AuthCard/AuthForm';
 import {
   Field,
   FormSaveButton,
@@ -42,19 +42,19 @@ export function ActivateAccountForm(props: PropsT) {
         {
           // 🔳 GlobalError 🔳
         }
-        <GlobalError className={cn(AuthFormL.GlobalError())} />
+        <GlobalError className={cn(AuthFormS.GlobalError())} />
 
         {
           // 🔳 Header 🔳
         }
-        <div className={cn(AuthFormL.Header())}>
+        <div className={cn(AuthFormS.Header())}>
           {messages.divYouAreOneStepAway}
         </div>
 
         {
           // 🔳 UsernameField 🔳
         }
-        <Field fieldName={formFields.username} className={AuthFormL.Field()}>
+        <Field fieldName={formFields.username} className={AuthFormS.Field()}>
           <TextField autoFocus={true} placeholder="Username" />
         </Field>
 
@@ -64,7 +64,7 @@ export function ActivateAccountForm(props: PropsT) {
         <Field
           fieldName={formFields.password}
           submitOnEnter={true}
-          className={AuthFormL.Field()}
+          className={AuthFormS.Field()}
         >
           <PasswordField placeholder="Password" />
         </Field>
@@ -75,7 +75,7 @@ export function ActivateAccountForm(props: PropsT) {
         <FormSaveButton
           dataCy="activateAccountBtn"
           label="Activate account"
-          className={AuthFormL.Button()}
+          className={AuthFormS.Button()}
         />
       </div>
     </FormStateProvider>

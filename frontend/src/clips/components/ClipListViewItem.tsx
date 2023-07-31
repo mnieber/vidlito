@@ -7,7 +7,7 @@ import {
 } from 'skandha-facets';
 import { isUpdating } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { LviL } from '/src/frames/components/Lvi';
+import { LviS } from '/src/frames/components/Lvi';
 import { cn } from '/src/utils/classnames';
 import { PlayVideoIcon } from '/src/videos/components';
 
@@ -50,8 +50,9 @@ export const ClipListViewItem = observer(
       //
       <div
         className={cn(
-          'ClipListViewItem',
+          LviS.root(),
           [
+            'ClipListViewItem',
             {
               'ClipListViewItem--selected': showAsSelected,
               'text-gray-text': !(showAsSelected || props.isHighlighted),
@@ -60,7 +61,7 @@ export const ClipListViewItem = observer(
             `ClipListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
             { 'animate-delete': isUpdating(props.clip) },
           ],
-          [LviL.root(), props.className]
+          [props.className]
         )}
         {...selectionUIHandlers(props.selectionUIProps)}
         {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
@@ -70,7 +71,7 @@ export const ClipListViewItem = observer(
           // 🔳 PlayVideoIcon 🔳
         }
         <PlayVideoIcon
-          className={cn(LviL.icon.root())}
+          className={cn(LviS.Icon())}
           videoController={props.videoPlayerState.videoController}
           visible={
             props.videoPlayerState.videoController.ready && props.isHighlighted
@@ -80,7 +81,7 @@ export const ClipListViewItem = observer(
         {
           // 🔳 Title 🔳
         }
-        <div className={cn('ClipListViewItem__Title', LviL.title())}>
+        <div className={cn(LviS.Title(), 'ClipListViewItem__Title')}>
           {props.clip.name + clipNamePostfix}
         </div>
       </div>

@@ -3,8 +3,8 @@ import { useFormStateContext } from 'react-form-state-context';
 import { withDefaultProps } from '/src/app/defaultProps';
 import { FormField, FormFieldL } from '/src/forms/components/FormField';
 import { useFormFieldContext } from '/src/forms/components/FormFieldContext';
-import { DialogButtonL } from '/src/frames/components/DialogButton';
-import { Icon, IconL } from '/src/frames/components/Icon';
+import { DialogButtonS } from '/src/frames/components/DialogButton';
+import { Icon, IconS } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -31,7 +31,7 @@ export const IsPublicPlaylistField = observer(
           onClick={() => formState.setValue(fieldContext.fieldName, true)}
         >
           <Icon
-            className={cn(DialogButtonL.icon.root(), IconL.color.gray())}
+            className={cn(DialogButtonS.Icon(), IconS.color.gray())}
             name={isPublic ? 'radioButtonOn' : 'radioButtonOff'}
           />
           <div>
@@ -49,7 +49,7 @@ export const IsPublicPlaylistField = observer(
           onClick={() => formState.setValue(fieldContext.fieldName, false)}
         >
           <Icon
-            className={cn(DialogButtonL.icon.root(), IconL.color.gray())}
+            className={cn(DialogButtonS.Icon(), IconS.color.gray())}
             name={!isPublic ? 'radioButtonOn' : 'radioButtonOff'}
           />
           <div>

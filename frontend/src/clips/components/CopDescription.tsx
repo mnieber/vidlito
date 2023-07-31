@@ -39,12 +39,11 @@ export const CopDescription = observer(
     return (
       <div className={cn('CopDescription', [props.className])}>
         <div
-          className={cn(
-            'CopDescription__TopRow',
+          className={cn('CopDescription__TopRow', [
             L.row.skewer(),
             'grow',
-            'justify-between'
-          )}
+            'justify-between',
+          ])}
         >
           <div className={cn('CopDescription__Title')}>Description</div>
           {props.userProfile && (

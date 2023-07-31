@@ -8,7 +8,7 @@ import { cn } from '/src/utils/classnames';
 //   and the form-field-error.
 // - a Buttons container (optional, if there is more than one button).
 // - one or more Button components. E.g. a 'Save Clip' button.
-export const MainFormL = {
+export const MainFormS = {
   GlobalError: () => 'mb-4',
   Field: () => 'mb-6',
   Buttons: () => cn([L.row.skewer(), 'self-end']),

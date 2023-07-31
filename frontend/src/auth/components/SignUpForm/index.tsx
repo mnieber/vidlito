@@ -1,7 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
-import { AuthFormL } from '/src/auth/components/AuthCard/AuthForm';
+import { AuthFormS } from '/src/auth/components/AuthCard/AuthForm';
 import {
   ControlledCheckbox,
   EmailField,
@@ -40,12 +40,12 @@ export function SignUpForm(props: PropsT) {
         {
           // 🔳 Global error 🔳
         }
-        <GlobalError className={AuthFormL.GlobalError()} />
+        <GlobalError className={AuthFormS.GlobalError()} />
 
         {
           // 🔳 EmailField 🔳
         }
-        <Field fieldName={formFields.email} className={AuthFormL.Field()}>
+        <Field fieldName={formFields.email} className={AuthFormS.Field()}>
           <EmailField autoFocus={true} placeholder="Email" />
         </Field>
 
@@ -54,7 +54,7 @@ export function SignUpForm(props: PropsT) {
         }
         <Field
           fieldName={formFields.acceptsTerms}
-          className={AuthFormL.Field()}
+          className={AuthFormS.Field()}
         >
           <div className={cn('SignUpForm__Terms', [L.row.skewer()])}>
             <ControlledCheckbox />
@@ -68,7 +68,7 @@ export function SignUpForm(props: PropsT) {
         <FormSaveButton
           dataCy="signUpBtn"
           label="Sign Up"
-          className={AuthFormL.Button()}
+          className={AuthFormS.Button()}
         />
       </div>
     </FormStateProvider>

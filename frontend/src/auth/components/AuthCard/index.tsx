@@ -38,7 +38,7 @@ export const AuthCard = observer(
 // - a Form
 // - a FormCaption that appears just below the form (e.g. "Did you forget your password?")
 // - a CardFooter that appears at the bottom of the card (e.g. "Register for an account")
-export const AuthCardL = {
+export const AuthCardS = {
   Form: () => '',
   FormCaption: () => 'mt-2',
   CardFooter: () => 'mt-8',

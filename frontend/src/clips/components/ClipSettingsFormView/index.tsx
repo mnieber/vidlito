@@ -3,7 +3,7 @@ import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { IsPublicClipField } from '/src/clips/components/ClipSettingsFormView/IsPublicClipField';
-import { MainFormL } from '/src/dashboard/components/MainForm';
+import { MainFormS } from '/src/dashboard/components/MainForm';
 import {
   Field,
   FormCancelButton,
@@ -12,7 +12,7 @@ import {
   GlobalError,
 } from '/src/forms/components';
 import { EnableDeleteField } from '/src/forms/components/EnableDeleteField';
-import { CardL } from '/src/frames/components/Card';
+import { CardS } from '/src/frames/components/Card';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -36,9 +36,8 @@ export const ClipSettingsFormView = observer(
 
     return (
       <div
-        className={cn('ClipSettingsFormView', [
-          CardL.root(),
-          CardL.color.gray(),
+        className={cn(CardS.root(), 'ClipSettingsFormView', [
+          CardS.color.gray(),
           props.className,
         ])}
       >
@@ -56,13 +55,13 @@ export const ClipSettingsFormView = observer(
           )}
           handleCancel={form.getHandleCancel(props)}
         >
-          <GlobalError className={MainFormL.GlobalError()} />
+          <GlobalError className={MainFormS.GlobalError()} />
           {
             // 🔳 IsPublicField 🔳
           }
           <Field
             fieldName="playlistSettingsForm.isPublic"
-            className={MainFormL.Field()}
+            className={MainFormS.Field()}
           >
             <FormFieldLabel label="SETTINGS" />
             <IsPublicClipField clip={props.clip} playlist={props.playlist} />
@@ -72,7 +71,7 @@ export const ClipSettingsFormView = observer(
           }
           <Field
             fieldName="clipSettingsForm.isDeletionEnabled"
-            className={MainFormL.Field()}
+            className={MainFormS.Field()}
           >
             <FormFieldLabel label="DELETE CLIP" />
             <EnableDeleteField
@@ -87,9 +86,9 @@ export const ClipSettingsFormView = observer(
           {
             // 🔳 Buttons 🔳
           }
-          <div className={cn(MainFormL.Buttons())}>
+          <div className={cn(MainFormS.Buttons())}>
             <FormCancelButton
-              className={cn(MainFormL.Button.root(), MainFormL.Button.gap())}
+              className={cn(MainFormS.Button.root(), MainFormS.Button.gap())}
               danger={props.clipsDeletion.isDeleteEnabled}
               label="Cancel"
               tabIndex={6}
@@ -98,7 +97,7 @@ export const ClipSettingsFormView = observer(
               label={props.clipsDeletion.isDeleteEnabled ? 'Delete' : 'Save'}
               danger={props.clipsDeletion.isDeleteEnabled}
               tabIndex={6}
-              className={cn(MainFormL.Button.root())}
+              className={cn(MainFormS.Button.root())}
             />
           </div>
         </FormStateProvider>

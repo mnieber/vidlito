@@ -5,7 +5,7 @@ import { SyncClipWithUrlEffect } from '/src/clips/components';
 import { VideoAndCopView } from '/src/clips/components/VideoAndCopView';
 import { Dashboard } from '/src/dashboard/components/Dashboard';
 import { MainView } from '/src/dashboard/components/MainView';
-import { CardL } from '/src/frames/components/Card';
+import { CardS } from '/src/frames/components/Card';
 import { ForwardToLastUrlEffect } from '/src/frames/components/ForwardToLastUrlEffect';
 import { PageNotFound } from '/src/frames/components/PageNotFound';
 import { TermsAndConditionsPage } from '/src/frames/components/TermsAndConditionsPage';
@@ -81,7 +81,7 @@ export const DashboardSwitch = withDefaultProps(
                     // 🔳 PlaylistFormView 🔳
                   }
                   <PlaylistFormView
-                    className={cn(CardL.size.medium(), 'mx-4 mt-4')}
+                    className={cn(CardS.size.medium(), 'mx-4 mt-4')}
                   />
                 </Route>
                 <Route exact={true} path={routes.clip()}>

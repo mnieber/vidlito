@@ -23,5 +23,5 @@ export const MessageCard = (props: PropsT) => {
 };
 
 export const MessageCardS = {
-  message: () => cn(['text-3xl text-center text-gray-text'], ['p-4']),
+  Message: () => cn(['text-3xl text-center text-gray-text'], ['p-4']),
 };

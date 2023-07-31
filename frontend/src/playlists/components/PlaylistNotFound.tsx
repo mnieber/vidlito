@@ -30,7 +30,7 @@ export const PlaylistNotFound = observer(
         wallPaper={true}
       >
         <div
-          className={cn(MessageCardS.message(), 'PlaylistNotFound__Message')}
+          className={cn(MessageCardS.Message(), 'PlaylistNotFound__Message')}
         >
           Oops, it seems this playlist doesn't exist
         </div>

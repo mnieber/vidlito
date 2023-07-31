@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useMessages } from './useMessages';
-import { AuthCard, AuthCardL } from '/src/auth/components/AuthCard';
+import { AuthCard, AuthCardS } from '/src/auth/components/AuthCard';
 import { SignInForm } from '/src/auth/components/SignInForm';
 import { useSignIn } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
@@ -33,7 +33,7 @@ export const SignInCard = observer(() => {
         // 🔳 Form 🔳
       }
       <SignInForm
-        className={cn(AuthCardL.Form())}
+        className={cn(AuthCardS.Form())}
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
             if (response.success) {
@@ -48,8 +48,7 @@ export const SignInCard = observer(() => {
         // 🔳 Forgot password message 🔳
       }
       <div
-        className={cn('SignInCard__ForgotPassword', [
-          AuthCardL.FormCaption(),
+        className={cn(AuthCardS.FormCaption(), 'SignInCard__ForgotPassword', [
           L.col.banner(),
         ])}
       >
@@ -61,7 +60,7 @@ export const SignInCard = observer(() => {
       }
       <DialogButton
         componentClassName="TealWithWhiteText-DialogButton"
-        className={cn(AuthCardL.CardFooter())}
+        className={cn(AuthCardS.CardFooter())}
         onClick={() => navToSignUp()}
         label={messages.createAccount}
       />

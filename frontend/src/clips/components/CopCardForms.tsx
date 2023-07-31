@@ -3,7 +3,7 @@ import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { CopDescription } from '/src/clips/components/CopDescription';
 import { CopPd } from '/src/clips/components/CopPd';
-import { CardL } from '/src/frames/components/Card';
+import { CardS } from '/src/frames/components/Card';
 import { CopSettings } from '/src/playlists/components/CopSettings';
 import { cn } from '/src/utils/classnames';
 
@@ -31,7 +31,9 @@ export const CopCardForms = observer(
     const cop = showPlaylist ? props.playlist : props.clip;
 
     return (
-      <div className={cn('CopCardForms', CardL.size.medium(), props.className)}>
+      <div
+        className={cn('CopCardForms', [CardS.size.medium(), props.className])}
+      >
         <CopDescription showPlaylist={showPlaylist} className="" />
         {!cop?.isTransient && (
           <>

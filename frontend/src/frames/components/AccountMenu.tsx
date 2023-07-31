@@ -5,7 +5,7 @@ import { useSignOut } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
 import { navToHelp, navToSignIn } from '/src/frames/FramesNavEvents';
 import { Icon } from '/src/frames/components';
-import { DialogButtonL } from '/src/frames/components/DialogButton';
+import { DialogButtonS } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -59,7 +59,7 @@ export const AccountMenu = observer(
         >
           {!props.isAuthenticated && (
             <StyledMenuItem onClick={() => navToSignIn()}>
-              <Icon className={cn(DialogButtonL.icon.root())} name="signIn" />
+              <Icon className={cn(DialogButtonS.Icon())} name="signIn" />
               Sign In
             </StyledMenuItem>
           )}
@@ -71,13 +71,13 @@ export const AccountMenu = observer(
                 });
               }}
             >
-              <Icon className={cn(DialogButtonL.icon.root())} name="signOut" />
+              <Icon className={cn(DialogButtonS.Icon())} name="signOut" />
               Sign Out
             </StyledMenuItem>
           )}
           <MenuDivider />
           <StyledMenuItem onClick={() => navToHelp()}>
-            <Icon className={cn(DialogButtonL.icon.root())} name="help" />
+            <Icon className={cn(DialogButtonS.Icon())} name="help" />
             Help
           </StyledMenuItem>
         </Menu>

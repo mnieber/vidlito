@@ -1,7 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
-import { AuthFormL } from '/src/auth/components/AuthCard/AuthForm';
+import { AuthFormS } from '/src/auth/components/AuthCard/AuthForm';
 import {
   EmailField,
   Field,
@@ -40,13 +40,13 @@ export function SignInForm(props: PropsT) {
         // 🔳 SignInForm 🔳
       }
       <div className={cn('SignInForm', [L.col.banner(), props.className])}>
-        <GlobalError className={AuthFormL.GlobalError()} />
+        <GlobalError className={AuthFormS.GlobalError()} />
 
         {
           // 🔳 EmailField 🔳
         }
         <Field
-          className={AuthFormL.Field()}
+          className={AuthFormS.Field()}
           fieldName={formFields.email}
           tabOnEnter={true}
         >
@@ -57,7 +57,7 @@ export function SignInForm(props: PropsT) {
           // 🔳 PasswordField 🔳
         }
         <Field
-          className={AuthFormL.Field()}
+          className={AuthFormS.Field()}
           fieldName="password"
           submitOnEnter={true}
         >
@@ -70,7 +70,7 @@ export function SignInForm(props: PropsT) {
         <FormSaveButton
           dataCy={'signInBtn'}
           label={messages.labelSignIn}
-          className={AuthFormL.Button()}
+          className={AuthFormS.Button()}
         />
       </div>
     </FormStateProvider>

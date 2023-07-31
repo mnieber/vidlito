@@ -35,8 +35,8 @@ export const ToolButton = (props: PropsT) => {
         className={cn(
           'ToolButton__Icon',
           props.disabled && 'ToolButton__Icon--disabled',
-          ToolButtonL.icon.size[props.iconSize ?? 'medium'](),
-          ToolButtonL.icon.margin[props.iconMargin ?? 'medium']()
+          ToolButtonS.icon.size[props.iconSize ?? 'medium'](),
+          ToolButtonS.icon.margin[props.iconMargin ?? 'medium']()
         )}
         name={props.iconName}
       />
@@ -45,7 +45,7 @@ export const ToolButton = (props: PropsT) => {
   );
 };
 
-export const ToolButtonL = {
+export const ToolButtonS = {
   icon: {
     size: {
       medium: () => cn(['h-[32px] w-[32px]', 'p-2']),

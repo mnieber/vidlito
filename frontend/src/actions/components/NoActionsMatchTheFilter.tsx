@@ -30,7 +30,7 @@ export const NoActionsMatchTheFilter = observer(
         }
         <div
           className={cn(
-            MessageCardS.message(),
+            MessageCardS.Message(),
             'NoActionsMatchTheFilter__Message'
           )}
         >

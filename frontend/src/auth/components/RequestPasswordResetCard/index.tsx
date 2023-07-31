@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useMessages } from './useMessages';
-import { AuthCard, AuthCardL } from '/src/auth/components/AuthCard';
+import { AuthCard, AuthCardS } from '/src/auth/components/AuthCard';
 import { RequestPasswordResetForm } from '/src/auth/components/RequestPasswordResetForm';
 import { useRequestPasswordReset } from '/src/auth/endpoints';
 import { States } from '/src/auth/endpoints/states';
@@ -18,14 +18,14 @@ export const RequestPasswordResetCard = observer(() => {
       )}
       {authState.state !== States.REQUEST_PASSWORD_RESET_SUCCEEDED && (
         <RequestPasswordResetForm
-          className={AuthCardL.Form()}
+          className={AuthCardS.Form()}
           requestPasswordReset={(email: string) => {
             return requestPasswordReset({ email });
           }}
           errors={authState.errors}
         />
       )}
-      <div className={AuthCardL.CardFooter()}>
+      <div className={AuthCardS.CardFooter()}>
         {messages.haveYouFoundYourPassword}
       </div>
     </AuthCard>

@@ -3,7 +3,7 @@ import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { usePreviewButton } from '/src/clips/hooks/usePreviewButton';
-import { MainFormL } from '/src/dashboard/components/MainForm';
+import { MainFormS } from '/src/dashboard/components/MainForm';
 import {
   Field,
   FormCancelButton,
@@ -15,7 +15,7 @@ import {
   ValuePickerField,
 } from '/src/forms/components';
 import { NameField } from '/src/forms/components/NameField';
-import { CardL } from '/src/frames/components/Card';
+import { CardS } from '/src/frames/components/Card';
 import { IsPublicPlaylistField } from '/src/playlists/components/IsPublicPlaylistField';
 import { cn } from '/src/utils/classnames';
 
@@ -53,10 +53,9 @@ export const PlaylistFormView = observer(
       // 🔳 PlaylistFormView 🔳
       //
       <div
-        className={cn('PlaylistFormView', [
+        className={cn(CardS.root(), 'PlaylistFormView', [
           'self-start',
-          CardL.root(),
-          CardL.color.gray(),
+          CardS.color.gray(),
           props.className,
         ])}
       >
@@ -74,11 +73,11 @@ export const PlaylistFormView = observer(
           )}
           handleCancel={form.getHandleCancel(props)}
         >
-          <GlobalError className={MainFormL.GlobalError()} />
+          <GlobalError className={MainFormS.GlobalError()} />
           {
             // 🔳 NameField 🔳
           }
-          <Field fieldName="playlistForm.name" className={MainFormL.Field()}>
+          <Field fieldName="playlistForm.name" className={MainFormS.Field()}>
             <FormFieldLabel label="NAME" />
             <NameField
               tabIndex={1}
@@ -95,7 +94,7 @@ export const PlaylistFormView = observer(
           {
             // 🔳 SlugField 🔳
           }
-          <Field fieldName="playlistForm.slug" className={MainFormL.Field()}>
+          <Field fieldName="playlistForm.slug" className={MainFormS.Field()}>
             <FormFieldLabel label="SLUG" />
             <SlugField relatedFieldName="playlistForm.name" />
           </Field>
@@ -105,7 +104,7 @@ export const PlaylistFormView = observer(
           {isNewPlaylist && (
             <Field
               fieldName="playlistForm.isPublic"
-              className={MainFormL.Field()}
+              className={MainFormS.Field()}
             >
               <FormFieldLabel label="SETTINGS" />
               <IsPublicPlaylistField />
@@ -114,7 +113,7 @@ export const PlaylistFormView = observer(
           {
             // 🔳 TagsField 🔳
           }
-          <Field fieldName="playlistForm.tags" className={MainFormL.Field()}>
+          <Field fieldName="playlistForm.tags" className={MainFormS.Field()}>
             <FormFieldLabel label="TAGS" />
             <ValuePickerField
               tabIndex={5}
@@ -130,7 +129,7 @@ export const PlaylistFormView = observer(
           <Field
             fieldName="playlistForm.description"
             tabOnEnter={false}
-            className={MainFormL.Field()}
+            className={MainFormS.Field()}
           >
             <FormFieldLabel label="DESCRIPTION" buttons={[showPreviewButton]} />
             <MarkdownField
@@ -142,16 +141,16 @@ export const PlaylistFormView = observer(
           {
             // 🔳 Buttons 🔳
           }
-          <div className={cn(MainFormL.Buttons())}>
+          <div className={cn(MainFormS.Buttons())}>
             <FormCancelButton
-              className={cn(MainFormL.Button.root(), MainFormL.Button.gap())}
+              className={cn(MainFormS.Button.root(), MainFormS.Button.gap())}
               label="Cancel"
               tabIndex={6}
             />
             <FormSaveButton
               label="Save"
               tabIndex={6}
-              className={cn(MainFormL.Button.root())}
+              className={cn(MainFormS.Button.root())}
             />
           </div>
         </FormStateProvider>

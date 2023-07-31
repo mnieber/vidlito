@@ -7,12 +7,7 @@ export const useMessages = () => {
   const ifYouAlreadyHaveAnAccount = (
     <div>
       If you already have an account then you can{' '}
-      <RouterLink
-        key="_signIn"
-        dataCy={'navToSignInLink'}
-        className=""
-        to={routes.signIn()}
-      >
+      <RouterLink key="_signIn" dataCy={'navToSignInLink'} to={routes.signIn()}>
         sign in
       </RouterLink>
       .

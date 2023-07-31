@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useMessages } from './useMessages';
-import { AuthCard, AuthCardL } from '/src/auth/components/AuthCard';
+import { AuthCard, AuthCardS } from '/src/auth/components/AuthCard';
 import { SignUpForm } from '/src/auth/components/SignUpForm';
 import { useSignUp } from '/src/auth/endpoints';
 import { States } from '/src/auth/endpoints/states';
@@ -26,7 +26,7 @@ export const SignUpCard = observer(() => {
         // 🔳 Confirmation 🔳
       }
       {authState.state === States.SIGN_UP_SUCCEEDED && (
-        <div className={cn('')}>{messages.divYouHaveBeenSignedUp}</div>
+        <div>{messages.divYouHaveBeenSignedUp}</div>
       )}
 
       {
@@ -35,7 +35,7 @@ export const SignUpCard = observer(() => {
       {authState.state !== States.SIGN_UP_SUCCEEDED && (
         <React.Fragment>
           <SignUpForm
-            className={cn(AuthCardL.Form())}
+            className={cn(AuthCardS.Form())}
             signUp={(email: string, acceptsTerms: boolean) => {
               return signUp({
                 userId: email,
@@ -45,7 +45,7 @@ export const SignUpCard = observer(() => {
             }}
             errors={authState.errors}
           />
-          <div className={cn(AuthCardL.CardFooter())}>
+          <div className={cn(AuthCardS.CardFooter())}>
             {messages.ifYouAlreadyHaveAnAccount}
           </div>
         </React.Fragment>

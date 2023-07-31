@@ -63,7 +63,7 @@ export const ClipListView = observer(
 
     const noItems = (
       <h2
-        className="text-teal-primary cursor-pointer"
+        className="ClipListView__NoItems"
         onClick={() => {
           navToPlaylist(props.playlist.ownerUsername, props.playlist.slug);
         }}

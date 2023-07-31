@@ -62,7 +62,7 @@ export const ClipHeaderView = observer(
 export const ClipHeaderViewLoader = observer((props: { className?: any }) => {
   return (
     <LoaderBar
-      className={cn('ClipHeaderViewLoader', 'h-[50px]', props.className)}
+      className={cn('ClipHeaderViewLoader', ['h-[50px]', props.className])}
     />
   );
 });

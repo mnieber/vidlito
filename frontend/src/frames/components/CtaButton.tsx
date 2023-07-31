@@ -3,7 +3,7 @@ import { cn } from '/src/utils/classnames';
 
 import './CtaButton.scss';
 
-export const CtaButtonL = {
+export const CtaButtonS = {
   root: () => cn('CtaButton', L.row.skewer()),
   // Clients should pick one color from the list below.
   color: {

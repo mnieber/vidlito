@@ -188,7 +188,7 @@ export const Icon = (props: PropsT) => {
   );
 };
 
-export const IconL = {
+export const IconS = {
   color: {
     gray: () => 'fill-gray-text',
   },

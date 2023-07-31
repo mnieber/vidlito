@@ -29,10 +29,12 @@ export const EditButton = observer(
       //
       <ToolButton
         className={cn(
-          'EditButton',
-          {
-            'EditButton--invisible': R.isNil(props.username),
-          },
+          [
+            'EditButton',
+            {
+              'EditButton--invisible': R.isNil(props.username),
+            },
+          ],
           [props.className]
         )}
         disabled={props.disabled}

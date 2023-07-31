@@ -59,18 +59,14 @@ export const DialogButton = (
       data-cy={dataCy}
       {...rest}
     >
-      {iconName && (
-        <Icon className={DialogButtonL.icon.root()} name={iconName} />
-      )}
+      {iconName && <Icon className={DialogButtonS.Icon()} name={iconName} />}
       {label}
     </button>
   );
 };
 
-export const DialogButtonL = {
-  icon: {
-    root: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
-  },
+export const DialogButtonS = {
+  Icon: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
   fontSize: {
     medium: () => 'text-base',
     big: () => 'text-lg',

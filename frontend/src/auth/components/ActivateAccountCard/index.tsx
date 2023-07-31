@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
 import { useMessages } from './useMessages';
 import { ActivateAccountForm } from '/src/auth/components/ActivateAccountForm';
-import { AuthCard, AuthCardL } from '/src/auth/components/AuthCard';
+import { AuthCard, AuthCardS } from '/src/auth/components/AuthCard';
 import { useActivateAccount } from '/src/auth/endpoints';
 import { States } from '/src/auth/endpoints/states';
 import { useAuthStateContext } from '/src/auth/hooks';
@@ -35,7 +35,7 @@ export const ActivateAccountCard = observer(() => {
             }
             errors={authState.errors}
           />
-          <div className={cn(AuthCardL.CardFooter())}>
+          <div className={cn(AuthCardS.CardFooter())}>
             {messages.ifYouAlreadyHaveAnAccount}
           </div>
         </>

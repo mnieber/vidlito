@@ -5,7 +5,7 @@
 // - one or more Fields. A field is a wrapper around the form-field label, the form-field
 //   and the form-field-error.
 // - a Button, e.g. 'Sign In'.
-export const AuthFormL = {
+export const AuthFormS = {
   GlobalError: () => 'mb-2',
   Header: () => 'mb-2',
   Field: () => 'mb-2',

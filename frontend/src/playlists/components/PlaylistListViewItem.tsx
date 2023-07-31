@@ -9,7 +9,7 @@ import { isUpdating } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
-import { LviL } from '/src/frames/components/Lvi';
+import { LviS } from '/src/frames/components/Lvi';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -40,8 +40,9 @@ export const PlaylistListViewItem = observer(
       //
       <div
         className={cn(
-          'PlaylistListViewItem',
+          LviS.root(),
           [
+            'PlaylistListViewItem',
             {
               'PlaylistListViewItem--selected':
                 props.selectionUIProps.isSelected,
@@ -49,7 +50,7 @@ export const PlaylistListViewItem = observer(
             },
             `PlaylistListViewItem--drag-${props.dragAndDropUIProps.dragState}`,
           ],
-          [LviL.root(), props.className]
+          [props.className]
         )}
         {...selectionUIHandlers(props.selectionUIProps)}
         {...dragAndDropUIHandlers(props.dragAndDropUIProps)}
@@ -58,7 +59,7 @@ export const PlaylistListViewItem = observer(
           // 🔳 Icon 🔳
         }
         <div
-          className={cn('IconContainer', [LviL.icon.root(), L.row.skewer()])}
+          className={cn(LviS.Icon(), 'IconContainer', [L.row.skewer()])}
           onClick={() => {
             props.goToPlaylist(props.playlist);
           }}
@@ -71,7 +72,7 @@ export const PlaylistListViewItem = observer(
         {
           // 🔳 Title 🔳
         }
-        <div className={cn('PlaylistListViewItem__Title', [LviL.title()])}>
+        <div className={cn(LviS.Title(), 'PlaylistListViewItem__Title')}>
           <div>{props.playlist.name}</div>
         </div>
       </div>

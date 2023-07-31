@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useMessages } from './useMessages';
-import { AuthCard, AuthCardL } from '/src/auth/components/AuthCard';
+import { AuthCard, AuthCardS } from '/src/auth/components/AuthCard';
 import { RequestMagicLinkForm } from '/src/auth/components/RequestMagicLinkForm';
 import { useRequestMagicLink } from '/src/auth/endpoints';
 import { States } from '/src/auth/endpoints/states';
@@ -25,7 +25,7 @@ export const RequestMagicLinkCard = observer(() => {
       }
       {authState.state !== States.REQUEST_MAGIC_LINK_SUCCEEDED && (
         <RequestMagicLinkForm
-          className={AuthCardL.Form()}
+          className={AuthCardS.Form()}
           requestMagicLink={(email: string) => {
             return requestMagicLink({ userId: email });
           }}
@@ -36,7 +36,7 @@ export const RequestMagicLinkCard = observer(() => {
       {
         // 🔳 Have you found your password message 🔳
       }
-      <div className={AuthCardL.CardFooter()}>
+      <div className={AuthCardS.CardFooter()}>
         {messages.haveYouFoundYourPassword}
       </div>
     </AuthCard>

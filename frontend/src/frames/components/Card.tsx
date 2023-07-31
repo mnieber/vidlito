@@ -4,7 +4,7 @@ import { cn } from '/src/utils/classnames';
 // Import styles
 import './Card.scss';
 
-export const CardL = {
+export const CardS = {
   root: () => cn('Card', L.col.banner()),
   color: {
     gray: () => 'bg-gray-medium',

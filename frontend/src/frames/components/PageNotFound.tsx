@@ -24,7 +24,7 @@ export const PageNotFound = observer(
         className={cn('PageNotFound', [props.className])}
         wallPaper={true}
       >
-        <div className={cn(MessageCardS.message(), 'PageNotFound__Message')}>
+        <div className={cn(MessageCardS.Message(), 'PageNotFound__Message')}>
           Oops, it seems this page doesn't exist
         </div>
       </MessageCard>
