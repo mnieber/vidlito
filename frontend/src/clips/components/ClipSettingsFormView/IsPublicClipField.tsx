@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { ClipT } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { FormFieldL } from '/src/forms/components/FormField';
+import { FormField, FormFieldL } from '/src/forms/components/FormField';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -18,11 +18,9 @@ export const IsPublicClipField = observer((props: PropsT) => {
     : msgPrivateClip(props.playlist.name);
 
   return (
-    <div
-      className={cn('IsPublicClipField', FormFieldL.root(), FormFieldL.input())}
-    >
+    <FormField className={cn('IsPublicClipField', FormFieldL.input())}>
       <div className={cn('IsPublicClipField__Message', 'my-2')}>{msg}</div>
-    </div>
+    </FormField>
   );
 });
 

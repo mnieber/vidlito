@@ -1,4 +1,4 @@
-import { FormFieldL } from '/src/forms/components/FormField';
+import { FormField, FormFieldL } from '/src/forms/components/FormField';
 import { FieldPropsT, useFieldProps } from '/src/forms/hooks';
 import { cn } from '/src/utils/classnames';
 
@@ -17,12 +17,12 @@ export const TextField = (props: PropsT) => {
   });
 
   return (
-    <div className={cn('TextField', [], [FormFieldL.root(), props.className])}>
+    <FormField className={cn('TextField', [], [props.className])}>
       <input
         placeholder={props.placeholder}
         {...fieldProps}
         className={FormFieldL.input()}
       />
-    </div>
+    </FormField>
   );
 };

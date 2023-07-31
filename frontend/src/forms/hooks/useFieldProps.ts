@@ -51,6 +51,7 @@ export const useFieldProps = (props: FieldPropsT) => {
     inputRef,
     fieldType,
     controlled,
+    onChange,
     ...rest
   } = props;
 
@@ -64,6 +65,7 @@ export const useFieldProps = (props: FieldPropsT) => {
     },
     ref: inputRef,
     onKeyDown: handleKeyDown(fieldContext, formState, onKeyDown),
+    controlled: controlled ? 'true' : undefined,
     ...rest,
   };
 };

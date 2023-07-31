@@ -1,5 +1,5 @@
 import { UpdateSlugButton } from '/src/forms/components';
-import { FormFieldL } from '/src/forms/components/FormField';
+import { FormField, FormFieldL } from '/src/forms/components/FormField';
 import { FieldPropsT, useFieldProps } from '/src/forms/hooks';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -18,7 +18,7 @@ export const SlugField = (props: PropsT) => {
     controlled: true,
   });
   return (
-    <div className={cn('SlugField', [], [FormFieldL.root(), props.className])}>
+    <FormField className={cn('SlugField', [], [props.className])}>
       <div className={cn(L.row.banner())}>
         <input {...fieldProps} className={FormFieldL.input()} />
         <UpdateSlugButton
@@ -28,6 +28,6 @@ export const SlugField = (props: PropsT) => {
           relatedFieldName={relatedFieldName}
         />
       </div>
-    </div>
+    </FormField>
   );
 };

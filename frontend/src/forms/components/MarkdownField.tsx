@@ -1,5 +1,5 @@
 import TextareaAutosize from 'react-textarea-autosize';
-import { FormFieldL } from '/src/forms/components/FormField';
+import { FormField, FormFieldL } from '/src/forms/components/FormField';
 import { FieldPropsT, useFieldProps } from '/src/forms/hooks';
 import { MarkdownView } from '/src/frames/components';
 import { cn } from '/src/utils/classnames';
@@ -21,17 +21,13 @@ export const MarkdownField = (props: PropsT) => {
   const text = (fieldProps as any).value;
 
   return (
-    <div
-      className={cn(
-        'MarkdownField',
-        [],
-        [FormFieldL.root(), FormFieldL.input(), props.className]
-      )}
+    <FormField
+      className={cn('MarkdownField', [], [FormFieldL.input(), props.className])}
     >
       {!props.preview && (
         <TextareaAutosize type="text" {...(fieldProps as any)} />
       )}
       {props.preview && <MarkdownView text={text} />}
-    </div>
+    </FormField>
   );
 };
