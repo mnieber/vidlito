@@ -47,7 +47,10 @@ export const getPlaylist = (args: ArgsT) => {
     }`,
     args
   ).then((response: ObjT) => {
-    response.getPlaylist.playlist.playlistPd = response.getPlaylist.playlistPd;
+    if (response.getPlaylist.playlist) {
+      response.getPlaylist.playlist.playlistPd =
+        response.getPlaylist.playlistPd;
+    }
     response.getPlaylist.playlistPd = undefined;
     return wait(import.meta.env.DEV ? 1000 : 0, response.getPlaylist);
   });

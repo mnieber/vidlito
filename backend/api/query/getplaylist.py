@@ -17,16 +17,21 @@ class GetPlaylist:
     )
 
     def resolve_get_playlist(self, info, playlist_id=None, playlist_slug=None):
+        if not playlist_id and not playlist_slug:
+            raise Exception("Must provide either playlist_id or playlist_slug")
+
         playlist = (
-            Playlist.objects.get(id=playlist_id)
+            Playlist.objects.filter(id=playlist_id).first()
             if playlist_id
-            else Playlist.objects.get(slug=playlist_slug)
+            else Playlist.objects.filter(slug=playlist_slug).first()
             if playlist_slug
             else None
         )
-        if not playlist:
-            raise Exception("Must provide either playlist_id or playlist_slug")
 
-        playlist_pd = PlaylistPd.filter_mine(info, playlist__slug=playlist.slug).first()
+        playlist_pd = (
+            PlaylistPd.filter_mine(info, playlist__slug=playlist.slug).first()
+            if playlist
+            else None
+        )
 
         return GetPlaylistOutputs(playlist=playlist, playlist_pd=playlist_pd)
