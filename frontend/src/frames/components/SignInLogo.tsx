@@ -12,7 +12,7 @@ export const SignInLogo = (props: PropsT) => {
     //
     // 🔳🔳 SignInLogo__SubTitle
     //
-    <div className={cn('SignInLogo', L.col.banner())}>
+    <div className={cn('SignInLogo', L.col.skewer())}>
       <div
         className={cn(
           'SignInLogo__Title__',

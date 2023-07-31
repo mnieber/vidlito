@@ -7,17 +7,7 @@ import './AuthPage.scss';
 type PropsT = React.PropsWithChildren<{}>;
 
 export const AuthPage = (props: PropsT) => {
-  return (
-    <div
-      className={cn(
-        'AuthPage',
-        [],
-        ['flex flex-row justify-center', 'my-auto']
-      )}
-    >
-      {props.children}
-    </div>
-  );
+  return <div className={cn('AuthPage', [])}>{props.children}</div>;
 };
 
 // An AuthPage has:
@@ -25,5 +15,5 @@ export const AuthPage = (props: PropsT) => {
 // - a Gap that separates the LogoCard from the AuthCard.
 // - an AuthCard on the right, e.g. a card for signing in.
 export const AuthPageL = {
-  Gap: () => 'w-[300px]',
+  Gap: () => 'AuthPage__Gap',
 };
