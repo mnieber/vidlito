@@ -24,6 +24,7 @@ export const savePlaylist = (args: ArgsT) => {
         errors
         success
         created
+        playlistSlug
       }
     }`,
     args
@@ -37,7 +38,7 @@ export const useSavePlaylist = () => {
     mutationKey: ['savePlaylist'],
     mutationFn: savePlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      const getPlaylistArgs = { playlistSlug: args.playlistForm.slug };
+      const getPlaylistArgs = { playlistSlug: response.playlistSlug };
       const invalidateLoadUserId = response.created
         ? [queryClient.invalidateQueries({ queryKey: loadUserIdQueryKey({}) })]
         : [];
