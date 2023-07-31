@@ -18,7 +18,8 @@
     @apply border border-gray-text;
   }
 
-  .FormField__Input {
+  .FormField__Input,
+  &.FormField__Input {
     @apply py-2 px-3;
   }
 
