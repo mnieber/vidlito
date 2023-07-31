@@ -22,21 +22,19 @@ export const NoActionsMatchTheFilter = observer(
       🔳 NoActionsMatchTheFilter 🔳
       */
       <div
-        className={cn(
-          'NoActionsMatchTheFilter',
-          [],
-          [MessageCardL.root(), MessageCardL.wallpaper(), props.className]
-        )}
+        className={cn('NoActionsMatchTheFilter', [
+          MessageCardL.root(),
+          MessageCardL.wallpaper(),
+          props.className,
+        ])}
       >
         {
           // 🔳 Message 🔳
         }
         <div
-          className={cn(
-            'NoActionsMatchTheFilter__Message',
-            [],
-            [MessageCardL.message()]
-          )}
+          className={cn('NoActionsMatchTheFilter__Message', [
+            MessageCardL.message(),
+          ])}
         >
           {props.msg}
         </div>

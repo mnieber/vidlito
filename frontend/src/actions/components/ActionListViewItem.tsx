@@ -35,18 +35,18 @@ export const ActionListViewItem = observer((props: PropsT) => {
       {
         // 🔳 Header 🔳
       }
-      <div className={cn('ActionListViewItem__Header', [], [L.row.skewer()])}>
+      <div className={cn('ActionListViewItem__Header', [L.row.skewer()])}>
         {
           // 🔳 Title 🔳
         }
-        <div className={cn('ActionListViewItem__Title', [], ['mr-2'])}>
+        <div className={cn('ActionListViewItem__Title', ['mr-2'])}>
           {getTitle(props.action)}
         </div>
 
         {
           // 🔳 Playlist name 🔳
         }
-        <div className={cn('ActionListViewItem__PlaylistName', [], [])}>
+        <div className={cn('ActionListViewItem__PlaylistName')}>
           {props.action.data['playlist_name']}
         </div>
       </div>
@@ -55,11 +55,9 @@ export const ActionListViewItem = observer((props: PropsT) => {
         // 🔳 Clip names 🔳
       }
       <div
-        className={cn(
-          'ActionListViewItem__ClipNames',
-          [],
-          ['flex flex-row flex-wrap']
-        )}
+        className={cn('ActionListViewItem__ClipNames', [
+          'flex flex-row flex-wrap',
+        ])}
       >
         {getClipNames(props.action, true)}
       </div>

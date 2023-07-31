@@ -28,9 +28,7 @@ export const ActionsBar = observer(
       /*
       🔳 ActionsBar 🔳
       */
-      <div
-        className={cn('ActionsBar', [], [L.row.flagPole(), props.className])}
-      >
+      <div className={cn('ActionsBar', [L.row.flagPole(), props.className])}>
         {
           // 🔳 Switch button 🔳
         }
@@ -53,13 +51,13 @@ export const ActionsBar = observer(
           // 🔳 Undo action Button 🔳
         }
         <DialogButton
-          className={cn([
+          className={cn(
             'ActionsBar__UndoActionButton',
-            'mx-4',
             {
               invisible: !props.action,
             },
-          ])}
+            ['mx-4']
+          )}
           componentClassName="Blue-DialogButton"
           iconName="reply"
           label="Undo"

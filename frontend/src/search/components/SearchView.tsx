@@ -23,18 +23,10 @@ export const SearchView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <div
-        className={cn(
-          'SearchView',
-          [],
-          [L.col.banner(), 'grow', props.className]
-        )}
+        className={cn('SearchView', [L.col.banner(), 'grow', props.className])}
       >
         <div
-          className={cn(
-            'SearchView__TopRow',
-            [],
-            [L.row.revFlagPole(), 'mb-4']
-          )}
+          className={cn('SearchView__TopRow', [L.row.revFlagPole(), 'mb-4'])}
         >
           <div className={cn('SearchView__Title')}>Search</div>
           <div className="flex-grow" />

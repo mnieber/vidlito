@@ -23,7 +23,6 @@ export const PlayVideoIcon = observer((props: PropsT) => {
         {
           'PlayVideoIcon--loading': props.loading,
         },
-        [],
         [L.row.skewer(), props.className]
       )}
       onClick={() => {

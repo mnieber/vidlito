@@ -16,19 +16,17 @@ export const TermsAndConditionsPage = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <div
-        className={cn(
-          'TermsAndConditionsPage',
-          [],
-          [MessageCardL.root(), MessageCardL.wallpaper()]
-        )}
+        className={cn('TermsAndConditionsPage', [
+          MessageCardL.root(),
+          MessageCardL.wallpaper(),
+        ])}
       >
         <div
-          className={cn(
-            'TermsAndConditionsPage__Body',
+          className={cn('TermsAndConditionsPage__Body', [
             'p-8',
             'mx-auto',
-            'max-w-[800px]'
-          )}
+            'max-w-[800px]',
+          ])}
         >
           <MarkdownView text={terms} />
         </div>

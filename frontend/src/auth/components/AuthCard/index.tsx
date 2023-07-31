@@ -19,17 +19,13 @@ export const AuthCard = observer(
       //
       // 🔳 AuthCard 🔳
       //
-      <div className={cn('AuthCard', [], 'w-[396px] h-[332px]')}>
+      <div className={cn('AuthCard', ['w-[396px] h-[332px]'])}>
         {
           // 🔳 AuthCard__Inner 🔳
         }
         <div
           id={props.id}
-          className={cn(
-            'AuthCard__Inner',
-            ['rounded-lg bg-blue-950'],
-            [L.col.banner(), 'px-8 py-6']
-          )}
+          className={cn('AuthCard__Inner', [L.col.banner(), 'px-8 py-6'])}
         >
           {props.children}
         </div>

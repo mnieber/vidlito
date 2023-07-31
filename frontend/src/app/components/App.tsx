@@ -22,14 +22,10 @@ export const App = () => {
           // 🔳 App 🔳
         }
         <div
-          className={cn(
-            'App',
-            [],
-            [
-              L.col.banner(),
-              `min-width-[${breakpoints.xs}] h-screen overflow-x-hidden`,
-            ]
-          )}
+          className={cn('App', [
+            L.col.banner(),
+            `min-width-[${breakpoints.xs}] h-screen overflow-x-hidden`,
+          ])}
         >
           <RouteTableProvider>
             <AuthStateProvider>

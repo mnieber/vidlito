@@ -34,11 +34,11 @@ export const Dashboard = observer(
       //
       <ClipVideoKeyHandler className={cn('h-full', L.col.banner())}>
         <div
-          className={cn(
-            'Dashboard',
-            [],
-            ['h-full', L.row.banner(), props.className]
-          )}
+          className={cn('Dashboard', [
+            'h-full',
+            L.row.banner(),
+            props.className,
+          ])}
         >
           <div
             className={cn('Dashboard__LeftSpacer')}
@@ -57,7 +57,6 @@ export const Dashboard = observer(
                 'Dashboard__LeftSidebar--open':
                   props.dashboardState.panelState.isSidebarOpen,
               },
-              [],
               [L.col.banner(), 'w-[290px] min-w-[290px] mx-2 lg:mx-4']
             )}
           >
@@ -84,7 +83,6 @@ export const Dashboard = observer(
                 'Dashboard__RightMain--open':
                   props.dashboardState.panelState.isSidebarOpen,
               },
-              ['bg-gray-200'],
               ['grow']
             )}
             style={{
@@ -95,7 +93,7 @@ export const Dashboard = observer(
             {props.children}
           </div>
         </div>
-        {<div className={cn('MainView__Spacer', '')} />}
+        {<div className={cn('MainView__Spacer')} />}
         {<Footer />}
       </ClipVideoKeyHandler>
     );

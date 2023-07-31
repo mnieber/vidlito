@@ -48,18 +48,19 @@ export const MainView = observer(
     return (
       <div
         tabIndex={0}
-        className={cn(
-          'MainView',
-          [],
-          [L.col.banner(), 'h-full', 'grow', props.className]
-        )}
+        className={cn('MainView', [
+          L.col.banner(),
+          'h-full',
+          'grow',
+          props.className,
+        ])}
         {...swipeHandlers}
       >
         <div
-          className={cn('MainView__BodyAndTermsCard', 'grow', L.row.banner())}
+          className={cn('MainView__BodyAndTermsCard', ['grow', L.row.banner()])}
         >
           <div
-            className={cn('MainView__Body', 'grow', L.row.banner())}
+            className={cn('MainView__Body', ['grow', L.row.banner()])}
             style={{ maxWidth: props.dashboardState.panelState.maxVideoWidth }}
           >
             <ReactResizeDetector onResize={onResizeMainView} />

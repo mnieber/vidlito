@@ -37,10 +37,8 @@ export const ClipHeaderView = observer(
       isClipNotFound(props.clip);
 
     return (
-      <div
-        className={cn('ClipHeaderView', [], [L.col.banner(), props.className])}
-      >
-        <div className={cn('ClipHeaderView__Buttons', [], [L.row.banner()])}>
+      <div className={cn('ClipHeaderView', [L.col.banner(), props.className])}>
+        <div className={cn('ClipHeaderView__Buttons', [L.row.banner()])}>
           <SwitchButton
             state={showPlaylist ? 'left' : 'right'}
             fontSize="big"

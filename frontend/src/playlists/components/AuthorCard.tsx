@@ -61,11 +61,10 @@ export const AuthorCard = observer(
 
     return (
       <div
-        className={cn(
-          'AuthorCard',
-          [],
-          ['flex flex-row flex-wrap', props.className]
-        )}
+        className={cn('AuthorCard', [
+          'flex flex-row flex-wrap',
+          props.className,
+        ])}
       >
         {label1 && <div className={cn('AuthorCard__Label')}>{label1}</div>}
         {owner1 && (

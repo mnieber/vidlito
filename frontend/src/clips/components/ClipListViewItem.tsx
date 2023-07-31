@@ -52,7 +52,6 @@ export const ClipListViewItem = observer(
         className={cn(
           'ClipListViewItem',
           [
-            'font-bold',
             {
               'ClipListViewItem--selected': showAsSelected,
               'text-gray-text': !(showAsSelected || props.isHighlighted),

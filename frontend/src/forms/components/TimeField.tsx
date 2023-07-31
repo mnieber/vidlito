@@ -23,7 +23,7 @@ export const TimeField = (props: PropsT) => {
   });
 
   return (
-    <FormField className={cn('TimeField', [], [props.className])}>
+    <FormField className={cn('TimeField', [props.className])}>
       <div className={cn(L.row.banner())}>
         <input
           {...fieldProps}

@@ -22,7 +22,6 @@ export const ToolButton = (props: PropsT) => {
     <button
       className={cn(
         [props.componentClassName ?? 'ToolButton'],
-        [],
         [
           L.row.skewer(),
           props.disabled && 'ToolButton--disabled',

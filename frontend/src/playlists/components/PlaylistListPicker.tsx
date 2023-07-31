@@ -51,11 +51,7 @@ export const PlaylistListPicker = observer(
 
     return (
       <div
-        className={cn(
-          'PlaylistListPicker',
-          [],
-          [L.col.banner(), props.className]
-        )}
+        className={cn('PlaylistListPicker', [L.col.banner(), props.className])}
       >
         <PlaylistListHeader />
         <PlaylistListView
@@ -71,7 +67,10 @@ export const PlaylistListPickerLoader = observer(
   (props: PropsT & typeof DefaultProps) => {
     return (
       <LoaderBar
-        className={cn('PlaylistListPickerLoader', 'h-3 my-4', props.className)}
+        className={cn('PlaylistListPickerLoader', [
+          'h-3 my-4',
+          props.className,
+        ])}
       />
     );
   }

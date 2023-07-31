@@ -27,6 +27,8 @@
 }
 
 .Dashboard__RightMain {
+  @apply bg-gray-200;
+
   @media screen and (max-width: 1000px) {
     transition: margin-left 0.5s;
     min-width: 100% !important;

@@ -18,7 +18,7 @@ export const UpdateTimeButton = (props: PropsT) => {
   return (
     <button
       tabIndex={props.tabIndex}
-      className={cn('UpdateTimeButton', [], [L.row.skewer(), props.className])}
+      className={cn('UpdateTimeButton', [L.row.skewer(), props.className])}
       onClick={() => {
         const player = props.videoController.getPlayer();
         const currentTime = player?.getMediaReferenceTime();

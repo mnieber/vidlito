@@ -21,11 +21,11 @@ export const PageNotFound = observer(
 
     return (
       <div
-        className={cn(
-          'PageNotFound',
-          [],
-          [MessageCardL.root(), MessageCardL.wallpaper(), props.className]
-        )}
+        className={cn('PageNotFound', [
+          MessageCardL.root(),
+          MessageCardL.wallpaper(),
+          props.className,
+        ])}
       >
         <div className={cn('PageNotFound__Message', MessageCardL.message())}>
           Oops, it seems this page doesn't exist

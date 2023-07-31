@@ -12,7 +12,7 @@ export const EmailField = (props: PropsT) => {
   const fieldProps = useFieldProps({ fieldType: 'text' });
 
   return (
-    <FormField className={cn('EmailField', [], [props.className])}>
+    <FormField className={cn('EmailField', [props.className])}>
       <input
         placeholder={props.placeholder}
         {...fieldProps}

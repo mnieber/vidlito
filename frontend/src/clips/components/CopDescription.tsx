@@ -37,7 +37,7 @@ export const CopDescription = observer(
     const FormView = props.showPlaylist ? PlaylistFormView : ClipFormView;
 
     return (
-      <div className={cn('CopDescription', [], [props.className])}>
+      <div className={cn('CopDescription', [props.className])}>
         <div
           className={cn(
             'CopDescription__TopRow',

@@ -38,11 +38,11 @@ export const PlaylistSettingsFormView = observer(
 
     return (
       <div
-        className={cn(
-          'PlaylistSettingsFormView',
-          [],
-          [CardL.root(), CardL.color.gray(), props.className]
-        )}
+        className={cn('PlaylistSettingsFormView', [
+          CardL.root(),
+          CardL.color.gray(),
+          props.className,
+        ])}
       >
         {
           // 🔳 FormStateProvider 🔳

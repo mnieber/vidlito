@@ -35,11 +35,10 @@ export function RequestPasswordResetForm(props: PropsT) {
         // 🔳 Form 🔳
       }
       <div
-        className={cn(
-          'RequestPasswordResetForm',
-          [],
-          [L.col.banner(), props.className]
-        )}
+        className={cn('RequestPasswordResetForm', [
+          L.col.banner(),
+          props.className,
+        ])}
       >
         {
           // 🔳 Global error 🔳

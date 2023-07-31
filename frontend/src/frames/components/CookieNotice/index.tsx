@@ -20,11 +20,10 @@ export const CookieNotice = observer(
     return (
       <div className={cn('CookieNotice')}>
         <div
-          className={cn(
-            'CookieNotice__Body',
+          className={cn('CookieNotice__Body', [
             'max-w-[800px] mx-auto',
-            CardL.size.medium()
-          )}
+            CardL.size.medium(),
+          ])}
         >
           <div className="font-bold mb-8">
             This site uses essential cookies to store your sign-in information.
@@ -33,12 +32,11 @@ export const CookieNotice = observer(
           </div>
 
           <div
-            className={cn(
-              'CookieNotice__Buttons',
+            className={cn('CookieNotice__Buttons', [
               L.row.skewer(),
               'grow',
-              'justify-between'
-            )}
+              'justify-between',
+            ])}
           >
             <div>
               <DialogButton

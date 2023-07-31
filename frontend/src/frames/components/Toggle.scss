@@ -1,3 +1,7 @@
+.Toggle {
+  @apply relative cursor-pointer;
+}
+
 .Toggle__ToggleContainer {
   @apply border-2 absolute inset-0 rounded-full transition border-gray-text;
 }

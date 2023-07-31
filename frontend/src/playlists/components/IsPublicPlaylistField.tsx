@@ -24,11 +24,10 @@ export const IsPublicPlaylistField = observer(
     return (
       <FormField className={cn('IsPublicPlaylistField', FormFieldL.input())}>
         <div
-          className={cn(
-            'IsPublicPlaylistField__Option',
+          className={cn('IsPublicPlaylistField__Option', [
             'my-2',
-            L.row.flagPole()
-          )}
+            L.row.flagPole(),
+          ])}
           onClick={() => formState.setValue(fieldContext.fieldName, true)}
         >
           <Icon
@@ -36,18 +35,17 @@ export const IsPublicPlaylistField = observer(
             name={isPublic ? 'radioButtonOn' : 'radioButtonOff'}
           />
           <div>
-            <div className={cn('IsPublicPlaylistField__Label', 'mr-1')}>
+            <div className={cn('IsPublicPlaylistField__Label', ['mr-1'])}>
               Public
             </div>
             <div>Your clips in this playlist will be visible to everyone.</div>
           </div>
         </div>
         <div
-          className={cn(
-            'IsPublicPlaylistField__Option',
+          className={cn('IsPublicPlaylistField__Option', [
             'my-2',
-            L.row.flagPole()
-          )}
+            L.row.flagPole(),
+          ])}
           onClick={() => formState.setValue(fieldContext.fieldName, false)}
         >
           <Icon
@@ -55,7 +53,7 @@ export const IsPublicPlaylistField = observer(
             name={!isPublic ? 'radioButtonOn' : 'radioButtonOff'}
           />
           <div>
-            <div className={cn('IsPublicPlaylistField__Label', 'mr-1')}>
+            <div className={cn('IsPublicPlaylistField__Label', ['mr-1'])}>
               Private
             </div>
             <div>

@@ -17,7 +17,7 @@ export const TextField = (props: PropsT) => {
   });
 
   return (
-    <FormField className={cn('TextField', [], [props.className])}>
+    <FormField className={cn('TextField', [props.className])}>
       <input
         placeholder={props.placeholder}
         {...fieldProps}

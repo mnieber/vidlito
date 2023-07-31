@@ -49,11 +49,11 @@ export const ClipPdFormView = observer(
       // 🔳 ClipPdFormView 🔳
       //
       <div
-        className={cn(
-          'ClipPdFormView',
-          [],
-          [CardL.root(), CardL.color.gray(), props.className]
-        )}
+        className={cn('ClipPdFormView', [
+          CardL.root(),
+          CardL.color.gray(),
+          props.className,
+        ])}
       >
         {
           // 🔳 FormStateProvider 🔳

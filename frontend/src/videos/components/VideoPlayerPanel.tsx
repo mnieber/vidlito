@@ -26,11 +26,7 @@ export const VideoPlayerPanel = observer(
 
     return (
       <div
-        className={cn(
-          'VideoPlayerPanel',
-          [],
-          [L.col.banner(), props.className]
-        )}
+        className={cn('VideoPlayerPanel', [L.col.banner(), props.className])}
       >
         <VideoPlayerPanelPlaceholder
           width={width}
@@ -61,7 +57,6 @@ export const VideoPlayerPanelPlaceholder = (props: {
       className={cn(
         'VideoPlayerPanelPlaceholder',
         { 'bg-blue-300': !props.hidden },
-        [],
         [L.row.skewer()]
       )}
       style={{

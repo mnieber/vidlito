@@ -64,11 +64,7 @@ export const ActionListView = observer(
           // 🔳 ActionListView 🔳
         }
         <div
-          className={cn(
-            'ActionListView',
-            [],
-            [L.col.banner(), props.className]
-          )}
+          className={cn('ActionListView', [L.col.banner(), props.className])}
           tabIndex={0}
         >
           {actionDivs.length > 0 && actionDivs}
@@ -91,11 +87,7 @@ export const ActionListViewLoader = (props: { className?: any }) => {
     🔳 ActionListViewLoader 🔳
     */
     <div
-      className={cn(
-        'ActionListViewLoader',
-        [],
-        [L.col.banner(), props.className]
-      )}
+      className={cn('ActionListViewLoader', [L.col.banner(), props.className])}
     >
       {loaderBars}
     </div>

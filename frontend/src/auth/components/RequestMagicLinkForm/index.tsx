@@ -35,11 +35,10 @@ export function RequestMagicLinkForm(props: PropsT) {
         // 🔳 Form 🔳
       }
       <div
-        className={cn(
-          'RequestMagicLinkForm',
-          [],
-          [L.col.banner(), props.className]
-        )}
+        className={cn('RequestMagicLinkForm', [
+          L.col.banner(),
+          props.className,
+        ])}
       >
         {
           // 🔳 Global error 🔳

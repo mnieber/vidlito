@@ -14,12 +14,7 @@ export type PropsT = {
 export const SearchResultListViewItem = observer((props: PropsT) => {
   return (
     <div
-      className={cn(
-        'SearchResultListViewItem',
-        'cursor-pointer',
-        'group',
-        'contents'
-      )}
+      className={cn('SearchResultListViewItem', 'group', 'contents')}
       onClick={() => {
         if (props.searchResult.clipSlug) {
           navToClip(
@@ -41,8 +36,8 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
       <div
         className={cn(
           'SearchResultListViewItem__Cell',
-          'hover:underline',
-          'text-blue-primary'
+          ['hover:underline', 'text-blue-primary'],
+          []
         )}
         onClick={(e: any) => {
           e.stopPropagation();
@@ -60,8 +55,8 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
       <div
         className={cn(
           'SearchResultListViewItem__Cell',
-          'hover:underline',
-          'text-teal-primary'
+          ['hover:underline', 'text-teal-primary'],
+          []
         )}
       >
         {props.searchResult.clipName}

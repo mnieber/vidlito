@@ -19,7 +19,7 @@ type PropsT = React.PropsWithChildren<
 export const Field = observer((props: PropsT) => {
   return (
     <FormFieldContext {...props}>
-      <div className={cn('Field', [], ['flex flex-col', props.className])}>
+      <div className={cn('Field', ['flex flex-col', props.className])}>
         {props.children}
         <FormFieldError />
       </div>

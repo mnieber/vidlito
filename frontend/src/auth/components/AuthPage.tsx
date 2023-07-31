@@ -7,7 +7,7 @@ import './AuthPage.scss';
 type PropsT = React.PropsWithChildren<{}>;
 
 export const AuthPage = (props: PropsT) => {
-  return <div className={cn('AuthPage', [])}>{props.children}</div>;
+  return <div className={cn('AuthPage')}>{props.children}</div>;
 };
 
 // An AuthPage has:

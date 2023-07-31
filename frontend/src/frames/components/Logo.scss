@@ -1,1 +1,11 @@
+.Logo {
+  @apply text-3xl font-bold;
 
+  .Logo__TitlePrefix {
+    @apply text-blue-primary;
+  }
+
+  .Logo__TitleSuffix {
+    @apply text-teal-primary;
+  }
+}

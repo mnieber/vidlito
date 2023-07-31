@@ -1,5 +1,21 @@
 @import '/src/frames/components/DialogButtonBase.scss';
 
+.SignInLogo__Title {
+  @apply text-6xl font-bold;
+}
+
+.SignInLogo__TitlePrefix {
+  @apply text-blue-primary;
+}
+
+.SignInLogo__TitleSuffix {
+  @apply text-teal-primary;
+}
+
+.SignInLogo__SubTitle {
+  @apply text-white tracking-wide;
+}
+
 .SignInLogo__ExploreAsGuestButton {
   @apply DialogButtonBase;
 

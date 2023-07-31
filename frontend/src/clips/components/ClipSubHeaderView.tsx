@@ -21,11 +21,10 @@ export const ClipSubHeaderView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <div
-        className={cn(
-          'ClipSubHeaderView',
+        className={cn('ClipSubHeaderView', [
           'flex flex-row flex-wrap',
-          props.className
-        )}
+          props.className,
+        ])}
       >
         <AuthorCard className="mr-4" />
         <PlayerControls className="mr-4" />

@@ -16,7 +16,7 @@ export type PropsT = {
 
 export const SwitchButton = (props: PropsT) => {
   return (
-    <div className={cn('SwitchButton', [], [L.row.banner(), props.className])}>
+    <div className={cn('SwitchButton', [L.row.banner(), props.className])}>
       {
         // 🔳 Left button 🔳
       }

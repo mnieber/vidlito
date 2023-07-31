@@ -37,11 +37,7 @@ export function ActivateAccountForm(props: PropsT) {
         // 🔳 ActivateAccountForm 🔳
       }
       <div
-        className={cn(
-          'ActivateAccountForm',
-          [],
-          [L.col.banner(), props.className]
-        )}
+        className={cn('ActivateAccountForm', [L.col.banner(), props.className])}
       >
         {
           // 🔳 GlobalError 🔳

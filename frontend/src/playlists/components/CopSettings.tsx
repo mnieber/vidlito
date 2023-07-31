@@ -45,13 +45,13 @@ export const CopSettings = observer(
       : ClipSettingsFormView;
 
     return (
-      <div className={cn('CopSettings', [], [props.className])}>
+      <div className={cn('CopSettings', [props.className])}>
         <div
-          className={cn(
-            'CopSettings__TopRow',
-            [],
-            [L.row.skewer(), 'grow', 'justify-between']
-          )}
+          className={cn('CopSettings__TopRow', [
+            L.row.skewer(),
+            'grow',
+            'justify-between',
+          ])}
         >
           <div className={cn('CopSettings__Title', L.row.skewer())}>
             {title}

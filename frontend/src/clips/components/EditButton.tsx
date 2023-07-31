@@ -33,7 +33,7 @@ export const EditButton = observer(
           {
             'EditButton--invisible': R.isNil(props.username),
           },
-          props.className
+          [props.className]
         )}
         disabled={props.disabled}
         iconName="pencil"

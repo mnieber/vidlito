@@ -46,14 +46,11 @@ export const PageNav = observer(
           }}
           className={cn(
             'PageNav__Item',
-            [
-              'justify-center',
-              {
-                'PageNav__Item--active': isActive,
-                'PageNav__Item--passive': !isActive,
-              },
-            ],
-            [L.col.skewer(), { 'ml-1': idx > 0 }]
+            {
+              'PageNav__Item--active': isActive,
+              'PageNav__Item--passive': !isActive,
+            },
+            ['justify-center', L.col.skewer(), { 'ml-1': idx > 0 }]
           )}
         >
           {page}
@@ -62,16 +59,10 @@ export const PageNav = observer(
     });
 
     return (
-      <div
-        className={cn(
-          'PageNav',
-          ['justify-center gap-1 text-xs font-medium'],
-          [L.row.skewer(), props.className]
-        )}
-      >
+      <div className={cn('PageNav', [L.row.skewer(), props.className])}>
         <div>
           <Icon
-            className={cn('PageNav__Icon', 'mr-2')}
+            className={cn('PageNav__Icon', ['mr-2'])}
             name="arrowLeftSmall"
             onClick={() => {
               if (props.pagination.page > 1) {
@@ -85,7 +76,7 @@ export const PageNav = observer(
 
         <div>
           <Icon
-            className={cn('PageNav__Icon', 'ml-2')}
+            className={cn('PageNav__Icon', ['ml-2'])}
             name="arrowRightSmall"
             onClick={() => {
               if (props.pagination.page < props.pagination.nrOfPages) {

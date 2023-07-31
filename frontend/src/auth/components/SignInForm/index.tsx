@@ -39,7 +39,7 @@ export function SignInForm(props: PropsT) {
       {
         // 🔳 SignInForm 🔳
       }
-      <div className={cn('SignInForm', [], [L.col.banner(), props.className])}>
+      <div className={cn('SignInForm', [L.col.banner(), props.className])}>
         <GlobalError className={AuthFormL.GlobalError()} />
 
         {

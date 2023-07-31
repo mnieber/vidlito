@@ -48,11 +48,10 @@ export const SignInCard = observer(() => {
         // 🔳 Forgot password message 🔳
       }
       <div
-        className={cn(
-          'SignInCard__ForgotPassword',
-          [],
-          [AuthCardL.FormCaption(), L.col.banner()]
-        )}
+        className={cn('SignInCard__ForgotPassword', [
+          AuthCardL.FormCaption(),
+          L.col.banner(),
+        ])}
       >
         {messages.divForgotYourPassword}
       </div>

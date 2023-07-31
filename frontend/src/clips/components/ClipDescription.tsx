@@ -24,7 +24,7 @@ export const ClipDescription = observer(
     if (!description.length) return null;
 
     return (
-      <div className={cn('ClipDescription', [], [props.className])}>
+      <div className={cn('ClipDescription', [props.className])}>
         {!!description.length && (
           <MarkdownView text={description} className="mt-4" />
         )}

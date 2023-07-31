@@ -53,11 +53,15 @@ export const HorizontalTagPicker = observer((props: PropsT) => {
     return (
       <div
         key={option.value + '_' + props.tagsState.isPickerFocused.toString()}
-        className={cn('HorizontalTagPicker__Tag', 'mr-2', {
-          'HorizontalTagPicker__Tag--selected':
-            idx === props.tagsState.selectedTagIdx &&
-            props.tagsState.isPickerFocused,
-        })}
+        className={cn(
+          'HorizontalTagPicker__Tag',
+          {
+            'HorizontalTagPicker__Tag--selected':
+              idx === props.tagsState.selectedTagIdx &&
+              props.tagsState.isPickerFocused,
+          },
+          ['mr-2']
+        )}
         onClick={() => select(idx)}
       >
         {'#' + option.label}
@@ -68,9 +72,12 @@ export const HorizontalTagPicker = observer((props: PropsT) => {
   return (
     <div
       ref={props.tagsState.pickerRef}
-      className={cn('HorizontalTagPicker', 'flex flex-row flex-wrap', {
-        'mt-2': optionDivs.length,
-      })}
+      className={cn('HorizontalTagPicker', [
+        'flex flex-row flex-wrap',
+        {
+          'mt-2': optionDivs.length,
+        },
+      ])}
       tabIndex={props.tabIndex}
       onFocus={() => props.tagsState.setIsPickerFocused(true)}
       onBlur={() => props.tagsState.setIsPickerFocused(false)}

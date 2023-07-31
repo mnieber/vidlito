@@ -36,11 +36,11 @@ export const ClipSettingsFormView = observer(
 
     return (
       <div
-        className={cn(
-          'ClipSettingsFormView',
-          [],
-          [CardL.root(), CardL.color.gray(), props.className]
-        )}
+        className={cn('ClipSettingsFormView', [
+          CardL.root(),
+          CardL.color.gray(),
+          props.className,
+        ])}
       >
         {
           // 🔳 FormStateProvider 🔳

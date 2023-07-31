@@ -38,11 +38,7 @@ export function ResetPasswordForm(props: PropsT) {
         // 🔳 Form 🔳
       }
       <div
-        className={cn(
-          'ResetPasswordForm',
-          [],
-          [L.col.banner(), props.className]
-        )}
+        className={cn('ResetPasswordForm', [L.col.banner(), props.className])}
       >
         {
           // 🔳 Global error 🔳

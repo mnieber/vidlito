@@ -46,16 +46,12 @@ export const SearchFormView = observer(
       // 🔳 SearchFormView 🔳
       //
       <div
-        className={cn(
-          'SearchFormView',
-          [],
-          [
-            CardL.root(),
-            CardL.color.gray(),
-            CardL.size.medium(),
-            props.className,
-          ]
-        )}
+        className={cn('SearchFormView', [
+          CardL.root(),
+          CardL.color.gray(),
+          CardL.size.medium(),
+          props.className,
+        ])}
       >
         {
           // 🔳 FormStateProvider 🔳

@@ -21,11 +21,7 @@ export const Toggle = observer(
     return (
       <label
         htmlFor={props.id}
-        className={cn(
-          ['Toggle', themeClassName],
-          'relative cursor-pointer',
-          props.className
-        )}
+        className={cn(['Toggle', themeClassName], [props.className])}
       >
         <input
           key={props.isChecked ? 'checked' : 'unchecked'}

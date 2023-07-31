@@ -22,7 +22,7 @@ export const MarkdownField = (props: PropsT) => {
 
   return (
     <FormField
-      className={cn('MarkdownField', [], [FormFieldL.input(), props.className])}
+      className={cn('MarkdownField', [FormFieldL.input(), props.className])}
     >
       {!props.preview && (
         <TextareaAutosize type="text" {...(fieldProps as any)} />

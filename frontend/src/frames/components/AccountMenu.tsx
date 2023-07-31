@@ -36,14 +36,18 @@ export const AccountMenu = observer(
     };
 
     return props.dashboardState.accountMenu.menuProps ? (
-      <div className={cn('AccountMenu', props.className)} style={props.style}>
+      <div className={cn('AccountMenu', [props.className])} style={props.style}>
         <Menu
           menuButton={
             <MenuButton
               className={cn(
                 'DialogButtonBase',
-                props.isFullButton ? 'btnTealWithDarkText' : 'btnWithTealText',
-                L.row.skewer()
+                [
+                  props.isFullButton
+                    ? 'btnTealWithDarkText'
+                    : 'btnWithTealText',
+                ],
+                [L.row.skewer()]
               )}
             >
               Account

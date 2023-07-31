@@ -30,14 +30,13 @@ export const CopPd = observer(
     const edit = props.showPlaylist ? props.playlistPdEdit : props.clipPdEdit;
 
     return (
-      <div className={cn('CopPd', [], [props.className])}>
+      <div className={cn('CopPd', [props.className])}>
         <div
-          className={cn(
-            'CopPd__TopRow',
+          className={cn('CopPd__TopRow', [
             L.row.skewer(),
             'grow',
-            'justify-between'
-          )}
+            'justify-between',
+          ])}
         >
           <div className={cn('CopPd__Title')}>
             {`${props.showPlaylist ? 'Playlist' : 'Clip'} private data`}

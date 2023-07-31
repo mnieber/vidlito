@@ -35,14 +35,7 @@ export const CopCard = observer(
     const noClips = !props.clips.length && !isLoading(props.clips);
 
     return (
-      <div
-        className={cn(
-          'CopCard',
-          //
-          [],
-          [L.col.banner(), 'grow', props.className]
-        )}
-      >
+      <div className={cn('CopCard', [L.col.banner(), 'grow', props.className])}>
         <ClipHeaderView className={cn('mb-8')} />
         <ClipSubHeaderView />
         <CopCardForms className="mt-8" />

@@ -26,11 +26,11 @@ export const PlaylistNotFound = observer(
 
     return (
       <div
-        className={cn(
-          'PlaylistNotFound',
-          [],
-          [MessageCardL.root(), MessageCardL.wallpaper(), props.className]
-        )}
+        className={cn('PlaylistNotFound', [
+          MessageCardL.root(),
+          MessageCardL.wallpaper(),
+          props.className,
+        ])}
       >
         <div
           className={cn('PlaylistNotFound__Message', MessageCardL.message())}

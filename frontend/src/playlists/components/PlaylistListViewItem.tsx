@@ -58,11 +58,7 @@ export const PlaylistListViewItem = observer(
           // 🔳 Icon 🔳
         }
         <div
-          className={cn(
-            'IconContainer',
-            [],
-            [LviL.icon.root(), L.row.skewer()]
-          )}
+          className={cn('IconContainer', [LviL.icon.root(), L.row.skewer()])}
           onClick={() => {
             props.goToPlaylist(props.playlist);
           }}
@@ -75,7 +71,7 @@ export const PlaylistListViewItem = observer(
         {
           // 🔳 Title 🔳
         }
-        <div className={cn('PlaylistListViewItem__Title', [LviL.title()], [])}>
+        <div className={cn('PlaylistListViewItem__Title', [LviL.title()])}>
           <div>{props.playlist.name}</div>
         </div>
       </div>

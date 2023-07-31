@@ -6,12 +6,15 @@ import './FormField.AuthCard.scss';
 import './FormField.MainView.scss';
 
 export type PropsT = React.PropsWithChildren<{
+  componentClassName?: string;
   className?: any;
 }>;
 
 export const FormField = observer((props: PropsT) => {
+  const name = props.componentClassName ?? 'FormField';
+
   return (
-    <div className={cn('FormField', 'flex flex-col', props.className)}>
+    <div className={cn(name, 'flex flex-col', props.className)}>
       {props.children}
     </div>
   );

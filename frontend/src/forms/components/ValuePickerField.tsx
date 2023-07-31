@@ -49,7 +49,7 @@ export const ValuePickerField = observer(<ValueT,>(props: PropsT<ValueT>) => {
     <ValuePicker
       {...{
         ...valuePickerProps,
-        className: cn('ValuePickerField', props.className),
+        className: cn('ValuePickerField', [props.className]),
       }}
       name={fieldContext.fieldName}
       placeholder={props.placeholder ?? ''}

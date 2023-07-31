@@ -27,11 +27,10 @@ export const NoContentsMatchTheFilter = observer(
         )}
       >
         <div
-          className={cn(
-            'NoContentsMatchTheFilter__Message',
+          className={cn('NoContentsMatchTheFilter__Message', [
             'grow',
-            'self-center'
-          )}
+            'self-center',
+          ])}
         >
           {props.msg}
         </div>

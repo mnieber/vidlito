@@ -26,11 +26,11 @@ export const PlaylistListHeader = observer(
 
     return (
       <div
-        className={cn(
-          'PlaylistListHeader',
-          ['text-blue-primary'],
-          [L.row.skewer(), 'justify-between', props.className]
-        )}
+        className={cn('PlaylistListHeader', [
+          L.row.skewer(),
+          'justify-between',
+          props.className,
+        ])}
         onClick={() =>
           props.dashboardState.panelState.toggleIsPlaylistListExpanded()
         }

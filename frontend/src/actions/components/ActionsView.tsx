@@ -24,11 +24,7 @@ export const ActionsView = observer(
       🔳 ActionsView 🔳
       */
       <div
-        className={cn(
-          'ActionsView',
-          [],
-          [L.col.banner(), 'grow', props.className]
-        )}
+        className={cn('ActionsView', [L.col.banner(), 'grow', props.className])}
       >
         {
           // 🔳 ActionsBar 🔳

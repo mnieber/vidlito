@@ -18,7 +18,7 @@ export const SlugField = (props: PropsT) => {
     controlled: true,
   });
   return (
-    <FormField className={cn('SlugField', [], [props.className])}>
+    <FormField className={cn('SlugField', [props.className])}>
       <div className={cn(L.row.banner())}>
         <input {...fieldProps} className={FormFieldL.input()} />
         <UpdateSlugButton

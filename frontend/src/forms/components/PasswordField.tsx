@@ -10,7 +10,7 @@ export const PasswordField = (props: PropsT) => {
     autoSelect: true,
   });
   return (
-    <FormField className={cn('PasswordField', [], [props.className])}>
+    <FormField className={cn('PasswordField', [props.className])}>
       <input
         placeholder={props.placeholder}
         {...fieldProps}
