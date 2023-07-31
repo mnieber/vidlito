@@ -16,7 +16,7 @@ const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
     'playlistForm.description': props.playlist.description ?? null,
     'playlistForm.id': props.playlist.id ?? null,
-    'playlistForm.isPublic': props.playlist.isPublic ?? null,
+    'playlistForm.isPublic': !!props.playlist.isPublic,
     'playlistForm.name': props.playlist.name ?? null,
     'playlistForm.slug': props.playlist.slug ?? null,
     'playlistForm.tags': props.playlist.tags ?? [],
