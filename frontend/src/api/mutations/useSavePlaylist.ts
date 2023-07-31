@@ -44,14 +44,14 @@ export const useSavePlaylist = () => {
       return Promise.all([
         ...invalidateLoadUserId,
         queryClient.invalidateQueries({
-          queryKey: getPlaylistQueryKey(getPlaylistArgs),
+          queryKey: getPlaylistQueryKey(),
         }),
         getPlaylist(getPlaylistArgs).then((getPlaylistResponse: ObjT) => {
           // To avoid showing a loader, we populate the cache with the
           // playlist that was just saved.
           queryClient.setQueryData(
             getPlaylistQueryKey(getPlaylistArgs),
-            getPlaylistResponse.playlist
+            getPlaylistResponse
           );
         }),
       ]);
