@@ -4,12 +4,12 @@ import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
-import './ToolButton.Default.scss';
-import './ToolButton.Modest.scss';
+import './Modest-ToolButton.scss';
+import './ToolButton.scss';
 
 export type PropsT = {
   className?: any;
-  themeClassName?: string;
+  componentClassName?: string;
   disabled?: boolean;
   iconName: string;
   iconSize?: 'medium' | 'small';
@@ -21,7 +21,7 @@ export const ToolButton = (props: PropsT) => {
   return (
     <button
       className={cn(
-        ['ToolButton', props.themeClassName ?? 'Default'],
+        [props.componentClassName ?? 'ToolButton'],
         [],
         [
           L.row.skewer(),

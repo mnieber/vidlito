@@ -12,7 +12,7 @@ export const usePreviewButton = (props: PropsT) => {
   const showPreviewButton = (
     <ToolButton
       label="Preview"
-      themeClassName="Modest"
+      componentClassName="Modest-ToolButton"
       className={cn('PreviewButton', props.className)}
       tabIndex={props.tabIndex ?? 0}
       key="descriptionPreview"
