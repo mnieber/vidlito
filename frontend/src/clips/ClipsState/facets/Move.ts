@@ -7,7 +7,6 @@ export class Move {
   @operation @withCbs() move(args: {
     //
     playlistId: string;
-    playlistSlug: string;
     copy: boolean;
   }) {
     const cbs = getCallbacks(this) as MoveCbs['move'];

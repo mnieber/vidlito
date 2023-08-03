@@ -4,19 +4,7 @@ import { createQueryKey } from '/src/utils/createQueryKey';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
-export type ArgsT = {
-  playlistSlug?: string;
-};
-
-export const getPlaylist = (args: ArgsT) => {
-  return doQuery(
-    `query getPlaylist(
-      $playlistSlug: String
-    ) {
-      getPlaylist(
-        playlistSlug: $playlistSlug
-      ) {
-        playlist {
+export const playlistFields = `
           description
           id
           name
@@ -38,6 +26,22 @@ export const getPlaylist = (args: ArgsT) => {
           }
           ownerUsername
           isPublic
+`;
+
+export type ArgsT = {
+  playlistSlug?: string;
+};
+
+export const getPlaylist = (args: ArgsT) => {
+  return doQuery(
+    `query getPlaylist(
+      $playlistSlug: String
+    ) {
+      getPlaylist(
+        playlistSlug: $playlistSlug
+      ) {
+        playlist {
+          ${playlistFields}
         }
         playlistPd {
           description

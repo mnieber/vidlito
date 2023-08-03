@@ -49,7 +49,6 @@ export const ClipMenu = observer(
                 e.stopPropagation = true;
                 props.clipsMove.move({
                   playlistId: playlist.id,
-                  playlistSlug: playlist.slug,
                   copy: false,
                 });
               }}
@@ -68,7 +67,6 @@ export const ClipMenu = observer(
                 e.stopPropagation = true;
                 props.clipsMove.move({
                   playlistId: playlist.id,
-                  playlistSlug: playlist.slug,
                   copy: true,
                 });
               }}

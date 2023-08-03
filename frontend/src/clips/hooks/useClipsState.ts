@@ -110,7 +110,6 @@ export const useClipsState = (props: PropsT) => {
           promise: saveClip
             .mutateAsync({
               playlistId: props.getPlaylist()?.id,
-              playlistSlug: props.getPlaylist()?.slug,
               clipForm: values.clipForm,
               parentClipId:
                 parentClipId === topOfTheList ? undefined : parentClipId,
@@ -152,7 +151,6 @@ export const useClipsState = (props: PropsT) => {
       moveClipsToPlaylist: (
         clips: ClipT[],
         playlistId: string,
-        playlistSlug: string,
         copy: boolean
       ) => {
         return trackPromise({
@@ -160,9 +158,7 @@ export const useClipsState = (props: PropsT) => {
           states: { updating: [...clips, moveClipsToPlaylist] },
           promise: moveClipsToPlaylist.mutateAsync({
             srcPlaylistId: props.getPlaylist()?.id,
-            srcPlaylistSlug: props.getPlaylist()?.slug,
             destPlaylistId: playlistId,
-            destPlaylistSlug: playlistSlug,
             clipIds: getIds(clips),
             copy,
           } as MoveClipsToPlaylistArgsT),

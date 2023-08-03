@@ -7,9 +7,7 @@ import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   srcPlaylistId: string;
-  srcPlaylistSlug: string;
   destPlaylistId: string;
-  destPlaylistSlug: string;
   clipIds: string[];
   copy: boolean;
 };
@@ -45,12 +43,7 @@ export const useMoveClipsToPlaylist = () => {
     onSuccess: (response: ObjT, args: ArgsT) => {
       return Promise.all([
         queryClient.invalidateQueries({
-          queryKey: getPlaylistQueryKey({ playlistSlug: args.srcPlaylistSlug }),
-        }),
-        queryClient.invalidateQueries({
-          queryKey: getPlaylistQueryKey({
-            playlistSlug: args.destPlaylistSlug,
-          }),
+          queryKey: getPlaylistQueryKey(),
         }),
       ]);
     },

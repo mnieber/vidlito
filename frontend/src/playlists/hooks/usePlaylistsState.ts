@@ -119,8 +119,8 @@ export const usePlaylistsState = (props: PropsT) => {
           states: { updating: [savePlaylist] },
           promise: savePlaylist
             .mutateAsync(values as SavePlaylistArgsT)
-            .then(() => {
-              return values.playlistForm as PlaylistT;
+            .then((response: ObjT) => {
+              return response.playlist as PlaylistT;
             }),
         }).result;
       },

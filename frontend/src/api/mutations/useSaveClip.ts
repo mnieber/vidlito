@@ -8,7 +8,6 @@ import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   playlistId: string;
-  playlistSlug: string;
   clipForm: ClipFormT;
   parentClipId?: string;
 };
@@ -41,7 +40,7 @@ export const useSaveClip = () => {
     mutationFn: saveClip,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return queryClient.invalidateQueries({
-        queryKey: getPlaylistQueryKey({ playlistSlug: args.playlistSlug }),
+        queryKey: getPlaylistQueryKey(),
       });
     },
   });

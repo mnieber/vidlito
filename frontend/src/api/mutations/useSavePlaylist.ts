@@ -1,10 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
 import { getPlaylistQueryKey } from '/src/api/queries';
-import { getPlaylist } from '/src/api/queries/useGetPlaylist';
+import { playlistFields } from '/src/api/queries/useGetPlaylist';
 import { queryClient } from '/src/api/queryClient';
 import { PlaylistFormT } from '/src/api/types/PlaylistT';
 import { loadUserIdQueryKey } from '/src/auth/endpoints';
+import { applyUpdate } from '/src/utils/applyUpdate';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
@@ -24,7 +25,9 @@ export const savePlaylist = (args: ArgsT) => {
         errors
         success
         created
-        playlistSlug
+        playlist {
+          ${playlistFields}
+        }
       }
     }`,
     args
@@ -38,7 +41,20 @@ export const useSavePlaylist = () => {
     mutationKey: ['savePlaylist'],
     mutationFn: savePlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      const getPlaylistArgs = { playlistSlug: response.playlistSlug };
+      // To avoid showing a loader, we populate the cache with the playlist that was just saved.
+      // This means that if the playlistStateProvider calls getPlaylist, then this will be treated
+      // as an update and not as a load.
+      queryClient.setQueriesData(
+        {
+          queryKey: getPlaylistQueryKey({
+            playlistSlug: response.playlist.slug,
+          }),
+        },
+        (data: any) => {
+          return applyUpdate(['playlist'], data, () => response.playlist);
+        }
+      );
+
       const invalidateLoadUserId = response.created
         ? [queryClient.invalidateQueries({ queryKey: loadUserIdQueryKey({}) })]
         : [];
@@ -46,14 +62,6 @@ export const useSavePlaylist = () => {
         ...invalidateLoadUserId,
         queryClient.invalidateQueries({
           queryKey: getPlaylistQueryKey(),
-        }),
-        getPlaylist(getPlaylistArgs).then((getPlaylistResponse: ObjT) => {
-          // To avoid showing a loader, we populate the cache with the
-          // playlist that was just saved.
-          queryClient.setQueryData(
-            getPlaylistQueryKey(getPlaylistArgs),
-            getPlaylistResponse
-          );
         }),
       ]);
     },

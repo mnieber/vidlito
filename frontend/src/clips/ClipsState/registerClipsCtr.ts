@@ -153,12 +153,7 @@ const setCallbacks = (state: ClipsState) => {
         const clipIds = [...ctr.selection.ids];
 
         return state.props
-          .moveClipsToPlaylist(
-            clips,
-            this.args.playlistId,
-            this.args.playlistSlug,
-            this.args.copy
-          )
+          .moveClipsToPlaylist(clips, this.args.playlistId, this.args.copy)
           .then((response: ObjT) => {
             unselectIds(ctr.selection, clipIds);
             correctHighlight(ctr.highlight, allIds, R.without(clipIds, allIds));
