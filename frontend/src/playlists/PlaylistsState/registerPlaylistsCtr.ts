@@ -158,8 +158,8 @@ export const registerPlaylistsCtr = (state: PlaylistsState) => {
     ctr: state.playlistsCtr,
     options: { name: 'PlaylistsState.Playlists' },
     initCtr: () => {
-      setCallbacks(state);
       mapData(state);
+      setCallbacks(state);
     },
   });
 };

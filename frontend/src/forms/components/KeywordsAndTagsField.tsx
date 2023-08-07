@@ -10,24 +10,26 @@ export type PropsT = TextFieldPropsType & {
 };
 
 export const KeywordsAndTagsField = (props: PropsT) => {
+  const { tagsState, ...otherProps } = props;
+
   return (
     <TextField
-      {...props}
-      inputRef={props.tagsState.inputRef}
+      {...otherProps}
+      inputRef={tagsState.inputRef}
       onChange={(e) => {
         const words = e.target.value.split(' ');
         const lastWord = words[words.length - 1];
         if (lastWord.startsWith('#')) {
-          props.tagsState.setTagPrefix(lastWord.slice(1));
+          tagsState.setTagPrefix(lastWord.slice(1));
         } else {
-          props.tagsState.setTagPrefix('');
+          tagsState.setTagPrefix('');
         }
       }}
       onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
         // If we press down then move the focus to the tag picker.
         if (e.key === 'ArrowDown') {
           e.preventDefault();
-          props.tagsState.pickerRef.current?.focus();
+          tagsState.pickerRef.current?.focus();
         }
       }}
     />
