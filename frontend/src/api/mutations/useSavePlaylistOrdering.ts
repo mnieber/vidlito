@@ -47,12 +47,9 @@ export const useSavePlaylistOrdering = () => {
               followSet: sortByIds(userProfile.followSet, args.playlistIds),
             };
       };
-      queryClient.setQueriesData(
-        { queryKey: loadUserIdQueryKey({}) },
-        (data: any) => {
-          return applyUpdate(['userProfile'], data, updateUserProfile);
-        }
-      );
+      queryClient.setQueryData(loadUserIdQueryKey({}), (data: any) => {
+        return applyUpdate(['userProfile'], data, updateUserProfile);
+      });
     },
   });
 };

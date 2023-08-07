@@ -40,8 +40,8 @@ export const useSaveClipOrdering = () => {
     mutationKey: ['saveClipOrdering'],
     mutationFn: saveClipOrdering,
     onMutate: (args: ArgsT) => {
-      queryClient.setQueriesData(
-        { queryKey: getPlaylistQueryKey({ playlistSlug: args.playlistSlug }) },
+      queryClient.setQueryData(
+        getPlaylistQueryKey({ playlistSlug: args.playlistSlug }),
         (data: any) =>
           // Reorder clips in playlist.clipSet
           applyUpdate(['playlist'], data, (playlist: PlaylistT) => {

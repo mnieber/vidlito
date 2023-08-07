@@ -44,14 +44,14 @@ export const useSavePlaylist = () => {
       // To avoid showing a loader, we populate the cache with the playlist that was just saved.
       // This means that if the playlistStateProvider calls getPlaylist, then this will be treated
       // as an update and not as a load.
-      queryClient.setQueriesData(
-        {
-          queryKey: getPlaylistQueryKey({
-            playlistSlug: response.playlist.slug,
-          }),
-        },
+      queryClient.setQueryData(
+        getPlaylistQueryKey({
+          playlistSlug: response.playlist.slug,
+        }),
         (data: any) => {
-          return applyUpdate(['playlist'], data, () => response.playlist);
+          return data
+            ? applyUpdate(['playlist'], data, () => response.playlist)
+            : { playlist: response.playlist };
         }
       );
 
