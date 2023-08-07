@@ -3,10 +3,10 @@ import { createHighlightUIConnector } from 'skandha-facets';
 import { ActionListKeyHandler } from '/src/actions/components';
 import { ActionListViewItem } from '/src/actions/components/ActionListViewItem';
 import { NoActionsMatchTheFilter } from '/src/actions/components/NoActionsMatchTheFilter';
-import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
+import { isLoading } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

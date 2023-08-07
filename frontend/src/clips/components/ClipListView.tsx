@@ -4,7 +4,6 @@ import {
   SelectionUIConnector,
   createDragAndDropUIConnector,
 } from 'skandha-facets';
-import { isLoading } from '/src/api/getState';
 import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
@@ -12,6 +11,7 @@ import { ClipListKeyHandler } from '/src/clips/components/ClipListKeyHandler';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { isLoading } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

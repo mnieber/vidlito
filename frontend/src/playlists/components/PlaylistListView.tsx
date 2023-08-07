@@ -3,12 +3,12 @@ import {
   createDragAndDropUIConnector,
   SelectionUIConnector,
 } from 'skandha-facets';
-import { isLoading } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { PlaylistListKeyHandler } from '/src/playlists/components/PlaylistListKeyHandler';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { isLoading } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

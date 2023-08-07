@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipListView } from '/src/clips/components';
 import { ClipVideoKeyHandler } from '/src/clips/components/ClipVideoKeyHandler';
@@ -9,6 +8,7 @@ import { Logo } from '/src/frames/components';
 import { Footer } from '/src/frames/components/Footer';
 import { L } from '/src/frames/layout';
 import { PlaylistListPicker } from '/src/playlists/components/PlaylistListPicker';
+import { isLoading } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

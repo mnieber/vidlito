@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
 import { ClipSubHeaderView } from '/src/clips/components/ClipSubHeaderView';
@@ -7,6 +6,7 @@ import { CopCardForms } from '/src/clips/components/CopCardForms';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
 import { CreateFirstClip } from '/src/playlists/components/CreateFirstClip';
+import { isLoading } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

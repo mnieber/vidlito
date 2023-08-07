@@ -1,5 +1,5 @@
-import { isLoading } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
+import { isLoading } from '/src/resourceStates';
 import { DelayedFlag } from '/src/utils/DelayedFlag';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 

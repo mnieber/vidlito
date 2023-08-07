@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { isLoading } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { CopDescription } from '/src/clips/components/CopDescription';
 import { CopPd } from '/src/clips/components/CopPd';
 import { CardS } from '/src/frames/components/Card';
 import { CopSettings } from '/src/playlists/components/CopSettings';
+import { isLoading } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
