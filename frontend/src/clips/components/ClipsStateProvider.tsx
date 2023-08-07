@@ -3,9 +3,9 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { isLoading, isUpdating } from '/src/api/getState';
-import { updateSources } from '/src/api/utils';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useClipsState } from '/src/clips/hooks/useClipsState';
+import { updateSources } from '/src/resourceStates';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT = React.PropsWithChildren<{}>;

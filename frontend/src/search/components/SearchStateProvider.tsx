@@ -3,12 +3,12 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { isUpdating } from '/src/api/getState';
-import { updateSources } from '/src/api/utils/updateSources';
 import { withDefaultProps } from '/src/app/defaultProps';
 import {
   getDisplayPage,
   PaginationAdapter,
 } from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
+import { updateSources } from '/src/resourceStates';
 import { shareRS } from '/src/resourceStates/ResourceState';
 import { useSearchState } from '/src/search/hooks/useSearchState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';

@@ -4,12 +4,12 @@ import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { useActionsState } from '/src/actions/hooks/useActionsState';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
-import { updateSources } from '/src/api/utils/updateSources';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import {
   PaginationAdapter,
   getDisplayPage,
 } from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
+import { updateSources } from '/src/resourceStates';
 import { shareRS } from '/src/resourceStates/ResourceState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 

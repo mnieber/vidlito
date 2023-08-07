@@ -3,7 +3,6 @@
   "dependencies": {
     "@szhsin/react-menu": "^3.4.1",
     "@tanstack/react-query": "^4.32.0",
-    "@types/js-cookie": "^3.0.3",
     "@vitejs/plugin-react": "^4.0.0",
     "autoprefixer": "^10.4.14",
     "classnames": "^2.3.2",
@@ -39,6 +38,7 @@
     "vite-plugin-checker": "^0.6.0"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.3",
     "@types/lodash": "^4.14.191",
     "@types/node": "^20.1.1",
     "@types/ramda": "^0.29.1",
