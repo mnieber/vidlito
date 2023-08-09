@@ -1,7 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
-import { AuthFormS } from '/src/auth/components/AuthCard/AuthForm';
+import { AuthFormS } from '/src/auth/components/AuthForm';
 import {
   ControlledCheckbox,
   EmailField,
@@ -68,7 +68,7 @@ export function SignUpForm(props: PropsT) {
         <FormSaveButton
           dataCy="signUpBtn"
           label="Sign Up"
-          className={AuthFormS.Button()}
+          className={cn(AuthFormS.Button())}
         />
       </div>
     </FormStateProvider>

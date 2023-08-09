@@ -1,7 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
-import { AuthFormS } from '/src/auth/components/AuthCard/AuthForm';
+import { AuthFormS } from '/src/auth/components/AuthForm';
 import {
   EmailField,
   Field,
@@ -70,7 +70,7 @@ export function SignInForm(props: PropsT) {
         <FormSaveButton
           dataCy={'signInBtn'}
           label={messages.labelSignIn}
-          className={AuthFormS.Button()}
+          className={cn(AuthFormS.Button())}
         />
       </div>
     </FormStateProvider>

@@ -1,7 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
-import { AuthFormS } from '/src/auth/components/AuthCard/AuthForm';
+import { AuthFormS } from '/src/auth/components/AuthForm';
 import {
   Field,
   FormSaveButton,
@@ -75,7 +75,7 @@ export function ActivateAccountForm(props: PropsT) {
         <FormSaveButton
           dataCy="activateAccountBtn"
           label="Activate account"
-          className={AuthFormS.Button()}
+          className={cn(AuthFormS.Button())}
         />
       </div>
     </FormStateProvider>

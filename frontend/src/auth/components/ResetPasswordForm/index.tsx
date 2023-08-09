@@ -1,8 +1,7 @@
-import React from 'react';
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
-import { AuthFormS } from '/src/auth/components/AuthCard/AuthForm';
+import { AuthFormS } from '/src/auth/components/AuthForm';
 import {
   Field,
   FormSaveButton,
@@ -46,7 +45,7 @@ export function ResetPasswordForm(props: PropsT) {
         <GlobalError className={AuthFormS.GlobalError()} />
 
         {!getErrorKeys(externalErrors).includes('global') && (
-          <React.Fragment>
+          <>
             {
               // 🔳 Enter your password message 🔳
             }
@@ -73,7 +72,7 @@ export function ResetPasswordForm(props: PropsT) {
               label="Change password"
               className={AuthFormS.Button()}
             />
-          </React.Fragment>
+          </>
         )}
       </div>
     </FormStateProvider>

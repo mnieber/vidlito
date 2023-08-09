@@ -13,9 +13,6 @@ import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { ObjT } from '/src/utils/types';
 
-// Import styles
-import './index.scss';
-
 export const SignInCard = observer(() => {
   const { messages } = useMessages();
   const authState = useAuthStateContext(true);
@@ -28,9 +25,6 @@ export const SignInCard = observer(() => {
     <AuthCard id="SignInCard">
       {
         // 🔳 SignInForm 🔳
-      }
-      {
-        // 🔳 Form 🔳
       }
       <SignInForm
         className={cn(AuthCardS.Form())}

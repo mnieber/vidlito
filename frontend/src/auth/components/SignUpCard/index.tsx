@@ -13,7 +13,6 @@ export const termsVersion: string =
 
 export const SignUpCard = observer(() => {
   const { messages } = useMessages();
-
   const authState = useAuthStateContext(true);
   const signUp = useSignUp(authState).mutateAsync;
 
