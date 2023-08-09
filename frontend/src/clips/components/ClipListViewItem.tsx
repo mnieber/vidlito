@@ -5,9 +5,9 @@ import {
   selectionUIHandlers,
   SelectionUIPropsT,
 } from 'skandha-facets';
-import { isUpdating } from '/src/api/getState';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { LviS } from '/src/frames/components/Lvi';
+import { isUpdating } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 import { PlayVideoIcon } from '/src/videos/components';
 

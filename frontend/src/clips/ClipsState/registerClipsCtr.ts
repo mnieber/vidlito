@@ -19,10 +19,10 @@ import {
   createInsertionPreview,
 } from 'skandha-facets/policies';
 import { registerCtr } from 'skandha-mobx';
-import { isUpdating } from '/src/api/getState';
 import { ClipT } from '/src/api/types/ClipT';
 import { ClipsState } from '/src/clips/ClipsState';
 import { MoveCbs } from '/src/clips/ClipsState/facets/Move';
+import { isUpdating } from '/src/resourceStates';
 import { getIds } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 

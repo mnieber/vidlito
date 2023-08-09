@@ -5,12 +5,12 @@ import {
   selectionUIHandlers,
   SelectionUIPropsT,
 } from 'skandha-facets';
-import { isUpdating } from '/src/api/getState';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { LviS } from '/src/frames/components/Lvi';
 import { L } from '/src/frames/layout';
+import { isUpdating } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
