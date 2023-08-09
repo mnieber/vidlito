@@ -3,13 +3,13 @@ import { Route, Switch } from 'react-router-dom';
 import { AuthSwitch } from '/src/auth/components';
 import { DashboardSwitch } from '/src/dashboard/components';
 import { AppFrame } from '/src/frames/components';
-import { UseFramesPage } from '/src/frames/pages/UseFramesPage';
+import { FramesNavPage } from '/src/frames/pages/FramesNavPage';
 
 type PropsT = {};
 
 export const UrlRouter = observer((props: PropsT) => {
   return (
-    <UseFramesPage>
+    <FramesNavPage>
       <AppFrame>
         <Switch>
           <Route path="/auth">
@@ -20,6 +20,6 @@ export const UrlRouter = observer((props: PropsT) => {
           </Route>
         </Switch>
       </AppFrame>
-    </UseFramesPage>
+    </FramesNavPage>
   );
 });

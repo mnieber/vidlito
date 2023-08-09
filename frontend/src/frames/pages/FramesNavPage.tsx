@@ -12,7 +12,7 @@ import {
 import { useInstallNavPage } from '/src/navHandler';
 import { navHandler } from '/src/navHandler/NavHandler';
 
-export const createFramesNavEventLayer = () => {
+export const createFramesNavPage = () => {
   return {
     navToHome: (() => {
       const ufn = navHandler.routeUfns.home(navHandler.history.push);
@@ -46,15 +46,11 @@ const DefaultProps = {
   ...dps.userProfile,
 };
 
-export const UseFramesPage = observer(
+export const FramesNavPage = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const routeMatch = useRouteMatch();
 
-    useInstallNavPage(
-      'FramesNavEventLayer',
-      routeMatch.path,
-      createFramesNavEventLayer()
-    );
+    useInstallNavPage('FramesNavPage', routeMatch.path, createFramesNavPage());
 
     return <>{props.children}</>;
   }, DefaultProps)

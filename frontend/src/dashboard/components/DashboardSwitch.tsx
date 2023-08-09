@@ -9,8 +9,8 @@ import { CardS } from '/src/frames/components/Card';
 import { ForwardToLastUrlEffect } from '/src/frames/components/ForwardToLastUrlEffect';
 import { PageNotFound } from '/src/frames/components/PageNotFound';
 import { TermsAndConditionsPage } from '/src/frames/components/TermsAndConditionsPage';
-import { UseActionsPage } from '/src/frames/pages/UseActionsPage';
-import { UseMainPage } from '/src/frames/pages/UseMainPage';
+import { ActionsNavPage } from '/src/frames/pages/ActionsNavPage';
+import { MainNavPage } from '/src/frames/pages/MainNavPage';
 import {
   ForwardToClipEffect,
   PlaylistFormView,
@@ -32,7 +32,7 @@ export const DashboardSwitch = withDefaultProps(
   (props: PropsT & typeof DefaultProps) => {
     const routes = useRoutes();
     return (
-      <UseMainPage>
+      <MainNavPage>
         {
           // 🔳 Dashboard 🔳
         }
@@ -54,13 +54,13 @@ export const DashboardSwitch = withDefaultProps(
                 <SearchView className="ml-4 mt-4" />
               </Route>
               <Route exact={true} path={routes.actions()}>
-                <UseActionsPage>
+                <ActionsNavPage>
                   <SelectPlaylistEffect />
                   {
                     // 🔳 ActionsView 🔳
                   }
                   <ActionsView className={cn('ml-2 lg:ml-4 mt-4')} />
-                </UseActionsPage>
+                </ActionsNavPage>
               </Route>
               <Route exact={false} path={routes.playlist()}>
                 <SyncPlaylistWithUrlEffect />
@@ -95,7 +95,7 @@ export const DashboardSwitch = withDefaultProps(
             </MainView>
           </Switch>
         </Dashboard>
-      </UseMainPage>
+      </MainNavPage>
     );
   },
   DefaultProps

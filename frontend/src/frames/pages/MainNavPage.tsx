@@ -9,11 +9,11 @@ import { navHandler } from '/src/navHandler/NavHandler';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { navToSearch } from '/src/search/SearchNavEvents';
 
-export type EventLayerPropsT = {
+export type PagePropsT = {
   getUserProfile: () => UserProfileT | null;
 };
 
-export const createMainNavEventLayer = (props: EventLayerPropsT) => {
+export const createMainNavPage = (props: PagePropsT) => {
   return {
     navToActions: ((username: string) => {
       const ufn = navHandler.routeUfns.actions(navHandler.history.push);
@@ -65,15 +65,15 @@ export const DefaultProps = {
   ...dps.userProfile,
 };
 
-export const UseMainPage = withDefaultProps(
+export const MainNavPage = withDefaultProps(
   (props: PropsT & typeof DefaultProps) => {
     const routeMatch = useRouteMatch();
     const getUserProfile = () => props.userProfile;
 
     useInstallNavPage(
-      'MainNavEventLayer',
+      'MainNavPage',
       routeMatch.path,
-      createMainNavEventLayer({ getUserProfile })
+      createMainNavPage({ getUserProfile })
     );
     return <>{props.children}</>;
   },
