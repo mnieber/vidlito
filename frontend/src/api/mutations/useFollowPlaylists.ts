@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
 import { loadUserIdQueryKey } from '/src/auth/endpoints';
@@ -34,8 +34,7 @@ export const followPlaylists = (args: ArgsT) => {
 };
 
 export const useFollowPlaylists = () => {
-  return useMutation({
-    mutationKey: ['followPlaylist'],
+  return useObservableMutation({
     mutationFn: followPlaylists,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return Promise.all([

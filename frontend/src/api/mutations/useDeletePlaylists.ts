@@ -1,5 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
 import * as R from 'ramda';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
 import { ObjT } from '/src/utils/types';
@@ -28,8 +28,7 @@ export const deletePlaylist = (args: ArgsT) => {
 };
 
 export const useDeletePlaylists = () => {
-  return useMutation({
-    mutationKey: ['deletePlaylists'],
+  return useObservableMutation({
     mutationFn: (playlistIds: string[]) =>
       Promise.all(
         R.map(

@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { setToken } from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
 import { AuthState } from '/src/auth/AuthState';
@@ -19,8 +19,7 @@ export function signOut(args: ArgsT) {
 export const useSignOut = (authState?: AuthState) => {
   const queryName = 'signOut';
 
-  return useMutation({
-    mutationKey: [queryName],
+  return useObservableMutation({
     mutationFn: signOut,
     onMutate: () => {
       if (authState) authState.onUpdating(queryName);

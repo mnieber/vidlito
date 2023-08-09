@@ -9,11 +9,11 @@ import { navHandler } from '/src/navHandler/NavHandler';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { navToSearch } from '/src/search/SearchNavEvents';
 
-export type PagePropsT = {
+export type CreateMainNavPagePropsT = {
   getUserProfile: () => UserProfileT | null;
 };
 
-export const createMainNavPage = (props: PagePropsT) => {
+export const createMainNavPage = (props: CreateMainNavPagePropsT) => {
   return {
     navToActions: ((username: string) => {
       const ufn = navHandler.routeUfns.actions(navHandler.history.push);

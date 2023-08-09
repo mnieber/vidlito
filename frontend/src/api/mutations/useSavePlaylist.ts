@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { getPlaylistQueryKey } from '/src/api/queries';
 import { playlistFields } from '/src/api/queries/useGetPlaylist';
@@ -37,8 +37,7 @@ export const savePlaylist = (args: ArgsT) => {
 };
 
 export const useSavePlaylist = () => {
-  return useMutation({
-    mutationKey: ['savePlaylist'],
+  return useObservableMutation({
     mutationFn: savePlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
       // To avoid showing a loader, we populate the cache with the playlist that was just saved.

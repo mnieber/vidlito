@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
@@ -31,8 +31,7 @@ export const saveFolder = (args: ArgsT) => {
 };
 
 export const useSaveFolder = () => {
-  return useMutation({
-    mutationKey: ['saveFolder'],
+  return useObservableMutation({
     mutationFn: saveFolder,
   });
 };

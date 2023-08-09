@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
@@ -48,8 +48,7 @@ export const searchContent = (args: ArgsT) => {
 };
 
 export const useSearchContent = () => {
-  return useMutation({
-    mutationKey: ['searchContent'],
+  return useObservableMutation({
     mutationFn: searchContent,
   });
 };

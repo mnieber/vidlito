@@ -1,4 +1,4 @@
-import { getNavFn } from '/src/navHandler/NavHandler';
+import { navHandler } from '/src/navHandler/NavHandler';
 
 export const navToActions = (username: string): void =>
-  getNavFn('navToActions', navToActions)(username);
+  navHandler.getNavFn('navToActions', navToActions)(username);

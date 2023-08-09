@@ -1,5 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
 import * as R from 'ramda';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
 import { UserProfileT } from '/src/api/types/UserProfileT';
@@ -35,8 +35,7 @@ export const savePlaylistOrdering = (args: ArgsT) => {
 };
 
 export const useSavePlaylistOrdering = () => {
-  return useMutation({
-    mutationKey: ['savePlaylistOrdering'],
+  return useObservableMutation({
     mutationFn: savePlaylistOrdering,
     onMutate: (args: ArgsT) => {
       const updateUserProfile = (userProfile: UserProfileT) => {

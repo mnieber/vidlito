@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { AuthState } from '/src/auth/AuthState';
 import { States } from '/src/auth/endpoints/states';
@@ -50,8 +50,7 @@ export function signUp(args: ArgsT) {
 export const useSignUp = (authState?: AuthState) => {
   const queryName = 'signUp';
 
-  return useMutation({
-    mutationKey: ['signUp'],
+  return useObservableMutation({
     mutationFn: signUp,
     onMutate: () => {
       if (authState) authState.onUpdating(queryName);

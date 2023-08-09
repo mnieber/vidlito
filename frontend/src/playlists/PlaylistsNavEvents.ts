@@ -1,7 +1,10 @@
-import { getNavFn } from '/src/navHandler/NavHandler';
+import { navHandler } from '/src/navHandler/NavHandler';
 
 export const navToPlaylist = (
   ownerUsername: string,
   playlistSlug: string
 ): void =>
-  getNavFn('navToPlaylist', navToPlaylist)(ownerUsername, playlistSlug);
+  navHandler.getNavFn('navToPlaylist', navToPlaylist)(
+    ownerUsername,
+    playlistSlug
+  );

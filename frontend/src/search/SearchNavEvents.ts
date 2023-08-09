@@ -1,3 +1,4 @@
-import { getNavFn } from '/src/navHandler/NavHandler';
+import { navHandler } from '/src/navHandler/NavHandler';
 
-export const navToSearch = (): void => getNavFn('navToSearch', navToSearch)();
+export const navToSearch = (): void =>
+  navHandler.getNavFn('navToSearch', navToSearch)();

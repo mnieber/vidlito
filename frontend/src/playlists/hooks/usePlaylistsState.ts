@@ -24,7 +24,6 @@ import { UserProfileT } from '/src/api/types/UserProfileT';
 import { navHandler } from '/src/navHandler/NavHandler';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { useSmartUpdatePlaylists } from '/src/playlists/hooks/useSmartUpdatePlaylists';
-import { initRS } from '/src/resourceStates';
 import { trackPromise } from '/src/resourceStates/trackPromise';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
@@ -47,11 +46,11 @@ export const usePlaylistsState = (props: PropsT) => {
     playlistHighlightRef.current?.item?.slug;
 
   // Mutations
-  const deletePlaylists = initRS(useDeletePlaylists());
-  const savePlaylist = initRS(useSavePlaylist());
-  const savePlaylistPd = initRS(useSavePlaylistPd());
-  const savePlaylistSettings = initRS(useSavePlaylistSettings());
-  const savePlaylistOrdering = initRS(useSavePlaylistOrdering());
+  const deletePlaylists = useDeletePlaylists();
+  const savePlaylist = useSavePlaylist();
+  const savePlaylistPd = useSavePlaylistPd();
+  const savePlaylistSettings = useSavePlaylistSettings();
+  const savePlaylistOrdering = useSavePlaylistOrdering();
   const followPlaylists = useFollowPlaylists();
 
   // Queries
@@ -96,75 +95,55 @@ export const usePlaylistsState = (props: PropsT) => {
         );
         return trackPromise({
           name: 'deletePlaylists',
-          states: { updating: [...playlists, deletePlaylists] },
+          states: { updating: playlists },
           promise: deletePlaylists.mutateAsync(ids),
         }).result;
       },
       //
       followPlaylist: (playlist: PlaylistT, flag: boolean) => {
         followPlaylists.mutateAsync;
-        return trackPromise({
-          name: 'followPlaylist',
-          states: { updating: [followPlaylists] },
-          promise: followPlaylists.mutateAsync({
-            playlistIds: [playlist.id],
-            isFollowing: flag,
-          }),
-        }).result;
+        return followPlaylists.mutateAsync({
+          playlistIds: [playlist.id],
+          isFollowing: flag,
+        });
       },
       //
       savePlaylist: (values: ObjT) => {
-        return trackPromise<PlaylistT>({
-          name: 'savePlaylist',
-          states: { updating: [savePlaylist] },
-          promise: savePlaylist
-            .mutateAsync(values as SavePlaylistArgsT)
-            .then((response: ObjT) => {
-              return response.playlist as PlaylistT;
-            }),
-        }).result;
+        return savePlaylist
+          .mutateAsync(values as SavePlaylistArgsT)
+          .then((response: ObjT) => {
+            return response.playlist as PlaylistT;
+          });
       },
       //
       savePlaylistPd: (values: ObjT) => {
-        return trackPromise<PlaylistPdT>({
-          name: 'savePlaylistPd',
-          states: { updating: [savePlaylistPd] },
-          promise: savePlaylistPd
-            .mutateAsync({
-              playlistId: playlistsState.playlistsCtr.highlight.item?.id,
-              playlistSlug: playlistsState.playlistsCtr.highlight.item?.slug,
-              playlistPdForm: values.playlistPdForm,
-            } as SavePlaylistPdArgsT)
-            .then(() => {
-              return values.playlistPdForm as PlaylistPdT;
-            }),
-        }).result;
+        return savePlaylistPd
+          .mutateAsync({
+            playlistId: playlistsState.playlistsCtr.highlight.item?.id,
+            playlistSlug: playlistsState.playlistsCtr.highlight.item?.slug,
+            playlistPdForm: values.playlistPdForm,
+          } as SavePlaylistPdArgsT)
+          .then(() => {
+            return values.playlistPdForm as PlaylistPdT;
+          });
       },
       //
       savePlaylistSettings: (values: ObjT) => {
-        return trackPromise<PlaylistSettingsT>({
-          name: 'savePlaylistSettings',
-          states: { updating: [savePlaylistSettings] },
-          promise: savePlaylistSettings
-            .mutateAsync({
-              playlistId: playlistsState.playlistsCtr.highlight.item?.id,
-              playlistSlug: playlistsState.playlistsCtr.highlight.item?.slug,
-              playlistSettingsForm: values.playlistSettingsForm,
-            } as SavePlaylistSettingsArgsT)
-            .then(() => {
-              return values.playlistSettingsForm as PlaylistSettingsT;
-            }),
-        }).result;
+        return savePlaylistSettings
+          .mutateAsync({
+            playlistId: playlistsState.playlistsCtr.highlight.item?.id,
+            playlistSlug: playlistsState.playlistsCtr.highlight.item?.slug,
+            playlistSettingsForm: values.playlistSettingsForm,
+          } as SavePlaylistSettingsArgsT)
+          .then(() => {
+            return values.playlistSettingsForm as PlaylistSettingsT;
+          });
       },
       //
       savePlaylistOrdering: (playlists: PlaylistT[]) => {
-        return trackPromise({
-          name: 'savePlaylistOrdering',
-          states: { updating: [savePlaylistOrdering] },
-          promise: savePlaylistOrdering.mutateAsync({
-            playlistIds: getIds(playlists),
-          } as SavePlaylistOrderingArgsT),
-        }).result;
+        return savePlaylistOrdering.mutateAsync({
+          playlistIds: getIds(playlists),
+        } as SavePlaylistOrderingArgsT);
       },
     });
   }) as PlaylistsState;

@@ -7,7 +7,6 @@ import { UndoActionArgsT } from '/src/api/mutations';
 import { useUndoAction } from '/src/api/mutations/useUndoAction';
 import { ActionT } from '/src/api/types/ActionT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { initRS } from '/src/resourceStates/ResourceState';
 import { trackPromise } from '/src/resourceStates/trackPromise';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
@@ -22,7 +21,7 @@ export const useActionsState = (props: PropsT) => {
   const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
 
   // Mutations
-  const undoAction = initRS(useUndoAction());
+  const undoAction = useUndoAction();
 
   // Queries
   const getActions = useObservableQuery(
@@ -67,7 +66,7 @@ export const useActionsState = (props: PropsT) => {
 
         return trackPromise({
           name: 'undoAction',
-          states: { updating: [action, undoAction] },
+          states: { updating: [action] },
           promise: undoAction.mutateAsync({
             actionId,
             playlistId: playlist.id,

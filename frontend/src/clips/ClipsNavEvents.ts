@@ -1,8 +1,12 @@
-import { getNavFn } from '/src/navHandler/NavHandler';
+import { navHandler } from '/src/navHandler/NavHandler';
 
 export const navToClip = (
   ownerUsername: string,
   playlistSlug: string,
   clipSlug: string
 ): void =>
-  getNavFn('navToClip', navToClip)(ownerUsername, playlistSlug, clipSlug);
+  navHandler.getNavFn('navToClip', navToClip)(
+    ownerUsername,
+    playlistSlug,
+    clipSlug
+  );

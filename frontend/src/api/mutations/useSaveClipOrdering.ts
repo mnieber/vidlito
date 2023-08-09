@@ -1,5 +1,5 @@
-import { useMutation } from '@tanstack/react-query';
 import * as R from 'ramda';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { getPlaylistQueryKey } from '/src/api/queries';
 import { queryClient } from '/src/api/queryClient';
@@ -36,8 +36,7 @@ export const saveClipOrdering = (args: ArgsT) => {
 };
 
 export const useSaveClipOrdering = () => {
-  return useMutation({
-    mutationKey: ['saveClipOrdering'],
+  return useObservableMutation({
     mutationFn: saveClipOrdering,
     onMutate: (args: ArgsT) => {
       queryClient.setQueryData(

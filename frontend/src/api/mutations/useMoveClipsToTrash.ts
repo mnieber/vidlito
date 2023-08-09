@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { getActionsQueryKey, getPlaylistQueryKey } from '/src/api/queries';
 import { queryClient } from '/src/api/queryClient';
@@ -35,8 +35,7 @@ export const moveClipsToTrash = (args: ArgsT) => {
 };
 
 export const useMoveClipsToTrash = () => {
-  return useMutation({
-    mutationKey: ['moveClipsToTrash'],
+  return useObservableMutation({
     mutationFn: moveClipsToTrash,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return invalidateActions(args.playlistId, args.playlistSlug);
@@ -47,7 +46,7 @@ export const useMoveClipsToTrash = () => {
 export function invalidateActions(
   playlistId: string,
   playlistSlug: string
-): unknown {
+): Promise<any> {
   return Promise.all([
     queryClient.invalidateQueries({
       queryKey: getPlaylistQueryKey({ playlistSlug: playlistSlug }),

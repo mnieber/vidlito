@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { getPlaylistQueryKey } from '/src/api/queries';
 import { queryClient } from '/src/api/queryClient';
@@ -28,8 +28,7 @@ export const deleteClips = (args: ArgsT) => {
 };
 
 export const useDeleteClips = () => {
-  return useMutation({
-    mutationKey: ['deleteClips'],
+  return useObservableMutation({
     mutationFn: deleteClips,
     onSuccess: (response: ObjT) => {
       return queryClient.invalidateQueries({

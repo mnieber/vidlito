@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { invalidateActions } from '/src/api/mutations/useMoveClipsToTrash';
 import { ObjT } from '/src/utils/types';
@@ -28,8 +28,7 @@ export const undoAction = (args: ArgsT) => {
 };
 
 export const useUndoAction = () => {
-  return useMutation({
-    mutationKey: ['undoAction'],
+  return useObservableMutation({
     mutationFn: undoAction,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return invalidateActions(args.playlistId, args.playlistSlug);

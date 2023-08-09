@@ -83,6 +83,14 @@ export class NavHandler {
     return undefined;
   }
 
+  getNavFn<T>(name: string, f: T): T {
+    const navPage = this._getNavPage(name);
+    if (R.isNil(navPage)) {
+      console.error(`NavHandler: no navPage found for ${name}`);
+    }
+    return navPage?.fns[name] as T;
+  }
+
   constructor(props: PropsT) {
     this.history = props.history;
     this.routes = props.routes;
@@ -104,11 +112,3 @@ export const navHandler = new NavHandler({
   routes: routeTable.routeFnByName,
   routeUfns: routeTable.routeUfnByName,
 });
-
-export const getNavFn = <T>(prop: string, f: T): T => {
-  const navPage = navHandler._getNavPage(prop) as any;
-  if (R.isNil(navPage)) {
-    console.error(`NavHandler: no navPage found for ${prop}`);
-  }
-  return navPage.fns[prop] as T;
-};

@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { getClipPdQueryKey } from '/src/api/queries';
 import { queryClient } from '/src/api/queryClient';
@@ -33,8 +33,7 @@ export const saveClipPd = (args: ArgsT) => {
 };
 
 export const useSaveClipPd = () => {
-  return useMutation({
-    mutationKey: ['saveClipPd'],
+  return useObservableMutation({
     mutationFn: saveClipPd,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return queryClient.invalidateQueries({
