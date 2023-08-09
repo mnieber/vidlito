@@ -1,5 +1,5 @@
 import { useRouteMatch } from 'react-router-dom';
-import { useInstallNavLayer } from '/src/navHandler';
+import { useInstallNavPage } from '/src/navHandler';
 
 export const createActionsNavEventLayer = () => {
   return {};
@@ -9,7 +9,7 @@ export type PropsT = React.PropsWithChildren<{}>;
 
 export const UseActionsPage = (props: PropsT) => {
   const routeMatch = useRouteMatch();
-  useInstallNavLayer(
+  useInstallNavPage(
     'ActionsNavEventLayer',
     routeMatch.path,
     createActionsNavEventLayer()

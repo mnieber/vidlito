@@ -2,14 +2,14 @@ import { createBrowserHistory } from 'history';
 import { action, makeObservable, observable } from 'mobx';
 import { createObservableHistory } from 'mobx-observable-history';
 import * as R from 'ramda';
-import { sortNavLayers } from '/src/navHandler/sortNavLayers';
+import { sortNavPages } from '/src/navHandler/sortNavPages';
 import { routeTable } from '/src/routes/components/RouteTableProvider';
 import { WrapUfn } from '/src/routes/utils/RouteTable';
 import { getBestRouteMatch } from '/src/routes/utils/getRouteMatches';
 import { ObjT } from '/src/utils/types';
 import { patchHistory } from '/src/utils/urls';
 
-export type NavLayerT = {
+export type NavPageT = {
   route: string;
   name: string;
   fns: ObjT;
@@ -21,11 +21,11 @@ export type PropsT = {
   routeUfns: ObjT;
 };
 
-// This class returns the NavLayer for a particular prop name:
+// This class returns the NavPage for a particular prop name:
 //
-// 1. it selects the NavLayers that match the current route, and sorts them by the number
+// 1. it selects the NavPages that match the current route, and sorts them by the number
 //    of matching url parameters.
-// 2. it finds the NavLayer that contains the event handler with the given prop name.
+// 2. it finds the NavPage that contains the event handler with the given prop name.
 //
 // The above means that the handling of url events depends on the current url
 // The component that looks up the navigation function doesn't need to know anything about the url.
@@ -34,7 +34,7 @@ export class NavHandler {
   history: any;
   routes: ObjT;
   routeUfns: ObjT;
-  navLayers: Array<NavLayerT> = [];
+  navPages: Array<NavPageT> = [];
 
   getRouteUfns<T>() {
     return this.routeUfns as WrapUfn<T>;
@@ -48,29 +48,29 @@ export class NavHandler {
     return this.getRouteMatch()?.params ?? {};
   }
 
-  installNavLayer(navLayer: NavLayerT) {
-    const existingNavLayer = R.find(
-      (x: NavLayerT) => x.name === navLayer.name,
-      this.navLayers
+  installNavPage(navPage: NavPageT) {
+    const existingNavPage = R.find(
+      (x: NavPageT) => x.name === navPage.name,
+      this.navPages
     );
-    if (R.isNil(existingNavLayer)) {
-      this.navLayers.push(navLayer);
+    if (R.isNil(existingNavPage)) {
+      this.navPages.push(navPage);
     }
   }
 
-  getNavLayer(name: string) {
-    return R.find((x: NavLayerT) => x.name === name)(this.navLayers);
+  getNavPage(name: string) {
+    return R.find((x: NavPageT) => x.name === name)(this.navPages);
   }
 
-  uninstallNavLayer(name: string) {
-    this.navLayers = this.navLayers.filter(
-      (navLayer: NavLayerT) => navLayer.name !== name
+  uninstallNavPage(name: string) {
+    this.navPages = this.navPages.filter(
+      (navPage: NavPageT) => navPage.name !== name
     );
   }
 
-  _getNavLayer(name: string): NavLayerT | undefined {
-    const sortedLayers = sortNavLayers(
-      this.navLayers,
+  _getNavPage(name: string): NavPageT | undefined {
+    const sortedLayers = sortNavPages(
+      this.navPages,
       navigation.location.pathname
     );
     for (let i = 0; i < sortedLayers.length; i++) {
@@ -89,9 +89,9 @@ export class NavHandler {
     this.routeUfns = props.routeUfns;
 
     makeObservable(this, {
-      navLayers: observable,
-      installNavLayer: action,
-      uninstallNavLayer: action,
+      navPages: observable,
+      installNavPage: action,
+      uninstallNavPage: action,
     });
   }
 }
@@ -106,9 +106,9 @@ export const navHandler = new NavHandler({
 });
 
 export const getNavFn = <T>(prop: string, f: T): T => {
-  const navLayer = navHandler._getNavLayer(prop) as any;
-  if (R.isNil(navLayer)) {
-    console.error(`NavHandler: no navLayer found for ${prop}`);
+  const navPage = navHandler._getNavPage(prop) as any;
+  if (R.isNil(navPage)) {
+    console.error(`NavHandler: no navPage found for ${prop}`);
   }
-  return navLayer.fns[prop] as T;
+  return navPage.fns[prop] as T;
 };

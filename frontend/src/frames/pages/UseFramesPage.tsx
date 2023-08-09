@@ -9,7 +9,7 @@ import {
   navToSignIn,
   navToSignUp,
 } from '/src/frames/FramesNavEvents';
-import { useInstallNavLayer } from '/src/navHandler';
+import { useInstallNavPage } from '/src/navHandler';
 import { navHandler } from '/src/navHandler/NavHandler';
 
 export const createFramesNavEventLayer = () => {
@@ -50,7 +50,7 @@ export const UseFramesPage = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const routeMatch = useRouteMatch();
 
-    useInstallNavLayer(
+    useInstallNavPage(
       'FramesNavEventLayer',
       routeMatch.path,
       createFramesNavEventLayer()

@@ -1,14 +1,11 @@
 import * as R from 'ramda';
 import { matchPath } from 'react-router-dom';
-import { NavLayerT } from '/src/navHandler/NavHandler';
+import { NavPageT } from '/src/navHandler/NavHandler';
 import { ObjT } from '/src/utils/types';
 
-export function sortNavLayers(
-  layers: NavLayerT[],
-  pathname: string
-): NavLayerT[] {
+export function sortNavPages(layers: NavPageT[], pathname: string): NavPageT[] {
   type ResultT = {
-    layer: NavLayerT;
+    layer: NavPageT;
     match: ObjT | undefined;
   };
 

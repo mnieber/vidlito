@@ -1,2 +1,2 @@
 export { NavHandler } from './NavHandler';
-export { useInstallNavLayer } from './useInstallNavLayer';
+export { useInstallNavPage } from './useInstallNavPage';

@@ -3,20 +3,20 @@ import { navHandler } from '/src/navHandler/NavHandler';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { ObjT } from '/src/utils/types';
 
-export function useInstallNavLayer(name: string, path: string, navFns: ObjT) {
-  const navLayer = useBuilder(() => {
-    const navLayer = {
+export function useInstallNavPage(name: string, path: string, navFns: ObjT) {
+  const navPage = useBuilder(() => {
+    const navPage = {
       name: name,
       route: path,
       fns: navFns,
     };
-    navHandler.installNavLayer(navLayer);
-    return navLayer;
+    navHandler.installNavPage(navPage);
+    return navPage;
   });
 
   React.useEffect(() => {
     return () => {
-      navHandler.uninstallNavLayer(navLayer.name);
+      navHandler.uninstallNavPage(navPage.name);
     };
-  }, [navHandler, navLayer]);
+  }, [navHandler, navPage]);
 }

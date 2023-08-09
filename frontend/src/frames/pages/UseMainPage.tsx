@@ -4,7 +4,7 @@ import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
 import { cookiesState } from '/src/dashboard/DashboardState/CookiesState';
-import { useInstallNavLayer } from '/src/navHandler';
+import { useInstallNavPage } from '/src/navHandler';
 import { navHandler } from '/src/navHandler/NavHandler';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { navToSearch } from '/src/search/SearchNavEvents';
@@ -70,7 +70,7 @@ export const UseMainPage = withDefaultProps(
     const routeMatch = useRouteMatch();
     const getUserProfile = () => props.userProfile;
 
-    useInstallNavLayer(
+    useInstallNavPage(
       'MainNavEventLayer',
       routeMatch.path,
       createMainNavEventLayer({ getUserProfile })
