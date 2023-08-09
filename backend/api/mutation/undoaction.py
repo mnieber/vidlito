@@ -62,7 +62,7 @@ class UndoAction(graphene.Mutation):
 
                 clip.save()
 
-            Entry.filter(id__in=[entry.id for entry in entries_to_delete]).delete()
+            Entry.objects.filter(id__in=[entry.id for entry in entries_to_delete]).delete()
 
             action.delete()
             playlist.update_nr_clips()

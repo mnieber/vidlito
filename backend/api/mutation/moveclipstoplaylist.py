@@ -54,14 +54,14 @@ class MoveClipsToPlaylist(graphene.Mutation):
                         clip.nr_of_private_playlists += 1
 
                 if not copy:
-                    if src_playlist.is_public:
+                    if src_playlist.is_public and not dest_playlist.is_public:
                         clip.nr_of_public_playlists -= 1
-                    else:
+                    if not src_playlist.is_public and dest_playlist.is_public:
                         clip.nr_of_private_playlists -= 1
 
                 clip.save()
 
-            Entry.filter(id__in=[entry.id for entry in entries_to_delete]).delete()
+            Entry.objects.filter(id__in=[entry.id for entry in entries_to_delete]).delete()
 
             src_playlist.update_nr_clips()
             dest_playlist.update_nr_clips()

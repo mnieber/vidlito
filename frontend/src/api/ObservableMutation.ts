@@ -27,14 +27,20 @@ export class ObservableMutation {
     return Promise.resolve(this.onMutate ? this.onMutate(args) : undefined)
       .then(() => this.mutationFn(args))
       .then((response: any) => {
-        this.setStatus('success');
-        if (this.onSuccess) this.onSuccess(response, args);
-        return response;
+        return Promise.resolve(
+          this.onSuccess ? this.onSuccess(response, args) : undefined
+        ).then(() => {
+          this.setStatus('success');
+          return response;
+        });
       })
       .catch((error: any) => {
-        this.setStatus('error');
-        if (this.onError) this.onError(error);
-        return error;
+        return Promise.resolve(
+          this.onError ? this.onError(error) : undefined
+        ).then(() => {
+          this.setStatus('error');
+          return error;
+        });
       });
   };
 
