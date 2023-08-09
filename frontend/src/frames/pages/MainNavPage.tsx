@@ -1,4 +1,3 @@
-import { useRouteMatch } from 'react-router-dom';
 import { navToActions } from '/src/actions/ActionsNavEvents';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -67,14 +66,8 @@ export const DefaultProps = {
 
 export const MainNavPage = withDefaultProps(
   (props: PropsT & typeof DefaultProps) => {
-    const routeMatch = useRouteMatch();
     const getUserProfile = () => props.userProfile;
-
-    useInstallNavPage(
-      'MainNavPage',
-      routeMatch.path,
-      createMainNavPage({ getUserProfile })
-    );
+    useInstallNavPage('MainNavPage', createMainNavPage({ getUserProfile }));
     return <>{props.children}</>;
   },
   DefaultProps

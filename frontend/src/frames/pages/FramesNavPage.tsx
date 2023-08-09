@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { useRouteMatch } from 'react-router-dom';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import {
   navToHelp,
@@ -48,10 +47,7 @@ const DefaultProps = {
 
 export const FramesNavPage = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const routeMatch = useRouteMatch();
-
-    useInstallNavPage('FramesNavPage', routeMatch.path, createFramesNavPage());
-
+    useInstallNavPage('FramesNavPage', createFramesNavPage());
     return <>{props.children}</>;
   }, DefaultProps)
 );
