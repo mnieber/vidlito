@@ -6,6 +6,7 @@ import {
 } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { handleEmptyClips } from '/src/clips/handleEmptyClips';
 import { Icon } from '/src/frames/components';
 import { DialogButtonS } from '/src/frames/components/DialogButton';
 import { cn } from '/src/utils/classnames';
@@ -19,6 +20,7 @@ export type PropsT = {
 
 const DefaultProps = {
   ...dps.clipsDeletion,
+  ...dps.clipsHighlight,
   ...dps.clipsMove,
   ...dps.clipsSelection,
   ...dps.dashboardState,
@@ -47,10 +49,12 @@ export const ClipMenu = observer(
               key={playlist.id}
               onClick={(e) => {
                 e.stopPropagation = true;
-                props.clipsMove.move({
-                  playlistId: playlist.id,
-                  copy: false,
-                });
+                props.clipsMove
+                  .move({
+                    playlistId: playlist.id,
+                    copy: false,
+                  })
+                  .then(handleEmptyClips(props.clipsHighlight, props.playlist));
               }}
             >
               {playlist.name}
@@ -65,10 +69,12 @@ export const ClipMenu = observer(
               key={playlist.id}
               onClick={(e) => {
                 e.stopPropagation = true;
-                props.clipsMove.move({
-                  playlistId: playlist.id,
-                  copy: true,
-                });
+                props.clipsMove
+                  .move({
+                    playlistId: playlist.id,
+                    copy: true,
+                  })
+                  .then(handleEmptyClips(props.clipsHighlight, props.playlist));
               }}
             >
               {playlist.name}
@@ -87,10 +93,12 @@ export const ClipMenu = observer(
         <MenuItem
           disabled={props.clipsDeletion.disabled}
           onClick={() =>
-            props.clipsDeletion.delete({
-              itemIds: props.clipsSelection.ids,
-              moveToTrash: true,
-            })
+            props.clipsDeletion
+              .delete({
+                itemIds: props.clipsSelection.ids,
+                moveToTrash: true,
+              })
+              .then(handleEmptyClips(props.clipsHighlight, props.playlist))
           }
         >
           <Icon className={cn(DialogButtonS.Icon())} name="trash" />

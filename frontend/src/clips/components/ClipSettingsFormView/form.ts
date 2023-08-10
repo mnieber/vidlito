@@ -5,6 +5,7 @@ import {
   HandleValidateArgsT,
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
+import { handleEmptyClips } from '/src/clips/handleEmptyClips';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
@@ -29,10 +30,12 @@ const getHandleSubmit =
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
     if (values['clipSettingsForm.isDeletionEnabled']) {
-      return props.clipsDeletion.delete({
-        itemIds: [props.clip.id],
-        moveToTrash: false,
-      });
+      return props.clipsDeletion
+        .delete({
+          itemIds: [props.clip.id],
+          moveToTrash: false,
+        })
+        .then(handleEmptyClips(props.clipsHighlight, props.playlist));
     }
     return Promise.resolve();
   };

@@ -26,6 +26,7 @@ export const DefaultProps = {
   ...dps.clip,
   ...dps.playlist,
   ...dps.clipsDeletion,
+  ...dps.clipsHighlight,
   ...dps.clipSettingsEdit,
 };
 
