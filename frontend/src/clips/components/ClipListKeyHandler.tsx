@@ -18,7 +18,6 @@ export const ClipListKeyHandler = observer(
     const keyHandlers = {
       ...createSelectionKeyHandlers(props.clipsSelection),
     };
-
     const handledKeys = R.keys(keyHandlers);
     const onKeyDown = createKeyDownHandler(keyHandlers);
 

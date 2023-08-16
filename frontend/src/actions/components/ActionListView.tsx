@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { createHighlightUIConnector } from 'skandha-facets';
+import { HighlightUIConnector } from 'skandha-facets';
 import { ActionListKeyHandler } from '/src/actions/components';
 import { ActionListViewItem } from '/src/actions/components/ActionListViewItem';
 import { NoActionsMatchTheFilter } from '/src/actions/components/NoActionsMatchTheFilter';
@@ -25,9 +25,9 @@ const DefaultProps = {
 
 export const ActionListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const highlightUIConnector = createHighlightUIConnector(
-      props.actionsHighlight
-    );
+    const highlightUIConnector = new HighlightUIConnector({
+      highlight: props.actionsHighlight,
+    });
 
     //
     // 🔳  Handle loading state 🔳

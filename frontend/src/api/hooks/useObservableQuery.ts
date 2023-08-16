@@ -44,12 +44,12 @@ export const useObservableQuery = (
   return observableQuery;
 };
 
-function updateObservableQuery(
+const updateObservableQuery = (
   observableQuery: ObservableQuery,
   tanstackQuery: TanstackQuery,
   fetchAsLoad: boolean | undefined
-) {
+) => {
   observableQuery.data = tanstackQuery.data;
   observableQuery.status =
     fetchAsLoad && tanstackQuery.isFetching ? 'loading' : tanstackQuery.status;
-}
+};

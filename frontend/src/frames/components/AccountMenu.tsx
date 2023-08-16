@@ -11,7 +11,7 @@ import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './AccountMenu.scss';
-import '/src/frames/components/DialogButtonBase.scss';
+import '/src/frames/components/DialogButton/DialogButtonBase.scss';
 
 export type PropsT = {
   className?: any;

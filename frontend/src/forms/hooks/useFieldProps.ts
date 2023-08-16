@@ -78,8 +78,6 @@ export function handleKeyDown(
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
 ) {
   return (e: any) => {
-    console.log('handleKeyDown', e.keyCode);
-
     if (e.keyCode === 13) {
       if (fieldContext.submitOnEnter) {
         formState.submit();

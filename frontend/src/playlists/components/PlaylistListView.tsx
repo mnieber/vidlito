@@ -1,13 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import {
-  createDragAndDropUIConnector,
-  SelectionUIConnector,
-} from 'skandha-facets';
+import { DragAndDropUIConnector, SelectionUIConnector } from 'skandha-facets';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { PlaylistListKeyHandler } from '/src/playlists/components/PlaylistListKeyHandler';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
-import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { isLoading } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
@@ -32,10 +29,10 @@ const DefaultProps = {
 
 export const PlaylistListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const dragAndDropUIConnector = createDragAndDropUIConnector(
-      props.playlistsDragAndDrop,
-      props.playlistsHovering
-    );
+    const dragAndDropUIConnector = new DragAndDropUIConnector({
+      dragAndDrop: props.playlistsDragAndDrop,
+      hovering: props.playlistsHovering,
+    });
     const selectionUIConnector = new SelectionUIConnector({
       selection: props.playlistsSelection,
     });
