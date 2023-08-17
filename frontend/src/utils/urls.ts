@@ -30,5 +30,16 @@ export function patchHistory(history: any) {
     }
     return push.apply(history, arguments);
   };
+
+  var replace = history.replace;
+  history.replace = function (state: any) {
+    if (typeof history.onreplace == 'function') {
+      history.onreplace({ state: state });
+    }
+    if (flags.logHistory) {
+      console.log('history.replace', arguments[0]);
+    }
+    return replace.apply(history, arguments);
+  };
   return history;
 }

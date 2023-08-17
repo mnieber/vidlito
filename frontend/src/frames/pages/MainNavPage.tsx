@@ -32,8 +32,10 @@ export const createMainNavPage = (props: CreateMainNavPagePropsT) => {
       playlistSlug: string,
       clipSlug: string
     ) => {
+      // We prefer not to have urls in the history with a dash as clipSlug
+      const useReplace = navHandler.getParams().clipSlug === '-';
       const ufn = navHandler.routeUfns.clip(
-        clipSlug === '-' ? navHandler.history.replace : navHandler.history.push
+        useReplace ? navHandler.history.replace : navHandler.history.push
       );
       const { route, changed } = ufn({
         ...navHandler.getParams(),
@@ -47,12 +49,7 @@ export const createMainNavPage = (props: CreateMainNavPagePropsT) => {
       }
     }) as typeof navToClip,
     navToPlaylist: ((ownerUsername: string, playlistSlug: string) => {
-      const ufn = navHandler.routeUfns.playlist(navHandler.history.push);
-      ufn({
-        ...navHandler.getParams(),
-        ownerUsername: ownerUsername,
-        playlistSlug: playlistSlug,
-      });
+      navToClip(ownerUsername, playlistSlug, '-');
     }) as typeof navToPlaylist,
   };
 };
