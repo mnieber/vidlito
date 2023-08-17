@@ -32,7 +32,9 @@ export const createMainNavPage = (props: CreateMainNavPagePropsT) => {
       playlistSlug: string,
       clipSlug: string
     ) => {
-      const ufn = navHandler.routeUfns.clip(navHandler.history.push);
+      const ufn = navHandler.routeUfns.clip(
+        clipSlug === '-' ? navHandler.history.replace : navHandler.history.push
+      );
       const { route, changed } = ufn({
         ...navHandler.getParams(),
         ownerUsername: ownerUsername,
