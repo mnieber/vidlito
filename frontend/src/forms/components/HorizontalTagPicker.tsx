@@ -52,7 +52,7 @@ export const HorizontalTagPicker = observer((props: PropsT) => {
   const optionDivs = topOptions.map((option: PickerValueT, idx: number) => {
     return (
       <div
-        key={option.value + '_' + props.tagsState.isPickerFocused.toString()}
+        key={option.value + '_' + idx}
         className={cn(
           'HorizontalTagPicker__Tag',
           {
