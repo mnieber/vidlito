@@ -16,7 +16,7 @@ class GetTags:
     )
 
     def resolve_get_tags(self, info, tag_prefix, max_nr_of_tags):
-        tags = [x.tag for x in Tag.objects.filter(tag__startswith=tag_prefix)][
+        tags = [x.tag for x in Tag.objects.filter(tag__istartswith=tag_prefix)][
             :max_nr_of_tags
         ]
         return GetTagsOutputs(tags=tags)

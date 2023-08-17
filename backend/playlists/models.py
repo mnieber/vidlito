@@ -33,7 +33,7 @@ class Playlist(Entity):
         if not self.slug:
             self.slug = update_slug(slugify(self.name), "playlist")
         super().save(*args, **kwargs)
-        Tag.add_tags(self.tags)
+        Tag.add_tags(self.tags['tags'])
 
     def __str__(self):
         return "Playlist: " + str(self.name)

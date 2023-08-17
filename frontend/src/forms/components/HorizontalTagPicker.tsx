@@ -22,7 +22,8 @@ export const HorizontalTagPicker = observer((props: PropsT) => {
   const formValue = formState.values[fieldContext.fieldName] ?? '';
   const topOptions = R.pipe(
     R.filter(
-      (option: PickerValueT) => formValue.indexOf('#' + option.label) === -1
+      (option: PickerValueT) =>
+        formValue.toLowerCase().indexOf('#' + option.label.toLowerCase()) === -1
     ),
     R.take(5)
   )(props.tagsState.options) as PickerValueT[];
