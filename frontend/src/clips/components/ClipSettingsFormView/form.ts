@@ -35,7 +35,10 @@ const getHandleSubmit =
           itemIds: [props.clip.id],
           moveToTrash: false,
         })
-        .then(handleEmptyClips(props.clipsHighlight, props.playlist));
+        .then(handleEmptyClips(props.clipsHighlight, props.playlist))
+        .then(() => {
+          props.clipSettingsEdit.cancel();
+        });
     }
     return Promise.resolve();
   };

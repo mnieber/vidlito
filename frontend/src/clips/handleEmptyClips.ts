@@ -10,5 +10,6 @@ export const handleEmptyClips = (
     if (clipsHighlight.id === undefined) {
       navToClip(playlist.ownerUsername, playlist.slug, '-');
     }
+    return response;
   };
 };
