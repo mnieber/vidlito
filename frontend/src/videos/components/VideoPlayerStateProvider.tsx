@@ -1,5 +1,6 @@
 import { comparer } from 'mobx';
 import { observer } from 'mobx-react-lite';
+import * as R from 'ramda';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -22,13 +23,16 @@ export const VideoPlayerStateProvider = observer(
 
     useUpdateStateReaction({
       getInputs: () => ({
+        clip: props.clip,
         url: props.clip?.url,
         startTimeMs: props.clip?.startTimeMs ?? 0,
       }),
       updateState: (inputs) => {
-        videoPlayerState.setUrl(inputs.url ?? '', inputs.startTimeMs);
-        if (flags.logStateProviders) {
-          log('VideoPlayerState updated', videoPlayerState.getSummary());
+        if (!R.isNil(inputs.clip)) {
+          videoPlayerState.setUrl(inputs.url ?? '', inputs.startTimeMs);
+          if (flags.logStateProviders) {
+            log('VideoPlayerState updated', videoPlayerState.getSummary());
+          }
         }
       },
       equals: comparer.structural,

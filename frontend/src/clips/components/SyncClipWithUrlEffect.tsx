@@ -35,7 +35,9 @@ export const SyncClipWithUrlEffect = observer(
           clipSlug === 'new-clip' && !clipsAddition.item && userProfile;
 
         const addNewClip = () => {
-          clipsAddition.add({ values: createClip(userProfile, {}) });
+          clipsAddition.add({
+            values: createClip(userProfile, { url: props.clip.url }),
+          });
         };
 
         const getClipForCurrentUrl = () =>

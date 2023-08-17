@@ -39,5 +39,6 @@ export const createClip = (me: UserProfileT, values: ObjT): ClipT => {
     ownerUsername: me.username,
     slug: 'new-clip',
     isTransient: true,
+    url: values.url ?? undefined,
   } as ClipT);
 };

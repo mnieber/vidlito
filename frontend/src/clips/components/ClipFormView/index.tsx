@@ -14,9 +14,9 @@ import {
   MarkdownField,
   NameField,
   SlugField,
-  TextField,
   ValuePickerField,
 } from '/src/forms/components';
+import { ClipUrlField } from '/src/forms/components/ClipUrlField';
 import { TimeField } from '/src/forms/components/TimeField';
 import { CardS } from '/src/frames/components/Card';
 import { L } from '/src/frames/layout';
@@ -84,15 +84,18 @@ export const ClipFormView = observer(
           <GlobalError className={MainFormS.GlobalError()} />
           <Field fieldName="clipForm.url" className={MainFormS.Field()}>
             <FormFieldLabel label="URL" />
-            <TextField
+            <ClipUrlField
               tabIndex={1}
               controlled={true}
               autoFocus={true}
               autoSelect={true}
               onChange={() => {
-                const url =
-                  formStateRef.current?.values['clipForm.url'] ?? undefined;
-                url && props.videoPlayerState.setUrl(url, 0);
+                const getValue = formStateRef.current!.getValue;
+                const url = getValue('clipForm.url');
+                if (url) {
+                  const startTimeS = getValue('clipForm.startTimeS');
+                  props.videoPlayerState.setUrl(url, startTimeS * 1000 ?? 0);
+                }
               }}
             />
           </Field>
