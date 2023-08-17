@@ -48,6 +48,7 @@ export class ObservableMutation {
     this.mutationFn = args.mutationFn;
     this.onSuccess = args.onSuccess;
     this.onError = args.onError;
+    this.onMutate = args.onMutate;
 
     makeObservable(this, {
       status: observable,
