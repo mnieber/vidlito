@@ -2,12 +2,13 @@ import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
+import { isRunning } from '/src/api/ObservableMutation';
 import { withDefaultProps } from '/src/app/defaultProps';
 import {
   getDisplayPage,
   PaginationAdapter,
 } from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
-import { isUpdating, updateSources } from '/src/resourceStates';
+import { updateSources } from '/src/resourceStates';
 import { shareRS } from '/src/resourceStates/ResourceState';
 import { useSearchState } from '/src/search/hooks/useSearchState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
@@ -32,7 +33,7 @@ export const SearchStateProvider = observer(
             {
               resource: searchState.searchResultsCtr.store.items ?? [],
             },
-            ['updating', () => isUpdating(searchContent), 'searchContent']
+            ['updating', () => isRunning(searchContent), 'searchContent']
           );
         },
         get searchResult() {
