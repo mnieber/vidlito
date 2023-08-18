@@ -191,5 +191,13 @@ export const Icon = (props: PropsT) => {
 export const IconS = {
   color: {
     gray: () => 'fill-gray-text',
+    teal: () => 'fill-teal-primary',
+    grayDarkest: () => 'fill-gray-darkest',
+  },
+  size: {
+    s15: () => 'w-[15px] h-[15px]',
+    s20: () => 'w-[20px] h-[20px] min-w-[20px]',
+    s24: () => 'w-[24px] h-[24px]',
+    s30: () => 'w-[30px] h-[30px] min-w-[30px]',
   },
 };

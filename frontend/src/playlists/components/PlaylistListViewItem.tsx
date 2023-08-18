@@ -8,6 +8,7 @@ import {
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
+import { IconS } from '/src/frames/components/Icon';
 import { LviS } from '/src/frames/components/Lvi';
 import { L } from '/src/frames/layout';
 import { isUpdating } from '/src/resourceStates';
@@ -59,13 +60,15 @@ export const PlaylistListViewItem = observer(
           // 🔳 Icon 🔳
         }
         <div
-          className={cn(LviS.Icon(), 'IconContainer', [L.row.skewer()])}
+          className={cn(LviS.IconContainer(), 'IconContainer', [
+            L.row.skewer(),
+          ])}
           onClick={() => {
             props.goToPlaylist(props.playlist);
           }}
         >
           <Icon
-            className={cn('w-[15px] h-[15px]', 'fill-gray-text')}
+            className={cn(IconS.size.s15(), IconS.color.gray())}
             name="arrowRight"
           />
         </div>

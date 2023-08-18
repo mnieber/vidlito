@@ -1,3 +1,4 @@
+import { IconS } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -10,5 +11,5 @@ export const CtaButtonS = {
     darkBlueOnSkyBlue: () => 'btnSkyBlueWithDarkText',
     darkBlueOnTeal: () => 'btnTealWithDarkText',
   },
-  Icon: () => cn('mr-4', 'h-[30px]', 'w-[30px]', 'min-w-[30px]'),
+  Icon: () => cn('mr-4', IconS.size.s30()),
 };

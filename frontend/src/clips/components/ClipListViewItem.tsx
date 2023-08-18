@@ -71,7 +71,7 @@ export const ClipListViewItem = observer(
           // 🔳 PlayVideoIcon 🔳
         }
         <PlayVideoIcon
-          className={cn(LviS.Icon())}
+          className={cn(LviS.IconContainer())}
           videoController={props.videoPlayerState.videoController}
           visible={
             props.videoPlayerState.videoController.ready && props.isHighlighted

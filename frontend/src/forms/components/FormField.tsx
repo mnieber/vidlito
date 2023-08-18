@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { IconS } from '/src/frames/components/Icon';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -26,5 +27,5 @@ export const FormFieldS = {
     root: () => 'FormField__Button',
     gap: () => 'mr-0.5',
   },
-  Icon: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
+  Icon: () => cn('mr-2', IconS.size.s20()),
 };
