@@ -15,6 +15,7 @@ export type PropsT = {
   dataCy?: string;
   disabled?: boolean;
   fontSize?: 'medium' | 'big';
+  padding?: 'medium' | 'big';
   iconName?: string;
   label: string;
 } & ButtonPropsT;
@@ -51,9 +52,10 @@ export const DialogButton = (
           {
             [name + '--disabled']: disabled,
             [name + '--danger']: danger,
-            'text-lg': props.fontSize === 'big',
           },
         ],
+        DialogButtonS.fontSize[props.fontSize ?? 'medium'](),
+        DialogButtonS.padding[props.padding ?? 'medium'](),
         [iconName ? L.row.skewer() : '', className]
       )}
       data-cy={dataCy}
@@ -70,5 +72,9 @@ export const DialogButtonS = {
   fontSize: {
     medium: () => 'text-base',
     big: () => 'text-lg',
+  },
+  padding: {
+    medium: () => 'px-4 py-2',
+    big: () => 'px-6 py-4',
   },
 };

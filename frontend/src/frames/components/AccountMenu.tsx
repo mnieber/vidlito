@@ -47,7 +47,11 @@ export const AccountMenu = observer(
                     ? 'btnTealWithDarkText'
                     : 'btnWithTealText',
                 ],
-                [L.row.skewer()]
+                [
+                  DialogButtonS.fontSize.medium(),
+                  DialogButtonS.padding.medium(),
+                  L.row.skewer(),
+                ]
               )}
             >
               Account

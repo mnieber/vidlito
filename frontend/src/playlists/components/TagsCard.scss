@@ -1,7 +1,11 @@
+.TagsCard__Tag {
+  @apply text-sm pt-[1px] px-2 rounded-xl h-6;
+}
+
 .TagsCard__PlaylistTag {
-  @apply text-blue-primary border text-sm border-blue-primary px-2 rounded-xl h-6;
+  @apply text-blue-primary border border-blue-primary;
 }
 
 .TagsCard__ClipTag {
-  @apply text-teal-primary border text-sm border-teal-primary px-2 rounded-xl h-6;
+  @apply text-teal-primary border border-teal-primary;
 }
