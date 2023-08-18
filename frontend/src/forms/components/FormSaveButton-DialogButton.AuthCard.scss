@@ -3,8 +3,8 @@
 .AuthCard .FormSaveButton-DialogButton {
   @apply DialogButtonBase;
   @apply btnSkyBlueWithWhiteText;
-}
 
-.AuthCard .FormSaveButton-DialogButton--disabled {
-  @apply btnGray;
+  &.DialogButton--disabled {
+    @apply btnGray;
+  }
 }

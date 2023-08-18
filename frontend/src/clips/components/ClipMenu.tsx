@@ -8,7 +8,7 @@ import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { handleEmptyClips } from '/src/clips/handleEmptyClips';
 import { Icon } from '/src/frames/components';
-import { DialogButtonS } from '/src/frames/components/DialogButton';
+import { MenuItemS } from '/src/frames/components/MenuItem';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -101,7 +101,7 @@ export const ClipMenu = observer(
               .then(handleEmptyClips(props.clipsHighlight, props.playlist))
           }
         >
-          <Icon className={cn(DialogButtonS.Icon())} name="trash" />
+          <Icon className={cn(MenuItemS.Icon())} name="trash" />
           Move to Trash
         </MenuItem>
         <MenuDivider />

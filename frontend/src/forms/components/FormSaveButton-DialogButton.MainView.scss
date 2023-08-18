@@ -3,12 +3,12 @@
 .MainView .FormSaveButton-DialogButton {
   @apply DialogButtonBase;
   @apply btnBlueWithDarkText;
-}
 
-.MainView .FormSaveButton-DialogButton--danger {
-  @apply btnRedWithWhiteText;
-}
+  &.DialogButton--danger {
+    @apply btnRedWithWhiteText;
+  }
 
-.MainView .FormSaveButton-DialogButton--disabled {
-  @apply btnGray;
+  &.DialogButton--disabled {
+    @apply btnGray;
+  }
 }

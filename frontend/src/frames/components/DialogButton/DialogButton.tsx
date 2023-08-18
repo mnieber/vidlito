@@ -50,13 +50,16 @@ export const DialogButton = (
         [
           'select-none',
           {
-            [name + '--disabled']: disabled,
-            [name + '--danger']: danger,
+            'DialogButton--disabled': disabled,
+            'DialogButton--danger': danger,
           },
         ],
-        DialogButtonS.fontSize[props.fontSize ?? 'medium'](),
-        DialogButtonS.padding[props.padding ?? 'medium'](),
-        [iconName ? L.row.skewer() : '', className]
+        [
+          DialogButtonS.fontSize[props.fontSize ?? 'medium'](),
+          DialogButtonS.padding[props.padding ?? 'medium'](),
+          iconName ? L.row.skewer() : '',
+          className,
+        ]
       )}
       data-cy={dataCy}
       {...rest}

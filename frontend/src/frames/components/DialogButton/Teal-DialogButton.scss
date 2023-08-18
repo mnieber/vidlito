@@ -4,6 +4,10 @@
   @apply DialogButtonBase;
   @apply btnTealWithDarkText;
 
+  &.DialogButton--disabled {
+    @apply btnDisabled;
+  }
+
   .Icon {
     svg {
       @apply fill-teal-dark;

@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer components {
+  .btnDisabled {
+    @apply text-gray-400 hover:text-gray-400 border-gray-400;
+  }
   .btnBlueWithDarkText {
     @apply bg-blue-400 text-blue-darkest hover:bg-blue-600;
   }

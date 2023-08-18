@@ -10,5 +10,5 @@ export const CtaButtonS = {
     darkBlueOnSkyBlue: () => 'btnSkyBlueWithDarkText',
     darkBlueOnTeal: () => 'btnTealWithDarkText',
   },
-  icon: () => cn('mr-4', 'h-[30px]', 'w-[30px]', 'min-w-[30px]'),
+  Icon: () => cn('mr-4', 'h-[30px]', 'w-[30px]', 'min-w-[30px]'),
 };

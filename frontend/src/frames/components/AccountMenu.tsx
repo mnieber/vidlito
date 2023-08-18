@@ -6,6 +6,7 @@ import { useAuthStateContext } from '/src/auth/hooks';
 import { navToHelp, navToSignIn } from '/src/frames/FramesNavEvents';
 import { Icon } from '/src/frames/components';
 import { DialogButtonS } from '/src/frames/components/DialogButton';
+import { MenuItemS } from '/src/frames/components/MenuItem';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -63,7 +64,7 @@ export const AccountMenu = observer(
         >
           {!props.isAuthenticated && (
             <StyledMenuItem onClick={() => navToSignIn()}>
-              <Icon className={cn(DialogButtonS.Icon())} name="signIn" />
+              <Icon className={cn(MenuItemS.Icon())} name="signIn" />
               Sign In
             </StyledMenuItem>
           )}
@@ -75,13 +76,13 @@ export const AccountMenu = observer(
                 });
               }}
             >
-              <Icon className={cn(DialogButtonS.Icon())} name="signOut" />
+              <Icon className={cn(MenuItemS.Icon())} name="signOut" />
               Sign Out
             </StyledMenuItem>
           )}
           <MenuDivider />
           <StyledMenuItem onClick={() => navToHelp()}>
-            <Icon className={cn(DialogButtonS.Icon())} name="help" />
+            <Icon className={cn(MenuItemS.Icon())} name="help" />
             Help
           </StyledMenuItem>
         </Menu>

@@ -26,4 +26,5 @@ export const FormFieldS = {
     root: () => 'FormField__Button',
     gap: () => 'mr-0.5',
   },
+  Icon: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
 };

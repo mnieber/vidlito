@@ -45,7 +45,7 @@ export const CreateFirstClip = observer(
             onClickNewClipButton(props);
           }}
         >
-          <Icon className={cn(CtaButtonS.icon())} name="plus" />
+          <Icon className={cn(CtaButtonS.Icon())} name="plus" />
           Create first clip
         </button>
       </MessageCard>

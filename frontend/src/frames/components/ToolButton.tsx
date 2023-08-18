@@ -21,12 +21,11 @@ export const ToolButton = (props: PropsT) => {
   return (
     <button
       className={cn(
-        [props.componentClassName ?? 'ToolButton'],
-        [
-          L.row.skewer(),
-          props.disabled && 'ToolButton--disabled',
-          props.className,
-        ]
+        props.componentClassName ?? 'ToolButton',
+        {
+          'ToolButton--disabled': props.disabled,
+        },
+        [L.row.skewer(), props.className]
       )}
       disabled={props.disabled}
       onClick={props.onClick}
@@ -34,9 +33,13 @@ export const ToolButton = (props: PropsT) => {
       <Icon
         className={cn(
           'ToolButton__Icon',
-          props.disabled && 'ToolButton__Icon--disabled',
-          ToolButtonS.icon.size[props.iconSize ?? 'medium'](),
-          ToolButtonS.icon.margin[props.iconMargin ?? 'medium']()
+          {
+            'ToolButton__Icon--disabled': props.disabled,
+          },
+          [
+            ToolButtonS.icon.size[props.iconSize ?? 'medium'](),
+            ToolButtonS.icon.margin[props.iconMargin ?? 'medium'](),
+          ]
         )}
         name={props.iconName}
       />
