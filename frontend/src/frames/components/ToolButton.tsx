@@ -1,5 +1,5 @@
 import { ButtonPropsT } from '/src/frames/components/ButtonPropsT';
-import { Icon } from '/src/frames/components/Icon';
+import { Icon, IconS } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -11,9 +11,8 @@ export type PropsT = {
   className?: any;
   componentClassName?: string;
   disabled?: boolean;
+  iconClassName?: string;
   iconName: string;
-  iconSize?: 'medium' | 'small';
-  iconMargin?: 'medium' | 'none';
   label: string;
 } & ButtonPropsT;
 
@@ -33,13 +32,10 @@ export const ToolButton = (props: PropsT) => {
       <Icon
         className={cn(
           'ToolButton__Icon',
+          props.iconClassName ?? Default_ToolButtonS.icon(),
           {
             'ToolButton__Icon--disabled': props.disabled,
-          },
-          [
-            ToolButtonS.icon.size[props.iconSize ?? 'medium'](),
-            ToolButtonS.icon.margin[props.iconMargin ?? 'medium'](),
-          ]
+          }
         )}
         name={props.iconName}
       />
@@ -49,14 +45,19 @@ export const ToolButton = (props: PropsT) => {
 };
 
 export const ToolButtonS = {
-  icon: {
+  Icon: {
     size: {
-      medium: () => cn(['h-[32px] w-[32px]', 'p-2']),
-      small: () => cn(['h-[24px] w-[24px]', 'p-1']),
+      medium: () => cn([IconS.size.s32(), 'p-2']),
+      small: () => cn([IconS.size.s24(), 'p-1']),
     },
     margin: {
       medium: () => cn('mr-2'),
       none: () => cn(),
     },
   },
+};
+
+export const Default_ToolButtonS = {
+  icon: () =>
+    cn(ToolButtonS.Icon.size.medium(), ToolButtonS.Icon.margin.medium()),
 };

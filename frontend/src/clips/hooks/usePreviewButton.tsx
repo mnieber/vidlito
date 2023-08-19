@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToolButton } from '/src/frames/components/ToolButton';
+import { ToolButton, ToolButtonS } from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';
 
 export type PropsT = {
@@ -11,14 +11,17 @@ export const usePreviewButton = (props: PropsT) => {
   const [descriptionPreview, setDescriptionPreview] = React.useState(false);
   const showPreviewButton = (
     <ToolButton
-      label="Preview"
-      componentClassName="Modest-ToolButton"
       className={cn('PreviewButton', props.className)}
-      tabIndex={props.tabIndex ?? 0}
-      key="descriptionPreview"
+      componentClassName="Modest-ToolButton"
+      iconClassName={cn(
+        ToolButtonS.Icon.size.medium(),
+        ToolButtonS.Icon.margin.none()
+      )}
       iconName={descriptionPreview ? 'checkFilled' : 'checkEmpty'}
-      iconMargin="none"
+      key="descriptionPreview"
+      label="Preview"
       onClick={() => setDescriptionPreview(!descriptionPreview)}
+      tabIndex={props.tabIndex ?? 0}
     />
   );
 
