@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
+import { IconS } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -37,7 +38,7 @@ export const PlaylistListHeader = observer(
       >
         <div className={cn()}>{playlist.name}</div>
         <Icon
-          className={cn('h-[30px]', 'w-[30px]', 'fill-gray-text')}
+          className={cn(IconS.size.s30(), IconS.color.gray())}
           name={
             props.dashboardState.panelState.isPlaylistListExpanded
               ? 'cheveronDown'
