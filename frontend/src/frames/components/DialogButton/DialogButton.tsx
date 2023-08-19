@@ -15,8 +15,6 @@ export type PropsT = {
   danger?: boolean;
   dataCy?: string;
   disabled?: boolean;
-  fontSize?: 'medium' | 'big';
-  padding?: 'medium' | 'big';
   iconName?: string;
   label: string;
 } & ButtonPropsT;
@@ -45,23 +43,19 @@ export const DialogButton = (props: PropsT) => {
       className={cn(
         theme.componentName,
         [
+          theme.base.root(),
           'select-none',
           {
             'DialogButton--disabled': disabled,
             'DialogButton--danger': danger,
           },
         ],
-        [
-          DialogButtonS.fontSize[props.fontSize ?? 'medium'](),
-          DialogButtonS.padding[props.padding ?? 'medium'](),
-          iconName ? L.row.skewer() : '',
-          className,
-        ]
+        [iconName ? L.row.skewer() : '', className]
       )}
       data-cy={dataCy}
       {...rest}
     >
-      {iconName && <Icon className={theme.enabled.Icon()} name={iconName} />}
+      {iconName && <Icon className={theme.base.Icon()} name={iconName} />}
       {label}
     </button>
   );
@@ -81,7 +75,9 @@ export const DialogButtonS = {
 export const DefaultDialogButtonTheme = {
   componentName: 'DialogButton',
 
-  enabled: {
+  base: {
+    root: () =>
+      cn(DialogButtonS.fontSize.medium(), DialogButtonS.padding.medium()),
     Icon: () => cn('mr-2', IconS.size.s20()),
   },
   disabled: {},
@@ -90,19 +86,39 @@ export const DefaultDialogButtonTheme = {
 export const BlueDialogButtonTheme = {
   ...DefaultDialogButtonTheme,
   componentName: 'Blue-DialogButton',
+
+  base: {
+    ...DefaultDialogButtonTheme.base,
+    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.blueDarkest()),
+  },
 };
 
 export const TealDialogButtonTheme = {
   ...DefaultDialogButtonTheme,
   componentName: 'Teal-DialogButton',
+
+  base: {
+    ...DefaultDialogButtonTheme.base,
+    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.tealDark()),
+  },
 };
 
 export const TealWithWhiteTextDialogButtonTheme = {
   ...DefaultDialogButtonTheme,
   componentName: 'TealWithWhiteText-DialogButton',
+
+  base: {
+    ...DefaultDialogButtonTheme.base,
+    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.white()),
+  },
 };
 
 export const SkyBlueWithBorderDialogButtonTheme = {
   ...DefaultDialogButtonTheme,
   componentName: 'SkyBlueWithBorder-DialogButton',
+
+  base: {
+    ...DefaultDialogButtonTheme.base,
+    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.bluePrimary()),
+  },
 };

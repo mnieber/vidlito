@@ -5,6 +5,7 @@ import { CardS } from '/src/frames/components/Card';
 import { DialogButton } from '/src/frames/components/DialogButton';
 import {
   BlueDialogButtonTheme,
+  DialogButtonS,
   TealDialogButtonTheme,
 } from '/src/frames/components/DialogButton/DialogButton';
 import { L } from '/src/frames/layout';
@@ -44,9 +45,7 @@ export const CookieNotice = observer(
             <div>
               <DialogButton
                 className=""
-                theme={BlueDialogButtonTheme}
-                fontSize="medium"
-                padding="big"
+                theme={AcceptDialogButtonTheme}
                 onClick={() =>
                   props.dashboardState.cookiesState.setCookiePreferences({
                     functionalCookies: true,
@@ -58,9 +57,7 @@ export const CookieNotice = observer(
             <div>
               <DialogButton
                 className=""
-                theme={TealDialogButtonTheme}
-                fontSize="medium"
-                padding="big"
+                theme={RejectDialogButtonTheme}
                 onClick={() =>
                   props.dashboardState.cookiesState.setCookiePreferences({
                     functionalCookies: false,
@@ -75,3 +72,21 @@ export const CookieNotice = observer(
     );
   }, DefaultProps)
 );
+
+const AcceptDialogButtonTheme = {
+  ...BlueDialogButtonTheme,
+  base: {
+    ...BlueDialogButtonTheme.base,
+    root: () =>
+      cn(DialogButtonS.fontSize.medium(), DialogButtonS.padding.big()),
+  },
+};
+
+const RejectDialogButtonTheme = {
+  ...TealDialogButtonTheme,
+  base: {
+    ...BlueDialogButtonTheme.base,
+    root: () =>
+      cn(DialogButtonS.fontSize.medium(), DialogButtonS.padding.big()),
+  },
+};

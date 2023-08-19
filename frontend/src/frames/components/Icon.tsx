@@ -193,6 +193,10 @@ export const IconS = {
     gray: () => 'fill-gray-text',
     teal: () => 'fill-teal-primary',
     grayDarkest: () => 'fill-gray-darkest',
+    blueDarkest: () => 'fill-blue-darkest',
+    bluePrimary: () => 'fill-blue-primary',
+    tealDark: () => 'fill-teal-dark',
+    white: () => 'fill-white',
   },
   size: {
     s15: () => 'w-[15px] h-[15px]',

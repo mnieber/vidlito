@@ -7,10 +7,4 @@
   &.DialogButton--disabled {
     @apply btnDisabled;
   }
-
-  .Icon {
-    svg {
-      @apply fill-blue-darkest;
-    }
-  }
 }
