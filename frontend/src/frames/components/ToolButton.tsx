@@ -9,33 +9,34 @@ import './ToolButton.scss';
 
 export type PropsT = {
   className?: any;
-  componentClassName?: string;
+  theme?: typeof DefaultToolButtonTheme;
   disabled?: boolean;
-  iconClassName?: string;
   iconName: string;
   label: string;
 } & ButtonPropsT;
 
 export const ToolButton = (props: PropsT) => {
+  const theme = props.theme ?? DefaultToolButtonTheme;
+
   return (
     <button
       className={cn(
-        props.componentClassName ?? 'ToolButton',
-        {
-          'ToolButton--disabled': props.disabled,
-        },
-        [L.row.skewer(), props.className]
+        theme.componentName,
+        theme.base.root(),
+        { 'ToolButton--disabled': props.disabled },
+        [
+          L.row.skewer(),
+          props.className,
+          props.disabled && theme.disabled.root(),
+        ]
       )}
       disabled={props.disabled}
       onClick={props.onClick}
     >
       <Icon
         className={cn(
-          'ToolButton__Icon',
-          props.iconClassName ?? Default_ToolButtonS.icon(),
-          {
-            'ToolButton__Icon--disabled': props.disabled,
-          }
+          theme.base.Icon(),
+          props.disabled && theme.disabled.Icon()
         )}
         name={props.iconName}
       />
@@ -45,6 +46,10 @@ export const ToolButton = (props: PropsT) => {
 };
 
 export const ToolButtonS = {
+  color: {
+    gray: () => cn('text-gray-text'),
+    grayDisabled: () => cn('text-gray-300'),
+  },
   Icon: {
     size: {
       medium: () => cn([IconS.size.s32(), 'p-2']),
@@ -54,10 +59,49 @@ export const ToolButtonS = {
       medium: () => cn('mr-2'),
       none: () => cn(),
     },
+    color: {
+      grayFill: () => cn('fill-gray-text'),
+      grayFillDisabled: () => cn('fill-gray-300'),
+      grayBackground: () => cn('bg-gray-text'),
+      grayBackgroundDisabled: () => cn('fill-gray-300 !bg-[#999999]'),
+    },
   },
 };
 
-export const Default_ToolButtonS = {
-  icon: () =>
-    cn(ToolButtonS.Icon.size.medium(), ToolButtonS.Icon.margin.medium()),
+export const DefaultToolButtonTheme = {
+  componentName: 'ToolButton',
+
+  // These are applied to the root element and the Icon.
+  base: {
+    root: () => cn(ToolButtonS.color.gray()),
+    Icon: () =>
+      cn(
+        ToolButtonS.Icon.size.medium(),
+        ToolButtonS.Icon.margin.medium(),
+        ToolButtonS.Icon.color.grayBackground()
+      ),
+  },
+  // These are layered on top if the ToolButton is disabled.
+  disabled: {
+    root: () => cn(ToolButtonS.color.grayDisabled()),
+    Icon: () => cn(ToolButtonS.Icon.color.grayBackgroundDisabled()),
+  },
+};
+
+export const ModestToolButtonTheme = {
+  componentName: 'Modest-ToolButton',
+
+  base: {
+    root: () => cn(ToolButtonS.color.gray()),
+    Icon: () =>
+      cn(
+        ToolButtonS.Icon.size.medium(),
+        ToolButtonS.Icon.margin.none(),
+        ToolButtonS.Icon.color.grayFill()
+      ),
+  },
+  disabled: {
+    root: () => cn(ToolButtonS.color.grayDisabled()),
+    Icon: () => cn(ToolButtonS.Icon.color.grayFillDisabled()),
+  },
 };

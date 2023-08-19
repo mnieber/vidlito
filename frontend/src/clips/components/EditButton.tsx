@@ -2,7 +2,11 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import { Edit } from 'skandha-facets';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { ToolButton, ToolButtonS } from '/src/frames/components/ToolButton';
+import {
+  DefaultToolButtonTheme,
+  ToolButton,
+  ToolButtonS,
+} from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -37,15 +41,25 @@ export const EditButton = observer(
           ],
           [props.className]
         )}
+        theme={ToolButtonTheme}
         disabled={props.disabled}
         iconName="pencil"
-        iconClassName={cn(
-          ToolButtonS.Icon.size.small(),
-          ToolButtonS.Icon.margin.medium()
-        )}
         label="Edit"
         onClick={() => props.edit.enable()}
       />
     );
   }, DefaultProps)
 );
+
+export const ToolButtonTheme = {
+  ...DefaultToolButtonTheme,
+  base: {
+    ...DefaultToolButtonTheme.base,
+    Icon: () =>
+      cn(
+        ToolButtonS.Icon.size.small(),
+        ToolButtonS.Icon.margin.medium(),
+        ToolButtonS.Icon.color.grayFill()
+      ),
+  },
+};
