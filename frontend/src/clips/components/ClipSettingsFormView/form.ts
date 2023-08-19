@@ -10,7 +10,7 @@ import { handleEmptyClips } from '/src/clips/handleEmptyClips';
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
     'clipSettingsForm.clipId': props.clip.id ?? null,
-    'clipSettingsForm.isDeletionEnabled': false,
+    'clipSettingsForm.isDeletionEnabled': props.clipsDeletion.isDeleteEnabled,
   };
 };
 
@@ -46,6 +46,7 @@ const getHandleSubmit =
 const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
+    props.clipsDeletion.setIsDeleteEnabled(false);
     props.clipSettingsEdit.cancel();
   };
 

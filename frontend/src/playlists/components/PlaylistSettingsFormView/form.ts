@@ -58,6 +58,7 @@ const getHandleSubmit =
 const getHandleCancel =
   (props: PropsT & typeof DefaultProps) =>
   ({ formState }: HandleCancelArgsT) => {
+    props.playlistsDeletion.setIsDeleteEnabled(false);
     props.playlistSettingsEdit.cancel();
   };
 
