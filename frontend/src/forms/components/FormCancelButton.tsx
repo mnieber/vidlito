@@ -3,6 +3,7 @@ import {
   DialogButton,
   DialogButtonPropsT,
 } from '/src/frames/components/DialogButton';
+import { DefaultDialogButtonTheme } from '/src/frames/components/DialogButton/DialogButton';
 
 // Import styles
 import './FormCancelButton-DialogButton.MainView.scss';
@@ -15,7 +16,7 @@ export const FormCancelButton = (props: PropsT) => {
 
   return (
     <DialogButton
-      componentClassName="FormCancelButton-DialogButton"
+      theme={DialogButtonTheme}
       onClick={(e: any) => {
         e.preventDefault();
         formState.cancel();
@@ -24,4 +25,9 @@ export const FormCancelButton = (props: PropsT) => {
       {...props}
     />
   );
+};
+
+const DialogButtonTheme = {
+  ...DefaultDialogButtonTheme,
+  componentName: 'FormCancelButton-DialogButton',
 };

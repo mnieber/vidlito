@@ -1,5 +1,5 @@
 import { ButtonPropsT } from '/src/frames/components/ButtonPropsT';
-import { Icon } from '/src/frames/components/Icon';
+import { Icon, IconS } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -11,6 +11,7 @@ import './TealWithWhiteText-DialogButton.scss';
 
 export type PropsT = {
   className?: any;
+  theme?: typeof DefaultDialogButtonTheme;
   danger?: boolean;
   dataCy?: string;
   disabled?: boolean;
@@ -22,15 +23,11 @@ export type PropsT = {
 
 export type DialogButtonPropsT = PropsT;
 
-export const DialogButton = (
-  props: PropsT & {
-    componentClassName?: string;
-  }
-) => {
+export const DialogButton = (props: PropsT) => {
   const {
     className,
-    componentClassName,
     danger,
+    theme: propsTheme,
     dataCy,
     disabled,
     iconName,
@@ -38,7 +35,7 @@ export const DialogButton = (
     ...rest
   } = props;
 
-  const name = componentClassName ?? 'DialogButton';
+  const theme = propsTheme ?? DefaultDialogButtonTheme;
 
   return (
     /*
@@ -46,7 +43,7 @@ export const DialogButton = (
     */
     <button
       className={cn(
-        name,
+        theme.componentName,
         [
           'select-none',
           {
@@ -64,14 +61,13 @@ export const DialogButton = (
       data-cy={dataCy}
       {...rest}
     >
-      {iconName && <Icon className={DialogButtonS.Icon()} name={iconName} />}
+      {iconName && <Icon className={theme.enabled.Icon()} name={iconName} />}
       {label}
     </button>
   );
 };
 
 export const DialogButtonS = {
-  Icon: () => cn('mr-2', 'h-[20px]', 'w-[20px]', 'min-w-[20px]'),
   fontSize: {
     medium: () => 'text-base',
     big: () => 'text-lg',
@@ -80,4 +76,33 @@ export const DialogButtonS = {
     medium: () => 'px-4 py-2',
     big: () => 'px-6 py-4',
   },
+};
+
+export const DefaultDialogButtonTheme = {
+  componentName: 'DialogButton',
+
+  enabled: {
+    Icon: () => cn('mr-2', IconS.size.s20()),
+  },
+  disabled: {},
+};
+
+export const BlueDialogButtonTheme = {
+  ...DefaultDialogButtonTheme,
+  componentName: 'Blue-DialogButton',
+};
+
+export const TealDialogButtonTheme = {
+  ...DefaultDialogButtonTheme,
+  componentName: 'Teal-DialogButton',
+};
+
+export const TealWithWhiteTextDialogButtonTheme = {
+  ...DefaultDialogButtonTheme,
+  componentName: 'TealWithWhiteText-DialogButton',
+};
+
+export const SkyBlueWithBorderDialogButtonTheme = {
+  ...DefaultDialogButtonTheme,
+  componentName: 'SkyBlueWithBorder-DialogButton',
 };

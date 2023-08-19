@@ -3,6 +3,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
 import { CloseButton } from '/src/frames/components/CloseButton';
 import { DialogButton } from '/src/frames/components/DialogButton';
+import { BlueDialogButtonTheme } from '/src/frames/components/DialogButton/DialogButton';
 import { L } from '/src/frames/layout';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { cn } from '/src/utils/classnames';
@@ -55,7 +56,7 @@ export const ActionsBar = observer(
             ['ActionsBar__UndoActionButton', { invisible: !props.action }],
             ['mx-4']
           )}
-          componentClassName="Blue-DialogButton"
+          theme={BlueDialogButtonTheme}
           iconName="reply"
           label="Undo"
           onClick={() => props.actionsState.undoAction(props.action)}

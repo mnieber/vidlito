@@ -3,6 +3,7 @@ import {
   DialogButton,
   DialogButtonPropsT,
 } from '/src/frames/components/DialogButton';
+import { DefaultDialogButtonTheme } from '/src/frames/components/DialogButton/DialogButton';
 
 // Import styles
 import './FormSaveButton-DialogButton.AuthCard.scss';
@@ -16,7 +17,7 @@ export const FormSaveButton = (props: PropsT) => {
 
   return (
     <DialogButton
-      componentClassName="FormSaveButton-DialogButton"
+      theme={DialogButtonTheme}
       onClick={(e: any) => {
         e.preventDefault();
         formState.submit();
@@ -25,4 +26,9 @@ export const FormSaveButton = (props: PropsT) => {
       {...props}
     />
   );
+};
+
+const DialogButtonTheme = {
+  ...DefaultDialogButtonTheme,
+  componentName: 'FormSaveButton-DialogButton',
 };

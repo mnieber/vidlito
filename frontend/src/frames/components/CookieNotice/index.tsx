@@ -3,6 +3,10 @@ import { withDefaultProps } from 'react-default-props-context';
 import { dps } from '/src/app/defaultProps';
 import { CardS } from '/src/frames/components/Card';
 import { DialogButton } from '/src/frames/components/DialogButton';
+import {
+  BlueDialogButtonTheme,
+  TealDialogButtonTheme,
+} from '/src/frames/components/DialogButton/DialogButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -40,7 +44,7 @@ export const CookieNotice = observer(
             <div>
               <DialogButton
                 className=""
-                componentClassName="Blue-DialogButton"
+                theme={BlueDialogButtonTheme}
                 fontSize="medium"
                 padding="big"
                 onClick={() =>
@@ -54,7 +58,7 @@ export const CookieNotice = observer(
             <div>
               <DialogButton
                 className=""
-                componentClassName="Teal-DialogButton"
+                theme={TealDialogButtonTheme}
                 fontSize="medium"
                 padding="big"
                 onClick={() =>
