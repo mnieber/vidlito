@@ -103,11 +103,13 @@ export const ClipPdFormView = observer(
           }
           <div className={cn(MainFormS.Buttons())}>
             <FormCancelButton
+              theme="MainView"
               className={cn(MainFormS.Button.root(), MainFormS.Button.gap())}
               tabIndex={10}
               label="Cancel"
             />
             <FormSaveButton
+              theme="MainView"
               tabIndex={10}
               label="Save"
               className={cn(MainFormS.Button.root())}

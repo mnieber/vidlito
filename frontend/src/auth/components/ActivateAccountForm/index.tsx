@@ -73,6 +73,7 @@ export function ActivateAccountForm(props: PropsT) {
           // 🔳 Save button 🔳
         }
         <FormSaveButton
+          theme="AuthCard"
           dataCy="activateAccountBtn"
           label="Activate account"
           className={cn(AuthFormS.Button())}

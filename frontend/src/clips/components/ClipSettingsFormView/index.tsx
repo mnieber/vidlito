@@ -91,12 +91,14 @@ export const ClipSettingsFormView = observer(
           }
           <div className={cn(MainFormS.Buttons())}>
             <FormCancelButton
+              theme="MainView"
               className={cn(MainFormS.Button.root(), MainFormS.Button.gap())}
               danger={props.clipsDeletion.isDeleteEnabled}
               label="Cancel"
               tabIndex={6}
             />
             <FormSaveButton
+              theme="MainView"
               label={props.clipsDeletion.isDeleteEnabled ? 'Delete' : 'Save'}
               danger={props.clipsDeletion.isDeleteEnabled}
               tabIndex={6}

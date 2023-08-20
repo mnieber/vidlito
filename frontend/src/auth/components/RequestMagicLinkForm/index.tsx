@@ -67,6 +67,7 @@ export function RequestMagicLinkForm(props: PropsT) {
           // 🔳 Save button 🔳
         }
         <FormSaveButton
+          theme="AuthCard"
           dataCy="magicLinkBtn"
           label="Request Magic Link"
           className={AuthFormS.Button()}

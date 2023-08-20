@@ -94,12 +94,14 @@ export const PlaylistSettingsFormView = observer(
           }
           <div className={cn(MainFormS.Buttons())}>
             <FormCancelButton
+              theme="MainView"
               className={cn(MainFormS.Button.root(), MainFormS.Button.gap())}
               danger={props.playlistsDeletion.isDeleteEnabled}
               label="Cancel"
               tabIndex={6}
             />
             <FormSaveButton
+              theme="MainView"
               label={
                 props.playlistsDeletion.isDeleteEnabled ? 'Delete' : 'Save'
               }

@@ -100,6 +100,7 @@ export const SearchFormView = observer(
           }
           <div className={cn(MainFormS.Buttons())}>
             <FormSaveButton
+              theme="MainView"
               tabIndex={5}
               label="Search"
               className={cn(MainFormS.Button.root())}

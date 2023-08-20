@@ -1,4 +1,7 @@
-import { DefaultDialogButtonTrim } from '/src/frames/components/DialogButton';
+import {
+  DefaultDialogButtonTrim,
+  DialogButtonS,
+} from '/src/frames/components/DialogButton';
 import { IconS } from '/src/frames/components/Icon';
 import { createTrim } from '/src/utils/trim';
 
@@ -7,8 +10,16 @@ export const BlueDialogButtonTrim = createTrim(
   DefaultDialogButtonTrim,
   {
     base: {
+      root: {
+        color: DialogButtonS.color.blueWithDarkText(),
+      },
       Icon: {
         color: IconS.color.blueDarkest(),
+      },
+    },
+    disabled: {
+      root: {
+        color: DialogButtonS.color.disabled(),
       },
     },
   }
@@ -20,7 +31,7 @@ export const TealDialogButtonTrim = createTrim(
   {
     base: {
       Icon: {
-        color: IconS.color.tealDark(),
+        color: DialogButtonS.color.tealWithDarkText(),
       },
     },
   }
@@ -32,7 +43,7 @@ export const TealWithWhiteTextDialogButtonTrim = createTrim(
   {
     base: {
       Icon: {
-        color: IconS.color.white(),
+        color: DialogButtonS.color.tealWithWhiteText(),
       },
     },
   }
@@ -43,6 +54,10 @@ export const SkyBlueWithBorderDialogButtonTrim = createTrim(
   DefaultDialogButtonTrim,
   {
     base: {
+      root: {
+        border: 'border-2 border-blue-primary',
+        color: DialogButtonS.color.withSkyBlueText(),
+      },
       Icon: {
         color: IconS.color.bluePrimary(),
       },

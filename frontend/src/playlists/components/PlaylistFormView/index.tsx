@@ -142,11 +142,13 @@ export const PlaylistFormView = observer(
           }
           <div className={cn(MainFormS.Buttons())}>
             <FormCancelButton
+              theme="MainView"
               className={cn(MainFormS.Button.root(), MainFormS.Button.gap())}
               label="Cancel"
               tabIndex={6}
             />
             <FormSaveButton
+              theme="MainView"
               label="Save"
               tabIndex={6}
               className={cn(MainFormS.Button.root())}

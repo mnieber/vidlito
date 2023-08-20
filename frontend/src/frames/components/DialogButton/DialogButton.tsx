@@ -8,11 +8,8 @@ import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { getMode, getModeCn } from '/src/utils/trim';
 
-// Import trim
-import './Blue-DialogButton.scss';
-import './SkyBlueWithBorder-DialogButton.scss';
-import './Teal-DialogButton.scss';
-import './TealWithWhiteText-DialogButton.scss';
+// Import styles
+import './DialogButtonBase.scss';
 
 export type PropsT = {
   className?: any;
@@ -50,6 +47,7 @@ export const DialogButton = (props: PropsT) => {
     <button
       className={cn(
         trim?.componentName ?? 'DialogButton',
+        'DialogButtonBase',
         [
           getModeCn(mode.root),
           'select-none',

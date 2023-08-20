@@ -67,6 +67,7 @@ export function RequestPasswordResetForm(props: PropsT) {
           // 🔳 Save button 🔳
         }
         <FormSaveButton
+          theme="AuthCard"
           dataCy="passwordResetBtn"
           label="Request password reset"
           className={cn(AuthFormS.Button())}

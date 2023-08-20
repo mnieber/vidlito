@@ -6,6 +6,8 @@ export type DialogButtonTrimT = {
 
   base: {
     root: {
+      border: any;
+      color: any;
       fontSize: any;
       padding: any;
     };
@@ -15,10 +17,25 @@ export type DialogButtonTrimT = {
       color: any;
     };
   };
+  danger?: ModeT<DialogButtonTrimT>;
   disabled?: ModeT<DialogButtonTrimT>;
 };
 
 export const DialogButtonS = {
+  color: {
+    disabled: () => 'text-gray-400 hover:text-gray-400 border-gray-400',
+    blueWithDarkText: () => 'bg-blue-400 text-blue-darkest hover:bg-blue-600',
+    tealWithDarkText: () => 'bg-teal-400 text-teal-darkest hover:bg-teal-600',
+    tealWithWhiteText: () => 'bg-teal-400 text-white hover:bg-teal-300',
+    skyBlueWithWhiteText: () => 'bg-blue-400 text-white hover:bg-blue-300',
+    withSkyBlueText: () => 'text-blue-400 hover:text-blue-600',
+    withWhiteText: () => 'text-gray-900 hover:text-white',
+    withTealText: () => 'text-teal-400 hover:text-teal-600',
+    skyBlueWithDarkText: () =>
+      'bg-blue-400 text-blue-darkest hover:bg-blue-600',
+    redWithWhiteText: () => 'bg-red-400 text-white hover:bg-red-600',
+    grayBackground: () => 'bg-gray-500 hover:bg-gray-500',
+  },
   fontSize: {
     medium: () => 'text-base',
     big: () => 'text-lg',
@@ -39,6 +56,8 @@ export const DefaultDialogButtonTrim = {
 
   base: {
     root: {
+      border: '',
+      color: '',
       fontSize: DialogButtonS.fontSize.medium(),
       padding: DialogButtonS.padding.medium(),
     },
@@ -49,5 +68,9 @@ export const DefaultDialogButtonTrim = {
     },
   },
   danger: undefined,
-  disabled: undefined,
-};
+  disabled: {
+    root: {
+      color: DialogButtonS.color.disabled(),
+    },
+  },
+} as DialogButtonTrimT;

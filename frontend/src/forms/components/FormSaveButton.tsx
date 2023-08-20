@@ -3,14 +3,13 @@ import {
   DefaultDialogButtonTrim,
   DialogButton,
   DialogButtonPropsT,
+  DialogButtonS,
 } from '/src/frames/components/DialogButton';
 import { createTrim } from '/src/utils/trim';
 
-// Import styles
-import './FormSaveButton-DialogButton.AuthCard.scss';
-import './FormSaveButton-DialogButton.MainView.scss';
-
-export type PropsT = DialogButtonPropsT & {};
+export type PropsT = DialogButtonPropsT & {
+  theme: 'MainView' | 'AuthCard';
+};
 
 export const FormSaveButton = (props: PropsT) => {
   const formState = useFormStateContext();
@@ -18,7 +17,11 @@ export const FormSaveButton = (props: PropsT) => {
 
   return (
     <DialogButton
-      trim={DialogButtonTrim}
+      trim={
+        props.theme === 'MainView'
+          ? MainViewDialogButtonTrim
+          : AuthCardDialogButtonTrim
+      }
       onClick={(e: any) => {
         e.preventDefault();
         formState.submit();
@@ -29,8 +32,36 @@ export const FormSaveButton = (props: PropsT) => {
   );
 };
 
-const DialogButtonTrim = createTrim(
+const MainViewDialogButtonTrim = createTrim(
   'FormSaveButton-DialogButton',
   DefaultDialogButtonTrim,
-  {}
+  {
+    base: {
+      root: {
+        color: DialogButtonS.color.blueWithDarkText(),
+      },
+    },
+    danger: {
+      root: {
+        color: DialogButtonS.color.redWithWhiteText(),
+      },
+    },
+    disabled: {
+      root: {
+        color: DialogButtonS.color.grayBackground(),
+      },
+    },
+  }
+);
+
+const AuthCardDialogButtonTrim = createTrim(
+  'FormSaveButton-DialogButton',
+  DefaultDialogButtonTrim,
+  {
+    base: {
+      root: {
+        color: DialogButtonS.color.skyBlueWithWhiteText(),
+      },
+    },
+  }
 );

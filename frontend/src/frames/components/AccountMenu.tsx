@@ -45,8 +45,8 @@ export const AccountMenu = observer(
                 'DialogButtonBase',
                 [
                   props.isFullButton
-                    ? 'btnTealWithDarkText'
-                    : 'btnWithTealText',
+                    ? DialogButtonS.color.tealWithDarkText()
+                    : DialogButtonS.color.withTealText(),
                 ],
                 [
                   DialogButtonS.fontSize.medium(),
