@@ -10,6 +10,7 @@ import {
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
+import { createTrim } from '/src/utils/trim';
 
 // Import styles
 import './index.scss';
@@ -73,20 +74,26 @@ export const CookieNotice = observer(
   }, DefaultProps)
 );
 
-const AcceptDialogButtonTrim = {
-  ...BlueDialogButtonTrim,
-  base: {
-    ...BlueDialogButtonTrim.base,
-    root: () =>
-      cn(DialogButtonS.fontSize.medium(), DialogButtonS.padding.big()),
-  },
-};
+const AcceptDialogButtonTrim = createTrim(
+  BlueDialogButtonTrim.componentName,
+  BlueDialogButtonTrim,
+  {
+    base: {
+      root: {
+        padding: DialogButtonS.padding.big(),
+      },
+    },
+  }
+);
 
-const RejectDialogButtonTrim = {
-  ...TealDialogButtonTrim,
-  base: {
-    ...BlueDialogButtonTrim.base,
-    root: () =>
-      cn(DialogButtonS.fontSize.medium(), DialogButtonS.padding.big()),
-  },
-};
+const RejectDialogButtonTrim = createTrim(
+  TealDialogButtonTrim.componentName,
+  TealDialogButtonTrim,
+  {
+    base: {
+      root: {
+        padding: DialogButtonS.padding.big(),
+      },
+    },
+  }
+);

@@ -4,6 +4,7 @@ import {
   DialogButton,
   DialogButtonPropsT,
 } from '/src/frames/components/DialogButton';
+import { createTrim } from '/src/utils/trim';
 
 // Import styles
 import './FormCancelButton-DialogButton.MainView.scss';
@@ -27,7 +28,8 @@ export const FormCancelButton = (props: PropsT) => {
   );
 };
 
-const DialogButtonTrim = {
-  ...DefaultDialogButtonTrim,
-  componentName: 'FormCancelButton-DialogButton',
-};
+const DialogButtonTrim = createTrim(
+  'FormCancelButton-DialogButton',
+  DefaultDialogButtonTrim,
+  {}
+);

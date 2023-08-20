@@ -1,43 +1,51 @@
 import { DefaultDialogButtonTrim } from '/src/frames/components/DialogButton';
 import { IconS } from '/src/frames/components/Icon';
-import { cn } from '/src/utils/classnames';
+import { createTrim } from '/src/utils/trim';
 
-export const BlueDialogButtonTrim = {
-  ...DefaultDialogButtonTrim,
-  componentName: 'Blue-DialogButton',
+export const BlueDialogButtonTrim = createTrim(
+  'Blue-DialogButton',
+  DefaultDialogButtonTrim,
+  {
+    base: {
+      Icon: {
+        color: IconS.color.blueDarkest(),
+      },
+    },
+  }
+);
 
-  base: {
-    ...DefaultDialogButtonTrim.base,
-    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.blueDarkest()),
-  },
-};
+export const TealDialogButtonTrim = createTrim(
+  'Teal-DialogButton',
+  DefaultDialogButtonTrim,
+  {
+    base: {
+      Icon: {
+        color: IconS.color.tealDark(),
+      },
+    },
+  }
+);
 
-export const TealDialogButtonTrim = {
-  ...DefaultDialogButtonTrim,
-  componentName: 'Teal-DialogButton',
+export const TealWithWhiteTextDialogButtonTrim = createTrim(
+  'TealWithWhiteText-DialogButton',
+  DefaultDialogButtonTrim,
+  {
+    base: {
+      Icon: {
+        color: IconS.color.white(),
+      },
+    },
+  }
+);
 
-  base: {
-    ...DefaultDialogButtonTrim.base,
-    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.tealDark()),
-  },
-};
-
-export const TealWithWhiteTextDialogButtonTrim = {
-  ...DefaultDialogButtonTrim,
-  componentName: 'TealWithWhiteText-DialogButton',
-
-  base: {
-    ...DefaultDialogButtonTrim.base,
-    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.white()),
-  },
-};
-
-export const SkyBlueWithBorderDialogButtonTrim = {
-  ...DefaultDialogButtonTrim,
-  componentName: 'SkyBlueWithBorder-DialogButton',
-
-  base: {
-    ...DefaultDialogButtonTrim.base,
-    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.bluePrimary()),
-  },
-};
+export const SkyBlueWithBorderDialogButtonTrim = createTrim(
+  'SkyBlueWithBorder-DialogButton',
+  DefaultDialogButtonTrim,
+  {
+    base: {
+      Icon: {
+        color: IconS.color.bluePrimary(),
+      },
+    },
+  }
+);

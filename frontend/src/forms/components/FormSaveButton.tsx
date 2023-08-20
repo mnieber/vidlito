@@ -4,6 +4,7 @@ import {
   DialogButton,
   DialogButtonPropsT,
 } from '/src/frames/components/DialogButton';
+import { createTrim } from '/src/utils/trim';
 
 // Import styles
 import './FormSaveButton-DialogButton.AuthCard.scss';
@@ -28,7 +29,8 @@ export const FormSaveButton = (props: PropsT) => {
   );
 };
 
-const DialogButtonTrim = {
-  ...DefaultDialogButtonTrim,
-  componentName: 'FormSaveButton-DialogButton',
-};
+const DialogButtonTrim = createTrim(
+  'FormSaveButton-DialogButton',
+  DefaultDialogButtonTrim,
+  {}
+);
