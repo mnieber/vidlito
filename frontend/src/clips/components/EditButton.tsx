@@ -8,6 +8,7 @@ import {
   ToolButtonS,
 } from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';
+import { createTrim } from '/src/utils/trim';
 
 // Import styles
 import './EditButton.scss';
@@ -51,15 +52,15 @@ export const EditButton = observer(
   }, DefaultProps)
 );
 
-export const ToolButtonTrim = {
-  ...DefaultToolButtonTrim,
-  base: {
-    ...DefaultToolButtonTrim.base,
-    Icon: () =>
-      cn(
-        ToolButtonS.Icon.size.small(),
-        ToolButtonS.Icon.margin.medium(),
-        ToolButtonS.Icon.color.grayFill()
-      ),
-  },
-};
+export const ToolButtonTrim = createTrim(
+  DefaultToolButtonTrim.componentName,
+  DefaultToolButtonTrim,
+  {
+    base: {
+      Icon: {
+        size: ToolButtonS.Icon.size.small(),
+        color: ToolButtonS.Icon.color.grayFill(),
+      },
+    },
+  }
+);

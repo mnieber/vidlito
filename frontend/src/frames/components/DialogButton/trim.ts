@@ -1,5 +1,5 @@
 import { IconS } from '/src/frames/components/Icon';
-import { RecursivePartial } from '/src/utils/types';
+import { ModeT } from '/src/utils/trim';
 
 export type DialogButtonTrimT = {
   componentName: string;
@@ -15,7 +15,7 @@ export type DialogButtonTrimT = {
       color: any;
     };
   };
-  disabled?: RecursivePartial<DialogButtonTrimT['base']>;
+  disabled?: ModeT<DialogButtonTrimT>;
 };
 
 export const DialogButtonS = {

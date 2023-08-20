@@ -1,20 +1,26 @@
-import { ToolButtonS } from '/src/frames/components/ToolButton/ToolButton';
-import { cn } from '/src/utils/classnames';
+import {
+  DefaultToolButtonTrim,
+  ToolButtonS,
+} from '/src/frames/components/ToolButton';
+import { createTrim } from '/src/utils/trim';
 
-export const ModestToolButtonTrim = {
-  componentName: 'Modest-ToolButton',
-
-  base: {
-    root: () => cn(ToolButtonS.color.gray()),
-    Icon: () =>
-      cn(
-        ToolButtonS.Icon.size.medium(),
-        ToolButtonS.Icon.margin.none(),
-        ToolButtonS.Icon.color.grayFill()
-      ),
-  },
-  disabled: {
-    root: () => cn(ToolButtonS.color.grayDisabled()),
-    Icon: () => cn(ToolButtonS.Icon.color.grayFillDisabled()),
-  },
-};
+export const ModestToolButtonTrim = createTrim(
+  'Modest-ToolButton',
+  DefaultToolButtonTrim,
+  {
+    base: {
+      Icon: {
+        margin: ToolButtonS.Icon.margin.none(),
+        color: ToolButtonS.Icon.color.grayFill(),
+      },
+    },
+    disabled: {
+      root: {
+        color: ToolButtonS.color.grayDisabled(),
+      },
+      Icon: {
+        color: ToolButtonS.Icon.color.grayFillDisabled(),
+      },
+    },
+  }
+);
