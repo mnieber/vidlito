@@ -1,10 +1,10 @@
 import { useFormStateContext } from 'react-form-state-context';
 import {
-  DefaultDialogButtonTrim,
+  DefaultDialogButtonTrims,
   DialogButton,
   DialogButtonPropsT,
 } from '/src/frames/components/DialogButton';
-import { createTrim } from '/src/utils/trim';
+import { createTrims } from '/src/utils/trim';
 
 // Import styles
 import './FormSaveButton-DialogButton.AuthCard.scss';
@@ -18,7 +18,7 @@ export const FormSaveButton = (props: PropsT) => {
 
   return (
     <DialogButton
-      trim={DialogButtonTrim}
+      trims={DialogButtonTrims}
       onClick={(e: any) => {
         e.preventDefault();
         formState.submit();
@@ -29,8 +29,8 @@ export const FormSaveButton = (props: PropsT) => {
   );
 };
 
-const DialogButtonTrim = createTrim(
+const DialogButtonTrims = createTrims(
   'FormSaveButton-DialogButton',
-  DefaultDialogButtonTrim,
+  DefaultDialogButtonTrims,
   {}
 );

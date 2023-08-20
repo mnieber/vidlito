@@ -3,7 +3,7 @@ import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
 import { CloseButton } from '/src/frames/components/CloseButton';
 import {
-  BlueDialogButtonTrim,
+  BlueDialogButtonTrims,
   DialogButton,
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
@@ -58,7 +58,7 @@ export const ActionsBar = observer(
             ['ActionsBar__UndoActionButton', { invisible: !props.action }],
             ['mx-4']
           )}
-          trim={BlueDialogButtonTrim}
+          trims={BlueDialogButtonTrims}
           iconName="reply"
           label="Undo"
           onClick={() => props.actionsState.undoAction(props.action)}

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { AccountMenu } from '/src/frames/components/AccountMenu';
 import {
-  BlueDialogButtonTrim,
+  BlueDialogButtonTrims,
   DialogButton,
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
@@ -29,7 +29,7 @@ export const Footer = observer(
           <DialogButton
             className={cn('Footer__MenuButton')}
             label={props.dashboardState.panelState.isSidebarOpen ? '<' : '>'}
-            trim={BlueDialogButtonTrim}
+            trims={BlueDialogButtonTrims}
             onClick={() => {
               props.dashboardState.panelState.setIsSidebarOpen(
                 !props.dashboardState.panelState.isSidebarOpen

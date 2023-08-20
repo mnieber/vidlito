@@ -1,10 +1,10 @@
-import { DefaultDialogButtonTrim } from '/src/frames/components/DialogButton';
+import { DefaultDialogButtonTrims } from '/src/frames/components/DialogButton';
 import { IconS } from '/src/frames/components/Icon';
-import { createTrim } from '/src/utils/trim';
+import { createTrims } from '/src/utils/trim';
 
-export const BlueDialogButtonTrim = createTrim(
+export const BlueDialogButtonTrims = createTrims(
   'Blue-DialogButton',
-  DefaultDialogButtonTrim,
+  DefaultDialogButtonTrims,
   {
     base: {
       Icon: {
@@ -14,9 +14,9 @@ export const BlueDialogButtonTrim = createTrim(
   }
 );
 
-export const TealDialogButtonTrim = createTrim(
+export const TealDialogButtonTrims = createTrims(
   'Teal-DialogButton',
-  DefaultDialogButtonTrim,
+  DefaultDialogButtonTrims,
   {
     base: {
       Icon: {
@@ -26,9 +26,9 @@ export const TealDialogButtonTrim = createTrim(
   }
 );
 
-export const TealWithWhiteTextDialogButtonTrim = createTrim(
+export const TealWithWhiteTextDialogButtonTrims = createTrims(
   'TealWithWhiteText-DialogButton',
-  DefaultDialogButtonTrim,
+  DefaultDialogButtonTrims,
   {
     base: {
       Icon: {
@@ -38,9 +38,9 @@ export const TealWithWhiteTextDialogButtonTrim = createTrim(
   }
 );
 
-export const SkyBlueWithBorderDialogButtonTrim = createTrim(
+export const SkyBlueWithBorderDialogButtonTrims = createTrims(
   'SkyBlueWithBorder-DialogButton',
-  DefaultDialogButtonTrim,
+  DefaultDialogButtonTrims,
   {
     base: {
       Icon: {

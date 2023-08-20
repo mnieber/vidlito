@@ -9,14 +9,14 @@ import './ToolButton.scss';
 
 export type PropsT = {
   className?: any;
-  trim?: typeof DefaultToolButtonTrim;
+  trims?: typeof DefaultToolButtonTrims;
   disabled?: boolean;
   iconName: string;
   label: string;
 } & ButtonPropsT;
 
 export const ToolButton = (props: PropsT) => {
-  const trim = props.trim ?? DefaultToolButtonTrim;
+  const trim = props.trims ?? DefaultToolButtonTrims;
 
   return (
     <button
@@ -62,7 +62,7 @@ export const ToolButtonS = {
   },
 };
 
-export const DefaultToolButtonTrim = {
+export const DefaultToolButtonTrims = {
   componentName: 'ToolButton',
 
   // These are applied to the root element and the Icon.
@@ -79,23 +79,5 @@ export const DefaultToolButtonTrim = {
   disabled: {
     root: () => cn(ToolButtonS.color.grayDisabled()),
     Icon: () => cn(ToolButtonS.Icon.color.grayBackgroundDisabled()),
-  },
-};
-
-export const ModestToolButtonTrim = {
-  componentName: 'Modest-ToolButton',
-
-  base: {
-    root: () => cn(ToolButtonS.color.gray()),
-    Icon: () =>
-      cn(
-        ToolButtonS.Icon.size.medium(),
-        ToolButtonS.Icon.margin.none(),
-        ToolButtonS.Icon.color.grayFill()
-      ),
-  },
-  disabled: {
-    root: () => cn(ToolButtonS.color.grayDisabled()),
-    Icon: () => cn(ToolButtonS.Icon.color.grayFillDisabled()),
   },
 };

@@ -1,8 +1,8 @@
 export {
-  DefaultDialogButtonTrim,
+  DefaultDialogButtonTrims,
   DialogButton,
   DialogButtonS,
   type DialogButtonPropsT,
-  type DialogButtonTrimT,
+  type DialogButtonTrimsT,
 } from './DialogButton';
 export * from './trims';

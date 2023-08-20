@@ -1,10 +1,11 @@
 import { useFormStateContext } from 'react-form-state-context';
 import {
-  DefaultDialogButtonTrim,
+  DefaultDialogButtonTrims,
   DialogButton,
   DialogButtonPropsT,
 } from '/src/frames/components/DialogButton';
-import { createTrim } from '/src/utils/trim';
+import { DialogButtonTrimsT } from '/src/frames/components/DialogButton/DialogButton';
+import { createTrims } from '/src/utils/trim';
 
 // Import styles
 import './FormCancelButton-DialogButton.MainView.scss';
@@ -17,7 +18,7 @@ export const FormCancelButton = (props: PropsT) => {
 
   return (
     <DialogButton
-      trim={DialogButtonTrim}
+      trims={DialogButtonTrims}
       onClick={(e: any) => {
         e.preventDefault();
         formState.cancel();
@@ -28,8 +29,14 @@ export const FormCancelButton = (props: PropsT) => {
   );
 };
 
-const DialogButtonTrim = createTrim(
+const DialogButtonTrims = createTrims(
   'FormCancelButton-DialogButton',
-  DefaultDialogButtonTrim,
-  {}
+  DefaultDialogButtonTrims as DialogButtonTrimsT,
+  {
+    danger: {
+      root: {
+        fontSize: 'text-3xl',
+      },
+    },
+  }
 );
