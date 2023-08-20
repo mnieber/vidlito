@@ -3,8 +3,8 @@ import {
   DefaultDialogButtonTrim,
   DialogButton,
   DialogButtonPropsT,
+  DialogButtonTrimT,
 } from '/src/frames/components/DialogButton';
-import { DialogButtonTrimT } from '/src/frames/components/DialogButton/DialogButton';
 import { createTrim } from '/src/utils/trim';
 
 // Import styles

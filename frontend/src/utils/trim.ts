@@ -23,7 +23,7 @@ export function createTrim<TrimT extends ObjT>(
   }) as unknown as TrimT;
 }
 
-export const getModeElementCn = <T extends ObjT>(props?: T) => {
+export const getModeCn = <T extends ObjT>(props?: T) => {
   if (!props) {
     return undefined;
   }
