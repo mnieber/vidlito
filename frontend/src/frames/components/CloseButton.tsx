@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
 import {
   DialogButton,
-  SkyBlueWithBorderDialogButtonTrims,
+  SkyBlueWithBorderDialogButtonTrim,
 } from '/src/frames/components/DialogButton';
 
 // Import styles
@@ -19,7 +19,7 @@ export const CloseButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     return (
       <DialogButton
-        trims={SkyBlueWithBorderDialogButtonTrims}
+        trim={SkyBlueWithBorderDialogButtonTrim}
         label="Close"
         onClick={props.onClick}
         iconName="close"

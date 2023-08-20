@@ -10,7 +10,7 @@ import {
 } from '/src/frames/FramesNavEvents';
 import {
   DialogButton,
-  TealWithWhiteTextDialogButtonTrims,
+  TealWithWhiteTextDialogButtonTrim,
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -56,7 +56,7 @@ export const SignInCard = observer(() => {
         // 🔳 Create account button 🔳
       }
       <DialogButton
-        trims={TealWithWhiteTextDialogButtonTrims}
+        trim={TealWithWhiteTextDialogButtonTrim}
         className={cn(AuthCardS.CardFooter())}
         onClick={() => navToSignUp()}
         label={messages.createAccount}

@@ -2,7 +2,7 @@ import { ButtonPropsT } from '/src/frames/components/ButtonPropsT';
 import { Icon, IconS } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
-import { getTrim, trimLeafToCn } from '/src/utils/trim';
+import { getMode, getModeElementCn } from '/src/utils/trim';
 import { RecursivePartial } from '/src/utils/types';
 
 // Import trim
@@ -11,7 +11,7 @@ import './SkyBlueWithBorder-DialogButton.scss';
 import './Teal-DialogButton.scss';
 import './TealWithWhiteText-DialogButton.scss';
 
-export type DialogButtonTrimsT = {
+export type DialogButtonTrimT = {
   componentName: string;
 
   base: {
@@ -25,7 +25,7 @@ export type DialogButtonTrimsT = {
       color: any;
     };
   };
-  disabled?: RecursivePartial<DialogButtonTrimsT['base']>;
+  disabled?: RecursivePartial<DialogButtonTrimT['base']>;
 };
 
 export const DialogButtonS = {
@@ -46,7 +46,7 @@ export const DialogButtonS = {
 
 export type PropsT = {
   className?: any;
-  trims?: DialogButtonTrimsT;
+  trim?: DialogButtonTrimT;
   danger?: boolean;
   dataCy?: string;
   disabled?: boolean;
@@ -60,7 +60,7 @@ export const DialogButton = (props: PropsT) => {
   const {
     className,
     danger,
-    trims,
+    trim,
     dataCy,
     disabled,
     iconName,
@@ -68,7 +68,7 @@ export const DialogButton = (props: PropsT) => {
     ...rest
   } = props;
 
-  const trim = getTrim(trims ?? DefaultDialogButtonTrims, {
+  const mode = getMode(trim ?? DefaultDialogButtonTrim, {
     danger,
     disabled,
   });
@@ -79,9 +79,9 @@ export const DialogButton = (props: PropsT) => {
     */
     <button
       className={cn(
-        trims?.componentName ?? 'DialogButton',
+        trim?.componentName ?? 'DialogButton',
         [
-          trimLeafToCn(trim.root),
+          getModeElementCn(mode.root),
           'select-none',
           {
             'DialogButton--disabled': disabled,
@@ -93,13 +93,15 @@ export const DialogButton = (props: PropsT) => {
       data-cy={dataCy}
       {...rest}
     >
-      {iconName && <Icon className={trimLeafToCn(trim.Icon)} name={iconName} />}
+      {iconName && (
+        <Icon className={getModeElementCn(mode.Icon)} name={iconName} />
+      )}
       {label}
     </button>
   );
 };
 
-export const DefaultDialogButtonTrims = {
+export const DefaultDialogButtonTrim = {
   componentName: 'Default',
 
   base: {

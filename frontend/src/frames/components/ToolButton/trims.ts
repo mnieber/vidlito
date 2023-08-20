@@ -1,7 +1,7 @@
 import { ToolButtonS } from '/src/frames/components/ToolButton/ToolButton';
 import { cn } from '/src/utils/classnames';
 
-export const ModestToolButtonTrims = {
+export const ModestToolButtonTrim = {
   componentName: 'Modest-ToolButton',
 
   base: {

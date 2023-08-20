@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { Edit } from 'skandha-facets';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import {
-  DefaultToolButtonTrims,
+  DefaultToolButtonTrim,
   ToolButton,
   ToolButtonS,
 } from '/src/frames/components/ToolButton';
@@ -41,7 +41,7 @@ export const EditButton = observer(
           ],
           [props.className]
         )}
-        trims={ToolButtonTrims}
+        trim={ToolButtonTrim}
         disabled={props.disabled}
         iconName="pencil"
         label="Edit"
@@ -51,10 +51,10 @@ export const EditButton = observer(
   }, DefaultProps)
 );
 
-export const ToolButtonTrims = {
-  ...DefaultToolButtonTrims,
+export const ToolButtonTrim = {
+  ...DefaultToolButtonTrim,
   base: {
-    ...DefaultToolButtonTrims.base,
+    ...DefaultToolButtonTrim.base,
     Icon: () =>
       cn(
         ToolButtonS.Icon.size.small(),

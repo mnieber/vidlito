@@ -1,2 +1,2 @@
-export { DefaultToolButtonTrims, ToolButton, ToolButtonS } from './ToolButton';
+export { DefaultToolButtonTrim, ToolButton, ToolButtonS } from './ToolButton';
 export * from './trims';

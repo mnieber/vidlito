@@ -9,14 +9,14 @@ import './ToolButton.scss';
 
 export type PropsT = {
   className?: any;
-  trims?: typeof DefaultToolButtonTrims;
+  trim?: typeof DefaultToolButtonTrim;
   disabled?: boolean;
   iconName: string;
   label: string;
 } & ButtonPropsT;
 
 export const ToolButton = (props: PropsT) => {
-  const trim = props.trims ?? DefaultToolButtonTrims;
+  const trim = props.trim ?? DefaultToolButtonTrim;
 
   return (
     <button
@@ -62,7 +62,7 @@ export const ToolButtonS = {
   },
 };
 
-export const DefaultToolButtonTrims = {
+export const DefaultToolButtonTrim = {
   componentName: 'ToolButton',
 
   // These are applied to the root element and the Icon.

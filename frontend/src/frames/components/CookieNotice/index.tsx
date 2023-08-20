@@ -3,14 +3,14 @@ import { withDefaultProps } from 'react-default-props-context';
 import { dps } from '/src/app/defaultProps';
 import { CardS } from '/src/frames/components/Card';
 import {
-  BlueDialogButtonTrims,
+  BlueDialogButtonTrim,
   DialogButton,
   DialogButtonS,
-  TealDialogButtonTrims,
+  TealDialogButtonTrim,
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
-import { createTrims } from '/src/utils/trim';
+import { createTrim } from '/src/utils/trim';
 
 // Import styles
 import './index.scss';
@@ -46,7 +46,7 @@ export const CookieNotice = observer(
             <div>
               <DialogButton
                 className=""
-                trims={AcceptDialogButtonTrims}
+                trim={AcceptDialogButtonTrim}
                 onClick={() =>
                   props.dashboardState.cookiesState.setCookiePreferences({
                     functionalCookies: true,
@@ -58,7 +58,7 @@ export const CookieNotice = observer(
             <div>
               <DialogButton
                 className=""
-                trims={RejectDialogButtonTrims}
+                trim={RejectDialogButtonTrim}
                 onClick={() =>
                   props.dashboardState.cookiesState.setCookiePreferences({
                     functionalCookies: false,
@@ -74,9 +74,9 @@ export const CookieNotice = observer(
   }, DefaultProps)
 );
 
-const AcceptDialogButtonTrims = createTrims(
-  BlueDialogButtonTrims.componentName,
-  BlueDialogButtonTrims,
+const AcceptDialogButtonTrim = createTrim(
+  BlueDialogButtonTrim.componentName,
+  BlueDialogButtonTrim,
   {
     base: {
       root: {
@@ -86,9 +86,9 @@ const AcceptDialogButtonTrims = createTrims(
   }
 );
 
-const RejectDialogButtonTrims = createTrims(
-  TealDialogButtonTrims.componentName,
-  TealDialogButtonTrims,
+const RejectDialogButtonTrim = createTrim(
+  TealDialogButtonTrim.componentName,
+  TealDialogButtonTrim,
   {
     base: {
       root: {

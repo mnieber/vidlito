@@ -2,58 +2,57 @@ import * as R from 'ramda';
 import { cn } from '/src/utils/classnames';
 import { ObjT, RecursivePartial } from '/src/utils/types';
 
-const trimLeafCnSymbol = Symbol('trimLeafClassnames');
-const patchedTrimSymbol = Symbol('patchedTrim');
+const modeCnSymbol = Symbol('modeClassnames');
+const patchedModeSymbol = Symbol('patchedMode');
 
-export type TrimT<TrimsT extends ObjT> = TrimsT['base'];
-export type PatchT<TrimsT extends ObjT> = RecursivePartial<TrimT<TrimsT>>;
+export type ModeT<TrimT extends ObjT> = TrimT['base'];
+export type ModePatchT<TrimT extends ObjT> = RecursivePartial<ModeT<TrimT>>;
 
-export type PatchMapT<TrimsT extends ObjT> = {
-  [variantName: string]: PatchT<TrimsT>;
+export type ModePatchMapT<TrimT extends ObjT> = {
+  [modeName: string]: ModePatchT<TrimT>;
 };
 
-export function createTrims<TrimsT extends ObjT>(
+export function createTrim<TrimT extends ObjT>(
   componentName: string,
-  trims: TrimsT,
-  patchMap: PatchMapT<TrimsT>
-): TrimsT {
-  return R.mergeDeepRight(trims, {
+  trim: TrimT,
+  patchMap: ModePatchMapT<TrimT>
+): TrimT {
+  return R.mergeDeepRight(trim, {
     componentName,
     ...patchMap,
-  }) as unknown as TrimsT;
+  }) as unknown as TrimT;
 }
 
-export const trimLeafToCn = <T extends ObjT>(props?: T) => {
+export const getModeElementCn = <T extends ObjT>(props?: T) => {
   if (!props) {
     return undefined;
   }
 
-  if (!(props as any)[trimLeafCnSymbol]) {
-    (props as any)[trimLeafCnSymbol] = cn(R.values(props ?? {}));
+  if (!(props as any)[modeCnSymbol]) {
+    (props as any)[modeCnSymbol] = cn(R.values(props ?? {}));
   }
-  return (props as any)[trimLeafCnSymbol];
+  return (props as any)[modeCnSymbol];
 };
 
-export function getTrim<TrimsT extends ObjT>(
-  trims: TrimsT,
+export function getMode<TrimT extends ObjT>(
+  trim: TrimT,
   flags: ObjT
-): TrimT<TrimsT> {
-  for (const [variantName, isUsingVariant] of Object.entries(flags)) {
-    if (isUsingVariant) {
-      return patchTrim(trims.base, trims, variantName);
+): ModeT<TrimT> {
+  for (const [modeName, isInMode] of Object.entries(flags)) {
+    if (isInMode) {
+      return patchMode(trim, modeName);
     }
   }
-  return trims.base;
+  return trim.base;
 }
 
-export function patchTrim<TrimsT extends ObjT>(
-  baseTrim: TrimT<TrimsT>,
-  patchMap: PatchMapT<TrimsT>,
-  variantName: string
-): TrimT<TrimsT> {
-  const patch = (patchMap[variantName] = patchMap[variantName] ?? {});
-  if (!(patch as any)[patchedTrimSymbol]) {
-    (patch as any)[patchedTrimSymbol] = R.mergeDeepRight(baseTrim, patch);
+export function patchMode<TrimT extends ObjT>(
+  patchMap: ModePatchMapT<TrimT>,
+  modeName: string
+): ModeT<TrimT> {
+  const patch = (patchMap[modeName] = patchMap[modeName] ?? {});
+  if (!(patch as any)[patchedModeSymbol]) {
+    (patch as any)[patchedModeSymbol] = R.mergeDeepRight(patchMap.base, patch);
   }
-  return (patch as any)[patchedTrimSymbol];
+  return (patch as any)[patchedModeSymbol];
 }
