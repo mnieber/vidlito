@@ -9,35 +9,29 @@ import './ToolButton.scss';
 
 export type PropsT = {
   className?: any;
-  theme?: typeof DefaultToolButtonTheme;
+  trim?: typeof DefaultToolButtonTrim;
   disabled?: boolean;
   iconName: string;
   label: string;
 } & ButtonPropsT;
 
 export const ToolButton = (props: PropsT) => {
-  const theme = props.theme ?? DefaultToolButtonTheme;
+  const trim = props.trim ?? DefaultToolButtonTrim;
 
   return (
     <button
       className={cn(
-        theme.componentName,
-        theme.base.root(),
+        trim.componentName,
+        trim.base.root(),
+        props.disabled && trim.disabled.root(),
         { 'ToolButton--disabled': props.disabled },
-        [
-          L.row.skewer(),
-          props.className,
-          props.disabled && theme.disabled.root(),
-        ]
+        [L.row.skewer(), props.className]
       )}
       disabled={props.disabled}
       onClick={props.onClick}
     >
       <Icon
-        className={cn(
-          theme.base.Icon(),
-          props.disabled && theme.disabled.Icon()
-        )}
+        className={cn(trim.base.Icon(), props.disabled && trim.disabled.Icon())}
         name={props.iconName}
       />
       {props.label}
@@ -68,7 +62,7 @@ export const ToolButtonS = {
   },
 };
 
-export const DefaultToolButtonTheme = {
+export const DefaultToolButtonTrim = {
   componentName: 'ToolButton',
 
   // These are applied to the root element and the Icon.
@@ -88,7 +82,7 @@ export const DefaultToolButtonTheme = {
   },
 };
 
-export const ModestToolButtonTheme = {
+export const ModestToolButtonTrim = {
   componentName: 'Modest-ToolButton',
 
   base: {

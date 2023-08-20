@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ModestToolButtonTheme,
+  ModestToolButtonTrim,
   ToolButton,
 } from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';
@@ -15,7 +15,7 @@ export const usePreviewButton = (props: PropsT) => {
   const showPreviewButton = (
     <ToolButton
       className={cn('PreviewButton', props.className)}
-      theme={ModestToolButtonTheme}
+      trim={ModestToolButtonTrim}
       iconName={descriptionPreview ? 'checkFilled' : 'checkEmpty'}
       key="descriptionPreview"
       label="Preview"

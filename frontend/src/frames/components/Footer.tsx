@@ -1,8 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { AccountMenu } from '/src/frames/components/AccountMenu';
-import { DialogButton } from '/src/frames/components/DialogButton';
-import { BlueDialogButtonTheme } from '/src/frames/components/DialogButton/DialogButton';
+import {
+  BlueDialogButtonTrim,
+  DialogButton,
+} from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { RouterLink } from '/src/routes/components/RouterLink';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
@@ -27,7 +29,7 @@ export const Footer = observer(
           <DialogButton
             className={cn('Footer__MenuButton')}
             label={props.dashboardState.panelState.isSidebarOpen ? '<' : '>'}
-            theme={BlueDialogButtonTheme}
+            trim={BlueDialogButtonTrim}
             onClick={() => {
               props.dashboardState.panelState.setIsSidebarOpen(
                 !props.dashboardState.panelState.isSidebarOpen

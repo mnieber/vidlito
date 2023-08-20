@@ -2,12 +2,12 @@ import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from 'react-default-props-context';
 import { dps } from '/src/app/defaultProps';
 import { CardS } from '/src/frames/components/Card';
-import { DialogButton } from '/src/frames/components/DialogButton';
 import {
-  BlueDialogButtonTheme,
+  BlueDialogButtonTrim,
+  DialogButton,
   DialogButtonS,
-  TealDialogButtonTheme,
-} from '/src/frames/components/DialogButton/DialogButton';
+  TealDialogButtonTrim,
+} from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -45,7 +45,7 @@ export const CookieNotice = observer(
             <div>
               <DialogButton
                 className=""
-                theme={AcceptDialogButtonTheme}
+                trim={AcceptDialogButtonTrim}
                 onClick={() =>
                   props.dashboardState.cookiesState.setCookiePreferences({
                     functionalCookies: true,
@@ -57,7 +57,7 @@ export const CookieNotice = observer(
             <div>
               <DialogButton
                 className=""
-                theme={RejectDialogButtonTheme}
+                trim={RejectDialogButtonTrim}
                 onClick={() =>
                   props.dashboardState.cookiesState.setCookiePreferences({
                     functionalCookies: false,
@@ -73,19 +73,19 @@ export const CookieNotice = observer(
   }, DefaultProps)
 );
 
-const AcceptDialogButtonTheme = {
-  ...BlueDialogButtonTheme,
+const AcceptDialogButtonTrim = {
+  ...BlueDialogButtonTrim,
   base: {
-    ...BlueDialogButtonTheme.base,
+    ...BlueDialogButtonTrim.base,
     root: () =>
       cn(DialogButtonS.fontSize.medium(), DialogButtonS.padding.big()),
   },
 };
 
-const RejectDialogButtonTheme = {
-  ...TealDialogButtonTheme,
+const RejectDialogButtonTrim = {
+  ...TealDialogButtonTrim,
   base: {
-    ...BlueDialogButtonTheme.base,
+    ...BlueDialogButtonTrim.base,
     root: () =>
       cn(DialogButtonS.fontSize.medium(), DialogButtonS.padding.big()),
   },

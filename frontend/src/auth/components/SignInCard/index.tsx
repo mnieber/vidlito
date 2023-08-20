@@ -8,8 +8,10 @@ import {
   navToNextPageAfterSignIn,
   navToSignUp,
 } from '/src/frames/FramesNavEvents';
-import { DialogButton } from '/src/frames/components/DialogButton';
-import { TealWithWhiteTextDialogButtonTheme } from '/src/frames/components/DialogButton/DialogButton';
+import {
+  DialogButton,
+  TealWithWhiteTextDialogButtonTrim,
+} from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { ObjT } from '/src/utils/types';
@@ -54,7 +56,7 @@ export const SignInCard = observer(() => {
         // 🔳 Create account button 🔳
       }
       <DialogButton
-        theme={TealWithWhiteTextDialogButtonTheme}
+        trim={TealWithWhiteTextDialogButtonTrim}
         className={cn(AuthCardS.CardFooter())}
         onClick={() => navToSignUp()}
         label={messages.createAccount}

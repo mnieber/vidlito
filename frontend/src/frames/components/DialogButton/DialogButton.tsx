@@ -3,7 +3,7 @@ import { Icon, IconS } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
-// Import styles
+// Import trim
 import './Blue-DialogButton.scss';
 import './SkyBlueWithBorder-DialogButton.scss';
 import './Teal-DialogButton.scss';
@@ -11,7 +11,7 @@ import './TealWithWhiteText-DialogButton.scss';
 
 export type PropsT = {
   className?: any;
-  theme?: typeof DefaultDialogButtonTheme;
+  trim?: typeof DefaultDialogButtonTrim;
   danger?: boolean;
   dataCy?: string;
   disabled?: boolean;
@@ -25,7 +25,7 @@ export const DialogButton = (props: PropsT) => {
   const {
     className,
     danger,
-    theme: propsTheme,
+    trim: propsTrim,
     dataCy,
     disabled,
     iconName,
@@ -33,7 +33,7 @@ export const DialogButton = (props: PropsT) => {
     ...rest
   } = props;
 
-  const theme = propsTheme ?? DefaultDialogButtonTheme;
+  const trim = propsTrim ?? DefaultDialogButtonTrim;
 
   return (
     /*
@@ -41,9 +41,10 @@ export const DialogButton = (props: PropsT) => {
     */
     <button
       className={cn(
-        theme.componentName,
+        trim.componentName,
         [
-          theme.base.root(),
+          trim.base.root(),
+          props.disabled && trim.disabled.root(),
           'select-none',
           {
             'DialogButton--disabled': disabled,
@@ -55,7 +56,7 @@ export const DialogButton = (props: PropsT) => {
       data-cy={dataCy}
       {...rest}
     >
-      {iconName && <Icon className={theme.base.Icon()} name={iconName} />}
+      {iconName && <Icon className={trim.base.Icon()} name={iconName} />}
       {label}
     </button>
   );
@@ -72,7 +73,7 @@ export const DialogButtonS = {
   },
 };
 
-export const DefaultDialogButtonTheme = {
+export const DefaultDialogButtonTrim = {
   componentName: 'DialogButton',
 
   base: {
@@ -80,45 +81,7 @@ export const DefaultDialogButtonTheme = {
       cn(DialogButtonS.fontSize.medium(), DialogButtonS.padding.medium()),
     Icon: () => cn('mr-2', IconS.size.s20()),
   },
-  disabled: {},
-};
-
-export const BlueDialogButtonTheme = {
-  ...DefaultDialogButtonTheme,
-  componentName: 'Blue-DialogButton',
-
-  base: {
-    ...DefaultDialogButtonTheme.base,
-    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.blueDarkest()),
-  },
-};
-
-export const TealDialogButtonTheme = {
-  ...DefaultDialogButtonTheme,
-  componentName: 'Teal-DialogButton',
-
-  base: {
-    ...DefaultDialogButtonTheme.base,
-    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.tealDark()),
-  },
-};
-
-export const TealWithWhiteTextDialogButtonTheme = {
-  ...DefaultDialogButtonTheme,
-  componentName: 'TealWithWhiteText-DialogButton',
-
-  base: {
-    ...DefaultDialogButtonTheme.base,
-    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.white()),
-  },
-};
-
-export const SkyBlueWithBorderDialogButtonTheme = {
-  ...DefaultDialogButtonTheme,
-  componentName: 'SkyBlueWithBorder-DialogButton',
-
-  base: {
-    ...DefaultDialogButtonTheme.base,
-    Icon: () => cn('mr-2', IconS.size.s20(), IconS.color.bluePrimary()),
+  disabled: {
+    root: () => cn(),
   },
 };
