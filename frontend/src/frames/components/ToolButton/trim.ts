@@ -26,9 +26,8 @@ export const ToolButtonS = {
 };
 
 export type ToolButtonTrimT = {
-  componentName: string;
-
   base: {
+    componentName: string;
     root: {
       color: any;
     };
@@ -42,10 +41,9 @@ export type ToolButtonTrimT = {
 };
 
 export const DefaultToolButtonTrim = {
-  componentName: 'ToolButton',
-
   // These are applied to the root element and the Icon.
   base: {
+    componentName: 'ToolButton',
     root: {
       color: ToolButtonS.color.gray(),
     },

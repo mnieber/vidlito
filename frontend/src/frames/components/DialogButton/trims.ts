@@ -5,43 +5,39 @@ import {
 import { IconS } from '/src/frames/components/Icon';
 import { createTrim } from '/src/utils/trim';
 
-export const BlueDialogButtonTrim = createTrim(
-  'Blue-DialogButton',
-  DefaultDialogButtonTrim,
-  {
-    base: {
-      root: {
-        color: DialogButtonS.color.blueWithDarkText(),
-      },
-      Icon: {
-        color: IconS.color.blueDarkest(),
-      },
+export const BlueDialogButtonTrim = createTrim(DefaultDialogButtonTrim, {
+  base: {
+    componentName: 'Blue-DialogButton',
+    root: {
+      color: DialogButtonS.color.blueWithDarkText(),
     },
-    disabled: {
-      root: {
-        color: DialogButtonS.color.disabled(),
-      },
+    Icon: {
+      color: IconS.color.blueDarkest(),
     },
-  }
-);
+  },
+  disabled: {
+    root: {
+      color: DialogButtonS.color.disabled(),
+    },
+  },
+});
 
-export const TealDialogButtonTrim = createTrim(
-  'Teal-DialogButton',
-  DefaultDialogButtonTrim,
-  {
-    base: {
-      Icon: {
-        color: DialogButtonS.color.tealWithDarkText(),
-      },
+export const TealDialogButtonTrim = createTrim(DefaultDialogButtonTrim, {
+  base: {
+    componentName: 'Teal-DialogButton',
+    root: {},
+    Icon: {
+      color: DialogButtonS.color.tealWithDarkText(),
     },
-  }
-);
+  },
+});
 
 export const TealWithWhiteTextDialogButtonTrim = createTrim(
-  'TealWithWhiteText-DialogButton',
   DefaultDialogButtonTrim,
   {
     base: {
+      componentName: 'TealWithWhiteText-DialogButton',
+      root: {},
       Icon: {
         color: DialogButtonS.color.tealWithWhiteText(),
       },
@@ -50,10 +46,10 @@ export const TealWithWhiteTextDialogButtonTrim = createTrim(
 );
 
 export const SkyBlueWithBorderDialogButtonTrim = createTrim(
-  'SkyBlueWithBorder-DialogButton',
   DefaultDialogButtonTrim,
   {
     base: {
+      componentName: 'SkyBlueWithBorder-DialogButton',
       root: {
         border: 'border-2 border-blue-primary',
         color: DialogButtonS.color.withSkyBlueText(),

@@ -30,24 +30,21 @@ export const FormCancelButton = (props: PropsT) => {
   );
 };
 
-const MainViewDialogButtonTrim = createTrim(
-  'FormCancelButton-DialogButton',
-  DefaultDialogButtonTrim,
-  {
-    base: {
-      root: {
-        color: DialogButtonS.color.withSkyBlueText(),
-      },
+const MainViewDialogButtonTrim = createTrim(DefaultDialogButtonTrim, {
+  base: {
+    componentName: 'FormCancelButton-DialogButton',
+    root: {
+      color: DialogButtonS.color.withSkyBlueText(),
     },
-    disabled: {
-      root: {
-        color: DialogButtonS.color.disabled(),
-      },
+  },
+  disabled: {
+    root: {
+      color: DialogButtonS.color.disabled(),
     },
-    danger: {
-      root: {
-        color: DialogButtonS.color.withWhiteText(),
-      },
+  },
+  danger: {
+    root: {
+      color: DialogButtonS.color.withWhiteText(),
     },
-  }
-);
+  },
+});

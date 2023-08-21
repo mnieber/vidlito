@@ -32,36 +32,30 @@ export const FormSaveButton = (props: PropsT) => {
   );
 };
 
-const MainViewDialogButtonTrim = createTrim(
-  'FormSaveButton-DialogButton',
-  DefaultDialogButtonTrim,
-  {
-    base: {
-      root: {
-        color: DialogButtonS.color.blueWithDarkText(),
-      },
+const MainViewDialogButtonTrim = createTrim(DefaultDialogButtonTrim, {
+  base: {
+    componentName: 'FormSaveButton-DialogButton',
+    root: {
+      color: DialogButtonS.color.blueWithDarkText(),
     },
-    danger: {
-      root: {
-        color: DialogButtonS.color.redWithWhiteText(),
-      },
+  },
+  danger: {
+    root: {
+      color: DialogButtonS.color.redWithWhiteText(),
     },
-    disabled: {
-      root: {
-        color: DialogButtonS.color.grayBackground(),
-      },
+  },
+  disabled: {
+    root: {
+      color: DialogButtonS.color.grayBackground(),
     },
-  }
-);
+  },
+});
 
-const AuthCardDialogButtonTrim = createTrim(
-  'FormSaveButton-DialogButton',
-  DefaultDialogButtonTrim,
-  {
-    base: {
-      root: {
-        color: DialogButtonS.color.skyBlueWithWhiteText(),
-      },
+const AuthCardDialogButtonTrim = createTrim(DefaultDialogButtonTrim, {
+  base: {
+    componentName: 'FormSaveButton-DialogButton',
+    root: {
+      color: DialogButtonS.color.skyBlueWithWhiteText(),
     },
-  }
-);
+  },
+});

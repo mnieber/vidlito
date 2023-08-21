@@ -1,4 +1,4 @@
-@import '/src/frames/components/DialogButton/DialogButtonBase.scss';
+@import '/src/frames/components/DialogButton/DialogButton.scss';
 
 .SignInLogo__Title {
   @apply text-6xl font-bold;
@@ -17,7 +17,7 @@
 }
 
 .SignInLogo__ExploreAsGuestButton {
-  @apply DialogButtonBase;
+  @apply DialogButton;
 
   @apply bg-blue-200 text-blue-800;
   @apply border border-blue-primary;

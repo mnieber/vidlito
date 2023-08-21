@@ -9,7 +9,7 @@ import { cn } from '/src/utils/classnames';
 import { getMode, getModeCn } from '/src/utils/trim';
 
 // Import styles
-import './DialogButtonBase.scss';
+import './DialogButton.scss';
 
 export type PropsT = {
   className?: any;
@@ -27,7 +27,7 @@ export const DialogButton = (props: PropsT) => {
   const {
     className,
     danger,
-    trim,
+    trim: propsTrim,
     dataCy,
     disabled,
     iconName,
@@ -35,7 +35,8 @@ export const DialogButton = (props: PropsT) => {
     ...rest
   } = props;
 
-  const mode = getMode(trim ?? DefaultDialogButtonTrim, {
+  const trim = propsTrim ?? DefaultDialogButtonTrim;
+  const mode = getMode(trim, {
     danger,
     disabled,
   });
@@ -46,8 +47,8 @@ export const DialogButton = (props: PropsT) => {
     */
     <button
       className={cn(
-        trim?.componentName ?? 'DialogButton',
-        'DialogButtonBase',
+        trim.base.componentName,
+        'DialogButton',
         [
           getModeCn(mode.root),
           'select-none',

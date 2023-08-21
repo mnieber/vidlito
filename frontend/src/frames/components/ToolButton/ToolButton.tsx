@@ -27,7 +27,7 @@ export const ToolButton = (props: PropsT) => {
   return (
     <button
       className={cn(
-        trim.componentName,
+        trim.base.componentName,
         getModeCn(mode.root),
         { 'ToolButton--disabled': props.disabled },
         [L.row.skewer(), props.className]

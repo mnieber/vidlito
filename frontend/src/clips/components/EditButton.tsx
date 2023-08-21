@@ -52,15 +52,11 @@ export const EditButton = observer(
   }, DefaultProps)
 );
 
-export const ToolButtonTrim = createTrim(
-  DefaultToolButtonTrim.componentName,
-  DefaultToolButtonTrim,
-  {
-    base: {
-      Icon: {
-        size: ToolButtonS.Icon.size.small(),
-        color: ToolButtonS.Icon.color.grayFill(),
-      },
+export const ToolButtonTrim = createTrim(DefaultToolButtonTrim, {
+  base: {
+    Icon: {
+      size: ToolButtonS.Icon.size.small(),
+      color: ToolButtonS.Icon.color.grayFill(),
     },
-  }
-);
+  },
+});

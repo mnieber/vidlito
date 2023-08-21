@@ -12,7 +12,7 @@ import { cn } from '/src/utils/classnames';
 
 // Import styles
 import './AccountMenu.scss';
-import '/src/frames/components/DialogButton/DialogButtonBase.scss';
+import '/src/frames/components/DialogButton/DialogButton.scss';
 
 export type PropsT = {
   className?: any;
@@ -42,7 +42,7 @@ export const AccountMenu = observer(
           menuButton={
             <MenuButton
               className={cn(
-                'DialogButtonBase',
+                'DialogButton',
                 [
                   props.isFullButton
                     ? DialogButtonS.color.tealWithDarkText()

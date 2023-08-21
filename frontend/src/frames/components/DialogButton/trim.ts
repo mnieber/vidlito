@@ -2,9 +2,8 @@ import { IconS } from '/src/frames/components/Icon';
 import { ModeT } from '/src/utils/trim';
 
 export type DialogButtonTrimT = {
-  componentName: string;
-
   base: {
+    componentName: string;
     root: {
       border: any;
       color: any;
@@ -52,9 +51,8 @@ export const DialogButtonS = {
 };
 
 export const DefaultDialogButtonTrim = {
-  componentName: 'Default',
-
   base: {
+    componentName: 'Default',
     root: {
       border: '',
       color: '',

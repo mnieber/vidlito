@@ -74,26 +74,18 @@ export const CookieNotice = observer(
   }, DefaultProps)
 );
 
-const AcceptDialogButtonTrim = createTrim(
-  BlueDialogButtonTrim.componentName,
-  BlueDialogButtonTrim,
-  {
-    base: {
-      root: {
-        padding: DialogButtonS.padding.big(),
-      },
+const AcceptDialogButtonTrim = createTrim(BlueDialogButtonTrim, {
+  base: {
+    root: {
+      padding: DialogButtonS.padding.big(),
     },
-  }
-);
+  },
+});
 
-const RejectDialogButtonTrim = createTrim(
-  TealDialogButtonTrim.componentName,
-  TealDialogButtonTrim,
-  {
-    base: {
-      root: {
-        padding: DialogButtonS.padding.big(),
-      },
+const RejectDialogButtonTrim = createTrim(TealDialogButtonTrim, {
+  base: {
+    root: {
+      padding: DialogButtonS.padding.big(),
     },
-  }
-);
+  },
+});

@@ -13,14 +13,10 @@ export type ModePatchMapT<TrimT extends ObjT> = {
 };
 
 export function createTrim<TrimT extends ObjT>(
-  componentName: string,
   trim: TrimT,
   patchMap: ModePatchMapT<TrimT>
 ): TrimT {
-  return R.mergeDeepRight(trim, {
-    componentName,
-    ...patchMap,
-  }) as unknown as TrimT;
+  return R.mergeDeepRight(trim, patchMap) as unknown as TrimT;
 }
 
 export const getModeCn = <T extends ObjT>(props?: T) => {
