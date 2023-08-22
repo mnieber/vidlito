@@ -25,7 +25,9 @@ export const BlueDialogButtonTrim = createTrim(DefaultDialogButtonTrim, {
 export const TealDialogButtonTrim = createTrim(DefaultDialogButtonTrim, {
   base: {
     componentName: 'Teal-DialogButton',
-    root: {},
+    root: {
+      color: DialogButtonS.color.tealWithDarkText(),
+    },
     Icon: {
       color: DialogButtonS.color.tealWithDarkText(),
     },
@@ -37,7 +39,9 @@ export const TealWithWhiteTextDialogButtonTrim = createTrim(
   {
     base: {
       componentName: 'TealWithWhiteText-DialogButton',
-      root: {},
+      root: {
+        color: DialogButtonS.color.tealWithWhiteText(),
+      },
       Icon: {
         color: DialogButtonS.color.tealWithWhiteText(),
       },

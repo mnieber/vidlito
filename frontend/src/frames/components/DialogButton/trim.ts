@@ -35,6 +35,9 @@ export const DialogButtonS = {
     redWithWhiteText: () => 'bg-red-400 text-white hover:bg-red-600',
     grayBackground: () => 'bg-gray-500 hover:bg-gray-500',
   },
+  border: {
+    none: () => '',
+  },
   fontSize: {
     medium: () => 'text-base',
     big: () => 'text-lg',
@@ -54,8 +57,7 @@ export const DefaultDialogButtonTrim = {
   base: {
     componentName: 'Default',
     root: {
-      border: '',
-      color: '',
+      border: DialogButtonS.border.none(),
       fontSize: DialogButtonS.fontSize.medium(),
       padding: DialogButtonS.padding.medium(),
     },
