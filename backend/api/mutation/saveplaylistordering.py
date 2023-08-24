@@ -12,7 +12,7 @@ class SavePlaylistOrdering(graphene.Mutation):
 
     class Arguments:
         playlist_ids = graphene.List(graphene.UUID, required=True)
-        folder_id = graphene.UUID(required=False)
+        folder_id = graphene.UUID()
 
     def mutate(self, info, playlist_ids, folder_id=None):
         user_profile = UserProfile.get_mine(info)

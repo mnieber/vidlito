@@ -10,8 +10,7 @@ class GetClipPdOutputs(graphene.ObjectType):
 
 class GetClipPd:
     get_clip_pd = graphene.Field(
-        GetClipPdOutputs,
-        clip_slug=graphene.String(),
+        GetClipPdOutputs, clip_slug=graphene.String(required=True)
     )
 
     def resolve_get_clip_pd(self, info, clip_slug):

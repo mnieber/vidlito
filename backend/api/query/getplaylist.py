@@ -11,12 +11,10 @@ class GetPlaylistOutputs(graphene.ObjectType):
 
 class GetPlaylist:
     get_playlist = graphene.Field(
-        GetPlaylistOutputs,
-        playlist_slug=graphene.String(required=False),
-        playlist_id=graphene.UUID(required=False),
+        GetPlaylistOutputs, playlist_slug=graphene.String(), playlist_id=graphene.UUID()
     )
 
-    def resolve_get_playlist(self, info, playlist_id=None, playlist_slug=None):
+    def resolve_get_playlist(self, info, playlist_slug=None, playlist_id=None):
         if not playlist_id and not playlist_slug:
             raise Exception("Must provide either playlist_id or playlist_slug")
 

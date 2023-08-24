@@ -9,25 +9,18 @@ from search.utils.get_terms_and_tags import get_terms_and_tags
 
 
 class SearchContent(graphene.Mutation):
-    success = graphene.Boolean()
-    errors = GenericScalar()
     search_results = graphene.List(SearchResultT)
     pagination = graphene.Field(PaginationT)
+    success = graphene.Boolean()
+    errors = GenericScalar()
 
     class Arguments:
-        page = graphene.Int()
-        page_size = graphene.Int()
+        page = graphene.Int(required=True)
+        page_size = graphene.Int(required=True)
         playlist_terms = graphene.String()
         clip_terms = graphene.String()
 
-    def mutate(
-        self,
-        info,
-        page,
-        page_size,
-        playlist_terms=None,
-        clip_terms=None,
-    ):
+    def mutate(self, info, page, page_size, playlist_terms=None, clip_terms=None):
         search_results = []
         clip_query = get_terms_and_tags(clip_terms)
         playlist_query = get_terms_and_tags(playlist_terms)
