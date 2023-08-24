@@ -1,40 +1,47 @@
 import {
   DefaultDialogButtonTrim,
   DialogButtonS,
+  type DialogButtonTrimT,
 } from '/src/frames/components/DialogButton';
 import { IconS } from '/src/frames/components/Icon';
 import { createTrim } from '/src/utils/trim';
 
-export const BlueDialogButtonTrim = createTrim(DefaultDialogButtonTrim, {
-  base: {
-    componentName: 'Blue-DialogButton',
-    root: {
-      color: DialogButtonS.color.blueWithDarkText(),
+export const BlueDialogButtonTrim: DialogButtonTrimT = createTrim(
+  DefaultDialogButtonTrim,
+  {
+    base: {
+      componentName: 'Blue-DialogButton',
+      root: {
+        color: DialogButtonS.color.blueWithDarkText(),
+      },
+      Icon: {
+        color: IconS.color.blueDarkest(),
+      },
     },
-    Icon: {
-      color: IconS.color.blueDarkest(),
+    disabled: {
+      root: {
+        color: DialogButtonS.color.disabled(),
+      },
     },
-  },
-  disabled: {
-    root: {
-      color: DialogButtonS.color.disabled(),
-    },
-  },
-});
+  }
+);
 
-export const TealDialogButtonTrim = createTrim(DefaultDialogButtonTrim, {
-  base: {
-    componentName: 'Teal-DialogButton',
-    root: {
-      color: DialogButtonS.color.tealWithDarkText(),
+export const TealDialogButtonTrim: DialogButtonTrimT = createTrim(
+  DefaultDialogButtonTrim,
+  {
+    base: {
+      componentName: 'Teal-DialogButton',
+      root: {
+        color: DialogButtonS.color.tealWithDarkText(),
+      },
+      Icon: {
+        color: DialogButtonS.color.tealWithDarkText(),
+      },
     },
-    Icon: {
-      color: DialogButtonS.color.tealWithDarkText(),
-    },
-  },
-});
+  }
+);
 
-export const TealWithWhiteTextDialogButtonTrim = createTrim(
+export const TealWithWhiteTextDialogButtonTrim: DialogButtonTrimT = createTrim(
   DefaultDialogButtonTrim,
   {
     base: {
@@ -49,7 +56,7 @@ export const TealWithWhiteTextDialogButtonTrim = createTrim(
   }
 );
 
-export const SkyBlueWithBorderDialogButtonTrim = createTrim(
+export const SkyBlueWithBorderDialogButtonTrim: DialogButtonTrimT = createTrim(
   DefaultDialogButtonTrim,
   {
     base: {

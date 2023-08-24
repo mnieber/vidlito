@@ -1,6 +1,6 @@
 import { IconS } from '/src/frames/components/Icon';
 import { cn } from '/src/utils/classnames';
-import { ModeT } from '/src/utils/trim';
+import { ModeOverlayT } from '/src/utils/trim';
 
 export const ToolButtonS = {
   color: {
@@ -37,7 +37,7 @@ export type ToolButtonTrimT = {
       color: any;
     };
   };
-  disabled?: ModeT<ToolButtonTrimT>;
+  disabled?: ModeOverlayT<ToolButtonTrimT>;
 };
 
 export const DefaultToolButtonTrim = {
@@ -58,4 +58,4 @@ export const DefaultToolButtonTrim = {
     root: { color: ToolButtonS.color.grayDisabled },
     Icon: { color: ToolButtonS.Icon.color.grayBackgroundDisabled() },
   },
-} as ToolButtonTrimT;
+};
