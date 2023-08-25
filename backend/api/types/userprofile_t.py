@@ -1,8 +1,7 @@
 import graphene
 from graphene_django.types import DjangoObjectType
 
-from api.types.folder_t import FolderT
-from api.types.playlist_t import PlaylistT
+from api.types import *
 from user_profiles.models import UserProfile
 
 
@@ -10,11 +9,7 @@ class UserProfileT(DjangoObjectType):
     class Meta:
         model = UserProfile
 
-    folder_set = graphene.List(FolderT)
     follow_set = graphene.List(PlaylistT)
-
-    def resolve_folder_set(self, info):
-        return [x for x in self.folder_set.all()]
 
     def resolve_follow_set(self, info):
         return [x.playlist for x in self.follow_set.all()]
