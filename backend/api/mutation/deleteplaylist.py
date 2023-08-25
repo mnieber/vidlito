@@ -3,7 +3,7 @@ from graphene.types.generic import GenericScalar
 
 from api.mutation.moveclipstotrash import pick_new_source_movelist
 from api.types import *
-from playlists.models import Entry, Playlist
+from playlists.models import Playlist
 
 
 class DeletePlaylist(graphene.Mutation):
