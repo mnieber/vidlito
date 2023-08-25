@@ -11,8 +11,8 @@ class GetTagsOutputs(graphene.ObjectType):
 class GetTags:
     get_tags = graphene.Field(
         GetTagsOutputs,
-        tag_prefix=graphene.String(),
-        max_nr_of_tags=graphene.Int(),
+        tag_prefix=graphene.String(required=True),
+        max_nr_of_tags=graphene.Int(required=True),
     )
 
     def resolve_get_tags(self, info, tag_prefix, max_nr_of_tags):

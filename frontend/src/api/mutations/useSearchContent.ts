@@ -13,8 +13,8 @@ export type ArgsT = {
 export const searchContent = (args: ArgsT) => {
   return doQuery(
     `mutation searchContent(
-      $page: Int
-      $pageSize: Int
+      $page: Int!
+      $pageSize: Int!
       $playlistTerms: String
       $clipTerms: String
     ) {

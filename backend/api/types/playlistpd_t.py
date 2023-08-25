@@ -7,13 +7,15 @@ from playlists.models import PlaylistPd
 class PlaylistPdT(DjangoObjectType):
     class Meta:
         model = PlaylistPd
-        exclude = ["owner"]
+        exclude = [
+            "owner",
+        ]
 
-    tags = graphene.List(graphene.String)
     owner_username = graphene.String()
-
-    def resolve_tags(self, info):
-        return [x for x in self.tags["tags"]]
+    tags = graphene.List(graphene.String)
 
     def resolve_owner_username(self, info):
         return self.owner.username
+
+    def resolve_tags(self, info):
+        return [x for x in self.tags["tags"]]

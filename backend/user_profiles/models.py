@@ -4,8 +4,8 @@ from app.models import Entity
 
 
 class UserProfile(Entity):
-    username = models.CharField(max_length=90, unique=True)
     user_id = models.UUIDField()
+    username = models.CharField(max_length=90, unique=True)
 
     def __str__(self):
         return "UserProfile: " + str(self.username)

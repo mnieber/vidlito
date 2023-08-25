@@ -15,22 +15,22 @@ class Playlist(Entity):
         ordering = ["sort_pos"]
 
     description = MartorField(null=True, blank=True)
+    is_public = models.BooleanField(default=False)
     name = models.CharField(max_length=90)
+    nr_of_clips = models.IntegerField(default=0)
     owner = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE, related_name="owned_playlist_set"
     )
     slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
     sort_pos = models.IntegerField(default=0)
     tags = models.JSONField(default=create_empty_tags)
-    nr_of_clips = models.IntegerField(default=0)
-    is_public = models.BooleanField(default=False)
 
     def update_nr_clips(self):
         self.nr_of_clips = self.entry_set.count()
         self.save()
 
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if self.slug is None:
             self.slug = update_slug(slugify(self.name), "playlist")
         super().save(*args, **kwargs)
         Tag.add_tags(self.tags['tags'])
@@ -57,20 +57,15 @@ class Entry(Entity):
 
     objects = EntryManager()
 
-    clip = models.ForeignKey(
-        Clip, on_delete=models.CASCADE, related_name="+", db_index=True
-    )
+    clip = models.ForeignKey(Clip, on_delete=models.CASCADE, related_name="+")
     is_deleted = models.BooleanField(default=False)
     playlist = models.ForeignKey(
-        Playlist, on_delete=models.CASCADE, related_name="entry_set", db_index=True
+        Playlist, on_delete=models.CASCADE, related_name="entry_set"
     )
     sort_pos = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.playlist.name} / {self.clip.name}"
-
-    def __str__(self):
-        return f"{self.playlist.owner.username} / {self.playlist.name}"
 
 
 class PlaylistPd(Entity):
@@ -102,13 +97,13 @@ class Follow(Entity):
         ordering = ["sort_pos"]
 
     folder = models.ForeignKey(
-        Folder, on_delete=models.CASCADE, null=True, blank=True, related_name="+"
+        Folder, on_delete=models.CASCADE, related_name="+", null=True, blank=True
     )
-    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="+")
-    sort_pos = models.IntegerField(default=0)
     owner = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE, related_name="follow_set"
     )
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name="+")
+    sort_pos = models.IntegerField(default=0)
 
     def __str__(self):
         return f"Follow {self.owner.username} -> {self.playlist.name}"

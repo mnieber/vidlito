@@ -2,5 +2,5 @@ import graphene
 
 
 class PlaylistSettingsFormT(graphene.InputObjectType):
-    playlist_id = graphene.UUID()
-    is_public = graphene.Boolean()
+    is_public = graphene.Boolean(required=True)
+    playlist_id = graphene.UUID(required=True)

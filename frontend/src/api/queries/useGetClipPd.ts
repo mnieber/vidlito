@@ -11,7 +11,7 @@ export type ArgsT = {
 export const getClipPd = (args: ArgsT) => {
   return doQuery(
     `query getClipPd(
-      $clipSlug: String
+      $clipSlug: String!
     ) {
       getClipPd(
         clipSlug: $clipSlug

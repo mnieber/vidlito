@@ -7,7 +7,9 @@ from clips.models import Clip
 class ClipT(DjangoObjectType):
     class Meta:
         model = Clip
-        exclude = ["owner"]
+        exclude = [
+            "owner",
+        ]
 
     owner_username = graphene.String()
     tags = graphene.List(graphene.String)

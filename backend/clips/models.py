@@ -13,8 +13,8 @@ class Clip(Entity):
     description = MartorField(null=True, blank=True)
     end_time_ms = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=90)
-    nr_of_public_playlists = models.IntegerField(default=0)
     nr_of_private_playlists = models.IntegerField(default=0)
+    nr_of_public_playlists = models.IntegerField(default=0)
     owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name="+")
     slug = models.SlugField(max_length=80, null=True, blank=True, unique=True)
     source_playlist = models.ForeignKey(
@@ -29,7 +29,7 @@ class Clip(Entity):
     url = models.CharField(max_length=255, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if self.slug is None:
             self.slug = update_slug(slugify(self.name), "clip")
         super().save(*args, **kwargs)
         Tag.add_tags(self.tags['tags'])

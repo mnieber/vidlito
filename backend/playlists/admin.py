@@ -9,6 +9,11 @@ class EntryInline(SortableInlineAdminMixin, admin.TabularInline):
     extra = 3
 
 
+class FollowInline(SortableInlineAdminMixin, admin.TabularInline):
+    model = models.Follow
+    extra = 3
+
+
 @admin.register(models.Playlist)
 class PlaylistAdmin(SortableAdminBase, admin.ModelAdmin):
     inlines = (EntryInline,)

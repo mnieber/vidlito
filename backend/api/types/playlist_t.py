@@ -11,9 +11,9 @@ class PlaylistT(DjangoObjectType):
     class Meta:
         model = Playlist
         exclude = [
-            "sort_pos",
-            "owner",
             "entry_set",
+            "owner",
+            "sort_pos",
         ]
 
     clip_set = graphene.List(ClipT)

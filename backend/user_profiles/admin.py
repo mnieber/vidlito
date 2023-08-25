@@ -1,13 +1,8 @@
-from adminsortable2.admin import SortableAdminBase, SortableInlineAdminMixin
+from adminsortable2.admin import SortableAdminBase
 from django.contrib import admin
 
-from playlists.models import Follow
+from playlists.admin import FollowInline
 from user_profiles import models
-
-
-class FollowInline(SortableInlineAdminMixin, admin.TabularInline):
-    model = Follow
-    extra = 3
 
 
 @admin.register(models.UserProfile)

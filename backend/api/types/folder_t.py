@@ -7,6 +7,6 @@ class FolderT(DjangoObjectType):
     class Meta:
         model = Folder
         exclude = [
-            "sort_pos",
             "owner",
+            "sort_pos",
         ]
