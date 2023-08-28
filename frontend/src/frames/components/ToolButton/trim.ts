@@ -55,7 +55,7 @@ export const DefaultToolButtonTrim = {
   },
   // These are layered on top if the ToolButton is disabled.
   disabled: {
-    root: { color: ToolButtonS.color.grayDisabled },
+    root: { color: ToolButtonS.color.grayDisabled() },
     Icon: { color: ToolButtonS.Icon.color.grayBackgroundDisabled() },
   },
 };
