@@ -1,4 +1,5 @@
 import { navToHome } from '/src/frames/FramesNavEvents';
+import { DialogButtonS } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -31,7 +32,10 @@ export const SignInLogo = (props: PropsT) => {
         //
       }
       <button
-        className={cn('SignInLogo__ExploreAsGuestButton')}
+        className={cn(
+          'SignInLogo__ExploreAsGuestButton',
+          DialogButtonS.padding.medium()
+        )}
         onClick={() => navToHome()}
       >
         Explore as Guest
