@@ -41,12 +41,12 @@ export const PlaylistFormView = observer(
       className: 'font-normal',
     });
 
+    const initialValues = form.getInitialValues(props);
+    const initialErrors = form.getInitialErrors(props);
+
     if (!props.playlist) return null;
 
     const isNewPlaylist = props.playlist.slug === 'new-playlist';
-
-    const initialValues = form.getInitialValues(props);
-    const initialErrors = form.getInitialErrors(props);
 
     return (
       //
