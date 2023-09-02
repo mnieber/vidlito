@@ -2,12 +2,13 @@ import React from 'react';
 import { Highlight } from 'skandha-facets';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import {
-  SavePlaylistArgsT,
-  SavePlaylistOrderingArgsT,
   useDeletePlaylists,
   useGetPlaylist,
   useSavePlaylist,
   useSavePlaylistOrdering,
+  type DeletePlaylistsArgsT,
+  type SavePlaylistArgsT,
+  type SavePlaylistOrderingArgsT,
 } from '/src/api/endpoints';
 import { useObservableQuery } from '/src/api/hooks';
 import {
@@ -70,7 +71,7 @@ export const usePlaylistsState = (props: PropsT) => {
     { fetchAsLoad: true, debugLabel: 'getPlaylist' }
   );
 
-  const playlistsState = useBuilder(() => {
+  const playlistsState = useBuilder<PlaylistsState>(() => {
     return new PlaylistsState({
       //
       getPlaylists: () => {
@@ -96,7 +97,9 @@ export const usePlaylistsState = (props: PropsT) => {
         return trackPromise({
           name: 'deletePlaylists',
           states: { updating: playlists },
-          promise: deletePlaylists.mutateAsync(ids),
+          promise: deletePlaylists.mutateAsync({
+            playlistIds: ids,
+          } as DeletePlaylistsArgsT),
         }).result;
       },
       //

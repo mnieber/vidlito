@@ -35,7 +35,6 @@ export class PlaylistsState {
   props: PropsT;
 
   playlistsCtr = {
-    store: new PlaylistStore(),
     addition: new Addition<PlaylistT>(),
     deletion: new DeletionWithFlag(),
     display: new Display<PlaylistT>(),
@@ -45,6 +44,7 @@ export class PlaylistsState {
     hovering: new Hovering(),
     insertion: new Insertion<PlaylistT>(),
     selection: new Selection<PlaylistT>(),
+    store: new PlaylistStore(),
   };
 
   pdCtr = {
@@ -58,9 +58,9 @@ export class PlaylistsState {
 
   getSummary() {
     return {
-      playlistsCtr: Skandha.getCtrState(this.playlistsCtr),
-      pdCtr: Skandha.getCtrState(this.pdCtr),
-      settingsCtr: Skandha.getCtrState(this.settingsCtr),
+      playlists: Skandha.getCtrState(this.playlistsCtr),
+      pd: Skandha.getCtrState(this.pdCtr),
+      settings: Skandha.getCtrState(this.settingsCtr),
     };
   }
 

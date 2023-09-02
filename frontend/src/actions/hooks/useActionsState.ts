@@ -78,7 +78,7 @@ export const useActionsState = (props: PropsT) => {
   }) as ActionsState;
   actionsStateRef.current = actionsState;
 
-  React.useEffect(() => () => actionsState!.destroy(), [actionsState]);
+  React.useEffect(() => () => actionsState.destroy(), [actionsState]);
 
   return {
     actionsState,

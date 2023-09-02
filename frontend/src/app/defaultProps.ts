@@ -171,14 +171,14 @@ const dpsPlaylists = {
   playlistsDragAndDrop: {
     playlistsDragAndDrop: stub as DragAndDrop,
   },
-  playlistsHovering: {
-    playlistsHovering: stub as Hovering,
-  },
   playlistsEdit: {
     playlistsEdit: stub as Edit,
   },
   playlistsHighlight: {
     playlistsHighlight: stub as Highlight,
+  },
+  playlistsHovering: {
+    playlistsHovering: stub as Hovering,
   },
   playlistsInsertion: {
     playlistsInsertion: stub as Insertion,
