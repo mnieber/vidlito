@@ -30,10 +30,12 @@ export const deleteClips = (args: ArgsT) => {
 export const useDeleteClips = () => {
   return useObservableMutation({
     mutationFn: deleteClips,
-    onSuccess: (response: ObjT) => {
-      return queryClient.invalidateQueries({
-        queryKey: getPlaylistQueryKey(),
-      });
+    onSuccess: (response: ObjT, args: ArgsT) => {
+      return Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: getPlaylistQueryKey(),
+        }),
+      ]);
     },
   });
 };

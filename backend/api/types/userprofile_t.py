@@ -1,7 +1,8 @@
 import graphene
 from graphene_django.types import DjangoObjectType
 
-from api.types import *
+from api.types.folder_t import FolderT  # noqa: F401
+from api.types.playlist_t import PlaylistT  # noqa: F401
 from user_profiles.models import UserProfile
 
 

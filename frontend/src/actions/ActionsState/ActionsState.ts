@@ -2,7 +2,7 @@ import { action } from 'mobx';
 import * as Skandha from 'skandha';
 import { Highlight, Store } from 'skandha-facets';
 import { Settings } from './Settings';
-import { registerActionsCtr } from '/src/actions/ActionsState/registerActionsCtr';
+import { registerActionsCtr } from './registerActionsCtr';
 import { ActionT } from '/src/api/types/ActionT';
 import {
   IPagination,
@@ -20,9 +20,9 @@ export class ActionsState {
   settings = new Settings();
 
   actionsCtr = {
-    store: new Store<ActionT>(),
     highlight: new Highlight<ActionT>(),
     pagination: new Pagination(),
+    store: new Store<ActionT>(),
   };
 
   getSummary() {

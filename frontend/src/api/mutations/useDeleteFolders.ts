@@ -4,28 +4,28 @@ import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
-  folderId: string;
+  folderIds: string[];
 };
 
-export const deleteFolder = (args: ArgsT) => {
+export const deleteFolders = (args: ArgsT) => {
   return doQuery(
-    `mutation deleteFolder(
-      $folderId: UUID!
+    `mutation deleteFolders(
+      $folderIds: [UUID]!
     ) {
-      deleteFolder(
-        folderId: $folderId
+      deleteFolders(
+        folderIds: $folderIds
       ) {
         // MOONLEAP TODO
       }
     }`,
     args
   ).then((response: ObjT) => {
-    return wait(import.meta.env.DEV ? 1000 : 0, response.deleteFolder);
+    return wait(import.meta.env.DEV ? 1000 : 0, response.deleteFolders);
   });
 };
 
-export const useDeleteFolder = () => {
+export const useDeleteFolders = () => {
   return useObservableMutation({
-    mutationFn: deleteFolder,
+    mutationFn: deleteFolders,
   });
 };

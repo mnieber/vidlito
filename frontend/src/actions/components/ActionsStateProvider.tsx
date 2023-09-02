@@ -23,37 +23,36 @@ const DefaultProps = {
 
 export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { actionsState, getActions } = useActionsState({
+    const { actionsState: state, getActions } = useActionsState({
       getPlaylist: () => props.playlist,
       getPlaylists: () => props.playlists,
     });
 
     // The display pagination adapts the default pagination
-    const displayPagination = useBuilder(() => {
-      return new PaginationAdapter(actionsState.actionsCtr.pagination, 5);
+    const actionsDisplayPagination = useBuilder(() => {
+      return new PaginationAdapter(state.actionsCtr.pagination, 5);
     });
 
     const cache = useBuilder(() =>
       makeAutoObservable({
         get actions() {
-          const actions = actionsState.actionsCtr.store.items;
           return updateSources(
-            { resource: actions },
+            { resource: state.actionsCtr.store.items },
             ['loading', () => isQueryLoading(getActions), 'getActions'],
             ['updating', () => isQueryUpdating(getActions), 'getActions']
           );
         },
         get actionsPage() {
           const items = getDisplayPage(
-            actionsState.actionsCtr.pagination,
-            displayPagination,
+            state.actionsCtr.pagination,
+            actionsDisplayPagination,
             cache.actions
           );
           shareRS(cache.actions, items);
           return items;
         },
         get action() {
-          return actionsState.actionsCtr.highlight.item;
+          return state.actionsCtr.highlight.item;
         },
       })
     );
@@ -61,7 +60,7 @@ export const ActionsStateProvider = observer(
     const getDefaultPropsContext = () => {
       const result: any = {
         defaultProps: {
-          actionsState: () => actionsState,
+          actionsState: () => state,
         },
       };
 
@@ -70,8 +69,8 @@ export const ActionsStateProvider = observer(
         actions: () => cache.actions,
         actionsPage: () => cache.actionsPage,
         action: () => cache.action,
-        actionsHighlight: () => actionsState.actionsCtr.highlight,
-        actionsPagination: () => displayPagination,
+        actionsHighlight: () => state.actionsCtr.highlight,
+        actionsPagination: () => actionsDisplayPagination,
       };
 
       return result;

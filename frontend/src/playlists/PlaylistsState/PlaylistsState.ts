@@ -13,11 +13,11 @@ import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
 import { PlaylistSettingsT } from '/src/api/types/PlaylistSettingsT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { DeletionWithFlag } from '/src/clips/ClipsState/facets/DeletionWithFlag';
-import { Following } from '/src/playlists/PlaylistsState/facets/Following';
-import { PlaylistStore } from '/src/playlists/PlaylistsState/facets/PlaylistStore';
-import { registerPdCtr } from '/src/playlists/PlaylistsState/registerPdCtr';
-import { registerPlaylistSettingsCtr } from '/src/playlists/PlaylistsState/registerPlaylistSettingsCtr';
-import { registerPlaylistsCtr } from '/src/playlists/PlaylistsState/registerPlaylistsCtr';
+import { Following } from './facets/Following';
+import { PlaylistStore } from './facets/PlaylistStore';
+import { registerPdCtr } from './registerPdCtr';
+import { registerPlaylistsCtr } from './registerPlaylistsCtr';
+import { registerSettingsCtr } from './registerSettingsCtr';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
@@ -35,6 +35,7 @@ export class PlaylistsState {
   props: PropsT;
 
   playlistsCtr = {
+    store: new PlaylistStore(),
     addition: new Addition<PlaylistT>(),
     deletion: new DeletionWithFlag(),
     display: new Display<PlaylistT>(),
@@ -44,7 +45,6 @@ export class PlaylistsState {
     hovering: new Hovering(),
     insertion: new Insertion<PlaylistT>(),
     selection: new Selection<PlaylistT>(),
-    store: new PlaylistStore(),
   };
 
   pdCtr = {
@@ -72,6 +72,6 @@ export class PlaylistsState {
     this.props = props;
     registerPlaylistsCtr(this);
     registerPdCtr(this);
-    registerPlaylistSettingsCtr(this);
+    registerSettingsCtr(this);
   }
 }

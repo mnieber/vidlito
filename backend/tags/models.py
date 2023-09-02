@@ -8,3 +8,6 @@ class Tag(models.Model):
     def add_tags(cls, tags):
         for tag in tags:
             Tag.objects.get_or_create(tag=tag)
+
+    def __str__(self):
+        return f"Tag: {self.id}"

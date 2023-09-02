@@ -8,6 +8,7 @@ class ClipPdT(DjangoObjectType):
     class Meta:
         model = ClipPd
         exclude = [
+            "clip",
             "owner",
         ]
 

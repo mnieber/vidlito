@@ -7,7 +7,7 @@ from playlists.models import Follow
 from user_profiles.models import UserProfile
 
 
-class FollowPlaylist(graphene.Mutation):
+class FollowPlaylists(graphene.Mutation):
     success = graphene.Boolean()
     errors = GenericScalar()
 
@@ -31,4 +31,4 @@ class FollowPlaylist(graphene.Mutation):
                     owner_id=owner_id, playlist_id__in=playlist_ids
                 ).delete()
 
-        return FollowPlaylist(success=True, errors={})
+        return FollowPlaylists(success=True, errors={})

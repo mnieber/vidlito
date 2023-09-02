@@ -9,6 +9,7 @@ class ClipT(DjangoObjectType):
         model = Clip
         exclude = [
             "owner",
+            "source_playlist",
         ]
 
     owner_username = graphene.String()

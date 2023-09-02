@@ -3,7 +3,6 @@ from api.types.clip_t import ClipT  # noqa: F401
 from api.types.clipform_t import ClipFormT  # noqa: F401
 from api.types.clippd_t import ClipPdT  # noqa: F401
 from api.types.clippdform_t import ClipPdFormT  # noqa: F401
-from api.types.entry_t import EntryT  # noqa
 from api.types.folder_t import FolderT  # noqa: F401
 from api.types.pagination_t import PaginationT  # noqa: F401
 from api.types.playlist_t import PlaylistT  # noqa: F401

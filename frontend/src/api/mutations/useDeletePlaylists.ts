@@ -1,21 +1,21 @@
-import * as R from 'ramda';
 import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
+import { loadUserIdQueryKey } from '/src/auth/endpoints';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
-  playlistId: string;
+  playlistIds: string[];
 };
 
-export const deletePlaylist = (args: ArgsT) => {
+export const deletePlaylists = (args: ArgsT) => {
   return doQuery(
-    `mutation deletePlaylist(
-      $playlistId: UUID!
+    `mutation deletePlaylists(
+      $playlistIds: [UUID]!
     ) {
-      deletePlaylist(
-        playlistId: $playlistId
+      deletePlaylists(
+        playlistIds: $playlistIds
       ) {
         errors
         success
@@ -23,26 +23,19 @@ export const deletePlaylist = (args: ArgsT) => {
     }`,
     args
   ).then((response: ObjT) => {
-    return wait(import.meta.env.DEV ? 1000 : 0, response.deletePlaylist);
+    return wait(import.meta.env.DEV ? 1000 : 0, response.deletePlaylists);
   });
 };
 
 export const useDeletePlaylists = () => {
   return useObservableMutation({
-    mutationFn: (playlistIds: string[]) =>
-      Promise.all(
-        R.map(
-          (playlistId: string) =>
-            deletePlaylist({
-              playlistId,
-            } as ArgsT),
-          playlistIds
-        )
-      ),
-    onSuccess: (response: ObjT) => {
-      return queryClient.invalidateQueries({
-        queryKey: ['getUserProfile'],
-      });
+    mutationFn: deletePlaylists,
+    onSuccess: (response: ObjT, args: ArgsT) => {
+      return Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: loadUserIdQueryKey({}),
+        }),
+      ]);
     },
   });
 };

@@ -3,9 +3,9 @@ import graphene
 import user_accounts.schema
 
 from .deleteclips import DeleteClips
-from .deletefolder import DeleteFolder
-from .deleteplaylist import DeletePlaylist
-from .followplaylist import FollowPlaylist
+from .deletefolders import DeleteFolders
+from .deleteplaylists import DeletePlaylists
+from .followplaylists import FollowPlaylists
 from .moveclipstoplaylist import MoveClipsToPlaylist
 from .moveclipstotrash import MoveClipsToTrash
 from .saveclip import SaveClip
@@ -29,9 +29,9 @@ class GrapheneNonEmptyMutation(graphene.Mutation):
 
 class Mutation(user_accounts.schema.Mutation, GrapheneNonEmptyMutation):
     delete_clips = DeleteClips.Field()
-    delete_folder = DeleteFolder.Field()
-    delete_playlist = DeletePlaylist.Field()
-    follow_playlist = FollowPlaylist.Field()
+    delete_folders = DeleteFolders.Field()
+    delete_playlists = DeletePlaylists.Field()
+    follow_playlists = FollowPlaylists.Field()
     move_clips_to_playlist = MoveClipsToPlaylist.Field()
     move_clips_to_trash = MoveClipsToTrash.Field()
     save_clip = SaveClip.Field()

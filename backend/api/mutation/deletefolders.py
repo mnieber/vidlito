@@ -4,17 +4,17 @@ from graphene.types.generic import GenericScalar
 from api.types import *
 
 
-class DeleteFolder(graphene.Mutation):
+class DeleteFolders(graphene.Mutation):
     success = graphene.Boolean()
     errors = GenericScalar()
 
     class Arguments:
-        folder_id = graphene.UUID(required=True)
+        folder_ids = graphene.List(graphene.UUID, required=True)
 
-    def mutate(self, info, folder_id):
+    def mutate(self, info, folder_ids):
         # Moonleap Todo: implement mutation
 
-        return DeleteFolder(
+        return DeleteFolders(
             success=True,
             errors={},
         )

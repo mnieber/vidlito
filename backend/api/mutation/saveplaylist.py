@@ -10,10 +10,10 @@ from user_profiles.models import UserProfile
 
 
 class SavePlaylist(graphene.Mutation):
-    success = graphene.Boolean()
-    errors = GenericScalar()
     created = graphene.Boolean()
     playlist = graphene.Field(PlaylistT)
+    success = graphene.Boolean()
+    errors = GenericScalar()
 
     class Arguments:
         playlist_form = PlaylistFormT(required=True)

@@ -9,13 +9,14 @@ class PlaylistPdT(DjangoObjectType):
         model = PlaylistPd
         exclude = [
             "owner",
+            "playlist",
         ]
 
     owner_username = graphene.String()
     tags = graphene.List(graphene.String)
 
     def resolve_owner_username(self, info):
-        return self.owner.username
+        return None  # Moonleap Todo
 
     def resolve_tags(self, info):
         return [x for x in self.tags["tags"]]

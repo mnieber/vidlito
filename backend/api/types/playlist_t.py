@@ -2,7 +2,7 @@ import graphene
 from django.db.models import Q
 from graphene_django.types import DjangoObjectType
 
-from api.types.clip_t import ClipT
+from api.types.clip_t import ClipT  # noqa: F401
 from playlists.models import Playlist
 from user_profiles.models import UserProfile
 
