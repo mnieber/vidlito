@@ -1,5 +1,7 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import type { IPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
+import { shareRS } from '/src/resourceStates/ResourceState';
+import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 // This class is used to adapt a pagination to a new page size.
 // It assumes that the new page size is a divisor of the old page size.
@@ -23,6 +25,17 @@ export class PaginationAdapter implements IPagination {
     this.pagination.setPage(
       Math.ceil((page * this.pageSize) / this.pagination.pageSize)
     );
+  }
+
+  @computed get startIdx() {
+    return (
+      (this.page - 1) * this.pageSize -
+      (this.pagination.page - 1) * this.pagination.pageSize
+    );
+  }
+
+  @computed get endIdx() {
+    return Math.min(this.nrOfItems, this.startIdx + this.pageSize);
   }
 
   constructor(pagination: IPagination, pageSize: number) {
@@ -53,3 +66,18 @@ export function getDisplayPage(
   const end = Math.min(loadedItems.length, start + displayPagination.pageSize);
   return loadedItems.slice(start, end);
 }
+
+export function getPage(items: any, pagination: IPagination) {
+  const result = items.slice(pagination.startIdx, pagination.endIdx);
+  shareRS(items, result);
+  return result;
+}
+
+export const usePaginationAdapter = (
+  pagination: IPagination,
+  pageSize: number
+) => {
+  return useBuilder(() => {
+    return new PaginationAdapter(pagination, pageSize);
+  });
+};

@@ -20,7 +20,6 @@ const DefaultProps = {
   ...dps.actions,
   ...dps.actionsHighlight,
   ...dps.actionsState,
-  ...dps.actionsPage,
 };
 
 export const ActionListView = observer(
@@ -48,7 +47,7 @@ export const ActionListView = observer(
     //
     // 🔳 actionDivs 🔳
     //
-    const actionDivs: any[] = props.actionsPage.map((action) => {
+    const actionDivs: any[] = props.actions.map((action) => {
       return (
         <ActionListViewItem
           key={`item-${action.id}`}

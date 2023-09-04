@@ -5,6 +5,8 @@ export interface IPagination {
   nrOfItems: number;
   page: number;
   pageSize: number;
+  startIdx: number;
+  endIdx: number;
   setPage(page: number): void;
 }
 
@@ -21,6 +23,14 @@ export class Pagination implements IPagination {
 
   @data get nrOfPages() {
     return Math.ceil(this.nrOfItems / this.pageSize);
+  }
+
+  @data get startIdx() {
+    return (this.page - 1) * this.pageSize;
+  }
+
+  @data get endIdx() {
+    return Math.min(this.page * this.pageSize, this.nrOfItems);
   }
 
   @operation reset(nrOfItems: number, pageSize: number) {

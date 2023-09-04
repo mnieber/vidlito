@@ -63,9 +63,6 @@ const dpsActions = {
   actionsPagination: {
     actionsPagination: stub as IPagination,
   },
-  actionsPage: {
-    actionsPage: stub as ActionT[],
-  },
 };
 
 const dpsSearchResults = {

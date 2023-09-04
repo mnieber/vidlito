@@ -5,12 +5,7 @@ import { DefaultPropsProvider } from 'react-default-props-context';
 import { useActionsState } from '/src/actions/hooks/useActionsState';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import {
-  PaginationAdapter,
-  getDisplayPage,
-} from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
 import { updateSources } from '/src/resourceStates';
-import { shareRS } from '/src/resourceStates/ResourceState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT = React.PropsWithChildren<{}>;
@@ -28,11 +23,6 @@ export const ActionsStateProvider = observer(
       getPlaylists: () => props.playlists,
     });
 
-    // The display pagination adapts the default pagination
-    const actionsDisplayPagination = useBuilder(() => {
-      return new PaginationAdapter(state.actionsCtr.pagination, 5);
-    });
-
     const cache = useBuilder(() =>
       makeAutoObservable({
         get actions() {
@@ -41,15 +31,6 @@ export const ActionsStateProvider = observer(
             ['loading', () => isQueryLoading(getActions), 'getActions'],
             ['updating', () => isQueryUpdating(getActions), 'getActions']
           );
-        },
-        get actionsPage() {
-          const items = getDisplayPage(
-            state.actionsCtr.pagination,
-            actionsDisplayPagination,
-            cache.actions
-          );
-          shareRS(cache.actions, items);
-          return items;
         },
         get action() {
           return state.actionsCtr.highlight.item;
@@ -67,10 +48,9 @@ export const ActionsStateProvider = observer(
       result.defaultProps = {
         ...result.defaultProps,
         actions: () => cache.actions,
-        actionsPage: () => cache.actionsPage,
         action: () => cache.action,
         actionsHighlight: () => state.actionsCtr.highlight,
-        actionsPagination: () => actionsDisplayPagination,
+        actionsPagination: () => state.actionsCtr.pagination,
       };
 
       return result;

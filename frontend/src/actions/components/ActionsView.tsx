@@ -14,6 +14,7 @@ export type PropsT = {
 };
 
 const DefaultProps = {
+  ...dps.actions,
   ...dps.actionsPagination,
 };
 

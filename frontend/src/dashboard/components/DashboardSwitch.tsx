@@ -1,5 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
-import { ActionsView } from '/src/actions/components';
+import { ActionsPaginator, ActionsView } from '/src/actions/components';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { SyncClipWithUrlEffect } from '/src/clips/components';
 import { VideoAndCopView } from '/src/clips/components/VideoAndCopView';
@@ -59,7 +59,9 @@ export const DashboardSwitch = withDefaultProps(
                   {
                     // 🔳 ActionsView 🔳
                   }
-                  <ActionsView className={cn('ml-2 lg:ml-4 mt-4')} />
+                  <ActionsPaginator>
+                    <ActionsView className={cn('ml-2 lg:ml-4 mt-4')} />
+                  </ActionsPaginator>
                 </ActionsNavPage>
               </Route>
               <Route exact={false} path={routes.playlist()}>
