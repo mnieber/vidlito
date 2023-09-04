@@ -1,33 +1,23 @@
 import { DefineCbs, getCallbacks, withCbs } from 'aspiration';
 import { data, operation } from 'skandha';
-import { SearchResultT } from '/src/api/types/SearchResultT';
 import { ObjT } from '/src/utils/types';
 
-export class Search {
+export class Search<FormT, ValueT> {
   static className = () => 'Search';
 
   @data isSearching: boolean = false;
-  @data form?: {
-    playlistTerms: string;
-    clipTerms: string;
-  };
-  @data searchResults: SearchResultT[] = [];
+  @data form?: FormT;
+  @data searchResults: ValueT[] = [];
 
-  @operation setSearchResults(searchResults: SearchResultT[]) {
+  @operation setSearchResults(searchResults: ValueT[]) {
     this.searchResults = searchResults;
   }
 
-  @operation @withCbs() search(args: {
-    playlistTerms: string;
-    clipTerms: string;
-  }): Promise<any> {
-    const cbs = getCallbacks(this) as SearchCbs['search'];
+  @operation @withCbs() search(args: FormT): Promise<any> {
+    const cbs = getCallbacks(this) as SearchCbs<FormT, ValueT>['search'];
 
     this.isSearching = true;
-    this.form = {
-      playlistTerms: args.playlistTerms,
-      clipTerms: args.clipTerms,
-    };
+    this.form = args;
     return cbs.search().then((response: ObjT) => {
       this.setSearchResults(response.searchResults);
       this.isSearching = false;
@@ -36,8 +26,8 @@ export class Search {
   }
 }
 
-export type SearchCbs = DefineCbs<
-  Search,
+export type SearchCbs<FormT, ValueT> = DefineCbs<
+  Search<FormT, ValueT>,
   {
     search: {
       search(): any;

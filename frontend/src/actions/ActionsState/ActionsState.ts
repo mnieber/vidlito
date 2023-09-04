@@ -1,18 +1,14 @@
-import { action } from 'mobx';
 import * as Skandha from 'skandha';
 import { Highlight, Store } from 'skandha-facets';
 import { Settings } from './Settings';
 import { registerActionsCtr } from './registerActionsCtr';
+import { Undo } from '/src/actions/ActionsState/facets/Undo';
 import { ActionT } from '/src/api/types/ActionT';
-import {
-  IPagination,
-  Pagination,
-} from '/src/playlists/PlaylistsState/facets/Pagination';
+import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 
 export type PropsT = {
   getActions: () => ActionT[];
-  getActionsPagination: () => IPagination | undefined;
-  undoAction: (actionId: string) => Promise<any>;
+  undoAction: (action: ActionT) => Promise<any>;
 };
 
 export class ActionsState {
@@ -23,6 +19,7 @@ export class ActionsState {
     highlight: new Highlight<ActionT>(),
     pagination: new Pagination(),
     store: new Store<ActionT>(),
+    undo: new Undo(),
   };
 
   getSummary() {
@@ -33,10 +30,6 @@ export class ActionsState {
 
   destroy() {
     Skandha.cleanUpCtr(this);
-  }
-
-  @action undoAction(action: ActionT) {
-    return this.props.undoAction(action.id);
   }
 
   constructor(props: PropsT) {

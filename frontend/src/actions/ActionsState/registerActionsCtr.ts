@@ -1,8 +1,8 @@
-import { comparer, reaction } from 'mobx';
-import { addCleanUpFunctionToCtr, mapDataToProps } from 'skandha';
+import { setCallbackMap } from 'aspiration';
+import { mapDataToProps } from 'skandha';
 import { registerCtr } from 'skandha-mobx';
 import { ActionsState } from '/src/actions/ActionsState/ActionsState';
-import { resetPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
+import { UndoCbs } from '/src/actions/ActionsState/facets/Undo';
 import { getIds } from '/src/utils/ids';
 
 const mapData = (state: ActionsState) => {
@@ -20,18 +20,18 @@ const mapData = (state: ActionsState) => {
       highlightableIds: () => getIds(ctr.store.items ?? []),
     },
   });
-
-  const cleanUp = reaction(
-    () => ({ pagination: state.props.getActionsPagination() }),
-    (inputs) => {
-      resetPagination(ctr.pagination, inputs.pagination);
-    },
-    { fireImmediately: true, equals: comparer.structural }
-  );
-  addCleanUpFunctionToCtr(state, cleanUp);
 };
 
-const setCallbacks = (state: ActionsState) => {};
+const setCallbacks = (state: ActionsState) => {
+  const ctr = state.actionsCtr;
+  setCallbackMap(ctr.undo, {
+    undo: {
+      undo(this: UndoCbs['undo']) {
+        return state.props.undoAction(this.args.action);
+      },
+    },
+  } as UndoCbs);
+};
 
 export const registerActionsCtr = (state: ActionsState) => {
   registerCtr({

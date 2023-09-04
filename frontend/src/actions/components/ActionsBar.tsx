@@ -21,6 +21,7 @@ export type PropsT = {
 const DefaultProps = {
   ...dps.action,
   ...dps.actionsState,
+  ...dps.actionsUndo,
   ...dps.playlist,
   ...dps.clip,
 };
@@ -61,7 +62,7 @@ export const ActionsBar = observer(
           trim={BlueDialogButtonTrim}
           iconName="reply"
           label="Undo"
-          onClick={() => props.actionsState.undoAction(props.action)}
+          onClick={() => props.actionsUndo.undo({ action: props.action })}
         />
 
         {

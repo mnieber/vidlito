@@ -1,11 +1,13 @@
 import { setCallbackMap } from 'aspiration';
 import { registerCtr } from 'skandha-mobx';
+import { SearchResultT } from '/src/api/types/SearchResultT';
 import { getIds } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 
 import { mapDataToProps } from 'skandha';
 import { resetPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { SearchState } from '/src/search/SearchState';
+import { SearchFormT } from '/src/search/SearchState/SearchState';
 import { SearchCbs } from '/src/search/SearchState/facets/Search';
 
 const mapData = (state: SearchState) => {
@@ -29,7 +31,7 @@ const setCallbacks = (state: SearchState) => {
   const ctr = state.searchResultsCtr;
   setCallbackMap(ctr.search, {
     search: {
-      search(this: SearchCbs['search']) {
+      search(this: SearchCbs<SearchFormT, SearchResultT>['search']) {
         return state.props
           .searchContent({
             ...this.args,
@@ -41,7 +43,7 @@ const setCallbacks = (state: SearchState) => {
           });
       },
     },
-  } as SearchCbs);
+  } as SearchCbs<SearchFormT, SearchResultT>);
 };
 
 export const registerSearchResultsCtr = (state: SearchState) => {

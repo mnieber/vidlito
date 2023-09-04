@@ -54,6 +54,7 @@ export type QueryKeyT = ArgsT & { username?: string };
 
 export type OptionsT = {
   enabled?: boolean;
+  onSuccess?: (data: ObjT) => void;
 };
 
 export function queryKey(args: QueryKeyT) {
@@ -67,6 +68,7 @@ export const useGetActions = (
   return useQuery({
     queryKey: queryKey(args),
     queryFn: () => getActions(args),
+    onSuccess: options?.onSuccess,
     enabled: !!(options?.enabled ?? true),
   });
 };

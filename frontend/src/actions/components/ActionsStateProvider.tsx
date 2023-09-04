@@ -27,9 +27,12 @@ export const ActionsStateProvider = observer(
       makeAutoObservable({
         get actions() {
           return updateSources(
-            { resource: state.actionsCtr.store.items },
-            ['loading', () => isQueryLoading(getActions), 'getActions'],
-            ['updating', () => isQueryUpdating(getActions), 'getActions']
+            { resource: state.actionsCtr.store.items, resourceName: 'actions' },
+            [
+              'loading',
+              () => isQueryLoading(getActions) || isQueryUpdating(getActions),
+              'getActions',
+            ]
           );
         },
         get action() {
@@ -51,6 +54,7 @@ export const ActionsStateProvider = observer(
         action: () => cache.action,
         actionsHighlight: () => state.actionsCtr.highlight,
         actionsPagination: () => state.actionsCtr.pagination,
+        actionsUndo: () => state.actionsCtr.undo,
       };
 
       return result;

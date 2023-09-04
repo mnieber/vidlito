@@ -9,6 +9,11 @@ import { Search } from '/src/search/SearchState/facets/Search';
 import { TagsStore } from '/src/search/SearchState/facets/TagsStore';
 import { registerSearchResultsCtr } from '/src/search/SearchState/registerSearchResultsCtr';
 
+export type SearchFormT = {
+  playlistTerms: string;
+  clipTerms: string;
+};
+
 export type PropsT = {
   searchContent: (args: {
     playlistTerms: string;
@@ -24,7 +29,7 @@ export class SearchState {
     store: new Store<SearchResultT>(),
     highlight: new Highlight<SearchResultT>(),
     pagination: new Pagination(),
-    search: new Search(),
+    search: new Search<SearchFormT, SearchResultT>(),
   };
 
   tagsCtr = {
