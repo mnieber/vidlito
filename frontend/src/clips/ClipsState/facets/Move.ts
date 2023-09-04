@@ -15,10 +15,11 @@ export class Move {
   }
 }
 
-type Cbs = {
-  move: {
-    moveItems(): any;
-  };
-};
-
-export type MoveCbs = DefineCbs<Move, Cbs>;
+export type MoveCbs = DefineCbs<
+  Move,
+  {
+    move: {
+      moveItems(): any;
+    };
+  }
+>;

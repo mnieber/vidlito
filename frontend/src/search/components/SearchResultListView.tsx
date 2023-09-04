@@ -20,7 +20,7 @@ const DefaultProps = {
   ...dps.searchResults,
   ...dps.searchResultsHighlight,
   ...dps.searchState,
-  ...dps.searchForm,
+  ...dps.search,
 };
 
 export const SearchResultListView = observer(
@@ -28,7 +28,7 @@ export const SearchResultListView = observer(
     if (isLoading(props.searchResults) || isUpdating(props.searchResults)) {
       return <SearchResultListViewLoader />;
     } else if (!props.searchResults?.length)
-      return !!props.searchForm ? (
+      return !!props.search.form ? (
         <NoContentsMatchTheFilter
           msg={'No contents match the search criteria'}
         />

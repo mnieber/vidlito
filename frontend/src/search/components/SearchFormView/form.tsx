@@ -8,8 +8,8 @@ import { DefaultProps, PropsT } from './index';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
-    'searchForm.playlistTerms': props.searchForm?.playlistTerms ?? null,
-    'searchForm.clipTerms': props.searchForm?.clipTerms ?? null,
+    'searchForm.playlistTerms': props.search.form?.playlistTerms ?? null,
+    'searchForm.clipTerms': props.search.form?.clipTerms ?? null,
   };
 };
 
@@ -28,7 +28,7 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
-    return props.searchState.searchContent({
+    return props.search.search({
       clipTerms: values['searchForm.clipTerms'] ?? '',
       playlistTerms: values['searchForm.playlistTerms'] ?? '',
     });

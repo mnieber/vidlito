@@ -1,27 +1,30 @@
-import { runInAction } from 'mobx';
 import * as Skandha from 'skandha';
-import { Highlight } from 'skandha-facets';
-import { SearchContentArgsT } from '/src/api/mutations';
+import { Highlight, Store } from 'skandha-facets';
 import { SearchResultT } from '/src/api/types/SearchResultT';
 import {
+  IPagination,
   Pagination,
-  resetPagination,
 } from '/src/playlists/PlaylistsState/facets/Pagination';
-import { SearchResultsStore } from '/src/search/SearchState/facets/SearchResultsStore';
+import { Search } from '/src/search/SearchState/facets/Search';
 import { TagsStore } from '/src/search/SearchState/facets/TagsStore';
 import { registerSearchResultsCtr } from '/src/search/SearchState/registerSearchResultsCtr';
 
 export type PropsT = {
-  searchContent: (args: SearchContentArgsT) => Promise<any>;
+  searchContent: (args: {
+    playlistTerms: string;
+    clipTerms: string;
+    pagination: IPagination;
+  }) => Promise<any>;
 };
 
 export class SearchState {
   props: PropsT;
 
   searchResultsCtr = {
-    store: new SearchResultsStore(),
+    store: new Store<SearchResultT>(),
     highlight: new Highlight<SearchResultT>(),
     pagination: new Pagination(),
+    search: new Search(),
   };
 
   tagsCtr = {
@@ -36,24 +39,6 @@ export class SearchState {
 
   destroy() {
     Skandha.cleanUpCtr(this);
-  }
-
-  searchContent(args: Omit<SearchContentArgsT, 'page' | 'pageSize'>) {
-    const pagination = this.searchResultsCtr.pagination;
-    const form = {
-      ...args,
-      page: pagination.page,
-      pageSize: pagination.pageSize,
-    };
-
-    return this.props.searchContent(form).then((results) => {
-      runInAction(() => {
-        this.searchResultsCtr.store.items = results.searchResults;
-        this.searchResultsCtr.store.form = form;
-        resetPagination(pagination, results.pagination);
-      });
-      return results;
-    });
   }
 
   constructor(props: PropsT) {

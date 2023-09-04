@@ -9,7 +9,6 @@ import {
   Selection,
 } from 'skandha-facets';
 import { ActionsState } from '/src/actions/ActionsState';
-import { SearchContentArgsT } from '/src/api/mutations';
 import { ActionT } from '/src/api/types/ActionT';
 import { ClipPdT } from '/src/api/types/ClipPdT';
 import { ClipT } from '/src/api/types/ClipT';
@@ -24,6 +23,7 @@ import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { Following } from '/src/playlists/PlaylistsState/facets/Following';
 import { IPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { SearchState } from '/src/search/SearchState/SearchState';
+import { Search } from '/src/search/SearchState/facets/Search';
 import { ObjT } from '/src/utils/types';
 import { VideoController } from '/src/videos/VideoController';
 import { VideoPlayerState } from '/src/videos/VideoPlayerState';
@@ -78,8 +78,8 @@ const dpsSearchResults = {
   searchResultsPagination: {
     searchResultsPagination: stub as IPagination,
   },
-  searchForm: {
-    searchForm: stub as SearchContentArgsT,
+  search: {
+    search: stub as Search,
   },
 };
 
