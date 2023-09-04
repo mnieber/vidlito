@@ -8,16 +8,16 @@ import {
   Hovering,
   Insertion,
   Selection,
+  Store,
 } from 'skandha-facets';
+import { Following } from './facets/Following';
+import { registerPdCtr } from './registerPdCtr';
+import { registerPlaylistsCtr } from './registerPlaylistsCtr';
+import { registerSettingsCtr } from './registerSettingsCtr';
 import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
 import { PlaylistSettingsT } from '/src/api/types/PlaylistSettingsT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { DeletionWithFlag } from '/src/clips/ClipsState/facets/DeletionWithFlag';
-import { Following } from './facets/Following';
-import { PlaylistStore } from './facets/PlaylistStore';
-import { registerPdCtr } from './registerPdCtr';
-import { registerPlaylistsCtr } from './registerPlaylistsCtr';
-import { registerSettingsCtr } from './registerSettingsCtr';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
@@ -44,7 +44,7 @@ export class PlaylistsState {
     hovering: new Hovering(),
     insertion: new Insertion<PlaylistT>(),
     selection: new Selection<PlaylistT>(),
-    store: new PlaylistStore(),
+    store: new Store<PlaylistT>(),
   };
 
   pdCtr = {
