@@ -19,6 +19,7 @@ import {
 import { PlaylistNotFound } from '/src/playlists/components/PlaylistNotFound';
 import { SelectPlaylistEffect } from '/src/playlists/components/SelectPlaylistEffect';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
+import { SearchResultsPaginator } from '/src/search/components';
 import { SearchView } from '/src/search/components/SearchView';
 import { cn } from '/src/utils/classnames';
 
@@ -51,7 +52,9 @@ export const DashboardSwitch = withDefaultProps(
                 {
                   // 🔳 SearchView 🔳
                 }
-                <SearchView className="ml-4 mt-4" />
+                <SearchResultsPaginator>
+                  <SearchView className="ml-4 mt-4" />
+                </SearchResultsPaginator>
               </Route>
               <Route exact={true} path={routes.actions()}>
                 <ActionsNavPage>

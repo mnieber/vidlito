@@ -69,9 +69,6 @@ const dpsSearchResults = {
   searchResults: {
     searchResults: stub as SearchResultT[],
   },
-  searchResultsPage: {
-    searchResultsPage: stub as SearchResultT[],
-  },
   searchResult: {
     searchResult: stub as SearchResultT,
   },
