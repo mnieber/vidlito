@@ -1,7 +1,6 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
-import { getPlaylistQueryKey } from '/src/api/queries';
-import { queryClient } from '/src/api/queryClient';
+import { invalidateGetPlaylist } from '/src/api/queries';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
@@ -40,11 +39,7 @@ export const useMoveClipsToPlaylist = () => {
   return useObservableMutation({
     mutationFn: moveClipsToPlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      return Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: getPlaylistQueryKey(),
-        }),
-      ]);
+      return Promise.all([invalidateGetPlaylist({})]);
     },
   });
 };

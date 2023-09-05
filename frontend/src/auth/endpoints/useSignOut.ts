@@ -1,8 +1,7 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
 import { setToken } from '/src/api/graphqlClient';
-import { queryClient } from '/src/api/queryClient';
 import { AuthState } from '/src/auth/AuthState';
-import { loadUserIdQueryKey } from '/src/auth/endpoints';
+import { invalidateLoadUserId } from '/src/auth/endpoints';
 import { ObjT } from '/src/utils/types';
 
 export type ArgsT = {};
@@ -26,7 +25,7 @@ export const useSignOut = (authState?: AuthState) => {
     },
     onSuccess: (data: ObjT) => {
       if (authState) authState.onUpdated(queryName, data);
-      queryClient.invalidateQueries({ queryKey: loadUserIdQueryKey({}) });
+      invalidateLoadUserId({});
     },
     onError: (error: Error) => {
       if (authState) authState.onErrored(queryName, error.message);

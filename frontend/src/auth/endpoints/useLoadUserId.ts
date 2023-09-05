@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { doQuery, getRefreshToken, setToken } from '/src/api/graphqlClient';
+import { queryClient } from '/src/api/queryClient';
 import { refreshToken } from '/src/auth/endpoints/refreshToken';
 import { createQueryKey } from '/src/utils/createQueryKey';
 import { ObjT } from '/src/utils/types';
@@ -90,4 +91,8 @@ export const useLoadUserId = () => {
       return loadUserId({ maybeRefreshToken: true });
     },
   });
+};
+
+export const invalidateLoadUserId = (args: QueryKeyT) => {
+  return queryClient.invalidateQueries(queryKey(args));
 };

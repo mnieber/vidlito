@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
+import { queryClient } from '/src/api/queryClient';
 import { createQueryKey } from '/src/utils/createQueryKey';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
@@ -80,5 +81,11 @@ export const useGetPlaylist = (args: ArgsT, options?: OptionsT) => {
     retry: 0,
     enabled: !!(options?.enabled ?? true),
     onError: options?.onError,
+  });
+};
+
+export const invalidateGetPlaylist = (args: ArgsT) => {
+  return queryClient.invalidateQueries({
+    queryKey: queryKey(args),
   });
 };

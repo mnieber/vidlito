@@ -1,7 +1,7 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
-import { getActionsQueryKey, getPlaylistQueryKey } from '/src/api/queries';
-import { queryClient } from '/src/api/queryClient';
+import { invalidateGetPlaylist } from '/src/api/queries';
+import { invalidateGetActions } from '/src/api/queries/useGetActions';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
@@ -48,14 +48,8 @@ export function invalidateActions(
   playlistSlug: string
 ): Promise<any> {
   return Promise.all([
-    queryClient.invalidateQueries({
-      queryKey: getPlaylistQueryKey({ playlistSlug: playlistSlug }),
-    }),
-    queryClient.invalidateQueries({
-      queryKey: getActionsQueryKey({ playlistId: playlistId }),
-    }),
-    queryClient.invalidateQueries({
-      queryKey: getActionsQueryKey({ playlistId: undefined }),
-    }),
+    invalidateGetPlaylist({ playlistSlug: playlistSlug }),
+    invalidateGetActions({ playlistId: playlistId }),
+    invalidateGetActions({ playlistId: undefined }),
   ]);
 }

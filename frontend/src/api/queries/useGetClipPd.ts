@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
+import { queryClient } from '/src/api/queryClient';
 import { createQueryKey } from '/src/utils/createQueryKey';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
@@ -48,4 +49,8 @@ export const useGetClipPd = (args: ArgsT, options?: OptionsT) => {
     enabled: !!(options?.enabled ?? true),
     queryFn: () => getClipPd(args),
   });
+};
+
+export const invalidateGetClipPd = (args: QueryKeyT) => {
+  return queryClient.invalidateQueries(queryKey(args));
 };

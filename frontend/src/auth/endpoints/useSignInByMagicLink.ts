@@ -1,8 +1,7 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery, setToken } from '/src/api/graphqlClient';
-import { queryClient } from '/src/api/queryClient';
 import { AuthState } from '/src/auth/AuthState';
-import { loadUserIdQueryKey } from '/src/auth/endpoints';
+import { invalidateLoadUserId } from '/src/auth/endpoints';
 import { States } from '/src/auth/endpoints/states';
 import { hasErrorCode, isError } from '/src/auth/endpoints/utils';
 import { ObjT } from '/src/utils/types';
@@ -75,7 +74,7 @@ export const useSignInByMagicLink = (authState?: AuthState) => {
     },
     onSuccess: (data: ObjT) => {
       if (authState) authState.onUpdated(queryName, data);
-      queryClient.invalidateQueries({ queryKey: loadUserIdQueryKey({}) });
+      invalidateLoadUserId({});
     },
     onError: (error: Error) => {
       if (authState) authState.onErrored(queryName, error.message);

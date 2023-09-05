@@ -1,7 +1,6 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
-import { getPlaylistQueryKey } from '/src/api/queries';
-import { queryClient } from '/src/api/queryClient';
+import { invalidateGetPlaylist } from '/src/api/queries';
 import { ClipFormT } from '/src/api/types/ClipT';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
@@ -38,9 +37,7 @@ export const useSaveClip = () => {
   return useObservableMutation({
     mutationFn: saveClip,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      return queryClient.invalidateQueries({
-        queryKey: getPlaylistQueryKey(),
-      });
+      return invalidateGetPlaylist({});
     },
   });
 };

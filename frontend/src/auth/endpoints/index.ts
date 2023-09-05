@@ -1,5 +1,6 @@
 export { activateAccount, useActivateAccount } from './useActivateAccount';
 export {
+  invalidateLoadUserId,
   loadUserId,
   queryKey as loadUserIdQueryKey,
   useLoadUserId,

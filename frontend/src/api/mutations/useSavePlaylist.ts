@@ -1,10 +1,10 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
-import { getPlaylistQueryKey } from '/src/api/queries';
+import { getPlaylistQueryKey, invalidateGetPlaylist } from '/src/api/queries';
 import { playlistFields } from '/src/api/queries/useGetPlaylist';
 import { queryClient } from '/src/api/queryClient';
 import { PlaylistFormT } from '/src/api/types/PlaylistT';
-import { loadUserIdQueryKey } from '/src/auth/endpoints';
+import { invalidateLoadUserId } from '/src/auth/endpoints';
 import { applyUpdate } from '/src/utils/applyUpdate';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
@@ -54,14 +54,9 @@ export const useSavePlaylist = () => {
         }
       );
 
-      const invalidateLoadUserId = response.created
-        ? [queryClient.invalidateQueries({ queryKey: loadUserIdQueryKey({}) })]
-        : [];
       return Promise.all([
-        ...invalidateLoadUserId,
-        queryClient.invalidateQueries({
-          queryKey: getPlaylistQueryKey(),
-        }),
+        response.created ? invalidateLoadUserId({}) : Promise.resolve(),
+        invalidateGetPlaylist({}),
       ]);
     },
   });

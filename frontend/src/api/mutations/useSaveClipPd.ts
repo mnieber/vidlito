@@ -1,7 +1,6 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
 import { doQuery } from '/src/api/graphqlClient';
-import { getClipPdQueryKey } from '/src/api/queries';
-import { queryClient } from '/src/api/queryClient';
+import { invalidateGetClipPd } from '/src/api/queries';
 import { ClipPdFormT } from '/src/api/types/ClipPdT';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
@@ -36,9 +35,7 @@ export const useSaveClipPd = () => {
   return useObservableMutation({
     mutationFn: saveClipPd,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      return queryClient.invalidateQueries({
-        queryKey: getClipPdQueryKey({ clipSlug: args.clipSlug }),
-      });
+      return invalidateGetClipPd({ clipSlug: args.clipSlug });
     },
   });
 };

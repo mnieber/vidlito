@@ -73,8 +73,8 @@ export const useGetActions = (
   });
 };
 
-export const invalidateGetActions = (args: ArgsT) => {
+export const invalidateGetActions = (args: QueryKeyT) => {
   return queryClient.invalidateQueries({
-    queryKey: queryKey({ playlistId: args.playlistId }),
+    queryKey: queryKey(args),
   });
 };
