@@ -15,7 +15,7 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { playlistsState, isGetPlaylistLoading, isGetPlaylistUpdating } =
+    const { playlistsState: state, isGetPlaylistLoading, isGetPlaylistUpdating } =
       usePlaylistsState({
         getUserProfile: () => props.userProfile,
       });
@@ -24,7 +24,7 @@ export const PlaylistsStateProvider = observer(
       makeAutoObservable({
         get playlists() {
           return updateSources(
-            { resource: playlistsState.playlistsCtr.display.items },
+            { resource: state.playlistsCtr.display.items },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
             ['updating', () => isUpdating(props.userProfile), 'userProfile']
           );
@@ -32,7 +32,7 @@ export const PlaylistsStateProvider = observer(
         get playlist() {
           return updateSources(
             {
-              resource: playlistsState.playlistsCtr.highlight.item,
+              resource: state.playlistsCtr.highlight.item,
               resourceName: 'playlist',
             },
             ['loading', () => isLoading(props.userProfile), 'userProfile'],
@@ -46,7 +46,7 @@ export const PlaylistsStateProvider = observer(
     const getDefaultPropsContext = () => {
       const result: any = {
         defaultProps: {
-          playlistsState: () => playlistsState,
+          playlistsState: () => state,
         },
       };
 
@@ -54,24 +54,24 @@ export const PlaylistsStateProvider = observer(
         ...result.defaultProps,
         playlists: () => cache.playlists,
         playlist: () => cache.playlist,
-        playlistsAddition: () => playlistsState.playlistsCtr.addition,
-        playlistsDeletion: () => playlistsState.playlistsCtr.deletion,
-        playlistsDragAndDrop: () => playlistsState.playlistsCtr.dragAndDrop,
-        playlistsEdit: () => playlistsState.playlistsCtr.edit,
-        playlistsHighlight: () => playlistsState.playlistsCtr.highlight,
-        playlistsHovering: () => playlistsState.playlistsCtr.hovering,
-        playlistsSelection: () => playlistsState.playlistsCtr.selection,
+        playlistsAddition: () => state.playlistsCtr.addition,
+        playlistsDeletion: () => state.playlistsCtr.deletion,
+        playlistsDragAndDrop: () => state.playlistsCtr.dragAndDrop,
+        playlistsEdit: () => state.playlistsCtr.edit,
+        playlistsHighlight: () => state.playlistsCtr.highlight,
+        playlistsHovering: () => state.playlistsCtr.hovering,
+        playlistsSelection: () => state.playlistsCtr.selection,
       };
 
       result.defaultProps = {
         ...result.defaultProps,
-        playlistPdEdit: () => playlistsState.pdCtr.edit,
+        playlistPdEdit: () => state.pdCtr.edit,
       };
 
       result.defaultProps = {
         ...result.defaultProps,
-        playlistSettingsEdit: () => playlistsState.settingsCtr.edit,
-        playlistFollowing: () => playlistsState.settingsCtr.following,
+        playlistSettingsEdit: () => state.settingsCtr.edit,
+        playlistFollowing: () => state.settingsCtr.following,
       };
 
       return result;
