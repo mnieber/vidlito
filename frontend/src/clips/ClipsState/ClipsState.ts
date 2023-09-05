@@ -15,9 +15,9 @@ import { ClipPdStore } from '/src/clips/ClipsState/facets/ClipPdStore';
 import { ClipsStore } from '/src/clips/ClipsState/facets/ClipsStore';
 import { DeletionWithFlag } from '/src/clips/ClipsState/facets/DeletionWithFlag';
 import { Move } from '/src/clips/ClipsState/facets/Move';
-import { registerClipPdCtr } from '/src/clips/ClipsState/registerClipPdCtr';
-import { registerClipSettingsCtr } from '/src/clips/ClipsState/registerClipSettingsCtr';
-import { registerClipsCtr } from '/src/clips/ClipsState/registerClipsCtr';
+import { registerClipsCtr } from './registerClipsCtr';
+import { registerClipPdCtr } from './registerClipPdCtr';
+import { registerClipSettingsCtr } from './registerClipSettingsCtr';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = {

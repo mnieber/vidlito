@@ -11,9 +11,9 @@ import {
   Store,
 } from 'skandha-facets';
 import { Following } from './facets/Following';
-import { registerPdCtr } from './registerPdCtr';
+import { registerPlaylistPdCtr } from './registerPlaylistPdCtr';
+import { registerPlaylistSettingsCtr } from './registerPlaylistSettingsCtr';
 import { registerPlaylistsCtr } from './registerPlaylistsCtr';
-import { registerSettingsCtr } from './registerSettingsCtr';
 import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
 import { PlaylistSettingsT } from '/src/api/types/PlaylistSettingsT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
@@ -26,9 +26,9 @@ export type PropsT = {
   getFollowedPlaylists: () => PlaylistT[];
   deletePlaylists: (ids: string[]) => Promise<any>;
   savePlaylist: (values: ObjT) => Promise<PlaylistT>;
+  savePlaylistOrdering: (playlists: PlaylistT[]) => Promise<any>;
   savePlaylistPd: (values: ObjT) => Promise<PlaylistPdT>;
   savePlaylistSettings: (values: ObjT) => Promise<PlaylistSettingsT>;
-  savePlaylistOrdering: (playlists: PlaylistT[]) => Promise<any>;
 };
 
 export class PlaylistsState {
@@ -47,11 +47,11 @@ export class PlaylistsState {
     store: new Store<PlaylistT>(),
   };
 
-  pdCtr = {
+  playlistPdCtr = {
     edit: new Edit(),
   };
 
-  settingsCtr = {
+  playlistSettingsCtr = {
     edit: new Edit(),
     following: new Following(),
   };
@@ -59,8 +59,8 @@ export class PlaylistsState {
   getSummary() {
     return {
       playlists: Skandha.getCtrState(this.playlistsCtr),
-      pd: Skandha.getCtrState(this.pdCtr),
-      settings: Skandha.getCtrState(this.settingsCtr),
+      playlistPd: Skandha.getCtrState(this.playlistPdCtr),
+      playlistSettings: Skandha.getCtrState(this.playlistSettingsCtr),
     };
   }
 
@@ -71,7 +71,7 @@ export class PlaylistsState {
   constructor(props: PropsT) {
     this.props = props;
     registerPlaylistsCtr(this);
-    registerPdCtr(this);
-    registerSettingsCtr(this);
+    registerPlaylistPdCtr(this);
+    registerPlaylistSettingsCtr(this);
   }
 }

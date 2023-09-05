@@ -15,10 +15,13 @@ const DefaultProps = {
 
 export const PlaylistsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { playlistsState: state, isGetPlaylistLoading, isGetPlaylistUpdating } =
-      usePlaylistsState({
-        getUserProfile: () => props.userProfile,
-      });
+    const {
+      playlistsState: state,
+      isGetPlaylistLoading,
+      isGetPlaylistUpdating,
+    } = usePlaylistsState({
+      getUserProfile: () => props.userProfile,
+    });
 
     const cache = useBuilder(() =>
       makeAutoObservable({
@@ -65,13 +68,13 @@ export const PlaylistsStateProvider = observer(
 
       result.defaultProps = {
         ...result.defaultProps,
-        playlistPdEdit: () => state.pdCtr.edit,
+        playlistPdEdit: () => state.playlistPdCtr.edit,
       };
 
       result.defaultProps = {
         ...result.defaultProps,
-        playlistSettingsEdit: () => state.settingsCtr.edit,
-        playlistFollowing: () => state.settingsCtr.following,
+        playlistSettingsEdit: () => state.playlistSettingsCtr.edit,
+        playlistFollowing: () => state.playlistSettingsCtr.following,
       };
 
       return result;

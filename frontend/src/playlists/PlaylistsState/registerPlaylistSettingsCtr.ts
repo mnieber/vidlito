@@ -8,7 +8,7 @@ import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { FollowingCbs } from '/src/playlists/PlaylistsState/facets/Following';
 
 const mapData = (state: PlaylistsState) => {
-  const ctr = state.settingsCtr;
+  const ctr = state.playlistSettingsCtr;
 
   mapDataToProps(ctr, {
     following: {
@@ -22,7 +22,7 @@ const mapData = (state: PlaylistsState) => {
 };
 
 const setCallbacks = (state: PlaylistsState) => {
-  const ctr = state.settingsCtr;
+  const ctr = state.playlistSettingsCtr;
 
   setCallbackMap(ctr.edit, {
     save: {
@@ -49,9 +49,9 @@ const setCallbacks = (state: PlaylistsState) => {
   } as FollowingCbs);
 };
 
-export const registerSettingsCtr = (state: PlaylistsState) => {
+export const registerPlaylistSettingsCtr = (state: PlaylistsState) => {
   registerCtr({
-    ctr: state.settingsCtr,
+    ctr: state.playlistSettingsCtr,
     options: { name: 'PlaylistsState.Settings' },
     initCtr: () => {
       setCallbacks(state);
