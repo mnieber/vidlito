@@ -6,9 +6,9 @@ import {
   Field,
   FormSaveButton,
   GlobalError,
+  TextField,
   PasswordField,
 } from '/src/forms/components';
-import { TextField } from '/src/forms/components/TextField';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
@@ -52,7 +52,7 @@ export function ActivateAccountForm(props: PropsT) {
         </div>
 
         {
-          // 🔳 UsernameField 🔳
+          // 🔳 Username 🔳
         }
         <Field fieldName={formFields.username} className={AuthFormS.Field()}>
           <TextField autoFocus={true} placeholder="Username" />

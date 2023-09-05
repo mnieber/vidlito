@@ -18,9 +18,6 @@ export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Router history={history}>
-        {
-          // 🔳 App 🔳
-        }
         <div
           className={cn('App', [
             L.col.banner(),

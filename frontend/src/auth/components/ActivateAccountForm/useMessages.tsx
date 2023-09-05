@@ -26,7 +26,7 @@ export const useMessages = () => {
       pleaseProvideANewPassword: 'Please provide a new password',
       sorryThatPasswordIsTooShort: 'Sorry, that password is too short',
       divYouAreOneStepAway:
-        'You are one step away from activating your account. To proceed, please choose a new password.',
+        'You are one step away from activating your account. To proceed, please choose a username and password.',
     },
   };
 };
