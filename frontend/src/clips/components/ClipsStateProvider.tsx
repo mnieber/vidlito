@@ -82,7 +82,7 @@ export const ClipsStateProvider = observer(
         ...result.defaultProps,
         clipPd: () => cache.clipPd,
         clipPdEdit: () => clipsState.clipPdCtr.edit,
-        clipSettingsEdit: () => clipsState.settingsCtr.edit,
+        clipSettingsEdit: () => clipsState.clipSettingsCtr.edit,
       };
 
       return result;

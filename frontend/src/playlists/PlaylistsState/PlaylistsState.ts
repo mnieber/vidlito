@@ -10,15 +10,17 @@ import {
   Selection,
   Store,
 } from 'skandha-facets';
-import { Following } from './facets/Following';
-import { registerPlaylistPdCtr } from './registerPlaylistPdCtr';
-import { registerPlaylistSettingsCtr } from './registerPlaylistSettingsCtr';
-import { registerPlaylistsCtr } from './registerPlaylistsCtr';
 import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
 import { PlaylistSettingsT } from '/src/api/types/PlaylistSettingsT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { DeletionWithFlag } from '/src/clips/ClipsState/facets/DeletionWithFlag';
 import { ObjT } from '/src/utils/types';
+
+// Local imports
+import { Following } from './facets/Following';
+import { registerPlaylistPdCtr } from './registerPlaylistPdCtr';
+import { registerPlaylistSettingsCtr } from './registerPlaylistSettingsCtr';
+import { registerPlaylistsCtr } from './registerPlaylistsCtr';
 
 export type PropsT = {
   getPlaylists: () => PlaylistT[];

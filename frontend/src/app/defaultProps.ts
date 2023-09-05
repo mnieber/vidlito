@@ -103,14 +103,14 @@ const dpsClips = {
   clipsDragAndDrop: {
     clipsDragAndDrop: stub as DragAndDrop,
   },
-  clipsHovering: {
-    clipsHovering: stub as Hovering,
-  },
   clipsEdit: {
     clipsEdit: stub as Edit,
   },
   clipsHighlight: {
     clipsHighlight: stub as Highlight,
+  },
+  clipsHovering: {
+    clipsHovering: stub as Hovering,
   },
   clipsInsertion: {
     clipsInsertion: stub as Insertion,

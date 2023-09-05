@@ -73,7 +73,6 @@ export const usePlaylistsState = (props: PropsT) => {
 
   const playlistsState = useBuilder<PlaylistsState>(() => {
     return new PlaylistsState({
-      //
       getPlaylists: () => {
         return graftResourceStatesFromMemo({
           resources: smartUpdatePlaylists(

@@ -8,17 +8,19 @@ import {
   Hovering,
   Insertion,
   Selection,
+  Store,
 } from 'skandha-facets';
 import { ClipPdT } from '/src/api/types/ClipPdT';
 import { ClipT } from '/src/api/types/ClipT';
-import { ClipPdStore } from '/src/clips/ClipsState/facets/ClipPdStore';
-import { ClipsStore } from '/src/clips/ClipsState/facets/ClipsStore';
-import { DeletionWithFlag } from '/src/clips/ClipsState/facets/DeletionWithFlag';
-import { Move } from '/src/clips/ClipsState/facets/Move';
-import { registerClipsCtr } from './registerClipsCtr';
+import { ObjT } from '/src/utils/types';
+
+// Local imports
+import { ClipPdStore } from './facets/ClipPdStore';
+import { DeletionWithFlag } from './facets/DeletionWithFlag';
+import { Move } from './facets/Move';
 import { registerClipPdCtr } from './registerClipPdCtr';
 import { registerClipSettingsCtr } from './registerClipSettingsCtr';
-import { ObjT } from '/src/utils/types';
+import { registerClipsCtr } from './registerClipsCtr';
 
 export type PropsT = {
   getClips: () => ClipT[];
@@ -26,8 +28,8 @@ export type PropsT = {
   moveClipsToTrash: (ids: string[]) => Promise<any>;
   deleteClips: (ids: string[]) => Promise<any>;
   saveClip: (values: ObjT) => Promise<ClipT>;
-  saveClipPd: (values: ObjT) => Promise<ClipPdT>;
   saveClipOrdering: (clips: ClipT[]) => Promise<any>;
+  saveClipPd: (values: ObjT) => Promise<ClipPdT>;
   moveClipsToPlaylist: (
     clips: ClipT[],
     playlistId: string,
@@ -49,7 +51,7 @@ export class ClipsState {
     insertion: new Insertion<ClipT>(),
     move: new Move(),
     selection: new Selection<ClipT>(),
-    store: new ClipsStore(),
+    store: new Store<ClipT>(),
   };
 
   clipPdCtr = {
@@ -57,7 +59,7 @@ export class ClipsState {
     store: new ClipPdStore(),
   };
 
-  settingsCtr = {
+  clipSettingsCtr = {
     edit: new Edit(),
   };
 
@@ -65,6 +67,7 @@ export class ClipsState {
     return {
       clips: Skandha.getCtrState(this.clipsCtr),
       clipPd: Skandha.getCtrState(this.clipPdCtr),
+      clipSettings: Skandha.getCtrState(this.clipSettingsCtr),
     };
   }
 
