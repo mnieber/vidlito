@@ -10,14 +10,14 @@ import {
   type SavePlaylistArgsT,
   type SavePlaylistOrderingArgsT,
 } from '/src/api/endpoints';
-import { useObservableQuery } from '/src/api/hooks';
 import {
   SavePlaylistPdArgsT,
   SavePlaylistSettingsArgsT,
-} from '/src/api/mutations';
-import { useFollowPlaylists } from '/src/api/mutations/useFollowPlaylists';
-import { useSavePlaylistPd } from '/src/api/mutations/useSavePlaylistPd';
-import { useSavePlaylistSettings } from '/src/api/mutations/useSavePlaylistSettings';
+} from '/src/api/endpoints/mutations';
+import { useFollowPlaylists } from '/src/api/endpoints/mutations/useFollowPlaylists';
+import { useSavePlaylistPd } from '/src/api/endpoints/mutations/useSavePlaylistPd';
+import { useSavePlaylistSettings } from '/src/api/endpoints/mutations/useSavePlaylistSettings';
+import { useObservableQuery } from '/src/api/hooks';
 import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
 import { PlaylistSettingsT } from '/src/api/types/PlaylistSettingsT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
@@ -104,7 +104,6 @@ export const usePlaylistsState = (props: PropsT) => {
       },
       //
       followPlaylist: (playlist: PlaylistT, flag: boolean) => {
-        followPlaylists.mutateAsync;
         return followPlaylists.mutateAsync({
           playlistIds: [playlist.id],
           isFollowing: flag,

@@ -21,8 +21,8 @@ export const searchContent = (args: ArgsT) => {
       searchContent(
         page: $page
         pageSize: $pageSize
-        playlistTerms: $playlistTerms
         clipTerms: $clipTerms
+        playlistTerms: $playlistTerms
       ) {
         errors
         success

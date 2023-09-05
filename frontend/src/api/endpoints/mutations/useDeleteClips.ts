@@ -1,6 +1,6 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
+import { invalidateGetPlaylist } from '/src/api/endpoints/queries';
 import { doQuery } from '/src/api/graphqlClient';
-import { invalidateGetPlaylist } from '/src/api/queries';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 

@@ -21,8 +21,8 @@ export const savePlaylistOrdering = (args: ArgsT) => {
       $folderId: UUID
     ) {
       savePlaylistOrdering(
-        playlistIds: $playlistIds
         folderId: $folderId
+        playlistIds: $playlistIds
       ) {
         errors
         success

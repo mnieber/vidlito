@@ -1,7 +1,7 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
+import { invalidateGetPlaylist } from '/src/api/endpoints/queries';
+import { invalidateGetActions } from '/src/api/endpoints/queries/useGetActions';
 import { doQuery } from '/src/api/graphqlClient';
-import { invalidateGetPlaylist } from '/src/api/queries';
-import { invalidateGetActions } from '/src/api/queries/useGetActions';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
@@ -38,17 +38,16 @@ export const useMoveClipsToTrash = () => {
   return useObservableMutation({
     mutationFn: moveClipsToTrash,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      return invalidateActions(args.playlistId, args.playlistSlug);
+      return Promise.all([
+        invalidateActions(args.playlistId),
+        invalidateGetPlaylist({ playlistSlug: args.playlistSlug }),
+      ]);
     },
   });
 };
 
-export function invalidateActions(
-  playlistId: string,
-  playlistSlug: string
-): Promise<any> {
+export function invalidateActions(playlistId: string): Promise<any> {
   return Promise.all([
-    invalidateGetPlaylist({ playlistSlug: playlistSlug }),
     invalidateGetActions({ playlistId: playlistId }),
     invalidateGetActions({ playlistId: undefined }),
   ]);

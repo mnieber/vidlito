@@ -1,7 +1,7 @@
 import * as R from 'ramda';
 import { useObservableMutation } from '/src/api/ObservableMutation';
+import { getPlaylistQueryKey } from '/src/api/endpoints/queries';
 import { doQuery } from '/src/api/graphqlClient';
-import { getPlaylistQueryKey } from '/src/api/queries';
 import { queryClient } from '/src/api/queryClient';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { applyUpdate } from '/src/utils/applyUpdate';

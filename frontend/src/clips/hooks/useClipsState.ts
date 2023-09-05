@@ -11,15 +11,15 @@ import {
   useSaveClip,
   useSaveClipOrdering,
 } from '/src/api/endpoints';
-import { useObservableQuery } from '/src/api/hooks';
 import {
   DeleteClipsArgsT,
   MoveClipsToPlaylistArgsT,
   SaveClipArgsT,
   SaveClipPdArgsT,
   useDeleteClips,
-} from '/src/api/mutations';
-import { useSaveClipPd } from '/src/api/mutations/useSaveClipPd';
+} from '/src/api/endpoints/mutations';
+import { useSaveClipPd } from '/src/api/endpoints/mutations/useSaveClipPd';
+import { useObservableQuery } from '/src/api/hooks';
 import { createClipPd } from '/src/api/types/ClipPdT';
 import { ClipT } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';

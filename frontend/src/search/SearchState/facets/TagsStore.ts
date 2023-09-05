@@ -1,4 +1,4 @@
-import { getTags } from '/src/api/queries/useGetTags';
+import { getTags } from '/src/api/endpoints/queries/useGetTags';
 import { PickerValueT } from '/src/utils/components/ValuePicker';
 import { ObjT } from '/src/utils/types';
 

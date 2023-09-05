@@ -1,6 +1,7 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
+import { invalidateActions } from '/src/api/endpoints/mutations/useMoveClipsToTrash';
+import { invalidateGetPlaylist } from '/src/api/endpoints/queries';
 import { doQuery } from '/src/api/graphqlClient';
-import { invalidateActions } from '/src/api/mutations/useMoveClipsToTrash';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
@@ -31,7 +32,10 @@ export const useUndoAction = () => {
   return useObservableMutation({
     mutationFn: undoAction,
     onSuccess: (response: ObjT, args: ArgsT) => {
-      return invalidateActions(args.playlistId, args.playlistSlug);
+      return Promise.all([
+        invalidateActions(args.playlistId),
+        invalidateGetPlaylist({ playlistSlug: args.playlistSlug }),
+      ]);
     },
   });
 };

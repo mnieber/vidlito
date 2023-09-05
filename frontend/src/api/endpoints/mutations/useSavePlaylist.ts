@@ -1,7 +1,10 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
+import {
+  getPlaylistQueryKey,
+  invalidateGetPlaylist,
+} from '/src/api/endpoints/queries';
+import { playlistFields } from '/src/api/endpoints/queries/useGetPlaylist';
 import { doQuery } from '/src/api/graphqlClient';
-import { getPlaylistQueryKey, invalidateGetPlaylist } from '/src/api/queries';
-import { playlistFields } from '/src/api/queries/useGetPlaylist';
 import { queryClient } from '/src/api/queryClient';
 import { PlaylistFormT } from '/src/api/types/PlaylistT';
 import { invalidateLoadUserId } from '/src/auth/endpoints';
@@ -32,7 +35,7 @@ export const savePlaylist = (args: ArgsT) => {
     }`,
     args
   ).then((response: ObjT) => {
-    return wait(!!import.meta.env.DEV ? 1000 : 0, response.savePlaylist);
+    return wait(import.meta.env.DEV ? 1000 : 0, response.savePlaylist);
   });
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import { SearchContentArgsT } from '/src/api/mutations';
-import { useSearchContent } from '/src/api/mutations/useSearchContent';
+import { SearchContentArgsT } from '/src/api/endpoints/mutations';
+import { useSearchContent } from '/src/api/endpoints/mutations/useSearchContent';
 import { PropsT as SearchStatePropsT } from '/src/search/SearchState';
 import { SearchState } from '/src/search/SearchState/SearchState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';

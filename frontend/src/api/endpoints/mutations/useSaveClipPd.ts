@@ -1,6 +1,6 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
+import { invalidateGetClipPd } from '/src/api/endpoints/queries';
 import { doQuery } from '/src/api/graphqlClient';
-import { invalidateGetClipPd } from '/src/api/queries';
 import { ClipPdFormT } from '/src/api/types/ClipPdT';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
