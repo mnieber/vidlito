@@ -7,10 +7,10 @@ import {
   unflatten,
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
-import { PlaylistT } from '/src/api/types/PlaylistT';
 import { navToHome } from '/src/frames/FramesNavEvents';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { createUUID } from '/src/utils/ids';
+import { ObjT } from '/src/utils/types';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
@@ -54,8 +54,8 @@ const getHandleSubmit =
           'playlistForm.id': values['playlistForm.id'] ?? createUUID(),
         }),
       })
-      .then((localPlaylist: PlaylistT) => {
-        navToPlaylist(props.userProfile.username, localPlaylist.slug);
+      .then((response: ObjT) => {
+        navToPlaylist(props.userProfile.username, response.slug);
       })
       .then(() => {
         formState.reset(initialValues, initialErrors);

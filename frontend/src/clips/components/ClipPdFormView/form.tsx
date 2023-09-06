@@ -6,8 +6,8 @@ import {
   unflatten,
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
-import { ClipPdT } from '/src/api/types/ClipPdT';
 import { createUUID } from '/src/utils/ids';
+import { ObjT } from '/src/utils/types';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
@@ -41,8 +41,9 @@ const getHandleSubmit =
         'clipPdForm.tags': values['clipPdForm.tags'] ?? [],
       }),
     })
-      .then((localClipPd: ClipPdT) => {
+      .then((response: ObjT) => {
         formState.reset(initialValues, initialErrors);
+        return response;
       })
       .catch((error: any) => {
         formState.setError(

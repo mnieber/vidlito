@@ -2,7 +2,6 @@ import { setCallbackMap } from 'aspiration';
 import { mapDataToProps } from 'skandha';
 import { EditCbs } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
-import { ClipPdT } from '/src/api/types/ClipPdT';
 import { ClipsState } from '/src/clips/ClipsState';
 
 const mapData = (state: ClipsState) => {
@@ -21,11 +20,7 @@ const setCallbacks = (state: ClipsState) => {
   setCallbackMap(ctr.edit, {
     save: {
       saveItem(this: EditCbs['save']) {
-        return state.props
-          .saveClipPd(this.args.values)
-          .then((localClip: ClipPdT) => {
-            return localClip;
-          });
+        return state.props.saveClipPd(this.args.values);
       },
     },
     cancel: {},

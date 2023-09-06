@@ -21,6 +21,7 @@ import { PlaylistT } from '/src/api/types/PlaylistT';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { followedSelectedPlaylistsAreInsertedOnDrop } from '/src/playlists/PlaylistsState/policies';
 import { getIds } from '/src/utils/ids';
+import { ObjT } from '/src/utils/types';
 
 const mapData = (state: PlaylistsState) => {
   const ctr = state.playlistsCtr;
@@ -110,9 +111,9 @@ const setCallbacks = (state: PlaylistsState) => {
       saveItem(this: EditCbs['save']) {
         return state.props
           .savePlaylist(this.args.values)
-          .then((localPlaylist: PlaylistT) => {
+          .then((response: ObjT) => {
             ctr.addition.confirm();
-            return localPlaylist;
+            return response;
           });
       },
     },

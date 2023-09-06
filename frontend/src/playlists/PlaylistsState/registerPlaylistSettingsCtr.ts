@@ -2,7 +2,6 @@ import { setCallbackMap } from 'aspiration';
 import { mapDataToProps } from 'skandha';
 import { EditCbs } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
-import { PlaylistSettingsT } from '/src/api/types/PlaylistSettingsT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { FollowingCbs } from '/src/playlists/PlaylistsState/facets/Following';
@@ -27,11 +26,7 @@ const setCallbacks = (state: PlaylistsState) => {
   setCallbackMap(ctr.edit, {
     save: {
       saveItem(this: EditCbs['save']) {
-        return state.props
-          .savePlaylistSettings(this.args.values)
-          .then((localPlaylistSettings: PlaylistSettingsT) => {
-            return localPlaylistSettings;
-          });
+        return state.props.savePlaylistSettings(this.args.values);
       },
     },
     cancel: {},

@@ -1,6 +1,6 @@
 import { setCallbackMap } from 'aspiration';
 import * as R from 'ramda';
-import { mapDataToProps } from 'skandha';
+import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
 import {
   AdditionCbs,
   DeletionCbs,
@@ -66,6 +66,7 @@ const mapData = (state: ClipsState) => {
 
 const setCallbacks = (state: ClipsState) => {
   const ctr = state.clipsCtr;
+  addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
   setCallbackMap(ctr.addition, {
     add: {
@@ -111,12 +112,10 @@ const setCallbacks = (state: ClipsState) => {
   setCallbackMap(ctr.edit, {
     save: {
       saveItem(this: EditCbs['save']) {
-        return state.props
-          .saveClip(this.args.values)
-          .then((localClip: ClipT) => {
-            ctr.addition.confirm();
-            return localClip;
-          });
+        return state.props.saveClip(this.args.values).then((response: ObjT) => {
+          ctr.addition.confirm();
+          return response;
+        });
       },
     },
     cancel: {

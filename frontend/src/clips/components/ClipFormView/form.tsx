@@ -7,9 +7,9 @@ import {
   unflatten,
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
-import { ClipT } from '/src/api/types/ClipT';
 import { navToHome } from '/src/frames/FramesNavEvents';
 import { createUUID } from '/src/utils/ids';
+import { ObjT } from '/src/utils/types';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
@@ -43,23 +43,23 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
-    const saveClip = props.clipsEdit.save.bind(props.clipsEdit);
-
-    return saveClip({
-      values: unflatten({
-        ...values,
-        'clipForm.id': values['clipForm.id'] ?? createUUID(),
-        'clipForm.endTimeMs': Math.trunc(values['clipForm.endTimeS'] * 1000),
-        'clipForm.startTimeMs': Math.trunc(
-          values['clipForm.startTimeS'] * 1000
-        ),
-        'clipForm.tags': values['clipForm.tags'] ?? [],
-        'clipForm.endTimeS': undefined,
-        'clipForm.startTimeS': undefined,
-      }),
-    })
-      .then((localClip: ClipT) => {
+    return props.clipsEdit
+      .save({
+        values: unflatten({
+          ...values,
+          'clipForm.id': values['clipForm.id'] ?? createUUID(),
+          'clipForm.endTimeMs': Math.trunc(values['clipForm.endTimeS'] * 1000),
+          'clipForm.startTimeMs': Math.trunc(
+            values['clipForm.startTimeS'] * 1000
+          ),
+          'clipForm.tags': values['clipForm.tags'] ?? [],
+          'clipForm.endTimeS': undefined,
+          'clipForm.startTimeS': undefined,
+        }),
+      })
+      .then((response: ObjT) => {
         formState.reset(initialValues, initialErrors);
+        return response;
       })
       .catch((error: any) => {
         formState.setError(

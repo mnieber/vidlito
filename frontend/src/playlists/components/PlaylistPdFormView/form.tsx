@@ -6,7 +6,6 @@ import {
   unflatten,
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
-import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
 import { createUUID } from '/src/utils/ids';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
@@ -33,16 +32,15 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
-    const savePlaylistPd = props.playlistPdEdit.save.bind(props.playlistPdEdit);
-
-    return savePlaylistPd({
-      values: unflatten({
-        ...values,
-        'playlistPdForm.id': values['playlistPdForm.id'] ?? createUUID(),
-        'playlistPdForm.tags': values['playlistPdForm.tags'] ?? [],
-      }),
-    })
-      .then((localPlaylistPd: PlaylistPdT) => {
+    return props.playlistPdEdit
+      .save({
+        values: unflatten({
+          ...values,
+          'playlistPdForm.id': values['playlistPdForm.id'] ?? createUUID(),
+          'playlistPdForm.tags': values['playlistPdForm.tags'] ?? [],
+        }),
+      })
+      .then(() => {
         formState.reset(initialValues, initialErrors);
       })
       .catch((error: any) => {
