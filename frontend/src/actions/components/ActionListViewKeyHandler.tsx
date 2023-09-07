@@ -20,7 +20,6 @@ export const ActionListViewKeyHandler = observer(
       'shift+up': () => {},
       'shift+down': () => {},
     };
-
     const handledKeys = R.keys(keyHandlers);
     const onKeyDown = createKeyDownHandler(keyHandlers);
 

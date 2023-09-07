@@ -25,7 +25,7 @@ export const ClipListViewKeyHandler = observer(
       <KeyboardEventHandler
         handleKeys={handledKeys}
         onKeyEvent={onKeyDown}
-        className={cn('ClipListViewKeyHandler', props.className)}
+        className={cn('ClipListViewKeyHandler', [props.className])}
       >
         {props.children}
       </KeyboardEventHandler>

@@ -32,9 +32,7 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
-    const saveClipPd = props.clipPdEdit.save.bind(props.clipPdEdit);
-
-    return saveClipPd({
+    return props.clipPdEdit.save({
       values: unflatten({
         ...values,
         'clipPdForm.id': values['clipPdForm.id'] ?? createUUID(),
