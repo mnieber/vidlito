@@ -1,13 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import {
-  DragAndDropUIConnector,
-  Selection,
-  SelectionUIConnector,
-} from 'skandha-facets';
+import { DragAndDropUIConnector, Selection, SelectionUIConnector } from 'skandha-facets';
 import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { ClipListViewKeyHandler } from '/src/clips/components';
 import { navToClip } from '/src/clips/ClipsNavEvents';
-import { ClipListKeyHandler } from '/src/clips/components/ClipListKeyHandler';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
@@ -25,14 +21,17 @@ const DefaultProps = {
   ...dps.playlist,
   ...dps.clips,
   ...dps.clipsDragAndDrop,
-  ...dps.clipsHovering,
   ...dps.clipsHighlight,
+  ...dps.clipsHovering,
   ...dps.clipsSelection,
   ...dps.dashboardState,
 };
 
 export const ClipListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    //
+    // 🔳  Handle loading state 🔳
+    //
     if (isLoading(props.clips)) {
       return <ClipListViewLoader {...props} />;
     }
@@ -62,21 +61,13 @@ export const ClipListView = observer(
       },
     });
 
-    const noItems = (
-      <h2
-        className="ClipListView__NoItems"
-        onClick={() => {
-          navToPlaylist(props.playlist.ownerUsername, props.playlist.slug);
-        }}
-      >
-        There are no clips yet
-      </h2>
-    );
-
-    const clipDivs = props.clips.map((clip, idx) => {
+    //
+    // 🔳 clipDivs 🔳
+    //
+    const clipDivs = props.clips.map((clip) => {
       return (
         <ClipListViewItem
-          key={`item-${clip.id}-${idx}`}
+          key={`item-${clip.id}`}
           clip={clip}
           showSelectionBg={props.clipsSelection.ids.length > 1}
           isHighlighted={clip && props.clipsHighlight.id === clip.id}
@@ -93,27 +84,39 @@ export const ClipListView = observer(
       );
     });
 
+    const noItems = (
+      <h2
+        className="ClipListView__NoItems"
+        onClick={() => {
+          navToPlaylist(props.playlist.ownerUsername, props.playlist.slug);
+        }}
+      >
+        There are no clips yet
+      </h2>
+    );
+
+    //
+    // 🔳 ClipListView 🔳
+    //
     return (
-      <ClipListKeyHandler className={cn(props.className)}>
+      <ClipListViewKeyHandler className={cn(props.className)}>
         <div className={cn('ClipListView')} tabIndex={0}>
           {clipDivs.length > 0 && clipDivs}
           {clipDivs.length === 0 && noItems}
         </div>
-      </ClipListKeyHandler>
+      </ClipListViewKeyHandler>
     );
   }, DefaultProps)
 );
 
-export const ClipListViewLoader = observer(
-  (props: PropsT & typeof DefaultProps) => {
-    const clipDivs = [1, 2, 3, 4, 5].map((idx) => {
-      return <LoaderBar key={`item-${idx}`} className={cn('py-1 h-2 my-4')} />;
-    });
+export const ClipListViewLoader = (props: { className?: any }) => {
+  const loaderBars = [1, 2, 3, 4, 5].map((id) => {
+    return <LoaderBar key={`item-${id}`} className={cn('py-1 h-2 my-4')} />;
+  });
 
-    return (
-      <div className={cn('ClipListViewLoader', props.className)}>
-        {clipDivs}
-      </div>
-    );
-  }
-);
+  return (
+    <div className={cn('ClipListViewLoader', props.className)}>
+      {loaderBars}
+    </div>
+  );
+};

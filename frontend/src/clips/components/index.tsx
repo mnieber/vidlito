@@ -1,9 +1,9 @@
 export { ClipDescription } from './ClipDescription';
 export { ClipFormView } from './ClipFormView';
 export { ClipHeaderView } from './ClipHeaderView';
-export { ClipListKeyHandler } from './ClipListKeyHandler';
 export { ClipListView } from './ClipListView';
 export { ClipListViewItem } from './ClipListViewItem';
+export { ClipListViewKeyHandler } from './ClipListViewKeyHandler';
 export { ClipMenu } from './ClipMenu';
 export { ClipPdView } from './ClipPdView';
 export { ClipsStateProvider } from './ClipsStateProvider';

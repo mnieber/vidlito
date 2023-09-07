@@ -1,5 +1,5 @@
 import { setCallbackMap } from 'aspiration';
-import { mapDataToProps } from 'skandha';
+import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
 import {
   AdditionCbs,
   DeletionCbs,
@@ -35,9 +35,13 @@ const mapData = (state: PlaylistsState) => {
     },
     selection: {
       selectableIds: () => getIds(ctr.display.items),
-      items: () => ctr.selection.ids.map(getPlaylistById as any),
+      items: () =>
+        ctr.selection.ids
+          .map(getPlaylistById)
+          .filter((x?: PlaylistT) => !!x) as PlaylistT[],
     },
     highlight: {
+      highlightableIds: () => getIds(ctr.display.items),
       item: () => getPlaylistById(ctr.highlight.id),
     },
     insertion: {
@@ -56,6 +60,7 @@ const mapData = (state: PlaylistsState) => {
 
 const setCallbacks = (state: PlaylistsState) => {
   const ctr = state.playlistsCtr;
+  addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
   setCallbackMap(ctr.addition, {
     add: {

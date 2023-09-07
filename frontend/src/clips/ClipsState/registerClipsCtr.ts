@@ -188,8 +188,8 @@ export const registerClipsCtr = (state: ClipsState) => {
     ctr: state.clipsCtr,
     options: { name: 'ClipsState.Clips' },
     initCtr: () => {
-      setCallbacks(state);
       mapData(state);
+      setCallbacks(state);
     },
   });
 };

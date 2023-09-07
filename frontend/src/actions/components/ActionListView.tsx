@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { HighlightUIConnector } from 'skandha-facets';
-import { ActionListKeyHandler } from '/src/actions/components';
+import { ActionListViewKeyHandler } from '/src/actions/components';
 import { ActionListViewItem } from '/src/actions/components/ActionListViewItem';
 import { NoActionsMatchTheFilter } from '/src/actions/components/NoActionsMatchTheFilter';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
@@ -24,10 +24,6 @@ const DefaultProps = {
 
 export const ActionListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const highlightUIConnector = new HighlightUIConnector({
-      highlight: props.actionsHighlight,
-    });
-
     //
     // 🔳  Handle loading state 🔳
     //
@@ -44,10 +40,14 @@ export const ActionListView = observer(
         />
       );
 
+    const highlightUIConnector = new HighlightUIConnector({
+      highlight: props.actionsHighlight,
+    });
+
     //
     // 🔳 actionDivs 🔳
     //
-    const actionDivs: any[] = props.actions.map((action) => {
+    const actionDivs = props.actions.map((action) => {
       return (
         <ActionListViewItem
           key={`item-${action.id}`}
@@ -57,34 +57,28 @@ export const ActionListView = observer(
       );
     });
 
+    //
+    // 🔳 ActionListView 🔳
+    //
     return (
-      <ActionListKeyHandler>
-        {
-          // 🔳 ActionListView 🔳
-        }
+      <ActionListViewKeyHandler>
         <div
           className={cn('ActionListView', [L.col.banner(), props.className])}
           tabIndex={0}
         >
           {actionDivs.length > 0 && actionDivs}
         </div>
-      </ActionListKeyHandler>
+      </ActionListViewKeyHandler>
     );
   }, DefaultProps)
 );
 
 export const ActionListViewLoader = (props: { className?: any }) => {
-  //
-  // 🔳 loaderBars 🔳
-  //
   const loaderBars = ['1', '2', '3'].map((id: string) => {
-    return <LoaderBar key={id} className={cn('h-6 my-4')} />;
+    return <LoaderBar key={`item-${id}`} className={cn('h-6 my-4')} />;
   });
 
   return (
-    /*
-    🔳 ActionListViewLoader 🔳
-    */
     <div
       className={cn('ActionListViewLoader', [L.col.banner(), props.className])}
     >

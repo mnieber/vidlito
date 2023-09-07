@@ -1,5 +1,5 @@
 import { setCallbackMap } from 'aspiration';
-import { mapDataToProps } from 'skandha';
+import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
 import { EditCbs } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
 import { PlaylistT } from '/src/api/types/PlaylistT';
@@ -22,6 +22,7 @@ const mapData = (state: PlaylistsState) => {
 
 const setCallbacks = (state: PlaylistsState) => {
   const ctr = state.playlistSettingsCtr;
+  addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
   setCallbackMap(ctr.edit, {
     save: {
@@ -47,10 +48,10 @@ const setCallbacks = (state: PlaylistsState) => {
 export const registerPlaylistSettingsCtr = (state: PlaylistsState) => {
   registerCtr({
     ctr: state.playlistSettingsCtr,
-    options: { name: 'PlaylistsState.Settings' },
+    options: { name: 'PlaylistsState.PlaylistSettings' },
     initCtr: () => {
-      setCallbacks(state);
       mapData(state);
+      setCallbacks(state);
     },
   });
 };

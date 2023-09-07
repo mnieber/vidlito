@@ -15,57 +15,59 @@ export type PropsT = {
   className?: any;
 };
 
-export const ActionListViewItem = observer((props: PropsT) => {
-  return (
-    /*
-    🔳 ActionListViewItem 🔳
-    */
-    <div
-      className={cn(
-        [
-          'ActionListViewItem',
-          {
-            'ActionListViewItem--highlighted':
-              props.highlightUIProps.isHighlighted,
-            'animate-delete': isUpdating(props.action),
-          },
-        ],
-        [L.col.banner(), 'py-3 px-4', props.className]
-      )}
-      {...highlightUIHandlers(props.highlightUIProps)}
-    >
-      {
-        // 🔳 Header 🔳
-      }
-      <div className={cn('ActionListViewItem__Header', [L.row.skewer()])}>
-        {
-          // 🔳 Title 🔳
-        }
-        <div className={cn('ActionListViewItem__Title', ['mr-2'])}>
-          {getTitle(props.action)}
-        </div>
-
-        {
-          // 🔳 Playlist name 🔳
-        }
-        <div className={cn('ActionListViewItem__PlaylistName')}>
-          {props.action.data['playlist_name']}
-        </div>
-      </div>
-
-      {
-        // 🔳 Clip names 🔳
-      }
+export const ActionListViewItem = observer(
+  R.identity((props: PropsT) => {
+    return (
+      /*
+      🔳 ActionListViewItem 🔳
+      */
       <div
-        className={cn('ActionListViewItem__ClipNames', [
-          'flex flex-row flex-wrap',
-        ])}
+        className={cn(
+          [
+            'ActionListViewItem',
+            {
+              'ActionListViewItem--highlighted':
+                props.highlightUIProps.isHighlighted,
+              'animate-delete': isUpdating(props.action),
+            },
+          ],
+          [L.col.banner(), 'py-3 px-4', props.className]
+        )}
+        {...highlightUIHandlers(props.highlightUIProps)}
       >
-        {getClipNames(props.action, true)}
+        {
+          // 🔳 Header 🔳
+        }
+        <div className={cn('ActionListViewItem__Header', [L.row.skewer()])}>
+          {
+            // 🔳 Title 🔳
+          }
+          <div className={cn('ActionListViewItem__Title', ['mr-2'])}>
+            {getTitle(props.action)}
+          </div>
+
+          {
+            // 🔳 Playlist name 🔳
+          }
+          <div className={cn('ActionListViewItem__PlaylistName')}>
+            {props.action.data['playlist_name']}
+          </div>
+        </div>
+
+        {
+          // 🔳 Clip names 🔳
+        }
+        <div
+          className={cn('ActionListViewItem__ClipNames', [
+            'flex flex-row flex-wrap',
+          ])}
+        >
+          {getClipNames(props.action, true)}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  })
+);
 
 const getTitle = (action: ActionT) => {
   const clipNames = action.data.clip_names;

@@ -1,5 +1,5 @@
 import { setCallbackMap } from 'aspiration';
-import { mapDataToProps } from 'skandha';
+import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
 import { EditCbs } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
 import { ClipsState } from '/src/clips/ClipsState';
@@ -16,6 +16,7 @@ const mapData = (state: ClipsState) => {
 
 const setCallbacks = (state: ClipsState) => {
   const ctr = state.clipPdCtr;
+  addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
   setCallbackMap(ctr.edit, {
     save: {
@@ -32,8 +33,8 @@ export const registerClipPdCtr = (state: ClipsState) => {
     ctr: state.clipPdCtr,
     options: { name: 'ClipsState.ClipPd' },
     initCtr: () => {
-      setCallbacks(state);
       mapData(state);
+      setCallbacks(state);
     },
   });
 };

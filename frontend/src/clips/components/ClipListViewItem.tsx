@@ -45,9 +45,9 @@ export const ClipListViewItem = observer(
         : '';
 
     return (
-      //
-      // 🔳 ClipListViewItem 🔳
-      //
+      /*
+      🔳 ClipListViewItem 🔳
+      */
       <div
         className={cn(
           LviS.root(),

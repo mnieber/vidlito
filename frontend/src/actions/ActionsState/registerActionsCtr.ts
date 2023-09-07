@@ -1,5 +1,5 @@
 import { setCallbackMap } from 'aspiration';
-import { mapDataToProps } from 'skandha';
+import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
 import { registerCtr } from 'skandha-mobx';
 import { ActionsState } from '/src/actions/ActionsState/ActionsState';
 import { UndoCbs } from '/src/actions/ActionsState/facets/Undo';
@@ -16,14 +16,16 @@ const mapData = (state: ActionsState) => {
       items: () => state.props.getActions(),
     },
     highlight: {
-      item: () => getActionById(ctr.highlight.id),
       highlightableIds: () => getIds(ctr.store.items ?? []),
+      item: () => getActionById(ctr.highlight.id),
     },
   });
 };
 
 const setCallbacks = (state: ActionsState) => {
   const ctr = state.actionsCtr;
+  addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
+
   setCallbackMap(ctr.undo, {
     undo: {
       undo(this: UndoCbs['undo']) {
@@ -38,8 +40,8 @@ export const registerActionsCtr = (state: ActionsState) => {
     ctr: state.actionsCtr,
     options: { name: 'ActionsState.Actions' },
     initCtr: () => {
-      setCallbacks(state);
       mapData(state);
+      setCallbacks(state);
     },
   });
 };
