@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
 import { PanelState } from '/src/dashboard/DashboardState/PanelState';
-import { history } from '/src/navHandler/NavHandler';
+import { history } from '/src/routes/history';
 import { pathname } from '/src/utils/urls';
 
 export class NavigationState {

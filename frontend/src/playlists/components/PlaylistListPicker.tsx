@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
 import {
@@ -8,7 +9,7 @@ import {
   PlaylistListView,
 } from '/src/playlists/components';
 import { RouterLink } from '/src/routes/components';
-import { useRoutes } from '/src/routes/hooks/useRoutes';
+import { getRoutes } from '/src/routes/routeTable';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -28,7 +29,7 @@ const DefaultProps = {
 
 export const PlaylistListPicker = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const routes = useRoutes();
+    const routes = getRoutes<AuthRoutesT>();
 
     if (isLoading(props.playlists) || isLoading(props.clips)) {
       return <PlaylistListPickerLoader {...props} />;

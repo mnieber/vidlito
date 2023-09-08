@@ -23,9 +23,9 @@ import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
 import { PlaylistSettingsT } from '/src/api/types/PlaylistSettingsT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
-import { navHandler } from '/src/navHandler/NavHandler';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { useSmartUpdatePlaylists } from '/src/playlists/hooks/useSmartUpdatePlaylists';
+import { getRouteParams } from '/src/routes/utils/getRouteParams';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
 import { getIds, lookUp } from '/src/utils/ids';
@@ -43,8 +43,7 @@ export const usePlaylistsState = (props: PropsT) => {
   // playlistsState.playlistsCtr.highlight.item?.slug as a fallback.
   const playlistHighlightRef = React.useRef<Highlight | undefined>();
   const getPlaylistSlug = () =>
-    navHandler.getParams().playlistSlug ??
-    playlistHighlightRef.current?.item?.slug;
+    getRouteParams().playlistSlug ?? playlistHighlightRef.current?.item?.slug;
 
   // Mutations
   const deletePlaylists = useDeletePlaylists();

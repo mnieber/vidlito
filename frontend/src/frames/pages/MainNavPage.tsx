@@ -3,9 +3,12 @@ import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
 import { cookiesState } from '/src/dashboard/DashboardState/CookiesState';
+import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
 import { useInstallNavPage } from '/src/navHandler';
-import { navHandler } from '/src/navHandler/NavHandler';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { history } from '/src/routes/history';
+import { getRouteUfns } from '/src/routes/routeTable';
+import { getRouteParams } from '/src/routes/utils/getRouteParams';
 import { navToSearch } from '/src/search/SearchNavEvents';
 
 export type CreateMainNavPagePropsT = {
@@ -15,17 +18,12 @@ export type CreateMainNavPagePropsT = {
 export const createMainNavPage = (props: CreateMainNavPagePropsT) => {
   return {
     navToActions: ((username: string) => {
-      const ufn = navHandler.routeUfns.actions(navHandler.history.push);
-      ufn({
-        ...navHandler.getParams(),
-        ownerUsername: username,
-      });
+      const ufn = getRouteUfns<DashboardRoutesT>().actions(history.push);
+      ufn();
     }) as typeof navToActions,
     navToSearch: (() => {
-      const ufn = navHandler.routeUfns.search(navHandler.history.push);
-      ufn({
-        ...navHandler.getParams(),
-      });
+      const ufn = getRouteUfns<DashboardRoutesT>().search(history.push);
+      ufn();
     }) as typeof navToSearch,
     navToClip: ((
       ownerUsername: string,
@@ -33,12 +31,11 @@ export const createMainNavPage = (props: CreateMainNavPagePropsT) => {
       clipSlug: string
     ) => {
       // We prefer not to have urls in the history with a dash as clipSlug
-      const useReplace = navHandler.getParams().clipSlug === '-';
-      const ufn = navHandler.routeUfns.clip(
-        useReplace ? navHandler.history.replace : navHandler.history.push
+      const useReplace = getRouteParams().clipSlug === '-';
+      const ufn = getRouteUfns<DashboardRoutesT>().clip(
+        useReplace ? history.replace : history.push
       );
       const { route, changed } = ufn({
-        ...navHandler.getParams(),
         ownerUsername: ownerUsername,
         playlistSlug: playlistSlug,
         clipSlug,

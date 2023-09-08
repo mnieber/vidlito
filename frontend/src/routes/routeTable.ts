@@ -1,7 +1,10 @@
-import React from 'react';
 import { getRouteTable as getAuthRouteTable } from '/src/auth/routeTable';
 import { getRouteTable as getDashboardRouteTable } from '/src/dashboard/routeTable';
-import { RouteTable } from '/src/routes/utils/RouteTable';
+import {
+  RouteFnByNameT,
+  RouteTable,
+  RouteUfnByNameT,
+} from '/src/routes/utils/RouteTable';
 
 export const createRouteTable = () => {
   const routeTable = new RouteTable();
@@ -11,14 +14,11 @@ export const createRouteTable = () => {
 };
 
 export const routeTable = createRouteTable();
-export const RouteTableContext = React.createContext<RouteTable>(routeTable);
 
-type PropsT = React.PropsWithChildren<{}>;
+export const getRoutes = <T>() => {
+  return routeTable.routeFnByName as RouteFnByNameT<T>;
+};
 
-export const RouteTableProvider = (props: PropsT) => {
-  return (
-    <RouteTableContext.Provider value={routeTable}>
-      {props.children}
-    </RouteTableContext.Provider>
-  );
+export const getRouteUfns = <T>() => {
+  return routeTable.routeUfnByName as RouteUfnByNameT<T>;
 };

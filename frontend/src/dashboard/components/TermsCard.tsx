@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
+import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
 import { AccountMenu } from '/src/frames/components/AccountMenu';
 import { RouterLink } from '/src/routes/components/RouterLink';
-import { useRoutes } from '/src/routes/hooks/useRoutes';
+import { getRoutes } from '/src/routes/routeTable';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -16,7 +17,7 @@ export const DefaultProps = {};
 
 export const TermsCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const routes = useRoutes();
+    const routes = getRoutes<AuthRoutesT>();
 
     return (
       <div className={cn('TermsCard', props.className)}>

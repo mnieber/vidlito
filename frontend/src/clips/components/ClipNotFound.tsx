@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { L } from '/src/frames/layout';
-import { navHandler } from '/src/navHandler/NavHandler';
+import { getRouteParams } from '/src/routes/utils/getRouteParams';
 import { cn } from '/src/utils/classnames';
 import { log } from '/src/utils/logging';
 import { widthToHeight } from '/src/videos/utils/aspectRatio';
@@ -19,7 +19,7 @@ const DefaultProps = {
 
 export const ClipNotFound = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const clipSlug = navHandler.getParams().clipSlug;
+    const clipSlug = getRouteParams().clipSlug;
     const width = (props.dashboardState.panelState.panelWidth ?? 100) - 1;
     const height = widthToHeight(width);
     const msg =

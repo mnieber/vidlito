@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
 import {
   navToHelp,
   navToHome,
@@ -9,29 +10,30 @@ import {
   navToSignUp,
 } from '/src/frames/FramesNavEvents';
 import { useInstallNavPage } from '/src/navHandler';
-import { navHandler } from '/src/navHandler/NavHandler';
+import { history } from '/src/routes/history';
+import { getRouteUfns } from '/src/routes/routeTable';
 
 export const createFramesNavPage = () => {
   return {
     navToHome: (() => {
-      const ufn = navHandler.routeUfns.home(navHandler.history.push);
+      const ufn = getRouteUfns<AuthRoutesT>().home(history.push);
       ufn();
     }) as typeof navToHome,
     navToHelp: (() => {
-      const ufn = navHandler.routeUfns.help(navHandler.history.push);
+      const ufn = getRouteUfns<AuthRoutesT>().help(history.push);
       ufn();
     }) as typeof navToHelp,
     navToSignUp: (() => {
-      const ufn = navHandler.routeUfns.signUp(navHandler.history.push);
+      const ufn = getRouteUfns<AuthRoutesT>().signUp(history.push);
       ufn();
     }) as typeof navToSignUp,
     navToSignIn: (() => {
-      const ufn = navHandler.routeUfns.signIn(navHandler.history.push);
+      const ufn = getRouteUfns<AuthRoutesT>().signIn(history.push);
       ufn();
     }) as typeof navToSignIn,
     navToNextPageAfterSignIn: ((lastUrl?: string) => {
       if (lastUrl) {
-        navHandler.history.push(lastUrl);
+        history.push(lastUrl);
       } else {
         navToHome();
       }

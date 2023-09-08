@@ -25,7 +25,7 @@ import { createClipPd } from '/src/api/types/ClipPdT';
 import { ClipT } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { ClipsState } from '/src/clips/ClipsState';
-import { navHandler } from '/src/navHandler/NavHandler';
+import { getRouteParams } from '/src/routes/utils/getRouteParams';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
 import { getIds, lookUp } from '/src/utils/ids';
@@ -39,7 +39,7 @@ export type PropsT = {
 
 export const useClipsState = (props: PropsT) => {
   const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
-  const params = navHandler.getParams();
+  const params = getRouteParams();
 
   const clipsHighlightRef = React.useRef<Highlight | undefined>();
   const getClipSlug = () =>

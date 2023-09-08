@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
 import { MessageCard, MessageCardS } from '/src/frames/components/MessageCard';
-import { navHandler } from '/src/navHandler/NavHandler';
+import { getRouteMatch } from '/src/routes/utils/getRouteMatch';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -15,7 +15,7 @@ const DefaultProps = {};
 
 export const PageNotFound = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (!!navHandler.getRouteMatch()) {
+    if (!!getRouteMatch()) {
       return null;
     }
 

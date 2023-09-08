@@ -1,10 +1,12 @@
 import { Route, Switch } from 'react-router-dom';
 import { ActionsPaginator, ActionsView } from '/src/actions/components';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
+import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
 import { SyncClipWithUrlEffect } from '/src/clips/components';
 import { VideoAndCopView } from '/src/clips/components/VideoAndCopView';
 import { Dashboard } from '/src/dashboard/components/Dashboard';
 import { MainView } from '/src/dashboard/components/MainView';
+import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
 import { CardS } from '/src/frames/components/Card';
 import { ForwardToLastUrlEffect } from '/src/frames/components/ForwardToLastUrlEffect';
 import { PageNotFound } from '/src/frames/components/PageNotFound';
@@ -18,7 +20,7 @@ import {
 } from '/src/playlists/components';
 import { PlaylistNotFound } from '/src/playlists/components/PlaylistNotFound';
 import { SelectPlaylistEffect } from '/src/playlists/components/SelectPlaylistEffect';
-import { useRoutes } from '/src/routes/hooks/useRoutes';
+import { getRoutes } from '/src/routes/routeTable';
 import { SearchResultsPaginator } from '/src/search/components';
 import { SearchView } from '/src/search/components/SearchView';
 import { cn } from '/src/utils/classnames';
@@ -31,7 +33,7 @@ const DefaultProps = {
 
 export const DashboardSwitch = withDefaultProps(
   (props: PropsT & typeof DefaultProps) => {
-    const routes = useRoutes();
+    const routes = getRoutes<AuthRoutesT & DashboardRoutesT>();
     return (
       <MainNavPage>
         {

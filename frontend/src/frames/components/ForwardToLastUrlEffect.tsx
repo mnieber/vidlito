@@ -1,6 +1,6 @@
 import React from 'react';
 import { cookiesState } from '/src/dashboard/DashboardState/CookiesState';
-import { history } from '/src/navHandler/NavHandler';
+import { history } from '/src/routes/history';
 
 export type PropsT = {};
 

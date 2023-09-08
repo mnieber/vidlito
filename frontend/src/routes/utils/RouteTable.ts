@@ -4,9 +4,14 @@ import { generatePath } from 'react-router-dom';
 import { ObjT } from '/src/utils/types';
 import { pathname } from '/src/utils/urls';
 
-export type RouteFnByNameT = { [key: string]: (args?: ObjT) => string };
-export type RouteUfnByNameT = {
-  [key: string]: (updateRoute: Function) => (args?: ObjT) => void;
+export type RouteFnByNameT<T = any> = {
+  [P in keyof T]: (args?: unknown) => string;
+};
+export type RouteUfnResultT = { route: string; changed: boolean };
+export type RouteUfnByNameT<T = any> = {
+  [P in keyof T]: T[P] extends (...args: infer A) => infer R
+    ? (updateRoute: Function) => (...args: A) => RouteUfnResultT
+    : never;
 };
 
 export type RouteSpecT = {
@@ -22,7 +27,7 @@ export class RouteTable {
   @computed get routeFnByName(): RouteFnByNameT {
     const result: RouteFnByNameT = {};
     for (const route of R.values(this._routeSpecByName)) {
-      result[route.name] = (args?: ObjT) => {
+      result[route.name] = (args?: unknown) => {
         const pathStr =
           typeof route.path === 'function' ? route.path() : route.path;
         return R.isEmpty(args ?? {})
@@ -36,7 +41,7 @@ export class RouteTable {
   @computed get routeUfnByName(): RouteUfnByNameT {
     const result: RouteUfnByNameT = {};
     for (const routeSpec of R.values(this._routeSpecByName)) {
-      result[routeSpec.name] = (updateRoute: Function) => (args?: ObjT) => {
+      result[routeSpec.name] = (updateRoute: Function) => (args: unknown) => {
         const routeArgs = routeSpec.getRouteArgs(args);
         const newRoute = this.routeFnByName[routeSpec.name](routeArgs);
         const changed = pathname() !== newRoute;
@@ -93,9 +98,3 @@ export class RouteTable {
     makeObservable(this);
   }
 }
-
-export type WrapUfn<T> = {
-  [P in keyof T]: T[P] extends (...args: infer A) => infer R
-    ? (updateRoute: Function) => (...args: A) => R
-    : never;
-};

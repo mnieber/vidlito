@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
-import { navHandler } from '/src/navHandler/NavHandler';
+import { getRouteParams } from '/src/routes/utils/getRouteParams';
 
 type PropsT = {};
 
@@ -12,7 +12,7 @@ const DefaultProps = {
 
 export const ForwardToClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const params = navHandler.getParams();
+    const params = getRouteParams();
 
     React.useEffect(() => {
       if (
