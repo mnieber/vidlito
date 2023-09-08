@@ -1,10 +1,10 @@
 import { runInAction } from 'mobx';
-import React from 'react';
-import { shareRS } from '/src/resourceStates/ResourceState';
 import {
-  ArgsT as GraftResourceStatesArgsT,
+  GraftResourceStatesArgsT,
   graftResourceStates,
-} from '/src/resourceStates/graftResourceStates';
+  shareRS,
+} from 'mobx-resource-states';
+import React from 'react';
 
 export type ArgsT = {
   saveMemory?: boolean; // default to true

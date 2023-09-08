@@ -1,4 +1,5 @@
 import { action } from 'mobx';
+import { trackPromise } from 'mobx-resource-states';
 import React from 'react';
 import { Highlight, topOfTheList } from 'skandha-facets';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
@@ -25,7 +26,6 @@ import { ClipT } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { ClipsState } from '/src/clips/ClipsState';
 import { navHandler } from '/src/navHandler/NavHandler';
-import { trackPromise } from '/src/resourceStates/trackPromise';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
 import { getIds, lookUp } from '/src/utils/ids';

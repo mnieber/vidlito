@@ -1,10 +1,10 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
+import { isLoading, isUpdating, updateSources } from 'mobx-resource-states';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
-import { isLoading, isUpdating, updateSources } from '/src/resourceStates';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT = React.PropsWithChildren<{}>;

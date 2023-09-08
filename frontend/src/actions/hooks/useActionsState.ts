@@ -1,4 +1,5 @@
 import { action } from 'mobx';
+import { trackPromise } from 'mobx-resource-states';
 import React from 'react';
 import { ActionsState } from '/src/actions/ActionsState';
 import { useGetActions } from '/src/api/endpoints';
@@ -8,7 +9,6 @@ import { useObservableQuery } from '/src/api/hooks';
 import { ActionT } from '/src/api/types/ActionT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { resetPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
-import { trackPromise } from '/src/resourceStates/trackPromise';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
 

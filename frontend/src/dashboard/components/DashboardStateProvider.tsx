@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
+import { updateSources } from 'mobx-resource-states';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
@@ -8,7 +9,6 @@ import { withDefaultProps } from '/src/app/defaultProps';
 import { useLoadUserId } from '/src/auth/endpoints';
 import { useDashboardState } from '/src/dashboard/hooks/useDashboardState';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
-import { updateSources } from '/src/resourceStates';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { log } from '/src/utils/logging';
 import { ObjT } from '/src/utils/types';

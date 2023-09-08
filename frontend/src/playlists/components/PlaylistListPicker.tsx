@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { isLoading } from 'mobx-resource-states';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
@@ -6,7 +7,6 @@ import {
   PlaylistListHeader,
   PlaylistListView,
 } from '/src/playlists/components';
-import { isLoading } from '/src/resourceStates';
 import { RouterLink } from '/src/routes/components';
 import { useRoutes } from '/src/routes/hooks/useRoutes';
 import { cn } from '/src/utils/classnames';

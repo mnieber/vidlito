@@ -1,3 +1,4 @@
+import { trackPromise } from 'mobx-resource-states';
 import React from 'react';
 import { Highlight } from 'skandha-facets';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
@@ -25,7 +26,6 @@ import { UserProfileT } from '/src/api/types/UserProfileT';
 import { navHandler } from '/src/navHandler/NavHandler';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { useSmartUpdatePlaylists } from '/src/playlists/hooks/useSmartUpdatePlaylists';
-import { trackPromise } from '/src/resourceStates/trackPromise';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
 import { getIds, lookUp } from '/src/utils/ids';

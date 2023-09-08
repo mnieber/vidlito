@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
+import { isLoading } from 'mobx-resource-states';
 import * as R from 'ramda';
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
-import { isLoading } from '/src/resourceStates';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};

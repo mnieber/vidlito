@@ -1,4 +1,5 @@
 import { setCallbackMap } from 'aspiration';
+import { isUpdating } from 'mobx-resource-states';
 import * as R from 'ramda';
 import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
 import {
@@ -22,7 +23,6 @@ import { registerCtr } from 'skandha-mobx';
 import { ClipT } from '/src/api/types/ClipT';
 import { ClipsState } from '/src/clips/ClipsState';
 import { MoveCbs } from '/src/clips/ClipsState/facets/Move';
-import { isUpdating } from '/src/resourceStates';
 import { getIds } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 

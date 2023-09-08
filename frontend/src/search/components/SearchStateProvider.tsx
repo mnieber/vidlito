@@ -1,10 +1,10 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
+import { updateSources } from 'mobx-resource-states';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { isRunning } from '/src/api/ObservableMutation';
 import { withDefaultProps } from '/src/app/defaultProps';
-import { updateSources } from '/src/resourceStates';
 import { useSearchState } from '/src/search/hooks/useSearchState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 

@@ -1,7 +1,7 @@
+import { initRS } from 'mobx-resource-states';
 import { ClipT } from '/src/api/types/ClipT';
 import { PlaylistPdT } from '/src/api/types/PlaylistPdT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
-import { initRS } from '/src/resourceStates';
 import { createUUID } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 

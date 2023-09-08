@@ -1,6 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx';
+import { shareRS } from 'mobx-resource-states';
 import type { IPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
-import { shareRS } from '/src/resourceStates/ResourceState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 // This class is used to adapt a pagination to a new page size.

@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { isUpdating } from 'mobx-resource-states';
 import {
   dragAndDropUIHandlers,
   DragAndDropUIPropsT,
@@ -7,7 +8,6 @@ import {
 } from 'skandha-facets';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { LviS } from '/src/frames/components/Lvi';
-import { isUpdating } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 import { PlayVideoIcon } from '/src/videos/components';
 

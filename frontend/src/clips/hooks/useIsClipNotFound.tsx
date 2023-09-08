@@ -1,6 +1,6 @@
+import { isLoading } from 'mobx-resource-states';
 import { ClipT } from '/src/api/types/ClipT';
 import { navHandler } from '/src/navHandler/NavHandler';
-import { isLoading } from '/src/resourceStates';
 import { DelayedFlag } from '/src/utils/DelayedFlag';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 

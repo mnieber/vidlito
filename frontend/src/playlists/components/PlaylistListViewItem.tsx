@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { isUpdating } from 'mobx-resource-states';
 import {
   dragAndDropUIHandlers,
   DragAndDropUIPropsT,
@@ -11,7 +12,6 @@ import { Icon } from '/src/frames/components';
 import { IconS } from '/src/frames/components/Icon';
 import { LviS } from '/src/frames/components/Lvi';
 import { L } from '/src/frames/layout';
-import { isUpdating } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

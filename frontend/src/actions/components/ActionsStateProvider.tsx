@@ -1,11 +1,11 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
+import { updateSources } from 'mobx-resource-states';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { useActionsState } from '/src/actions/hooks/useActionsState';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { updateSources } from '/src/resourceStates';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT = React.PropsWithChildren<{}>;

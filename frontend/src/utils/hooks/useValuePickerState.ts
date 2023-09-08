@@ -1,7 +1,7 @@
 import { when } from 'mobx';
+import { isLoading } from 'mobx-resource-states';
 import React from 'react';
 import { Highlight, Selection } from 'skandha-facets';
-import { isLoading } from '/src/resourceStates';
 
 export type PropsT<ValueT> = {
   values: ValueT[];

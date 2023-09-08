@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { isLoading } from 'mobx-resource-states';
 import { HighlightUIConnector } from 'skandha-facets';
 import { ActionListViewKeyHandler } from '/src/actions/components';
 import { ActionListViewItem } from '/src/actions/components/ActionListViewItem';
@@ -6,7 +7,6 @@ import { NoActionsMatchTheFilter } from '/src/actions/components/NoActionsMatchT
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
-import { isLoading } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

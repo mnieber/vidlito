@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
+import { isLoading } from 'mobx-resource-states';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { onClickNewClipButton } from '/src/clips/components/NewClipButton';
 import { CtaButtonS } from '/src/frames/components/CtaButton';
 import { Icon } from '/src/frames/components/Icon';
 import { MessageCard } from '/src/frames/components/MessageCard';
-import { isLoading } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

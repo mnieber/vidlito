@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
+import { isUpdating } from 'mobx-resource-states';
 import * as R from 'ramda';
 import { highlightUIHandlers, HighlightUIPropsT } from 'skandha-facets';
 import { ActionT } from '/src/api/types/ActionT';
 import { L } from '/src/frames/layout';
-import { isUpdating } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

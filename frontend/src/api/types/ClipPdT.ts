@@ -1,4 +1,4 @@
-import { initRS } from '/src/resourceStates';
+import { initRS } from 'mobx-resource-states';
 import { createUUID } from '/src/utils/ids';
 
 export type ClipPdT = {

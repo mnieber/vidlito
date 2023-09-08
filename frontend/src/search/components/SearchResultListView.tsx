@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
+import { isLoading, isUpdating } from 'mobx-resource-states';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
-import { isLoading, isUpdating } from '/src/resourceStates';
 import { SearchResultListKeyHandler } from '/src/search/components';
 import { NoContentsMatchTheFilter } from '/src/search/components/NoContentsMatchTheFilter';
 import { SearchResultListViewHeader } from '/src/search/components/SearchResultListViewHeader';

@@ -4,11 +4,13 @@ import '/src/frames/styles/index.scss';
 
 import { toJS } from 'mobx';
 import { applyFormatters } from 'mobx-log';
+import { setOptions as setResourceStatesOptions } from 'mobx-resource-states';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { setOptions } from 'skandha';
+import { setOptions as setSkandhaOptions } from 'skandha';
 import { App } from '/src/app/components';
 import { flags } from '/src/app/flags';
+import { log } from '/src/utils/logging';
 
 const strict = false;
 
@@ -16,9 +18,14 @@ if (import.meta.env.DEV) {
   applyFormatters();
 }
 
-setOptions({
+setSkandhaOptions({
   logging: flags.logSkandha,
   formatObject: toJS,
+});
+
+setResourceStatesOptions({
+  logging: flags.logResourceStates,
+  log: log,
 });
 
 const root = ReactDOM.createRoot(

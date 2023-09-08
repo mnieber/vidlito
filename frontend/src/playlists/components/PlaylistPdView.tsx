@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
+import { isLoading } from 'mobx-resource-states';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { MarkdownView } from '/src/frames/components';
-import { isLoading } from '/src/resourceStates';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
