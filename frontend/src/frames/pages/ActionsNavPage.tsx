@@ -1,4 +1,4 @@
-import { useInstallNavPage } from '/src/navHandler';
+import { useInstallNavPage } from 'react-nav-handler';
 
 export const createActionsNavPage = () => {
   return {};

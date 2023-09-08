@@ -1,4 +1,4 @@
-import { navHandler } from '/src/navHandler/NavHandler';
+import { navHandler } from 'react-nav-handler';
 
 export const navToSearch = (): void =>
   navHandler.getNavFn('navToSearch', navToSearch)();

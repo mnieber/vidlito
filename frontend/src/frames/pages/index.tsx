@@ -1,1 +1,1 @@
-export { NavHandler } from '/src/navHandler/NavHandler';
+export { NavHandler } from 'react-nav-handler';

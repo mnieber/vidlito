@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { useInstallNavPage } from 'react-nav-handler';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
 import {
@@ -9,7 +10,6 @@ import {
   navToSignIn,
   navToSignUp,
 } from '/src/frames/FramesNavEvents';
-import { useInstallNavPage } from '/src/navHandler';
 import { history } from '/src/routes/history';
 import { getRouteUfns } from '/src/routes/routeTable';
 

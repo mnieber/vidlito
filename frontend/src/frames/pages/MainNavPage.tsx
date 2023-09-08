@@ -1,10 +1,10 @@
+import { useInstallNavPage } from 'react-nav-handler';
 import { navToActions } from '/src/actions/ActionsNavEvents';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { navToClip } from '/src/clips/ClipsNavEvents';
 import { cookiesState } from '/src/dashboard/DashboardState/CookiesState';
 import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
-import { useInstallNavPage } from '/src/navHandler';
 import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { history } from '/src/routes/history';
 import { getRouteUfns } from '/src/routes/routeTable';
