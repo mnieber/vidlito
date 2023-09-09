@@ -79,7 +79,7 @@ export const PlaylistFormView = observer(
           }
           <GlobalError className={MainFormS.GlobalError()} />
           {
-            // 🔳 NameField 🔳
+            // 🔳 Name field 🔳
           }
           <Field fieldName="playlistForm.name" className={MainFormS.Field()}>
             <FormFieldLabel label="NAME" />

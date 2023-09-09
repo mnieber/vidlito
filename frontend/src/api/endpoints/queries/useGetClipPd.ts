@@ -27,21 +27,19 @@ export const getClipPd = (args: ArgsT) => {
   )
     .then((response: ObjT) => {
       return wait(import.meta.env.DEV ? 1000 : 0, response.getClipPd);
-    })
-    .then((response: ObjT) => {
-      return response;
     });
 };
 
 export type QueryKeyT = ArgsT;
 
-export type OptionsT = {
-  enabled?: boolean;
-};
-
 export function queryKey(args: QueryKeyT) {
   return createQueryKey<QueryKeyT>('getClipPd', args);
 }
+
+
+export type OptionsT = {
+  enabled?: boolean;
+};
 
 export const useGetClipPd = (args: ArgsT, options?: OptionsT) => {
   return useQuery({
@@ -52,5 +50,7 @@ export const useGetClipPd = (args: ArgsT, options?: OptionsT) => {
 };
 
 export const invalidateGetClipPd = (args: QueryKeyT) => {
-  return queryClient.invalidateQueries(queryKey(args));
+  return queryClient.invalidateQueries({
+    queryKey: queryKey(args),
+  });
 };

@@ -28,7 +28,7 @@ export const ActionListView = observer(
     // 🔳  Handle loading state 🔳
     //
     if (isLoading(props.actions)) {
-      return <ActionListViewLoader />;
+      return <ActionListViewLoader {...props} />;
     } else if (!props.actions?.length)
       return (
         <NoActionsMatchTheFilter

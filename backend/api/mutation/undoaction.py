@@ -3,9 +3,9 @@ from django.utils.text import slugify
 from graphene.types.generic import GenericScalar
 
 from actions.models import Action
-from api.mutation.moveclipstotrash import pick_new_source_movelist
 from api.types import *
 from app.utils.slug_seq import update_slug
+from clips.utils import pick_new_source_movelist
 from playlists.models import Entry, Follow, Playlist
 from user_profiles.models import UserProfile
 
@@ -62,7 +62,9 @@ class UndoAction(graphene.Mutation):
 
                 clip.save()
 
-            Entry.objects.filter(id__in=[entry.id for entry in entries_to_delete]).delete()
+            Entry.objects.filter(
+                id__in=[entry.id for entry in entries_to_delete]
+            ).delete()
 
             action.delete()
             playlist.update_nr_clips()

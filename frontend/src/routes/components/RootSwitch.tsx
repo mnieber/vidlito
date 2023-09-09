@@ -7,7 +7,7 @@ import { FramesNavPage } from '/src/frames/pages/FramesNavPage';
 
 type PropsT = {};
 
-export const UrlRouter = observer((props: PropsT) => {
+export const RootSwitch = observer((props: PropsT) => {
   return (
     <FramesNavPage>
       <AppFrame>

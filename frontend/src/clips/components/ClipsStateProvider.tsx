@@ -15,13 +15,13 @@ const DefaultProps = {
 
 export const ClipsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { clipsState, isGetClipPdLoading, isGetClipPdUpdating } =
+    const { clipsState: state, isGetClipPdLoading, isGetClipPdUpdating } =
       useClipsState({ getPlaylist: () => props.playlist });
 
     const cache = useBuilder(() =>
       makeAutoObservable({
         get clips() {
-          const clips = clipsState.clipsCtr.display.items;
+          const clips = state.clipsCtr.display.items;
           return updateSources(
             {
               resource: clips,
@@ -32,7 +32,7 @@ export const ClipsStateProvider = observer(
           );
         },
         get clip() {
-          const clip = clipsState.clipsCtr.highlight.item;
+          const clip = state.clipsCtr.highlight.item;
 
           return updateSources(
             {
@@ -46,7 +46,7 @@ export const ClipsStateProvider = observer(
         get clipPd() {
           return updateSources(
             {
-              resource: clipsState.clipPdCtr.store.clipPd,
+              resource: state.clipPdCtr.store.clipPd,
               resourceName: 'clipPd',
             },
             //
@@ -60,7 +60,7 @@ export const ClipsStateProvider = observer(
     const getDefaultPropsContext = () => {
       const result: any = {
         defaultProps: {
-          clipsState: () => clipsState,
+          clipsState: () => state,
         },
       };
 
@@ -68,21 +68,21 @@ export const ClipsStateProvider = observer(
         ...result.defaultProps,
         clips: () => cache.clips,
         clip: () => cache.clip,
-        clipsAddition: () => clipsState.clipsCtr.addition,
-        clipsDeletion: () => clipsState.clipsCtr.deletion,
-        clipsDragAndDrop: () => clipsState.clipsCtr.dragAndDrop,
-        clipsEdit: () => clipsState.clipsCtr.edit,
-        clipsHighlight: () => clipsState.clipsCtr.highlight,
-        clipsHovering: () => clipsState.clipsCtr.hovering,
-        clipsMove: () => clipsState.clipsCtr.move,
-        clipsSelection: () => clipsState.clipsCtr.selection,
+        clipsAddition: () => state.clipsCtr.addition,
+        clipsDeletion: () => state.clipsCtr.deletion,
+        clipsDragAndDrop: () => state.clipsCtr.dragAndDrop,
+        clipsEdit: () => state.clipsCtr.edit,
+        clipsHighlight: () => state.clipsCtr.highlight,
+        clipsHovering: () => state.clipsCtr.hovering,
+        clipsMove: () => state.clipsCtr.move,
+        clipsSelection: () => state.clipsCtr.selection,
       };
 
       result.defaultProps = {
         ...result.defaultProps,
         clipPd: () => cache.clipPd,
-        clipPdEdit: () => clipsState.clipPdCtr.edit,
-        clipSettingsEdit: () => clipsState.clipSettingsCtr.edit,
+        clipPdEdit: () => state.clipPdCtr.edit,
+        clipSettingsEdit: () => state.clipSettingsCtr.edit,
       };
 
       return result;

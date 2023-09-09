@@ -8,7 +8,7 @@ class UserProfile(Entity):
     username = models.CharField(max_length=90, unique=True)
 
     def __str__(self):
-        return "UserProfile: " + str(self.username)
+        return f"UserProfile: {self.username}"
 
     @staticmethod
     def get_mine(info):

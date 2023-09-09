@@ -1,10 +1,12 @@
 import * as Skandha from 'skandha';
 import { Highlight, Store } from 'skandha-facets';
-import { Undo } from './facets/Undo';
 import { Settings } from './Settings';
-import { registerActionsCtr } from './registerActionsCtr';
 import { ActionT } from '/src/api/types/ActionT';
 import { Pagination } from '/src/playlists/PlaylistsState/facets/Pagination';
+
+// Local imports
+import { Undo } from './facets/Undo';
+import { registerActionsCtr } from './registerActionsCtr';
 
 export type PropsT = {
   getActions: () => ActionT[];

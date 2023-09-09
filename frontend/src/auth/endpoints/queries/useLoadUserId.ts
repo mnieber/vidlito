@@ -94,5 +94,7 @@ export const useLoadUserId = () => {
 };
 
 export const invalidateLoadUserId = (args: QueryKeyT) => {
-  return queryClient.invalidateQueries(queryKey(args));
+  return queryClient.invalidateQueries({
+    queryKey: queryKey(args),
+  });
 };

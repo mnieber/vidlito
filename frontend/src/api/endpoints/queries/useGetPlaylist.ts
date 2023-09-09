@@ -65,14 +65,14 @@ export type QueryKeyT = {
   playlistSlug?: string;
 };
 
+export function queryKey(args?: QueryKeyT) {
+  return createQueryKey<QueryKeyT>('getPlaylist', args);
+}
+
 export type OptionsT = {
   enabled?: boolean;
   onError?: (error: unknown) => void;
 };
-
-export function queryKey(args?: QueryKeyT) {
-  return createQueryKey<QueryKeyT>('getPlaylist', args);
-}
 
 export const useGetPlaylist = (args: ArgsT, options?: OptionsT) => {
   return useQuery({
@@ -84,7 +84,7 @@ export const useGetPlaylist = (args: ArgsT, options?: OptionsT) => {
   });
 };
 
-export const invalidateGetPlaylist = (args: ArgsT) => {
+export const invalidateGetPlaylist = (args: QueryKeyT) => {
   return queryClient.invalidateQueries({
     queryKey: queryKey(args),
   });

@@ -20,9 +20,9 @@ class Clip(Entity):
     source_playlist = models.ForeignKey(
         "playlists.Playlist",
         on_delete=models.SET_NULL,
+        related_name="+",
         null=True,
         blank=True,
-        related_name="+",
     )
     start_time_ms = models.IntegerField(null=True, blank=True)
     tags = models.JSONField(default=create_empty_tags)
@@ -35,7 +35,7 @@ class Clip(Entity):
         Tag.add_tags(self.tags['tags'])
 
     def __str__(self):
-        return "Clip: " + str(self.name)
+        return f"Clip: {self.name}"
 
 
 class ClipPd(Entity):
@@ -45,4 +45,4 @@ class ClipPd(Entity):
     tags = models.JSONField(default=create_empty_tags)
 
     def __str__(self):
-        return "ClipPd: " + str(self.id)
+        return f"ClipPd: {self.id}"

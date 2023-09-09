@@ -2,8 +2,8 @@ import graphene
 from django.db import transaction
 from graphene.types.generic import GenericScalar
 
-from api.mutation.moveclipstotrash import pick_new_source_movelist
 from api.types import *
+from clips.utils import pick_new_source_movelist
 from playlists.models import Entry, Playlist
 
 
@@ -61,7 +61,9 @@ class MoveClipsToPlaylist(graphene.Mutation):
 
                 clip.save()
 
-            Entry.objects.filter(id__in=[entry.id for entry in entries_to_delete]).delete()
+            Entry.objects.filter(
+                id__in=[entry.id for entry in entries_to_delete]
+            ).delete()
 
             src_playlist.update_nr_clips()
             dest_playlist.update_nr_clips()

@@ -36,7 +36,7 @@ class Playlist(Entity):
         Tag.add_tags(self.tags['tags'])
 
     def __str__(self):
-        return "Playlist: " + str(self.name)
+        return f"Playlist: {self.name}"
 
 
 class EntryManager(models.Manager):
@@ -92,7 +92,7 @@ class Folder(Entity):
     sort_pos = models.IntegerField(default=0)
 
     def __str__(self):
-        return "Folder: " + str(self.name)
+        return f"Folder: {self.name}"
 
 
 class Follow(Entity):

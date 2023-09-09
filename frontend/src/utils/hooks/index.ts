@@ -1,5 +1,4 @@
 export { useBuilder } from './useBuilder';
-export { useRingIdx } from './useRingIdx';
 export { useScheduledCall } from './useScheduledCall';
 export { useSearchAndUrlParams } from './useSearchAndUrlParams';
 export { useSearchParams } from './useSearchParams';

@@ -14,4 +14,4 @@ class Action(Entity):
     )
 
     def __str__(self):
-        return "Action: " + str(self.id)
+        return f"Action: {self.id}"

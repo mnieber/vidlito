@@ -7,7 +7,7 @@ import { ClipsStateProvider } from '/src/clips/components';
 import { DashboardStateProvider } from '/src/dashboard/components';
 import { L, breakpoints } from '/src/frames/layout';
 import { PlaylistsStateProvider } from '/src/playlists/components/PlaylistsStateProvider';
-import { UrlRouter } from '/src/routes/components';
+import { RootSwitch } from '/src/routes/components';
 import { history } from '/src/routes/history';
 import { SearchStateProvider } from '/src/search/components/SearchStateProvider';
 import { cn } from '/src/utils/classnames';
@@ -30,7 +30,7 @@ export const App = () => {
                   <ClipsStateProvider>
                     <ActionsStateProvider>
                       <VideoPlayerStateProvider>
-                        <UrlRouter />
+                        <RootSwitch />
                       </VideoPlayerStateProvider>
                     </ActionsStateProvider>
                   </ClipsStateProvider>

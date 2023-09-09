@@ -1,4 +1,3 @@
-import { action } from 'mobx';
 import { trackPromise } from 'mobx-resource-states';
 import React from 'react';
 import { Highlight, topOfTheList } from 'skandha-facets';
@@ -77,7 +76,7 @@ export const useClipsState = (props: PropsT) => {
         return getClipPd.data?.clipPd ?? createClipPd();
       },
       //
-      deleteClips: action((ids: string[]) => {
+      deleteClips: (ids: string[]) => {
         const clips = lookUp(ids, clipsState.clipsCtr.store.itemById);
         return trackPromise({
           name: 'deleteClips',
@@ -86,9 +85,9 @@ export const useClipsState = (props: PropsT) => {
             clipIds: ids,
           } as DeleteClipsArgsT),
         }).result;
-      }),
+      },
       //
-      moveClipsToTrash: action((ids: string[]) => {
+      moveClipsToTrash: (ids: string[]) => {
         const clips = lookUp(ids, clipsState.clipsCtr.store.itemById);
         return trackPromise({
           name: 'moveClipsToTrash',
@@ -99,7 +98,7 @@ export const useClipsState = (props: PropsT) => {
             clipIds: ids,
           } as MoveClipsToTrashArgsT),
         }).result;
-      }),
+      },
       //
       saveClip: (values: ObjT) => {
         const parentClipId = clipsState.clipsCtr.addition.parentId;

@@ -1,8 +1,8 @@
 import graphene
 from graphene.types.generic import GenericScalar
 
-from api.mutation.moveclipstotrash import pick_new_source_movelist
 from api.types import *
+from clips.utils import pick_new_source_movelist
 from playlists.models import Playlist
 
 
@@ -23,7 +23,10 @@ class DeletePlaylists(graphene.Mutation):
                 else:
                     clip.nr_of_private_playlists -= 1
 
-                if clip.nr_of_public_playlists == 0 and clip.nr_of_private_playlists == 0:
+                if (
+                    clip.nr_of_public_playlists == 0
+                    and clip.nr_of_private_playlists == 0
+                ):
                     clip.delete()
                     continue
 
