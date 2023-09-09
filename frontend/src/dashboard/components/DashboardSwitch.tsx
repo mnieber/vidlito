@@ -12,7 +12,7 @@ import { ForwardToLastUrlEffect } from '/src/frames/components/ForwardToLastUrlE
 import { PageNotFound } from '/src/frames/components/PageNotFound';
 import { TermsAndConditionsPage } from '/src/frames/components/TermsAndConditionsPage';
 import { ActionsNavPage } from '/src/frames/pages/ActionsNavPage';
-import { MainNavPage } from '/src/frames/pages/MainNavPage';
+import { DashboardNavPage } from '/src/frames/pages/DashboardNavPage';
 import {
   ForwardToClipEffect,
   PlaylistFormView,
@@ -35,7 +35,7 @@ export const DashboardSwitch = withDefaultProps(
   (props: PropsT & typeof DefaultProps) => {
     const routes = getRoutes<AuthRoutesT & DashboardRoutesT>();
     return (
-      <MainNavPage>
+      <DashboardNavPage>
         {
           // 🔳 Dashboard 🔳
         }
@@ -102,7 +102,7 @@ export const DashboardSwitch = withDefaultProps(
             </MainView>
           </Switch>
         </Dashboard>
-      </MainNavPage>
+      </DashboardNavPage>
     );
   },
   DefaultProps

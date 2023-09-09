@@ -11,11 +11,11 @@ import { getRouteUfns } from '/src/routes/routeTable';
 import { getRouteParams } from '/src/routes/utils/getRouteParams';
 import { navToSearch } from '/src/search/SearchNavEvents';
 
-export type CreateMainNavPagePropsT = {
+export type CreateDashboardNavPagePropsT = {
   getUserProfile: () => UserProfileT | null;
 };
 
-export const createMainNavPage = (props: CreateMainNavPagePropsT) => {
+export const createDashboardNavPage = (props: CreateDashboardNavPagePropsT) => {
   return {
     navToActions: ((username: string) => {
       const ufn = getRouteUfns<DashboardRoutesT>().actions(history.push);
@@ -60,10 +60,13 @@ export const DefaultProps = {
   ...dps.userProfile,
 };
 
-export const MainNavPage = withDefaultProps(
+export const DashboardNavPage = withDefaultProps(
   (props: PropsT & typeof DefaultProps) => {
     const getUserProfile = () => props.userProfile;
-    useInstallNavPage('MainNavPage', createMainNavPage({ getUserProfile }));
+    useInstallNavPage(
+      'DashboardNavPage',
+      createDashboardNavPage({ getUserProfile })
+    );
     return <>{props.children}</>;
   },
   DefaultProps
