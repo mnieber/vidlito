@@ -40,10 +40,10 @@ export const SyncClipWithUrlEffect = observer(
 
           const addNewClip = () => {
             const videoTimeInS =
-              props.videoController.getPlayer()?.getCurrentTime() ?? 0;
+              props.videoController?.getPlayer()?.getCurrentTime() ?? 0;
             clipsAddition.add({
               values: createClip(userProfile, {
-                url: props.clip.url,
+                url: props.clip?.url,
                 startTimeMs: videoTimeInS * 1000,
               }),
             });

@@ -18,7 +18,7 @@ export const ClipUrlField = (props: PropsT) => {
   const { onChange, ...otherProps } = props;
 
   const onChangeExt = (e: any) => {
-    let url = e.target.value;
+    let url = e.target.value ?? '';
     let startTimeS = 0;
 
     // If value ends in t=<time>, then set the startTime field and
