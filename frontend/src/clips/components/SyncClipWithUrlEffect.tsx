@@ -17,6 +17,7 @@ const DefaultProps = {
   ...dps.clips,
   ...dps.clip,
   ...dps.userProfile,
+  ...dps.videoController,
 };
 
 export const SyncClipWithUrlEffect = observer(
@@ -38,8 +39,13 @@ export const SyncClipWithUrlEffect = observer(
             clipSlug === 'new-clip' && !clipsAddition.item && userProfile;
 
           const addNewClip = () => {
+            const videoTimeInS =
+              props.videoController.getPlayer()?.getCurrentTime() ?? 0;
             clipsAddition.add({
-              values: createClip(userProfile, { url: props.clip.url }),
+              values: createClip(userProfile, {
+                url: props.clip.url,
+                startTimeMs: videoTimeInS * 1000,
+              }),
             });
           };
 

@@ -1,7 +1,5 @@
-import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useInstallNavPage } from 'react-nav-handler';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
 import {
   navToHelp,
@@ -43,13 +41,7 @@ export const createFramesNavPage = () => {
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {
-  ...dps.userProfile,
+export const FramesNavPage = (props: PropsT) => {
+  useInstallNavPage('FramesNavPage', createFramesNavPage());
+  return <>{props.children}</>;
 };
-
-export const FramesNavPage = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    useInstallNavPage('FramesNavPage', createFramesNavPage());
-    return <>{props.children}</>;
-  }, DefaultProps)
-);
