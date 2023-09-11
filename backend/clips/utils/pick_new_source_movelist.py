@@ -1,6 +1,10 @@
 # This function sets a new value for clip.source_playlist_id.
 # If possible, it picks a public playlist.
 # It favours the candidate_playlist above other playlists.
+from playlists.models import Entry
+from user_profiles.models import UserProfile
+
+
 def pick_new_source_movelist(info, clip, candidate_playlist, save):
     private_source_playlist = (
         candidate_playlist
