@@ -25,4 +25,9 @@
   p {
     @apply mt-4;
   }
+
+  ul {
+    list-style-type: square;
+    list-style-position: inside;
+  }
 }
