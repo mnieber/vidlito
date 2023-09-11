@@ -57,6 +57,7 @@ export const SyncClipWithUrlEffect = observer(
           };
 
           if (clipSlug === '-') {
+            refUrl.current = location.pathname;
             const clip = R.find((x: ClipT) => x.slug !== 'new-clip')(clips);
             if (!R.isNil(clip)) {
               navToClip(playlist.ownerUsername, playlist.slug, clip.slug);
@@ -69,6 +70,7 @@ export const SyncClipWithUrlEffect = observer(
             addNewClip();
           } else if (playlist && !isLoading(clips)) {
             const clipForCurrentUrl = getClipForCurrentUrl();
+
             if (clipForCurrentUrl) {
               refUrl.current = location.pathname;
               if (props.clip?.id !== clipForCurrentUrl.id) {
