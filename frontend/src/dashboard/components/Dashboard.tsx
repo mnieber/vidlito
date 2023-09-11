@@ -3,7 +3,6 @@ import { isLoading } from 'mobx-resource-states';
 import React from 'react';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipListView } from '/src/clips/components';
-import { ClipVideoKeyHandler } from '/src/clips/components/ClipVideoKeyHandler';
 import { MainButtonsPanel } from '/src/dashboard/components/MainButtonsPanel';
 import { Logo } from '/src/frames/components';
 import { Footer } from '/src/frames/components/Footer';
@@ -32,7 +31,7 @@ export const Dashboard = observer(
       //
       // 🔳 DashBoard 🔳
       //
-      <ClipVideoKeyHandler className={cn('h-full', L.col.banner())}>
+      <div className={cn('DashboardWrapper', 'h-full', L.col.banner())}>
         <div
           className={cn('Dashboard', [
             'h-full',
@@ -95,7 +94,7 @@ export const Dashboard = observer(
         </div>
         {<div className={cn('MainView__Spacer')} />}
         {<Footer />}
-      </ClipVideoKeyHandler>
+      </div>
     );
   }, DefaultProps)
 );

@@ -4,6 +4,7 @@ import { ActionsStateProvider } from '/src/actions/components';
 import { queryClient } from '/src/api/queryClient';
 import { AuthStateProvider } from '/src/auth/components/AuthStateProvider';
 import { ClipsStateProvider } from '/src/clips/components';
+import { ClipVideoKeyHandler } from '/src/clips/components/ClipVideoKeyHandler';
 import { DashboardStateProvider } from '/src/dashboard/components';
 import { L, breakpoints } from '/src/frames/layout';
 import { PlaylistsStateProvider } from '/src/playlists/components/PlaylistsStateProvider';
@@ -17,29 +18,42 @@ export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Router history={history}>
-        <div
-          className={cn('App', [
-            L.col.banner(),
-            `min-width-[${breakpoints.xs}] h-screen overflow-x-hidden`,
-          ])}
-        >
-          <AuthStateProvider>
-            <DashboardStateProvider>
-              <SearchStateProvider>
-                <PlaylistsStateProvider>
-                  <ClipsStateProvider>
-                    <ActionsStateProvider>
-                      <VideoPlayerStateProvider>
-                        <RootSwitch />
-                      </VideoPlayerStateProvider>
-                    </ActionsStateProvider>
-                  </ClipsStateProvider>
-                </PlaylistsStateProvider>
-              </SearchStateProvider>
-            </DashboardStateProvider>
-          </AuthStateProvider>
-        </div>
+        <AuthStateProvider>
+          <DashboardStateProvider>
+            <SearchStateProvider>
+              <PlaylistsStateProvider>
+                <ClipsStateProvider>
+                  <ActionsStateProvider>
+                    <VideoPlayerStateProvider>
+                      <ClipVideoKeyHandler>
+                        <AppFrame>
+                          <RootSwitch />
+                        </AppFrame>
+                      </ClipVideoKeyHandler>
+                    </VideoPlayerStateProvider>
+                  </ActionsStateProvider>
+                </ClipsStateProvider>
+              </PlaylistsStateProvider>
+            </SearchStateProvider>
+          </DashboardStateProvider>
+        </AuthStateProvider>
       </Router>
     </QueryClientProvider>
+  );
+};
+
+export const AppFrame = (props: React.PropsWithChildren<{}>) => {
+  return (
+    <div
+      id="App"
+      className={cn('App', [
+        L.col.banner(),
+        `min-width-[${breakpoints.xs}] h-screen overflow-x-hidden`,
+      ])}
+      tabIndex={0}
+      ref={(x: any) => x.focus()}
+    >
+      {props.children}
+    </div>
   );
 };
