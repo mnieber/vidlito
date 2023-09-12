@@ -31,59 +31,57 @@ export const SyncClipWithUrlEffect = observer(
     const refUrl = React.useRef<string>('');
 
     React.useEffect(() => {
+      const selectClip = (clip?: ClipT) => {
+        clipsSelection.selectItem({ itemId: clip?.id });
+      };
+
+      const mustAddNewClip =
+        clipSlug === 'new-clip' && !clipsAddition.item && userProfile;
+
+      const addNewClip = () => {
+        const videoTimeInS =
+          props.videoController?.getPlayer()?.getCurrentTime() ?? 0;
+        clipsAddition.add({
+          values: createClip(userProfile, {
+            url: props.clip?.url,
+            startTimeMs: videoTimeInS * 1000,
+          }),
+        });
+      };
+
       // If the playlist for the current slug has been loaded
       if (playlist?.slug === playlistSlug) {
+        // If we must forward to the first clip
+        if (clipSlug === '-') {
+          const clip = R.find((x: ClipT) => x.slug !== 'new-clip')(clips);
+          if (!R.isNil(clip)) {
+            navToClip(playlist.ownerUsername, playlist.slug, clip.slug);
+          } else {
+            clipsAddition.cancel();
+            selectClip(undefined);
+          }
+        } else if (mustAddNewClip) {
+          addNewClip();
+        }
         // If there is a new url
-        if (refUrl.current !== location.pathname) {
-          const mustAddNewClip = () =>
-            clipSlug === 'new-clip' && !clipsAddition.item && userProfile;
-
-          const addNewClip = () => {
-            const videoTimeInS =
-              props.videoController?.getPlayer()?.getCurrentTime() ?? 0;
-            clipsAddition.add({
-              values: createClip(userProfile, {
-                url: props.clip?.url,
-                startTimeMs: videoTimeInS * 1000,
-              }),
-            });
-          };
-
-          const getClipForCurrentUrl = () =>
-            R.find((x: ClipT) => x.slug === clipSlug)(clips);
-
-          const selectClip = (clip?: ClipT) => {
-            clipsSelection.selectItem({ itemId: clip?.id });
-          };
-
-          if (clipSlug === '-') {
+        else if (refUrl.current !== location.pathname) {
+          const clipForCurrentUrl = R.find((x: ClipT) => x.slug === clipSlug)(
+            clips
+          );
+          if (playlist && !isLoading(clips) && clipForCurrentUrl) {
             refUrl.current = location.pathname;
-            const clip = R.find((x: ClipT) => x.slug !== 'new-clip')(clips);
-            if (!R.isNil(clip)) {
-              navToClip(playlist.ownerUsername, playlist.slug, clip.slug);
-            } else {
-              clipsAddition.cancel();
-              selectClip(undefined);
+            if (props.clip?.id !== clipForCurrentUrl.id) {
+              selectClip(clipForCurrentUrl);
             }
-          } else if (mustAddNewClip()) {
-            refUrl.current = location.pathname;
-            addNewClip();
-          } else if (playlist && !isLoading(clips)) {
-            const clipForCurrentUrl = getClipForCurrentUrl();
-
-            if (clipForCurrentUrl) {
-              refUrl.current = location.pathname;
-              if (props.clip?.id !== clipForCurrentUrl.id) {
-                selectClip(clipForCurrentUrl);
-              }
-              document.title = 'Vidlito: ' + clipForCurrentUrl.name;
-            }
+            document.title = 'Vidlito: ' + clipForCurrentUrl.name;
           }
         } else {
           if (props.clip && clipSlug !== props.clip.slug) {
             navToClip(playlist.ownerUsername, playlist.slug, props.clip.slug);
           }
         }
+      } else if (playlistSlug === 'new-playlist') {
+        refUrl.current = location.pathname;
       }
     }, [clipSlug, props.clip, playlist, clips, clipsSelection]);
 
