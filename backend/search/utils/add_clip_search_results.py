@@ -13,7 +13,7 @@ def add_clip_search_results(info, search_results, clip_query, has_terms):
     for term in clip_query["terms"] or []:
         clip_clauses.append(Q(name__icontains=term))
     for tag in clip_query["tags"] or []:
-        clip_clauses.append(Q(tags__contains=tag))
+        clip_clauses.append(Q(tags__tags__icontains=tag))
 
     for clip in (
         Clip.objects.filter(
@@ -28,7 +28,7 @@ def add_clip_search_results(info, search_results, clip_query, has_terms):
 
     clip_pd_clauses = []
     for tag in clip_query["tags"] or []:
-        clip_pd_clauses.append(Q(tags__contains=tag))
+        clip_pd_clauses.append(Q(tags__tags__icontains=tag))
 
     for clip_pd in (
         ClipPd.filter_mine(info)

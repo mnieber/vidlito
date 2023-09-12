@@ -10,4 +10,4 @@ class Tag(models.Model):
             Tag.objects.get_or_create(tag=tag)
 
     def __str__(self):
-        return f"Tag: {self.id}"
+        return f"Tag: {self.tag}"

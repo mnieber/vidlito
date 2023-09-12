@@ -13,7 +13,7 @@ def add_playlist_search_results(info, search_results, playlist_query):
     for term in playlist_query["terms"] or []:
         playlist_clauses.append(Q(name__icontains=term))
     for tag in playlist_query["tags"] or []:
-        playlist_clauses.append(Q(tags__contains=tag))
+        playlist_clauses.append(Q(tags__tags__icontains=tag))
 
     for playlist in (
         Playlist.objects.filter(
@@ -28,7 +28,7 @@ def add_playlist_search_results(info, search_results, playlist_query):
 
     playlist_pd_clauses = []
     for tag in playlist_query["tags"] or []:
-        playlist_pd_clauses.append(Q(tags__contains=tag))
+        playlist_pd_clauses.append(Q(tags__tags__icontains=tag))
 
     for playlist_pd in (
         PlaylistPd.filter_mine(info)
