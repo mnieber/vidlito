@@ -17,7 +17,7 @@ export const SearchResultsPaginator = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const displayPagination = usePaginationAdapter(
       props.searchResultsPagination,
-      4
+      10
     );
     const searchResults = getPage(props.searchResults, displayPagination);
 
