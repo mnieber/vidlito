@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite';
-import { isUpdating } from 'mobx-resource-states';
 import {
   dragAndDropUIHandlers,
   DragAndDropUIPropsT,
@@ -31,10 +30,6 @@ const DefaultProps = {
 
 export const PlaylistListViewItem = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (isUpdating(props.playlist)) {
-      return null;
-    }
-
     return (
       //
       // 🔳 PlaylistListViewItem 🔳
