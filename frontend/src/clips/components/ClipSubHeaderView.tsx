@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import * as R from 'ramda';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { PlayerControls } from '/src/clips/components/PlayerControls';
 import { AuthorCard } from '/src/playlists/components/AuthorCard';
@@ -14,11 +15,20 @@ export type PropsT = {
 
 export const DefaultProps = {
   ...dps.clip,
+  ...dps.clipPd,
   ...dps.playlist,
 };
 
 export const ClipSubHeaderView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const clipTags = R.uniq([
+      ...(props.clip?.tags ?? []),
+      ...(props.clipPd?.tags ?? []),
+    ]);
+    const playlistTags = R.uniq([
+      ...(props.playlist?.tags ?? []),
+      ...(props.playlist?.playlistPd?.tags ?? []),
+    ]);
     return (
       <div
         className={cn('ClipSubHeaderView', [
@@ -28,10 +38,7 @@ export const ClipSubHeaderView = observer(
       >
         <AuthorCard className="mr-4" />
         <PlayerControls className="mr-4" />
-        <TagsCard
-          clipTags={props.clip?.tags ?? []}
-          playlistTags={props.playlist?.tags ?? []}
-        />
+        <TagsCard clipTags={clipTags} playlistTags={playlistTags} />
       </div>
     );
   }, DefaultProps)
