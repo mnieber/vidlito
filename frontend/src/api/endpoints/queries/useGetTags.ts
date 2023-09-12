@@ -12,8 +12,8 @@ export const getTags = (args: ArgsT) => {
     ? Promise.resolve({ getTags: [] })
     : doQuery(
         `query getTags(
-      $tagPrefix: String
-      $maxNrOfTags: Int
+      $tagPrefix: String!
+      $maxNrOfTags: Int!
     ) {
       getTags(
         tagPrefix: $tagPrefix
