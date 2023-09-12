@@ -4,7 +4,7 @@ import { updateSources } from 'mobx-resource-states';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
 import { useActionsState } from '/src/actions/hooks/useActionsState';
-import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
+import { isQueryLoading } from '/src/api/ObservableQuery';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
@@ -18,9 +18,14 @@ const DefaultProps = {
 
 export const ActionsStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { actionsState: state, getActions } = useActionsState({
+    const {
+      actionsState: state,
+      getAllActions,
+      getPlaylistActions,
+    } = useActionsState({
       getPlaylist: () => props.playlist,
       getPlaylists: () => props.playlists,
+      getUsername: () => props.userProfile?.username ?? 'anonymous',
     });
 
     const cache = useBuilder(() =>
@@ -30,7 +35,12 @@ export const ActionsStateProvider = observer(
             { resource: state.actionsCtr.store.items, resourceName: 'actions' },
             [
               'loading',
-              () => isQueryLoading(getActions) || isQueryUpdating(getActions),
+              () => {
+                const getActions = state.settings.showAllActions
+                  ? getAllActions
+                  : getPlaylistActions;
+                return isQueryLoading(getActions);
+              },
               'getActions',
             ]
           );

@@ -11,10 +11,13 @@ import { PlaylistT } from '/src/api/types/PlaylistT';
 import { resetPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
+import { createUUID } from '/src/utils/ids';
+import { ObjT } from '/src/utils/types';
 
 export type PropsT = {
   getPlaylist: () => PlaylistT | undefined;
   getPlaylists: () => PlaylistT[];
+  getUsername: () => string;
 };
 
 export const useActionsState = (props: PropsT) => {
@@ -24,27 +27,49 @@ export const useActionsState = (props: PropsT) => {
   // Mutations
   const undoAction = useUndoAction();
 
+  const onSuccess = (data: ObjT) => {
+    const actionsCtr = actionsStateRef.current?.actionsCtr;
+    if (actionsCtr) {
+      resetPagination(actionsCtr.pagination, data.pagination);
+    }
+  };
+
   // Queries
-  const getActions = useObservableQuery(
+  const showAllActions = actionsStateRef.current?.settings.showAllActions;
+  const stubPlaylistId = createUUID();
+  const getPlaylistActions = useObservableQuery(
     useGetActions(
       {
-        playlistId: actionsStateRef.current?.settings.showAllActions
-          ? undefined
-          : props.getPlaylist()?.id,
+        playlistId: props.getPlaylist()?.id ?? stubPlaylistId,
         page: actionsStateRef.current?.actionsCtr.pagination.page ?? 1,
         pageSize: 10,
+        username: props.getUsername(),
       },
       {
-        enabled: !!actionsStateRef.current,
-        onSuccess: (data) => {
-          const actionsCtr = actionsStateRef.current?.actionsCtr;
-          if (actionsCtr) {
-            resetPagination(actionsCtr.pagination, data.pagination);
-          }
-        },
+        enabled:
+          !!actionsStateRef.current && !!props.getPlaylist() && !showAllActions,
+        onSuccess: onSuccess,
       }
     ),
-    { fetchAsLoad: true, debugLabel: 'getActions' }
+    {
+      fetchAsLoad: true,
+      debugLabel: 'getPlaylistActions',
+    }
+  );
+  const getAllActions = useObservableQuery(
+    useGetActions(
+      {
+        playlistId: undefined,
+        page: actionsStateRef.current?.actionsCtr.pagination.page ?? 1,
+        pageSize: 10,
+        username: props.getUsername(),
+      },
+      {
+        enabled: !!actionsStateRef.current && showAllActions,
+        onSuccess: onSuccess,
+      }
+    ),
+    { fetchAsLoad: true, debugLabel: 'getAllActions' }
   );
 
   const actionsState = (actionsStateRef.current = useBuilder<ActionsState>(
@@ -52,6 +77,9 @@ export const useActionsState = (props: PropsT) => {
       return new ActionsState({
         //
         getActions: () => {
+          const getActions = actionsState.settings.showAllActions
+            ? getAllActions
+            : getPlaylistActions;
           return graftResourceStatesFromMemo({
             resources: getActions.data?.actionSet ?? [],
           });
@@ -77,13 +105,14 @@ export const useActionsState = (props: PropsT) => {
         }),
       });
     }
-  ) as ActionsState);
+  )) as ActionsState;
 
   React.useEffect(() => () => actionsState.destroy(), [actionsState]);
 
   return {
     actionsState,
     undoAction,
-    getActions,
+    getAllActions,
+    getPlaylistActions,
   };
 };

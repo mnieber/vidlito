@@ -9,6 +9,7 @@ export type ArgsT = {
   actionId: string;
   playlistId: string;
   playlistSlug: string;
+  username: string;
 };
 
 export const undoAction = (args: ArgsT) => {
@@ -33,7 +34,7 @@ export const useUndoAction = () => {
     mutationFn: undoAction,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return Promise.all([
-        invalidateActions(args.playlistId),
+        invalidateActions(args.playlistId, args.username),
         invalidateGetPlaylist({ playlistSlug: args.playlistSlug }),
       ]);
     },
