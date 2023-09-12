@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { isLoading, isUpdating } from 'mobx-resource-states';
+import { isLoading } from 'mobx-resource-states';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
@@ -7,7 +7,9 @@ import { SearchResultListKeyHandler } from '/src/search/components';
 import { NoContentsMatchTheFilter } from '/src/search/components/NoContentsMatchTheFilter';
 import { SearchResultListViewHeader } from '/src/search/components/SearchResultListViewHeader';
 import { SearchResultListViewItem } from '/src/search/components/SearchResultListViewItem';
+import { DelayedFlag } from '/src/utils/DelayedFlag';
 import { cn } from '/src/utils/classnames';
+import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 // Import styles
 import './SearchResultListView.scss';
@@ -25,14 +27,22 @@ const DefaultProps = {
 
 export const SearchResultListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    if (isLoading(props.searchResults) || isUpdating(props.searchResults)) {
+    const noSearchResultsFlag = useBuilder(() => new DelayedFlag());
+    noSearchResultsFlag.update(
+      !!props.search.form && !props.searchResults?.length
+    );
+
+    if (isLoading(props.searchResults)) {
       return <SearchResultListViewLoader />;
-    } else if (!props.searchResults?.length)
-      return !!props.search.form ? (
+    } else if (noSearchResultsFlag.flag) {
+      return (
         <NoContentsMatchTheFilter
           msg={'No contents match the search criteria'}
         />
-      ) : null;
+      );
+    } else if (!props.searchResults?.length) {
+      return null;
+    }
 
     const searchResultDivs: any[] = props.searchResults.map((searchResult) => {
       return (

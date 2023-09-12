@@ -1,13 +1,23 @@
 import { action, makeObservable, observable } from 'mobx';
+import { IPagination } from '/src/api/pagination/types';
+
+export type PropsT = {
+  actionsPagination: IPagination;
+};
 
 export class Settings {
   @observable showAllActions: boolean = false;
+  @observable actionsPagination: IPagination;
 
   @action setShowAllActions = (showAllActions: boolean) => {
-    this.showAllActions = showAllActions;
+    if (this.showAllActions != showAllActions) {
+      this.actionsPagination.setRequestedPage(1);
+      this.showAllActions = showAllActions;
+    }
   };
 
-  constructor() {
+  constructor(props: PropsT) {
+    this.actionsPagination = props.actionsPagination;
     makeObservable(this);
   }
 }

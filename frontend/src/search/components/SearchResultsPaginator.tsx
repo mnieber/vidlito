@@ -1,10 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { DefaultPropsProvider } from 'react-default-props-context';
+import { getDisplayPage } from '/src/api/pagination/PaginationAdapter';
+import { usePaginationAdapter } from '/src/api/pagination/hooks/usePaginationAdapter';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import {
-  getPage,
-  usePaginationAdapter,
-} from '/src/playlists/PlaylistsState/facets/PaginationAdapter';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
@@ -19,7 +17,11 @@ export const SearchResultsPaginator = observer(
       props.searchResultsPagination,
       10
     );
-    const searchResults = getPage(props.searchResults, displayPagination);
+    const searchResults = getDisplayPage(
+      props.searchResultsPagination,
+      displayPagination,
+      props.searchResults
+    );
 
     return (
       <DefaultPropsProvider

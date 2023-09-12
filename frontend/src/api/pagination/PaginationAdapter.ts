@@ -1,7 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { shareRS } from 'mobx-resource-states';
-import type { IPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
-import { useBuilder } from '/src/utils/hooks/useBuilder';
+import { IPagination } from '/src/api/pagination/types';
 
 // This class is used to adapt a pagination to a new page size.
 // It assumes that the new page size is a divisor of the old page size.
@@ -10,7 +9,11 @@ import { useBuilder } from '/src/utils/hooks/useBuilder';
 export class PaginationAdapter implements IPagination {
   @observable pagination: IPagination;
   @observable pageSize: number;
-  @observable page: number;
+  @observable requestedPage: number;
+
+  @computed get page() {
+    return Math.floor(this.pagination.startIdx / this.pageSize + 1);
+  }
 
   @computed get nrOfItems() {
     return this.pagination.nrOfItems;
@@ -20,18 +23,16 @@ export class PaginationAdapter implements IPagination {
     return Math.ceil(this.pagination.nrOfItems / this.pageSize);
   }
 
-  @action setPage(page: number) {
-    this.page = page;
-    this.pagination.setPage(
-      Math.ceil((page * this.pageSize) / this.pagination.pageSize)
+  @action setRequestedPage(page: number) {
+    this.requestedPage = page;
+    const basePage = Math.ceil(
+      (page * this.pageSize) / (this.pagination.pageSize || 1)
     );
+    this.pagination.setRequestedPage(basePage);
   }
 
   @computed get startIdx() {
-    return (
-      (this.page - 1) * this.pageSize -
-      (this.pagination.page - 1) * this.pagination.pageSize
-    );
+    return this.pagination.startIdx;
   }
 
   @computed get endIdx() {
@@ -41,7 +42,7 @@ export class PaginationAdapter implements IPagination {
   constructor(pagination: IPagination, pageSize: number) {
     this.pagination = pagination;
     this.pageSize = pageSize;
-    this.page = 1;
+    this.requestedPage = 1;
     makeObservable(this);
 
     // If this.pagination.pageSize / pageSize is not an integer, then
@@ -64,20 +65,7 @@ export function getDisplayPage(
     (displayPagination.page - 1) * displayPagination.pageSize -
     (loadedPagination.page - 1) * loadedPagination.pageSize;
   const end = Math.min(loadedItems.length, start + displayPagination.pageSize);
-  return loadedItems.slice(start, end);
-}
-
-export function getPage(items: any, pagination: IPagination) {
-  const result = items.slice(pagination.startIdx, pagination.endIdx);
-  shareRS(items, result);
+  const result = loadedItems.slice(start, end);
+  shareRS(loadedItems, result);
   return result;
 }
-
-export const usePaginationAdapter = (
-  pagination: IPagination,
-  pageSize: number
-) => {
-  return useBuilder(() => {
-    return new PaginationAdapter(pagination, pageSize);
-  });
-};

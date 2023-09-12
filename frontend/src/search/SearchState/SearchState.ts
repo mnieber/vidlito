@@ -1,13 +1,13 @@
 import * as Skandha from 'skandha';
 import { Highlight, Store } from 'skandha-facets';
 import { SearchResultT } from '/src/api/types/SearchResultT';
-import {
-  IPagination,
-  Pagination,
-} from '/src/playlists/PlaylistsState/facets/Pagination';
-import { Search } from '/src/search/SearchState/facets/Search';
-import { TagsStore } from '/src/search/SearchState/facets/TagsStore';
-import { registerSearchResultsCtr } from '/src/search/SearchState/registerSearchResultsCtr';
+
+// Local imports
+import { Search } from './facets/Search';
+import { TagsStore } from './facets/TagsStore';
+import { registerSearchResultsCtr } from './registerSearchResultsCtr';
+import { Pagination } from '/src/api/facets/Pagination';
+import { PaginationT } from '/src/api/pagination/types';
 
 export type SearchFormT = {
   playlistTerms: string;
@@ -15,21 +15,18 @@ export type SearchFormT = {
 };
 
 export type PropsT = {
-  searchContent: (args: {
-    playlistTerms: string;
-    clipTerms: string;
-    pagination: IPagination;
-  }) => Promise<any>;
+  getSearchResults: () => SearchResultT[];
+  getPagination: () => PaginationT;
 };
 
 export class SearchState {
   props: PropsT;
 
   searchResultsCtr = {
-    store: new Store<SearchResultT>(),
     highlight: new Highlight<SearchResultT>(),
     pagination: new Pagination(),
-    search: new Search<SearchFormT, SearchResultT>(),
+    search: new Search<SearchFormT>(),
+    store: new Store<SearchResultT>(),
   };
 
   tagsCtr = {

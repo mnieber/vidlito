@@ -28,10 +28,11 @@ const getHandleSubmit =
     initialErrors: FormState['errors']
   ) =>
   ({ formState, values }: HandleSubmitArgsT) => {
-    return props.search.search({
+    props.search.search({
       clipTerms: values['searchForm.clipTerms'] ?? '',
       playlistTerms: values['searchForm.playlistTerms'] ?? '',
     });
+    return Promise.resolve();
   };
 
 const getHandleCancel =

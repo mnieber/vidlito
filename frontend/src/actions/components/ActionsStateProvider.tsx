@@ -13,7 +13,6 @@ export type PropsT = React.PropsWithChildren<{}>;
 const DefaultProps = {
   ...dps.playlist,
   ...dps.playlists,
-  ...dps.userProfile,
 };
 
 export const ActionsStateProvider = observer(
@@ -25,7 +24,6 @@ export const ActionsStateProvider = observer(
     } = useActionsState({
       getPlaylist: () => props.playlist,
       getPlaylists: () => props.playlists,
-      getUsername: () => props.userProfile?.username ?? 'anonymous',
     });
 
     const cache = useBuilder(() =>

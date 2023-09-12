@@ -19,6 +19,11 @@ const mapData = (state: ActionsState) => {
       highlightableIds: () => getIds(ctr.store.items ?? []),
       item: () => getActionById(ctr.highlight.id),
     },
+    pagination: {
+      nrOfItems: () => state.props.getPagination()?.nrOfItems ?? 0,
+      pageSize: () => state.props.getPagination()?.pageSize ?? 10,
+      page: () => state.props.getPagination()?.page ?? 1,
+    },
   });
 };
 

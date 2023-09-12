@@ -6,7 +6,7 @@ import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
-  clipSlug?: string;
+  clipSlug: string;
 };
 
 export const getClipPd = (args: ArgsT) => {
@@ -24,10 +24,9 @@ export const getClipPd = (args: ArgsT) => {
       }
     }`,
     args
-  )
-    .then((response: ObjT) => {
-      return wait(import.meta.env.DEV ? 1000 : 0, response.getClipPd);
-    });
+  ).then((response: ObjT) => {
+    return wait(import.meta.env.DEV ? 1000 : 0, response.getClipPd);
+  });
 };
 
 export type QueryKeyT = ArgsT;
@@ -36,7 +35,6 @@ export function queryKey(args: QueryKeyT) {
   return createQueryKey<QueryKeyT>('getClipPd', args);
 }
 
-
 export type OptionsT = {
   enabled?: boolean;
 };
@@ -44,8 +42,8 @@ export type OptionsT = {
 export const useGetClipPd = (args: ArgsT, options?: OptionsT) => {
   return useQuery({
     queryKey: queryKey(args),
-    enabled: !!(options?.enabled ?? true),
     queryFn: () => getClipPd(args),
+    enabled: !!(options?.enabled ?? true),
   });
 };
 

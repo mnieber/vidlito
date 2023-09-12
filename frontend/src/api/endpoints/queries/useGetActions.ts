@@ -1,22 +1,27 @@
 import { useQuery } from '@tanstack/react-query';
 import { doQuery } from '/src/api/graphqlClient';
+import { usePaginationChanged } from '/src/api/pagination/hooks/usePaginationChanged';
+import {
+  omitPaginationArgs,
+  OmitPaginationArgs,
+} from '/src/api/pagination/types';
+import { createPaginatedQueryKey } from '/src/api/pagination/utils/createPaginatedQueryKey';
 import { queryClient } from '/src/api/queryClient';
-import { createQueryKey } from '/src/utils/createQueryKey';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   playlistId?: string;
-  page?: number;
-  pageSize?: number;
+  page: number;
+  pageSize: number;
 };
 
 export const getActions = (args: ArgsT) => {
   return doQuery(
     `query getActions(
       $playlistId: UUID
-      $page: Int
-      $pageSize: Int
+      $page: Int!
+      $pageSize: Int!
     ) {
       getActions(
         playlistId: $playlistId
@@ -32,6 +37,7 @@ export const getActions = (args: ArgsT) => {
         pagination {
           nrOfItems
           pageSize
+          page
         }
       }
     }`,
@@ -48,33 +54,36 @@ export const getActions = (args: ArgsT) => {
     });
 };
 
-// Note that the username is included in the query key so that
-// the query is invalidated when the user signs in or out.
-export type QueryKeyT = ArgsT & { username: string };
+export type QueryKeyT = ArgsT;
+export function queryKey(args: QueryKeyT) {
+  return createPaginatedQueryKey('getActions', args);
+}
 
 export type OptionsT = {
   enabled?: boolean;
-  onSuccess?: (data: ObjT) => void;
 };
 
-export function queryKey(args: QueryKeyT) {
-  return createQueryKey<QueryKeyT>('getActions', args);
-}
+export const useGetActions = (args: ArgsT, options?: OptionsT) => {
+  const paginationChanged = usePaginationChanged(args);
+  if (paginationChanged && queryClient.getQueryData(queryKey(args))) {
+    invalidateGetActions(args);
+  }
 
-export const useGetActions = (
-  args: ArgsT & { username: string },
-  options?: OptionsT
-) => {
   return useQuery({
     queryKey: queryKey(args),
     queryFn: () => getActions(args),
-    onSuccess: options?.onSuccess,
     enabled: !!(options?.enabled ?? true),
   });
 };
 
-export const invalidateGetActions = (args: QueryKeyT) => {
+// Version of queryKey that does not include pagination args
+export type QueryKeyWithoutPaginationT = OmitPaginationArgs<QueryKeyT>;
+export function queryKeyWithoutPagination(args: QueryKeyWithoutPaginationT) {
+  return createPaginatedQueryKey('getActions', omitPaginationArgs(args));
+}
+
+export const invalidateGetActions = (args: QueryKeyWithoutPaginationT) => {
   return queryClient.invalidateQueries({
-    queryKey: queryKey(args),
+    queryKey: queryKeyWithoutPagination(args),
   });
 };

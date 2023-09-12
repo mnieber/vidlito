@@ -26,7 +26,5 @@ export { useSavePlaylistPd } from './useSavePlaylistPd';
 export type { ArgsT as SavePlaylistPdArgsT } from './useSavePlaylistPd';
 export { useSavePlaylistSettings } from './useSavePlaylistSettings';
 export type { ArgsT as SavePlaylistSettingsArgsT } from './useSavePlaylistSettings';
-export { useSearchContent } from './useSearchContent';
-export type { ArgsT as SearchContentArgsT } from './useSearchContent';
 export { useUndoAction } from './useUndoAction';
 export type { ArgsT as UndoActionArgsT } from './useUndoAction';

@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { updateSources } from 'mobx-resource-states';
 import React from 'react';
 import { DefaultPropsProvider } from 'react-default-props-context';
-import { isRunning } from '/src/api/ObservableMutation';
+import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import { withDefaultProps } from '/src/app/defaultProps';
 import { useSearchState } from '/src/search/hooks/useSearchState';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
@@ -23,7 +23,8 @@ export const SearchStateProvider = observer(
             {
               resource: searchState.searchResultsCtr.store.items ?? [],
             },
-            ['updating', () => isRunning(searchContent), 'searchContent']
+            ['loading', () => isQueryLoading(searchContent), 'searchContent'],
+            ['updating', () => isQueryUpdating(searchContent), 'searchContent']
           );
         },
         get searchResult() {

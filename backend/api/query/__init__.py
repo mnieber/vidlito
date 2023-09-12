@@ -7,6 +7,7 @@ from .getclippd import GetClipPd
 from .getplaylist import GetPlaylist
 from .gettags import GetTags
 from .getuserprofile import GetUserProfile
+from .searchcontent import SearchContent
 
 
 class GrapheneNonEmptyQuery(graphene.ObjectType):
@@ -23,6 +24,7 @@ class Query(
     GetPlaylist,
     GetTags,
     GetUserProfile,
+    SearchContent,
     GrapheneNonEmptyQuery,
 ):
     pass

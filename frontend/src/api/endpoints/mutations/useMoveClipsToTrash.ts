@@ -9,7 +9,6 @@ export type ArgsT = {
   playlistId: string;
   playlistSlug: string;
   clipIds: string[];
-  username: string;
 };
 
 export const moveClipsToTrash = (args: ArgsT) => {
@@ -40,19 +39,16 @@ export const useMoveClipsToTrash = () => {
     mutationFn: moveClipsToTrash,
     onSuccess: (response: ObjT, args: ArgsT) => {
       return Promise.all([
-        invalidateActions(args.playlistId, args.username),
+        invalidateActions(args.playlistId),
         invalidateGetPlaylist({ playlistSlug: args.playlistSlug }),
       ]);
     },
   });
 };
 
-export function invalidateActions(
-  playlistId: string,
-  username: string
-): Promise<any> {
+export function invalidateActions(playlistId: string): Promise<any> {
   return Promise.all([
-    invalidateGetActions({ playlistId: playlistId, username }),
-    invalidateGetActions({ playlistId: undefined, username }),
+    invalidateGetActions({ playlistId: playlistId }),
+    invalidateGetActions({ playlistId: undefined }),
   ]);
 }

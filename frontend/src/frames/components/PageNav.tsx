@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
+import { IPagination } from '/src/api/pagination/types';
 import { withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
-import { IPagination } from '/src/playlists/PlaylistsState/facets/Pagination';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -36,13 +36,17 @@ export const PageNav = observer(
     pushPage(Math.floor(page + props.pagination.nrOfPages / 2));
     pushPage(props.pagination.nrOfPages);
 
+    const targetPage =
+      props.pagination.requestedPage > props.pagination.nrOfPages
+        ? props.pagination.page
+        : props.pagination.requestedPage;
     const itemDivs = pages.map((page: number, idx: number) => {
-      const isActive = props.pagination.page === page;
+      const isActive = page === targetPage;
       return (
         <div
           key={page}
           onClick={() => {
-            props.pagination.setPage(page);
+            props.pagination.setRequestedPage(page);
           }}
           className={cn(
             'PageNav__Item',
@@ -66,7 +70,7 @@ export const PageNav = observer(
             name="arrowLeftSmall"
             onClick={() => {
               if (props.pagination.page > 1) {
-                props.pagination.setPage(props.pagination.page - 1);
+                props.pagination.setRequestedPage(props.pagination.page - 1);
               }
             }}
           />
@@ -80,7 +84,7 @@ export const PageNav = observer(
             name="arrowRightSmall"
             onClick={() => {
               if (props.pagination.page < props.pagination.nrOfPages) {
-                props.pagination.setPage(props.pagination.page + 1);
+                props.pagination.setRequestedPage(props.pagination.page + 1);
               }
             }}
           />

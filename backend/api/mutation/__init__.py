@@ -16,7 +16,6 @@ from .saveplaylist import SavePlaylist
 from .saveplaylistordering import SavePlaylistOrdering
 from .saveplaylistpd import SavePlaylistPd
 from .saveplaylistsettings import SavePlaylistSettings
-from .searchcontent import SearchContent
 from .undoaction import UndoAction
 
 
@@ -42,5 +41,4 @@ class Mutation(user_accounts.schema.Mutation, GrapheneNonEmptyMutation):
     save_playlist_settings = SavePlaylistSettings.Field()
     save_playlist_ordering = SavePlaylistOrdering.Field()
     save_playlist_pd = SavePlaylistPd.Field()
-    search_content = SearchContent.Field()
     undo_action = UndoAction.Field()
