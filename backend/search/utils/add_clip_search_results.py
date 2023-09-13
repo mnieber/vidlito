@@ -17,7 +17,8 @@ def add_clip_search_results(info, search_results, clip_query, has_terms):
 
     for clip in (
         Clip.objects.filter(
-            Q(nr_of_public_playlists__gt=0) | Q(owner_id=UserProfile.get_id(info))
+            Q(nr_of_public_playlists__gt=0)
+            | (Q(owner_id=UserProfile.get_id(info)) & Q(nr_of_private_playlists__gt=0))
         )
         .filter(join_clauses(clip_clauses))
         .all()
