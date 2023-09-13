@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { withDefaultProps } from '/src/app/defaultProps';
-import { navToHome } from '/src/frames/FramesNavEvents';
 import { L } from '/src/frames/layout';
+import { navToHome } from '/src/frames/navEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

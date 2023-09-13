@@ -4,7 +4,7 @@ import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { navToPlaylist } from '/src/playlists/navEvents';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};

@@ -7,8 +7,8 @@ import {
   unflatten,
 } from 'react-form-state-context';
 import { DefaultProps, PropsT } from './index';
-import { navToHome } from '/src/frames/FramesNavEvents';
-import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { navToHome } from '/src/frames/navEvents';
+import { navToPlaylist } from '/src/playlists/navEvents';
 import { createUUID } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 

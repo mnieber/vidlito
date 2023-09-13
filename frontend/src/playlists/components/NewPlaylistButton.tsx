@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ToolButton } from '/src/frames/components/ToolButton';
-import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { navToPlaylist } from '/src/playlists/navEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

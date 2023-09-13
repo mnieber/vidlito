@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/ClipsNavEvents';
+import { navToClip } from '/src/clips/navEvents';
 import { CloseButton } from '/src/frames/components/CloseButton';
 import {
   BlueDialogButtonTrim,
   DialogButton,
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
-import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { navToPlaylist } from '/src/playlists/navEvents';
 import { cn } from '/src/utils/classnames';
 import { SwitchButton } from '/src/utils/components/SwitchButton';
 

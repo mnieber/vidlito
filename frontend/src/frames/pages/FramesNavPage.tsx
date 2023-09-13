@@ -7,7 +7,7 @@ import {
   navToNextPageAfterSignIn,
   navToSignIn,
   navToSignUp,
-} from '/src/frames/FramesNavEvents';
+} from '/src/frames/navEvents';
 import { history } from '/src/routes/history';
 import { getRouteUfns } from '/src/routes/routeTable';
 

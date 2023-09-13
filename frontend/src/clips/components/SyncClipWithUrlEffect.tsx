@@ -5,7 +5,7 @@ import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/ClipsNavEvents';
+import { navToClip } from '/src/clips/navEvents';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};

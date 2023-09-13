@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/ClipsNavEvents';
+import { navToClip } from '/src/clips/navEvents';
 import { getRouteParams } from '/src/routes/utils/getRouteParams';
 
 type PropsT = {};

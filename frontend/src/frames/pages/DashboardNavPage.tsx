@@ -1,15 +1,15 @@
 import { useInstallNavPage } from 'react-nav-handler';
-import { navToActions } from '/src/actions/ActionsNavEvents';
+import { navToActions } from '/src/actions/navEvents';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/ClipsNavEvents';
+import { navToClip } from '/src/clips/navEvents';
 import { cookiesState } from '/src/dashboard/DashboardState/CookiesState';
 import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
-import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { navToPlaylist } from '/src/playlists/navEvents';
 import { history } from '/src/routes/history';
 import { getRouteUfns } from '/src/routes/routeTable';
 import { getRouteParams } from '/src/routes/utils/getRouteParams';
-import { navToSearch } from '/src/search/SearchNavEvents';
+import { navToSearch } from '/src/search/navEvents';
 
 export type CreateDashboardNavPagePropsT = {
   getUserProfile: () => UserProfileT | null;

@@ -3,11 +3,11 @@ import { observer } from 'mobx-react-lite';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useSignOut } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
-import { navToHelp, navToSignIn } from '/src/frames/FramesNavEvents';
 import { Icon } from '/src/frames/components';
 import { DialogButtonS } from '/src/frames/components/DialogButton';
 import { MenuItemS } from '/src/frames/components/MenuItem';
 import { L } from '/src/frames/layout';
+import { navToHelp, navToSignIn } from '/src/frames/navEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

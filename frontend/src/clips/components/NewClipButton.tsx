@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/ClipsNavEvents';
+import { navToClip } from '/src/clips/navEvents';
 import { DashboardState } from '/src/dashboard/DashboardState/DashboardState';
 import { ToolButton } from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';

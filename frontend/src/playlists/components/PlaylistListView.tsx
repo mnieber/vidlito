@@ -3,9 +3,9 @@ import { isLoading } from 'mobx-resource-states';
 import { DragAndDropUIConnector, SelectionUIConnector } from 'skandha-facets';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
 import { PlaylistListKeyHandler } from '/src/playlists/components/PlaylistListKeyHandler';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
+import { navToPlaylist } from '/src/playlists/navEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

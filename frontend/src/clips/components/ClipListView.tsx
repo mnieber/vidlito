@@ -7,11 +7,11 @@ import {
 } from 'skandha-facets';
 import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/ClipsNavEvents';
 import { ClipListViewKeyHandler } from '/src/clips/components';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
+import { navToClip } from '/src/clips/navEvents';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
-import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { navToPlaylist } from '/src/playlists/navEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

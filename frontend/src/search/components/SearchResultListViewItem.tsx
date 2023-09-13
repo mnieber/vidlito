@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { SearchResultT } from '/src/api/types/SearchResultT';
-import { navToClip } from '/src/clips/ClipsNavEvents';
-import { navToPlaylist } from '/src/playlists/PlaylistsNavEvents';
+import { navToClip } from '/src/clips/navEvents';
+import { navToPlaylist } from '/src/playlists/navEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

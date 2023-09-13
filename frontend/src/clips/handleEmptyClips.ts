@@ -1,6 +1,6 @@
 import { Highlight } from 'skandha-facets';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { navToClip } from '/src/clips/ClipsNavEvents';
+import { navToClip } from '/src/clips/navEvents';
 
 export const handleEmptyClips = (
   clipsHighlight: Highlight,
