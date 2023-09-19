@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
+import { useNavContext } from 'react-nav-handler';
 import { DragAndDropUIConnector, SelectionUIConnector } from 'skandha-facets';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { PlaylistListKeyHandler } from '/src/playlists/components/PlaylistListKeyHandler';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
-import { navToPlaylist } from '/src/playlists/navEvents';
+import { navToPlaylist } from '/src/playlists/navFunctions';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -29,6 +30,8 @@ const DefaultProps = {
 
 export const PlaylistListView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const navContext = useNavContext('PlaylistListView');
+
     const dragAndDropUIConnector = new DragAndDropUIConnector({
       dragAndDrop: props.playlistsDragAndDrop,
       hovering: props.playlistsHovering,
@@ -38,7 +41,7 @@ export const PlaylistListView = observer(
     });
     const goToPlaylist = (playlist: PlaylistT) => {
       props.dashboardState.panelState.toggleIsPlaylistListExpanded(false);
-      navToPlaylist(playlist.ownerUsername, playlist.slug);
+      navToPlaylist(navContext)(playlist.ownerUsername, playlist.slug).go();
     };
 
     if (isLoading(props.playlists)) {

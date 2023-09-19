@@ -1,13 +1,14 @@
 import { observer } from 'mobx-react-lite';
+import { useNavContext } from 'react-nav-handler';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/navEvents';
+import { navToClip } from '/src/clips/navFunctions';
 import { CloseButton } from '/src/frames/components/CloseButton';
 import {
   BlueDialogButtonTrim,
   DialogButton,
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
-import { navToPlaylist } from '/src/playlists/navEvents';
+import { navToPlaylist } from '/src/playlists/navFunctions';
 import { cn } from '/src/utils/classnames';
 import { SwitchButton } from '/src/utils/components/SwitchButton';
 
@@ -28,6 +29,8 @@ const DefaultProps = {
 
 export const ActionsBar = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const navContext = useNavContext('ActionsBar');
+
     return (
       /*
       🔳 ActionsBar 🔳
@@ -71,13 +74,16 @@ export const ActionsBar = observer(
         <CloseButton
           onClick={() => {
             if (props.clip) {
-              navToClip(
+              navToClip(navContext)(
                 props.playlist.ownerUsername,
                 props.playlist.slug,
                 props.clip.slug
-              );
+              ).go();
             } else {
-              navToPlaylist(props.playlist.ownerUsername, props.playlist.slug);
+              navToPlaylist(navContext)(
+                props.playlist.ownerUsername,
+                props.playlist.slug
+              ).go();
             }
           }}
           className={cn({

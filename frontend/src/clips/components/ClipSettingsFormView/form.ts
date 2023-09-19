@@ -4,6 +4,7 @@ import {
   HandleSubmitArgsT,
   HandleValidateArgsT,
 } from 'react-form-state-context';
+import { type NavContextT } from 'react-nav-handler';
 import { DefaultProps, PropsT } from './index';
 import { handleEmptyClips } from '/src/clips/handleEmptyClips';
 
@@ -24,6 +25,7 @@ const getHandleValidate =
 
 const getHandleSubmit =
   (
+    navContext: NavContextT,
     props: PropsT & typeof DefaultProps,
     initialValues: FormState['values'],
     initialErrors: FormState['errors']
@@ -35,7 +37,9 @@ const getHandleSubmit =
           itemIds: [props.clip.id],
           moveToTrash: false,
         })
-        .then(handleEmptyClips(props.clipsHighlight, props.playlist))
+        .then(
+          handleEmptyClips(navContext, props.clipsHighlight, props.playlist)
+        )
         .then(() => {
           props.clipSettingsEdit.cancel();
         });

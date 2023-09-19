@@ -7,7 +7,7 @@ import { Icon } from '/src/frames/components';
 import { DialogButtonS } from '/src/frames/components/DialogButton';
 import { MenuItemS } from '/src/frames/components/MenuItem';
 import { L } from '/src/frames/layout';
-import { navToHelp, navToSignIn } from '/src/frames/navEvents';
+import { navToHelp, navToSignIn } from '/src/frames/navFunctions';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

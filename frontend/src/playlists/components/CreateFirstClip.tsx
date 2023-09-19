@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
+import { useNavContext } from 'react-nav-handler';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { onClickNewClipButton } from '/src/clips/components/NewClipButton';
 import { CtaButtonS } from '/src/frames/components/CtaButton';
@@ -25,6 +26,8 @@ const DefaultProps = {
 
 export const CreateFirstClip = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const navContext = useNavContext('CreateFirstClip');
+
     if (isLoading(props.clips)) {
       return <CreateFirstClipLoader />;
     }
@@ -42,7 +45,7 @@ export const CreateFirstClip = observer(
             ['w-[280px]', 'self-center']
           )}
           onClick={() => {
-            onClickNewClipButton(props);
+            onClickNewClipButton(navContext, props);
           }}
         >
           <Icon className={cn(CtaButtonS.Icon())} name="plus" />

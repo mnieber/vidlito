@@ -2,10 +2,11 @@ import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
 import * as R from 'ramda';
 import React from 'react';
+import { useNavContext } from 'react-nav-handler';
 import { useLocation, useParams } from 'react-router-dom';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/navEvents';
+import { navToClip } from '/src/clips/navFunctions';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
@@ -22,6 +23,7 @@ const DefaultProps = {
 
 export const SyncClipWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const navContext = useNavContext('SyncClipWithUrlEffect');
     const { userProfile, clipsAddition, clips, playlist, clipsSelection } =
       props;
 
@@ -55,7 +57,11 @@ export const SyncClipWithUrlEffect = observer(
         if (clipSlug === '-') {
           const clip = R.find((x: ClipT) => x.slug !== 'new-clip')(clips);
           if (!R.isNil(clip)) {
-            navToClip(playlist.ownerUsername, playlist.slug, clip.slug);
+            navToClip(navContext)(
+              playlist.ownerUsername,
+              playlist.slug,
+              clip.slug
+            ).go();
           } else {
             clipsAddition.cancel();
             selectClip(undefined);
@@ -77,7 +83,11 @@ export const SyncClipWithUrlEffect = observer(
           }
         } else {
           if (props.clip && clipSlug !== props.clip.slug) {
-            navToClip(playlist.ownerUsername, playlist.slug, props.clip.slug);
+            navToClip(navContext)(
+              playlist.ownerUsername,
+              playlist.slug,
+              props.clip.slug
+            ).go();
           }
         }
       } else if (playlistSlug === 'new-playlist') {

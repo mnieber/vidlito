@@ -3,7 +3,7 @@ import { withDefaultProps } from '/src/app/defaultProps';
 import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
 import { AccountMenu } from '/src/frames/components/AccountMenu';
 import { RouterLink } from '/src/routes/components/RouterLink';
-import { getRoutes } from '/src/routes/routeTable';
+import { getRouteFns } from '/src/routes/routeTable';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -17,14 +17,14 @@ export const DefaultProps = {};
 
 export const TermsCard = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const routes = getRoutes<AuthRoutesT>();
+    const routeFns = getRouteFns<AuthRoutesT>();
 
     return (
       <div className={cn('TermsCard', props.className)}>
         <div className={cn('TermsCard__Copyright', 'mb-2')}>
           (C) 2024 Maarten Nieber
         </div>
-        <RouterLink className="" to={routes.termsAndConditions()}>
+        <RouterLink className="" to={routeFns.termsAndConditions()}>
           Terms and Conditions
         </RouterLink>
         <AccountMenu className="mt-4" isFullButton={true} />

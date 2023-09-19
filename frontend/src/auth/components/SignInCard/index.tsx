@@ -9,7 +9,10 @@ import {
   TealWithWhiteTextDialogButtonTrim,
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
-import { navToNextPageAfterSignIn, navToSignUp } from '/src/frames/navEvents';
+import {
+  navToNextPageAfterSignIn,
+  navToSignUp,
+} from '/src/frames/navFunctions';
 import { cn } from '/src/utils/classnames';
 import { ObjT } from '/src/utils/types';
 

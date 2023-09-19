@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
+import { useNavContext } from 'react-nav-handler';
 import { useLocation, useParams } from 'react-router-dom';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToPlaylist } from '/src/playlists/navEvents';
+import { navToPlaylist } from '/src/playlists/navFunctions';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
@@ -21,6 +22,8 @@ const DefaultProps = {
 
 export const SyncPlaylistWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const navContext = useNavContext('SyncPlaylistWithUrlEffect');
+
     const {
       playlistsAddition,
       userProfile,
@@ -75,7 +78,7 @@ export const SyncPlaylistWithUrlEffect = observer(
       } else {
         // Check if we must update the current url based on the highlighted playlist.
         if (playlist && playlistSlug !== playlist.slug) {
-          navToPlaylist(playlist.ownerUsername, playlist.slug);
+          navToPlaylist(navContext)(playlist.ownerUsername, playlist.slug).go();
         }
       }
     }, [

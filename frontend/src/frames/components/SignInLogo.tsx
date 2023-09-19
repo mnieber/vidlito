@@ -1,6 +1,6 @@
 import { DialogButtonS } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
-import { navToHome } from '/src/frames/navEvents';
+import { navToHome } from '/src/frames/navFunctions';
 import { cn } from '/src/utils/classnames';
 
 // Import styles

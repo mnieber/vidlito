@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
+import { useNavContext } from 'react-nav-handler';
 import {
   DragAndDropUIConnector,
   Selection,
@@ -9,9 +10,8 @@ import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipListViewKeyHandler } from '/src/clips/components';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
-import { navToClip } from '/src/clips/navEvents';
+import { navToClip } from '/src/clips/navFunctions';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
-import { navToPlaylist } from '/src/playlists/navEvents';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -36,6 +36,8 @@ export const ClipListView = observer(
     //
     // 🔳  Handle loading state 🔳
     //
+    const navContext = useNavContext('ClipListView');
+
     if (isLoading(props.clips)) {
       return <ClipListViewLoader {...props} />;
     }
@@ -55,11 +57,11 @@ export const ClipListView = observer(
         if (!args.isShift && !args.isCtrl) {
           const clip = props.clips.find((x) => x.id === args.itemId);
           if (clip) {
-            navToClip(
+            navToClip(navContext)(
               props.playlist.ownerUsername,
               props.playlist.slug,
               clip.slug
-            );
+            ).go();
           }
         }
       },
@@ -89,14 +91,7 @@ export const ClipListView = observer(
     });
 
     const noItems = (
-      <h2
-        className="ClipListView__NoItems"
-        onClick={() => {
-          navToPlaylist(props.playlist.ownerUsername, props.playlist.slug);
-        }}
-      >
-        There are no clips yet
-      </h2>
+      <h2 className="ClipListView__NoItems">There are no clips yet</h2>
     );
 
     //

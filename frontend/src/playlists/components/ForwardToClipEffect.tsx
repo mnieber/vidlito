@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { useNavContext } from 'react-nav-handler';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/navEvents';
+import { navToClip } from '/src/clips/navFunctions';
 import { getRouteParams } from '/src/routes/utils/getRouteParams';
 
 type PropsT = {};
@@ -12,6 +13,7 @@ const DefaultProps = {
 
 export const ForwardToClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const navContext = useNavContext('ForwardToClipEffect');
     const params = getRouteParams();
 
     React.useEffect(() => {
@@ -21,7 +23,11 @@ export const ForwardToClipEffect = observer(
         params.playlistSlug &&
         params.playlistSlug !== 'new-playlist'
       ) {
-        navToClip(params.ownerUsername, params.playlistSlug, '-');
+        navToClip(navContext)(
+          params.ownerUsername,
+          params.playlistSlug,
+          '-'
+        ).go();
       }
     });
 

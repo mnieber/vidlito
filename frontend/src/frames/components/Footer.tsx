@@ -8,7 +8,7 @@ import {
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { RouterLink } from '/src/routes/components/RouterLink';
-import { getRoutes } from '/src/routes/routeTable';
+import { getRouteFns } from '/src/routes/routeTable';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -22,7 +22,7 @@ export const DefaultProps = {
 
 export const Footer = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const routes = getRoutes<AuthRoutesT>();
+    const routeFns = getRouteFns<AuthRoutesT>();
 
     return (
       <div className={cn('Footer', 'p-4')}>
@@ -43,7 +43,7 @@ export const Footer = observer(
           </div>
           <div className={cn('mx-4')}>-</div>
           <RouterLink
-            to={routes.termsAndConditions()}
+            to={routeFns.termsAndConditions()}
             className={cn('text-center')}
           >
             Terms and Conditions

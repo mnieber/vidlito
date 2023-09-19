@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { navToActions } from '/src/actions/navEvents';
+import { navToActions } from '/src/actions/navFunctions';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ToolButton } from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';

@@ -5,6 +5,7 @@ import {
   SubMenu,
 } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
+import { useNavContext } from 'react-nav-handler';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { handleEmptyClips } from '/src/clips/handleEmptyClips';
 import { Icon } from '/src/frames/components';
@@ -31,6 +32,8 @@ const DefaultProps = {
 
 export const ClipMenu = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const navContext = useNavContext('ClipMenu');
+
     if (!props.playlists || !props.playlist || !props.isOwner(props.playlist))
       return null;
 
@@ -54,7 +57,13 @@ export const ClipMenu = observer(
                     playlistId: playlist.id,
                     copy: false,
                   })
-                  .then(handleEmptyClips(props.clipsHighlight, props.playlist));
+                  .then(
+                    handleEmptyClips(
+                      navContext,
+                      props.clipsHighlight,
+                      props.playlist
+                    )
+                  );
               }}
             >
               {playlist.name}
@@ -74,7 +83,13 @@ export const ClipMenu = observer(
                     playlistId: playlist.id,
                     copy: true,
                   })
-                  .then(handleEmptyClips(props.clipsHighlight, props.playlist));
+                  .then(
+                    handleEmptyClips(
+                      navContext,
+                      props.clipsHighlight,
+                      props.playlist
+                    )
+                  );
               }}
             >
               {playlist.name}
@@ -98,7 +113,13 @@ export const ClipMenu = observer(
                 itemIds: props.clipsSelection.ids,
                 moveToTrash: true,
               })
-              .then(handleEmptyClips(props.clipsHighlight, props.playlist))
+              .then(
+                handleEmptyClips(
+                  navContext,
+                  props.clipsHighlight,
+                  props.playlist
+                )
+              )
           }
         >
           <Icon className={cn(MenuItemS.Icon())} name="trash" />

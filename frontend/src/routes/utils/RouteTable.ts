@@ -2,16 +2,9 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
 import { generatePath } from 'react-router-dom';
 import { ObjT } from '/src/utils/types';
-import { pathname } from '/src/utils/urls';
 
 export type RouteFnByNameT<T = any> = {
   [P in keyof T]: (args?: unknown) => string;
-};
-export type RouteUfnResultT = { route: string; changed: boolean };
-export type RouteUfnByNameT<T = any> = {
-  [P in keyof T]: T[P] extends (...args: infer A) => infer R
-    ? (updateRoute: Function) => (...args: A) => RouteUfnResultT
-    : never;
 };
 
 export type RouteSpecT = {
@@ -33,25 +26,6 @@ export class RouteTable {
         return R.isEmpty(args ?? {})
           ? route.prefix + pathStr
           : generatePath(route.prefix + pathStr, args!);
-      };
-    }
-    return result;
-  }
-
-  @computed get routeUfnByName(): RouteUfnByNameT {
-    const result: RouteUfnByNameT = {};
-    for (const routeSpec of R.values(this._routeSpecByName)) {
-      result[routeSpec.name] = (updateRoute: Function) => (args: unknown) => {
-        const routeArgs = routeSpec.getRouteArgs(args);
-        const newRoute = this.routeFnByName[routeSpec.name](routeArgs);
-        const changed = pathname() !== newRoute;
-        if (changed) {
-          updateRoute(newRoute);
-        }
-        return {
-          route: newRoute,
-          changed,
-        };
       };
     }
     return result;

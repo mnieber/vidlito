@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { FormStateProvider } from 'react-form-state-context';
+import { useNavContext } from 'react-nav-handler';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { IsPublicClipField } from '/src/clips/components/ClipSettingsFormView/IsPublicClipField';
@@ -32,6 +33,7 @@ export const DefaultProps = {
 
 export const ClipSettingsFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const navContext = useNavContext('ClipSettingsFormView');
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
 
@@ -52,6 +54,7 @@ export const ClipSettingsFormView = observer(
           initialErrors={initialErrors}
           handleValidate={form.getHandleValidate(props)}
           handleSubmit={form.getHandleSubmit(
+            navContext,
             props,
             initialValues,
             initialErrors

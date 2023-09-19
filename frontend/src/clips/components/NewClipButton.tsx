@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
+import { useNavContext, type NavContextT } from 'react-nav-handler';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/navEvents';
+import { navToClip } from '/src/clips/navFunctions';
 import { DashboardState } from '/src/dashboard/DashboardState/DashboardState';
 import { ToolButton } from '/src/frames/components/ToolButton';
 import { cn } from '/src/utils/classnames';
@@ -23,6 +24,8 @@ const DefaultProps = {
 
 export const NewClipButton = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const navContext = useNavContext('NewClipButton');
+
     const enabled =
       props.isOwner(props.playlist) && props.playlist?.slug !== 'new-playlist';
 
@@ -33,19 +36,26 @@ export const NewClipButton = observer(
         iconName="plus"
         label="Clip"
         onClick={() => {
-          return onClickNewClipButton(props);
+          return onClickNewClipButton(navContext, props);
         }}
       />
     );
   }, DefaultProps)
 );
 
-export function onClickNewClipButton(props: {
-  dashboardState: DashboardState;
-  playlist: PlaylistT;
-  userProfile: UserProfileT;
-}) {
+export function onClickNewClipButton(
+  navContext: NavContextT,
+  props: {
+    dashboardState: DashboardState;
+    playlist: PlaylistT;
+    userProfile: UserProfileT;
+  }
+) {
   props.dashboardState.navigationState.storeNavigationPoint();
   props.dashboardState.panelState.toggleShowPlaylistView(false);
-  navToClip(props.playlist.ownerUsername, props.playlist.slug, 'new-clip');
+  navToClip(navContext)(
+    props.playlist.ownerUsername,
+    props.playlist.slug,
+    'new-clip'
+  ).go();
 }

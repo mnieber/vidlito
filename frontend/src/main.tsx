@@ -7,8 +7,6 @@ import { applyFormatters } from 'mobx-log';
 import { setOptions as setResourceStatesOptions } from 'mobx-resource-states';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { setOptions as setNavHandlerOptions } from 'react-nav-handler';
-import { matchPath, useRouteMatch } from 'react-router-dom';
 import { setOptions as setSkandhaOptions } from 'skandha';
 import { App } from '/src/app/components';
 import { flags } from '/src/app/flags';
@@ -23,11 +21,6 @@ if (import.meta.env.DEV) {
 setSkandhaOptions({
   logging: flags.logSkandha,
   formatObject: toJS,
-});
-
-setNavHandlerOptions({
-  useRouteMatch: useRouteMatch,
-  matchPath: matchPath,
 });
 
 setResourceStatesOptions({

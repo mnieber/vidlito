@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
+import { useNavContext } from 'react-nav-handler';
 import { SearchResultT } from '/src/api/types/SearchResultT';
-import { navToClip } from '/src/clips/navEvents';
-import { navToPlaylist } from '/src/playlists/navEvents';
+import { navToClip } from '/src/clips/navFunctions';
+import { navToPlaylist } from '/src/playlists/navFunctions';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -12,21 +13,22 @@ export type PropsT = {
 };
 
 export const SearchResultListViewItem = observer((props: PropsT) => {
+  const navContext = useNavContext('SearchResultListViewItem');
   return (
     <div
       className={cn('SearchResultListViewItem', 'group', 'contents')}
       onClick={() => {
         if (props.searchResult.clipSlug) {
-          navToClip(
+          navToClip(navContext)(
             props.searchResult.ownerUsername,
             props.searchResult.playlistSlug,
             props.searchResult.clipSlug
-          );
+          ).go();
         } else {
-          navToPlaylist(
+          navToPlaylist(navContext)(
             props.searchResult.ownerUsername,
             props.searchResult.playlistSlug
-          );
+          ).go();
         }
       }}
     >
@@ -41,10 +43,10 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
         )}
         onClick={(e: any) => {
           e.stopPropagation();
-          navToPlaylist(
+          navToPlaylist(navContext)(
             props.searchResult.ownerUsername,
             props.searchResult.playlistSlug
-          );
+          ).go();
         }}
       >
         {props.searchResult.playlistName}

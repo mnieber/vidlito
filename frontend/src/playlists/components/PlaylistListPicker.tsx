@@ -9,7 +9,7 @@ import {
   PlaylistListView,
 } from '/src/playlists/components';
 import { RouterLink } from '/src/routes/components';
-import { getRoutes } from '/src/routes/routeTable';
+import { getRouteFns } from '/src/routes/routeTable';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -29,7 +29,7 @@ const DefaultProps = {
 
 export const PlaylistListPicker = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const routes = getRoutes<AuthRoutesT>();
+    const routeFns = getRouteFns<AuthRoutesT>();
 
     if (isLoading(props.playlists) || isLoading(props.clips)) {
       return <PlaylistListPickerLoader {...props} />;
@@ -42,8 +42,10 @@ export const PlaylistListPicker = observer(
           {!props.userProfile && (
             <>
               {' '}
-              <RouterLink to={routes.signUp()}>Create an account</RouterLink> to
-              add one.
+              <RouterLink to={routeFns.signUp()}>
+                Create an account
+              </RouterLink>{' '}
+              to add one.
             </>
           )}
         </div>

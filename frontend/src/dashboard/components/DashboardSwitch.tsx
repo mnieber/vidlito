@@ -11,8 +11,7 @@ import { CardS } from '/src/frames/components/Card';
 import { ForwardToLastUrlEffect } from '/src/frames/components/ForwardToLastUrlEffect';
 import { PageNotFound } from '/src/frames/components/PageNotFound';
 import { TermsAndConditionsPage } from '/src/frames/components/TermsAndConditionsPage';
-import { ActionsNavPage } from '/src/frames/pages/ActionsNavPage';
-import { DashboardNavPage } from '/src/frames/pages/DashboardNavPage';
+import { DashboardNavHandler } from '/src/frames/pages/DashboardNavHandler';
 import {
   ForwardToClipEffect,
   PlaylistFormView,
@@ -20,7 +19,7 @@ import {
 } from '/src/playlists/components';
 import { PlaylistNotFound } from '/src/playlists/components/PlaylistNotFound';
 import { SelectPlaylistEffect } from '/src/playlists/components/SelectPlaylistEffect';
-import { getRoutes } from '/src/routes/routeTable';
+import { getRouteFns } from '/src/routes/routeTable';
 import { SearchResultsPaginator } from '/src/search/components';
 import { SearchView } from '/src/search/components/SearchView';
 import { cn } from '/src/utils/classnames';
@@ -33,23 +32,23 @@ const DefaultProps = {
 
 export const DashboardSwitch = withDefaultProps(
   (props: PropsT & typeof DefaultProps) => {
-    const routes = getRoutes<AuthRoutesT & DashboardRoutesT>();
+    const routeFns = getRouteFns<AuthRoutesT & DashboardRoutesT>();
     return (
-      <DashboardNavPage>
+      <DashboardNavHandler>
         {
           // 🔳 Dashboard 🔳
         }
         <Dashboard>
           <Switch>
             <MainView>
-              <Route exact path={routes.termsAndConditions()}>
+              <Route exact path={routeFns.termsAndConditions()}>
                 <TermsAndConditionsPage />
               </Route>
               <PageNotFound />
-              <Route exact={true} path={routes.home()}>
+              <Route exact={true} path={routeFns.home()}>
                 <ForwardToLastUrlEffect />
               </Route>
-              <Route exact={false} path={routes.search()}>
+              <Route exact={false} path={routeFns.search()}>
                 <SelectPlaylistEffect />
                 {
                   // 🔳 SearchView 🔳
@@ -58,28 +57,26 @@ export const DashboardSwitch = withDefaultProps(
                   <SearchView className="ml-4 mt-4" />
                 </SearchResultsPaginator>
               </Route>
-              <Route exact={true} path={routes.actions()}>
-                <ActionsNavPage>
-                  <SelectPlaylistEffect />
-                  {
-                    // 🔳 ActionsView 🔳
-                  }
-                  <ActionsPaginator>
-                    <ActionsView className={cn('ml-2 lg:ml-4 mt-4')} />
-                  </ActionsPaginator>
-                </ActionsNavPage>
+              <Route exact={true} path={routeFns.actions()}>
+                <SelectPlaylistEffect />
+                {
+                  // 🔳 ActionsView 🔳
+                }
+                <ActionsPaginator>
+                  <ActionsView className={cn('ml-2 lg:ml-4 mt-4')} />
+                </ActionsPaginator>
               </Route>
-              <Route exact={false} path={routes.playlist()}>
+              <Route exact={false} path={routeFns.playlist()}>
                 <SyncPlaylistWithUrlEffect />
-                <Route path={routes.playlist()}>
+                <Route path={routeFns.playlist()}>
                   <PlaylistNotFound />
                 </Route>
-                <Route exact={true} path={routes.playlist()}>
+                <Route exact={true} path={routeFns.playlist()}>
                   <ForwardToClipEffect />
                 </Route>
                 <Route
                   exact={true}
-                  path={routes.playlist({
+                  path={routeFns.playlist({
                     ownerUsername: ':ownerUsername',
                     playlistSlug: 'new-playlist',
                   })}
@@ -91,7 +88,7 @@ export const DashboardSwitch = withDefaultProps(
                     className={cn(CardS.size.medium(), 'mx-4 mt-4')}
                   />
                 </Route>
-                <Route exact={true} path={routes.clip()}>
+                <Route exact={true} path={routeFns.clip()}>
                   <SyncClipWithUrlEffect />
                   {
                     // 🔳 VideoAndCopView 🔳
@@ -102,7 +99,7 @@ export const DashboardSwitch = withDefaultProps(
             </MainView>
           </Switch>
         </Dashboard>
-      </DashboardNavPage>
+      </DashboardNavHandler>
     );
   },
   DefaultProps
