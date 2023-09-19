@@ -39,7 +39,7 @@ export const Footer = observer(
           />
           <div className={cn('Footer__MenuButtonSpacer', ['grow'])} />
           <div className={cn('Footer__Copyright', ['ml-2'])}>
-            (C) 2024 Maarten Nieber
+            (C) 2023 Maarten Nieber
           </div>
           <div className={cn('mx-4')}>-</div>
           <RouterLink
