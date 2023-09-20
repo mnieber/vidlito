@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavContext } from 'react-nav-handler';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/navFunctions';
+import { toClip } from '/src/clips/navFunctions';
 import { getRouteParams } from '/src/routes/utils/getRouteParams';
 
 type PropsT = {};
@@ -23,11 +23,7 @@ export const ForwardToClipEffect = observer(
         params.playlistSlug &&
         params.playlistSlug !== 'new-playlist'
       ) {
-        navToClip(navContext)(
-          params.ownerUsername,
-          params.playlistSlug,
-          '-'
-        ).go();
+        navContext.nav(toClip)(params.ownerUsername, params.playlistSlug, '-');
       }
     });
 

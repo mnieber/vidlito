@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { useNavContext, type NavContextT } from 'react-nav-handler';
+import { useNavContext, type NavContext } from 'react-nav-handler';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ToolButton } from '/src/frames/components/ToolButton';
-import { navToPlaylist } from '/src/playlists/navFunctions';
+import { toPlaylist } from '/src/playlists/navFunctions';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -33,7 +33,7 @@ export const NewPlaylistButton = observer(
 );
 
 export function onClickNewPlaylistButton(
-  navContext: NavContextT,
+  navContext: NavContext,
   props: {
     dashboardState: any;
     username: string;
@@ -42,5 +42,5 @@ export function onClickNewPlaylistButton(
 ) {
   props.dashboardState.navigationState.storeNavigationPoint();
   props.dashboardState.panelState.toggleIsPlaylistListExpanded(true);
-  navToPlaylist(navContext)(props.userProfile.username, 'new-playlist').go();
+  navContext.nav(toPlaylist)(props.userProfile.username, 'new-playlist');
 }

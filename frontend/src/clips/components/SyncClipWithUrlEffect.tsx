@@ -6,7 +6,7 @@ import { useNavContext } from 'react-nav-handler';
 import { useLocation, useParams } from 'react-router-dom';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/navFunctions';
+import { toClip } from '/src/clips/navFunctions';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
@@ -57,11 +57,11 @@ export const SyncClipWithUrlEffect = observer(
         if (clipSlug === '-') {
           const clip = R.find((x: ClipT) => x.slug !== 'new-clip')(clips);
           if (!R.isNil(clip)) {
-            navToClip(navContext)(
+            navContext.nav(toClip)(
               playlist.ownerUsername,
               playlist.slug,
               clip.slug
-            ).go();
+            );
           } else {
             clipsAddition.cancel();
             selectClip(undefined);
@@ -83,11 +83,11 @@ export const SyncClipWithUrlEffect = observer(
           }
         } else {
           if (props.clip && clipSlug !== props.clip.slug) {
-            navToClip(navContext)(
+            navContext.nav(toClip)(
               playlist.ownerUsername,
               playlist.slug,
               props.clip.slug
-            ).go();
+            );
           }
         }
       } else if (playlistSlug === 'new-playlist') {

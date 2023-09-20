@@ -5,7 +5,7 @@ import { useNavContext } from 'react-nav-handler';
 import { useLocation, useParams } from 'react-router-dom';
 import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToPlaylist } from '/src/playlists/navFunctions';
+import { toPlaylist } from '/src/playlists/navFunctions';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
@@ -78,7 +78,7 @@ export const SyncPlaylistWithUrlEffect = observer(
       } else {
         // Check if we must update the current url based on the highlighted playlist.
         if (playlist && playlistSlug !== playlist.slug) {
-          navToPlaylist(navContext)(playlist.ownerUsername, playlist.slug).go();
+          navContext.nav(toPlaylist)(playlist.ownerUsername, playlist.slug);
         }
       }
     }, [

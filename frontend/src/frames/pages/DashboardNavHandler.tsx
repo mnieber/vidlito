@@ -1,10 +1,10 @@
-import { NavHandlersProvider, type NavContextT } from 'react-nav-handler';
+import { NavHandlersProvider, type NavContext } from 'react-nav-handler';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/navFunctions';
+import { toClip } from '/src/clips/navFunctions';
 import { cookiesState } from '/src/dashboard/DashboardState/CookiesState';
 import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
-import { navToPlaylist } from '/src/playlists/navFunctions';
+import { toPlaylist } from '/src/playlists/navFunctions';
 import { history } from '/src/routes/history';
 import { getRouteFns } from '/src/routes/routeTable';
 import { getRouteParams } from '/src/routes/utils/getRouteParams';
@@ -17,34 +17,33 @@ export type NavContextPropsT = {
 
 export const createNavFunctionTable = (props: NavContextPropsT) => {
   return {
-    navToClip: ((navContext: NavContextT) =>
+    toClip: ((navContext: NavContext) =>
       (ownerUsername: string, playlistSlug: string, clipSlug: string) => {
         // We prefer not to have urls in the history with a dash as clipSlug
-        const useReplace = getRouteParams().clipSlug === '-';
         const url = getRouteFns<DashboardRoutesT>().clip({
           ownerUsername: ownerUsername,
           playlistSlug: playlistSlug,
           clipSlug,
         });
-        const userProfile = props.getUserProfile();
 
-        return {
-          url,
-          go: () => {
-            if (url !== pathname()) {
-              const ufn = useReplace ? history.replace : history.push;
-              ufn(url);
-              if (userProfile && clipSlug !== 'new-clip') {
-                cookiesState.setLastUrl(url);
-              }
+        const userProfile = props.getUserProfile();
+        const useReplace = getRouteParams().clipSlug === '-';
+        const nav = () => {
+          if (url !== pathname()) {
+            const ufn = useReplace ? history.replace : history.push;
+            ufn(url);
+            if (userProfile && clipSlug !== 'new-clip') {
+              cookiesState.setLastUrl(url);
             }
-          },
+          }
         };
-      }) as typeof navToClip,
-    navToPlaylist: ((navContext: NavContextT) =>
+
+        return { url, nav };
+      }) as typeof toClip,
+    toPlaylist: ((navContext: NavContext) =>
       (ownerUsername: string, playlistSlug: string) => {
-        return navToClip(navContext)(ownerUsername, playlistSlug, '-');
-      }) as typeof navToPlaylist,
+        return toClip(navContext)(ownerUsername, playlistSlug, '-');
+      }) as typeof toPlaylist,
   };
 };
 

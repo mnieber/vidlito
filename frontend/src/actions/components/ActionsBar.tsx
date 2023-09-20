@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import { useNavContext } from 'react-nav-handler';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { navToClip } from '/src/clips/navFunctions';
+import { toClip } from '/src/clips/navFunctions';
 import { CloseButton } from '/src/frames/components/CloseButton';
 import {
   BlueDialogButtonTrim,
   DialogButton,
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
-import { navToPlaylist } from '/src/playlists/navFunctions';
+import { toPlaylist } from '/src/playlists/navFunctions';
 import { cn } from '/src/utils/classnames';
 import { SwitchButton } from '/src/utils/components/SwitchButton';
 
@@ -74,16 +74,16 @@ export const ActionsBar = observer(
         <CloseButton
           onClick={() => {
             if (props.clip) {
-              navToClip(navContext)(
+              navContext.nav(toClip)(
                 props.playlist.ownerUsername,
                 props.playlist.slug,
                 props.clip.slug
-              ).go();
+              );
             } else {
-              navToPlaylist(navContext)(
+              navContext.nav(toPlaylist)(
                 props.playlist.ownerUsername,
                 props.playlist.slug
-              ).go();
+              );
             }
           }}
           className={cn({

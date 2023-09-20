@@ -1,6 +1,6 @@
-import { createNavFunction, stub } from 'react-nav-handler';
+import { createNavFunction, stubNavTarget } from 'react-nav-handler';
 
-export const navToPlaylist = createNavFunction(
-  'navToPlaylist',
-  (ownerUsername: string, playlistSlug: string) => stub
+export const toPlaylist = createNavFunction(
+  'toPlaylist',
+  (ownerUsername: string, playlistSlug: string) => stubNavTarget
 );

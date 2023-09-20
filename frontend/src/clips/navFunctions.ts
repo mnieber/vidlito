@@ -1,6 +1,7 @@
-import { createNavFunction, stub } from 'react-nav-handler';
+import { createNavFunction, stubNavTarget } from 'react-nav-handler';
 
-export const navToClip = createNavFunction(
-  'navToClip',
-  (ownerUsername: string, playlistSlug: string, clipSlug: string) => stub
+export const toClip = createNavFunction(
+  'toClip',
+  (ownerUsername: string, playlistSlug: string, clipSlug: string) =>
+    stubNavTarget
 );

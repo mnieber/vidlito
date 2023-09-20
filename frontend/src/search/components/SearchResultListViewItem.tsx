@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { useNavContext } from 'react-nav-handler';
 import { SearchResultT } from '/src/api/types/SearchResultT';
-import { navToClip } from '/src/clips/navFunctions';
-import { navToPlaylist } from '/src/playlists/navFunctions';
+import { toClip } from '/src/clips/navFunctions';
+import { toPlaylist } from '/src/playlists/navFunctions';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -19,16 +19,16 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
       className={cn('SearchResultListViewItem', 'group', 'contents')}
       onClick={() => {
         if (props.searchResult.clipSlug) {
-          navToClip(navContext)(
+          navContext.nav(toClip)(
             props.searchResult.ownerUsername,
             props.searchResult.playlistSlug,
             props.searchResult.clipSlug
-          ).go();
+          );
         } else {
-          navToPlaylist(navContext)(
+          navContext.nav(toPlaylist)(
             props.searchResult.ownerUsername,
             props.searchResult.playlistSlug
-          ).go();
+          );
         }
       }}
     >
@@ -43,10 +43,10 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
         )}
         onClick={(e: any) => {
           e.stopPropagation();
-          navToPlaylist(navContext)(
+          navContext.nav(toPlaylist)(
             props.searchResult.ownerUsername,
             props.searchResult.playlistSlug
-          ).go();
+          );
         }}
       >
         {props.searchResult.playlistName}

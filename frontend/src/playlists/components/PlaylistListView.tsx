@@ -6,7 +6,7 @@ import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { PlaylistListKeyHandler } from '/src/playlists/components/PlaylistListKeyHandler';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
-import { navToPlaylist } from '/src/playlists/navFunctions';
+import { toPlaylist } from '/src/playlists/navFunctions';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -41,7 +41,7 @@ export const PlaylistListView = observer(
     });
     const goToPlaylist = (playlist: PlaylistT) => {
       props.dashboardState.panelState.toggleIsPlaylistListExpanded(false);
-      navToPlaylist(navContext)(playlist.ownerUsername, playlist.slug).go();
+      navContext.nav(toPlaylist)(playlist.ownerUsername, playlist.slug);
     };
 
     if (isLoading(props.playlists)) {

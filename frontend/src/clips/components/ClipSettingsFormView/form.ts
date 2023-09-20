@@ -4,7 +4,7 @@ import {
   HandleSubmitArgsT,
   HandleValidateArgsT,
 } from 'react-form-state-context';
-import { type NavContextT } from 'react-nav-handler';
+import { type NavContext } from 'react-nav-handler';
 import { DefaultProps, PropsT } from './index';
 import { handleEmptyClips } from '/src/clips/handleEmptyClips';
 
@@ -25,7 +25,7 @@ const getHandleValidate =
 
 const getHandleSubmit =
   (
-    navContext: NavContextT,
+    navContext: NavContext,
     props: PropsT & typeof DefaultProps,
     initialValues: FormState['values'],
     initialErrors: FormState['errors']
