@@ -62,8 +62,8 @@ export const usePlaylistsState = (props: PropsT) => {
       {
         enabled: isGetPlaylistEnabled(),
         onError: () =>
-          playlistsState.playlistsCtr.highlight.highlightItem({
-            id: undefined,
+          playlistsState.playlistsCtr.highlight.set({
+            itemId: undefined,
           }),
       }
     ),

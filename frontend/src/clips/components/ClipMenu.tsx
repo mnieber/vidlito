@@ -110,7 +110,7 @@ export const ClipMenu = observer(
           onClick={() =>
             props.clipsDeletion
               .delete({
-                itemIds: props.clipsSelection.ids,
+                itemIds: props.clipsSelection.itemIds,
                 moveToTrash: true,
               })
               .then(

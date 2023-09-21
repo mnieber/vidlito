@@ -39,13 +39,13 @@ const mapData = (state: ClipsState) => {
     selection: {
       selectableIds: () => getIds(ctr.display.items),
       items: () =>
-        ctr.selection.ids
+        ctr.selection.itemIds
           .map(getClipById)
           .filter((x?: ClipT) => !!x) as ClipT[],
     },
     highlight: {
       highlightableIds: () => getIds(ctr.display.items),
-      item: () => getClipById(ctr.highlight.id),
+      item: () => getClipById(ctr.highlight.itemId),
     },
     insertion: {
       inputItems: () => ctr.store.items ?? [],
@@ -71,7 +71,7 @@ const setCallbacks = (state: ClipsState) => {
   setCallbackMap(ctr.addition, {
     add: {
       stageAdd() {
-        ctr.addition.parentId = ctr.highlight.id || topOfTheList;
+        ctr.addition.parentId = ctr.highlight.itemId || topOfTheList;
       },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
@@ -126,10 +126,10 @@ const setCallbacks = (state: ClipsState) => {
   } as EditCbs);
 
   setCallbackMap(ctr.highlight, {
-    highlightItem: {
-      enter(this: HighlightCbs['highlightItem']) {
+    set: {
+      enter(this: HighlightCbs['set']) {
         // Cancel adding a new item on highlight change
-        if (ctr.addition.item && ctr.addition.item.id !== this.args.id) {
+        if (ctr.addition.item && ctr.addition.item.id !== this.args.itemId) {
           ctr.addition.cancel();
         }
       },
@@ -149,7 +149,7 @@ const setCallbacks = (state: ClipsState) => {
       moveItems(this: MoveCbs['move']) {
         const allIds = [...ctr.highlight.highlightableIds];
         const clips = [...ctr.selection.items];
-        const clipIds = [...ctr.selection.ids];
+        const clipIds = [...ctr.selection.itemIds];
 
         return state.props
           .moveClipsToPlaylist(clips, this.args.playlistId, this.args.copy)
@@ -168,7 +168,7 @@ const setCallbacks = (state: ClipsState) => {
         handleSelectItem(ctr.selection, this.args);
         // Highlight follows selection
         if (!this.args.isCtrl && !this.args.isShift) {
-          ctr.highlight.highlightItem({ id: this.args.itemId });
+          ctr.highlight.set({ itemId: this.args.itemId });
         }
       },
     },
@@ -177,7 +177,7 @@ const setCallbacks = (state: ClipsState) => {
 
 export const unselectIds = (selection: Selection, ids: string[]) => {
   for (const id of ids) {
-    if (selection.ids.includes(id)) {
+    if (selection.itemIds.includes(id)) {
       selection.selectItem({ itemId: id, isCtrl: true });
     }
   }

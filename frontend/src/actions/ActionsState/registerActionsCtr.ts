@@ -17,7 +17,7 @@ const mapData = (state: ActionsState) => {
     },
     highlight: {
       highlightableIds: () => getIds(ctr.store.items ?? []),
-      item: () => getActionById(ctr.highlight.id),
+      item: () => getActionById(ctr.highlight.itemId),
     },
     pagination: {
       nrOfItems: () => state.props.getPagination()?.nrOfItems ?? 0,

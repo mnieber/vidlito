@@ -17,7 +17,7 @@ export function followedSelectedPlaylistsAreInsertedOnDrop(
   const ctr = getc(facet);
   const selection = getf(Selection, ctr);
   const followedPlaylistIds = getIds(followedPlaylists);
-  const followedIds = (selection.ids || []).filter((id: string) =>
+  const followedIds = (selection.itemIds || []).filter((id: string) =>
     followedPlaylistIds.includes(id)
   );
   const items = followedIds

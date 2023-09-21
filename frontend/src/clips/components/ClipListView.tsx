@@ -75,8 +75,8 @@ export const ClipListView = observer(
         <ClipListViewItem
           key={`item-${clip.id}`}
           clip={clip}
-          showSelectionBg={props.clipsSelection.ids.length > 1}
-          isHighlighted={clip && props.clipsHighlight.id === clip.id}
+          showSelectionBg={props.clipsSelection.itemIds.length > 1}
+          isHighlighted={clip && props.clipsHighlight.itemId === clip.id}
           selectionUIProps={selectionUIConnector.handle(clip.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
           onContextMenu={(e: any) => {

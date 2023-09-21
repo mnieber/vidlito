@@ -19,10 +19,10 @@ export const SelectPlaylistEffect = observer(
 
     React.useEffect(() => {
       // If there is a new url
-      if (!props.playlistsHighlight.id) {
+      if (!props.playlistsHighlight.itemId) {
         const selectPlaylist = (playlistId?: string) => {
           props.playlistsSelection.selectItem({ itemId: playlistId });
-          props.playlistsHighlight.highlightItem({ id: playlistId });
+          props.playlistsHighlight.set({ itemId: playlistId });
         };
         selectPlaylist(R.head(props.playlists)?.id);
       }

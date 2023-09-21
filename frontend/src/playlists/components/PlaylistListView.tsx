@@ -64,7 +64,7 @@ export const PlaylistListView = observer(
           key={playlist.id}
           playlist={playlist}
           isHighlighted={
-            playlist && props.playlistsHighlight.id === playlist.id
+            playlist && props.playlistsHighlight.itemId === playlist.id
           }
           selectionUIProps={selectionUIConnector.handle(playlist.id)}
           dragAndDropUIProps={dragAndDropUIConnector.handle(playlist.id)}

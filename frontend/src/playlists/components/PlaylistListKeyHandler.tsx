@@ -19,8 +19,8 @@ export const PlaylistListKeyHandler = observer(
     const keyHandlers = {
       ...createSelectionKeyHandlers(props.playlistsSelection),
       enter: () => {
-        props.playlistsHighlight.highlightItem({
-          id: props.playlistsSelection.anchorId,
+        props.playlistsHighlight.set({
+          itemId: props.playlistsSelection.anchorId,
         });
       },
     };

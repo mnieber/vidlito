@@ -9,7 +9,7 @@ export const handleEmptyClips = (
   playlist: PlaylistT
 ) => {
   return (response: any) => {
-    if (clipsHighlight.id === undefined) {
+    if (clipsHighlight.itemId === undefined) {
       navContext.nav(toClip)(playlist.ownerUsername, playlist.slug, '-');
     }
     return response;

@@ -18,7 +18,7 @@ const mapData = (state: SearchState) => {
       items: () => state.props.getSearchResults(),
     },
     highlight: {
-      item: () => getSearchResultById(ctr.highlight.id),
+      item: () => getSearchResultById(ctr.highlight.itemId),
       highlightableIds: () => getIds(ctr.store.items ?? []),
     },
     pagination: {

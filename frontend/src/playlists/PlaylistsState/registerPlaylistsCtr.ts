@@ -36,13 +36,13 @@ const mapData = (state: PlaylistsState) => {
     selection: {
       selectableIds: () => getIds(ctr.display.items),
       items: () =>
-        ctr.selection.ids
+        ctr.selection.itemIds
           .map(getPlaylistById)
           .filter((x?: PlaylistT) => !!x) as PlaylistT[],
     },
     highlight: {
       highlightableIds: () => getIds(ctr.display.items),
-      item: () => getPlaylistById(ctr.highlight.id),
+      item: () => getPlaylistById(ctr.highlight.itemId),
     },
     insertion: {
       inputItems: () => ctr.store.items ?? [],
@@ -65,11 +65,11 @@ const setCallbacks = (state: PlaylistsState) => {
   setCallbackMap(ctr.addition, {
     add: {
       stageAdd() {
-        ctr.addition.parentId = ctr.highlight.id || topOfTheList;
+        ctr.addition.parentId = ctr.highlight.itemId || topOfTheList;
       },
       highlightNewItem() {
         ctr.selection.selectItem({ itemId: ctr.addition.item?.id });
-        ctr.highlight.highlightItem({ id: ctr.addition.item?.id });
+        ctr.highlight.set({ itemId: ctr.addition.item?.id });
         ctr.edit.enable();
       },
     },
@@ -81,7 +81,7 @@ const setCallbacks = (state: PlaylistsState) => {
           ctr.selection.selectableIds[0] ??
           ctr.store.items?.[0]?.id;
         ctr.selection.selectItem({ itemId: itemId });
-        ctr.highlight.highlightItem({ id: itemId });
+        ctr.highlight.set({ itemId: itemId });
       },
     },
     confirm: {
@@ -130,10 +130,10 @@ const setCallbacks = (state: PlaylistsState) => {
   } as EditCbs);
 
   setCallbackMap(ctr.highlight, {
-    highlightItem: {
-      enter(this: HighlightCbs['highlightItem']) {
+    set: {
+      enter(this: HighlightCbs['set']) {
         // Cancel adding a new item on highlight change
-        if (ctr.addition.item && ctr.addition.item.id !== this.args.id) {
+        if (ctr.addition.item && ctr.addition.item.id !== this.args.itemId) {
           ctr.addition.cancel();
         }
       },
