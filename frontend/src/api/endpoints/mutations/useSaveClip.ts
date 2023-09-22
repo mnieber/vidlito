@@ -1,5 +1,6 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
 import { invalidateGetPlaylist } from '/src/api/endpoints/queries';
+import { clipFields } from '/src/api/endpoints/queries/useGetPlaylist';
 import { doQuery } from '/src/api/graphqlClient';
 import { ClipFormT } from '/src/api/types/ClipT';
 import { ObjT } from '/src/utils/types';
@@ -7,6 +8,7 @@ import { wait } from '/src/utils/wait';
 
 export type ArgsT = {
   playlistId: string;
+  playlistSlug: string;
   clipForm: ClipFormT;
   parentClipId?: string;
 };
@@ -23,6 +25,9 @@ export const saveClip = (args: ArgsT) => {
         parentClipId: $parentClipId
         playlistId: $playlistId
       ) {
+        clip {
+          ${clipFields}
+        }
         errors
         success
       }

@@ -1,3 +1,4 @@
+export { AddNewClipEffect } from './AddNewClipEffect';
 export { ClipDescription } from './ClipDescription';
 export { ClipFormView } from './ClipFormView';
 export { ClipHeaderView } from './ClipHeaderView';

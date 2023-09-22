@@ -16,12 +16,11 @@ export type PropsT = {
 };
 
 const DefaultProps = {
-  ...dps.playlist,
   ...dps.clips,
   ...dps.clipsAddition,
-  ...dps.clipsSelection,
-  ...dps.userProfile,
   ...dps.dashboardState,
+  ...dps.playlist,
+  ...dps.userProfile,
 };
 
 export const CreateFirstClip = observer(

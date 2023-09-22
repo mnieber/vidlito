@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { FormState, FormStateProvider } from 'react-form-state-context';
+import { useNavContext } from 'react-nav-handler';
 import { form } from './form';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { usePreviewButton } from '/src/clips/hooks/usePreviewButton';
@@ -30,6 +31,7 @@ export type PropsT = {
 };
 
 export const DefaultProps = {
+  ...dps.playlist,
   ...dps.clip,
   ...dps.clipsEdit,
   ...dps.clipsAddition,
@@ -40,6 +42,8 @@ export const DefaultProps = {
 
 export const ClipFormView = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const navContext = useNavContext('ClipFormView');
+
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,
       className: 'font-normal',
@@ -72,6 +76,7 @@ export const ClipFormView = observer(
           initialErrors={initialErrors}
           handleValidate={form.getHandleValidate(props)}
           handleSubmit={form.getHandleSubmit(
+            navContext,
             props,
             initialValues,
             initialErrors

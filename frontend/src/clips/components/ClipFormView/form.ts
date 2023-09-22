@@ -6,7 +6,9 @@ import {
   HandleValidateArgsT,
   unflatten,
 } from 'react-form-state-context';
+import { NavContext } from 'react-nav-handler';
 import { DefaultProps, PropsT } from './index';
+import { toClip } from '/src/clips/navFunctions';
 import { navToHome } from '/src/frames/navFunctions';
 import { createUUID } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
@@ -38,6 +40,7 @@ const getHandleValidate =
 
 const getHandleSubmit =
   (
+    navContext: NavContext,
     props: PropsT & typeof DefaultProps,
     initialValues: FormState['values'],
     initialErrors: FormState['errors']
@@ -60,6 +63,13 @@ const getHandleSubmit =
       .then((response: ObjT) => {
         formState.reset(initialValues, initialErrors);
         return response;
+      })
+      .then((response: ObjT) => {
+        navContext.nav(toClip)(
+          props.playlist.ownerUsername,
+          props.playlist.slug,
+          response.slug
+        );
       })
       .catch((error: any) => {
         formState.setError(

@@ -44,8 +44,6 @@ export const useSavePlaylist = () => {
     mutationFn: savePlaylist,
     onSuccess: (response: ObjT, args: ArgsT) => {
       // To avoid showing a loader, we populate the cache with the playlist that was just saved.
-      // This means that if the playlistStateProvider calls getPlaylist, then this will be treated
-      // as an update and not as a load.
       queryClient.setQueryData(
         getPlaylistQueryKey({
           playlistSlug: response.playlist.slug,

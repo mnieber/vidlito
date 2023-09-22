@@ -5,14 +5,7 @@ import { createQueryKey } from '/src/utils/createQueryKey';
 import { ObjT } from '/src/utils/types';
 import { wait } from '/src/utils/wait';
 
-export const playlistFields = `
-          description
-          id
-          name
-          slug
-          tags
-          nrOfClips
-          clipSet {
+export const clipFields = `
             description
             endTimeMs
             id
@@ -24,6 +17,17 @@ export const playlistFields = `
             tags
             url
             ownerUsername
+`;
+
+export const playlistFields = `
+          description
+          id
+          name
+          slug
+          tags
+          nrOfClips
+          clipSet {
+            ${clipFields}
           }
           ownerUsername
           isPublic

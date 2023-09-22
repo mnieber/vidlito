@@ -105,12 +105,13 @@ export const useClipsState = (props: PropsT) => {
         return saveClip
           .mutateAsync({
             playlistId: props.getPlaylist()?.id,
+            playlistSlug: props.getPlaylist()?.slug,
             clipForm: values.clipForm,
             parentClipId:
               parentClipId === topOfTheList ? undefined : parentClipId,
           } as SaveClipArgsT)
-          .then(() => {
-            return values.clipForm;
+          .then((response) => {
+            return response.clip;
           });
       },
       //

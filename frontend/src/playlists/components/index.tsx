@@ -1,3 +1,4 @@
+export { AddNewPlaylistEffect } from './AddNewPlaylistEffect';
 export { ForwardToClipEffect } from './ForwardToClipEffect';
 export { NewPlaylistButton } from './NewPlaylistButton';
 export { PlaylistDescription } from './PlaylistDescription';

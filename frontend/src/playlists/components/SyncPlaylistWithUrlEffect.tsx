@@ -1,84 +1,48 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
-import { useNavContext } from 'react-nav-handler';
-import { useLocation, useParams } from 'react-router-dom';
-import { PlaylistT, createPlaylist } from '/src/api/types/PlaylistT';
+import { useParams } from 'react-router-dom';
+import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { toPlaylist } from '/src/playlists/navFunctions';
+import { useRefUrl } from '/src/routes/hooks/useRefUrl';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
 
 const DefaultProps = {
-  ...dps.dashboardState,
   ...dps.playlists,
   ...dps.playlist,
   ...dps.playlistsHighlight,
   ...dps.playlistsSelection,
-  ...dps.playlistsAddition,
-  ...dps.userProfile,
 };
 
 export const SyncPlaylistWithUrlEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const navContext = useNavContext('SyncPlaylistWithUrlEffect');
+    const { playlistsHighlight, playlistsSelection, playlist, playlists } =
+      props;
 
-    const {
-      playlistsAddition,
-      userProfile,
-      playlistsHighlight,
-      playlistsSelection,
-      dashboardState,
-      playlist,
-      playlists,
-    } = props;
-
-    const location = useLocation();
     const params = useParams() as ObjT;
     const { playlistSlug } = params;
-    const refUrl = React.useRef<string>('');
+    const { updateRefUrl, hasUrlChanged } = useRefUrl();
 
     React.useEffect(() => {
       // If there is a new url
-      if (refUrl.current !== location.pathname) {
-        const mustAddNewPlaylist = () =>
-          playlistSlug === 'new-playlist' &&
-          !playlistsAddition.item &&
-          userProfile;
-
-        const addNewPlaylist = () => {
-          dashboardState.panelState.toggleIsPlaylistListExpanded(true);
-          playlistsAddition.add({ values: createPlaylist(userProfile, {}) });
-        };
-
+      if (hasUrlChanged) {
         const getPlaylistForCurrentUrl = () => {
           return R.find((x: PlaylistT) => x.slug === playlistSlug)(playlists);
         };
 
         const selectPlaylist = (playlist?: PlaylistT) => {
           playlistsSelection.selectItem({ itemId: playlist?.id });
-          playlistsHighlight.highlightItem({ id: playlist?.id });
+          playlistsHighlight.set({ itemId: playlist?.id });
         };
 
-        if (mustAddNewPlaylist()) {
-          refUrl.current = location.pathname;
-          addNewPlaylist();
-        } else {
-          const playlistForCurrentUrl = getPlaylistForCurrentUrl();
-          if (playlistForCurrentUrl) {
-            refUrl.current = location.pathname;
-            if (playlist?.id !== playlistForCurrentUrl.id) {
-              selectPlaylist(playlistForCurrentUrl);
-            }
-          } else if (playlistSlug === '-') {
-            selectPlaylist(undefined);
+        const playlistForCurrentUrl = getPlaylistForCurrentUrl();
+        if (playlistForCurrentUrl) {
+          updateRefUrl();
+          if (playlist?.id !== playlistForCurrentUrl.id) {
+            selectPlaylist(playlistForCurrentUrl);
           }
-        }
-      } else {
-        // Check if we must update the current url based on the highlighted playlist.
-        if (playlist && playlistSlug !== playlist.slug) {
-          navContext.nav(toPlaylist)(playlist.ownerUsername, playlist.slug);
         }
       }
     }, [

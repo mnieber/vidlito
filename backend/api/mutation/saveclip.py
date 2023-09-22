@@ -14,6 +14,7 @@ from user_profiles.models import UserProfile
 class SaveClip(graphene.Mutation):
     success = graphene.Boolean()
     errors = GenericScalar()
+    clip = graphene.Field(ClipT)
 
     class Arguments:
         playlist_id = graphene.UUID(required=True)
@@ -57,4 +58,5 @@ class SaveClip(graphene.Mutation):
         return SaveClip(
             success=True,
             errors={},
+            clip=clip,
         )

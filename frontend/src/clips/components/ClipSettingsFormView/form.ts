@@ -6,7 +6,7 @@ import {
 } from 'react-form-state-context';
 import { type NavContext } from 'react-nav-handler';
 import { DefaultProps, PropsT } from './index';
-import { handleEmptyClips } from '/src/clips/handleEmptyClips';
+import { toClip } from '/src/clips/navFunctions';
 
 const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   return {
@@ -37,9 +37,13 @@ const getHandleSubmit =
           itemIds: [props.clip.id],
           moveToTrash: false,
         })
-        .then(
-          handleEmptyClips(navContext, props.clipsHighlight, props.playlist)
-        )
+        .then(() => {
+          navContext.nav(toClip)(
+            props.playlist.ownerUsername,
+            props.playlist.slug,
+            props.clipsHighlight.item?.slug ?? '-'
+          );
+        })
         .then(() => {
           props.clipSettingsEdit.cancel();
         });

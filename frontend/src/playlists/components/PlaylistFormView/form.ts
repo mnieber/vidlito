@@ -6,7 +6,7 @@ import {
   HandleValidateArgsT,
   unflatten,
 } from 'react-form-state-context';
-import { type NavContext } from 'react-nav-handler';
+import { NavContext } from 'react-nav-handler';
 import { DefaultProps, PropsT } from './index';
 import { navToHome } from '/src/frames/navFunctions';
 import { toPlaylist } from '/src/playlists/navFunctions';

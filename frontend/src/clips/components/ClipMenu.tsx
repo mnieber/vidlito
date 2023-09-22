@@ -5,9 +5,11 @@ import {
   SubMenu,
 } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
-import { useNavContext } from 'react-nav-handler';
+import { useNavContext, type NavContext } from 'react-nav-handler';
+import { Highlight } from 'skandha-facets';
+import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
-import { handleEmptyClips } from '/src/clips/handleEmptyClips';
+import { toClip } from '/src/clips/navFunctions';
 import { Icon } from '/src/frames/components';
 import { MenuItemS } from '/src/frames/components/MenuItem';
 import { cn } from '/src/utils/classnames';
@@ -132,3 +134,16 @@ export const ClipMenu = observer(
     ) : null;
   }, DefaultProps)
 );
+
+export const handleEmptyClips = (
+  navContext: NavContext,
+  clipsHighlight: Highlight,
+  playlist: PlaylistT
+) => {
+  return (response: any) => {
+    if (clipsHighlight.itemId === undefined) {
+      navContext.nav(toClip)(playlist.ownerUsername, playlist.slug, '-');
+    }
+    return response;
+  };
+};
