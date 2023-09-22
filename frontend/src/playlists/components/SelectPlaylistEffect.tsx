@@ -16,7 +16,7 @@ const DefaultProps = {
   ...dps.playlistsSelection,
 };
 
-export const SyncPlaylistWithUrlEffect = observer(
+export const SelectPlaylistEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { playlistsHighlight, playlistsSelection, playlist, playlists } =
       props;

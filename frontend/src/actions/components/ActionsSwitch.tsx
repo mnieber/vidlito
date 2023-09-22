@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import { ActionsPaginator, ActionsView } from '/src/actions/components';
 import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
 import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
-import { SyncPlaylistWithUrlEffect } from '/src/playlists/components';
+import { SelectPlaylistEffect } from '/src/playlists/components';
 import { getRouteFns } from '/src/routes/routeTable';
 import { cn } from '/src/utils/classnames';
 
@@ -16,7 +16,7 @@ export const ActionsSwitch = observer(
     return (
       <>
         <Route exact={true} path={routeFns.actions()}>
-          <SyncPlaylistWithUrlEffect />
+          <SelectPlaylistEffect />
           {
             // 🔳 ActionsView 🔳
           }

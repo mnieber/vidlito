@@ -10,5 +10,5 @@ export { ClipPdView } from './ClipPdView';
 export { ClipsStateProvider } from './ClipsStateProvider';
 export { GoToTimeButton } from './GoToTimeButton';
 export { NewClipButton } from './NewClipButton';
-export { SyncClipWithUrlEffect } from './SyncClipWithUrlEffect';
+export { SelectClipEffect } from './SelectClipEffect';
 export { UpdateTimeButton } from './UpdateTimeButton';

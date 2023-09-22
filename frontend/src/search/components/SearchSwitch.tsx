@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { Route } from 'react-router-dom';
 import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
 import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
-import { SyncPlaylistWithUrlEffect } from '/src/playlists/components';
+import { SelectPlaylistEffect } from '/src/playlists/components';
 import { getRouteFns } from '/src/routes/routeTable';
 import { SearchResultsPaginator } from '/src/search/components';
 import { SearchView } from '/src/search/components/SearchView';
@@ -16,7 +16,7 @@ export const SearchSwitch = observer(
     return (
       <>
         <Route exact={false} path={routeFns.search()}>
-          <SyncPlaylistWithUrlEffect />
+          <SelectPlaylistEffect />
           {
             // 🔳 SearchView 🔳
           }

@@ -8,4 +8,4 @@ export { PlaylistListView } from './PlaylistListView';
 export { PlaylistListViewItem } from './PlaylistListViewItem';
 export { PlaylistPdView } from './PlaylistPdView';
 export { PlaylistsStateProvider } from './PlaylistsStateProvider';
-export { SyncPlaylistWithUrlEffect } from './SyncPlaylistWithUrlEffect';
+export { SelectPlaylistEffect } from './SelectPlaylistEffect';

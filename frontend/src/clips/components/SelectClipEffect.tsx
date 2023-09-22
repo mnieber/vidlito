@@ -18,9 +18,9 @@ const DefaultProps = {
   ...dps.clip,
 };
 
-export const SyncClipWithUrlEffect = observer(
+export const SelectClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const navContext = useNavContext('SyncClipWithUrlEffect');
+    const navContext = useNavContext('SelectClipEffect');
     const { clips, playlist, clipsSelection } = props;
 
     const params = useParams() as ObjT;

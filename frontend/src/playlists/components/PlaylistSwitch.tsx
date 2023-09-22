@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import { Route } from 'react-router-dom';
 import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
-import { AddNewClipEffect, SyncClipWithUrlEffect } from '/src/clips/components';
+import { AddNewClipEffect, SelectClipEffect } from '/src/clips/components';
 import { VideoAndCopView } from '/src/clips/components/VideoAndCopView';
 import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
 import { CardS } from '/src/frames/components/Card';
@@ -10,7 +10,7 @@ import {
   AddNewPlaylistEffect,
   ForwardToClipEffect,
   PlaylistFormView,
-  SyncPlaylistWithUrlEffect,
+  SelectPlaylistEffect,
 } from '/src/playlists/components';
 import { PlaylistNotFound } from '/src/playlists/components/PlaylistNotFound';
 import { getRouteFns } from '/src/routes/routeTable';
@@ -24,7 +24,7 @@ export const PlaylistSwitch = observer(
     return (
       <>
         <Route exact={false} path={routeFns.playlist()}>
-          <SyncPlaylistWithUrlEffect />
+          <SelectPlaylistEffect />
           <AddNewPlaylistEffect />
           <Route path={routeFns.playlist()}>
             <PlaylistNotFound />
@@ -47,7 +47,7 @@ export const PlaylistSwitch = observer(
             />
           </Route>
           <Route exact={true} path={routeFns.clip()}>
-            <SyncClipWithUrlEffect />
+            <SelectClipEffect />
             <AddNewClipEffect />
             {
               // 🔳 VideoAndCopView 🔳
