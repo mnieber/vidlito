@@ -26,7 +26,7 @@ export type DialogButtonPropsT = PropsT;
 export const DialogButton = (props: PropsT) => {
   const {
     className,
-    danger,
+    danger: propsDanger,
     trim: propsTrim,
     dataCy,
     disabled,
@@ -35,6 +35,7 @@ export const DialogButton = (props: PropsT) => {
     ...rest
   } = props;
 
+  const danger = propsDanger && !disabled;
   const trim = propsTrim ?? DefaultDialogButtonTrim;
   const mode = getMode(trim, {
     danger,
