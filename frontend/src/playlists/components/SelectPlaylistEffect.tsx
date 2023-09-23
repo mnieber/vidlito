@@ -43,6 +43,8 @@ export const SelectPlaylistEffect = observer(
           if (playlist?.id !== playlistForCurrentUrl.id) {
             selectPlaylist(playlistForCurrentUrl);
           }
+        } else {
+          selectPlaylist(undefined);
         }
       }
     }, [

@@ -43,15 +43,21 @@ export const SelectClipEffect = observer(
         }
         // Else if there is a new url
         else if (hasUrlChanged) {
+          const selectClip = (clip?: ClipT) => {
+            clipsSelection.selectItem({ itemId: clip?.id });
+          };
+
           const clipForCurrentUrl = R.find((x: ClipT) => x.slug === clipSlug)(
             clips
           );
           if (clipForCurrentUrl) {
             updateRefUrl();
             if (props.clip?.id !== clipForCurrentUrl.id) {
-              clipsSelection.selectItem({ itemId: clipForCurrentUrl.id });
+              selectClip(clipForCurrentUrl);
             }
             document.title = 'Vidlito: ' + clipForCurrentUrl.name;
+          } else {
+            selectClip(undefined);
           }
         }
       }
