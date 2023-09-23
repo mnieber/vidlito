@@ -49,6 +49,10 @@ const getHandleSubmit =
         formState.reset(initialValues, initialErrors);
         return response;
       })
+      .then(() => {
+        props.playlistsDeletion.setIsDeleteEnabled(false);
+        props.playlistSettingsEdit.cancel();
+      })
       .catch((error: any) => {
         formState.setError(
           'global',

@@ -38,14 +38,15 @@ const getHandleSubmit =
           moveToTrash: false,
         })
         .then(() => {
+          props.clipsDeletion.setIsDeleteEnabled(false);
+          props.clipSettingsEdit.cancel();
+        })
+        .then(() => {
           navContext.nav(toClip)(
             props.playlist.ownerUsername,
             props.playlist.slug,
             props.clipsHighlight.item?.slug ?? '-'
           );
-        })
-        .then(() => {
-          props.clipSettingsEdit.cancel();
         });
     }
     return Promise.resolve();
