@@ -6,6 +6,7 @@ export class DeletionWithFlag extends Deletion {
   static skandhaSymbol = Symbol('DeletionWithFlag');
 
   @data isDeleteEnabled: boolean = false;
+  @data block?: boolean = undefined;
 
   @operation setIsDeleteEnabled(isDeleteEnabled: boolean) {
     this.isDeleteEnabled = isDeleteEnabled;

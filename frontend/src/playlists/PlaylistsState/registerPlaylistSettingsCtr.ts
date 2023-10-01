@@ -1,10 +1,10 @@
-import { setCallbackMap } from 'aspiration';
+import { Cbs } from 'aspiration';
 import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
-import { EditCbs } from 'skandha-facets';
+import { Edit } from 'skandha-facets';
 import { registerCtr } from 'skandha-mobx';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
-import { FollowingCbs } from '/src/playlists/PlaylistsState/facets/Following';
+import { Following } from '/src/playlists/PlaylistsState/facets/Following';
 
 const mapData = (state: PlaylistsState) => {
   const ctr = state.playlistSettingsCtr;
@@ -24,25 +24,25 @@ const setCallbacks = (state: PlaylistsState) => {
   const ctr = state.playlistSettingsCtr;
   addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
-  setCallbackMap(ctr.edit, {
+  ctr.edit.callbackMap = {
     save: {
-      saveItem(this: EditCbs['save']) {
+      saveItem(this: Cbs<Edit['save']>) {
         return state.props.savePlaylistSettings(this.args.values);
       },
     },
     cancel: {},
-  } as EditCbs);
+  };
 
-  setCallbackMap(ctr.following, {
+  ctr.following.callbackMap = {
     followPlaylist: {
-      followPlaylist(this: FollowingCbs['followPlaylist']) {
+      followPlaylist(this: Cbs<Following['followPlaylist']>) {
         return state.props.followPlaylist(
           ctr.following.playlist!,
           this.args.flag
         );
       },
     },
-  } as FollowingCbs);
+  };
 };
 
 export const registerPlaylistSettingsCtr = (state: PlaylistsState) => {

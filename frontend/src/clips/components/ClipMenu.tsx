@@ -108,7 +108,7 @@ export const ClipMenu = observer(
         onClose={() => props.dashboardState.clipListContextMenu.close()}
       >
         <MenuItem
-          disabled={props.clipsDeletion.disabled}
+          disabled={props.clipsDeletion.block}
           onClick={() =>
             props.clipsDeletion
               .delete({

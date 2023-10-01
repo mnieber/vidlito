@@ -1,22 +1,25 @@
-import { DefineCbs, getCallbacks, withCbs } from 'aspiration';
+import { withCbs, type DefineCbs } from 'aspiration';
 import { data, operation } from 'skandha';
 
 export class Search<FormT> {
   static className = () => 'Search';
 
+  callbackMap = {} as DefineCbs<{
+    search: {
+      search: () => any;
+    };
+  }>;
+
   @data form?: FormT;
 
-  @operation @withCbs() search(args: FormT) {
-    const cbs = getCallbacks(this) as SearchCbs<FormT>['search'];
-    cbs.search();
+  @operation search(args: FormT) {
+    return withCbs(
+      this.callbackMap,
+      'search',
+      args,
+      (cbs: typeof this.callbackMap.search) => {
+        cbs.search();
+      }
+    );
   }
 }
-
-export type SearchCbs<FormT> = DefineCbs<
-  Search<FormT>,
-  {
-    search: {
-      search(): any;
-    };
-  }
->;

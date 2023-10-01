@@ -1,13 +1,11 @@
-import { setCallbackMap } from 'aspiration';
+import { type Cbs } from 'aspiration';
 import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
 import {
-  AdditionCbs,
-  DeletionCbs,
-  DragAndDropCbs,
-  EditCbs,
-  HighlightCbs,
-  InsertionCbs,
-  SelectionCbs,
+  Deletion,
+  DragAndDrop,
+  Edit,
+  Highlight,
+  Selection,
   handleSelectItem,
   topOfTheList,
 } from 'skandha-facets';
@@ -62,7 +60,7 @@ const setCallbacks = (state: PlaylistsState) => {
   const ctr = state.playlistsCtr;
   addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
 
-  setCallbackMap(ctr.addition, {
+  ctr.addition.callbackMap = {
     add: {
       stageAdd() {
         ctr.addition.parentId = ctr.highlight.itemId || topOfTheList;
@@ -89,19 +87,19 @@ const setCallbacks = (state: PlaylistsState) => {
         FacetPolicies.newItemsAreInsertedWhenConfirmed(ctr.addition);
       },
     },
-  } as AdditionCbs<PlaylistT>);
+  };
 
-  setCallbackMap(ctr.deletion, {
+  ctr.deletion.callbackMap = {
     delete: {
-      deleteItems(this: DeletionCbs['delete']) {
+      deleteItems(this: Cbs<Deletion['delete']>) {
         return state.props.deletePlaylists(this.args.itemIds);
       },
     },
-  } as DeletionCbs);
+  };
 
-  setCallbackMap(ctr.dragAndDrop, {
+  ctr.dragAndDrop.callbackMap = {
     drop: {
-      drop(this: DragAndDropCbs['drop']) {
+      drop(this: Cbs<DragAndDrop['drop']>) {
         followedSelectedPlaylistsAreInsertedOnDrop(
           ctr.dragAndDrop,
           this.args.hoverPosition,
@@ -109,11 +107,11 @@ const setCallbacks = (state: PlaylistsState) => {
         );
       },
     },
-  } as DragAndDropCbs);
+  };
 
-  setCallbackMap(ctr.edit, {
+  ctr.edit.callbackMap = {
     save: {
-      saveItem(this: EditCbs['save']) {
+      saveItem(this: Cbs<Edit['save']>) {
         return state.props
           .savePlaylist(this.args.values)
           .then((response: ObjT) => {
@@ -127,36 +125,36 @@ const setCallbacks = (state: PlaylistsState) => {
         ctr.addition.cancel();
       },
     },
-  } as EditCbs);
+  };
 
-  setCallbackMap(ctr.highlight, {
+  ctr.highlight.callbackMap = {
     set: {
-      enter(this: HighlightCbs['set']) {
+      enter(this: Cbs<Highlight['set']>) {
         // Cancel adding a new item on highlight change
         if (ctr.addition.item && ctr.addition.item.id !== this.args.itemId) {
           ctr.addition.cancel();
         }
       },
     },
-  } as HighlightCbs);
+  };
 
-  setCallbackMap(ctr.insertion, {
+  ctr.insertion.callbackMap = {
     insertItems: {
       insertItems(playlists: PlaylistT[]) {
         state.props.savePlaylistOrdering(playlists);
       },
     },
-  } as InsertionCbs);
+  };
 
-  setCallbackMap(ctr.selection, {
+  ctr.selection.callbackMap = {
     selectItem: {
-      selectItem(this: SelectionCbs['selectItem']) {
+      selectItem(this: Cbs<Selection['selectItem']>) {
         handleSelectItem(ctr.selection, this.args);
         // Note that highlight does not follow selection, because we want to
         // highlight with the arrow icon in the playlist list-item.
       },
     },
-  } as SelectionCbs);
+  };
 };
 
 export const registerPlaylistsCtr = (state: PlaylistsState) => {

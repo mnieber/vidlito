@@ -1,22 +1,24 @@
-import { DefineCbs, getCallbacks, withCbs } from 'aspiration';
+import { withCbs, type DefineCbs } from 'aspiration';
 import { operation } from 'skandha';
 import { ActionT } from '/src/api/types/ActionT';
 
 export class Undo {
   static className = () => 'Undo';
 
-  @operation @withCbs() undo(args: { action: ActionT }) {
-    const cbs = getCallbacks(this) as UndoCbs['undo'];
+  callbackMap = {} as DefineCbs<{
+    undo: {
+      undo: () => any;
+    };
+  }>;
 
-    return cbs.undo();
+  @operation undo(args: { action: ActionT }) {
+    return withCbs(
+      this.callbackMap,
+      'undo',
+      args,
+      (cbs: typeof this.callbackMap.undo) => {
+        return cbs.undo();
+      }
+    );
   }
 }
-
-export type UndoCbs = DefineCbs<
-  Undo,
-  {
-    undo: {
-      undo(): any;
-    };
-  }
->;
