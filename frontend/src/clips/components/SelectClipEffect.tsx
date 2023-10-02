@@ -7,6 +7,7 @@ import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { toClip } from '/src/clips/navFunctions';
 import { useRefUrl } from '/src/routes/hooks/useRefUrl';
+import { UrlEffectView } from '/src/utils/components/UrlEffectView';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
@@ -20,49 +21,58 @@ const DefaultProps = {
 
 export const SelectClipEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const navContext = useNavContext('SelectClipEffect');
-    const { clips, playlist, clipsSelection } = props;
-
     const params = useParams() as ObjT;
-    const { clipSlug, playlistSlug } = params;
+    const navContext = useNavContext('SelectClipEffect');
     const { updateRefUrl, hasUrlChanged } = useRefUrl();
+
+    // Define local variables
+    const { clips, playlist, clipsSelection } = props;
+    const clipFromUrl = R.find((x: ClipT) => x.slug === params.clipSlug)(clips);
+    const firstClip = R.find((x: ClipT) => x.slug !== 'new-clip')(clips);
+    const isClipInSyncWithUrl = clipFromUrl?.id === props.clip?.id;
+
+    // Define local functions
+    const navToFirstClip = () => {
+      if (!R.isNil(firstClip)) {
+        navContext.nav(toClip)(
+          playlist.ownerUsername,
+          playlist.slug,
+          firstClip.slug
+        );
+      }
+    };
+    const selectClip = (clip?: ClipT) => {
+      clipsSelection.selectItem({ itemId: clip?.id });
+    };
 
     React.useEffect(() => {
       // If the playlist for the current slug has been loaded
-      if (playlist?.slug === playlistSlug) {
+      if (playlist?.slug === params.playlistSlug) {
         // If we must forward to the first clip
-        if (clipSlug === '-') {
-          const clip = R.find((x: ClipT) => x.slug !== 'new-clip')(clips);
-          if (!R.isNil(clip)) {
-            navContext.nav(toClip)(
-              playlist.ownerUsername,
-              playlist.slug,
-              clip.slug
-            );
-          }
+        if (params.clipSlug === '-') {
+          navToFirstClip();
         }
         // Else if there is a new url
         else if (hasUrlChanged) {
-          const selectClip = (clip?: ClipT) => {
-            clipsSelection.selectItem({ itemId: clip?.id });
-          };
-
-          const clipForCurrentUrl = R.find((x: ClipT) => x.slug === clipSlug)(
-            clips
-          );
-          if (clipForCurrentUrl) {
+          if (clipFromUrl) {
             updateRefUrl();
-            if (props.clip?.id !== clipForCurrentUrl.id) {
-              selectClip(clipForCurrentUrl);
+            if (!isClipInSyncWithUrl) {
+              selectClip(clipFromUrl);
             }
-            document.title = 'Vidlito: ' + clipForCurrentUrl.name;
+            document.title = 'Vidlito: ' + clipFromUrl.name;
           } else {
             selectClip(undefined);
           }
         }
       }
-    }, [clipSlug, props.clip, playlist, clips, clipsSelection]);
+    });
 
-    return null;
+    return (
+      <UrlEffectView
+        resourceName="clip"
+        isInSync={isClipInSyncWithUrl}
+        className="absolute"
+      />
+    );
   }, DefaultProps)
 );

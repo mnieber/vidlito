@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { useRefUrl } from '/src/routes/hooks/useRefUrl';
+import { UrlEffectView } from '/src/utils/components';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
@@ -18,43 +19,43 @@ const DefaultProps = {
 
 export const SelectPlaylistEffect = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
+    const params = useParams() as ObjT;
+    const { updateRefUrl, hasUrlChanged } = useRefUrl();
+
+    // Define local variables
     const { playlistsHighlight, playlistsSelection, playlist, playlists } =
       props;
+    const playlistFromUrl = R.find(
+      (x: PlaylistT) => x.slug === params.playlistSlug
+    )(playlists);
+    const isPlaylistInSyncWithUrl = playlist?.id === playlistFromUrl?.id;
 
-    const params = useParams() as ObjT;
-    const { playlistSlug } = params;
-    const { updateRefUrl, hasUrlChanged } = useRefUrl();
+    // Define local functions
+    const selectPlaylist = (playlist?: PlaylistT) => {
+      playlistsSelection.selectItem({ itemId: playlist?.id });
+      playlistsHighlight.set({ itemId: playlist?.id });
+    };
 
     React.useEffect(() => {
       // If there is a new url
       if (hasUrlChanged) {
-        const getPlaylistForCurrentUrl = () => {
-          return R.find((x: PlaylistT) => x.slug === playlistSlug)(playlists);
-        };
-
-        const selectPlaylist = (playlist?: PlaylistT) => {
-          playlistsSelection.selectItem({ itemId: playlist?.id });
-          playlistsHighlight.set({ itemId: playlist?.id });
-        };
-
-        const playlistForCurrentUrl = getPlaylistForCurrentUrl();
-        if (playlistForCurrentUrl) {
+        if (playlistFromUrl) {
           updateRefUrl();
-          if (playlist?.id !== playlistForCurrentUrl.id) {
-            selectPlaylist(playlistForCurrentUrl);
+          if (!isPlaylistInSyncWithUrl) {
+            selectPlaylist(playlistFromUrl);
           }
         } else {
           selectPlaylist(undefined);
         }
       }
-    }, [
-      playlistSlug,
-      playlist,
-      playlists,
-      playlistsHighlight,
-      playlistsSelection,
-    ]);
+    });
 
-    return null;
+    return (
+      <UrlEffectView
+        resourceName="playlist"
+        isInSync={isPlaylistInSyncWithUrl}
+        className="absolute"
+      />
+    );
   }, DefaultProps)
 );
