@@ -1,11 +1,11 @@
-import { DefineCbs, withCbs } from 'aspiration';
+import { CallbackMap, withCbs } from 'aspiration';
 import { data, operation, stub } from 'skandha';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 
 export class Following {
   static className = () => 'Following';
 
-  callbackMap = {} as DefineCbs<{
+  callbackMap = {} as CallbackMap<{
     followPlaylist: {
       followPlaylist: () => any;
     };

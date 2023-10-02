@@ -1,11 +1,11 @@
-import { withCbs, type DefineCbs } from 'aspiration';
+import { withCbs, type CallbackMap } from 'aspiration';
 import { operation } from 'skandha';
 import { ActionT } from '/src/api/types/ActionT';
 
 export class Undo {
   static className = () => 'Undo';
 
-  callbackMap = {} as DefineCbs<{
+  callbackMap = {} as CallbackMap<{
     undo: {
       undo: () => any;
     };

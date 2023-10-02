@@ -1,10 +1,10 @@
-import { withCbs, type DefineCbs } from 'aspiration';
+import { withCbs, type CallbackMap } from 'aspiration';
 import { data, operation } from 'skandha';
 
 export class Search<FormT> {
   static className = () => 'Search';
 
-  callbackMap = {} as DefineCbs<{
+  callbackMap = {} as CallbackMap<{
     search: {
       search: () => any;
     };

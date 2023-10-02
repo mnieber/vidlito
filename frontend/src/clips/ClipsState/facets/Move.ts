@@ -1,10 +1,10 @@
-import { DefineCbs, withCbs } from 'aspiration';
+import { CallbackMap, withCbs } from 'aspiration';
 import { operation } from 'skandha';
 
 export class Move {
   static className = () => 'Move';
 
-  callbackMap = {} as DefineCbs<{
+  callbackMap = {} as CallbackMap<{
     move: {
       moveItems: () => any;
     };
