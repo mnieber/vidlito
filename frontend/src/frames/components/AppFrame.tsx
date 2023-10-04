@@ -4,6 +4,7 @@ import React from 'react';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipMenu } from '/src/clips/components';
 import { CookieNotice } from '/src/frames/components/CookieNotice';
+import { DashboardNavHandler } from '/src/frames/pages/DashboardNavHandler';
 
 // Import styles
 import './AppFrame.scss';
@@ -28,7 +29,9 @@ export const AppFrame = observer(
 
     return (
       <React.Fragment>
-        <ClipMenu />
+        <DashboardNavHandler>
+          <ClipMenu />
+        </DashboardNavHandler>
         {props.children}
         {!props.dashboardState.cookiesState.hasSetCookiePreferences && (
           <CookieNotice />

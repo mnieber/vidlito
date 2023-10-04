@@ -60,7 +60,7 @@ export const ClipMenu = observer(
                     copy: false,
                   })
                   .then(
-                    handleEmptyClips(
+                    syncUrlWithHighlightedClip(
                       navContext,
                       props.clipsHighlight,
                       props.playlist
@@ -86,7 +86,7 @@ export const ClipMenu = observer(
                     copy: true,
                   })
                   .then(
-                    handleEmptyClips(
+                    syncUrlWithHighlightedClip(
                       navContext,
                       props.clipsHighlight,
                       props.playlist
@@ -116,7 +116,7 @@ export const ClipMenu = observer(
                 moveToTrash: true,
               })
               .then(
-                handleEmptyClips(
+                syncUrlWithHighlightedClip(
                   navContext,
                   props.clipsHighlight,
                   props.playlist
@@ -135,15 +135,17 @@ export const ClipMenu = observer(
   }, DefaultProps)
 );
 
-export const handleEmptyClips = (
+const syncUrlWithHighlightedClip = (
   navContext: NavContext,
   clipsHighlight: Highlight,
   playlist: PlaylistT
 ) => {
   return (response: any) => {
-    if (clipsHighlight.itemId === undefined) {
-      navContext.nav(toClip)(playlist.ownerUsername, playlist.slug, '-');
-    }
+    navContext.nav(toClip)(
+      playlist.ownerUsername,
+      playlist.slug,
+      clipsHighlight.itemId === undefined ? '-' : clipsHighlight.item.slug
+    );
     return response;
   };
 };
