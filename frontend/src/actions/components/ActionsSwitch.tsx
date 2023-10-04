@@ -15,7 +15,7 @@ export const ActionsSwitch = observer(
     const routeFns = getRouteFns<AuthRoutesT & DashboardRoutesT>();
     return (
       <>
-        <Route exact={true} path={routeFns.actions()}>
+        <Route exact={true} path={routeFns.playlistActions()}>
           <SelectPlaylistEffect />
           {
             // 🔳 ActionsView 🔳

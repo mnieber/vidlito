@@ -10,6 +10,7 @@ export const routes = {
   playlist: () => '/playlist/:ownerUsername/:playlistSlug',
   clip: () => '/playlist/:ownerUsername/:playlistSlug/:clipSlug',
   actions: () => '/actions',
+  playlistActions: () => '/actions/:playlistSlug',
   search: () => '/search',
 };
 
@@ -21,5 +22,6 @@ export type RoutesT = {
     clipSlug: string;
   }) => string;
   actions: () => string;
+  playlistActions: (params: { playlistSlug: string }) => string;
   search: () => string;
 };
