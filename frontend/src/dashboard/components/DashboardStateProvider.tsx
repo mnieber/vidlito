@@ -1,4 +1,3 @@
-import { useMenuState } from '@szhsin/react-menu';
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { updateSources } from 'mobx-resource-states';
@@ -21,12 +20,6 @@ const DefaultProps = {};
 export const DashboardStateProvider = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
     const { dashboardState } = useDashboardState({});
-
-    const [menuProps, toggleMenu] = useMenuState();
-    React.useEffect(() => {
-      dashboardState.clipListContextMenu.init(toggleMenu, menuProps);
-    }, [dashboardState, toggleMenu, menuProps]);
-
     const loadUserId = useObservableQuery(useLoadUserId());
 
     useUpdateStateReaction({
