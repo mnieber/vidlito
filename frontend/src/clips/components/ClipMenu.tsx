@@ -7,6 +7,7 @@ import {
 import { observer } from 'mobx-react-lite';
 import { useNavContext, type NavContext } from 'react-nav-handler';
 import { Highlight } from 'skandha-facets';
+import { isOnActionsPage } from '/src/actions/navFunctions';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { toClip } from '/src/clips/navFunctions';
@@ -141,11 +142,13 @@ const syncUrlWithHighlightedClip = (
   playlist: PlaylistT
 ) => {
   return (response: any) => {
-    navContext.nav(toClip)(
-      playlist.ownerUsername,
-      playlist.slug,
-      clipsHighlight.itemId === undefined ? '-' : clipsHighlight.item.slug
-    );
-    return response;
+    if (!isOnActionsPage()) {
+      navContext.nav(toClip)(
+        playlist.ownerUsername,
+        playlist.slug,
+        clipsHighlight.itemId === undefined ? '-' : clipsHighlight.item.slug
+      );
+      return response;
+    }
   };
 };

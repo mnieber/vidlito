@@ -13,7 +13,7 @@ const DefaultProps = {
 
 export const ActionsPaginator = observer(
   withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const displayPagination = usePaginationAdapter(props.actionsPagination, 1);
+    const displayPagination = usePaginationAdapter(props.actionsPagination, 10);
     const actions = getDisplayPage(
       props.actionsPagination,
       displayPagination,

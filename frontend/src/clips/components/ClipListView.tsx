@@ -6,6 +6,7 @@ import {
   Selection,
   SelectionUIConnector,
 } from 'skandha-facets';
+import { isOnActionsPage } from '/src/actions/navFunctions';
 import { ClipT } from '/src/api/types/ClipT';
 import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipListViewKeyHandler } from '/src/clips/components';
@@ -49,19 +50,26 @@ export const ClipListView = observer(
 
     const selectionUIConnector = new SelectionUIConnector({
       selection: props.clipsSelection as Selection<ClipT>,
-      onSelect: (args: {
-        itemId: string | undefined;
-        isShift?: boolean | undefined;
-        isCtrl?: boolean | undefined;
-      }) => {
+      onSelect: (
+        args: {
+          itemId: string | undefined;
+          isShift?: boolean | undefined;
+          isCtrl?: boolean | undefined;
+        },
+        mouseEvent: any
+      ) => {
         if (!args.isShift && !args.isCtrl) {
           const clip = props.clips.find((x) => x.id === args.itemId);
           if (clip) {
-            navContext.nav(toClip)(
-              props.playlist.ownerUsername,
-              props.playlist.slug,
-              clip.slug
-            );
+            // If the user did not use the right mouse button while
+            // on the actions page...
+            if (!(isOnActionsPage() && mouseEvent.button === 2)) {
+              navContext.nav(toClip)(
+                props.playlist.ownerUsername,
+                props.playlist.slug,
+                clip.slug
+              );
+            }
           }
         }
       },
