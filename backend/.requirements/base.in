@@ -7,4 +7,4 @@ django-modeladmin-reorder
 django-rtk-green
 graphene-django
 martor
-psycopg2
+psycopg2-binary

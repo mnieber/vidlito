@@ -80,7 +80,7 @@ martor==1.6.15
     # via -r .requirements/base.in
 promise==2.3
     # via graphene-django
-psycopg2==2.9.5
+psycopg2-binary==2.9.9
     # via -r .requirements/base.in
 pyjwt==2.6.0
     # via django-graphql-jwt
