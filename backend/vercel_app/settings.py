@@ -1,3 +1,5 @@
+# Using https://codewithmuh.medium.com/deploy-django-project-on-vercel-with-postgresql-93dc83cc8e3b
+
 """
 Django settings for vercel_app project.
 
@@ -118,7 +120,9 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
+MEDIA_URLS = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
