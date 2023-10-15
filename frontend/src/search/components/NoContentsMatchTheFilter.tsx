@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { L } from '/src/frames/layout';
+import { searchCtx } from '/src/search/hooks/useSearchContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -12,12 +13,12 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.searchResults,
+const ContextProps = {
+  searchResults: searchCtx.searchResults,
 };
 
 export const NoContentsMatchTheFilter = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       <div
         className={cn(
@@ -36,5 +37,5 @@ export const NoContentsMatchTheFilter = observer(
         </div>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

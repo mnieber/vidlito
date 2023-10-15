@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -13,10 +13,10 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {};
+export const ContextProps = {};
 
 export const Toggle = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const themeClassName = props.themeClassName ?? 'Blue';
     return (
       <label
@@ -35,5 +35,5 @@ export const Toggle = observer(
         <span className={cn(themeClassName, 'Toggle__Toggle')}></span>
       </label>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

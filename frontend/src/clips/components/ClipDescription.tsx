@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { MarkdownView } from '/src/frames/components';
 import { cn } from '/src/utils/classnames';
 
@@ -11,13 +13,13 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.clip,
-  ...dps.dashboardState,
+const ContextProps = {
+  clip: clipsCtx.clip,
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const ClipDescription = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     if (isLoading(props.clip)) return <ClipDescriptionLoader {...props} />;
 
     const description = props.clip?.description ?? '';
@@ -30,11 +32,11 @@ export const ClipDescription = observer(
         )}
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 const ClipDescriptionLoader = observer(
-  (props: PropsT & typeof DefaultProps) => {
+  (props: PropsT & typeof ContextProps) => {
     return <div className={cn('ClipDescriptionLoader', props.className)}></div>;
   }
 );

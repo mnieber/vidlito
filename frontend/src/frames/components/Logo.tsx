@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { L } from '/src/frames/layout';
 import { navToHome } from '/src/frames/navFunctions';
 import { cn } from '/src/utils/classnames';
@@ -11,10 +11,10 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {};
+const ContextProps = {};
 
 export const Logo = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       <div
         className={cn('Logo', [
@@ -29,5 +29,5 @@ export const Logo = observer(
         <div className={cn('Logo__TitleSuffix')}>lito</div>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

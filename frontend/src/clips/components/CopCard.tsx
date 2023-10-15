@@ -1,12 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { ClipHeaderView } from '/src/clips/components/ClipHeaderView';
 import { ClipSubHeaderView } from '/src/clips/components/ClipSubHeaderView';
 import { CopCardForms } from '/src/clips/components/CopCardForms';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
 import { CreateFirstClip } from '/src/playlists/components/CreateFirstClip';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -16,17 +19,17 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.playlist,
-  ...dps.clips,
-  ...dps.playlistsEdit,
-  ...dps.playlistPdEdit,
-  ...dps.playlistSettingsEdit,
-  ...dps.isOwner,
+const ContextProps = {
+  playlist: playlistsCtx.playlist,
+  playlistsEdit: playlistsCtx.playlistsEdit,
+  playlistPdEdit: playlistsCtx.playlistPdEdit,
+  playlistSettingsEdit: playlistsCtx.playlistSettingsEdit,
+  isOwner: dashboardCtx.isOwner,
+  clips: clipsCtx.clips,
 };
 
 export const CopCard = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const showLoader = isLoading(props.playlist) || isLoading(props.clips);
     if (showLoader) {
       return <CopCardLoader />;
@@ -48,7 +51,7 @@ export const CopCard = observer(
           )}
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 export const CopCardLoader = observer((props: PropsT) => {

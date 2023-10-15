@@ -1,9 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { PlayerControls } from '/src/clips/components/PlayerControls';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { AuthorCard } from '/src/playlists/components/AuthorCard';
 import { TagsCard } from '/src/playlists/components/TagsCard';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -13,14 +15,14 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {
-  ...dps.clip,
-  ...dps.clipPd,
-  ...dps.playlist,
+export const ContextProps = {
+  clip: clipsCtx.clip,
+  clipPd: clipsCtx.clipPd,
+  playlist: playlistsCtx.playlist,
 };
 
 export const ClipSubHeaderView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const clipTags = R.uniq([
       ...(props.clip?.tags ?? []),
       ...(props.clipPd?.tags ?? []),
@@ -41,5 +43,5 @@ export const ClipSubHeaderView = observer(
         <TagsCard clipTags={clipTags} playlistTags={playlistTags} />
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

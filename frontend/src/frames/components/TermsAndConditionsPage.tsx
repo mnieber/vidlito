@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
+import { withContextProps } from 'react-props-from-context';
 import { terms } from './terms';
-import { withDefaultProps } from '/src/app/defaultProps';
 import { MarkdownView } from '/src/frames/components';
 import { MessageCard } from '/src/frames/components/MessageCard';
 import { cn } from '/src/utils/classnames';
@@ -10,10 +10,10 @@ import './TermsAndConditionsPage.scss';
 
 export type PropsT = {};
 
-export const DefaultProps = {};
+export const ContextProps = {};
 
 export const TermsAndConditionsPage = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       <MessageCard className={cn('TermsAndConditionsPage')} wallPaper={true}>
         <div
@@ -27,5 +27,5 @@ export const TermsAndConditionsPage = observer(
         </div>
       </MessageCard>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

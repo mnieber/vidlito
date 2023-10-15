@@ -1,8 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { Icon } from '/src/frames/components';
 import { IconS } from '/src/frames/components/Icon';
 import { cn } from '/src/utils/classnames';
+import { videoPlayerCtx } from '/src/videos/hooks/useVideoPlayerContext';
 
 // Import styles
 import './PlayerControls.scss';
@@ -11,13 +13,13 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {
-  ...dps.videoPlayerState,
-  ...dps.clip,
+export const ContextProps = {
+  videoPlayerState: videoPlayerCtx.videoPlayerState,
+  clip: clipsCtx.clip,
 };
 
 export const PlayerControls = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const isLoopEnabled = () =>
       props.videoPlayerState.videoController.isLoopEnabled;
 
@@ -39,5 +41,5 @@ export const PlayerControls = observer(
         />
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

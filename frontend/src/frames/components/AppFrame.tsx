@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { ClipMenu } from '/src/clips/components';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { CookieNotice } from '/src/frames/components/CookieNotice';
 import { DashboardNavHandler } from '/src/frames/pages/DashboardNavHandler';
 
@@ -12,12 +13,12 @@ export type PropsT = React.PropsWithChildren<{
   className?: any;
 }>;
 
-const DefaultProps = {
-  ...dps.dashboardState,
+const ContextProps = {
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const AppFrame = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       <React.Fragment>
         <DashboardNavHandler>
@@ -29,5 +30,5 @@ export const AppFrame = observer(
         )}
       </React.Fragment>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

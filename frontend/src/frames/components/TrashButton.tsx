@@ -1,19 +1,20 @@
 import { observer } from 'mobx-react-lite';
+import { withContextProps } from 'react-props-from-context';
 import { navToActions, navToPlaylistActions } from '/src/actions/navFunctions';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ToolButton } from '/src/frames/components/ToolButton';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.playlist,
+const ContextProps = {
+  playlist: playlistsCtx.playlist,
 };
 
 export const TrashButton = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       <ToolButton
         className={cn('TrashButton', props.className)}
@@ -26,5 +27,5 @@ export const TrashButton = observer(
         }
       />
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

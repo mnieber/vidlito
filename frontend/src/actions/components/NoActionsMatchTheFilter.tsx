@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { actionsCtx } from '/src/actions/hooks/useActionsContext';
 import { MessageCard, MessageCardS } from '/src/frames/components/MessageCard';
 import { cn } from '/src/utils/classnames';
 
@@ -11,12 +12,12 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.actions,
+const ContextProps = {
+  actions: actionsCtx.actions,
 };
 
 export const NoActionsMatchTheFilter = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       /*
       🔳 NoActionsMatchTheFilter 🔳
@@ -38,5 +39,5 @@ export const NoActionsMatchTheFilter = observer(
         </div>
       </MessageCard>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

@@ -2,21 +2,24 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { createKeyDownHandler } from '/src/utils';
 import { cn } from '/src/utils/classnames';
 import { createVideoKeyHandlers } from '/src/videos/createVideoKeyHandlers';
+import { videoPlayerCtx } from '/src/videos/hooks/useVideoPlayerContext';
 
 export type PropsT = React.PropsWithChildren<{ className?: any }>;
 
-const DefaultProps = {
-  ...dps.clip,
-  ...dps.videoPlayerState,
-  ...dps.dashboardState,
+const ContextProps = {
+  clip: clipsCtx.clip,
+  videoPlayerState: videoPlayerCtx.videoPlayerState,
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const ClipVideoKeyHandler = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const keyHandlers = {
       'ctrl+shift+space': () => {
         props.dashboardState.panelState.setIsFullVideoWidth(
@@ -42,5 +45,5 @@ export const ClipVideoKeyHandler = observer(
         {props.children}
       </KeyboardEventHandler>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

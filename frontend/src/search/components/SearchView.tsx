@@ -1,10 +1,12 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { CloseButton } from '/src/frames/components/CloseButton';
 import { PageNav } from '/src/frames/components/PageNav';
 import { L } from '/src/frames/layout';
 import { SearchFormView } from '/src/search/components/SearchFormView';
 import { SearchResultListView } from '/src/search/components/SearchResultListView';
+import { searchCtx } from '/src/search/hooks/useSearchContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -14,13 +16,13 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.searchResultsPagination,
-  ...dps.dashboardState,
+const ContextProps = {
+  searchResultsPagination: searchCtx.searchResultsPagination,
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const SearchView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       <div
         className={cn('SearchView', [L.col.banner(), 'grow', props.className])}
@@ -61,5 +63,5 @@ export const SearchView = observer(
         )}
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

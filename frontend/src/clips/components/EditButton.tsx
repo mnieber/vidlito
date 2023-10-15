@@ -1,12 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
+import { withContextProps } from 'react-props-from-context';
 import { Edit } from 'skandha-facets';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import {
   DefaultToolButtonTrim,
   ToolButton,
   ToolButtonS,
 } from '/src/frames/components/ToolButton';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 import { createTrim } from '/src/utils/trim';
 
@@ -19,15 +22,15 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.clip,
-  ...dps.playlist,
-  ...dps.username,
-  ...dps.isOwner,
+const ContextProps = {
+  clip: clipsCtx.clip,
+  playlist: playlistsCtx.playlist,
+  username: dashboardCtx.username,
+  isOwner: dashboardCtx.isOwner,
 };
 
 export const EditButton = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       //
       // 🔳 EditButton 🔳
@@ -49,7 +52,7 @@ export const EditButton = observer(
         onClick={() => props.edit.enable()}
       />
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 export const ToolButtonTrim = createTrim(DefaultToolButtonTrim, {

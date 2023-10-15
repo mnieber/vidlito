@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useFormStateContext } from 'react-form-state-context';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { FormField, FormFieldS } from '/src/forms/components/FormField';
 import { useFormFieldContext } from '/src/forms/components/FormFieldContext';
 import { Icon, IconS } from '/src/frames/components/Icon';
@@ -12,10 +12,10 @@ import './IsPublicPlaylistField.scss';
 
 export type PropsT = {};
 
-export const DefaultProps = {};
+export const ContextProps = {};
 
 export const IsPublicPlaylistField = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const formState = useFormStateContext();
     const fieldContext = useFormFieldContext();
     const isPublic = formState.getValue(fieldContext.fieldName);
@@ -63,5 +63,5 @@ export const IsPublicPlaylistField = observer(
         </div>
       </FormField>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

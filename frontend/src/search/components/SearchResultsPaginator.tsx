@@ -1,18 +1,23 @@
 import { observer } from 'mobx-react-lite';
-import { DefaultPropsProvider } from 'react-default-props-context';
+import { withContextProps } from 'react-props-from-context';
 import { getDisplayPage } from '/src/api/pagination/PaginationAdapter';
 import { usePaginationAdapter } from '/src/api/pagination/hooks/usePaginationAdapter';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import {
+  SearchContext,
+  searchCtx,
+  useSearchContext,
+} from '/src/search/hooks/useSearchContext';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {
-  ...dps.searchResults,
-  ...dps.searchResultsPagination,
+const ContextProps = {
+  searchResults: searchCtx.searchResults,
+  searchResultsPagination: searchCtx.searchResultsPagination,
 };
 
 export const SearchResultsPaginator = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
+    const searchContextObj = useSearchContext();
     const displayPagination = usePaginationAdapter(
       props.searchResultsPagination,
       10
@@ -24,17 +29,15 @@ export const SearchResultsPaginator = observer(
     );
 
     return (
-      <DefaultPropsProvider
-        extend
+      <SearchContext.Provider
         value={{
-          defaultProps: {
-            searchResults: () => searchResults,
-            searchResultsPagination: () => displayPagination,
-          },
+          ...searchContextObj,
+          searchResults: searchResults,
+          searchResultsPagination: displayPagination,
         }}
       >
         {props.children}
-      </DefaultPropsProvider>
+      </SearchContext.Provider>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

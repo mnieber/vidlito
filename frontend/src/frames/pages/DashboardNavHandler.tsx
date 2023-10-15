@@ -1,8 +1,9 @@
 import { NavHandlersProvider, type NavContext } from 'react-nav-handler';
+import { withContextProps } from 'react-props-from-context';
 import { UserProfileT } from '/src/api/types/UserProfileT';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { toClip } from '/src/clips/navFunctions';
 import { cookiesState } from '/src/dashboard/DashboardState/CookiesState';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
 import { toPlaylist } from '/src/playlists/navFunctions';
 import { history } from '/src/routes/history';
@@ -49,12 +50,12 @@ export const createNavFunctionTable = (props: NavContextPropsT) => {
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-export const DefaultProps = {
-  ...dps.userProfile,
+export const ContextProps = {
+  userProfile: dashboardCtx.userProfile,
 };
 
-export const DashboardNavHandler = withDefaultProps(
-  (props: PropsT & typeof DefaultProps) => {
+export const DashboardNavHandler = withContextProps(
+  (props: PropsT & typeof ContextProps) => {
     const getUserProfile = () => props.userProfile;
     const handler = useBuilder(() => {
       return {
@@ -68,5 +69,5 @@ export const DashboardNavHandler = withDefaultProps(
       </NavHandlersProvider>
     );
   },
-  DefaultProps
+  ContextProps
 );

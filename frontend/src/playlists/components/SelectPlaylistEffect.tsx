@@ -1,24 +1,25 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
+import { withContextProps } from 'react-props-from-context';
 import { useParams } from 'react-router-dom';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { useRefUrl } from '/src/routes/hooks/useRefUrl';
 import { UrlEffectView } from '/src/utils/components';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
 
-const DefaultProps = {
-  ...dps.playlists,
-  ...dps.playlist,
-  ...dps.playlistsHighlight,
-  ...dps.playlistsSelection,
+const ContextProps = {
+  playlists: playlistsCtx.playlists,
+  playlist: playlistsCtx.playlist,
+  playlistsHighlight: playlistsCtx.playlistsHighlight,
+  playlistsSelection: playlistsCtx.playlistsSelection,
 };
 
 export const SelectPlaylistEffect = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const params = useParams() as ObjT;
     const { updateRefUrl, hasUrlChanged } = useRefUrl();
 
@@ -57,5 +58,5 @@ export const SelectPlaylistEffect = observer(
         className="absolute"
       />
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

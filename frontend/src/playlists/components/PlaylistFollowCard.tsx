@@ -1,8 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { Toggle } from '/src/frames/components/Toggle';
 import { L } from '/src/frames/layout';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -10,17 +12,17 @@ import './PlaylistFollowCard.scss';
 
 export type PropsT = { className?: any };
 
-const DefaultProps = {
-  ...dps.playlistsEdit,
-  ...dps.playlist,
-  ...dps.playlistFollowing,
-  ...dps.username,
-  ...dps.dashboardState,
-  ...dps.userProfile,
+const ContextProps = {
+  playlistsEdit: playlistsCtx.playlistsEdit,
+  playlist: playlistsCtx.playlist,
+  playlistFollowing: playlistsCtx.playlistFollowing,
+  username: dashboardCtx.username,
+  dashboardState: dashboardCtx.dashboardState,
+  userProfile: dashboardCtx.userProfile,
 };
 
 export const PlaylistFollowCard = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const [isChecked, setIsChecked] = React.useState(
       props.playlistFollowing.isFollowing
     );
@@ -76,5 +78,5 @@ export const PlaylistFollowCard = observer(
         />
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

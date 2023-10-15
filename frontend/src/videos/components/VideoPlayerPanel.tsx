@@ -1,23 +1,25 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { Icon } from '/src/frames/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 import { VideoPlayer } from '/src/videos/components/VideoPlayer';
+import { videoPlayerCtx } from '/src/videos/hooks/useVideoPlayerContext';
 import { widthToHeight } from '/src/videos/utils/aspectRatio';
 
 type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.dashboardState,
-  ...dps.videoPlayerState,
+const ContextProps = {
+  dashboardState: dashboardCtx.dashboardState,
+  videoPlayerState: videoPlayerCtx.videoPlayerState,
 };
 
 export const VideoPlayerPanel = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const ready = props.videoPlayerState.ready;
     const width = props.dashboardState.panelState.panelWidth;
     const isResizing = props.dashboardState.panelState.isResizing;
@@ -42,7 +44,7 @@ export const VideoPlayerPanel = observer(
         />
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 export const VideoPlayerPanelPlaceholder = (props: {

@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import { FormStateProvider } from 'react-form-state-context';
 import { useNavContext } from 'react-nav-handler';
+import { withContextProps } from 'react-props-from-context';
 import { form } from './form';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { IsPublicClipField } from '/src/clips/components/ClipSettingsFormView/IsPublicClipField';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { MainFormS } from '/src/dashboard/components/MainForm';
 import {
   Field,
@@ -14,6 +15,7 @@ import {
 } from '/src/forms/components';
 import { EnableDeleteField } from '/src/forms/components/EnableDeleteField';
 import { CardS } from '/src/frames/components/Card';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -23,16 +25,16 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {
-  ...dps.clip,
-  ...dps.playlist,
-  ...dps.clipsDeletion,
-  ...dps.clipsHighlight,
-  ...dps.clipSettingsEdit,
+export const ContextProps = {
+  clip: clipsCtx.clip,
+  playlist: playlistsCtx.playlist,
+  clipsDeletion: clipsCtx.clipsDeletion,
+  clipsHighlight: clipsCtx.clipsHighlight,
+  clipSettingsEdit: clipsCtx.clipSettingsEdit,
 };
 
 export const ClipSettingsFormView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const navContext = useNavContext('ClipSettingsFormView');
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
@@ -114,7 +116,7 @@ export const ClipSettingsFormView = observer(
         </FormStateProvider>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 const deletePublicClipMsg = `This is a destructive action that deletes

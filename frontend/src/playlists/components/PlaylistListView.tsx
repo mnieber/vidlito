@@ -1,13 +1,21 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
 import { useNavContext } from 'react-nav-handler';
+import { withContextProps } from 'react-props-from-context';
 import { DragAndDropUIConnector, SelectionUIConnector } from 'skandha-facets';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { PlaylistListKeyHandler } from '/src/playlists/components/PlaylistListKeyHandler';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
+import {
+  PlaylistsContext,
+  playlistsCtx,
+  usePlaylistsContext,
+} from '/src/playlists/hooks/usePlaylistsContext';
 import { toPlaylist } from '/src/playlists/navFunctions';
 import { cn } from '/src/utils/classnames';
+import { cloneAndExtendContext } from '/src/utils/cloneAndExtendContext';
 
 // Import styles
 import './PlaylistListView.scss';
@@ -17,20 +25,21 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.playlists,
-  ...dps.playlistsDragAndDrop,
-  ...dps.playlistsHovering,
-  ...dps.playlistsHighlight,
-  ...dps.playlistsSelection,
-  ...dps.clipsSelection,
-  ...dps.dashboardState,
-  ...dps.followSet,
+const ContextProps = {
+  playlists: playlistsCtx.playlists,
+  playlistsDragAndDrop: playlistsCtx.playlistsDragAndDrop,
+  playlistsHovering: playlistsCtx.playlistsHovering,
+  playlistsHighlight: playlistsCtx.playlistsHighlight,
+  playlistsSelection: playlistsCtx.playlistsSelection,
+  clipsSelection: clipsCtx.clipsSelection,
+  dashboardState: dashboardCtx.dashboardState,
+  followSet: dashboardCtx.followSet,
 };
 
 export const PlaylistListView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const navContext = useNavContext('PlaylistListView');
+    const playlistsContext = usePlaylistsContext();
 
     const dragAndDropUIConnector = new DragAndDropUIConnector({
       dragAndDrop: props.playlistsDragAndDrop,
@@ -60,17 +69,22 @@ export const PlaylistListView = observer(
       );
 
       return (
-        <PlaylistListViewItem
+        <PlaylistsContext.Provider
           key={playlist.id}
-          playlist={playlist}
-          isHighlighted={
-            playlist && props.playlistsHighlight.itemId === playlist.id
-          }
-          selectionUIProps={selectionUIConnector.handle(playlist.id)}
-          dragAndDropUIProps={dragAndDropUIConnector.handle(playlist.id)}
-          goToPlaylist={goToPlaylist}
-          className={cn({ underline: !isFollowing })}
-        />
+          value={cloneAndExtendContext(playlistsContext, {
+            playlist: playlist,
+          })}
+        >
+          <PlaylistListViewItem
+            isHighlighted={
+              playlist && props.playlistsHighlight.itemId === playlist.id
+            }
+            selectionUIProps={selectionUIConnector.handle(playlist.id)}
+            dragAndDropUIProps={dragAndDropUIConnector.handle(playlist.id)}
+            goToPlaylist={goToPlaylist}
+            className={cn({ underline: !isFollowing })}
+          />
+        </PlaylistsContext.Provider>
       );
     });
 
@@ -82,5 +96,5 @@ export const PlaylistListView = observer(
         </div>
       </PlaylistListKeyHandler>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

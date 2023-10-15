@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
+import { withContextProps } from 'react-props-from-context';
 import { ActionListView } from '/src/actions/components/ActionListView';
 import { ActionsBar } from '/src/actions/components/ActionsBar';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { actionsCtx } from '/src/actions/hooks/useActionsContext';
 import { PageNav } from '/src/frames/components/PageNav';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -13,12 +14,12 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.actionsPagination,
+const ContextProps = {
+  actionsPagination: actionsCtx.actionsPagination,
 };
 
 export const ActionsView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       /*
       🔳 ActionsView 🔳
@@ -44,5 +45,5 @@ export const ActionsView = observer(
         )}
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

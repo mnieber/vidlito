@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { FormState, FormStateProvider } from 'react-form-state-context';
+import { withContextProps } from 'react-props-from-context';
 import { form } from './form';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { MainFormS } from '/src/dashboard/components/MainForm';
 import {
   Field,
@@ -13,6 +13,7 @@ import {
 import { FormSaveButton } from '/src/forms/components/FormSaveButton';
 import { KeywordsAndTagsField } from '/src/forms/components/KeywordsAndTagsField';
 import { CardS } from '/src/frames/components/Card';
+import { searchCtx } from '/src/search/hooks/useSearchContext';
 import { useTagsState } from '/src/search/hooks/useTagsState';
 import { cn } from '/src/utils/classnames';
 
@@ -23,13 +24,13 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {
-  ...dps.searchState,
-  ...dps.search,
+export const ContextProps = {
+  searchState: searchCtx.searchState,
+  search: searchCtx.search,
 };
 
 export const SearchFormView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const formStateRef = React.useRef<FormState>(null);
     const playlistTagsState = useTagsState({
       loadOptions: props.searchState.tagsCtr.store.loadTags,
@@ -109,5 +110,5 @@ export const SearchFormView = observer(
         </FormStateProvider>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

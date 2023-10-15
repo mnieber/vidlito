@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
 import { useNavContext } from 'react-nav-handler';
+import { withContextProps } from 'react-props-from-context';
 import {
   DragAndDropUIConnector,
   Selection,
@@ -8,12 +9,19 @@ import {
 } from 'skandha-facets';
 import { isOnActionsPage } from '/src/actions/navFunctions';
 import { ClipT } from '/src/api/types/ClipT';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { ClipListViewKeyHandler } from '/src/clips/components';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
+import {
+  ClipsContext,
+  clipsCtx,
+  useClipsContext,
+} from '/src/clips/hooks/useClipsContext';
 import { toClip } from '/src/clips/navFunctions';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
+import { cloneAndExtendContext } from '/src/utils/cloneAndExtendContext';
 
 // Import styles
 import './ClipListView.scss';
@@ -22,22 +30,23 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.playlist,
-  ...dps.clips,
-  ...dps.clipsDragAndDrop,
-  ...dps.clipsHighlight,
-  ...dps.clipsHovering,
-  ...dps.clipsSelection,
-  ...dps.dashboardState,
+const ContextProps = {
+  playlist: playlistsCtx.playlist,
+  clipsDragAndDrop: clipsCtx.clipsDragAndDrop,
+  clipsHighlight: clipsCtx.clipsHighlight,
+  clipsHovering: clipsCtx.clipsHovering,
+  clipsSelection: clipsCtx.clipsSelection,
+  clips: clipsCtx.clips,
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const ClipListView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     //
     // 🔳  Handle loading state 🔳
     //
     const navContext = useNavContext('ClipListView');
+    const clipsContext = useClipsContext();
 
     if (isLoading(props.clips)) {
       return <ClipListViewLoader {...props} />;
@@ -80,21 +89,24 @@ export const ClipListView = observer(
     //
     const clipDivs = props.clips.map((clip) => {
       return (
-        <ClipListViewItem
+        <ClipsContext.Provider
           key={`item-${clip.id}`}
-          clip={clip}
-          showSelectionBg={props.clipsSelection.itemIds.length > 1}
-          isHighlighted={clip && props.clipsHighlight.itemId === clip.id}
-          selectionUIProps={selectionUIConnector.handle(clip.id)}
-          dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
-          onContextMenu={(e: any) => {
-            e.preventDefault();
-            props.dashboardState.clipListContextMenu.openAtPoint({
-              x: e.clientX,
-              y: e.clientY,
-            });
-          }}
-        />
+          value={cloneAndExtendContext(clipsContext, { clip: clip })}
+        >
+          <ClipListViewItem
+            showSelectionBg={props.clipsSelection.itemIds.length > 1}
+            isHighlighted={clip && props.clipsHighlight.itemId === clip.id}
+            selectionUIProps={selectionUIConnector.handle(clip.id)}
+            dragAndDropUIProps={dragAndDropUIConnector.handle(clip.id)}
+            onContextMenu={(e: any) => {
+              e.preventDefault();
+              props.dashboardState.clipListContextMenu.openAtPoint({
+                x: e.clientX,
+                y: e.clientY,
+              });
+            }}
+          />
+        </ClipsContext.Provider>
       );
     });
 
@@ -113,7 +125,7 @@ export const ClipListView = observer(
         </div>
       </ClipListViewKeyHandler>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 export const ClipListViewLoader = (props: { className?: any }) => {

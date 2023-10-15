@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { FormState, FormStateProvider } from 'react-form-state-context';
+import { withContextProps } from 'react-props-from-context';
 import { form } from './form';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { usePreviewButton } from '/src/clips/hooks/usePreviewButton';
 import { MainFormS } from '/src/dashboard/components/MainForm';
 import {
@@ -14,6 +15,7 @@ import {
   ValuePickerField,
 } from '/src/forms/components';
 import { CardS } from '/src/frames/components/Card';
+import { searchCtx } from '/src/search/hooks/useSearchContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -23,14 +25,14 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {
-  ...dps.clipPd,
-  ...dps.clipPdEdit,
-  ...dps.searchState,
+export const ContextProps = {
+  clipPd: clipsCtx.clipPd,
+  clipPdEdit: clipsCtx.clipPdEdit,
+  searchState: searchCtx.searchState,
 };
 
 export const ClipPdFormView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,
       className: 'font-normal',
@@ -118,5 +120,5 @@ export const ClipPdFormView = observer(
         </FormStateProvider>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

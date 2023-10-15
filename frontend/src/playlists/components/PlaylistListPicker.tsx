@@ -1,13 +1,16 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
 import {
   PlaylistListHeader,
   PlaylistListView,
 } from '/src/playlists/components';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { RouterLink } from '/src/routes/components';
 import { getRouteFns } from '/src/routes/routeTable';
 import { cn } from '/src/utils/classnames';
@@ -19,16 +22,16 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.playlist,
-  ...dps.playlists,
-  ...dps.clips,
-  ...dps.dashboardState,
-  ...dps.userProfile,
+const ContextProps = {
+  clips: clipsCtx.clips,
+  playlist: playlistsCtx.playlist,
+  playlists: playlistsCtx.playlists,
+  userProfile: dashboardCtx.userProfile,
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const PlaylistListPicker = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const routeFns = getRouteFns<AuthRoutesT>();
 
     if (isLoading(props.playlists) || isLoading(props.clips)) {
@@ -63,11 +66,11 @@ export const PlaylistListPicker = observer(
         />
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 export const PlaylistListPickerLoader = observer(
-  (props: PropsT & typeof DefaultProps) => {
+  (props: PropsT & typeof ContextProps) => {
     return (
       <LoaderBar
         className={cn('PlaylistListPickerLoader', [

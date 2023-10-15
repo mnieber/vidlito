@@ -1,21 +1,24 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { withContextProps } from 'react-props-from-context';
 import { useParams } from 'react-router-dom';
 import { createClip } from '/src/api/types/ClipT';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
 
-const DefaultProps = {
-  ...dps.clipsHighlight,
-  ...dps.clipsAddition,
-  ...dps.playlist,
-  ...dps.userProfile,
+const ContextProps = {
+  clipsHighlight: clipsCtx.clipsHighlight,
+  clipsAddition: clipsCtx.clipsAddition,
+  playlist: playlistsCtx.playlist,
+  userProfile: dashboardCtx.userProfile,
 };
 
 export const AddNewClipEffect = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const { userProfile, clipsAddition, playlist, clipsHighlight } = props;
 
     const params = useParams() as ObjT;
@@ -37,5 +40,5 @@ export const AddNewClipEffect = observer(
     }, [clipSlug, playlist]);
 
     return null;
-  }, DefaultProps)
+  }, ContextProps)
 );

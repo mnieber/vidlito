@@ -1,20 +1,23 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { isLoading, isUpdating, updateSources } from 'mobx-resource-states';
+import * as R from 'ramda';
 import React from 'react';
-import { DefaultPropsProvider } from 'react-default-props-context';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
+import { PlaylistsContext } from '/src/playlists/hooks/usePlaylistsContext';
 import { usePlaylistsState } from '/src/playlists/hooks/usePlaylistsState';
+import { createGetProps } from '/src/utils/createGetProps';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {
-  ...dps.userProfile,
+const ContextProps = {
+  userProfile: dashboardCtx.userProfile,
 };
 
 export const PlaylistsStateProvider = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const {
       playlistsState: state,
       isGetPlaylistLoading,
@@ -46,44 +49,38 @@ export const PlaylistsStateProvider = observer(
       })
     );
 
-    const getDefaultPropsContext = () => {
-      const result: any = {
-        defaultProps: {
-          playlistsState: () => state,
-        },
-      };
-
-      result.defaultProps = {
-        ...result.defaultProps,
-        playlists: () => cache.playlists,
-        playlist: () => cache.playlist,
-        playlistsAddition: () => state.playlistsCtr.addition,
-        playlistsDeletion: () => state.playlistsCtr.deletion,
-        playlistsDragAndDrop: () => state.playlistsCtr.dragAndDrop,
-        playlistsEdit: () => state.playlistsCtr.edit,
-        playlistsHighlight: () => state.playlistsCtr.highlight,
-        playlistsHovering: () => state.playlistsCtr.hovering,
-        playlistsSelection: () => state.playlistsCtr.selection,
-      };
-
-      result.defaultProps = {
-        ...result.defaultProps,
-        playlistPdEdit: () => state.playlistPdCtr.edit,
-      };
-
-      result.defaultProps = {
-        ...result.defaultProps,
-        playlistSettingsEdit: () => state.playlistSettingsCtr.edit,
-        playlistFollowing: () => state.playlistSettingsCtr.following,
-      };
-
-      return result;
+    const getPlaylistsContext = () => {
+      return createGetProps(
+        R.mergeAll([
+          {
+            playlistsState: () => state,
+          },
+          {
+            playlists: () => cache.playlists,
+            playlist: () => cache.playlist,
+            playlistsAddition: () => state.playlistsCtr.addition,
+            playlistsDeletion: () => state.playlistsCtr.deletion,
+            playlistsDragAndDrop: () => state.playlistsCtr.dragAndDrop,
+            playlistsEdit: () => state.playlistsCtr.edit,
+            playlistsHighlight: () => state.playlistsCtr.highlight,
+            playlistsHovering: () => state.playlistsCtr.hovering,
+            playlistsSelection: () => state.playlistsCtr.selection,
+          },
+          {
+            playlistPdEdit: () => state.playlistPdCtr.edit,
+          },
+          {
+            playlistSettingsEdit: () => state.playlistSettingsCtr.edit,
+            playlistFollowing: () => state.playlistSettingsCtr.following,
+          },
+        ])
+      );
     };
 
     return (
-      <DefaultPropsProvider extend value={getDefaultPropsContext()}>
+      <PlaylistsContext.Provider value={getPlaylistsContext()}>
         {props.children}
-      </DefaultPropsProvider>
+      </PlaylistsContext.Provider>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

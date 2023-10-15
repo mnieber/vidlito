@@ -1,1 +1,1 @@
-export { DefaultProps, SearchFormView, type PropsT } from './SearchFormView';
+export { ContextProps, SearchFormView, type PropsT } from './SearchFormView';

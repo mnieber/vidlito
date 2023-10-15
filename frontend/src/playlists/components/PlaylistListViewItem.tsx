@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { withContextProps } from 'react-props-from-context';
 import {
   dragAndDropUIHandlers,
   DragAndDropUIPropsT,
@@ -6,11 +7,11 @@ import {
   SelectionUIPropsT,
 } from 'skandha-facets';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components';
 import { IconS } from '/src/frames/components/Icon';
 import { LviS } from '/src/frames/components/Lvi';
 import { L } from '/src/frames/layout';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -24,12 +25,12 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.playlist,
+const ContextProps = {
+  playlist: playlistsCtx.playlist,
 };
 
 export const PlaylistListViewItem = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       //
       // 🔳 PlaylistListViewItem 🔳
@@ -75,5 +76,5 @@ export const PlaylistListViewItem = observer(
         </div>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

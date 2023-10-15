@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { FormState, FormStateProvider } from 'react-form-state-context';
+import { withContextProps } from 'react-props-from-context';
 import { form } from './form';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { usePreviewButton } from '/src/clips/hooks/usePreviewButton';
 import { MainFormS } from '/src/dashboard/components/MainForm';
 import {
@@ -14,6 +14,8 @@ import {
   ValuePickerField,
 } from '/src/forms/components';
 import { CardS } from '/src/frames/components/Card';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
+import { searchCtx } from '/src/search/hooks/useSearchContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -23,14 +25,14 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {
-  ...dps.playlist,
-  ...dps.playlistPdEdit,
-  ...dps.searchState,
+export const ContextProps = {
+  playlist: playlistsCtx.playlist,
+  playlistPdEdit: playlistsCtx.playlistPdEdit,
+  searchState: searchCtx.searchState,
 };
 
 export const PlaylistPdFormView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,
       className: 'font-normal',
@@ -118,5 +120,5 @@ export const PlaylistPdFormView = observer(
         </FormStateProvider>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

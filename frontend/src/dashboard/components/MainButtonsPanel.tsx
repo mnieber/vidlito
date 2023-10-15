@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { NewClipButton } from '/src/clips/components';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { TrashButton } from '/src/frames/components';
 import { NewPlaylistButton } from '/src/playlists/components';
 import { SearchButton } from '/src/search/components/SearchButton';
@@ -13,13 +14,13 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.dashboardState,
-  ...dps.userProfile,
+const ContextProps = {
+  dashboardState: dashboardCtx.dashboardState,
+  userProfile: dashboardCtx.userProfile,
 };
 
 export const MainButtonsPanel = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       <div
         className={cn('MainButtonsPanel', ['flex flex-wrap', props.className])}
@@ -32,5 +33,5 @@ export const MainButtonsPanel = observer(
         {props.userProfile && <NewClipButton className={cn('w-1/2', 'mb-6')} />}
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

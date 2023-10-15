@@ -1,5 +1,5 @@
 export {
   ClipSettingsFormView,
-  DefaultProps,
+  ContextProps,
   type PropsT,
 } from './ClipSettingsFormView';

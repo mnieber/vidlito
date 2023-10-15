@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useNavContext, type NavContext } from 'react-nav-handler';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { ToolButton } from '/src/frames/components/ToolButton';
 import { toPlaylist } from '/src/playlists/navFunctions';
 import { cn } from '/src/utils/classnames';
@@ -12,14 +13,14 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.username,
-  ...dps.userProfile,
-  ...dps.dashboardState,
+const ContextProps = {
+  username: dashboardCtx.username,
+  userProfile: dashboardCtx.userProfile,
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const NewPlaylistButton = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const navContext = useNavContext('NewPlaylistButton');
     return (
       <ToolButton
@@ -29,7 +30,7 @@ export const NewPlaylistButton = observer(
         onClick={() => onClickNewPlaylistButton(navContext, props)}
       />
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 export function onClickNewPlaylistButton(

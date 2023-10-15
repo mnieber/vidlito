@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { ToolButton } from '/src/frames/components/ToolButton';
 import { navToSearch } from '/src/search/navFunctions';
 import { cn } from '/src/utils/classnames';
@@ -11,12 +12,12 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.dashboardState,
+const ContextProps = {
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const SearchButton = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       <ToolButton
         className={cn('SearchButton', props.className)}
@@ -28,5 +29,5 @@ export const SearchButton = observer(
         }}
       />
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

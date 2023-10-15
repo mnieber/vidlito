@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { useNavContext } from 'react-nav-handler';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { actionsCtx } from '/src/actions/hooks/useActionsContext';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { toClip } from '/src/clips/navFunctions';
 import { CloseButton } from '/src/frames/components/CloseButton';
 import {
@@ -8,6 +10,7 @@ import {
   DialogButton,
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { toPlaylist } from '/src/playlists/navFunctions';
 import { cn } from '/src/utils/classnames';
 import { SwitchButton } from '/src/utils/components/SwitchButton';
@@ -19,16 +22,16 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.action,
-  ...dps.actionsState,
-  ...dps.actionsUndo,
-  ...dps.playlist,
-  ...dps.clip,
+const ContextProps = {
+  action: actionsCtx.action,
+  actionsState: actionsCtx.actionsState,
+  actionsUndo: actionsCtx.actionsUndo,
+  playlist: playlistsCtx.playlist,
+  clip: clipsCtx.clip,
 };
 
 export const ActionsBar = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const navContext = useNavContext('ActionsBar');
 
     return (
@@ -92,5 +95,5 @@ export const ActionsBar = observer(
         />
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

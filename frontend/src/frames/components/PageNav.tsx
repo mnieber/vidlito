@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
+import { withContextProps } from 'react-props-from-context';
 import { IPagination } from '/src/api/pagination/types';
-import { withDefaultProps } from '/src/app/defaultProps';
 import { Icon } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -13,10 +13,10 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {};
+const ContextProps = {};
 
 export const PageNav = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const page = props.pagination.page;
     const pages = [1];
 
@@ -91,5 +91,5 @@ export const PageNav = observer(
         </div>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

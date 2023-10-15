@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import {
   DialogButton,
   SkyBlueWithBorderDialogButtonTrim,
@@ -13,10 +13,10 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {};
+export const ContextProps = {};
 
 export const CloseButton = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       <DialogButton
         trim={SkyBlueWithBorderDialogButtonTrim}
@@ -25,5 +25,5 @@ export const CloseButton = observer(
         iconName="close"
       />
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

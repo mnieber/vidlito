@@ -1,13 +1,15 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
 import React from 'react';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { ClipListView } from '/src/clips/components';
 import { MainButtonsPanel } from '/src/dashboard/components/MainButtonsPanel';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { Logo } from '/src/frames/components';
 import { Footer } from '/src/frames/components/Footer';
 import { L } from '/src/frames/layout';
 import { PlaylistListPicker } from '/src/playlists/components/PlaylistListPicker';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -17,13 +19,13 @@ export type PropsT = React.PropsWithChildren<{
   className?: any;
 }>;
 
-const DefaultProps = {
-  ...dps.playlist,
-  ...dps.dashboardState,
+const ContextProps = {
+  playlist: playlistsCtx.playlist,
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const Dashboard = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const playlistNotFound = !isLoading(props.playlist) && !props.playlist;
     const separator = ['my-2', 'border-t border-gray-text'];
 
@@ -96,5 +98,5 @@ export const Dashboard = observer(
         {<Footer />}
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

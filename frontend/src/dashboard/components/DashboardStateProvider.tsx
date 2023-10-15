@@ -1,24 +1,26 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { updateSources } from 'mobx-resource-states';
+import * as R from 'ramda';
 import React from 'react';
-import { DefaultPropsProvider } from 'react-default-props-context';
+import { withContextProps } from 'react-props-from-context';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import { useObservableQuery } from '/src/api/hooks';
-import { withDefaultProps } from '/src/app/defaultProps';
 import { useLoadUserId } from '/src/auth/endpoints';
+import { DashboardContext } from '/src/dashboard/hooks/useDashboardContext';
 import { useDashboardState } from '/src/dashboard/hooks/useDashboardState';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
+import { createGetProps } from '/src/utils/createGetProps';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { log } from '/src/utils/logging';
 import { ObjT } from '/src/utils/types';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {};
+const ContextProps = {};
 
 export const DashboardStateProvider = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const { dashboardState } = useDashboardState({});
     const loadUserId = useObservableQuery(useLoadUserId());
 
@@ -54,28 +56,28 @@ export const DashboardStateProvider = observer(
       })
     );
 
-    const getDefaultPropsContext = () => {
-      const result: any = {
-        defaultProps: {
-          dashboardState: () => dashboardState,
-          isAuthenticated: () => dashboardState.account.isAuthenticated,
-          username: () => dashboardState.account.username,
-          userProfile: () => cache.userProfile,
-          followSet: () => cache.followSet,
-          isOwner: () => (obj: ObjT) =>
-            !!obj &&
-            !!cache.userProfile &&
-            cache.userProfile.username === obj.ownerUsername,
-        },
-      };
-
-      return result;
+    const getDashboardContext = () => {
+      return createGetProps(
+        R.mergeAll([
+          {
+            dashboardState: () => dashboardState,
+            isAuthenticated: () => dashboardState.account.isAuthenticated,
+            username: () => dashboardState.account.username,
+            userProfile: () => cache.userProfile,
+            followSet: () => cache.followSet,
+            isOwner: () => (obj: ObjT) =>
+              !!obj &&
+              !!cache.userProfile &&
+              cache.userProfile.username === obj.ownerUsername,
+          },
+        ])
+      );
     };
 
     return (
-      <DefaultPropsProvider extend value={getDefaultPropsContext()}>
+      <DashboardContext.Provider value={getDashboardContext()}>
         {props.children}
-      </DefaultPropsProvider>
+      </DashboardContext.Provider>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

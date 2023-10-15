@@ -1,10 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { useIsClipNotFound } from '/src/clips/hooks/useIsClipNotFound';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
 import { PlaylistFollowCard } from '/src/playlists/components/PlaylistFollowCard';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 import { SwitchButton } from '/src/utils/components/SwitchButton';
 
@@ -15,15 +18,15 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.clip,
-  ...dps.clips,
-  ...dps.playlist,
-  ...dps.dashboardState,
+const ContextProps = {
+  clip: clipsCtx.clip,
+  clips: clipsCtx.clips,
+  playlist: playlistsCtx.playlist,
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const ClipHeaderView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const { isClipNotFound } = useIsClipNotFound();
 
     if (isLoading(props.clips)) {
@@ -56,7 +59,7 @@ export const ClipHeaderView = observer(
         </div>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 export const ClipHeaderViewLoader = observer((props: { className?: any }) => {

@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { MarkdownView } from '/src/frames/components';
 import { cn } from '/src/utils/classnames';
 
@@ -11,13 +12,13 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.clipPd,
-  ...dps.clipPdEdit,
+const ContextProps = {
+  clipPd: clipsCtx.clipPd,
+  clipPdEdit: clipsCtx.clipPdEdit,
 };
 
 export const ClipPdView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     if (isLoading(props.clipPd)) return <ClipPdViewLoader {...props} />;
     if (!props.clipPd) return null;
 
@@ -29,9 +30,9 @@ export const ClipPdView = observer(
         <MarkdownView text={description} />
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
-const ClipPdViewLoader = observer((props: PropsT & typeof DefaultProps) => {
+const ClipPdViewLoader = observer((props: PropsT & typeof ContextProps) => {
   return <div className={cn('ClipPdViewLoader', props.className)}></div>;
 });

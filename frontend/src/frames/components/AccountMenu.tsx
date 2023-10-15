@@ -1,8 +1,9 @@
 import { Menu, MenuButton, MenuDivider, MenuItem } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { useSignOut } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { Icon } from '/src/frames/components';
 import { DialogButtonS } from '/src/frames/components/DialogButton';
 import { MenuItemS } from '/src/frames/components/MenuItem';
@@ -20,13 +21,13 @@ export type PropsT = {
   isFullButton?: any;
 };
 
-const DefaultProps = {
-  ...dps.isAuthenticated,
-  ...dps.dashboardState,
+const ContextProps = {
+  isAuthenticated: dashboardCtx.isAuthenticated,
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const AccountMenu = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const authState = useAuthStateContext(true);
     const signOut = useSignOut(authState).mutateAsync;
 
@@ -88,5 +89,5 @@ export const AccountMenu = observer(
         </Menu>
       </div>
     ) : null;
-  }, DefaultProps)
+  }, ContextProps)
 );

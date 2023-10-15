@@ -1,5 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 import { textTrunc } from '/src/utils/strings';
 
@@ -8,16 +11,16 @@ import './AuthorCard.scss';
 
 export type PropsT = React.PropsWithChildren<{ className?: any }>;
 
-const DefaultProps = {
-  ...dps.clip,
-  ...dps.clips,
-  ...dps.playlist,
-  ...dps.username,
-  ...dps.dashboardState,
+const ContextProps = {
+  clip: clipsCtx.clip,
+  playlist: playlistsCtx.playlist,
+  username: dashboardCtx.username,
+  dashboardState: dashboardCtx.dashboardState,
+  clips: clipsCtx.clips,
 };
 
 export const AuthorCard = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     if (!props.playlist && !props.clip) {
       return null;
     }
@@ -79,5 +82,5 @@ export const AuthorCard = observer(
         {props.children}
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

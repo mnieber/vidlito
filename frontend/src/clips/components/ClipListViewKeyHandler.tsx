@@ -2,19 +2,20 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { withContextProps } from 'react-props-from-context';
 import { createSelectionKeyHandlers } from 'skandha-facets';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { createKeyDownHandler } from '/src/utils';
 import { cn } from '/src/utils/classnames';
 
 export type PropsT = React.PropsWithChildren<{ className?: any }>;
 
-const DefaultProps = {
-  ...dps.clipsSelection,
+const ContextProps = {
+  clipsSelection: clipsCtx.clipsSelection,
 };
 
 export const ClipListViewKeyHandler = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const keyHandlers = {
       ...createSelectionKeyHandlers(props.clipsSelection),
     };
@@ -30,5 +31,5 @@ export const ClipListViewKeyHandler = observer(
         {props.children}
       </KeyboardEventHandler>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

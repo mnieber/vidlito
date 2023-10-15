@@ -5,28 +5,28 @@ import {
   HandleValidateArgsT,
 } from 'react-form-state-context';
 import { type NavContext } from 'react-nav-handler';
-import { DefaultProps, PropsT } from './index';
+import { ContextProps, PropsT } from './index';
 import { toClip } from '/src/clips/navFunctions';
 
-const getInitialValues = (props: PropsT & typeof DefaultProps) => {
+const getInitialValues = (props: PropsT & typeof ContextProps) => {
   return {
     'clipSettingsForm.clipId': props.clip.id ?? null,
     'clipSettingsForm.isDeletionEnabled': props.clipsDeletion.isDeleteEnabled,
   };
 };
 
-const getInitialErrors = (props: PropsT & typeof DefaultProps) => {
+const getInitialErrors = (props: PropsT & typeof ContextProps) => {
   return {};
 };
 
 const getHandleValidate =
-  (props: PropsT & typeof DefaultProps) =>
+  (props: PropsT & typeof ContextProps) =>
   ({ values, setError }: HandleValidateArgsT) => {};
 
 const getHandleSubmit =
   (
     navContext: NavContext,
-    props: PropsT & typeof DefaultProps,
+    props: PropsT & typeof ContextProps,
     initialValues: FormState['values'],
     initialErrors: FormState['errors']
   ) =>
@@ -53,7 +53,7 @@ const getHandleSubmit =
   };
 
 const getHandleCancel =
-  (props: PropsT & typeof DefaultProps) =>
+  (props: PropsT & typeof ContextProps) =>
   ({ formState }: HandleCancelArgsT) => {
     props.clipsDeletion.setIsDeleteEnabled(false);
     props.clipSettingsEdit.cancel();

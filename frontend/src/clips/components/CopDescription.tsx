@@ -1,13 +1,16 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { ClipDescription } from '/src/clips/components/ClipDescription';
 import { ClipFormView } from '/src/clips/components/ClipFormView';
 import { EditButton } from '/src/clips/components/EditButton';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { L } from '/src/frames/layout';
 import {
   PlaylistDescription,
   PlaylistFormView,
 } from '/src/playlists/components';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -18,19 +21,19 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.clip,
-  ...dps.playlist,
-  ...dps.isOwner,
-  ...dps.clipsEdit,
-  ...dps.clipPdEdit,
-  ...dps.playlistsEdit,
-  ...dps.playlistPdEdit,
-  ...dps.userProfile,
+const ContextProps = {
+  clip: clipsCtx.clip,
+  playlist: playlistsCtx.playlist,
+  isOwner: dashboardCtx.isOwner,
+  clipsEdit: clipsCtx.clipsEdit,
+  clipPdEdit: clipsCtx.clipPdEdit,
+  playlistsEdit: playlistsCtx.playlistsEdit,
+  playlistPdEdit: playlistsCtx.playlistPdEdit,
+  userProfile: dashboardCtx.userProfile,
 };
 
 export const CopDescription = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const cop = props.showPlaylist ? props.playlist : props.clip;
     const edit = props.showPlaylist ? props.playlistsEdit : props.clipsEdit;
     const View = props.showPlaylist ? PlaylistDescription : ClipDescription;
@@ -58,5 +61,5 @@ export const CopDescription = observer(
         {edit.isEditing && <FormView className="mt-4" />}
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

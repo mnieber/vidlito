@@ -1,5 +1,5 @@
 export {
-  DefaultProps,
+  ContextProps,
   PlaylistSettingsFormView,
   type PropsT,
 } from './PlaylistSettingsFormView';

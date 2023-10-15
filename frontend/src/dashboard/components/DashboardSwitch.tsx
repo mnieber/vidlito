@@ -1,9 +1,10 @@
+import { withContextProps } from 'react-props-from-context';
 import { Route, Switch } from 'react-router-dom';
 import { ActionsSwitch } from '/src/actions/components/ActionsSwitch';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
 import { Dashboard } from '/src/dashboard/components/Dashboard';
 import { MainView } from '/src/dashboard/components/MainView';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
 import { ForwardToLastUrlEffect } from '/src/frames/components/ForwardToLastUrlEffect';
 import { PageNotFound } from '/src/frames/components/PageNotFound';
@@ -15,12 +16,12 @@ import { SearchSwitch } from '/src/search/components/SearchSwitch';
 
 export type PropsT = {};
 
-const DefaultProps = {
-  ...dps.username,
+const ContextProps = {
+  username: dashboardCtx.username,
 };
 
-export const DashboardSwitch = withDefaultProps(
-  (props: PropsT & typeof DefaultProps) => {
+export const DashboardSwitch = withContextProps(
+  (props: PropsT & typeof ContextProps) => {
     const routeFns = getRouteFns<AuthRoutesT & DashboardRoutesT>();
     return (
       <DashboardNavHandler>
@@ -46,5 +47,5 @@ export const DashboardSwitch = withDefaultProps(
       </DashboardNavHandler>
     );
   },
-  DefaultProps
+  ContextProps
 );

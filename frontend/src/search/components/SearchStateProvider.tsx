@@ -1,19 +1,21 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { updateSources } from 'mobx-resource-states';
+import * as R from 'ramda';
 import React from 'react';
-import { DefaultPropsProvider } from 'react-default-props-context';
+import { withContextProps } from 'react-props-from-context';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { SearchContext } from '/src/search/hooks/useSearchContext';
 import { useSearchState } from '/src/search/hooks/useSearchState';
+import { createGetProps } from '/src/utils/createGetProps';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {};
+const ContextProps = {};
 
 export const SearchStateProvider = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const { searchContent, searchState } = useSearchState({});
 
     const cache = useBuilder(() =>
@@ -33,29 +35,29 @@ export const SearchStateProvider = observer(
       })
     );
 
-    const getDefaultPropsContext = () => {
-      const result: any = {
-        defaultProps: {
-          searchState: () => searchState,
-        },
-      };
-
-      result.defaultProps = {
-        ...result.defaultProps,
-        searchResults: () => cache.searchResults,
-        searchResult: () => cache.searchResult,
-        searchResultsHighlight: () => searchState.searchResultsCtr.highlight,
-        searchResultsPagination: () => searchState.searchResultsCtr.pagination,
-        search: () => searchState.searchResultsCtr.search,
-      };
-
-      return result;
+    const getSearchContext = () => {
+      return createGetProps(
+        R.mergeAll([
+          {
+            searchState: () => searchState,
+          },
+          {
+            searchResults: () => cache.searchResults,
+            searchResult: () => cache.searchResult,
+            searchResultsHighlight: () =>
+              searchState.searchResultsCtr.highlight,
+            searchResultsPagination: () =>
+              searchState.searchResultsCtr.pagination,
+            search: () => searchState.searchResultsCtr.search,
+          },
+        ])
+      );
     };
 
     return (
-      <DefaultPropsProvider extend value={getDefaultPropsContext()}>
+      <SearchContext.Provider value={getSearchContext()}>
         {props.children}
-      </DefaultPropsProvider>
+      </SearchContext.Provider>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

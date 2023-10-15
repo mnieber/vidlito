@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { withDefaultProps } from 'react-default-props-context';
-import { dps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { CardS } from '/src/frames/components/Card';
 import {
   BlueDialogButtonTrim,
@@ -17,12 +17,12 @@ import './index.scss';
 
 export type PropsT = {};
 
-export const DefaultProps = {
-  ...dps.dashboardState,
+export const ContextProps = {
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const CookieNotice = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       <div className={cn('CookieNotice')}>
         <div
@@ -71,7 +71,7 @@ export const CookieNotice = observer(
         </div>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 const AcceptDialogButtonTrim = createTrim(BlueDialogButtonTrim, {

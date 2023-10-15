@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import { FormStateProvider } from 'react-form-state-context';
 import { useNavContext } from 'react-nav-handler';
+import { withContextProps } from 'react-props-from-context';
 import { form } from './form';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { usePreviewButton } from '/src/clips/hooks/usePreviewButton';
 import { MainFormS } from '/src/dashboard/components/MainForm';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import {
   Field,
   FormCancelButton,
@@ -18,6 +19,7 @@ import {
 import { NameField } from '/src/forms/components/NameField';
 import { CardS } from '/src/frames/components/Card';
 import { IsPublicPlaylistField } from '/src/playlists/components/IsPublicPlaylistField';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -27,16 +29,16 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {
-  ...dps.playlist,
-  ...dps.playlistsEdit,
-  ...dps.playlistsAddition,
-  ...dps.dashboardState,
-  ...dps.userProfile,
+export const ContextProps = {
+  playlist: playlistsCtx.playlist,
+  playlistsEdit: playlistsCtx.playlistsEdit,
+  playlistsAddition: playlistsCtx.playlistsAddition,
+  dashboardState: dashboardCtx.dashboardState,
+  userProfile: dashboardCtx.userProfile,
 };
 
 export const PlaylistFormView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const navContext = useNavContext('PlaylistFormView');
 
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
@@ -166,5 +168,5 @@ export const PlaylistFormView = observer(
         </FormStateProvider>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

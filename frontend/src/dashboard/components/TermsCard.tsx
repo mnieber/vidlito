@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
 import { AccountMenu } from '/src/frames/components/AccountMenu';
 import { RouterLink } from '/src/routes/components/RouterLink';
@@ -13,10 +13,10 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {};
+export const ContextProps = {};
 
 export const TermsCard = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const routeFns = getRouteFns<AuthRoutesT>();
 
     return (
@@ -30,5 +30,5 @@ export const TermsCard = observer(
         <AccountMenu className="mt-4" isFullButton={true} />
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

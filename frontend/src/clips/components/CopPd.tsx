@@ -1,11 +1,14 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { ClipPdView } from '/src/clips/components';
 import { ClipPdFormView } from '/src/clips/components/ClipPdFormView';
 import { EditButton } from '/src/clips/components/EditButton';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { L } from '/src/frames/layout';
 import { PlaylistPdView } from '/src/playlists/components';
 import { PlaylistPdFormView } from '/src/playlists/components/PlaylistPdFormView';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -16,15 +19,15 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.clips,
-  ...dps.clipPdEdit,
-  ...dps.playlistPdEdit,
-  ...dps.userProfile,
+const ContextProps = {
+  clipPdEdit: clipsCtx.clipPdEdit,
+  playlistPdEdit: playlistsCtx.playlistPdEdit,
+  userProfile: dashboardCtx.userProfile,
+  clips: clipsCtx.clips,
 };
 
 export const CopPd = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const View = props.showPlaylist ? PlaylistPdView : ClipPdView;
     const FormView = props.showPlaylist ? PlaylistPdFormView : ClipPdFormView;
     const edit = props.showPlaylist ? props.playlistPdEdit : props.clipPdEdit;
@@ -51,5 +54,5 @@ export const CopPd = observer(
         {edit.isEditing && <FormView className="mt-4" />}
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

@@ -1,15 +1,19 @@
 import { observer } from 'mobx-react-lite';
 import { useNavContext, type NavContext } from 'react-nav-handler';
+import { withContextProps } from 'react-props-from-context';
 import { Addition } from 'skandha-facets';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { toClip } from '/src/clips/navFunctions';
 import { DashboardState } from '/src/dashboard/DashboardState/DashboardState';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { ToolButton } from '/src/frames/components/ToolButton';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 import { VideoController } from '/src/videos/VideoController';
+import { videoPlayerCtx } from '/src/videos/hooks/useVideoPlayerContext';
 
 // Import styles
 import './NewClipButton.scss';
@@ -18,18 +22,18 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.clip,
-  ...dps.clipsAddition,
-  ...dps.dashboardState,
-  ...dps.isOwner,
-  ...dps.playlist,
-  ...dps.userProfile,
-  ...dps.videoController,
+const ContextProps = {
+  clip: clipsCtx.clip,
+  clipsAddition: clipsCtx.clipsAddition,
+  dashboardState: dashboardCtx.dashboardState,
+  isOwner: dashboardCtx.isOwner,
+  playlist: playlistsCtx.playlist,
+  userProfile: dashboardCtx.userProfile,
+  videoController: videoPlayerCtx.videoController,
 };
 
 export const NewClipButton = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const navContext = useNavContext('NewClipButton');
 
     const enabled =
@@ -46,7 +50,7 @@ export const NewClipButton = observer(
         }}
       />
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 export function onClickNewClipButton(

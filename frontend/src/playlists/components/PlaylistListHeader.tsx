@@ -1,9 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { Icon } from '/src/frames/components';
 import { IconS } from '/src/frames/components/Icon';
 import { L } from '/src/frames/layout';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -13,14 +15,14 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.playlist,
-  ...dps.playlists,
-  ...dps.dashboardState,
+const ContextProps = {
+  playlist: playlistsCtx.playlist,
+  playlists: playlistsCtx.playlists,
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const PlaylistListHeader = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     if (!props.playlists.length) return null;
 
     const playlist = props.playlist ?? R.head(props.playlists);
@@ -47,5 +49,5 @@ export const PlaylistListHeader = observer(
         />
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

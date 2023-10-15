@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { FormStateProvider } from 'react-form-state-context';
+import { withContextProps } from 'react-props-from-context';
 import { form } from './form';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { MainFormS } from '/src/dashboard/components/MainForm';
 import {
   Field,
@@ -13,6 +13,7 @@ import {
 import { EnableDeleteField } from '/src/forms/components/EnableDeleteField';
 import { CardS } from '/src/frames/components/Card';
 import { IsPublicPlaylistField } from '/src/playlists/components/IsPublicPlaylistField';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -22,14 +23,14 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {
-  ...dps.playlist,
-  ...dps.playlistSettingsEdit,
-  ...dps.playlistsDeletion,
+export const ContextProps = {
+  playlist: playlistsCtx.playlist,
+  playlistSettingsEdit: playlistsCtx.playlistSettingsEdit,
+  playlistsDeletion: playlistsCtx.playlistsDeletion,
 };
 
 export const PlaylistSettingsFormView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const initialValues = form.getInitialValues(props);
     const initialErrors = form.getInitialErrors(props);
     const nrOfClipsThatWillBeDeleted = props.playlist.clipSet.filter(
@@ -116,7 +117,7 @@ export const PlaylistSettingsFormView = observer(
         </FormStateProvider>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 const deletePlaylistAndClipsMsg = `When you delete this playlist, then all clips that are not contained in

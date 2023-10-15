@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { MessageCard, MessageCardS } from '/src/frames/components/MessageCard';
 import { useIsPlaylistNotFound } from '/src/playlists/hooks/useIsPlaylistNotFound';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 import { log } from '/src/utils/logging';
 
@@ -12,12 +13,12 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.playlist,
+const ContextProps = {
+  playlist: playlistsCtx.playlist,
 };
 
 export const PlaylistNotFound = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const { isPlaylistNotFound } = useIsPlaylistNotFound();
     if (!isPlaylistNotFound(props.playlist)) {
       return null;
@@ -36,5 +37,5 @@ export const PlaylistNotFound = observer(
         </div>
       </MessageCard>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

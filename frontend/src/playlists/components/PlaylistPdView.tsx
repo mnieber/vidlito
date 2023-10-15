@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { MarkdownView } from '/src/frames/components';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -11,12 +12,12 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.playlist,
+const ContextProps = {
+  playlist: playlistsCtx.playlist,
 };
 
 export const PlaylistPdView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     if (isLoading(props.playlist)) return <PlaylistPdViewLoader {...props} />;
     if (!props.playlist) return null;
 
@@ -28,9 +29,9 @@ export const PlaylistPdView = observer(
         <MarkdownView text={description} />
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
-const PlaylistPdViewLoader = observer((props: PropsT & typeof DefaultProps) => {
+const PlaylistPdViewLoader = observer((props: PropsT & typeof ContextProps) => {
   return <div className={cn('PlaylistPdViewLoader', props.className)}></div>;
 });

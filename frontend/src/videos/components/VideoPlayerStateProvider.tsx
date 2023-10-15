@@ -2,22 +2,24 @@ import { comparer } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
-import { DefaultPropsProvider } from 'react-default-props-context';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { flags } from '/src/app/flags';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { useUpdateStateReaction } from '/src/frames/hooks/useUpdateStateReaction';
+import { createGetProps } from '/src/utils/createGetProps';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { log } from '/src/utils/logging';
 import { VideoPlayerState } from '/src/videos/VideoPlayerState';
+import { VideoPlayerContext } from '/src/videos/hooks/useVideoPlayerContext';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {
-  ...dps.clip,
+const ContextProps = {
+  clip: clipsCtx.clip,
 };
 
 export const VideoPlayerStateProvider = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const videoPlayerState = useBuilder(() => new VideoPlayerState({}));
     React.useEffect(() => () => videoPlayerState.destroy(), [videoPlayerState]);
 
@@ -38,21 +40,21 @@ export const VideoPlayerStateProvider = observer(
       equals: comparer.structural,
     });
 
-    const getDefaultPropsContext = () => {
-      const result: any = {
-        defaultProps: {
-          videoPlayerState: () => videoPlayerState,
-          videoController: () => videoPlayerState.videoController,
-        },
-      };
-
-      return result;
+    const getVideoPlayerContext = () => {
+      return createGetProps(
+        R.mergeAll([
+          {
+            videoPlayerState: () => videoPlayerState,
+            videoController: () => videoPlayerState.videoController,
+          },
+        ])
+      );
     };
 
     return (
-      <DefaultPropsProvider extend value={getDefaultPropsContext()}>
+      <VideoPlayerContext.Provider value={getVideoPlayerContext()}>
         {props.children}
-      </DefaultPropsProvider>
+      </VideoPlayerContext.Provider>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

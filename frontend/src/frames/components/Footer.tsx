@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { AccountMenu } from '/src/frames/components/AccountMenu';
 import {
   BlueDialogButtonTrim,
@@ -16,12 +17,12 @@ import './Footer.scss';
 
 export type PropsT = {};
 
-export const DefaultProps = {
-  ...dps.dashboardState,
+export const ContextProps = {
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const Footer = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const routeFns = getRouteFns<AuthRoutesT>();
 
     return (
@@ -53,5 +54,5 @@ export const Footer = observer(
         </div>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

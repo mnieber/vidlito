@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import ReactMarkdown from 'react-markdown';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -11,14 +11,14 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {};
+const ContextProps = {};
 
 export const MarkdownView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return (
       <div className={cn('MarkdownView', props.className)}>
         <ReactMarkdown>{props.text ?? ''}</ReactMarkdown>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

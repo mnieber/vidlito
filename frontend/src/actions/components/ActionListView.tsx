@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
+import { withContextProps } from 'react-props-from-context';
 import { HighlightUIConnector } from 'skandha-facets';
 import { ActionListViewKeyHandler } from '/src/actions/components';
 import { ActionListViewItem } from '/src/actions/components/ActionListViewItem';
 import { NoActionsMatchTheFilter } from '/src/actions/components/NoActionsMatchTheFilter';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { actionsCtx } from '/src/actions/hooks/useActionsContext';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -16,14 +17,14 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.actions,
-  ...dps.actionsHighlight,
-  ...dps.actionsState,
+const ContextProps = {
+  actions: actionsCtx.actions,
+  actionsHighlight: actionsCtx.actionsHighlight,
+  actionsState: actionsCtx.actionsState,
 };
 
 export const ActionListView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     //
     // 🔳  Handle loading state 🔳
     //
@@ -70,7 +71,7 @@ export const ActionListView = observer(
         </div>
       </ActionListViewKeyHandler>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 export const ActionListViewLoader = (props: { className?: any }) => {

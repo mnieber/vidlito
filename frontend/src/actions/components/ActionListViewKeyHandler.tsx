@@ -2,19 +2,20 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import { withContextProps } from 'react-props-from-context';
 import { createHighlightKeyHandlers } from 'skandha-facets';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { actionsCtx } from '/src/actions/hooks/useActionsContext';
 import { createKeyDownHandler } from '/src/utils';
 import { cn } from '/src/utils/classnames';
 
 export type PropsT = React.PropsWithChildren<{ className?: any }>;
 
-const DefaultProps = {
-  ...dps.actionsHighlight,
+const ContextProps = {
+  actionsHighlight: actionsCtx.actionsHighlight,
 };
 
 export const ActionListViewKeyHandler = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const keyHandlers = {
       ...createHighlightKeyHandlers(props.actionsHighlight),
       'shift+up': () => {},
@@ -32,5 +33,5 @@ export const ActionListViewKeyHandler = observer(
         {props.children}
       </KeyboardEventHandler>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

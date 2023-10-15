@@ -1,22 +1,28 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { isLoading, isUpdating, updateSources } from 'mobx-resource-states';
+import * as R from 'ramda';
 import React from 'react';
-import { DefaultPropsProvider } from 'react-default-props-context';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { ClipsContext } from '/src/clips/hooks/useClipsContext';
 import { useClipsState } from '/src/clips/hooks/useClipsState';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
+import { createGetProps } from '/src/utils/createGetProps';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {
-  ...dps.playlist,
+const ContextProps = {
+  playlist: playlistsCtx.playlist,
 };
 
 export const ClipsStateProvider = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
-    const { clipsState: state, isGetClipPdLoading, isGetClipPdUpdating } =
-      useClipsState({ getPlaylist: () => props.playlist });
+  withContextProps((props: PropsT & typeof ContextProps) => {
+    const {
+      clipsState: state,
+      isGetClipPdLoading,
+      isGetClipPdUpdating,
+    } = useClipsState({ getPlaylist: () => props.playlist });
 
     const cache = useBuilder(() =>
       makeAutoObservable({
@@ -57,41 +63,37 @@ export const ClipsStateProvider = observer(
       })
     );
 
-    const getDefaultPropsContext = () => {
-      const result: any = {
-        defaultProps: {
-          clipsState: () => state,
-        },
-      };
-
-      result.defaultProps = {
-        ...result.defaultProps,
-        clips: () => cache.clips,
-        clip: () => cache.clip,
-        clipsAddition: () => state.clipsCtr.addition,
-        clipsDeletion: () => state.clipsCtr.deletion,
-        clipsDragAndDrop: () => state.clipsCtr.dragAndDrop,
-        clipsEdit: () => state.clipsCtr.edit,
-        clipsHighlight: () => state.clipsCtr.highlight,
-        clipsHovering: () => state.clipsCtr.hovering,
-        clipsMove: () => state.clipsCtr.move,
-        clipsSelection: () => state.clipsCtr.selection,
-      };
-
-      result.defaultProps = {
-        ...result.defaultProps,
-        clipPd: () => cache.clipPd,
-        clipPdEdit: () => state.clipPdCtr.edit,
-        clipSettingsEdit: () => state.clipSettingsCtr.edit,
-      };
-
-      return result;
+    const getClipsContext = () => {
+      return createGetProps(
+        R.mergeAll([
+          {
+            clipsState: () => state,
+          },
+          {
+            clips: () => cache.clips,
+            clip: () => cache.clip,
+            clipsAddition: () => state.clipsCtr.addition,
+            clipsDeletion: () => state.clipsCtr.deletion,
+            clipsDragAndDrop: () => state.clipsCtr.dragAndDrop,
+            clipsEdit: () => state.clipsCtr.edit,
+            clipsHighlight: () => state.clipsCtr.highlight,
+            clipsHovering: () => state.clipsCtr.hovering,
+            clipsMove: () => state.clipsCtr.move,
+            clipsSelection: () => state.clipsCtr.selection,
+          },
+          {
+            clipPd: () => cache.clipPd,
+            clipPdEdit: () => state.clipPdCtr.edit,
+            clipSettingsEdit: () => state.clipSettingsCtr.edit,
+          },
+        ])
+      );
     };
 
     return (
-      <DefaultPropsProvider extend value={getDefaultPropsContext()}>
+      <ClipsContext.Provider value={getClipsContext()}>
         {props.children}
-      </DefaultPropsProvider>
+      </ClipsContext.Provider>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

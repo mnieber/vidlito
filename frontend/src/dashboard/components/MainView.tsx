@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { withContextProps } from 'react-props-from-context';
 import ReactResizeDetector from 'react-resize-detector';
 import { useSwipeable } from 'react-swipeable';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
 import { TermsCard } from '/src/dashboard/components/TermsCard';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { useOnResizeMainView } from '/src/dashboard/hooks/useOnResizeMainView';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
@@ -15,12 +16,12 @@ export type PropsT = React.PropsWithChildren<{
   className?: any;
 }>;
 
-const DefaultProps = {
-  ...dps.dashboardState,
+const ContextProps = {
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const MainView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const swipeHandlers = useSwipeable({
       onSwiped: (eventData) => {
         if (eventData.dir === 'Right') {
@@ -70,5 +71,5 @@ export const MainView = observer(
         </div>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

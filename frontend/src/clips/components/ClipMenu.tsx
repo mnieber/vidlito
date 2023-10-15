@@ -6,13 +6,16 @@ import {
 } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
 import { useNavContext, type NavContext } from 'react-nav-handler';
+import { withContextProps } from 'react-props-from-context';
 import { Highlight } from 'skandha-facets';
 import { isOnActionsPage } from '/src/actions/navFunctions';
 import { PlaylistT } from '/src/api/types/PlaylistT';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { toClip } from '/src/clips/navFunctions';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { Icon } from '/src/frames/components';
 import { MenuItemS } from '/src/frames/components/MenuItem';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -22,19 +25,19 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.clipsDeletion,
-  ...dps.clipsHighlight,
-  ...dps.clipsMove,
-  ...dps.clipsSelection,
-  ...dps.dashboardState,
-  ...dps.playlist,
-  ...dps.playlists,
-  ...dps.isOwner,
+const ContextProps = {
+  clipsDeletion: clipsCtx.clipsDeletion,
+  clipsHighlight: clipsCtx.clipsHighlight,
+  clipsMove: clipsCtx.clipsMove,
+  clipsSelection: clipsCtx.clipsSelection,
+  dashboardState: dashboardCtx.dashboardState,
+  playlist: playlistsCtx.playlist,
+  playlists: playlistsCtx.playlists,
+  isOwner: dashboardCtx.isOwner,
 };
 
 export const ClipMenu = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const navContext = useNavContext('ClipMenu');
 
     if (!props.playlists || !props.playlist || !props.isOwner(props.playlist))
@@ -133,7 +136,7 @@ export const ClipMenu = observer(
         <SubMenu label="Add to">{addToPlaylistDivs}</SubMenu>
       </ControlledMenu>
     ) : null;
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 const syncUrlWithHighlightedClip = (

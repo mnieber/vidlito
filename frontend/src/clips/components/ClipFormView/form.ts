@@ -7,13 +7,13 @@ import {
   unflatten,
 } from 'react-form-state-context';
 import { NavContext } from 'react-nav-handler';
-import { DefaultProps, PropsT } from './index';
+import { ContextProps, PropsT } from './index';
 import { toClip } from '/src/clips/navFunctions';
 import { navToHome } from '/src/frames/navFunctions';
 import { createUUID } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 
-const getInitialValues = (props: PropsT & typeof DefaultProps) => {
+const getInitialValues = (props: PropsT & typeof ContextProps) => {
   return {
     'clipForm.description': props.clip.description ?? null,
     'clipForm.endTimeS': _toSeconds(props.clip.endTimeMs) ?? null,
@@ -26,12 +26,12 @@ const getInitialValues = (props: PropsT & typeof DefaultProps) => {
   };
 };
 
-const getInitialErrors = (props: PropsT & typeof DefaultProps) => {
+const getInitialErrors = (props: PropsT & typeof ContextProps) => {
   return {};
 };
 
 const getHandleValidate =
-  (props: PropsT & typeof DefaultProps) =>
+  (props: PropsT & typeof ContextProps) =>
   ({ values, setError }: HandleValidateArgsT) => {
     if (R.isNil(values['clipForm.name'])) {
       setError('clipForm.name', 'This field is required');
@@ -41,7 +41,7 @@ const getHandleValidate =
 const getHandleSubmit =
   (
     navContext: NavContext,
-    props: PropsT & typeof DefaultProps,
+    props: PropsT & typeof ContextProps,
     initialValues: FormState['values'],
     initialErrors: FormState['errors']
   ) =>
@@ -80,7 +80,7 @@ const getHandleSubmit =
   };
 
 const getHandleCancel =
-  (props: PropsT & typeof DefaultProps) =>
+  (props: PropsT & typeof ContextProps) =>
   ({ formState }: HandleCancelArgsT) => {
     const mustRestore = !!props.clipsAddition.item;
     props.clipsEdit.cancel();

@@ -2,10 +2,12 @@ import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { FormState, FormStateProvider } from 'react-form-state-context';
 import { useNavContext } from 'react-nav-handler';
+import { withContextProps } from 'react-props-from-context';
 import { form } from './form';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { usePreviewButton } from '/src/clips/hooks/usePreviewButton';
 import { MainFormS } from '/src/dashboard/components/MainForm';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import {
   Field,
   FormCancelButton,
@@ -21,7 +23,10 @@ import { ClipUrlField } from '/src/forms/components/ClipUrlField';
 import { TimeField } from '/src/forms/components/TimeField';
 import { CardS } from '/src/frames/components/Card';
 import { L } from '/src/frames/layout';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
+import { searchCtx } from '/src/search/hooks/useSearchContext';
 import { cn } from '/src/utils/classnames';
+import { videoPlayerCtx } from '/src/videos/hooks/useVideoPlayerContext';
 
 // Import styles
 import './ClipFormView.scss';
@@ -30,18 +35,18 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {
-  ...dps.playlist,
-  ...dps.clip,
-  ...dps.clipsEdit,
-  ...dps.clipsAddition,
-  ...dps.videoPlayerState,
-  ...dps.dashboardState,
-  ...dps.searchState,
+export const ContextProps = {
+  playlist: playlistsCtx.playlist,
+  clip: clipsCtx.clip,
+  clipsEdit: clipsCtx.clipsEdit,
+  clipsAddition: clipsCtx.clipsAddition,
+  videoPlayerState: videoPlayerCtx.videoPlayerState,
+  dashboardState: dashboardCtx.dashboardState,
+  searchState: searchCtx.searchState,
 };
 
 export const ClipFormView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const navContext = useNavContext('ClipFormView');
 
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
@@ -204,5 +209,5 @@ export const ClipFormView = observer(
         </FormStateProvider>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { MessageCard, MessageCardS } from '/src/frames/components/MessageCard';
 import { getRouteMatch } from '/src/routes/utils/getRouteMatch';
 import { cn } from '/src/utils/classnames';
@@ -11,10 +11,10 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {};
+const ContextProps = {};
 
 export const PageNotFound = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     if (!!getRouteMatch()) {
       return null;
     }
@@ -29,5 +29,5 @@ export const PageNotFound = observer(
         </div>
       </MessageCard>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

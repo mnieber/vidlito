@@ -1,22 +1,24 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { withContextProps } from 'react-props-from-context';
 import { useParams } from 'react-router-dom';
 import { createPlaylist } from '/src/api/types/PlaylistT';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { useRefUrl } from '/src/routes/hooks/useRefUrl';
 import { ObjT } from '/src/utils/types';
 
 type PropsT = {};
 
-const DefaultProps = {
-  ...dps.dashboardState,
-  ...dps.playlist,
-  ...dps.playlistsAddition,
-  ...dps.userProfile,
+const ContextProps = {
+  dashboardState: dashboardCtx.dashboardState,
+  playlist: playlistsCtx.playlist,
+  playlistsAddition: playlistsCtx.playlistsAddition,
+  userProfile: dashboardCtx.userProfile,
 };
 
 export const AddNewPlaylistEffect = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const { playlistsAddition, userProfile, dashboardState, playlist } = props;
 
     const params = useParams() as ObjT;
@@ -40,5 +42,5 @@ export const AddNewPlaylistEffect = observer(
     }, [playlistSlug, playlist]);
 
     return null;
-  }, DefaultProps)
+  }, ContextProps)
 );

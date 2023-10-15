@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { L } from '/src/frames/layout';
 import { getRouteParams } from '/src/routes/utils/getRouteParams';
 import { cn } from '/src/utils/classnames';
@@ -13,12 +14,12 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.dashboardState,
+const ContextProps = {
+  dashboardState: dashboardCtx.dashboardState,
 };
 
 export const ClipNotFound = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const clipSlug = getRouteParams().clipSlug;
     const width = (props.dashboardState.panelState.panelWidth ?? 100) - 1;
     const height = widthToHeight(width);
@@ -36,5 +37,5 @@ export const ClipNotFound = observer(
         <div className={cn('ClipNotFound__Message', ['grow'])}>{msg}</div>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

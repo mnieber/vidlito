@@ -1,15 +1,18 @@
 import { observer } from 'mobx-react-lite';
 import { isUpdating } from 'mobx-resource-states';
+import { withContextProps } from 'react-props-from-context';
 import {
   dragAndDropUIHandlers,
   DragAndDropUIPropsT,
   selectionUIHandlers,
   SelectionUIPropsT,
 } from 'skandha-facets';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { LviS } from '/src/frames/components/Lvi';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 import { PlayVideoIcon } from '/src/videos/components';
+import { videoPlayerCtx } from '/src/videos/hooks/useVideoPlayerContext';
 
 // Import styles
 import './ClipListViewItem.scss';
@@ -23,14 +26,14 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.clip,
-  ...dps.videoPlayerState,
-  ...dps.playlistsDeletion,
+const ContextProps = {
+  clip: clipsCtx.clip,
+  videoPlayerState: videoPlayerCtx.videoPlayerState,
+  playlistsDeletion: playlistsCtx.playlistsDeletion,
 };
 
 export const ClipListViewItem = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const loading =
       !props.videoPlayerState.videoController.ready && props.isHighlighted;
 
@@ -86,5 +89,5 @@ export const ClipListViewItem = observer(
         </div>
       </div>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );

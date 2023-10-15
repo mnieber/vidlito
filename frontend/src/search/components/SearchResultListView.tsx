@@ -1,12 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { L } from '/src/frames/layout';
 import { SearchResultListKeyHandler } from '/src/search/components';
 import { NoContentsMatchTheFilter } from '/src/search/components/NoContentsMatchTheFilter';
 import { SearchResultListViewHeader } from '/src/search/components/SearchResultListViewHeader';
 import { SearchResultListViewItem } from '/src/search/components/SearchResultListViewItem';
+import { searchCtx } from '/src/search/hooks/useSearchContext';
 import { DelayedFlag } from '/src/utils/DelayedFlag';
 import { cn } from '/src/utils/classnames';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
@@ -18,15 +19,15 @@ export type PropsT = {
   className?: any;
 };
 
-const DefaultProps = {
-  ...dps.searchResults,
-  ...dps.searchResultsHighlight,
-  ...dps.searchState,
-  ...dps.search,
+const ContextProps = {
+  searchResults: searchCtx.searchResults,
+  searchResultsHighlight: searchCtx.searchResultsHighlight,
+  searchState: searchCtx.searchState,
+  search: searchCtx.search,
 };
 
 export const SearchResultListView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const noSearchResultsFlag = useBuilder(() => new DelayedFlag());
     noSearchResultsFlag.update(
       !!props.search.form && !props.searchResults?.length
@@ -64,7 +65,7 @@ export const SearchResultListView = observer(
         </div>
       </SearchResultListKeyHandler>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
 
 export const SearchResultListViewLoader = (props: { className?: any }) => {

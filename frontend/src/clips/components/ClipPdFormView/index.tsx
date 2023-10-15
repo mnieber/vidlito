@@ -1,1 +1,1 @@
-export { ClipPdFormView, DefaultProps, type PropsT } from './ClipPdFormView';
+export { ClipPdFormView, ContextProps, type PropsT } from './ClipPdFormView';

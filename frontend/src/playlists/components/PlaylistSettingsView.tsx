@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { withContextProps } from 'react-props-from-context';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -9,12 +10,12 @@ export type PropsT = {
   className?: any;
 };
 
-export const DefaultProps = {
-  ...dps.playlist,
+export const ContextProps = {
+  playlist: playlistsCtx.playlist,
 };
 
 export const PlaylistSettingsView = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     return <div className={cn('PlaylistSettingsView', props.className)}></div>;
-  }, DefaultProps)
+  }, ContextProps)
 );

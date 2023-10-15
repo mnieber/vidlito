@@ -1,22 +1,25 @@
 import { makeAutoObservable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { updateSources } from 'mobx-resource-states';
+import * as R from 'ramda';
 import React from 'react';
-import { DefaultPropsProvider } from 'react-default-props-context';
+import { withContextProps } from 'react-props-from-context';
+import { ActionsContext } from '/src/actions/hooks/useActionsContext';
 import { useActionsState } from '/src/actions/hooks/useActionsState';
 import { isQueryLoading } from '/src/api/ObservableQuery';
-import { dps, withDefaultProps } from '/src/app/defaultProps';
+import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
+import { createGetProps } from '/src/utils/createGetProps';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export type PropsT = React.PropsWithChildren<{}>;
 
-const DefaultProps = {
-  ...dps.playlist,
-  ...dps.playlists,
+const ContextProps = {
+  playlist: playlistsCtx.playlist,
+  playlists: playlistsCtx.playlists,
 };
 
 export const ActionsStateProvider = observer(
-  withDefaultProps((props: PropsT & typeof DefaultProps) => {
+  withContextProps((props: PropsT & typeof ContextProps) => {
     const {
       actionsState: state,
       getAllActions,
@@ -49,29 +52,27 @@ export const ActionsStateProvider = observer(
       })
     );
 
-    const getDefaultPropsContext = () => {
-      const result: any = {
-        defaultProps: {
-          actionsState: () => state,
-        },
-      };
-
-      result.defaultProps = {
-        ...result.defaultProps,
-        actions: () => cache.actions,
-        action: () => cache.action,
-        actionsHighlight: () => state.actionsCtr.highlight,
-        actionsPagination: () => state.actionsCtr.pagination,
-        actionsUndo: () => state.actionsCtr.undo,
-      };
-
-      return result;
+    const getActionsContext = () => {
+      return createGetProps(
+        R.mergeAll([
+          {
+            actionsState: () => state,
+          },
+          {
+            actions: () => cache.actions,
+            action: () => cache.action,
+            actionsHighlight: () => state.actionsCtr.highlight,
+            actionsPagination: () => state.actionsCtr.pagination,
+            actionsUndo: () => state.actionsCtr.undo,
+          },
+        ])
+      );
     };
 
     return (
-      <DefaultPropsProvider extend value={getDefaultPropsContext()}>
+      <ActionsContext.Provider value={getActionsContext()}>
         {props.children}
-      </DefaultPropsProvider>
+      </ActionsContext.Provider>
     );
-  }, DefaultProps)
+  }, ContextProps)
 );
