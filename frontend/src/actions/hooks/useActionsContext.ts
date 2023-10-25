@@ -18,11 +18,11 @@ export const useActionsContext = () => {
 };
 
 export const actionsCtx = {
+  actionsState: [useActionsContext, 'actionsState'] as any as ActionsState,
   action: [useActionsContext, 'action'] as any as ActionT,
   actions: [useActionsContext, 'actions'] as any as ActionT[],
   actionsHighlight: [useActionsContext, 'actionsHighlight'] as any as Highlight,
   actionsUndo: [useActionsContext, 'actionsUndo'] as any as Undo,
-  actionsState: [useActionsContext, 'actionsState'] as any as ActionsState,
   actionsPagination: [
     useActionsContext,
     'actionsPagination',

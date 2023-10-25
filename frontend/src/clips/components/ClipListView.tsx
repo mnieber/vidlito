@@ -7,7 +7,6 @@ import {
   Selection,
   SelectionUIConnector,
 } from 'skandha-facets';
-import { isOnActionsPage } from '/src/actions/navFunctions';
 import { ClipT } from '/src/api/types/ClipT';
 import { ClipListViewKeyHandler } from '/src/clips/components';
 import { ClipListViewItem } from '/src/clips/components/ClipListViewItem';
@@ -18,6 +17,7 @@ import {
 } from '/src/clips/hooks/useClipsContext';
 import { toClip } from '/src/clips/navFunctions';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
+import { isOnActionsPage } from '/src/dashboard/navFunctions';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';

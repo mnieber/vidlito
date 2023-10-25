@@ -1,6 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { withContextProps } from 'react-props-from-context';
-import { navToActions, navToPlaylistActions } from '/src/actions/navFunctions';
+import {
+  navToActions,
+  navToPlaylistActions,
+} from '/src/dashboard/navFunctions';
 import { ToolButton } from '/src/frames/components/ToolButton';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { cn } from '/src/utils/classnames';

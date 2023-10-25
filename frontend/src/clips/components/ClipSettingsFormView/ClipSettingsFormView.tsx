@@ -71,7 +71,7 @@ export const ClipSettingsFormView = observer(
             // 🔳 IsPublicField 🔳
           }
           <Field
-            fieldName="playlistSettingsForm.isPublic"
+            fieldName="clipSettingsForm.isPublic"
             className={MainFormS.Field()}
           >
             <FormFieldLabel label="SETTINGS" />
