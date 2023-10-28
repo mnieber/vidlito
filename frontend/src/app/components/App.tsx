@@ -1,4 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query';
+import * as R from 'ramda';
 import { Router } from 'react-router-dom';
 import { ActionsStateProvider } from '/src/actions/components';
 import { queryClient } from '/src/api/queryClient';
@@ -6,7 +7,7 @@ import { AuthStateProvider } from '/src/auth/components/AuthStateProvider';
 import { ClipsStateProvider } from '/src/clips/components';
 import { ClipVideoKeyHandler } from '/src/clips/components/ClipVideoKeyHandler';
 import { DashboardStateProvider } from '/src/dashboard/components';
-import { L, breakpoints } from '/src/frames/layout';
+import { L } from '/src/frames/layout';
 import { PlaylistsStateProvider } from '/src/playlists/components/PlaylistsStateProvider';
 import { RootSwitch } from '/src/routes/components';
 import { history } from '/src/routes/history';
@@ -26,9 +27,9 @@ export const App = () => {
                   <ActionsStateProvider>
                     <VideoPlayerStateProvider>
                       <ClipVideoKeyHandler>
-                        <AppFrame>
+                        <AppBody>
                           <RootSwitch />
-                        </AppFrame>
+                        </AppBody>
                       </ClipVideoKeyHandler>
                     </VideoPlayerStateProvider>
                   </ActionsStateProvider>
@@ -42,16 +43,20 @@ export const App = () => {
   );
 };
 
-export const AppFrame = (props: React.PropsWithChildren<{}>) => {
+const AppBody = (props: React.PropsWithChildren<{}>) => {
   return (
     <div
       id="App"
       className={cn('App', [
-        L.col.banner(),
-        `min-width-[${breakpoints.xs}] h-screen overflow-x-hidden`,
+        R.values({
+          root: L.col.banner(),
+          // 320px = breakpoints.xs
+          size: `min-width-[320px] h-screen`,
+          scroll: 'overflow-x-hidden',
+        }),
       ])}
       tabIndex={0}
-      ref={(x: any) => x.focus()}
+      ref={(x: any) => x?.focus()}
     >
       {props.children}
     </div>
