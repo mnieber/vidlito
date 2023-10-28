@@ -2,6 +2,7 @@
 import '/src/frames/styles/index.css';
 import '/src/frames/styles/index.scss';
 
+import setupLocatorUI from '@locator/runtime';
 import { toJS } from 'mobx';
 import { applyFormatters } from 'mobx-log';
 import { setOptions as setResourceStatesOptions } from 'mobx-resource-states';
@@ -16,6 +17,11 @@ const strict = false;
 
 if (import.meta.env.DEV) {
   applyFormatters();
+}
+
+if (import.meta.env.DEV) {
+  debugger;
+  setupLocatorUI();
 }
 
 setSkandhaOptions({
