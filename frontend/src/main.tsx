@@ -20,7 +20,6 @@ if (import.meta.env.DEV) {
 }
 
 if (import.meta.env.DEV) {
-  debugger;
   setupLocatorUI();
 }
 
