@@ -1,5 +1,6 @@
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
+import { inlineTrim } from '/src/utils/trim';
 
 // Import styles
 import './SwitchButton.scss';
@@ -22,13 +23,21 @@ export const SwitchButton = (props: PropsT) => {
       }
       <button
         className={cn(
-          'SwitchButton__LeftButton',
-          {
-            'text-xl': props.fontSize === 'big',
-            'SwitchButton__LeftButton--active': props.state === 'left',
-            'rounded-r-[32px] pr-7': !(props.hasRight ?? true),
-          },
-          [L.row.skewer(), 'pt-2.5 pb-3 pr-4 pl-7']
+          inlineTrim(true, {
+            componentName: 'SwitchButton__LeftButton',
+            root: L.row.skewer(),
+            padding: 'pt-2.5 pb-3 pr-4 pl-7',
+          }),
+          inlineTrim(props.state === 'left', {
+            root: 'SwitchButton__LeftButton--active',
+          }),
+          inlineTrim(props.fontSize === 'big', {
+            font: 'text-xl',
+          }),
+          inlineTrim(!(props.hasRight ?? true), {
+            border: 'rounded-r-[32px]',
+            padding: 'pr-7',
+          })
         )}
         onClick={() => {
           props.onToggle('left');
@@ -42,12 +51,18 @@ export const SwitchButton = (props: PropsT) => {
       {(props.hasRight ?? true) && (
         <button
           className={cn(
-            'SwitchButton__RightButton',
-            {
-              'text-xl': props.fontSize === 'big',
-              'SwitchButton__RightButton--active': props.state === 'right',
-            },
-            [L.row.skewer(), 'ml-[4px] pt-2.5 pb-3 pl-4 pr-7']
+            inlineTrim(true, {
+              componentName: 'SwitchButton__RightButton',
+              root: L.row.skewer(),
+              padding: 'pt-2.5 pb-3 pl-4 pr-7',
+              margin: 'ml-[4px]',
+            }),
+            inlineTrim(props.state === 'right', {
+              root: 'SwitchButton__RightButton--active',
+            }),
+            inlineTrim(props.fontSize === 'big', {
+              font: 'text-xl',
+            })
           )}
           onClick={() => {
             props.onToggle('right');

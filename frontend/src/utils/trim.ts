@@ -55,3 +55,7 @@ export function overlayMode<TrimT extends ObjT>(
   }
   return (overlay as any)[overlayResultSymbol];
 }
+
+export const inlineTrim = (condition: boolean | undefined, trim: ObjT) => {
+  return condition ? R.values(trim) : undefined;
+};
