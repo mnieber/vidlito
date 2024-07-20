@@ -58,7 +58,7 @@ export const Dashboard = observer(
                 'Dashboard__LeftSidebar--open':
                   props.dashboardState.panelState.isSidebarOpen,
               },
-              [L.col.banner(), 'w-[290px] min-w-[290px] mx-2 lg:mx-4']
+              [L.col.bar(), 'mx-2 w-[290px] min-w-[290px] lg:mx-4']
             )}
           >
             <Logo />
@@ -69,7 +69,7 @@ export const Dashboard = observer(
             {!playlistNotFound && (
               <>
                 <ClipListView
-                  className={cn('overflow-y-auto flex-grow', 'mt-4')}
+                  className={cn('flex-grow overflow-y-auto', 'mt-4')}
                 />
               </>
             )}

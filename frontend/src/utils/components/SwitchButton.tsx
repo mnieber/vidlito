@@ -17,7 +17,7 @@ export type PropsT = {
 
 export const SwitchButton = (props: PropsT) => {
   return (
-    <div className={cn('SwitchButton', [L.row.banner(), props.className])}>
+    <div className={cn('SwitchButton', [L.row.skewer(), props.className])}>
       {
         // 🔳 Left button 🔳
       }
@@ -26,7 +26,7 @@ export const SwitchButton = (props: PropsT) => {
           inlineTrim(true, {
             componentName: 'SwitchButton__LeftButton',
             root: L.row.skewer(),
-            padding: 'pt-2.5 pb-3 pr-4 pl-7',
+            padding: 'pb-3 pl-7 pr-4 pt-2.5',
           }),
           inlineTrim(props.state === 'left', {
             root: 'SwitchButton__LeftButton--active',
@@ -54,7 +54,7 @@ export const SwitchButton = (props: PropsT) => {
             inlineTrim(true, {
               componentName: 'SwitchButton__RightButton',
               root: L.row.skewer(),
-              padding: 'pt-2.5 pb-3 pl-4 pr-7',
+              padding: 'pb-3 pl-4 pr-7 pt-2.5',
               margin: 'ml-[4px]',
             }),
             inlineTrim(props.state === 'right', {

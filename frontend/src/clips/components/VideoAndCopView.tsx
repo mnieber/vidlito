@@ -34,16 +34,10 @@ export const VideoAndCopView = observer(
     const clipNotFound = isClipNotFound(props.clip);
 
     return (
-      <div
-        className={cn('VideoAndCopView', [
-          L.col.banner(),
-          'grow',
-          props.className,
-        ])}
-      >
+      <div className={cn('VideoAndCopView', [L.col.banner(), props.className])}>
         {clipNotFound && <ClipNotFound />}
         {!clipNotFound && <VideoPlayerPanel />}
-        <CopCard className={cn('max-w-[776px]', 'my-8 mx-2 lg:ml-6 lg:mr-2')} />
+        <CopCard className={cn('max-w-[776px]', 'mx-2 my-8 lg:ml-6 lg:mr-2')} />
       </div>
     );
   }, ContextProps)

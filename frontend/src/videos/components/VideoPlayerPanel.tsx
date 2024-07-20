@@ -27,9 +27,7 @@ export const VideoPlayerPanel = observer(
     if (R.isNil(width)) return null;
 
     return (
-      <div
-        className={cn('VideoPlayerPanel', [L.col.banner(), props.className])}
-      >
+      <div className={cn('VideoPlayerPanel', [L.col.bar(), props.className])}>
         <VideoPlayerPanelPlaceholder
           width={width}
           hidden={!isResizing && ready}

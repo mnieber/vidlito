@@ -38,7 +38,7 @@ export const CopCard = observer(
     const noClips = !props.clips.length && !isLoading(props.clips);
 
     return (
-      <div className={cn('CopCard', [L.col.banner(), 'grow', props.className])}>
+      <div className={cn('CopCard', [L.col.bar(), props.className])}>
         <ClipHeaderView className={cn('mb-8')} />
         <ClipSubHeaderView />
         <CopCardForms className="mt-8" />
@@ -57,8 +57,8 @@ export const CopCard = observer(
 export const CopCardLoader = observer((props: PropsT) => {
   return (
     <div className={cn('CopCardLoader', props.className)}>
-      <LoaderBar className={cn('h-12 mt-8 mb-10')} />
-      <LoaderBar className={cn('h-4 mb-10')} />
+      <LoaderBar className={cn('mb-10 mt-8 h-12')} />
+      <LoaderBar className={cn('mb-10 h-4')} />
       <LoaderBar className={cn('h-[170px]')} />
     </div>
   );

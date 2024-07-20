@@ -12,10 +12,10 @@ type PropsT = React.PropsWithChildren<{
 
 export const AuthCard = observer((props: PropsT) => {
   return (
-    <div className={cn('AuthCard', ['w-[396px] h-[332px]'])}>
+    <div className={cn('AuthCard', [L.box('h-[332px]', 'w-[396px]')])}>
       <div
         id={props.id}
-        className={cn('AuthCard__Inner', [L.col.banner(), 'px-8 py-6'])}
+        className={cn('AuthCard__Inner', [L.col.canvas(), 'px-8 py-6'])}
       >
         {props.children}
       </div>

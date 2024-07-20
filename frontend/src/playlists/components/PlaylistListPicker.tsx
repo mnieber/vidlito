@@ -56,9 +56,7 @@ export const PlaylistListPicker = observer(
     }
 
     return (
-      <div
-        className={cn('PlaylistListPicker', [L.col.banner(), props.className])}
-      >
+      <div className={cn('PlaylistListPicker', [L.col.bar(), props.className])}>
         <PlaylistListHeader />
         <PlaylistListView
           className={cn('overflow-y-auto')}
@@ -74,7 +72,7 @@ export const PlaylistListPickerLoader = observer(
     return (
       <LoaderBar
         className={cn('PlaylistListPickerLoader', [
-          'h-3 my-4',
+          'my-4 h-3',
           props.className,
         ])}
       />

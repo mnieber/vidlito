@@ -14,7 +14,7 @@ export const SignInLogo = (props: PropsT) => {
     // 🔳🔳 SignInLogo__SubTitle
     //
     <div className={cn('SignInLogo', L.col.skewer())}>
-      <div className={cn('SignInLogo__Title', [L.row.banner()])}>
+      <div className={cn('SignInLogo__Title', [L.row.bar()])}>
         <div className={cn('SignInLogo__TitlePrefix')}>vid</div>
         <div className={cn('SignInLogo__TitleSuffix')}>lito</div>
       </div>

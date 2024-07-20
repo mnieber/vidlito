@@ -48,7 +48,6 @@ export const PlaylistFollowCard = observer(
     return (
       <div
         className={cn('PlaylistFollowCard', [
-          'grow',
           L.col.flagPoleRev(),
           props.className,
         ])}

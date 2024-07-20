@@ -24,9 +24,7 @@ const ContextProps = {
 export const SearchView = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
     return (
-      <div
-        className={cn('SearchView', [L.col.banner(), 'grow', props.className])}
-      >
+      <div className={cn('SearchView', [L.col.banner(), props.className])}>
         <div
           className={cn('SearchView__TopRow', [L.row.revFlagPole(), 'mb-4'])}
         >
