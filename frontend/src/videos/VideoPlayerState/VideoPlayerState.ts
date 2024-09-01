@@ -7,9 +7,9 @@ import { VideoController } from '/src/videos/VideoController';
 export type PropsT = {};
 
 export class VideoPlayerState {
-  @observable url: string = '';
-  @observable startTimeMs: number = 0;
-  @observable videoController = new VideoController();
+  @observable accessor url: string = '';
+  @observable accessor startTimeMs: number = 0;
+  @observable accessor videoController = new VideoController();
 
   @action setUrl(url: string, startTimeMs: number) {
     if (this.url && this.url !== url) {

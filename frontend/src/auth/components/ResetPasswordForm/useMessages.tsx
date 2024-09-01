@@ -1,14 +1,11 @@
-import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
+import { authRoutes } from '/src/auth/routes';
 import { RouterLink } from '/src/routes/components';
-import { getRouteFns } from '/src/routes/routeTable';
 
 export const useMessages = () => {
-  const routes = getRouteFns<AuthRoutesT>();
-
   const divSorryWeCouldNotResetThePassword = (
     <div>
       Sorry, we could not reset the password. You may try to{' '}
-      <RouterLink key="_tryAgain" to={routes.requestPasswordReset()}>
+      <RouterLink key="_tryAgain" to={authRoutes.requestPasswordReset}>
         reset your password
       </RouterLink>{' '}
       again.

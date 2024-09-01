@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'wouter';
 import { useMessages } from './useMessages';
 import { ActivateAccountForm } from '/src/auth/components/ActivateAccountForm';
 import { AuthCard, AuthCardS } from '/src/auth/components/AuthCard';

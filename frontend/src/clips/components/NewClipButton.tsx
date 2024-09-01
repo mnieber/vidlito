@@ -1,16 +1,16 @@
 import { observer } from 'mobx-react-lite';
-import { useNavContext, type NavContext } from 'react-nav-handler';
 import { withContextProps } from 'react-props-from-context';
 import { Addition } from 'skandha-facets';
 import { ClipT, createClip } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { clipsCtx } from '/src/clips/hooks/useClipsContext';
-import { toClip } from '/src/clips/navFunctions';
 import { DashboardState } from '/src/dashboard/DashboardState/DashboardState';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
+import { dashboardNav } from '/src/dashboard/routes';
 import { ToolButton } from '/src/frames/components/ToolButton';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 import { VideoController } from '/src/videos/VideoController';
 import { videoPlayerCtx } from '/src/videos/hooks/useVideoPlayerContext';
@@ -34,8 +34,6 @@ const ContextProps = {
 
 export const NewClipButton = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    const navContext = useNavContext('NewClipButton');
-
     const enabled =
       props.isOwner(props.playlist) && props.playlist?.slug !== 'new-playlist';
 
@@ -46,24 +44,21 @@ export const NewClipButton = observer(
         iconName="plus"
         label="Clip"
         onClick={() => {
-          return onClickNewClipButton(navContext, props);
+          return onClickNewClipButton(props);
         }}
       />
     );
   }, ContextProps)
 );
 
-export function onClickNewClipButton(
-  navContext: NavContext,
-  props: {
-    clip?: ClipT;
-    clipsAddition: Addition;
-    dashboardState: DashboardState;
-    playlist: PlaylistT;
-    userProfile: UserProfileT;
-    videoController?: VideoController;
-  }
-) {
+export function onClickNewClipButton(props: {
+  clip?: ClipT;
+  clipsAddition: Addition;
+  dashboardState: DashboardState;
+  playlist: PlaylistT;
+  userProfile: UserProfileT;
+  videoController?: VideoController;
+}) {
   props.dashboardState.navigationState.storeNavigationPoint();
   props.dashboardState.panelState.toggleShowPlaylistView(false);
   const videoTimeInS =
@@ -74,9 +69,11 @@ export function onClickNewClipButton(
       startTimeMs: videoTimeInS * 1000,
     }),
   });
-  navContext.nav(toClip)(
-    props.playlist.ownerUsername,
-    props.playlist.slug,
-    'new-clip'
+  navTo(
+    dashboardNav.clip({
+      ownerUsername: props.playlist.ownerUsername,
+      playlistSlug: props.playlist.slug,
+      clipSlug: 'new-clip',
+    })
   );
 }

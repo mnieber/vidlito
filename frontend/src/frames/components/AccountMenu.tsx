@@ -3,12 +3,13 @@ import { observer } from 'mobx-react-lite';
 import { withContextProps } from 'react-props-from-context';
 import { useSignOut } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
+import { authNav } from '/src/auth/routes';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { Icon } from '/src/frames/components';
 import { DialogButtonS } from '/src/frames/components/DialogButton';
 import { MenuItemS } from '/src/frames/components/MenuItem';
 import { L } from '/src/frames/layout';
-import { navToHelp, navToSignIn } from '/src/frames/navFunctions';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -59,12 +60,12 @@ export const AccountMenu = observer(
               Account
             </MenuButton>
           }
-          className="mt-4 font-bold bg-white"
+          className="mt-4 bg-white font-bold"
           offsetY={10}
           transition
         >
           {!props.isAuthenticated && (
-            <StyledMenuItem onClick={() => navToSignIn()}>
+            <StyledMenuItem onClick={() => navTo(authNav.signIn({}))}>
               <Icon className={cn(MenuItemS.Icon())} name="signIn" />
               Sign In
             </StyledMenuItem>
@@ -73,7 +74,7 @@ export const AccountMenu = observer(
             <StyledMenuItem
               onClick={() => {
                 signOut({}).then(() => {
-                  navToSignIn();
+                  navTo(authNav.signIn({}));
                 });
               }}
             >
@@ -82,7 +83,7 @@ export const AccountMenu = observer(
             </StyledMenuItem>
           )}
           <MenuDivider />
-          <StyledMenuItem onClick={() => navToHelp()}>
+          <StyledMenuItem onClick={() => navTo(authNav.help({}))}>
             <Icon className={cn(MenuItemS.Icon())} name="help" />
             Help
           </StyledMenuItem>

@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
-import { useNavContext } from 'react-nav-handler';
 import { withContextProps } from 'react-props-from-context';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'wouter';
 import { ClipT } from '/src/api/types/ClipT';
 import { clipsCtx } from '/src/clips/hooks/useClipsContext';
-import { toClip } from '/src/clips/navFunctions';
+import { dashboardNav } from '/src/dashboard/routes';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { useRefUrl } from '/src/routes/hooks/useRefUrl';
+import { navTo } from '/src/routes/navHandler';
 import { UrlEffectView } from '/src/utils/components/UrlEffectView';
 import { ObjT } from '/src/utils/types';
 
@@ -25,7 +25,6 @@ export const SelectClipEffect = observer(
   withContextProps(
     (props: PropsT & typeof ContextProps & typeof ContextProps) => {
       const params = useParams() as ObjT;
-      const navContext = useNavContext('SelectClipEffect');
       const { updateRefUrl, hasUrlChanged } = useRefUrl();
 
       // Define local variables
@@ -39,10 +38,12 @@ export const SelectClipEffect = observer(
       // Define local functions
       const navToFirstClip = () => {
         if (!R.isNil(firstClip)) {
-          navContext.nav(toClip)(
-            playlist.ownerUsername,
-            playlist.slug,
-            firstClip.slug
+          navTo(
+            dashboardNav.clip({
+              ownerUsername: playlist.ownerUsername,
+              playlistSlug: playlist.slug,
+              clipSlug: firstClip.slug,
+            })
           );
         }
       };

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { withContextProps } from 'react-props-from-context';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'wouter';
 import { createPlaylist } from '/src/api/types/PlaylistT';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';

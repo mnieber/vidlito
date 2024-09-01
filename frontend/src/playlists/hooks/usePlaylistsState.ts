@@ -1,6 +1,7 @@
 import { trackPromise } from 'mobx-resource-states';
 import React from 'react';
 import { Highlight } from 'skandha-facets';
+import { useParams } from 'wouter';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import {
   useDeletePlaylists,
@@ -25,7 +26,6 @@ import { PlaylistT } from '/src/api/types/PlaylistT';
 import { UserProfileT } from '/src/api/types/UserProfileT';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { useSmartUpdatePlaylists } from '/src/playlists/hooks/useSmartUpdatePlaylists';
-import { getRouteParams } from '/src/routes/utils/getRouteParams';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
 import { getIds, lookUp } from '/src/utils/ids';
@@ -38,12 +38,13 @@ export type PropsT = {
 export const usePlaylistsState = (props: PropsT) => {
   const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
   const smartUpdatePlaylists = useSmartUpdatePlaylists();
+  const params = useParams();
 
   // The value of playlistSlugRef is based on the current url, but we use
   // playlistsState.playlistsCtr.highlight.item?.slug as a fallback.
   const playlistHighlightRef = React.useRef<Highlight | undefined>();
   const getPlaylistSlug = () =>
-    getRouteParams().playlistSlug ?? playlistHighlightRef.current?.item?.slug;
+    params.playlistSlug ?? playlistHighlightRef.current?.item?.slug;
 
   // Mutations
   const deletePlaylists = useDeletePlaylists();

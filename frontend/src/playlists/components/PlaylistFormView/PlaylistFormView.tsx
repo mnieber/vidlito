@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import { FormStateProvider } from 'react-form-state-context';
-import { useNavContext } from 'react-nav-handler';
 import { withContextProps } from 'react-props-from-context';
 import { form } from './form';
 import { usePreviewButton } from '/src/clips/hooks/usePreviewButton';
@@ -39,8 +38,6 @@ export const ContextProps = {
 
 export const PlaylistFormView = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    const navContext = useNavContext('PlaylistFormView');
-
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 4,
       className: 'font-normal',
@@ -73,7 +70,6 @@ export const PlaylistFormView = observer(
           initialErrors={initialErrors}
           handleValidate={form.getHandleValidate(props)}
           handleSubmit={form.getHandleSubmit(
-            navContext,
             props,
             initialValues,
             initialErrors

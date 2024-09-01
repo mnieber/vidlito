@@ -22,8 +22,8 @@ export const UpdateSlugButton = (props: PropsT) => {
         const newSlug = slugify(formState.values[props.relatedFieldName]);
         if (newSlug) {
           const oldSlug = formState.getValue(fieldContext.fieldName);
-          if (oldSlug !== newSlug + getSeqNrPostfix(oldSlug)) {
-            formState.setValue(fieldContext.fieldName, newSlug + '-');
+          if (oldSlug !== newSlug) {
+            formState.setValue(fieldContext.fieldName, newSlug);
           }
         }
       }}
@@ -32,8 +32,3 @@ export const UpdateSlugButton = (props: PropsT) => {
     </button>
   );
 };
-
-function getSeqNrPostfix(slug: string): string | null {
-  const match = slug.match(/-\d*$/);
-  return match ? match[0] : '';
-}

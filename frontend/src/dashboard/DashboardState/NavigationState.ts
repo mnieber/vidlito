@@ -7,10 +7,12 @@ import { pathname } from '/src/utils/urls';
 export class NavigationState {
   panelState: PanelState;
 
-  @observable navigationPoint?: {
-    url: string;
-    isPlaylistExpanded: boolean;
-  };
+  @observable accessor navigationPoint:
+    | {
+        url: string;
+        isPlaylistExpanded: boolean;
+      }
+    | undefined;
 
   @action storeNavigationPoint() {
     this.navigationPoint = {

@@ -1,37 +1,34 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'wouter';
 import { ActivateAccountPage } from '/src/auth/components/ActivateAccountPage';
 import { RequestMagicLinkPage } from '/src/auth/components/RequestMagicLinkPage';
 import { RequestPasswordResetPage } from '/src/auth/components/RequestPasswordResetPage';
 import { ResetPasswordPage } from '/src/auth/components/ResetPasswordPage';
 import { SignInPage } from '/src/auth/components/SignInPage';
 import { SignUpPage } from '/src/auth/components/SignUpPage';
-import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
-import { getRouteFns } from '/src/routes/routeTable';
+import { authRoutes } from '/src/auth/routes';
 
 export const AuthSwitch = () => {
-  const routes = getRouteFns<AuthRoutesT>();
-
   return (
     <Switch>
-      <Route exact path={routes.signIn()}>
+      <Route path={authRoutes.signIn}>
         <SignInPage />
       </Route>
-      <Route exact path={routes.signInByMagicLink()}>
+      <Route path={authRoutes.signInByMagicLink}>
         <SignInPage />
       </Route>
-      <Route exact path={routes.signUp()}>
+      <Route path={authRoutes.signUp}>
         <SignUpPage />
       </Route>
-      <Route exact path={routes.activateAccount()}>
+      <Route path={authRoutes.activateAccount}>
         <ActivateAccountPage />
       </Route>
-      <Route exact path={routes.requestPasswordReset()}>
+      <Route path={authRoutes.requestPasswordReset}>
         <RequestPasswordResetPage />
       </Route>
-      <Route exact path={routes.requestMagicLink()}>
+      <Route path={authRoutes.requestMagicLink}>
         <RequestMagicLinkPage />
       </Route>
-      <Route exact path={routes.resetPassword()}>
+      <Route path={authRoutes.resetPassword}>
         <ResetPasswordPage />
       </Route>
     </Switch>

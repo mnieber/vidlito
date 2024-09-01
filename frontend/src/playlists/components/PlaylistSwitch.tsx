@@ -1,10 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
-import { Route } from 'react-router-dom';
-import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
+import { Route } from 'wouter';
 import { AddNewClipEffect, SelectClipEffect } from '/src/clips/components';
 import { VideoAndCopView } from '/src/clips/components/VideoAndCopView';
-import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
+import { dashboardNav, dashboardRoutes } from '/src/dashboard/routes';
 import { CardS } from '/src/frames/components/Card';
 import {
   AddNewPlaylistEffect,
@@ -13,31 +12,31 @@ import {
   SelectPlaylistEffect,
 } from '/src/playlists/components';
 import { PlaylistNotFound } from '/src/playlists/components/PlaylistNotFound';
-import { getRouteFns } from '/src/routes/routeTable';
+import { ext } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 
 export type PropsT = {};
 
 export const PlaylistSwitch = observer(
   R.identity((props: PropsT) => {
-    const routeFns = getRouteFns<AuthRoutesT & DashboardRoutesT>();
     return (
       <>
-        <Route exact={false} path={routeFns.playlist()}>
+        <Route path={ext(dashboardRoutes.playlist)}>
           <SelectPlaylistEffect />
           <AddNewPlaylistEffect />
-          <Route path={routeFns.playlist()}>
+          <Route path={dashboardRoutes.playlist}>
             <PlaylistNotFound />
           </Route>
-          <Route exact={true} path={routeFns.playlist()}>
+          <Route path={dashboardRoutes.playlist}>
             <ForwardToClipEffect />
           </Route>
           <Route
-            exact={true}
-            path={routeFns.playlist({
-              ownerUsername: ':ownerUsername',
-              playlistSlug: 'new-playlist',
-            })}
+            path={
+              dashboardNav.playlist({
+                ownerUsername: ':ownerUsername',
+                playlistSlug: 'new-playlist',
+              }).url
+            }
           >
             {
               // 🔳 PlaylistFormView 🔳
@@ -46,7 +45,7 @@ export const PlaylistSwitch = observer(
               className={cn(CardS.size.medium(), 'mx-4 mt-4')}
             />
           </Route>
-          <Route exact={true} path={routeFns.clip()}>
+          <Route path={dashboardRoutes.clip}>
             <SelectClipEffect />
             <AddNewClipEffect />
             {

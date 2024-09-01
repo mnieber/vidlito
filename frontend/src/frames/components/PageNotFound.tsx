@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { withContextProps } from 'react-props-from-context';
 import { MessageCard, MessageCardS } from '/src/frames/components/MessageCard';
-import { getRouteMatch } from '/src/routes/utils/getRouteMatch';
+import { useHasRouteMatch } from '/src/routes/hooks';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -15,7 +15,8 @@ const ContextProps = {};
 
 export const PageNotFound = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    if (!!getRouteMatch()) {
+    const hasRouteMatch = useHasRouteMatch();
+    if (hasRouteMatch) {
       return null;
     }
 

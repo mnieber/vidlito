@@ -1,4 +1,8 @@
-import { doQuery, getRefreshToken, setToken } from '/src/api/graphqlClient';
+import {
+  doQuery,
+  getRefreshToken,
+  setAuthTokens,
+} from '/src/api/graphqlClient';
 import { ObjT } from '/src/utils/types';
 
 export function refreshToken() {
@@ -17,7 +21,7 @@ export function refreshToken() {
   ).then((response: ObjT) => {
     const token = response.refreshToken.token;
     const refreshToken = response.refreshToken.refreshToken;
-    setToken(token, refreshToken);
+    setAuthTokens(token, refreshToken);
 
     return {
       success: true,

@@ -1,5 +1,5 @@
 import { fromPairs } from 'ramda';
-import { useHistory } from 'react-router-dom';
+import { history } from '/src/routes/history';
 import { pathname } from '/src/utils/urls';
 
 export interface SearchParamsT {
@@ -9,7 +9,6 @@ export interface SearchParamsT {
 }
 
 export const useSearchParams = (location: any): SearchParamsT => {
-  const history = useHistory();
   const search_params = new URLSearchParams(location.search);
 
   return {

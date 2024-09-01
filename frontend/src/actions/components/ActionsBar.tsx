@@ -1,9 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { useNavContext } from 'react-nav-handler';
 import { withContextProps } from 'react-props-from-context';
 import { actionsCtx } from '/src/actions/hooks/useActionsContext';
 import { clipsCtx } from '/src/clips/hooks/useClipsContext';
-import { toClip } from '/src/clips/navFunctions';
+import { dashboardNav } from '/src/dashboard/routes';
 import { CloseButton } from '/src/frames/components/CloseButton';
 import {
   BlueDialogButtonTrim,
@@ -11,7 +10,7 @@ import {
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
-import { toPlaylist } from '/src/playlists/navFunctions';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 import { SwitchButton } from '/src/utils/components/SwitchButton';
 
@@ -32,8 +31,6 @@ const ContextProps = {
 
 export const ActionsBar = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    const navContext = useNavContext('ActionsBar');
-
     return (
       /*
       🔳 ActionsBar 🔳
@@ -77,15 +74,19 @@ export const ActionsBar = observer(
         <CloseButton
           onClick={() => {
             if (props.clip) {
-              navContext.nav(toClip)(
-                props.playlist.ownerUsername,
-                props.playlist.slug,
-                props.clip.slug
+              navTo(
+                dashboardNav.clip({
+                  ownerUsername: props.playlist.ownerUsername,
+                  playlistSlug: props.playlist.slug,
+                  clipSlug: props.clip.slug,
+                })
               );
             } else {
-              navContext.nav(toPlaylist)(
-                props.playlist.ownerUsername,
-                props.playlist.slug
+              navTo(
+                dashboardNav.playlist({
+                  ownerUsername: props.playlist.ownerUsername,
+                  playlistSlug: props.playlist.slug,
+                })
               );
             }
           }}

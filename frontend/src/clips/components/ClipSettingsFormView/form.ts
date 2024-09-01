@@ -4,9 +4,9 @@ import {
   HandleSubmitArgsT,
   HandleValidateArgsT,
 } from 'react-form-state-context';
-import { type NavContext } from 'react-nav-handler';
 import { ContextProps, PropsT } from './index';
-import { toClip } from '/src/clips/navFunctions';
+import { dashboardNav } from '/src/dashboard/routes';
+import { navTo } from '/src/routes/navHandler';
 
 const getInitialValues = (props: PropsT & typeof ContextProps) => {
   return {
@@ -25,7 +25,6 @@ const getHandleValidate =
 
 const getHandleSubmit =
   (
-    navContext: NavContext,
     props: PropsT & typeof ContextProps,
     initialValues: FormState['values'],
     initialErrors: FormState['errors']
@@ -42,10 +41,12 @@ const getHandleSubmit =
           props.clipSettingsEdit.cancel();
         })
         .then(() => {
-          navContext.nav(toClip)(
-            props.playlist.ownerUsername,
-            props.playlist.slug,
-            props.clipsHighlight.item?.slug ?? '-'
+          navTo(
+            dashboardNav.clip({
+              ownerUsername: props.playlist.ownerUsername,
+              playlistSlug: props.playlist.slug,
+              clipSlug: props.clipsHighlight.item?.slug ?? '-',
+            })
           );
         });
     }

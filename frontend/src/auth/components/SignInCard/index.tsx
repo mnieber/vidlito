@@ -1,18 +1,19 @@
+//
 import { observer } from 'mobx-react-lite';
+import { useParams } from 'wouter';
 import { useMessages } from './useMessages';
 import { AuthCard, AuthCardS } from '/src/auth/components/AuthCard';
 import { SignInForm } from '/src/auth/components/SignInForm';
 import { useSignIn } from '/src/auth/endpoints';
 import { useAuthStateContext } from '/src/auth/hooks';
+import { authNav } from '/src/auth/routes';
 import {
   DialogButton,
   TealWithWhiteTextDialogButtonTrim,
 } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
-import {
-  navToNextPageAfterSignIn,
-  navToSignUp,
-} from '/src/frames/navFunctions';
+import { history } from '/src/routes/history';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 import { ObjT } from '/src/utils/types';
 
@@ -20,6 +21,7 @@ export const SignInCard = observer(() => {
   const { messages } = useMessages();
   const authState = useAuthStateContext(true);
   const signIn = useSignIn(authState).mutateAsync;
+  const params = useParams();
 
   return (
     //
@@ -34,7 +36,12 @@ export const SignInCard = observer(() => {
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
             if (response.success) {
-              navToNextPageAfterSignIn('/');
+              const nextUrl = params.nextUrl;
+              if (nextUrl) {
+                history.push(nextUrl);
+              } else {
+                navTo(authNav.home({}));
+              }
             }
           });
         }}
@@ -58,7 +65,7 @@ export const SignInCard = observer(() => {
       <DialogButton
         trim={TealWithWhiteTextDialogButtonTrim}
         className={cn(AuthCardS.CardFooter())}
-        onClick={() => navToSignUp()}
+        onClick={() => navTo(authNav.signUp({}))}
         label={messages.createAccount}
       />
     </AuthCard>

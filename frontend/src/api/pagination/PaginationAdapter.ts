@@ -7,9 +7,9 @@ import { IPagination } from '/src/api/pagination/types';
 // The startIdx of the new pagination is relative to the startIdx of the old
 // pagination.
 export class PaginationAdapter implements IPagination {
-  @observable pagination: IPagination;
-  @observable pageSize: number;
-  @observable requestedPage: number;
+  @observable accessor pagination: IPagination;
+  @observable accessor pageSize: number;
+  @observable accessor requestedPage: number;
 
   @computed get page() {
     return Math.floor(this.pagination.startIdx / this.pageSize + 1);

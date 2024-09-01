@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'wouter';
 import { AuthSwitch } from '/src/auth/components';
 import { DashboardSwitch } from '/src/dashboard/components';
 import { AppFrame } from '/src/frames/components';

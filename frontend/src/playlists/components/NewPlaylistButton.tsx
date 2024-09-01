@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react-lite';
-import { useNavContext, type NavContext } from 'react-nav-handler';
 import { withContextProps } from 'react-props-from-context';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
+import { dashboardNav } from '/src/dashboard/routes';
 import { ToolButton } from '/src/frames/components/ToolButton';
-import { toPlaylist } from '/src/playlists/navFunctions';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -21,27 +21,28 @@ const ContextProps = {
 
 export const NewPlaylistButton = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    const navContext = useNavContext('NewPlaylistButton');
     return (
       <ToolButton
         className={cn('NewPlaylistButton', props.className)}
         iconName="plus"
         label="Playlist"
-        onClick={() => onClickNewPlaylistButton(navContext, props)}
+        onClick={() => onClickNewPlaylistButton(props)}
       />
     );
   }, ContextProps)
 );
 
-export function onClickNewPlaylistButton(
-  navContext: NavContext,
-  props: {
-    dashboardState: any;
-    username: string;
-    userProfile: any;
-  }
-) {
+export function onClickNewPlaylistButton(props: {
+  dashboardState: any;
+  username: string;
+  userProfile: any;
+}) {
   props.dashboardState.navigationState.storeNavigationPoint();
   props.dashboardState.panelState.toggleIsPlaylistListExpanded(true);
-  navContext.nav(toPlaylist)(props.userProfile.username, 'new-playlist');
+  navTo(
+    dashboardNav.playlist({
+      ownerUsername: props.userProfile.username,
+      playlistSlug: 'new-playlist',
+    })
+  );
 }

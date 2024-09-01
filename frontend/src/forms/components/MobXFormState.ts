@@ -2,7 +2,7 @@ import { action, makeObservable, observable } from 'mobx';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 
 export class MobXFormState {
-  @observable values: any[];
+  @observable accessor values: any[];
 
   constructor(values: any[]) {
     makeObservable(this);

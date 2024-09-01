@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
-import { useNavContext } from 'react-nav-handler';
 import { withContextProps } from 'react-props-from-context';
 import {
   DragAndDropUIConnector,
@@ -15,11 +14,11 @@ import {
   clipsCtx,
   useClipsContext,
 } from '/src/clips/hooks/useClipsContext';
-import { toClip } from '/src/clips/navFunctions';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
-import { isOnActionsPage } from '/src/dashboard/navFunctions';
+import { dashboardNav } from '/src/dashboard/routes';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 import { cloneAndExtendContext } from '/src/utils/cloneAndExtendContext';
 
@@ -45,7 +44,6 @@ export const ClipListView = observer(
     //
     // 🔳  Handle loading state 🔳
     //
-    const navContext = useNavContext('ClipListView');
     const clipsContext = useClipsContext();
 
     if (isLoading(props.clips)) {
@@ -72,11 +70,13 @@ export const ClipListView = observer(
           if (clip) {
             // If the user did not use the right mouse button while
             // on the actions page...
-            if (!(isOnActionsPage() && mouseEvent.button === 2)) {
-              navContext.nav(toClip)(
-                props.playlist.ownerUsername,
-                props.playlist.slug,
-                clip.slug
+            if (mouseEvent.button === 2) {
+              navTo(
+                dashboardNav.clip({
+                  ownerUsername: props.playlist.ownerUsername,
+                  playlistSlug: props.playlist.slug,
+                  clipSlug: clip.slug,
+                })
               );
             }
           }
@@ -130,7 +130,7 @@ export const ClipListView = observer(
 
 export const ClipListViewLoader = (props: { className?: any }) => {
   const loaderBars = [1, 2, 3, 4, 5].map((id) => {
-    return <LoaderBar key={`item-${id}`} className={cn('py-1 h-2 my-4')} />;
+    return <LoaderBar key={`item-${id}`} className={cn('my-4 h-2 py-1')} />;
   });
 
   return (

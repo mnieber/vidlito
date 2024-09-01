@@ -6,10 +6,10 @@ import {
   HandleValidateArgsT,
   unflatten,
 } from 'react-form-state-context';
-import { NavContext } from 'react-nav-handler';
 import { ContextProps, PropsT } from './index';
-import { toClip } from '/src/clips/navFunctions';
-import { navToHome } from '/src/frames/navFunctions';
+import { authNav } from '/src/auth/routes';
+import { dashboardNav } from '/src/dashboard/routes';
+import { navTo } from '/src/routes/navHandler';
 import { createUUID } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
 
@@ -40,7 +40,6 @@ const getHandleValidate =
 
 const getHandleSubmit =
   (
-    navContext: NavContext,
     props: PropsT & typeof ContextProps,
     initialValues: FormState['values'],
     initialErrors: FormState['errors']
@@ -65,10 +64,12 @@ const getHandleSubmit =
         return response;
       })
       .then((response: ObjT) => {
-        navContext.nav(toClip)(
-          props.playlist.ownerUsername,
-          props.playlist.slug,
-          response.slug
+        navTo(
+          dashboardNav.clip({
+            ownerUsername: props.playlist.ownerUsername,
+            playlistSlug: props.playlist.slug,
+            clipSlug: response.slug,
+          })
         );
       })
       .catch((error: any) => {
@@ -86,7 +87,7 @@ const getHandleCancel =
     props.clipsEdit.cancel();
     if (mustRestore) {
       if (!props.dashboardState.navigationState.restoreNavigationPoint()) {
-        navToHome();
+        navTo(authNav.home({}));
       }
     }
   };

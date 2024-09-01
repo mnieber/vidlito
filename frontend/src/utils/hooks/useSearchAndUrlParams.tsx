@@ -1,5 +1,5 @@
 import { mergeLeft } from 'ramda';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'wouter';
 import { useSearchParams } from '/src/utils/hooks/useSearchParams';
 import { ObjT } from '/src/utils/types';
 

@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { useNavContext } from 'react-nav-handler';
 import { withContextProps } from 'react-props-from-context';
-import { toClip } from '/src/clips/navFunctions';
+import { useParams } from 'wouter';
+import { dashboardNav } from '/src/dashboard/routes';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
-import { getRouteParams } from '/src/routes/utils/getRouteParams';
+import { navTo } from '/src/routes/navHandler';
 
 type PropsT = {};
 
@@ -14,8 +14,7 @@ const ContextProps = {
 
 export const ForwardToClipEffect = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    const navContext = useNavContext('ForwardToClipEffect');
-    const params = getRouteParams();
+    const params = useParams();
 
     React.useEffect(() => {
       if (
@@ -24,7 +23,13 @@ export const ForwardToClipEffect = observer(
         params.playlistSlug &&
         params.playlistSlug !== 'new-playlist'
       ) {
-        navContext.nav(toClip)(params.ownerUsername, params.playlistSlug, '-');
+        navTo(
+          dashboardNav.clip({
+            ownerUsername: params.ownerUsername,
+            playlistSlug: params.playlistSlug,
+            clipSlug: '-',
+          })
+        );
       }
     });
 

@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import { withContextProps } from 'react-props-from-context';
+import { useParams } from 'wouter';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { L } from '/src/frames/layout';
-import { getRouteParams } from '/src/routes/utils/getRouteParams';
 import { cn } from '/src/utils/classnames';
 import { log } from '/src/utils/logging';
+import { ObjT } from '/src/utils/types';
 import { widthToHeight } from '/src/videos/utils/aspectRatio';
 
 // Import styles
@@ -20,7 +21,8 @@ const ContextProps = {
 
 export const ClipNotFound = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    const clipSlug = getRouteParams().clipSlug;
+    const params = useParams() as ObjT;
+    const clipSlug = params.clipSlug;
     const width = (props.dashboardState.panelState.panelWidth ?? 100) - 1;
     const height = widthToHeight(width);
     const msg =

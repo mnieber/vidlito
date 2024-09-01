@@ -21,7 +21,7 @@ export class DashboardState {
   panelState = new PanelState();
   navigationState = new NavigationState(this.panelState);
 
-  @observable account: AccountT = {
+  @observable accessor account: AccountT = {
     userProfile: undefined,
     username: undefined,
     isAuthenticated: false,

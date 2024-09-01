@@ -7,24 +7,24 @@ export const graphqlHostUrl = window.location.host.startsWith('localhost')
 function _createClient() {
   if (!graphqlHostUrl) throw Error('No graphql endpoint was configured');
 
-  const authToken = getToken();
+  const accessToken = getAccessToken();
   return new GraphQLClient(graphqlHostUrl, {
-    headers: authToken
+    headers: accessToken
       ? {
-          Authorization: 'JWT ' + authToken,
+          Authorization: 'JWT ' + accessToken,
         }
       : {},
   });
 }
 
-export const setToken = (
-  authToken: string | undefined,
+export const setAuthTokens = (
+  accessToken: string | undefined,
   refreshToken?: string
 ) => {
-  if (authToken === undefined) {
-    localStorage.removeItem('authToken');
+  if (accessToken === undefined) {
+    localStorage.removeItem('accessToken');
   } else {
-    localStorage.setItem('authToken', authToken);
+    localStorage.setItem('accessToken', accessToken);
   }
   if (refreshToken === undefined) {
     localStorage.removeItem('refreshToken');
@@ -34,8 +34,8 @@ export const setToken = (
   _graphqlClient = _createClient();
 };
 
-export const getToken = () => {
-  return localStorage.getItem('authToken');
+export const getAccessToken = () => {
+  return localStorage.getItem('accessToken');
 };
 
 export const getRefreshToken = () => {

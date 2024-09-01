@@ -1,6 +1,7 @@
 import { trackPromise } from 'mobx-resource-states';
 import React from 'react';
 import { Highlight, topOfTheList } from 'skandha-facets';
+import { useParams } from 'wouter';
 import { isQueryLoading, isQueryUpdating } from '/src/api/ObservableQuery';
 import {
   MoveClipsToTrashArgsT,
@@ -24,7 +25,6 @@ import { createClipPd } from '/src/api/types/ClipPdT';
 import { ClipT } from '/src/api/types/ClipT';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { ClipsState } from '/src/clips/ClipsState';
-import { getRouteParams } from '/src/routes/utils/getRouteParams';
 import { useBuilder } from '/src/utils/hooks/useBuilder';
 import { useGraftResourceStatesFromMemo } from '/src/utils/hooks/useGraftResourceStatesFromMemo';
 import { getIds, lookUp } from '/src/utils/ids';
@@ -38,7 +38,7 @@ export type PropsT = {
 
 export const useClipsState = (props: PropsT) => {
   const graftResourceStatesFromMemo = useGraftResourceStatesFromMemo({});
-  const params = getRouteParams();
+  const params = useParams() as ObjT;
 
   const clipsHighlightRef = React.useRef<Highlight | undefined>();
   const getClipSlug = () =>
@@ -153,6 +153,7 @@ export const useClipsState = (props: PropsT) => {
       },
     });
   }) as ClipsState;
+
   clipsHighlightRef.current = clipsState.clipsCtr.highlight;
 
   React.useEffect(() => () => clipsState.destroy(), [clipsState]);

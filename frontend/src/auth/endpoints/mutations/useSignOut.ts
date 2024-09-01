@@ -1,5 +1,5 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
-import { setToken } from '/src/api/graphqlClient';
+import { setAuthTokens } from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
 import { AuthState } from '/src/auth/AuthState';
 import { ObjT } from '/src/utils/types';
@@ -8,7 +8,7 @@ export type ArgsT = {};
 
 export function signOut(args: ArgsT) {
   return Promise.resolve().then(() => {
-    setToken('', '');
+    setAuthTokens('', '');
     return {
       errors: [],
     };

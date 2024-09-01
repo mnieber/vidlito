@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from 'mobx';
 
 export class DelayedFlag {
-  @observable flag: boolean = false;
+  @observable accessor flag: boolean = false;
   timeout?: NodeJS.Timeout;
   delay: number = 1000;
 

@@ -14,14 +14,14 @@ export type PlayerT = {
 };
 
 export class VideoController {
-  @observable isPlaying: boolean = false;
-  @observable player?: PlayerT;
-  @observable ready: boolean = false;
+  @observable accessor isPlaying: boolean = false;
+  @observable accessor player: PlayerT | undefined;
+  @observable accessor ready: boolean = false;
 
   // The following properties control the loop feature
-  @observable isLoopEnabled: boolean = false;
-  @observable loopStart: number = 0;
-  @observable loopEnd: number = 0;
+  @observable accessor isLoopEnabled: boolean = false;
+  @observable accessor loopStart: number = 0;
+  @observable accessor loopEnd: number = 0;
   _loopCheckInterval: any = null;
 
   // We use _player to allow non-observer access to the player via getPlayer

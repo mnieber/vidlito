@@ -4,7 +4,7 @@ import { ClipPdT } from '/src/api/types/ClipPdT';
 export class ClipPdStore {
   static className = () => 'ClipPdStore';
 
-  @data clipPd?: ClipPdT;
+  @data clipPd: ClipPdT | undefined = {} as ClipPdT;
 
   @operation setClipPd(clipPd: ClipPdT) {
     this.clipPd = clipPd;

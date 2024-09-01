@@ -1,17 +1,14 @@
 import { withContextProps } from 'react-props-from-context';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'wouter';
 import { ActionsSwitch } from '/src/actions/components/ActionsSwitch';
-import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
+import { authRoutes } from '/src/auth/routes';
 import { Dashboard } from '/src/dashboard/components/Dashboard';
 import { MainView } from '/src/dashboard/components/MainView';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
-import type { RoutesT as DashboardRoutesT } from '/src/dashboard/routeTable';
 import { ForwardToLastUrlEffect } from '/src/frames/components/ForwardToLastUrlEffect';
 import { PageNotFound } from '/src/frames/components/PageNotFound';
 import { TermsAndConditionsPage } from '/src/frames/components/TermsAndConditionsPage';
-import { DashboardNavHandler } from '/src/frames/pages/DashboardNavHandler';
 import { PlaylistSwitch } from '/src/playlists/components/PlaylistSwitch';
-import { getRouteFns } from '/src/routes/routeTable';
 import { SearchSwitch } from '/src/search/components/SearchSwitch';
 
 export type PropsT = {};
@@ -22,29 +19,23 @@ const ContextProps = {
 
 export const DashboardSwitch = withContextProps(
   (props: PropsT & typeof ContextProps) => {
-    const routeFns = getRouteFns<AuthRoutesT & DashboardRoutesT>();
     return (
-      <DashboardNavHandler>
-        {
-          // 🔳 Dashboard 🔳
-        }
-        <Dashboard>
-          <Switch>
-            <MainView>
-              <Route exact path={routeFns.termsAndConditions()}>
-                <TermsAndConditionsPage />
-              </Route>
-              <PageNotFound />
-              <Route exact={true} path={routeFns.home()}>
-                <ForwardToLastUrlEffect />
-              </Route>
-              <SearchSwitch />
-              <ActionsSwitch />
-              <PlaylistSwitch />
-            </MainView>
-          </Switch>
-        </Dashboard>
-      </DashboardNavHandler>
+      <Dashboard>
+        <Switch>
+          <MainView>
+            <Route path={authRoutes.termsAndConditions}>
+              <TermsAndConditionsPage />
+            </Route>
+            <PageNotFound />
+            <Route path={authRoutes.home}>
+              <ForwardToLastUrlEffect />
+            </Route>
+            <SearchSwitch />
+            <ActionsSwitch />
+            <PlaylistSwitch />
+          </MainView>
+        </Switch>
+      </Dashboard>
     );
   },
   ContextProps

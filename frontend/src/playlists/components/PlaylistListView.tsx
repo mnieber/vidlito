@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
-import { useNavContext } from 'react-nav-handler';
 import { withContextProps } from 'react-props-from-context';
 import { DragAndDropUIConnector, SelectionUIConnector } from 'skandha-facets';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
+import { dashboardNav } from '/src/dashboard/routes';
 import { PlaylistListKeyHandler } from '/src/playlists/components/PlaylistListKeyHandler';
 import { PlaylistListViewItem } from '/src/playlists/components/PlaylistListViewItem';
 import {
@@ -13,7 +13,7 @@ import {
   playlistsCtx,
   usePlaylistsContext,
 } from '/src/playlists/hooks/usePlaylistsContext';
-import { toPlaylist } from '/src/playlists/navFunctions';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 import { cloneAndExtendContext } from '/src/utils/cloneAndExtendContext';
 
@@ -38,7 +38,6 @@ const ContextProps = {
 
 export const PlaylistListView = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    const navContext = useNavContext('PlaylistListView');
     const playlistsContext = usePlaylistsContext();
 
     const dragAndDropUIConnector = new DragAndDropUIConnector({
@@ -50,7 +49,12 @@ export const PlaylistListView = observer(
     });
     const goToPlaylist = (playlist: PlaylistT) => {
       props.dashboardState.panelState.toggleIsPlaylistListExpanded(false);
-      navContext.nav(toPlaylist)(playlist.ownerUsername, playlist.slug);
+      navTo(
+        dashboardNav.playlist({
+          ownerUsername: playlist.ownerUsername,
+          playlistSlug: playlist.slug,
+        })
+      );
     };
 
     if (isLoading(props.playlists)) {

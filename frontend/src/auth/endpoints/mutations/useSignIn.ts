@@ -1,5 +1,5 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
-import { doQuery, setToken } from '/src/api/graphqlClient';
+import { doQuery, setAuthTokens } from '/src/api/graphqlClient';
 import { AuthState } from '/src/auth/AuthState';
 import { invalidateLoadUserId } from '/src/auth/endpoints';
 import { States } from '/src/auth/endpoints/states';
@@ -48,7 +48,7 @@ export function signIn(args: ArgsT) {
 
     const token = response.signIn.token;
     const refreshToken = response.signIn.refreshToken;
-    setToken(token, refreshToken);
+    setAuthTokens(token, refreshToken);
 
     return {
       success: true,

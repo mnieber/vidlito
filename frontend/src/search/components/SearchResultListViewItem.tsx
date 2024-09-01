@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import { useNavContext } from 'react-nav-handler';
 import { SearchResultT } from '/src/api/types/SearchResultT';
-import { toClip } from '/src/clips/navFunctions';
-import { toPlaylist } from '/src/playlists/navFunctions';
+import { dashboardNav } from '/src/dashboard/routes';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -13,21 +12,24 @@ export type PropsT = {
 };
 
 export const SearchResultListViewItem = observer((props: PropsT) => {
-  const navContext = useNavContext('SearchResultListViewItem');
   return (
     <div
       className={cn('SearchResultListViewItem', 'group', 'contents')}
       onClick={() => {
         if (props.searchResult.clipSlug) {
-          navContext.nav(toClip)(
-            props.searchResult.ownerUsername,
-            props.searchResult.playlistSlug,
-            props.searchResult.clipSlug
+          navTo(
+            dashboardNav.clip({
+              ownerUsername: props.searchResult.ownerUsername,
+              playlistSlug: props.searchResult.playlistSlug,
+              clipSlug: props.searchResult.clipSlug,
+            })
           );
         } else {
-          navContext.nav(toPlaylist)(
-            props.searchResult.ownerUsername,
-            props.searchResult.playlistSlug
+          navTo(
+            dashboardNav.playlist({
+              ownerUsername: props.searchResult.ownerUsername,
+              playlistSlug: props.searchResult.playlistSlug,
+            })
           );
         }
       }}
@@ -43,9 +45,11 @@ export const SearchResultListViewItem = observer((props: PropsT) => {
         )}
         onClick={(e: any) => {
           e.stopPropagation();
-          navContext.nav(toPlaylist)(
-            props.searchResult.ownerUsername,
-            props.searchResult.playlistSlug
+          navTo(
+            dashboardNav.playlist({
+              ownerUsername: props.searchResult.ownerUsername,
+              playlistSlug: props.searchResult.playlistSlug,
+            })
           );
         }}
       >

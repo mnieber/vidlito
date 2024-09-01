@@ -1,14 +1,11 @@
-import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
+import { authRoutes } from '/src/auth/routes';
 import { RouterLink } from '/src/routes/components';
-import { getRouteFns } from '/src/routes/routeTable';
 
 export const useMessages = () => {
-  const routes = getRouteFns<AuthRoutesT>();
-
   const yourPasswordHasBeenChanged = (
     <div>
       Your password has been changed. You can now{' '}
-      <RouterLink dataCy={'linkToSignIn'} to={routes.signIn()}>
+      <RouterLink dataCy={'linkToSignIn'} to={authRoutes.signIn}>
         sign in
       </RouterLink>
       .

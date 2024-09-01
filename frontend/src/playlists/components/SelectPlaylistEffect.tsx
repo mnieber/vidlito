@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import * as R from 'ramda';
 import React from 'react';
 import { withContextProps } from 'react-props-from-context';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'wouter';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { useRefUrl } from '/src/routes/hooks/useRefUrl';

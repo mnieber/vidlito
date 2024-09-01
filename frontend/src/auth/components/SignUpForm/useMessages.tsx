@@ -1,14 +1,11 @@
-import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
+import { authRoutes } from '/src/auth/routes';
 import { RouterLink } from '/src/routes/components';
-import { getRouteFns } from '/src/routes/routeTable';
 
 export const useMessages = () => {
-  const routes = getRouteFns<AuthRoutesT>();
-
   const divIAgreeToTheTerms = (
     <label htmlFor={'acceptsTerms'}>
       I agree to the{' '}
-      <RouterLink key="termsAndConditions" to={routes.termsAndConditions()}>
+      <RouterLink key="termsAndConditions" to={authRoutes.termsAndConditions}>
         Terms and Conditions
       </RouterLink>
     </label>

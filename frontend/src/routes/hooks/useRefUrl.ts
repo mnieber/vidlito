@@ -1,12 +1,12 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'wouter';
 
 export const useRefUrl = () => {
-  const location = useLocation();
+  const [location] = useLocation();
   const refUrl = React.useRef<string>('');
-  const updateRefUrl = () => (refUrl.current = location.pathname);
+  const updateRefUrl = () => (refUrl.current = location);
   return {
-    hasUrlChanged: refUrl.current !== location.pathname,
+    hasUrlChanged: refUrl.current !== location,
     updateRefUrl,
   };
 };

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { isLoading } from 'mobx-resource-states';
 import { withContextProps } from 'react-props-from-context';
-import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
+import { authRoutes } from '/src/auth/routes';
 import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
 import { LoaderBar } from '/src/frames/components/LoaderBar';
@@ -12,7 +12,6 @@ import {
 } from '/src/playlists/components';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
 import { RouterLink } from '/src/routes/components';
-import { getRouteFns } from '/src/routes/routeTable';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -32,8 +31,6 @@ const ContextProps = {
 
 export const PlaylistListPicker = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    const routeFns = getRouteFns<AuthRoutesT>();
-
     if (isLoading(props.playlists) || isLoading(props.clips)) {
       return <PlaylistListPickerLoader {...props} />;
     }
@@ -45,7 +42,7 @@ export const PlaylistListPicker = observer(
           {!props.userProfile && (
             <>
               {' '}
-              <RouterLink to={routeFns.signUp()}>
+              <RouterLink to={authRoutes.signUp}>
                 Create an account
               </RouterLink>{' '}
               to add one.

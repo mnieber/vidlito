@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { withContextProps } from 'react-props-from-context';
+import { authNav } from '/src/auth/routes';
 import { L } from '/src/frames/layout';
-import { navToHome } from '/src/frames/navFunctions';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -19,11 +20,11 @@ export const Logo = observer(
       <div
         className={cn('Logo', [
           L.row.skewer(),
-          'mt-4 mb-6',
+          'mb-6 mt-4',
           'self-center',
           props.className,
         ])}
-        onClick={() => navToHome()}
+        onClick={() => navTo(authNav.home({}))}
       >
         <div className={cn('Logo__TitlePrefix')}>vid</div>
         <div className={cn('Logo__TitleSuffix')}>lito</div>

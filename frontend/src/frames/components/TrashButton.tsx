@@ -1,11 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { withContextProps } from 'react-props-from-context';
-import {
-  navToActions,
-  navToPlaylistActions,
-} from '/src/dashboard/navFunctions';
+import { dashboardNav } from '/src/dashboard/routes';
 import { ToolButton } from '/src/frames/components/ToolButton';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 
 export type PropsT = {
@@ -25,8 +23,12 @@ export const TrashButton = observer(
         label="Trash"
         onClick={() =>
           props.playlist
-            ? navToPlaylistActions(props.playlist.slug)
-            : navToActions()
+            ? navTo(
+                dashboardNav.playlistActions({
+                  playlistSlug: props.playlist.slug,
+                })
+              )
+            : navTo(dashboardNav.actions({}))
         }
       />
     );

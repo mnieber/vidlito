@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { FormState, FormStateProvider } from 'react-form-state-context';
-import { useNavContext } from 'react-nav-handler';
 import { withContextProps } from 'react-props-from-context';
 import { form } from './form';
 import { clipsCtx } from '/src/clips/hooks/useClipsContext';
@@ -47,8 +46,6 @@ export const ContextProps = {
 
 export const ClipFormView = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    const navContext = useNavContext('ClipFormView');
-
     const { showPreviewButton, descriptionPreview } = usePreviewButton({
       tabIndex: 9,
       className: 'font-normal',
@@ -81,7 +78,6 @@ export const ClipFormView = observer(
           initialErrors={initialErrors}
           handleValidate={form.getHandleValidate(props)}
           handleSubmit={form.getHandleSubmit(
-            navContext,
             props,
             initialValues,
             initialErrors

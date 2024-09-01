@@ -1,1 +1,1 @@
-export { RouteTable } from './RouteTable';
+export { generatePath } from './generatePath';

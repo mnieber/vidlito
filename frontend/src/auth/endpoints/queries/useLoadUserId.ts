@@ -1,5 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { doQuery, getRefreshToken, setToken } from '/src/api/graphqlClient';
+import {
+  doQuery,
+  getRefreshToken,
+  setAuthTokens,
+} from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
 import { refreshToken } from '/src/auth/endpoints/mutations/refreshToken';
 import { createQueryKey } from '/src/utils/createQueryKey';
@@ -67,7 +71,7 @@ export function loadUserId(args: ArgsT): Promise<any> {
       // If we get here, then there was an unresolvable problem with the auth tokens,
       // and we've already tried to refresh them. In that case, clear the tokens and
       // throw an error.
-      setToken(undefined, undefined);
+      setAuthTokens(undefined, undefined);
       throw new Error(message);
     })
     .catch(() => {

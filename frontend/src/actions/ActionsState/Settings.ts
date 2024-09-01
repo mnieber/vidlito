@@ -6,8 +6,8 @@ export type PropsT = {
 };
 
 export class Settings {
-  @observable showAllActions: boolean = false;
-  @observable actionsPagination: IPagination;
+  @observable accessor showAllActions = false;
+  @observable accessor actionsPagination: IPagination;
 
   @action setShowAllActions = (showAllActions: boolean) => {
     if (this.showAllActions != showAllActions) {

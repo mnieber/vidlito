@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { withContextProps } from 'react-props-from-context';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
+import { dashboardNav } from '/src/dashboard/routes';
 import { ToolButton } from '/src/frames/components/ToolButton';
-import { navToSearch } from '/src/search/navFunctions';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -25,7 +26,7 @@ export const SearchButton = observer(
         label="Search"
         onClick={() => {
           props.dashboardState.navigationState.storeNavigationPoint();
-          navToSearch();
+          navTo(dashboardNav.search({}));
         }}
       />
     );

@@ -28,10 +28,10 @@ const lutFailure = {
 };
 
 export class AuthState {
-  @observable errors: string[] = [];
-  @observable initialState: string;
-  @observable state: string;
-  @observable details: ObjT = {};
+  @observable accessor errors: string[] = [];
+  @observable accessor initialState: string;
+  @observable accessor state: string;
+  @observable accessor details: ObjT = {};
 
   constructor(initialState: string) {
     makeObservable(this);

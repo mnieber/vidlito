@@ -61,7 +61,7 @@ export const YoutubePlayer = observer((props: PropsT) => {
       // @ts-ignore
       opts={opts}
       onReady={_onReady}
-      onStateChange={(x) => videoController.setPlayerReady()}
+      onStateChange={() => videoController.setPlayerReady()}
       onPlay={_onPlay}
       onPause={_onPause}
     />

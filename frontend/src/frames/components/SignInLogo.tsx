@@ -1,6 +1,7 @@
+import { authNav } from '/src/auth/routes';
 import { DialogButtonS } from '/src/frames/components/DialogButton';
 import { L } from '/src/frames/layout';
-import { navToHome } from '/src/frames/navFunctions';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -36,7 +37,7 @@ export const SignInLogo = (props: PropsT) => {
           'SignInLogo__ExploreAsGuestButton',
           DialogButtonS.padding.medium()
         )}
-        onClick={() => navToHome()}
+        onClick={() => navTo(authNav.home({}))}
       >
         Explore as Guest
       </button>

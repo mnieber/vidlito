@@ -5,17 +5,16 @@ import {
   SubMenu,
 } from '@szhsin/react-menu';
 import { observer } from 'mobx-react-lite';
-import { useNavContext, type NavContext } from 'react-nav-handler';
 import { withContextProps } from 'react-props-from-context';
 import { Highlight } from 'skandha-facets';
 import { PlaylistT } from '/src/api/types/PlaylistT';
 import { clipsCtx } from '/src/clips/hooks/useClipsContext';
-import { toClip } from '/src/clips/navFunctions';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';
-import { isOnActionsPage } from '/src/dashboard/navFunctions';
+import { dashboardNav } from '/src/dashboard/routes';
 import { Icon } from '/src/frames/components';
 import { MenuItemS } from '/src/frames/components/MenuItem';
 import { playlistsCtx } from '/src/playlists/hooks/usePlaylistsContext';
+import { navTo } from '/src/routes/navHandler';
 import { cn } from '/src/utils/classnames';
 
 // Import styles
@@ -38,8 +37,6 @@ const ContextProps = {
 
 export const ClipMenu = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    const navContext = useNavContext('ClipMenu');
-
     if (!props.playlists || !props.playlist || !props.isOwner(props.playlist))
       return null;
 
@@ -65,7 +62,6 @@ export const ClipMenu = observer(
                   })
                   .then(
                     syncUrlWithHighlightedClip(
-                      navContext,
                       props.clipsHighlight,
                       props.playlist
                     )
@@ -91,7 +87,6 @@ export const ClipMenu = observer(
                   })
                   .then(
                     syncUrlWithHighlightedClip(
-                      navContext,
                       props.clipsHighlight,
                       props.playlist
                     )
@@ -120,11 +115,7 @@ export const ClipMenu = observer(
                 moveToTrash: true,
               })
               .then(
-                syncUrlWithHighlightedClip(
-                  navContext,
-                  props.clipsHighlight,
-                  props.playlist
-                )
+                syncUrlWithHighlightedClip(props.clipsHighlight, props.playlist)
               )
           }
         >
@@ -140,18 +131,18 @@ export const ClipMenu = observer(
 );
 
 const syncUrlWithHighlightedClip = (
-  navContext: NavContext,
   clipsHighlight: Highlight,
   playlist: PlaylistT
 ) => {
   return (response: any) => {
-    if (!isOnActionsPage()) {
-      navContext.nav(toClip)(
-        playlist.ownerUsername,
-        playlist.slug,
-        clipsHighlight.itemId === undefined ? '-' : clipsHighlight.item.slug
-      );
-      return response;
-    }
+    navTo(
+      dashboardNav.clip({
+        ownerUsername: playlist.ownerUsername,
+        playlistSlug: playlist.slug,
+        clipSlug:
+          clipsHighlight.itemId === undefined ? '-' : clipsHighlight.item.slug,
+      })
+    );
+    return response;
   };
 };

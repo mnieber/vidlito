@@ -10,18 +10,16 @@
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  src: url('../fonts/open-sans-font-family/static/OpenSans/OpenSans-Bold.ttf') format('truetype');
-}
-
-* {
-  font-family: Open Sans;
+  src: url('../fonts/open-sans-font-family/static/OpenSans/OpenSans-Bold.ttf')
+    format('truetype');
 }
 
 @font-face {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 700;
-  src: url('../fonts/inter-font-family/static/Inter-Bold.ttf') format('truetype');
+  src: url('../fonts/inter-font-family/static/Inter-Bold.ttf')
+    format('truetype');
 }
 
 * {

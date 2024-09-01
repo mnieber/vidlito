@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { withContextProps } from 'react-props-from-context';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'wouter';
 import { createClip } from '/src/api/types/ClipT';
 import { clipsCtx } from '/src/clips/hooks/useClipsContext';
 import { dashboardCtx } from '/src/dashboard/hooks/useDashboardContext';

@@ -1,15 +1,12 @@
-import type { RoutesT as AuthRoutesT } from '/src/auth/routeTable';
+import { authRoutes } from '/src/auth/routes';
 import { RouterLink } from '/src/routes/components';
-import { getRouteFns } from '/src/routes/routeTable';
 
 export const useMessages = () => {
-  const routes = getRouteFns<AuthRoutesT>();
-
   const divTheActivationFailed = (
     <div>
       The activation failed, probably because your account is already active.{' '}
-      Please try to <RouterLink to={routes.signIn()}>sign in</RouterLink> or{' '}
-      <RouterLink to={routes.requestPasswordReset()}>
+      Please try to <RouterLink to={authRoutes.signIn}>sign in</RouterLink> or{' '}
+      <RouterLink to={authRoutes.requestPasswordReset}>
         reset your password
       </RouterLink>
       .

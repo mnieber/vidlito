@@ -12,7 +12,7 @@ export type CookiePreferencesT = {
 };
 
 export class CookiesState {
-  @observable cookiePreferences: CookiePreferencesT = {};
+  @observable accessor cookiePreferences: CookiePreferencesT = {};
 
   @action setCookiePreferences(cookiePreferences: CookiePreferencesT) {
     this.cookiePreferences = cookiePreferences;
