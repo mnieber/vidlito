@@ -27,7 +27,7 @@ services:
       - ./frontend/.env/dev.injected.env
     image: vidlito_frontend_dev
     ports:
-      - 3000:3000
+      - 4000:4000
     volumes:
       - ./frontend:/app/src
   postgres:

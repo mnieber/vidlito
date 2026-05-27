@@ -16,4 +16,4 @@ create-opt-paths:
 	sudo mkdir -p /opt/projects/vidlito/backend/static
 	sudo mkdir -p /opt/projects/vidlito/frontend
 	sudo echo     "- cmd: echo 'start of the fish history'" >> /opt/projects/vidlito/frontend/fish_history
-	sudo chmod -R 777 -p /opt/projects/vidlito
+	sudo chmod -R 777 /opt/projects/vidlito
