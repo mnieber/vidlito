@@ -23,7 +23,7 @@ export class ActionsState {
     highlight: new Highlight<ActionT>(),
     pagination: new Pagination(),
     store: new Store<ActionT>(),
-    undo: new Undo(),
+    undo: new Undo(this),
   };
 
   getSummary() {

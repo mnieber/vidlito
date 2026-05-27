@@ -1,7 +1,6 @@
 import * as Skandha from 'skandha';
 import {
   Display,
-  Edit,
   Hovering,
   Store,
 } from 'skandha-facets';
@@ -13,6 +12,7 @@ import { ObjT } from '/src/utils/types';
 // Local imports
 import { Following } from './facets/Following';
 import { PlaylistPdEdit } from './facets/PlaylistPdEdit';
+import { PlaylistSettingsEdit } from './facets/PlaylistSettingsEdit';
 import { PlaylistsAddition } from './facets/PlaylistsAddition';
 import { PlaylistsDeletion } from './facets/PlaylistsDeletion';
 import { PlaylistsDragAndDrop } from './facets/PlaylistsDragAndDrop';
@@ -56,8 +56,8 @@ export class PlaylistsState {
   };
 
   playlistSettingsCtr = {
-    edit: new Edit(),
-    following: new Following(),
+    edit: new PlaylistSettingsEdit(this),
+    following: new Following(this),
   };
 
   getSummary() {

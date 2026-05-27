@@ -43,18 +43,13 @@ const mapData = (state: PlaylistsState) => {
   });
 };
 
-const setCallbacks = (state: PlaylistsState) => {
-  const ctr = state.playlistsCtr;
-  addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
-};
-
 export const registerPlaylistsCtr = (state: PlaylistsState) => {
   registerCtr({
     ctr: state.playlistsCtr,
     options: { name: 'PlaylistsState.Playlists' },
     initCtr: () => {
       mapData(state);
-      setCallbacks(state);
+      addCleanUpFunctionToCtr(state, () => cleanUpCtr(state.playlistsCtr));
     },
   });
 };

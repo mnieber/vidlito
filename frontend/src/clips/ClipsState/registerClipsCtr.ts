@@ -1,7 +1,6 @@
 import { isUpdating } from 'mobx-resource-states';
 import * as R from 'ramda';
 import { addCleanUpFunctionToCtr, cleanUpCtr, mapDataToProps } from 'skandha';
-import { Selection } from 'skandha-facets';
 import {
   DragSourceFromNewItem,
   createInsertionPreview,
@@ -10,7 +9,6 @@ import { registerCtr } from 'skandha-mobx';
 import { ClipT } from '/src/api/types/ClipT';
 import { ClipsState } from '/src/clips/ClipsState';
 import { getIds } from '/src/utils/ids';
-import { ObjT } from '/src/utils/types';
 
 const mapData = (state: ClipsState) => {
   const ctr = state.clipsCtr;
@@ -50,33 +48,13 @@ const mapData = (state: ClipsState) => {
   });
 };
 
-const setCallbacks = (state: ClipsState) => {
-  const ctr = state.clipsCtr;
-  addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
-
-
-
-
-
-
-
-};
-
-export const unselectIds = (selection: Selection, ids: string[]) => {
-  for (const id of ids) {
-    if (selection.itemIds.includes(id)) {
-      selection.selectItem({ itemId: id, isCtrl: true });
-    }
-  }
-};
-
 export const registerClipsCtr = (state: ClipsState) => {
   registerCtr({
     ctr: state.clipsCtr,
     options: { name: 'ClipsState.Clips' },
     initCtr: () => {
       mapData(state);
-      setCallbacks(state);
+      addCleanUpFunctionToCtr(state, () => cleanUpCtr(state.clipsCtr));
     },
   });
 };

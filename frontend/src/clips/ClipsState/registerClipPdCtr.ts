@@ -12,18 +12,13 @@ const mapData = (state: ClipsState) => {
   });
 };
 
-const setCallbacks = (state: ClipsState) => {
-  const ctr = state.clipPdCtr;
-  addCleanUpFunctionToCtr(state, () => cleanUpCtr(ctr));
-};
-
 export const registerClipPdCtr = (state: ClipsState) => {
   registerCtr({
     ctr: state.clipPdCtr,
     options: { name: 'ClipsState.ClipPd' },
     initCtr: () => {
       mapData(state);
-      setCallbacks(state);
+      addCleanUpFunctionToCtr(state, () => cleanUpCtr(state.clipPdCtr));
     },
   });
 };

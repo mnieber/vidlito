@@ -3,6 +3,7 @@ import { PlaylistT } from '/src/api/types/PlaylistT';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 
 export class PlaylistsSelection extends Selection<PlaylistT> {
+  // @ts-expect-error - state parameter reserved for future use
   constructor(private state: PlaylistsState) {
     super();
   }

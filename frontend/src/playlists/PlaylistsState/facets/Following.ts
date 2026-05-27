@@ -1,27 +1,18 @@
-import { CallbackMap, withCbs } from 'aspiration';
 import { data, operation, stub } from 'skandha';
 import { PlaylistT } from '/src/api/types/PlaylistT';
+import { PlaylistsState } from '/src/playlists/PlaylistsState';
 
 export class Following {
   static className = () => 'Following';
 
-  callbackMap = {} as CallbackMap<{
-    followPlaylist: {
-      followPlaylist: () => any;
-    };
-  }>;
-
   @data playlist?: PlaylistT;
   @data isFollowing: boolean = stub;
 
+  constructor(private state: PlaylistsState) {}
+
   @operation followPlaylist(args: { flag: boolean }) {
-    return withCbs(
-      this.callbackMap,
-      'followPlaylist',
-      args,
-      (cbs: typeof this.callbackMap.followPlaylist) => {
-        return Promise.resolve(cbs.followPlaylist());
-      }
+    return Promise.resolve(
+      this.state.props.followPlaylist(this.playlist!, args.flag)
     );
   }
 }

@@ -1,8 +1,8 @@
 import * as R from 'ramda';
 import { operation } from 'skandha';
+import { Selection } from 'skandha-facets';
 import { correctHighlight } from 'skandha-facets/policies';
 import { ClipsState } from '/src/clips/ClipsState';
-import { unselectIds } from '../registerClipsCtr';
 import { ObjT } from '/src/utils/types';
 
 export class ClipsMove {
@@ -28,3 +28,11 @@ export class ClipsMove {
       });
   }
 }
+
+const unselectIds = (selection: Selection, ids: string[]) => {
+  for (const id of ids) {
+    if (selection.itemIds.includes(id)) {
+      selection.selectItem({ itemId: id, isCtrl: true });
+    }
+  }
+};
