@@ -4,14 +4,14 @@ import {
   Addition,
   DragAndDrop,
   Edit,
-  Highlight,
   Hovering,
-  Insertion,
-  Selection,
 } from 'skandha-facets';
 import { ClipPdT, ClipT } from '/src/api/types';
 import { ClipsDeletion } from '/src/clips/ClipsState/facets/ClipsDeletion';
-import { Move } from '/src/clips/ClipsState/facets/Move';
+import { ClipsHighlight } from '/src/clips/ClipsState/facets/ClipsHighlight';
+import { ClipsInsertion } from '/src/clips/ClipsState/facets/ClipsInsertion';
+import { ClipsMove } from '/src/clips/ClipsState/facets/ClipsMove';
+import { ClipsSelection } from '/src/clips/ClipsState/facets/ClipsSelection';
 
 export const ClipsContext = React.createContext<any>(null);
 
@@ -34,16 +34,16 @@ export const clipsCtx = R.mergeAll([
       useClipsContext,
       'clipsDragAndDrop',
     ] as any as DragAndDrop,
-    clipsSelection: [useClipsContext, 'clipsSelection'] as any as Selection,
+    clipsSelection: [useClipsContext, 'clipsSelection'] as any as ClipsSelection,
     clipsDeletion: [
       useClipsContext,
       'clipsDeletion',
     ] as any as ClipsDeletion,
-    clipsHighlight: [useClipsContext, 'clipsHighlight'] as any as Highlight,
+    clipsHighlight: [useClipsContext, 'clipsHighlight'] as any as ClipsHighlight,
     clipsHovering: [useClipsContext, 'clipsHovering'] as any as Hovering,
     clipsEdit: [useClipsContext, 'clipsEdit'] as any as Edit,
-    clipsInsertion: [useClipsContext, 'clipsInsertion'] as any as Insertion,
-    clipsMove: [useClipsContext, 'clipsMove'] as any as Move,
+    clipsInsertion: [useClipsContext, 'clipsInsertion'] as any as ClipsInsertion,
+    clipsMove: [useClipsContext, 'clipsMove'] as any as ClipsMove,
   },
   {
     clipPd: [useClipsContext, 'clipPd'] as any as ClipPdT,

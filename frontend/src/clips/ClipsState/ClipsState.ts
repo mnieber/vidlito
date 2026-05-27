@@ -1,13 +1,9 @@
 import * as Skandha from 'skandha';
 import {
-  Addition,
   Display,
   DragAndDrop,
   Edit,
-  Highlight,
   Hovering,
-  Insertion,
-  Selection,
   Store,
 } from 'skandha-facets';
 import { ClipPdT } from '/src/api/types/ClipPdT';
@@ -15,9 +11,15 @@ import { ClipT } from '/src/api/types/ClipT';
 import { ObjT } from '/src/utils/types';
 
 // Local imports
+import { ClipPdEdit } from './facets/ClipPdEdit';
 import { ClipPdStore } from './facets/ClipPdStore';
+import { ClipsAddition } from './facets/ClipsAddition';
 import { ClipsDeletion } from './facets/ClipsDeletion';
-import { Move } from './facets/Move';
+import { ClipsEdit } from './facets/ClipsEdit';
+import { ClipsHighlight } from './facets/ClipsHighlight';
+import { ClipsInsertion } from './facets/ClipsInsertion';
+import { ClipsMove } from './facets/ClipsMove';
+import { ClipsSelection } from './facets/ClipsSelection';
 import { registerClipPdCtr } from './registerClipPdCtr';
 import { registerClipSettingsCtr } from './registerClipSettingsCtr';
 import { registerClipsCtr } from './registerClipsCtr';
@@ -41,21 +43,21 @@ export class ClipsState {
   props: PropsT;
 
   clipsCtr = {
-    addition: new Addition<ClipT>(),
+    addition: new ClipsAddition(this),
     deletion: new ClipsDeletion(this),
     display: new Display<ClipT>(),
     dragAndDrop: new DragAndDrop(),
-    edit: new Edit(),
-    highlight: new Highlight<ClipT>(),
+    edit: new ClipsEdit(this),
+    highlight: new ClipsHighlight(this),
     hovering: new Hovering(),
-    insertion: new Insertion<ClipT>(),
-    move: new Move(),
-    selection: new Selection<ClipT>(),
+    insertion: new ClipsInsertion(this),
+    move: new ClipsMove(this),
+    selection: new ClipsSelection(this),
     store: new Store<ClipT>(),
   };
 
   clipPdCtr = {
-    edit: new Edit(),
+    edit: new ClipPdEdit(this),
     store: new ClipPdStore(),
   };
 
