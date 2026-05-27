@@ -18,7 +18,6 @@ import {
 import { registerCtr } from 'skandha-mobx';
 import { ClipT } from '/src/api/types/ClipT';
 import { ClipsState } from '/src/clips/ClipsState';
-import { DeletionWithFlag } from '/src/clips/ClipsState/facets/DeletionWithFlag';
 import { Move } from '/src/clips/ClipsState/facets/Move';
 import { getIds } from '/src/utils/ids';
 import { ObjT } from '/src/utils/types';
@@ -88,23 +87,6 @@ const setCallbacks = (state: ClipsState) => {
     },
   };
 
-  ctr.deletion.callbackMap = {
-    delete: {
-      deleteItems(this: Cbs<DeletionWithFlag['delete']>) {
-        const clipIds = this.args.itemIds;
-        const allIds = [...ctr.highlight.highlightableIds];
-        const promise = this.args.moveToTrash
-          ? state.props.moveClipsToTrash(clipIds)
-          : state.props.deleteClips(clipIds);
-
-        return promise.then((response: ObjT) => {
-          unselectIds(ctr.selection, clipIds);
-          correctHighlight(ctr.highlight, allIds, R.without(clipIds, allIds));
-          return response;
-        });
-      },
-    },
-  };
 
   ctr.edit.callbackMap = {
     save: {

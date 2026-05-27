@@ -10,7 +10,7 @@ import {
   Selection,
 } from 'skandha-facets';
 import { ClipPdT, ClipT } from '/src/api/types';
-import { DeletionWithFlag } from '/src/clips/ClipsState/facets/DeletionWithFlag';
+import { ClipsDeletion } from '/src/clips/ClipsState/facets/ClipsDeletion';
 import { Move } from '/src/clips/ClipsState/facets/Move';
 
 export const ClipsContext = React.createContext<any>(null);
@@ -38,7 +38,7 @@ export const clipsCtx = R.mergeAll([
     clipsDeletion: [
       useClipsContext,
       'clipsDeletion',
-    ] as any as DeletionWithFlag,
+    ] as any as ClipsDeletion,
     clipsHighlight: [useClipsContext, 'clipsHighlight'] as any as Highlight,
     clipsHovering: [useClipsContext, 'clipsHovering'] as any as Hovering,
     clipsEdit: [useClipsContext, 'clipsEdit'] as any as Edit,

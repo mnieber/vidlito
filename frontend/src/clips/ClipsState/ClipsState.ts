@@ -16,7 +16,7 @@ import { ObjT } from '/src/utils/types';
 
 // Local imports
 import { ClipPdStore } from './facets/ClipPdStore';
-import { DeletionWithFlag } from './facets/DeletionWithFlag';
+import { ClipsDeletion } from './facets/ClipsDeletion';
 import { Move } from './facets/Move';
 import { registerClipPdCtr } from './registerClipPdCtr';
 import { registerClipSettingsCtr } from './registerClipSettingsCtr';
@@ -42,7 +42,7 @@ export class ClipsState {
 
   clipsCtr = {
     addition: new Addition<ClipT>(),
-    deletion: new DeletionWithFlag(),
+    deletion: new ClipsDeletion(this),
     display: new Display<ClipT>(),
     dragAndDrop: new DragAndDrop(),
     edit: new Edit(),
