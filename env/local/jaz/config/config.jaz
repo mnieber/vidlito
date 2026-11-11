@@ -1,0 +1,14 @@
+🐭.script = ⚙️.module.dirname / "config_tools.py"
+
+# Open the config files of this project in an editor.
+[interactive]
+edit():
+    @⚙️.python 🐭.script edit --root-dir=⚙️.root_module.dirname
+
+# Print the config of this project, or the part of it at a path (e.g. /tmux).
+# With to-file, write it to that file instead.
+[interactive]
+print(path="/", to-file=""):
+    🐆.safe-path = 🐆.path | ⚙️.sh-quote
+    🐆.safe-to-file = 🐆.to-file | ⚙️.sh-quote
+    @⚙️.python 🐭.script print --path=🐆.safe-path --to-file=🐆.safe-to-file

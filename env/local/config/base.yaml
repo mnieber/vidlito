@@ -1,0 +1,44 @@
+tmux:
+  session: vidlito
+  menu:
+    serve:
+      - jaz be.run-server
+      - jaz fe.run-server
+edit_config:
+  editor: gedit
+  files:
+    - env/local/config/*.yaml
+docker:
+  compose_project: vidlito
+  shell: sh
+be:
+  container: vidlito_be
+  shell: ${/docker/shell}
+fe:
+  container: vidlito_fe
+  shell: ${/docker/shell}
+compose:
+  use_dockerfile_local: false
+  os_custom_packages: ""
+  pip_custom_packages: ""
+  init:
+    homepage: http://localhost:4000/
+python:
+  services:
+    - vidlito_be
+  pypi:
+    username: __token__
+    publish_url: https://upload.pypi.org/legacy/
+dial:
+  default:
+    1: zoo docker.exec be
+    2: "zoo be."
+    3: "zoo fe."
+  shift:
+    1: .
+    2: src/services/vidlito_be
+    3: src/services/vidlito_fe
+  ctrl:
+    1: env/local
+    2: env/local/config
+    3: "~"

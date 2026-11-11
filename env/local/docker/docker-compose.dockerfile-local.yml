@@ -1,0 +1,11 @@
+services:
+  vidlito_be:
+    build:
+      context: ${ROOT_DIR}/src
+      dockerfile: services/vidlito_be/Dockerfile.local
+    image: vidlito_be_local
+  vidlito_fe:
+    build:
+      context: ${ROOT_DIR}/src
+      dockerfile: services/vidlito_fe/Dockerfile.local
+    image: vidlito_fe_local

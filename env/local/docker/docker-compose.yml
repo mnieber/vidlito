@@ -1,0 +1,42 @@
+services:
+  vidlito_be:
+    container_name: vidlito_be
+    build:
+      context: ${ROOT_DIR}/src
+      dockerfile: services/vidlito_be/Dockerfile
+    command: sleep infinity
+    depends_on:
+      - postgres
+    env_file:
+      - ./env_files/vidlito_be.env
+    image: vidlito_be
+    ports:
+      - 8000:8000 # Django
+  vidlito_fe:
+    container_name: vidlito_fe
+    build:
+      context: ${ROOT_DIR}/src
+      dockerfile: services/vidlito_fe/Dockerfile
+    command: sleep infinity
+    depends_on:
+      - vidlito_be
+    env_file:
+      - ./env_files/vidlito_fe.env
+    image: vidlito_fe
+    ports:
+      - 4000:4000 # React
+  postgres:
+    container_name: vidlito_postgres
+    env_file:
+      - ./env_files/postgres.env
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 2s
+      retries: 30
+    image: postgres:14.0
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data: {}

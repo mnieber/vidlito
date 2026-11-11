@@ -1,0 +1,9 @@
+services:
+  vidlito_be:
+    volumes:
+      - ${ROOT_DIR}/src/services/vidlito_be:/app/src
+      - ${ROOT_DIR}/src/libs/jazzoo:/app/libs/jazzoo
+  vidlito_fe:
+    volumes:
+      - ${ROOT_DIR}/src/services/vidlito_fe:/app/src
+      - ${ROOT_DIR}/src/libs/jazzoo:/app/libs/jazzoo

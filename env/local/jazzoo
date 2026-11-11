@@ -1,0 +1,11 @@
+⚙️.load_config(path=⚙️.module.dirname / "config/base.yaml")
+⚙️.load_config(path=⚙️.module.dirname / "config/local.yaml", required=false)
+
+from ./jaz/tmux/tmux.jaz export tmux
+from ./jaz/config/config.jaz export * as config
+from ./jaz/docker/docker.jaz export * as docker
+from ./jaz/dial/dial.jaz export * as dial
+from ./jaz/compose/compose.jaz export * as compose
+from ./jaz/python/python.jaz export * as python
+from ./jaz/be/be.jaz export * as be
+from ./jaz/fe/fe.jaz export * as fe

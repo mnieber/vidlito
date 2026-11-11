@@ -1,0 +1,25 @@
+# Init mode (jaz compose.init): each service runs init-dev and then its server, and
+# becomes healthy when its check target passes. The services start in order: vidlito_be
+# waits for postgres, and vidlito_fe waits for vidlito_be.
+services:
+  vidlito_be:
+    command: sh -c "jaz init-dev && exec jaz run-server"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "jaz", "check"]
+      interval: 10s
+      start_period: 120s
+      start_interval: 2s
+  vidlito_fe:
+    command: sh -c "jaz init-dev && exec jaz run-server"
+    depends_on:
+      vidlito_be:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "jaz", "check"]
+      interval: 10s
+      # The first init-dev installs the node modules
+      start_period: 300s
+      start_interval: 2s

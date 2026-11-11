@@ -1,0 +1,19 @@
+FROM vidlito_base_python
+
+# Run pre-install scripts
+COPY install_scripts/install-postgres-tools.sh /app/install_scripts/
+RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
+    bash /app/install_scripts/install-postgres-tools.sh
+
+# Copy the requirements file(s) for each library
+COPY libs/jazzoo/pyproject.toml libs/jazzoo/setup.py libs/jazzoo/README.md /app/libs/jazzoo/
+
+# Install the service
+COPY services/vidlito_be/pyproject.toml services/vidlito_be/requirements.* services/vidlito_be/setup.py services/vidlito_be/README.md /app/src/
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv pip install --system --break-system-packages -e /app/src -r /app/src/requirements.txt -r /app/src/requirements.dev.txt
+
+# Django writes its log file here (see app/settings/base/sections/logging.py)
+RUN mkdir -p /app/log
+
+WORKDIR /app/src

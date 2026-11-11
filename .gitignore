@@ -1,5 +1,4 @@
 node_modules
-docker-compose.dev.override.yml
 __pycache__
 instructions
 CLAUDE.md

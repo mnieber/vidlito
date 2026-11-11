@@ -1,0 +1,73 @@
+#
+# Postgres
+#
+
+create-db():
+    PGPASSWORD=${POSTGRES_PASSWORD} psql -h ${POSTGRES_HOST} -d postgres -U postgres -c "CREATE USER ${DJANGO_DATABASE_USER} WITH CREATEDB PASSWORD '${DJANGO_DATABASE_PASSWORD}';" || true
+    PGPASSWORD=${DJANGO_DATABASE_PASSWORD} psql -h ${POSTGRES_HOST} -d postgres -U ${DJANGO_DATABASE_USER} -c "CREATE DATABASE ${DJANGO_DATABASE_NAME};" || true
+    PGPASSWORD=${POSTGRES_PASSWORD} psql -h ${POSTGRES_HOST} -d postgres -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE ${DJANGO_DATABASE_NAME} TO ${DJANGO_DATABASE_USER};"
+
+[interactive]
+pgcli():
+    pgcli `python manage.py sqldsn --quiet --style=uri`
+
+#
+# Django
+#
+
+collect-static():
+    python manage.py collectstatic --link --noinput
+
+create-superuser():
+    python manage.py createsuperuser --noinput || true
+
+dump-db():
+    mkdir -p /app/dumps && python manage.py dbbackup
+
+migrate():
+    python manage.py migrate
+
+[interactive]
+run-server():
+    python manage.py runserver 0.0.0.0:8000
+
+#
+# Editable packages (mounted in /pypi by docker-compose.override.yml)
+#
+
+uninstall-editable-packages():
+    pip uninstall --yes django-rtk
+    pip uninstall --yes django-rtk-later
+    pip uninstall --yes django-rtk-password
+    pip uninstall --yes django-rtk-magic-link
+    pip uninstall --yes django-rtk-green
+
+install-editable-packages():
+    🐭.uninstall-editable-packages()
+    pip install -e /pypi/django-rtk
+    pip install -e /pypi/django-rtk-later
+    pip install -e /pypi/django-rtk-password
+    pip install -e /pypi/django-rtk-magic-link
+    pip install -e /pypi/django-rtk-green
+
+#
+# Stack
+#
+
+init-dev(): create-db() migrate() collect-static() create-superuser()
+
+# Succeeds when the server responds (the healthcheck of docker-compose.init-stack.yml).
+check():
+    python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/admin/login/', timeout=5)"
+
+create-opt-paths():
+    sudo mkdir -p /opt/projects/vidlito/backend
+    sudo echo     "- cmd: echo 'start of the fish history'" >> /opt/projects/vidlito/backend/fish_history
+    sudo mkdir -p /opt/projects/vidlito/backend/ipython
+    sudo mkdir -p /opt/projects/vidlito/backend/assets
+    sudo mkdir -p /opt/projects/vidlito/backend/dumps
+    sudo mkdir -p /opt/projects/vidlito/backend/log
+    sudo touch    /opt/projects/vidlito/backend/pytest_report.html
+    sudo mkdir -p /opt/projects/vidlito/backend/media
+    sudo mkdir -p /opt/projects/vidlito/backend/static
+    sudo chmod -R 777 /opt/projects/vidlito

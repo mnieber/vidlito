@@ -1,0 +1,4 @@
+docker/env_files/*.env
+docker/docker-compose.override.yml
+secrets.env
+config/local.yaml

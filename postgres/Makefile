@@ -1,6 +1,0 @@
-#
-# Stack
-#
-
-init-dev: \
-	install

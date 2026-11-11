@@ -1,0 +1,9 @@
+black
+faker
+ipython
+isort
+pgcli
+pudb
+pytest
+pytest-django
+pytest-html

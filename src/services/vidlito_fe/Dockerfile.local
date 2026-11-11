@@ -1,0 +1,24 @@
+FROM node:20-alpine
+
+# install pkg dependencies
+RUN apk update && apk add \
+    make
+
+RUN corepack enable
+
+# install dev pkg dependencies
+RUN apk update && apk add \
+    bash \
+    curl \
+    fish \
+    nano \
+    py3-pip \
+    python3
+
+# Copy the requirements file(s) for each library
+COPY libs/jazzoo/pyproject.toml libs/jazzoo/setup.py libs/jazzoo/README.md /app/libs/jazzoo/
+
+# Install the libraries
+RUN pip install --break-system-packages -e /app/libs/jazzoo
+
+WORKDIR /app/src
