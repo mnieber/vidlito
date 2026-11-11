@@ -1,5 +1,6 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import * as R from 'ramda';
+import { AllauthFieldErrorsT } from '/src/api/utils/allauth';
 import { States } from '/src/auth/endpoints/states';
 import { ObjT } from '/src/utils/types';
 
@@ -9,10 +10,8 @@ const lutSuccess = {
   signUp: States.SIGN_UP_SUCCEEDED,
   requestPasswordReset: States.REQUEST_PASSWORD_RESET_SUCCEEDED,
   resetPassword: States.RESET_PASSWORD_SUCCEEDED,
-  activateAccount: States.ACTIVATE_ACCOUNT_SUCCEEDED,
+  verifyEmail: States.VERIFY_EMAIL_SUCCEEDED,
   signOut: States.SIGN_OUT_SUCCEEDED,
-  requestMagicLink: States.REQUEST_MAGIC_LINK_SUCCEEDED,
-  signInByMagicLink: States.SIGN_IN_BY_MAGIC_LINK_SUCCEEDED,
 };
 
 const lutFailure = {
@@ -21,10 +20,8 @@ const lutFailure = {
   signUp: States.SIGN_UP_FAILED,
   requestPasswordReset: States.REQUEST_PASSWORD_RESET_FAILED,
   resetPassword: States.RESET_PASSWORD_FAILED,
-  activateAccount: States.ACTIVATE_ACCOUNT_FAILED,
+  verifyEmail: States.VERIFY_EMAIL_FAILED,
   signOut: States.SIGN_OUT_FAILED,
-  requestMagicLink: States.REQUEST_MAGIC_LINK_FAILED,
-  signInByMagicLink: States.SIGN_IN_BY_MAGIC_LINK_FAILED,
 };
 
 export class AuthState {
@@ -32,6 +29,8 @@ export class AuthState {
   @observable initialState: string;
   @observable state: string;
   @observable details: ObjT = {};
+  // The messages of allauth for each field (see States.INVALID_FIELDS)
+  @observable fieldErrors: AllauthFieldErrorsT = {};
 
   constructor(initialState: string) {
     makeObservable(this);
@@ -46,6 +45,7 @@ export class AuthState {
     this.errors = [];
     this.state = this.initialState;
     this.details = {};
+    this.fieldErrors = {};
   };
 
   isTrackedQuery = (queryName: string) => {
@@ -54,16 +54,15 @@ export class AuthState {
       'signUp',
       'requestPasswordReset',
       'resetPassword',
-      'activateAccount',
+      'verifyEmail',
       'signOut',
-      'requestMagicLink',
-      'signInByMagicLink',
     ].includes(queryName);
   };
 
   @action onUpdated(queryName: string, data: ObjT) {
     if (this.isTrackedQuery(queryName)) {
       this.errors = data.errors ?? [];
+      this.fieldErrors = data.fieldErrors ?? {};
       this.state =
         data.errors && data.errors.length > 0
           ? (lutFailure[queryName as keyof typeof lutFailure] as string)

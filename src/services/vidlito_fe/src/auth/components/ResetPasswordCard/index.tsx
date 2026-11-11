@@ -21,10 +21,12 @@ export const ResetPasswordCard = observer(() => {
       {!isPasswordChanged && (
         <ResetPasswordForm
           errors={authState.errors}
+          fieldErrors={authState.fieldErrors}
           resetPassword={(password) => {
             return resetPassword({
               password,
-              passwordResetToken: (params as any).passwordResetToken,
+              // The key in the link of the email is url-encoded
+              key: decodeURIComponent((params as any).key),
             });
           }}
         />

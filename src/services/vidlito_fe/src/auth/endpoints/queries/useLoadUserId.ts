@@ -1,21 +1,30 @@
 import { useQuery } from '@tanstack/react-query';
-import { doQuery, getRefreshToken, setToken } from '/src/api/graphqlClient';
+import { doQuery } from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
-import { refreshToken } from '/src/auth/endpoints/mutations/refreshToken';
+import { authGet } from '/src/api/restClient';
+import { authUrl, SessionSchema } from '/src/api/utils/allauth';
 import { createQueryKey } from '/src/utils/createQueryKey';
 import { ObjT } from '/src/utils/types';
 
 export class Anonymous {}
 export const anonymous = new Anonymous();
 
-export type ArgsT = {
-  maybeRefreshToken: boolean;
-};
+// Returns the email address of the signed in user, or undefined. Loading the session
+// also sets the CSRF cookie, which the next writes need.
+export function loadSessionUserId(): Promise<string | undefined> {
+  return authGet(`${authUrl}/session`).then(
+    (response) => SessionSchema.parse(response.data).data.user.email,
+    (error: any) => {
+      // A 401 means that nobody is signed in
+      if (error.response?.status === 401) return undefined;
+      throw error;
+    }
+  );
+}
 
-export function loadUserId(args: ArgsT): Promise<any> {
+function loadUserProfile() {
   return doQuery(
     `query {
-        username
         getUserProfile {
           userProfile {
             username
@@ -33,42 +42,27 @@ export function loadUserId(args: ArgsT): Promise<any> {
         }
       }`,
     {}
-  )
-    .then((response: ObjT) => {
-      response.getUserProfile.userProfile?.followSet.forEach(
-        (playlist: ObjT) => {
-          playlist.clipSet = [];
-        }
-      );
+  ).then((response: ObjT) => {
+    const userProfile = response.getUserProfile.userProfile;
+    userProfile?.followSet.forEach((playlist: ObjT) => {
+      playlist.clipSet = [];
+    });
+    // Since null is used to indicate a loading state, we convert to undefined
+    return userProfile ?? undefined;
+  });
+}
 
-      return {
-        userId: response.username ?? anonymous,
-        isAuthenticated: !!response.username,
-        // Since null is used to indicate a loading state, we convert to undefined
-        userProfile: response.getUserProfile.userProfile ?? undefined,
-      };
-    })
-    .catch((error: ObjT) => {
-      const message = error.response.errors[0].message;
-      if (
-        ['Signature has expired', 'Error decoding signature'].includes(
-          message
-        ) &&
-        getRefreshToken() &&
-        args.maybeRefreshToken
-      ) {
-        // Try to refresh the token. Regardless of whether that worked, retry the
-        // loadUserId, but this time with maybeRefreshToken set to false.
-        return refreshToken().finally(() =>
-          loadUserId({ maybeRefreshToken: false })
-        );
+export function loadUserId(): Promise<any> {
+  return loadSessionUserId()
+    .then((userId) => {
+      if (!userId) {
+        return { userId: anonymous, isAuthenticated: false };
       }
-
-      // If we get here, then there was an unresolvable problem with the auth tokens,
-      // and we've already tried to refresh them. In that case, clear the tokens and
-      // throw an error.
-      setToken(undefined, undefined);
-      throw new Error(message);
+      return loadUserProfile().then((userProfile) => ({
+        userId,
+        isAuthenticated: true,
+        userProfile,
+      }));
     })
     .catch(() => {
       return {
@@ -88,7 +82,7 @@ export const useLoadUserId = () => {
   return useQuery({
     queryKey: queryKey({}),
     queryFn: () => {
-      return loadUserId({ maybeRefreshToken: true });
+      return loadUserId();
     },
   });
 };

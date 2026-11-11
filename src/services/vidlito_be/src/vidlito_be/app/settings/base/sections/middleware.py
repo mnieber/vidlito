@@ -8,4 +8,5 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "admin_reorder.middleware.ModelAdminReorder",
+    "allauth.account.middleware.AccountMiddleware",
 ]

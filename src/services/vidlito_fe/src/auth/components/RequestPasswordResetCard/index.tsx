@@ -23,6 +23,7 @@ export const RequestPasswordResetCard = observer(() => {
             return requestPasswordReset({ email });
           }}
           errors={authState.errors}
+          fieldErrors={authState.fieldErrors}
         />
       )}
       <div className={AuthCardS.CardFooter()}>

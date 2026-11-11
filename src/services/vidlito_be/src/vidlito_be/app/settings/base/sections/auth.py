@@ -1,49 +1,29 @@
-import datetime
-
 from vidlito_be.app.utils.env import env
 
 AUTHENTICATION_BACKENDS = [
-    "graphql_jwt.backends.JSONWebTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
-DJANGO_RTK = {
-    "BACKEND": "django_rtk_green.backends.Backend",
-    "VALIDATOR": "django_rtk.validators.Validator",
-    "EMAIL_TEMPLATES": {
-        "RegisterAccount": "user_accounts/activation_email.html",
-        "RegisteredAgain": "user_accounts/registered_again_email.html",
-        "RequestPasswordReset": "user_accounts/password_reset_email.html",
-        "RequestMagicLink": "user_accounts/magic_link_email.html",
-    },
-    "EMAIL_CONTEXT": {
-        "domain": "www.vidlito.org",
-        "project_name": "vidlito",
-    },
-    "EMAIL_FROM": "noreply@vidlito.org",
-    "REQUIRE_USERNAME": True,
-    "REQUIRE_USERNAME_TO_BE_UNIQUE": True,
-    "USERNAME_ALREADY_TAKEN_FN": "vidlito_be.user_profiles.utils.username_already_taken",
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*"]
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+# Adds the vidlito-specific fields (username, accepts_terms) to sign-up
+ACCOUNT_SIGNUP_FORM_CLASS = "vidlito_be.users.forms.SignupForm"
+# Sets the terms, and creates the user profile of a new account
+ACCOUNT_ADAPTER = "vidlito_be.users.adapter.AccountAdapter"
+
+HEADLESS_ONLY = True
+HEADLESS_FRONTEND_URLS = {
+    "account_confirm_email": "/account/verify-email/{key}",
+    "account_reset_password": "/account/password/reset",
+    "account_reset_password_from_key": "/account/password/reset/{key}",
+    "account_signup": "/sign-up",
 }
 
-GRAPHQL_JWT = {
-    "JWT_VERIFY_EXPIRATION": True,
-    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
-    "JWT_EXPIRATION_DELTA": datetime.timedelta(days=7),
-    "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=31),
-    "JWT_ALLOW_ANY_CLASSES": [
-        "django_rtk_green.mutations.RegisterAccount",
-        "django_rtk_green.mutations.ActivateAccount",
-        "django_rtk_green.mutations.RequestPasswordReset",
-        "django_rtk_green.mutations.ResetPassword",
-        "django_rtk_green.mutations.ObtainJSONWebToken",
-        "django_rtk_green.queries.Me",
-        "graphql_jwt.mutations.Verify",
-        "graphql_jwt.mutations.Refresh",
-        "graphql_jwt.mutations.Revoke",
-        # Moonleap Todo: add graphql endpoints that do not require authentication
-    ],
-}
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 AUTH_USER_MODEL = "users.User"
 

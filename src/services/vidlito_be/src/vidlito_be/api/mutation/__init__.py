@@ -1,7 +1,5 @@
 import graphene
 
-from vidlito_be.user_accounts import schema as user_accounts_schema
-
 from .deleteclips import DeleteClips
 from .deletefolders import DeleteFolders
 from .deleteplaylists import DeletePlaylists
@@ -26,7 +24,7 @@ class GrapheneNonEmptyMutation(graphene.Mutation):
         return GrapheneNonEmptyMutation(test_mutation="Hello world")
 
 
-class Mutation(user_accounts_schema.Mutation, GrapheneNonEmptyMutation):
+class Mutation(GrapheneNonEmptyMutation):
     delete_clips = DeleteClips.Field()
     delete_folders = DeleteFolders.Field()
     delete_playlists = DeletePlaylists.Field()

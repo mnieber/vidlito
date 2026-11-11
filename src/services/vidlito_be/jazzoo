@@ -32,25 +32,6 @@ run-server():
     python manage.py runserver 0.0.0.0:8000
 
 #
-# Editable packages (mounted in /pypi by docker-compose.override.yml)
-#
-
-uninstall-editable-packages():
-    pip uninstall --yes django-rtk
-    pip uninstall --yes django-rtk-later
-    pip uninstall --yes django-rtk-password
-    pip uninstall --yes django-rtk-magic-link
-    pip uninstall --yes django-rtk-green
-
-install-editable-packages():
-    🐭.uninstall-editable-packages()
-    pip install -e /pypi/django-rtk
-    pip install -e /pypi/django-rtk-later
-    pip install -e /pypi/django-rtk-password
-    pip install -e /pypi/django-rtk-magic-link
-    pip install -e /pypi/django-rtk-green
-
-#
 # Stack
 #
 

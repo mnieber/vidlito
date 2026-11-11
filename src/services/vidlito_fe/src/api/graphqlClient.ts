@@ -1,51 +1,27 @@
 import { GraphQLClient } from 'graphql-request';
+import { getCsrfToken } from '/src/api/utils/getCsrfToken';
 
-export const graphqlHostUrl = window.location.host.startsWith('localhost')
-  ? import.meta.env.VITE_LOCALHOST_API_ENDPOINT
-  : import.meta.env.VITE_BACKEND_API_ENDPOINT ?? '';
+// Vite proxies /graphql/ to the backend. The browser sends the session cookie, which
+// authenticates the request, and the backend checks the CSRF token.
+const graphqlUrl = `${window.location.origin}/graphql/`;
 
-function _createClient() {
-  if (!graphqlHostUrl) throw Error('No graphql endpoint was configured');
+const graphqlClient = new GraphQLClient(graphqlUrl, {
+  credentials: 'same-origin',
+});
 
-  const authToken = getToken();
-  return new GraphQLClient(graphqlHostUrl, {
-    headers: authToken
-      ? {
-          Authorization: 'JWT ' + authToken,
-        }
-      : {},
-  });
-}
+let onRequestFailed = (error: any) => {};
 
-export const setToken = (
-  authToken: string | undefined,
-  refreshToken?: string
-) => {
-  if (authToken === undefined) {
-    localStorage.removeItem('authToken');
-  } else {
-    localStorage.setItem('authToken', authToken);
-  }
-  if (refreshToken === undefined) {
-    localStorage.removeItem('refreshToken');
-  } else {
-    localStorage.setItem('refreshToken', refreshToken);
-  }
-  _graphqlClient = _createClient();
-};
-
-export const getToken = () => {
-  return localStorage.getItem('authToken');
-};
-
-export const getRefreshToken = () => {
-  return localStorage.getItem('refreshToken');
+// Sets the function that is called when a request fails, e.g. to find out whether
+// the session has expired.
+export const setOnRequestFailed = (callback: (error: any) => void) => {
+  onRequestFailed = callback;
 };
 
 export function doQuery(query: string, variables: any) {
-  return graphqlClient().request(query, variables);
+  return graphqlClient
+    .request(query, variables, { 'X-CSRFToken': getCsrfToken() })
+    .catch((error: any) => {
+      onRequestFailed(error);
+      throw error;
+    });
 }
-
-let _graphqlClient = _createClient();
-
-export const graphqlClient = () => _graphqlClient;

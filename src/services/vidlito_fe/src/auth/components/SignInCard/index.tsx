@@ -16,6 +16,15 @@ import {
 import { cn } from '/src/utils/classnames';
 import { ObjT } from '/src/utils/types';
 
+// The page to go to after signing in (see navToSignIn). Only a path on this site is
+// accepted, so that the link cannot send the user to another site.
+const getNextUrl = () => {
+  const nextUrl = new URLSearchParams(window.location.search).get('nextUrl');
+  return nextUrl?.startsWith('/') && !nextUrl.startsWith('//')
+    ? nextUrl
+    : undefined;
+};
+
 export const SignInCard = observer(() => {
   const { messages } = useMessages();
   const authState = useAuthStateContext(true);
@@ -34,7 +43,7 @@ export const SignInCard = observer(() => {
         signIn={(email, password) => {
           return signIn({ userId: email, password }).then((response: ObjT) => {
             if (response.success) {
-              navToNextPageAfterSignIn('/');
+              navToNextPageAfterSignIn(getNextUrl() ?? '/');
             }
           });
         }}

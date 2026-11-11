@@ -1,3 +1,4 @@
+import { AllauthFieldErrorsT } from '/src/api/utils/allauth';
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
@@ -18,6 +19,7 @@ export const formFields = {
 export type PropsT = {
   requestPasswordReset: (email: string) => any;
   errors: Array<string>;
+  fieldErrors?: AllauthFieldErrorsT;
   className?: any;
 };
 
@@ -27,7 +29,11 @@ export function RequestPasswordResetForm(props: PropsT) {
   return (
     <FormStateProvider
       initialValues={form.getInitialValues()}
-      initialErrors={form.getExternalErrors(messages, props.errors)}
+      initialErrors={form.getExternalErrors(
+        messages,
+        props.errors,
+        props.fieldErrors
+      )}
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >

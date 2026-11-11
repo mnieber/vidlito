@@ -3,69 +3,45 @@
 -e ${VIDLITO_LIBS_DIR}/jazzoo
     # via -r requirements.editable
 asgiref==3.13.0
-    # via django
+    # via
+    #   django
+    #   django-allauth
+    #   django-cors-headers
 certifi==2026.10.23
     # via requests
+cffi==2.1.1
+    # via cryptography
 charset-normalizer==3.5.2
     # via requests
-django==4.0.10
+cryptography==50.0.2
+    # via pyjwt
+django==4.2.30
     # via
     #   -r requirements.in
     #   django-admin-sortable2
+    #   django-allauth
     #   django-cors-headers
     #   django-dbbackup
     #   django-extensions
-    #   django-graphql-jwt
     #   django-modeladmin-reorder
-    #   django-rtk
     #   graphene-django
     #   martor
-django-admin-sortable2==1.0.4
+django-admin-sortable2==2.4
     # via -r requirements.in
-django-cors-headers==3.14.0
+django-allauth==65.21.1
     # via -r requirements.in
-django-dbbackup==4.3.0
+django-cors-headers==4.9.0
     # via -r requirements.in
-django-extensions==3.2.3
+django-dbbackup==5.2.0
     # via -r requirements.in
-django-graphql-jwt==0.3.4
-    # via
-    #   -r requirements.in
-    #   django-rtk
+django-extensions==4.1
+    # via -r requirements.in
 django-modeladmin-reorder==0.3.1
     # via -r requirements.in
-django-rtk==0.5.0
-    # via
-    #   -r requirements.in
-    #   django-rtk-green
-    #   django-rtk-later
-    #   django-rtk-magic-link
-    #   django-rtk-password
-django-rtk-green==0.5.0
-    # via -r requirements.in
-django-rtk-later==0.5.0
-    # via
-    #   -r requirements.in
-    #   django-rtk-green
-django-rtk-magic-link==0.5.0
-    # via
-    #   -r requirements.in
-    #   django-rtk-green
-django-rtk-password==0.5.0
-    # via
-    #   -r requirements.in
-    #   django-rtk-green
-django-templated-mail==1.1.1
-    # via django-rtk
 graphene==3.4.3
-    # via
-    #   django-graphql-jwt
-    #   graphene-django
-graphene-django==3.0.0
-    # via
-    #   -r requirements.in
-    #   django-graphql-jwt
-    #   django-rtk
+    # via graphene-django
+graphene-django==3.2.3
+    # via -r requirements.in
 graphql-core==3.2.14
     # via
     #   graphene
@@ -87,12 +63,12 @@ promise==2.3
     # via graphene-django
 psycopg2-binary==2.9.13
     # via -r requirements.in
+pycparser==3.12
+    # via cffi
 pyjwt==2.15.1
-    # via django-graphql-jwt
+    # via django-allauth
 python-dateutil==2.9.0.post0
     # via graphene
-pytz==2026.6
-    # via django-dbbackup
 requests==2.34.2
     # via martor
 six==1.17.0

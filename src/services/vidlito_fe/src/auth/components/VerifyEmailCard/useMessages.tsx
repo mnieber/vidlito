@@ -5,9 +5,9 @@ import { getRouteFns } from '/src/routes/routeTable';
 export const useMessages = () => {
   const routes = getRouteFns<AuthRoutesT>();
 
-  const yourAccountWasActivated = (
+  const yourEmailAddressWasVerified = (
     <div>
-      Your account was activated. You can now{' '}
+      Your email address was verified. You can now{' '}
       <RouterLink dataCy={'linkToSignIn'} to={routes.signIn()}>
         sign in
       </RouterLink>
@@ -28,7 +28,7 @@ export const useMessages = () => {
   return {
     messages: {
       ifYouAlreadyHaveAnAccount,
-      yourAccountWasActivated,
+      yourEmailAddressWasVerified,
     },
   };
 };

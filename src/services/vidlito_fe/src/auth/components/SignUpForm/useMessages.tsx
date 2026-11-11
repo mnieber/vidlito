@@ -18,6 +18,8 @@ export const useMessages = () => {
     messages: {
       divIAgreeToTheTerms,
       divPleaseEnterYourEmailAddress: 'Please enter your email address',
+      divPleaseChooseAUsername: 'Please choose a username',
+      divPleaseChooseAPassword: 'Please choose a password',
       divYouNeedToAcceptTheTermsAndConditions:
         'You need to accept the terms and conditions',
       divSorryThereSeemsToBeATechnicalProblem:

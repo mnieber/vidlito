@@ -14,8 +14,10 @@ export const navToSignUp = (): void => {
   history.push(getRouteFns<AuthRoutesT>().signUp());
 };
 
-export const navToSignIn = (): void => {
-  history.push(getRouteFns<AuthRoutesT>().signIn());
+// With nextUrl, the user goes to that page after signing in.
+export const navToSignIn = (nextUrl?: string): void => {
+  const suffix = nextUrl ? '?nextUrl=' + encodeURIComponent(nextUrl) : '';
+  history.push(getRouteFns<AuthRoutesT>().signIn() + suffix);
 };
 
 export const navToNextPageAfterSignIn = (lastUrl?: string): void => {

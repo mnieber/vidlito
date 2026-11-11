@@ -6,28 +6,26 @@ export const getRouteTable = () => {
   return routeTable;
 };
 
+// The paths of the auth pages are those of the blogs example. The emails of the
+// backend link to them (see HEADLESS_FRONTEND_URLS).
 export const routes = {
-  signIn: () => '/auth/sign-in/',
+  signIn: () => '/sign-in',
   home: () => '/',
   help: () => '/playlist/vidlito/help-/-',
-  signInByMagicLink: () => '/auth/sign-in/:magicLinkToken/',
-  signUp: () => '/auth/sign-up/',
+  signUp: () => '/sign-up',
   termsAndConditions: () => '/terms-and-conditions/',
-  requestPasswordReset: () => '/auth/request-password-reset/',
-  requestMagicLink: () => '/auth/request-magic-link/',
-  resetPassword: () => '/auth/reset-password/:passwordResetToken/',
-  activateAccount: () => '/auth/activate-account/:activationToken/',
+  verifyEmail: () => '/account/verify-email/:key',
+  requestPasswordReset: () => '/account/password/reset',
+  resetPassword: () => '/account/password/reset/:key',
 };
 
 export type RoutesT = {
   signIn: () => string;
   home: () => string;
   help: () => string;
-  signInByMagicLink: (params: { magicLinkToken: string }) => string;
   signUp: () => string;
   termsAndConditions: () => string;
+  verifyEmail: (params: { key: string }) => string;
   requestPasswordReset: () => string;
-  requestMagicLink: () => string;
-  resetPassword: (params: { passwordResetToken: string }) => string;
-  activateAccount: (params: { activationToken: string }) => string;
+  resetPassword: (params: { key: string }) => string;
 };

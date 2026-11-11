@@ -1,7 +1,5 @@
 import graphene
 
-from vidlito_be.user_accounts import schema as user_accounts_schema
-
 from .getactions import GetActions
 from .getclippd import GetClipPd
 from .getplaylist import GetPlaylist
@@ -18,7 +16,6 @@ class GrapheneNonEmptyQuery(graphene.ObjectType):
 
 
 class Query(
-    user_accounts_schema.Query,
     GetActions,
     GetClipPd,
     GetPlaylist,

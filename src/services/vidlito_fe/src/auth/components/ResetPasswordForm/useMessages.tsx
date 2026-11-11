@@ -18,10 +18,6 @@ export const useMessages = () => {
   return {
     messages: {
       divSorryWeCouldNotResetThePassword,
-      sorryThatPasswordIsTooShort: 'Sorry, that password is too short',
-      sorryWeCouldNotFindYourAccount:
-        "Sorry, we could not find your account. Don't worry, this could be a technical " +
-        'failure on our side. Please contact support.',
       divSorryThereSeemsToBeATechnicalProblem:
         'Sorry, there seems to be a technical problem. ' +
         'Check your internet connection, or try again later.',

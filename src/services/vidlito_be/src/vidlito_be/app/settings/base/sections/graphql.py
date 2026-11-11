@@ -8,7 +8,6 @@ GRAPHENE = {
         "af9c8cc42bfc38f042eb78e9d49d8995",  # getPlaylists
     ],
     "MIDDLEWARE": [
-        "graphql_jwt.middleware.JSONWebTokenMiddleware",
         "vidlito_be.api.middleware.GraphqlCheckCRCMiddleware",
     ],
     "SCHEMA": "vidlito_be.api.schema.schema",

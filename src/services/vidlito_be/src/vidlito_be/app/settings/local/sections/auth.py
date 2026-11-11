@@ -1,3 +1,6 @@
-from vidlito_be.app.settings.local.inherit import DJANGO_RTK
+# The dev server runs on http, and the browser doesn't send a secure cookie there.
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
-DJANGO_RTK["DANGEROUSLY_EXPOSE_TOKENS"] = True
+# Serves the docs of the auth endpoints at /api/_allauth/openapi.html
+HEADLESS_SERVE_SPECIFICATION = True

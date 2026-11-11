@@ -10,7 +10,10 @@ export const RootSwitch = observer((props: PropsT) => {
   return (
     <AppFrame>
       <Switch>
-        <Route path="/auth">
+        {
+          // The auth pages use the paths of the blogs example
+        }
+        <Route path={['/sign-in', '/sign-up', '/account']}>
           <AuthSwitch />
         </Route>
         <Route path="/">

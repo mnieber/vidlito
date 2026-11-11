@@ -1,9 +1,13 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
-import { doQuery, setToken } from '/src/api/graphqlClient';
+import { authPost } from '/src/api/restClient';
+import {
+  authUrl,
+  hasPendingFlow,
+  parseAllauthErrors,
+} from '/src/api/utils/allauth';
 import { AuthState } from '/src/auth/AuthState';
-import { invalidateLoadUserId } from '/src/auth/endpoints';
+import { invalidateLoadUserId } from '/src/auth/endpoints/queries';
 import { States } from '/src/auth/endpoints/states';
-import { hasErrorCode, isError } from '/src/auth/endpoints/utils';
 import { ObjT } from '/src/utils/types';
 
 export type ArgsT = {
@@ -11,51 +15,42 @@ export type ArgsT = {
   password: string;
 };
 
-export function signIn(args: ArgsT) {
-  return doQuery(
-    `mutation ($email: String!, $password: String!) {
-      signIn(
-        email: $email,
-        password: $password
-      ) {
-        success,
-        errors,
-        token,
-        refreshToken,
-      }
-    }`,
-    {
-      email: args.userId,
-      password: args.password,
+const getSignInFailure = (error: any) => {
+  const data = error.response?.data;
+  switch (error.response?.status) {
+    case 400: {
+      const isRateLimited = parseAllauthErrors(data).some(
+        (x) => x.code === 'too_many_login_attempts'
+      );
+      return {
+        success: false,
+        errors: [
+          isRateLimited ? States.TOO_MANY_ATTEMPTS : States.INVALID_CREDENTIALS,
+        ],
+      };
     }
-  ).then((response: ObjT) => {
-    if (
-      hasErrorCode(
-        ['signIn', 'errors', 'nonFieldErrors'],
-        'INVALID_CREDENTIALS'
-      )(response)
-    )
+    case 401:
       return {
         success: false,
-        errors: [States.INVALID_CREDENTIALS],
+        errors: [
+          hasPendingFlow(data, 'verify_email')
+            ? States.EMAIL_NOT_VERIFIED
+            : States.INACTIVE_ACCOUNT,
+        ],
       };
+    case 409:
+      // Already signed in (e.g. in another tab)
+      return { success: true, errors: [] };
+    default:
+      throw error;
+  }
+};
 
-    if (isError(['signIn', 'errors'])(response))
-      return {
-        success: false,
-        errors: [States.SIGN_IN_FAILED],
-      };
-
-    const token = response.signIn.token;
-    const refreshToken = response.signIn.refreshToken;
-    setToken(token, refreshToken);
-
-    return {
-      success: true,
-      token,
-      userId: args.userId,
-    };
-  });
+export function signIn(args: ArgsT) {
+  return authPost(`${authUrl}/login`, {
+    email: args.userId,
+    password: args.password,
+  }).then(() => ({ success: true, errors: [] }), getSignInFailure);
 }
 
 export const useSignIn = (authState?: AuthState) => {
@@ -68,7 +63,7 @@ export const useSignIn = (authState?: AuthState) => {
     },
     onSuccess: (data: ObjT) => {
       if (authState) authState.onUpdated(queryName, data);
-      invalidateLoadUserId({});
+      return invalidateLoadUserId({});
     },
     onError: (error: Error) => {
       if (authState) authState.onErrored(queryName, error.message);

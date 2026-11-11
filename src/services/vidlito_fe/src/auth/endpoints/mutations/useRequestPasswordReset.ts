@@ -1,8 +1,8 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
-import { doQuery } from '/src/api/graphqlClient';
+import { authPost } from '/src/api/restClient';
+import { authUrl } from '/src/api/utils/allauth';
 import { AuthState } from '/src/auth/AuthState';
-import { States } from '/src/auth/endpoints/states';
-import { isError } from '/src/auth/endpoints/utils';
+import { getInvalidFieldsResult } from '/src/auth/endpoints/utils';
 import { ObjT } from '/src/utils/types';
 
 export type ArgsT = {
@@ -10,31 +10,10 @@ export type ArgsT = {
 };
 
 export function requestPasswordReset(args: ArgsT) {
-  return doQuery(
-    `mutation ($email: String!) {
-      requestPasswordReset(
-        email: $email,
-      ) {
-        success,
-        errors,
-        passwordResetToken
-      }
-    }`,
-    {
-      email: args.email,
-    }
-  ).then((response: ObjT) => {
-    if (isError(['requestPasswordReset', 'errors'])(response))
-      return {
-        success: false,
-        errors: [States.REQUEST_PASSWORD_RESET_FAILED],
-      };
-
-    return {
-      success: true,
-      passwordResetToken: response.requestPasswordReset.passwordResetToken,
-    };
-  });
+  return authPost(`${authUrl}/password/request`, { email: args.email }).then(
+    () => ({ success: true, errors: [] }),
+    getInvalidFieldsResult
+  );
 }
 
 export const useRequestPasswordReset = (authState?: AuthState) => {

@@ -1,5 +1,3 @@
-from django_rtk_green import django_rtk_green_apps
-
 DJANGO_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -17,10 +15,11 @@ THIRD_PARTY_APPS = [
     "corsheaders",
     "dbbackup",
     "django_extensions",
-    *django_rtk_green_apps,
     "graphene_django",
-    "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
     "martor",
+    "allauth",
+    "allauth.account",
+    "allauth.headless",
 ]
 
 LOCAL_APPS = [
@@ -30,7 +29,6 @@ LOCAL_APPS = [
     "vidlito_be.clips.apps.ClipsConfig",
     "vidlito_be.playlists.apps.PlaylistsConfig",
     "vidlito_be.tags.apps.TagsConfig",
-    "vidlito_be.user_accounts.apps.UserAccountsConfig",
     "vidlito_be.user_profiles.apps.UserProfilesConfig",
     "vidlito_be.users.apps.UsersConfig",
 ]
@@ -56,16 +54,7 @@ ADMIN_REORDER = (
     {"app": "app", "models": ("app.SlugSequence",)},
     "user_profiles",
     "users",
-    {
-        "app": "refresh_token",
-        "label": "Django-RTK",
-        "models": (
-            "refresh_token.RefreshToken",
-            "django_rtk_later.ActivationToken",
-            "django_rtk_magic_link.MagicLinkToken",
-            "django_rtk_password.PasswordResetToken",
-        ),
-    },
+    "account",
     "actions",
     "tags",
     "auth",

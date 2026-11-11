@@ -1,3 +1,4 @@
+import { AllauthFieldErrorsT } from '/src/api/utils/allauth';
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
@@ -19,12 +20,17 @@ export const formFields = {
 export type PropsT = {
   resetPassword: (password: string) => any;
   errors: Array<string>;
+  fieldErrors?: AllauthFieldErrorsT;
   className?: any;
 };
 
 export function ResetPasswordForm(props: PropsT) {
   const { messages } = useMessages();
-  const externalErrors = form.getExternalErrors(messages, props.errors);
+  const externalErrors = form.getExternalErrors(
+    messages,
+    props.errors,
+    props.fieldErrors
+  );
 
   return (
     <FormStateProvider

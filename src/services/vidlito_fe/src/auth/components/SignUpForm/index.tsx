@@ -1,6 +1,7 @@
 import { FormStateProvider } from 'react-form-state-context';
 import { form } from './form';
 import { useMessages } from './useMessages';
+import { AllauthFieldErrorsT } from '/src/api/utils/allauth';
 import { AuthFormS } from '/src/auth/components/AuthForm';
 import {
   ControlledCheckbox,
@@ -8,18 +9,28 @@ import {
   Field,
   FormSaveButton,
   GlobalError,
+  PasswordField,
+  TextField,
 } from '/src/forms/components';
 import { L } from '/src/frames/layout';
 import { cn } from '/src/utils/classnames';
 
 export const formFields = {
   email: 'email',
+  username: 'username',
+  password: 'password',
   acceptsTerms: 'acceptsTerms',
 };
 
 export type PropsT = {
-  signUp: (email: string, acceptsTerms: boolean) => any;
+  signUp: (
+    email: string,
+    username: string,
+    password: string,
+    acceptsTerms: boolean
+  ) => any;
   errors: Array<string>;
+  fieldErrors?: AllauthFieldErrorsT;
   className?: any;
 };
 
@@ -29,7 +40,11 @@ export function SignUpForm(props: PropsT) {
   return (
     <FormStateProvider
       initialValues={form.getInitialValues()}
-      initialErrors={form.getExternalErrors(messages, props.errors)}
+      initialErrors={form.getExternalErrors(
+        messages,
+        props.errors,
+        props.fieldErrors
+      )}
       handleValidate={form.getHandleValidate(messages)}
       handleSubmit={form.getHandleSubmit(props)}
     >
@@ -47,6 +62,20 @@ export function SignUpForm(props: PropsT) {
         }
         <Field fieldName={formFields.email} className={AuthFormS.Field()}>
           <EmailField autoFocus={true} placeholder="Email" />
+        </Field>
+
+        {
+          // 🔳 UsernameField 🔳
+        }
+        <Field fieldName={formFields.username} className={AuthFormS.Field()}>
+          <TextField placeholder="Username" />
+        </Field>
+
+        {
+          // 🔳 PasswordField 🔳
+        }
+        <Field fieldName={formFields.password} className={AuthFormS.Field()}>
+          <PasswordField placeholder="Password" />
         </Field>
 
         {

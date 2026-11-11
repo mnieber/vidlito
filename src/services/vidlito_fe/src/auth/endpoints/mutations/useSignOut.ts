@@ -1,18 +1,21 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
-import { setToken } from '/src/api/graphqlClient';
 import { queryClient } from '/src/api/queryClient';
+import { authDelete } from '/src/api/restClient';
+import { authUrl } from '/src/api/utils/allauth';
 import { AuthState } from '/src/auth/AuthState';
 import { ObjT } from '/src/utils/types';
 
 export type ArgsT = {};
 
 export function signOut(args: ArgsT) {
-  return Promise.resolve().then(() => {
-    setToken('', '');
-    return {
-      errors: [],
-    };
-  });
+  return authDelete(`${authUrl}/session`).then(
+    () => ({ errors: [] }),
+    (error: any) => {
+      // Allauth answers 401 when the session has ended
+      if (error.response?.status === 401) return { errors: [] };
+      throw error;
+    }
+  );
 }
 
 export const useSignOut = (authState?: AuthState) => {

@@ -20,11 +20,7 @@ class UserManager(BaseUserManager):
         terms_version_accepted: str = None,
         **kwargs
     ):
-        from vidlito_be.playlists.models import Follow
-        from vidlito_be.playlists.utils.get_or_create_help_playlist import (
-            get_or_create_help_playlist,
-        )
-        from vidlito_be.user_profiles.models import UserProfile
+        from vidlito_be.users.utils.setup_new_account import setup_new_account
 
         if not email:
             raise ValueError("Users must have an email address.")
@@ -45,24 +41,24 @@ class UserManager(BaseUserManager):
             )
             user.set_password(password)
             user.save()
-
-            # Note that we use the user id as the id for the user profile. This can speed up
-            # the handling of graphql queries, since the user id is in the context.
-            user_profile = UserProfile.objects.create(
-                id=user.id, user_id=user.id, username=username
-            )
-            user_profile.save()
-
-            help_playlist = get_or_create_help_playlist()
-            Follow.objects.create(owner_id=user.id, playlist=help_playlist)
+            setup_new_account(user, username=username)
 
         return user
 
     def create_superuser(self, email: str, password: str = None, **kwargs: T.Any):
-        user = self.create_user(email, password=password, accepts_terms=True)
+        from allauth.account.models import EmailAddress
+
+        username = kwargs.get("username") or email.split("@")[0]
+        user = self.create_user(
+            email, username=username, password=password, accepts_terms=True
+        )
         user.is_superuser = True
         user.is_staff = True
         user.save()
+        # A superuser can sign in without verifying their email address
+        EmailAddress.objects.create(
+            user=user, email=user.email, primary=True, verified=True
+        )
         return user
 
 

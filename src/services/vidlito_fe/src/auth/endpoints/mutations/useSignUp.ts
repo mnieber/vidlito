@@ -1,50 +1,32 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
-import { doQuery } from '/src/api/graphqlClient';
+import { authPost } from '/src/api/restClient';
+import { authUrl } from '/src/api/utils/allauth';
 import { AuthState } from '/src/auth/AuthState';
-import { States } from '/src/auth/endpoints/states';
-import { isError } from '/src/auth/endpoints/utils';
+import { getInvalidFieldsResult } from '/src/auth/endpoints/utils';
 import { ObjT } from '/src/utils/types';
 
 export type ArgsT = {
   userId: string;
+  username: string;
+  password: string;
   acceptsTerms: boolean;
-  termsVersionAccepted: string;
 };
 
 export function signUp(args: ArgsT) {
-  return doQuery(
-    `mutation (
-      $email: String!,
-      $acceptsTerms: Boolean!,
-      $termsVersionAccepted: String!
-    ) {
-      registerAccount(
-        email: $email,
-        acceptsTerms: $acceptsTerms,
-        termsVersionAccepted: $termsVersionAccepted,
-      ) {
-        success,
-        activationToken,
-        errors,
-      }
-    }`,
-    {
-      email: args.userId,
-      acceptsTerms: args.acceptsTerms,
-      termsVersionAccepted: args.termsVersionAccepted,
-    }
-  ).then((response: ObjT) => {
-    if (isError(['registerAccount', 'errors'])(response))
-      return {
-        success: false,
-        errors: [States.SIGN_UP_FAILED],
-      };
-
-    return {
-      success: true,
-      activationToken: response.registerAccount.activationToken,
-    };
-  });
+  return authPost(`${authUrl}/signup`, {
+    email: args.userId,
+    password: args.password,
+    // See the SignupForm of the backend
+    profile_username: args.username,
+    accepts_terms: args.acceptsTerms,
+  }).then(
+    () => ({ success: true, errors: [] }),
+    (error: any) =>
+      // The account exists now, and verifying the email address is the pending step
+      error.response?.status === 401
+        ? { success: true, errors: [] }
+        : getInvalidFieldsResult(error)
+  );
 }
 
 export const useSignUp = (authState?: AuthState) => {

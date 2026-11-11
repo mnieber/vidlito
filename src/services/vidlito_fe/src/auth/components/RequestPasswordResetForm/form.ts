@@ -3,13 +3,22 @@ import {
   HandleValidateArgsT,
 } from 'react-form-state-context';
 import { PropsT, formFields as ff } from './index';
+import { AllauthFieldErrorsT } from '/src/api/utils/allauth';
 import { States } from '/src/auth/endpoints/states';
+import { addAllauthFieldErrors } from '/src/auth/utils/addAllauthFieldErrors';
 import { createFormErrorsObject } from '/src/forms/utils/createFormErrorsObject';
 import { ObjT } from '/src/utils/types';
 
-const getExternalErrors = (messages: ObjT, errors: Array<string>) => {
+const getExternalErrors = (
+  messages: ObjT,
+  errors: Array<string>,
+  allauthFieldErrors?: AllauthFieldErrorsT
+) => {
   const fieldErrors = createFormErrorsObject();
 
+  if (errors?.includes(States.INVALID_FIELDS)) {
+    addAllauthFieldErrors(fieldErrors, allauthFieldErrors, { email: ff.email });
+  }
   if (errors?.includes(States.REQUEST_PASSWORD_RESET_FAILED)) {
     fieldErrors['global'] = messages.divSorryThereSeemsToBeATechnicalProblem;
   }

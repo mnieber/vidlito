@@ -1,1 +1,1 @@
-export { doQuery, setToken } from './graphqlClient';
+export { doQuery } from './graphqlClient';

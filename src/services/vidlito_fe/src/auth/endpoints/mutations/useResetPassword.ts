@@ -1,74 +1,27 @@
 import { useObservableMutation } from '/src/api/ObservableMutation';
-import { doQuery } from '/src/api/graphqlClient';
+import { authPost } from '/src/api/restClient';
+import { authUrl } from '/src/api/utils/allauth';
 import { AuthState } from '/src/auth/AuthState';
-import { States } from '/src/auth/endpoints/states';
-import { hasErrorCode, isError } from '/src/auth/endpoints/utils';
+import { getInvalidFieldsResult } from '/src/auth/endpoints/utils';
 import { ObjT } from '/src/utils/types';
 
 export type ArgsT = {
+  key: string;
   password: string;
-  passwordResetToken: string;
 };
 
 export function resetPassword(args: ArgsT) {
-  return doQuery(
-    `mutation ($password: String!, $passwordResetToken: String!) {
-      resetPassword(
-        passwordResetToken: $passwordResetToken,
-        password: $password,
-      ) {
-        success,
-        errors,
-      }
-    }`,
-    {
-      password: args.password,
-      passwordResetToken: args.passwordResetToken,
-    }
-  ).then((response: ObjT) => {
-    if (
-      hasErrorCode(
-        ['resetPassword', 'errors', 'password'],
-        'TOO_SHORT'
-      )(response)
-    )
-      return {
-        success: false,
-        errors: [States.PASSWORD_TOO_SHORT],
-      };
-
-    if (
-      hasErrorCode(
-        ['resetPassword', 'errors', 'passwordResetToken'],
-        'NOT_FOUND'
-      )(response)
-    )
-      return {
-        success: false,
-        errors: [States.PASSWORD_RESET_TOKEN_NOT_FOUND],
-      };
-
-    if (
-      hasErrorCode(
-        ['resetPassword', 'errors', 'passwordResetToken'],
-        'ACCOUNT_UNKNOWN'
-      )(response)
-    )
-      return {
-        success: false,
-        errors: [States.PASSWORD_RESET_EMAIL_UNKNOWN],
-      };
-
-    if (isError(['resetPassword', 'errors'])(response))
-      return {
-        success: false,
-        errors: [States.RESET_PASSWORD_FAILED],
-      };
-
-    return {
-      success: true,
-    };
-  });
+  return authPost(`${authUrl}/password/reset`, {
+    key: args.key,
+    password: args.password,
+  }).then(
+    () => ({ success: true, errors: [] }),
+    (error: any) =>
+      // The password is changed, and the user is not signed in
+      error.response?.status === 401
+        ? { success: true, errors: [] }
+        : getInvalidFieldsResult(error)
+  );
 }
 
 export const useResetPassword = (authState?: AuthState) => {

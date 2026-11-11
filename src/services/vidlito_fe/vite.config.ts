@@ -22,5 +22,12 @@ export default defineConfig({
   },
   server: {
     port: 4000,
+    // The browser only talks to its own origin, so that the session cookie works and
+    // there is no CORS. Django's CSRF check compares the Origin with the Host header,
+    // so this must not use changeOrigin.
+    proxy: {
+      '/api/': { target: 'http://vidlito_be:8000' },
+      '/graphql/': { target: 'http://vidlito_be:8000' },
+    },
   },
 });
