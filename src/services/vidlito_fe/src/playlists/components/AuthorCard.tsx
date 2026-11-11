@@ -28,12 +28,12 @@ export const AuthorCard = observer(
     const clipOwnerUsername = props.clip?.ownerUsername;
     const playlistOwnerUsername = props.playlist?.ownerUsername;
 
-    let label1 = undefined;
-    let owner1 = undefined;
-    let color1 = undefined;
-    let label2 = undefined;
-    let owner2 = undefined;
-    let color2 = undefined;
+    let label1: string | undefined = undefined;
+    let owner1: string | undefined = undefined;
+    let color1: string | undefined = undefined;
+    let label2: string | undefined = undefined;
+    let owner2: string | undefined = undefined;
+    let color2: string | undefined = undefined;
 
     if (
       props.clip &&

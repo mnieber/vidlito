@@ -26,3 +26,7 @@ dist-ssr
 .claude
 # The Dockerfile of the local images is not a local file
 !Dockerfile.local
+
+# yarn
+.yarn/cache
+.yarn/install-state.gz

@@ -31,7 +31,7 @@ python:
     publish_url: https://upload.pypi.org/legacy/
 dial:
   default:
-    1: zoo docker.exec be
+    1: zoo compose.
     2: "zoo be."
     3: "zoo fe."
   shift:

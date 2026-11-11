@@ -14,7 +14,7 @@ const ContextProps = {};
 
 export const TagsCard = observer(
   withContextProps((props: PropsT & typeof ContextProps) => {
-    const tagDivs = [];
+    const tagDivs: JSX.Element[] = [];
 
     for (const tag of props.playlistTags) {
       tagDivs.push(

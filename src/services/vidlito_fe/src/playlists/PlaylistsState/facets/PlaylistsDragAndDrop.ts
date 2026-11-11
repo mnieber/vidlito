@@ -1,5 +1,5 @@
 import { DragAndDrop } from 'skandha-facets';
-import { HoverPositionT } from 'skandha-facets/facets/Hovering';
+import { HoverPositionT } from 'skandha-facets';
 import { PlaylistsState } from '/src/playlists/PlaylistsState';
 import { followedSelectedPlaylistsAreInsertedOnDrop } from '/src/playlists/PlaylistsState/policies';
 

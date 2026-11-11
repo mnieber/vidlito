@@ -8,7 +8,7 @@ export const addOrReplaceListItem = (
   parentId: string | undefined,
   newItem: any
 ) => {
-  let insertPos = undefined;
+  let insertPos: number | undefined = undefined;
   let idx = 0;
   for (const item of items) {
     if (item.id === newItem.id) {
